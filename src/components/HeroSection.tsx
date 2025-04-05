@@ -4,6 +4,7 @@ import { ArrowDown, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useSettings } from '@/contexts/SettingsContext';
 import { siteContent } from '@/content/content';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
 const HeroSection = () => {
   const { t } = useSettings();
@@ -51,17 +52,25 @@ const HeroSection = () => {
             </div>
           </div>
           
-          {/* Hero Image/Illustration */}
+          {/* Hero Image/Profile Picture */}
           <div className="lg:w-1/2 mt-10 lg:mt-0 flex justify-center lg:justify-end">
             <div className="relative w-full max-w-lg aspect-square">
-              {/* This is a placeholder for an illustration or avatar */}
+              {/* Background glow effect */}
               <div className="w-full h-full rounded-full bg-gradient-to-br from-primary to-accent/70 shadow-xl filter blur-sm absolute"></div>
+              
+              {/* Profile picture container */}
               <div className="w-[95%] h-[95%] rounded-full bg-background absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center overflow-hidden">
                 <div className="w-[95%] h-[95%] rounded-full bg-gradient-to-br from-primary/20 to-accent/20 p-1">
-                  <div className="w-full h-full rounded-full bg-background flex items-center justify-center">
-                    <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white text-4xl md:text-5xl font-bold animate-pulse">
-                      OM
-                    </div>
+                  <div className="w-full h-full rounded-full bg-background flex items-center justify-center overflow-hidden">
+                    {/* Profile image */}
+                    <Avatar className="w-full h-full">
+                      <AvatarImage 
+                        src="/lovable-uploads/1e329b14-e37b-47f0-b130-26f5547b63a5.png" 
+                        alt="Profile picture"
+                        className="object-cover w-full h-full"
+                      />
+                      <AvatarFallback className="text-4xl md:text-5xl font-bold">OM</AvatarFallback>
+                    </Avatar>
                   </div>
                 </div>
               </div>
