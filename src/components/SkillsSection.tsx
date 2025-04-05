@@ -6,28 +6,28 @@ import { Code, Database, Settings, Brain, Sparkles } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from '@/lib/utils';
 
+// Get the icon component based on skill name
+const getSkillIcon = (iconName: string) => {
+  switch (iconName) {
+    case 'code':
+      return <Code className="w-5 h-5" />;
+    case 'server':
+    case 'database': 
+      return <Database className="w-5 h-5" />;
+    case 'settings':
+    case 'cog':
+      return <Settings className="w-5 h-5" />;
+    case 'brain':
+      return <Brain className="w-5 h-5" />;
+    default:
+      return <Sparkles className="w-5 h-5" />;
+  }
+};
+
 const SkillsSection = () => {
   const { t } = useSettings();
   const { skills, skillsSection } = siteContent;
   const [activeTab, setActiveTab] = useState<'frontend' | 'backend' | 'tools' | 'ai'>('frontend');
-
-  // Get the icon component based on skill name
-  const getSkillIcon = (iconName: string) => {
-    switch (iconName) {
-      case 'code':
-        return <Code className="w-5 h-5" />;
-      case 'server':
-      case 'database': 
-        return <Database className="w-5 h-5" />;
-      case 'settings':
-      case 'cog':
-        return <Settings className="w-5 h-5" />;
-      case 'brain':
-        return <Brain className="w-5 h-5" />;
-      default:
-        return <Sparkles className="w-5 h-5" />;
-    }
-  };
 
   // Filter skills by category
   const filteredSkills = skills.filter(skill => skill.category === activeTab);
