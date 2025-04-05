@@ -1,17 +1,17 @@
-
 import React from 'react';
 import { ArrowDown, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useSettings } from '@/contexts/SettingsContext';
 import { siteContent } from '@/content/content';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
-
 const HeroSection = () => {
-  const { t } = useSettings();
-  const { hero } = siteContent;
-
-  return (
-    <section id="hero" className="min-h-screen flex items-center pt-20 bg-grid relative overflow-hidden">
+  const {
+    t
+  } = useSettings();
+  const {
+    hero
+  } = siteContent;
+  return <section id="hero" className="min-h-screen flex items-center pt-20 bg-grid relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 rounded-full filter blur-3xl animate-float"></div>
       <div className="absolute bottom-10 left-10 w-72 h-72 bg-accent/20 rounded-full filter blur-3xl animate-float animation-delay-1000"></div>
@@ -60,15 +60,11 @@ const HeroSection = () => {
               
               {/* Profile picture container */}
               <div className="w-[95%] h-[95%] rounded-full bg-background absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center overflow-hidden">
-                <div className="w-[95%] h-[95%] rounded-full bg-gradient-to-br from-primary/20 to-accent/20 p-1">
+                <div className="w-[75%] h-[75%] rounded-full bg-gradient-to-br from-primary/20 to-accent/20 p-1">
                   <div className="w-full h-full rounded-full bg-background flex items-center justify-center overflow-hidden">
                     {/* Profile image */}
                     <Avatar className="w-full h-full">
-                      <AvatarImage 
-                        src="/lovable-uploads/1e329b14-e37b-47f0-b130-26f5547b63a5.png" 
-                        alt="Profile picture"
-                        className="object-cover w-full h-full"
-                      />
+                      <AvatarImage src="/lovable-uploads/1e329b14-e37b-47f0-b130-26f5547b63a5.png" alt="Profile picture" className="object-cover w-full h-full" />
                       <AvatarFallback className="text-4xl md:text-5xl font-bold">OM</AvatarFallback>
                     </Avatar>
                   </div>
@@ -97,8 +93,6 @@ const HeroSection = () => {
           <ArrowDown className="w-5 h-5 text-primary animate-bounce" />
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default HeroSection;
