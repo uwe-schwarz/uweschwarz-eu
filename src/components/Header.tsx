@@ -114,7 +114,11 @@ const Header = () => {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 bg-background z-40 flex flex-col">
+        <div className={`md:hidden fixed inset-0 bg-background z-40 flex flex-col ${
+          isScrolled 
+            ? 'backdrop-blur-md bg-white/80 dark:bg-gray-900/80 shadow-sm' 
+            : 'bg-background'
+        }`}>
           <div className="container mx-auto px-4 py-4 flex items-center justify-between border-b border-gray-200 dark:border-gray-800">
             <a href="#hero" className="text-2xl font-display font-bold text-foreground" onClick={closeMobileMenu}>
               <span className="text-gradient">Oldman</span>
