@@ -2,6 +2,7 @@
 import React from 'react';
 import { siteContent } from '@/content/content';
 import { useSettings } from '@/contexts/SettingsContext';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const { t } = useSettings();
@@ -25,13 +26,13 @@ const Footer = () => {
           {/* Links */}
           <nav className="flex flex-wrap gap-6">
             {footer.links.map((link, index) => (
-              <a 
+              <Link 
                 key={index}
-                href={link.href}
+                to={link.href}
                 className="text-sm text-muted-foreground hover:text-primary transition-colors"
               >
                 {t(link.label)}
-              </a>
+              </Link>
             ))}
           </nav>
         </div>

@@ -1,0 +1,51 @@
+
+import React from 'react';
+import { useSettings } from '@/contexts/SettingsContext';
+import { siteContent } from '@/content/content';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import { Button } from '@/components/ui/button';
+import { ArrowLeft } from 'lucide-react';
+import { Link } from 'react-router-dom';
+
+const Privacy = () => {
+  const { t } = useSettings();
+  const { privacy } = siteContent;
+
+  return (
+    <div className="min-h-screen flex flex-col">
+      <Header />
+      <main className="flex-grow pt-24 pb-16">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto">
+            <Link to="/">
+              <Button variant="ghost" size="sm" className="mb-6">
+                <ArrowLeft size={16} className="mr-2" />
+                {t({
+                  en: "Back to Home",
+                  de: "Zurück zur Startseite"
+                })}
+              </Button>
+            </Link>
+            
+            <h1 className="text-3xl font-bold mb-8">{t(privacy.title)}</h1>
+            
+            <div className="prose prose-lg dark:prose-invert max-w-none">
+              {privacy.sections.map((section, index) => (
+                <section key={index} className="mb-8">
+                  <h2 className="text-2xl font-semibold mb-4">{t(section.title)}</h2>
+                  {section.paragraphs.map((paragraph, pIndex) => (
+                    <p key={pIndex} className="mb-4">{t(paragraph)}</p>
+                  ))}
+                </section>
+              ))}
+            </div>
+          </div>
+        </div>
+      </main>
+      <Footer />
+    </div>
+  );
+};
+
+export default Privacy;
