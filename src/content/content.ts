@@ -1,3 +1,4 @@
+
 interface LocalizedString {
   en: string;
   de: string;
@@ -555,5 +556,22 @@ export const siteContent: SiteContent = {
         ]
       }
     ]
+  },
+  translations: {
+    languageSwitch: {
+      en: "Switch to English",
+      de: "Zu Deutsch wechseln"
+    },
+    themeSwitch: {
+      light: {
+        en: "Switch to light theme",
+        de: "Zum hellen Design wechseln"
+      },
+      dark: {
+        en: "Switch to dark theme",
+        de: "Zum dunklen Design wechseln"
+      }
+    }
   }
 };
+
