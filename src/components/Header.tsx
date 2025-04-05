@@ -1,14 +1,16 @@
 
 import React, { useState, useEffect } from 'react';
 import { Moon, Sun, Menu, X } from 'lucide-react';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { useSettings } from '@/contexts/SettingsContext';
 import { siteContent } from '@/content/content';
 import { Button } from '@/components/ui/button';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const Header = () => {
   const { language, setLanguage, theme, setTheme, t } = useSettings();
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const isMobile = useIsMobile();
   
   // Toggle for handling theme changes
   const toggleTheme = () => {
@@ -30,23 +32,6 @@ const Header = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  // Handle mobile menu toggling
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-    
-    // Prevent scrolling when menu is open
-    if (!isMobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-  };
-
-  const closeMobileMenu = () => {
-    setIsMobileMenuOpen(false);
-    document.body.style.overflow = 'unset';
-  };
 
   return (
     <header 
@@ -102,67 +87,60 @@ const Header = () => {
           </Button>
         </div>
 
-        {/* Mobile Menu Button */}
-        <button
-          className="md:hidden flex items-center"
-          onClick={toggleMobileMenu}
-          aria-label="Toggle menu"
-        >
-          <Menu size={24} className="text-foreground" />
-        </button>
+        {/* Mobile Menu using Sheet component */}
+        {isMobile && (
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon" className="md:hidden" aria-label="Open menu">
+                <Menu size={24} className="text-foreground" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left" className="w-full bg-background dark:bg-gray-900 p-0">
+              <div className="flex flex-col h-full">
+                <div className="border-b border-gray-200 dark:border-gray-800 py-4 px-6">
+                  <a href="#hero" className="text-2xl font-display font-bold">
+                    <span className="text-gradient">Oldman</span>
+                  </a>
+                </div>
+                
+                <div className="flex-1 flex flex-col justify-center items-center space-y-6 py-8">
+                  {siteContent.navigation.map((item) => (
+                    <a
+                      key={item.href}
+                      href={item.href}
+                      className="text-xl font-medium text-foreground hover:text-primary transition-colors"
+                    >
+                      {t(item.label)}
+                    </a>
+                  ))}
+                </div>
+                
+                <div className="border-t border-gray-200 dark:border-gray-800 p-6 flex gap-4">
+                  <Button
+                    variant="outline"
+                    className="flex-1"
+                    onClick={toggleLanguage}
+                  >
+                    {language === 'en' ? 'Deutsch' : 'English'}
+                  </Button>
+                  
+                  <Button
+                    variant="outline"
+                    className="flex-1"
+                    onClick={toggleTheme}
+                  >
+                    {theme === 'light' ? (
+                      <><Moon size={16} className="mr-2" /> Dark</>
+                    ) : (
+                      <><Sun size={16} className="mr-2" /> Light</>
+                    )}
+                  </Button>
+                </div>
+              </div>
+            </SheetContent>
+          </Sheet>
+        )}
       </div>
-
-      {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className={`md:hidden fixed inset-0 bg-background z-40 flex flex-col ${
-          isScrolled 
-            ? 'backdrop-blur-md bg-white/80 dark:bg-gray-900/80 shadow-sm' 
-            : 'bg-background'
-        }`}>
-          <div className="container mx-auto px-4 py-4 flex items-center justify-between border-b border-gray-200 dark:border-gray-800">
-            <a href="#hero" className="text-2xl font-display font-bold text-foreground" onClick={closeMobileMenu}>
-              <span className="text-gradient">Oldman</span>
-            </a>
-            <button onClick={toggleMobileMenu} aria-label="Close menu">
-              <X size={24} className="text-foreground" />
-            </button>
-          </div>
-          <div className="flex-1 flex flex-col justify-center items-center space-y-6 py-8">
-            {siteContent.navigation.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className="text-xl font-medium text-foreground hover:text-primary transition-colors"
-                onClick={closeMobileMenu}
-              >
-                {t(item.label)}
-              </a>
-            ))}
-          </div>
-          <div className="container mx-auto px-4 py-6 flex justify-center space-x-4 border-t border-gray-200 dark:border-gray-800">
-            <Button
-              variant="outline"
-              size="default"
-              onClick={() => { toggleLanguage(); closeMobileMenu(); }}
-              className="w-full sm:w-auto"
-            >
-              {language === 'en' ? 'Deutsch' : 'English'}
-            </Button>
-            <Button
-              variant="outline"
-              size="default"
-              onClick={() => { toggleTheme(); closeMobileMenu(); }}
-              className="w-full sm:w-auto"
-            >
-              {theme === 'light' ? (
-                <><Moon size={16} className="mr-2" /> Dark Mode</>
-              ) : (
-                <><Sun size={16} className="mr-2" /> Light Mode</>
-              )}
-            </Button>
-          </div>
-        </div>
-      )}
     </header>
   );
 };
