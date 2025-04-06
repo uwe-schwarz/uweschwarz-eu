@@ -115,7 +115,7 @@ const HeroSection = () => {
                 </div>
               </div>
 
-              {/* Dynamically positioned decorative elements */}
+              {/* Dynamically positioned decorative elements - now without animation-delay for immediate positioning */}
               {hero.decorativeElements.map((element, index) => {
                 const posStyle = calculatePosition(element.position, element.distance);
                 return (
@@ -124,7 +124,6 @@ const HeroSection = () => {
                     className="absolute p-4 bg-card rounded-lg shadow-lg transform rotate-3 animate-float"
                     style={{
                       ...posStyle,
-                      animationDelay: `${index * 500}ms`,
                       transform: `${posStyle.transform} rotate(${(index * 9) - 6}deg)`
                     }}
                   >

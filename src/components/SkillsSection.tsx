@@ -50,21 +50,21 @@ const SkillsSection = () => {
             className="w-full"
           >
             <div className="flex justify-center mb-8">
-              <TabsList className="grid grid-cols-2 md:grid-cols-4">
-                <TabsTrigger value="frontend" className="gap-2">
-                  <Code className="w-4 h-4" />
+              <TabsList className="grid grid-cols-2 md:grid-cols-4 text-xl">
+                <TabsTrigger value="frontend" className="gap-2 text-xl">
+                  <Code className="w-5 h-5" />
                   <span className="hidden sm:inline">{t(skillsSection.categories.frontend)}</span>
                 </TabsTrigger>
-                <TabsTrigger value="backend" className="gap-2">
-                  <Database className="w-4 h-4" />
+                <TabsTrigger value="backend" className="gap-2 text-xl">
+                  <Database className="w-5 h-5" />
                   <span className="hidden sm:inline">{t(skillsSection.categories.backend)}</span>
                 </TabsTrigger>
-                <TabsTrigger value="tools" className="gap-2">
-                  <Settings className="w-4 h-4" />
+                <TabsTrigger value="tools" className="gap-2 text-xl">
+                  <Settings className="w-5 h-5" />
                   <span className="hidden sm:inline">{t(skillsSection.categories.tools)}</span>
                 </TabsTrigger>
-                <TabsTrigger value="ai" className="gap-2">
-                  <Brain className="w-4 h-4" />
+                <TabsTrigger value="ai" className="gap-2 text-xl">
+                  <Brain className="w-5 h-5" />
                   <span className="hidden sm:inline">{t(skillsSection.categories.ai)}</span>
                 </TabsTrigger>
               </TabsList>
