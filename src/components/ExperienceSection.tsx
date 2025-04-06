@@ -43,6 +43,9 @@ const ExperienceSection = () => {
     };
   }, []);
 
+  // Reverse the experiences array to show newest at top (Present first)
+  const reversedExperiences = [...experiences].reverse();
+
   return (
     <section id="experience" className="section-padding py-20 relative bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -60,103 +63,102 @@ const ExperienceSection = () => {
           {/* Vertical timeline line */}
           <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-primary/30 via-primary to-primary/30 rounded"></div>
           
-          {/* Timeline Items */}
-          {experiences.map((exp, index) => {
-            const isEven = index % 2 === 0;
-            
-            return (
-              <div 
-                key={index}
-                className={cn(
-                  "timeline-item grid grid-cols-1 md:grid-cols-12 gap-4 mb-16 relative",
-                  "transition-all duration-500 ease-out"
-                )}
-              >
-                {/* Timeline dot */}
-                <div className="hidden md:flex absolute left-1/2 top-8 transform -translate-x-1/2 z-10">
-                  <div className="w-6 h-6 rounded-full bg-primary border-4 border-background shadow-lg"></div>
-                </div>
-                
-                {/* Card container positioned left or right of the timeline */}
-                <div className={cn(
-                  "md:col-span-5",
-                  isEven ? "md:col-start-1" : "md:col-start-7"
-                )}>
-                  <Card className={cn(
-                    "timeline-card overflow-hidden border border-border hover:shadow-lg transition-all duration-300",
-                    isEven ? "bg-gradient-to-br from-cyan-950/60 to-blue-900/30" : "bg-gradient-to-br from-indigo-950/60 to-purple-900/30",
-                    "backdrop-blur-sm"
-                  )}>
-                    {/* Logo (if exists) */}
-                    {exp.logoUrl && (
-                      <div className="p-4 flex justify-center">
-                        <img 
-                          src={exp.logoUrl} 
-                          alt={`${exp.company} logo`} 
-                          className="h-12 object-contain"
-                        />
-                      </div>
-                    )}
-                    
-                    <CardContent className="p-6">
-                      {/* Title & Company */}
-                      <div className="mb-4">
-                        <h3 className={cn(
-                          "text-2xl font-bold",
-                          isEven ? "text-cyan-400" : "text-purple-400"
-                        )}>
-                          {t(exp.title)}
-                        </h3>
-                        <p className="text-lg font-medium text-gray-300">{exp.company}</p>
-                      </div>
-                      
-                      {/* Period & Location */}
-                      <div className="flex flex-wrap gap-4 mb-4 text-sm text-gray-400">
-                        <div className="flex items-center">
-                          <Calendar size={14} className="mr-1" />
-                          <span>{t(exp.period)}</span>
-                        </div>
-                        <div className="flex items-center">
-                          <MapPin size={14} className="mr-1" />
-                          <span>{exp.location}</span>
-                        </div>
-                      </div>
-                      
-                      {/* Description */}
-                      <p className="mb-5 text-gray-300">{t(exp.description)}</p>
-                      
-                      {/* Tags */}
-                      <div className="flex flex-wrap gap-2">
-                        {exp.tags.map((tag, tagIndex) => (
-                          <Badge 
-                            key={tagIndex} 
-                            variant="secondary"
-                            className={cn(
-                              "font-normal",
-                              isEven ? "bg-cyan-900/60 hover:bg-cyan-800/80" : "bg-purple-900/60 hover:bg-purple-800/80",
-                              "text-white"
-                            )}
-                          >
-                            {tag}
-                          </Badge>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-                
-                {/* Connector line on small screens */}
-                <div className="md:hidden w-0.5 h-8 bg-primary absolute left-1/2 -bottom-8 transform -translate-x-1/2"></div>
-              </div>
-            );
-          })}
-          
-          {/* Current time indicator at the bottom */}
-          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 flex flex-col items-center">
+          {/* Current time indicator at the top */}
+          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 flex flex-col items-center mb-8">
             <div className="w-4 h-4 rounded-full bg-primary animate-pulse"></div>
             <div className="mt-2 text-gray-400 text-sm font-medium">
               {t({ en: "Present", de: "Jetzt" })}
             </div>
+          </div>
+          
+          {/* Space to accommodate the "Present" indicator */}
+          <div className="h-12"></div>
+          
+          {/* Timeline Items */}
+          <div className="mt-16">
+            {reversedExperiences.map((exp, index) => {
+              const isEven = index % 2 === 0;
+              
+              return (
+                <div 
+                  key={index}
+                  className={cn(
+                    "timeline-item grid grid-cols-1 md:grid-cols-12 gap-4 relative",
+                    index !== 0 ? "-mt-20 md:-mt-16" : "", // Overlap cards except the first one
+                    "transition-all duration-500 ease-out"
+                  )}
+                >
+                  {/* Timeline dot */}
+                  <div className="hidden md:flex absolute left-1/2 top-8 transform -translate-x-1/2 z-10">
+                    <div className="w-6 h-6 rounded-full bg-primary border-4 border-background shadow-lg"></div>
+                  </div>
+                  
+                  {/* Card container positioned left or right of the timeline */}
+                  <div className={cn(
+                    "md:col-span-5",
+                    isEven ? "md:col-start-1" : "md:col-start-7"
+                  )}>
+                    <Card className={cn(
+                      "timeline-card overflow-hidden border border-border hover:shadow-lg transition-all duration-300",
+                      "bg-gradient-to-br from-primary/40 to-accent/40", // Same gradient for all cards
+                      "backdrop-blur-sm"
+                    )}>
+                      {/* Logo (if exists) */}
+                      {exp.logoUrl && (
+                        <div className="p-4 flex justify-center">
+                          <img 
+                            src={exp.logoUrl} 
+                            alt={`${exp.company} logo`} 
+                            className="h-12 object-contain"
+                          />
+                        </div>
+                      )}
+                      
+                      <CardContent className="p-6">
+                        {/* Title & Company */}
+                        <div className="mb-4">
+                          <h3 className="text-2xl font-bold text-foreground">
+                            {t(exp.title)}
+                          </h3>
+                          <p className="text-lg font-medium text-gray-300">{exp.company}</p>
+                        </div>
+                        
+                        {/* Period & Location */}
+                        <div className="flex flex-wrap gap-4 mb-4 text-sm text-gray-400">
+                          <div className="flex items-center">
+                            <Calendar size={14} className="mr-1" />
+                            <span>{t(exp.period)}</span>
+                          </div>
+                          <div className="flex items-center">
+                            <MapPin size={14} className="mr-1" />
+                            <span>{exp.location}</span>
+                          </div>
+                        </div>
+                        
+                        {/* Description */}
+                        <p className="mb-5 text-gray-300">{t(exp.description)}</p>
+                        
+                        {/* Tags */}
+                        <div className="flex flex-wrap gap-2">
+                          {exp.tags.map((tag, tagIndex) => (
+                            <Badge 
+                              key={tagIndex} 
+                              variant="secondary"
+                              className="font-normal bg-accent/60 hover:bg-accent/80 text-white"
+                            >
+                              {tag}
+                            </Badge>
+                          ))}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                  
+                  {/* Connector line on small screens */}
+                  <div className="md:hidden w-0.5 h-8 bg-primary absolute left-1/2 -bottom-8 transform -translate-x-1/2"></div>
+                </div>
+              );
+            })}
           </div>
         </div>
 
