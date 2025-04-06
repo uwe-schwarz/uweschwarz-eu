@@ -1,10 +1,13 @@
+
 import React, { useEffect, useRef } from 'react';
 import { siteContent } from '@/content/content';
 import { useSettings } from '@/contexts/SettingsContext';
 import { Briefcase, MapPin, Calendar } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
+
 const ExperienceSection = () => {
   const {
     t
@@ -84,8 +87,21 @@ const ExperienceSection = () => {
                     <div className="w-6 h-6 rounded-full bg-primary border-4 border-background shadow-lg"></div>
                   </div>
                   
-                  {/* Card container positioned left or right of the timeline */}
-                  <div className={cn("md:col-span-5", isEven ? "md:col-start-1" : "md:col-start-7")}>
+                  {/* Add dashed connector line from timeline to card (for left side) */}
+                  {isEven && (
+                    <div className="hidden md:block absolute left-[calc(50%-0.5px)] top-8 w-[calc(16.667%-1rem)] h-px border-t-2 border-dashed border-primary/60 z-[5]" style={{ transform: 'translateX(-100%)' }}></div>
+                  )}
+                  
+                  {/* Add dashed connector line from timeline to card (for right side) */}
+                  {!isEven && (
+                    <div className="hidden md:block absolute left-[calc(50%+0.5px)] top-8 w-[calc(16.667%-1rem)] h-px border-t-2 border-dashed border-primary/60 z-[5]"></div>
+                  )}
+                  
+                  {/* Card container positioned with more space on both sides */}
+                  <div className={cn(
+                    "md:col-span-5", 
+                    isEven ? "md:col-start-1" : "md:col-start-7",
+                  )}>
                     <Card className={cn("timeline-card overflow-hidden border border-border hover:shadow-lg transition-all duration-300", "bg-gradient-to-br from-primary/40 to-accent/40",
                 // Same gradient for all cards
                 "backdrop-blur-sm")}>
@@ -147,4 +163,5 @@ const ExperienceSection = () => {
       </div>
     </section>;
 };
+
 export default ExperienceSection;
