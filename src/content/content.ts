@@ -40,6 +40,7 @@ export interface Experience {
   location: string;
   description: LocalizedString;
   tags: string[];
+  logoUrl?: string;
 }
 
 export interface Project {
@@ -267,6 +268,7 @@ export const siteContent: SiteContent = {
         de: "Leitung der Entwicklung von Unternehmenswebanwendungen mit React, Node.js und AWS. Implementierung von CI/CD-Pipelines und Mentoring von Junior-Entwicklern.",
       },
       tags: ["React", "Node.js", "AWS", "TypeScript", "Docker"],
+      logoUrl: "/placeholder.svg",
     },
     {
       title: { en: "Backend Developer", de: "Backend Entwickler" },
