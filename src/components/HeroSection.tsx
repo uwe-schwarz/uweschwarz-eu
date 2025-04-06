@@ -64,7 +64,7 @@ const HeroSection = () => {
                   <div className="w-full h-full rounded-full bg-background flex items-center justify-center overflow-hidden">
                     {/* Profile image */}
                     <Avatar className="w-full h-full">
-                      <AvatarImage src="/lovable-uploads/1e329b14-e37b-47f0-b130-26f5547b63a5.png" alt="Profile picture" className="object-cover w-full h-full" />
+                      <AvatarImage src="/profile.jpg" alt="Profile picture" className="object-cover w-full h-full" />
                       <AvatarFallback className="text-4xl md:text-5xl font-bold">OM</AvatarFallback>
                     </Avatar>
                   </div>
