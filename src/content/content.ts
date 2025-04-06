@@ -178,16 +178,16 @@ export const siteContent: SiteContent = {
     titleElements: [
       {
         en: "Project Manager",
-        de: "Projektmanager"
+        de: "Projektmanager",
       },
       {
-        en: "IT Security Specialist",
-        de: "IT-Sicherheitsexperte"
+        en: "IT Security",
+        de: "IT-Sicherheit",
       },
       {
         en: "AI Enthusiast",
-        de: "KI-Enthusiast"
-      }
+        de: "KI-Enthusiast",
+      },
     ],
     description: {
       en: "I build exceptional digital experiences with modern technologies and a passion for clean, maintainable code.",
@@ -203,21 +203,26 @@ export const siteContent: SiteContent = {
     },
     decorativeElements: [
       {
+        position: 90,
+        distance: 130,
+        code: "projects&nbsp;foo&nbsp;=&nbsp;📋",
+      },
+      {
         position: 20,
         distance: 100,
-        code: "&lt;<span class=\"text-accent\">code</span>/&gt;"
+        code: '&lt;<span class="text-accent">code</span>/&gt;',
       },
       {
         position: 75,
-        distance: 100,
-        code: "const dev = 💻"
+        distance: 150,
+        code: "const dev = 💻",
       },
       {
         position: 50,
         distance: 85,
-        code: "🤖 AI"
-      }
-    ]
+        code: "🤖 AI",
+      },
+    ],
   },
   about: {
     title: {
