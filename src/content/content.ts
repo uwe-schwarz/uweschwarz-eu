@@ -11,10 +11,15 @@ export interface NavItem {
 export interface HeroSection {
   greeting: LocalizedString;
   name: string;
-  title: LocalizedString;
+  titleElements: LocalizedString[];
   description: LocalizedString;
   ctaPrimary: LocalizedString;
   ctaSecondary: LocalizedString;
+  decorativeElements: {
+    position: number;
+    distance: number;
+    code: string;
+  }[];
 }
 
 export interface AboutSection {
@@ -51,7 +56,7 @@ export interface Skill {
   name: string;
   icon: string;
   category: "frontend" | "backend" | "tools" | "ai";
-  level: number; // 1-5
+  level: number;
 }
 
 export interface SkillsSection {
@@ -170,10 +175,20 @@ export const siteContent: SiteContent = {
       de: "Hallo! Ich bin",
     },
     name: "Uwe Schwarz",
-    title: {
-      en: "Project Manager, IT Security Specialist & AI Enthusiast",
-      de: "Projektmanager, IT-Sicherheitsexperte & KI-Enthusiast",
-    },
+    titleElements: [
+      {
+        en: "Project Manager",
+        de: "Projektmanager"
+      },
+      {
+        en: "IT Security Specialist",
+        de: "IT-Sicherheitsexperte"
+      },
+      {
+        en: "AI Enthusiast",
+        de: "KI-Enthusiast"
+      }
+    ],
     description: {
       en: "I build exceptional digital experiences with modern technologies and a passion for clean, maintainable code.",
       de: "Ich entwickle außergewöhnliche digitale Erlebnisse mit modernen Technologien und einer Leidenschaft für sauberen, wartbaren Code.",
@@ -186,6 +201,23 @@ export const siteContent: SiteContent = {
       en: "Download CV",
       de: "Lebenslauf herunterladen",
     },
+    decorativeElements: [
+      {
+        position: 20,
+        distance: 100,
+        code: "&lt;<span class=\"text-accent\">code</span>/&gt;"
+      },
+      {
+        position: 75,
+        distance: 100,
+        code: "const dev = 💻"
+      },
+      {
+        position: 50,
+        distance: 85,
+        code: "🤖 AI"
+      }
+    ]
   },
   about: {
     title: {

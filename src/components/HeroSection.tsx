@@ -1,12 +1,43 @@
-import React from "react";
+
+import React, { useState, useEffect } from "react";
 import { ArrowDown, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useSettings } from "@/contexts/SettingsContext";
 import { siteContent } from "@/content/content";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+
 const HeroSection = () => {
   const { t } = useSettings();
   const { hero } = siteContent;
+  
+  // State for the rotating title
+  const [titleIndex, setTitleIndex] = useState(0);
+  
+  // Set up title rotation effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTitleIndex(prevIndex => (prevIndex + 1) % hero.titleElements.length);
+    }, 3000); // Change every 3 seconds
+    
+    return () => clearInterval(interval);
+  }, [hero.titleElements.length]);
+
+  // Function to calculate position for decorative elements
+  const calculatePosition = (position: number, distance: number) => {
+    const angle = (position / 100) * 2 * Math.PI; // Convert percentage to radians
+    const radius = (distance / 100) * 50; // Scale distance percentage to fit container
+    
+    // Calculate position around the circle
+    const x = 50 + radius * Math.sin(angle);
+    const y = 50 - radius * Math.cos(angle);
+    
+    return { 
+      left: `${x}%`, 
+      top: `${y}%`,
+      transform: "translate(-50%, -50%)" 
+    };
+  };
+
   return (
     <section
       id="hero"
@@ -27,7 +58,9 @@ const HeroSection = () => {
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-4">
               {hero.name}
-              <span className="block text-gradient mt-2">{t(hero.title)}</span>
+              <span className="block text-gradient mt-2 h-[1.2em]" key={titleIndex}>
+                {t(hero.titleElements[titleIndex])}
+              </span>
             </h1>
 
             <p className="text-lg md:text-xl text-muted-foreground max-w-lg mb-8">
@@ -82,24 +115,26 @@ const HeroSection = () => {
                 </div>
               </div>
 
-              {/* Decorative coding elements */}
-              <div className="absolute -bottom-4 -right-4 p-4 bg-card rounded-lg shadow-lg transform rotate-3 animate-float">
-                <code className="text-xs sm:text-sm text-primary/80">
-                  &lt;<span className="text-accent">code</span>/&gt;
-                </code>
-              </div>
-
-              <div className="absolute -top-4 -left-4 p-4 bg-card rounded-lg shadow-lg transform -rotate-6 animate-float animation-delay-500">
-                <code className="text-xs sm:text-sm text-primary/80">
-                  {"const dev = 💻"}
-                </code>
-              </div>
-
-              <div className="absolute top-1/2 right-0 p-3 bg-card rounded-lg shadow-lg transform rotate-12 animate-float animation-delay-1000">
-                <code className="text-xs sm:text-sm text-primary/80">
-                  {"🤖 AI"}
-                </code>
-              </div>
+              {/* Dynamically positioned decorative elements */}
+              {hero.decorativeElements.map((element, index) => {
+                const posStyle = calculatePosition(element.position, element.distance);
+                return (
+                  <div 
+                    key={index}
+                    className="absolute p-4 bg-card rounded-lg shadow-lg transform rotate-3 animate-float"
+                    style={{
+                      ...posStyle,
+                      animationDelay: `${index * 500}ms`,
+                      transform: `${posStyle.transform} rotate(${(index * 9) - 6}deg)`
+                    }}
+                  >
+                    <code 
+                      className="text-xs sm:text-sm text-primary/80"
+                      dangerouslySetInnerHTML={{ __html: element.code }}
+                    />
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -113,4 +148,5 @@ const HeroSection = () => {
     </section>
   );
 };
+
 export default HeroSection;
