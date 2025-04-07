@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/SettingsContext";
@@ -51,7 +52,7 @@ const SkillsSection = () => {
             className="w-full"
           >
             <div className="flex justify-center mb-8">
-              <TabsList className="grid grid-cols-2 md:grid-cols-4 h-12">
+              <TabsList className="flex-nowrap h-12">
                 <TabsTrigger value="frontend" className="gap-2 text-lg">
                   <Code className="w-5 h-5" />
                   <span className="hidden sm:inline">
