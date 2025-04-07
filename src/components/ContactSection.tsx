@@ -1,3 +1,4 @@
+
 import React from "react";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/SettingsContext";
@@ -7,27 +8,94 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { useState } from "react";
+
+// Define form schema with Zod for validation
+const formSchema = z.object({
+  name: z.string().min(2, {
+    message: "Name must be at least 2 characters.",
+  }),
+  email: z.string().email({
+    message: "Please enter a valid email address.",
+  }),
+  message: z.string().min(10, {
+    message: "Message must be at least 10 characters.",
+  }),
+});
 
 const ContactSection = () => {
   const { t } = useSettings();
   const { contact } = siteContent;
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  // Initialize React Hook Form
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      message: "",
+    },
+  });
 
-    // This would typically send the form data to a backend
-    // For now, we'll just show a success toast
-    toast({
-      title: t({ en: "Message sent!", de: "Nachricht gesendet!" }),
-      description: t({
-        en: "Thanks for reaching out. I'll get back to you soon.",
-        de: "Danke für deine Nachricht. Ich werde mich bald bei dir melden.",
-      }),
-    });
+  // Handle form submission
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    setIsSubmitting(true);
+    
+    try {
+      // This would be the API endpoint on your server or edge function
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: values.name,
+          email: values.email,
+          message: values.message,
+        }),
+      });
 
-    // Reset the form
-    e.currentTarget.reset();
+      if (!response.ok) {
+        throw new Error('Failed to send message');
+      }
+
+      toast({
+        title: t({ en: "Message sent!", de: "Nachricht gesendet!" }),
+        description: t({
+          en: "Thanks for reaching out. I'll get back to you soon.",
+          de: "Danke für deine Nachricht. Ich werde mich bald bei dir melden.",
+        }),
+      });
+      
+      // Reset form
+      form.reset();
+      
+    } catch (error) {
+      console.error('Error sending message:', error);
+      toast({
+        variant: "destructive",
+        title: t({ en: "Error", de: "Fehler" }),
+        description: t({
+          en: "Failed to send message. Please try again later.",
+          de: "Nachricht konnte nicht gesendet werden. Bitte versuche es später noch einmal.",
+        }),
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -105,7 +173,7 @@ const ContactSection = () => {
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
-                        stroke-width="2"
+                        strokeWidth="2"
                         className="w-5 h-5"
                       >
                         <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
@@ -145,64 +213,90 @@ const ContactSection = () => {
 
           {/* Contact Form */}
           <div>
-            <form
-              onSubmit={handleSubmit}
-              className="bg-card rounded-xl p-8 border border-border shadow-sm"
-            >
-              <div className="space-y-6">
-                <div>
-                  <label
-                    htmlFor="name"
-                    className="block text-sm font-medium mb-2"
-                  >
-                    {t(contact.formLabels.name)}
-                  </label>
-                  <Input
-                    id="name"
-                    placeholder={t({ en: "Your name", de: "Dein Name" })}
-                    required
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="bg-card rounded-xl p-8 border border-border shadow-sm"
+              >
+                <div className="space-y-6">
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>
+                          {t(contact.formLabels.name)}
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder={t({ en: "Your name", de: "Dein Name" })}
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
-                </div>
 
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium mb-2"
-                  >
-                    {t(contact.formLabels.email)}
-                  </label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder={t({ en: "Your email", de: "Deine E-Mail" })}
-                    required
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>
+                          {t(contact.formLabels.email)}
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            type="email"
+                            placeholder={t({ en: "Your email", de: "Deine E-Mail" })}
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
-                </div>
 
-                <div>
-                  <label
-                    htmlFor="message"
-                    className="block text-sm font-medium mb-2"
-                  >
-                    {t(contact.formLabels.message)}
-                  </label>
-                  <Textarea
-                    id="message"
-                    rows={5}
-                    placeholder={t({
-                      en: "Your message",
-                      de: "Deine Nachricht",
-                    })}
-                    required
+                  <FormField
+                    control={form.control}
+                    name="message"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>
+                          {t(contact.formLabels.message)}
+                        </FormLabel>
+                        <FormControl>
+                          <Textarea
+                            rows={5}
+                            placeholder={t({
+                              en: "Your message",
+                              de: "Deine Nachricht",
+                            })}
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
-                </div>
 
-                <Button type="submit" className="w-full">
-                  <Send className="w-4 h-4 mr-2" />
-                  {t(contact.formLabels.send)}
-                </Button>
-              </div>
-            </form>
+                  <Button type="submit" className="w-full" disabled={isSubmitting}>
+                    {isSubmitting ? (
+                      <div className="flex items-center justify-center">
+                        <div className="w-4 h-4 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin mr-2"></div>
+                        {t({ en: "Sending...", de: "Senden..." })}
+                      </div>
+                    ) : (
+                      <>
+                        <Send className="w-4 h-4 mr-2" />
+                        {t(contact.formLabels.send)}
+                      </>
+                    )}
+                  </Button>
+                </div>
+              </form>
+            </Form>
           </div>
         </div>
       </div>
