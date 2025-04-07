@@ -2,7 +2,7 @@
 import React from 'react';
 import { siteContent } from '@/content/content';
 import { useSettings } from '@/contexts/SettingsContext';
-import { Briefcase, MapPin, Calendar, FileText, Download } from 'lucide-react';
+import { Briefcase, FileText, Download } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { 
@@ -10,15 +10,11 @@ import {
   VerticalTimelineElement 
 } from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
-import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 
 const ExperienceSection = () => {
   const { t, language } = useSettings();
   const { experiences, resumeDownloads } = siteContent;
-
-  // Reverse the experiences array to show newest at top (Present first)
-  const reversedExperiences = [...experiences].reverse();
   
   return (
     <section id="experience" className="section-padding py-20 relative bg-background">
@@ -33,39 +29,42 @@ const ExperienceSection = () => {
         </h2>
 
         {/* Timeline container */}
-        <div className="relative max-w-7xl mx-auto pb-12">
-          <VerticalTimeline lineColor="var(--primary)" animate={false}>
-            {/* Present indicator at the top */}
-            <VerticalTimelineElement
-              className="vertical-timeline-element--present"
-              iconStyle={{ background: 'var(--primary)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-              icon={<div className="w-3 h-3 bg-background rounded-full animate-pulse"></div>}
-              contentStyle={{ background: 'transparent', boxShadow: 'none', padding: 0, marginBottom: '-20px' }}
-              contentArrowStyle={{ display: 'none' }}
-            >
-              <div className="text-center text-gray-400 text-sm font-medium">
-                {t({
-                  en: "Present",
-                  de: "Jetzt"
-                })}
-              </div>
-            </VerticalTimelineElement>
-            
-            {/* Experience items */}
-            {reversedExperiences.map((exp, index) => (
+        <div className="relative max-w-6xl mx-auto pb-12">
+          <VerticalTimeline 
+            lineColor="var(--primary)" 
+            animate={false} 
+            className="custom-timeline"
+          >
+            {experiences.map((exp, index) => (
               <VerticalTimelineElement
                 key={index}
-                className="vertical-timeline-element--work"
-                date={t(exp.period)}
-                iconStyle={{ background: 'var(--primary)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                icon={<Briefcase size={20} />}
+                className={`vertical-timeline-element--work ${index % 2 === 0 ? 'left-card' : 'right-card'}`}
                 contentStyle={{ 
                   background: 'linear-gradient(to bottom right, var(--primary-40), var(--accent-40))',
                   backdropFilter: 'blur(8px)',
                   borderRadius: 'var(--radius)',
-                  border: '1px solid var(--border)'
+                  border: '1px solid var(--border)',
+                  boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+                  padding: 0,
+                  marginTop: index > 0 ? '-30px' : '0',
                 }}
-                contentArrowStyle={{ borderRight: '7px solid var(--primary-40)' }}
+                contentArrowStyle={{ 
+                  borderRight: index % 2 === 0 ? '7px solid var(--primary-40)' : 'none',
+                  borderLeft: index % 2 === 1 ? '7px solid var(--primary-40)' : 'none',
+                }}
+                date={t(exp.period)}
+                dateClassName="experience-date"
+                iconStyle={{ 
+                  background: 'var(--primary)', 
+                  color: '#fff', 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center',
+                  boxShadow: '0 0 0 4px var(--background), 0 0 0 5px var(--primary-40)'
+                }}
+                icon={<Briefcase size={20} />}
+                iconClassName="experience-icon"
+                position={index % 2 === 0 ? 'left' : 'right'}
               >
                 <Card className="bg-transparent border-none shadow-none">
                   <CardContent className="p-6">
@@ -82,12 +81,6 @@ const ExperienceSection = () => {
                         {t(exp.title)}
                       </h3>
                       <p className="text-lg font-medium text-gray-300">{exp.company}</p>
-                    </div>
-                    
-                    {/* Location */}
-                    <div className="flex items-center mb-4 text-sm text-gray-400">
-                      <MapPin size={14} className="mr-1" />
-                      <span>{exp.location}</span>
                     </div>
                     
                     {/* Description */}
@@ -151,6 +144,59 @@ const ExperienceSection = () => {
           )}
         </div>
       </div>
+
+      {/* Add CSS to customize the timeline appearance */}
+      <style jsx global>{`
+        /* Custom timeline styling */
+        .custom-timeline::before {
+          background: linear-gradient(to bottom, transparent, var(--primary), transparent) !important;
+          width: 3px !important;
+        }
+        
+        /* Adjust spacing between timeline elements */
+        .vertical-timeline-element {
+          margin: 0 !important;
+        }
+        
+        /* Ensure date is visible with appropriate styling */
+        .experience-date {
+          color: var(--foreground);
+          opacity: 0.8;
+          font-weight: 500;
+          margin-top: 4px;
+        }
+        
+        /* Custom styling for left cards */
+        .left-card {
+          margin-right: 2rem !important;
+        }
+        
+        /* Custom styling for right cards */
+        .right-card {
+          margin-left: 2rem !important;
+        }
+        
+        /* Responsive adjustments */
+        @media only screen and (max-width: 1169px) {
+          .vertical-timeline-element-content {
+            margin-top: 0 !important;
+          }
+          
+          .left-card, .right-card {
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+          }
+          
+          .vertical-timeline-element-content-arrow {
+            border-right: 7px solid var(--primary-40) !important;
+            border-left: none !important;
+          }
+          
+          .vertical-timeline--two-columns .vertical-timeline-element-content {
+            margin-left: 40px !important;
+          }
+        }
+      `}</style>
     </section>
   );
 };

@@ -1,3 +1,4 @@
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -39,4 +40,15 @@
 
 .read-the-docs {
   color: #888;
+}
+
+/* Custom CSS Variables for the timeline card gradients */
+:root {
+  --primary-40: rgba(81, 201, 163, 0.4);
+  --accent-40: rgba(161, 122, 222, 0.4);
+}
+
+.dark {
+  --primary-40: rgba(81, 201, 163, 0.4);
+  --accent-40: rgba(161, 122, 222, 0.4);
 }
