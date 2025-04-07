@@ -43,17 +43,6 @@ export interface Experience {
   logoUrl?: string;
 }
 
-export interface ResumeDownloads {
-  en: {
-    pdf?: string;
-    docx?: string;
-  };
-  de: {
-    pdf?: string;
-    docx?: string;
-  };
-}
-
 export interface Project {
   title: LocalizedString;
   description: LocalizedString;
@@ -145,7 +134,6 @@ export interface SiteContent {
   hero: HeroSection;
   about: AboutSection;
   experiences: Experience[];
-  resumeDownloads: ResumeDownloads;
   projects: Project[];
   skills: Skill[];
   skillsSection: SkillsSection;
@@ -305,16 +293,6 @@ export const siteContent: SiteContent = {
       tags: ["PHP", "JavaScript", "MySQL", "jQuery", "E-commerce"],
     },
   ],
-  resumeDownloads: {
-    en: {
-      pdf: "/resume/resume-en.pdf",
-      docx: "/resume/resume-en.docx"
-    },
-    de: {
-      pdf: "/resume/lebenslauf-de.pdf",
-      docx: "/resume/lebenslauf-de.docx"
-    }
-  },
   projects: [
     {
       title: {
