@@ -185,21 +185,10 @@ const ExperienceSection = () => {
               margin-top: 0 !important;
               margin-bottom: 2rem !important;
             }
-            
-            /* Move timeline to left side on mobile */
+
+            /* Hide timeline on mobile */
             .timeline-item .absolute {
-              left: 24px !important;
-            }
-            
-            /* Position the timeline line on mobile */
-            section#experience .relative .absolute:nth-child(2) {
-              left: 24px !important;
-            }
-            
-            /* Position the cards next to the timeline */
-            .timeline-item > div:last-child {
-              margin-left: 48px;
-              width: calc(100% - 48px);
+              display: none;
             }
           }
         `}
