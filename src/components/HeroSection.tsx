@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { ArrowDown, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -9,16 +8,16 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 const HeroSection = () => {
   const { t } = useSettings();
   const { hero } = siteContent;
-  
+
   // State for the rotating title
   const [titleIndex, setTitleIndex] = useState(0);
-  
+
   // Set up title rotation effect
   useEffect(() => {
     const interval = setInterval(() => {
-      setTitleIndex(prevIndex => (prevIndex + 1) % hero.titleElements.length);
+      setTitleIndex((prevIndex) => (prevIndex + 1) % hero.titleElements.length);
     }, 3000); // Change every 3 seconds
-    
+
     return () => clearInterval(interval);
   }, [hero.titleElements.length]);
 
@@ -26,15 +25,15 @@ const HeroSection = () => {
   const calculatePosition = (position: number, distance: number) => {
     const angle = (position / 100) * 2 * Math.PI; // Convert percentage to radians
     const radius = (distance / 100) * 50; // Scale distance percentage to fit container
-    
+
     // Calculate position around the circle
     const x = 50 + radius * Math.sin(angle);
     const y = 50 - radius * Math.cos(angle);
-    
-    return { 
-      left: `${x}%`, 
+
+    return {
+      left: `${x}%`,
       top: `${y}%`,
-      transform: "translate(-50%, -50%)" 
+      transform: "translate(-50%, -50%)",
     };
   };
 
@@ -52,13 +51,12 @@ const HeroSection = () => {
         <div className="flex flex-col lg:flex-row lg:items-center">
           {/* Text Content */}
           <div className="lg:w-1/2 animate-fade-in">
-            <span className="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary dark:bg-primary/20 text-sm font-medium mb-4">
-              {t(hero.greeting)}
-            </span>
-
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-4">
               {hero.name}
-              <span className="block text-gradient mt-2 h-[1.2em]" key={titleIndex}>
+              <span
+                className="block text-gradient mt-2 h-[1.2em]"
+                key={titleIndex}
+              >
                 {t(hero.titleElements[titleIndex])}
               </span>
             </h1>
@@ -117,17 +115,22 @@ const HeroSection = () => {
 
               {/* Dynamically positioned decorative elements - now without animation-delay for immediate positioning */}
               {hero.decorativeElements.map((element, index) => {
-                const posStyle = calculatePosition(element.position, element.distance);
+                const posStyle = calculatePosition(
+                  element.position,
+                  element.distance
+                );
                 return (
-                  <div 
+                  <div
                     key={index}
                     className="absolute p-4 bg-card rounded-lg shadow-lg transform rotate-3 animate-float"
                     style={{
                       ...posStyle,
-                      transform: `${posStyle.transform} rotate(${(index * 9) - 6}deg)`
+                      transform: `${posStyle.transform} rotate(${
+                        index * 9 - 6
+                      }deg)`,
                     }}
                   >
-                    <code 
+                    <code
                       className="text-xs sm:text-sm text-primary/80"
                       dangerouslySetInnerHTML={{ __html: element.code }}
                     />

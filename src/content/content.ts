@@ -9,7 +9,6 @@ export interface NavItem {
 }
 
 export interface HeroSection {
-  greeting: LocalizedString;
   name: string;
   titleElements: LocalizedString[];
   description: LocalizedString;
@@ -79,7 +78,8 @@ export interface ContactSection {
   socialLinks: {
     github?: string;
     linkedin?: string;
-    twitter?: string;
+    xing?: string;
+    x?: string;
   };
   formLabels: {
     name: LocalizedString;
@@ -171,10 +171,6 @@ export const siteContent: SiteContent = {
     { label: { en: "Contact", de: "Kontakt" }, href: "#contact" },
   ],
   hero: {
-    greeting: {
-      en: "Hi there! I'm",
-      de: "Hallo! Ich bin",
-    },
     name: "Uwe Schwarz",
     titleElements: [
       {
@@ -401,11 +397,12 @@ export const siteContent: SiteContent = {
       en: "Email me at",
       de: "E-Mail an",
     },
-    email: "contact@oldman.cloud",
+    email: "mail@uweschwarz.eu",
     socialLinks: {
-      github: "https://github.com",
-      linkedin: "https://linkedin.com",
-      twitter: "https://twitter.com",
+      github: "https://github.com/uwe-schwarz",
+      linkedin: "https://www.linkedin.com/in/uwe-schwarz-282531294/",
+      xing: "https://www.xing.com/profile/Uwe_Schwarz72/",
+      x: "https://x.com/e38383",
     },
     formLabels: {
       name: { en: "Name", de: "Name" },
