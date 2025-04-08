@@ -92,7 +92,7 @@ const ExperienceSection = () => {
                       </div>
 
                       {/* Period & Location */}
-                      <div className="flex flex-wrap gap-4 mb-4 text-sm text-gray-400">
+                      <div className="flex flex-wrap gap-4 mb-4 text-sm text-muted-foreground">
                         <div className="flex items-center">
                           <Calendar size={14} className="mr-1" />
                           <span>{t(exp.period)}</span>
@@ -104,7 +104,7 @@ const ExperienceSection = () => {
                       </div>
 
                       {/* Description */}
-                      <p className="mb-5 text-gray-300">{t(exp.description)}</p>
+                      <p className="mb-5">{t(exp.description)}</p>
 
                       {/* Tags */}
                       <div className="flex flex-wrap gap-2">
