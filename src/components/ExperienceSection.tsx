@@ -53,7 +53,7 @@ const ExperienceSection = () => {
         {/* Timeline container */}
         <div ref={timelineRef} className="relative max-w-7xl mx-auto pb-12">
           {/* Vertical timeline line */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-primary/30 via-primary to-primary/30 rounded"></div>
+          <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-primary/30 via-primary to-secondary/30 rounded"></div>
 
           {/* Timeline Items */}
           <div className="mt-16">
