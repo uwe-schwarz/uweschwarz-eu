@@ -5,53 +5,48 @@ import { Briefcase, MapPin, Calendar } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-
 const ExperienceSection = () => {
-  const { t } = useSettings();
-  const { experiences } = siteContent;
+  const {
+    t
+  } = useSettings();
+  const {
+    experiences
+  } = siteContent;
   const timelineRef = useRef<HTMLDivElement>(null);
 
   // Animation beim Scrollen
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("animate-fade-in");
-            entry.target.classList.remove("opacity-0");
-          }
-        });
-      },
-      {
-        root: null,
-        rootMargin: "0px",
-        threshold: 0.1,
-      }
-    );
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("animate-fade-in");
+          entry.target.classList.remove("opacity-0");
+        }
+      });
+    }, {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.1
+    });
     const timelineItems = document.querySelectorAll(".timeline-item");
-    timelineItems.forEach((item) => {
+    timelineItems.forEach(item => {
       item.classList.add("opacity-0");
       observer.observe(item);
     });
     return () => {
-      timelineItems.forEach((item) => {
+      timelineItems.forEach(item => {
         observer.unobserve(item);
       });
     };
   }, []);
-
-  return (
-    <section
-      id="experience"
-      className="section-padding py-20 relative bg-background"
-    >
+  return <section id="experience" className="section-padding py-20 relative bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">
           <span className="text-gradient">
             {t({
-              en: "Experience",
-              de: "Berufserfahrung",
-            })}
+            en: "Experience",
+            de: "Berufserfahrung"
+          })}
           </span>
         </h2>
 
@@ -62,63 +57,33 @@ const ExperienceSection = () => {
 
           {/* Timeline Items */}
           <div className="mt-16">
-            {experiences.map((exp, index) => (
-              <div
-                key={index}
-                className={cn(
-                  "timeline-item grid grid-cols-1 md:grid-cols-12 gap-8 relative",
-                  index !== 0 ? "-mt-20 md:mt-10" : "", // Adjust spacing for desktop
-                  "mb-16 md:mb-0", // Bottom margin for mobile
-                  "transition-all duration-500 ease-out"
-                )}
-              >
+            {experiences.map((exp, index) => <div key={index} className={cn("timeline-item grid grid-cols-1 md:grid-cols-12 gap-8 relative", index !== 0 ? "-mt-20 md:mt-10" : "",
+          // Adjust spacing for desktop
+          "mb-16 md:mb-0",
+          // Bottom margin for mobile
+          "transition-all duration-500 ease-out")}>
                 {/* Timeline dot */}
                 <div className="absolute left-1/2 top-8 transform -translate-x-1/2 z-10">
                   <div className="w-6 h-6 rounded-full bg-primary border-4 border-background shadow-lg"></div>
                 </div>
 
                 {/* Position cards on alternating sides */}
-                <div
-                  className={cn(
-                    "md:col-span-5",
-                    index % 2 === 0
-                      ? "md:col-start-1 md:text-right"
-                      : "md:col-start-8"
-                  )}
-                >
+                <div className={cn("md:col-span-5", index % 2 === 0 ? "md:col-start-1 md:text-right" : "md:col-start-8")}>
                   {/* Custom connector line that stops before the card */}
-                  <div
-                    className={cn(
-                      "hidden md:block absolute top-11 border-t-2 border-dashed border-primary/60 z-[5]",
-                      index % 2 === 0
-                        ? "left-[calc(41.667%-15px)] right-[58.333%] w-[calc(8.333%)]"
-                        : "left-[50%+15px] right-[calc(41.667%-15px)] w-[calc(8.333%)]"
-                    )}
-                  ></div>
+                  <div className={cn("hidden md:block absolute top-11 border-t-2 border-dashed border-primary/60 z-[5]", index % 2 === 0 ? "left-[calc(41.667%-15px)] right-[58.333%] w-[calc(8.333%)]" : "left-[50%+15px] right-[calc(41.667%-15px)] w-[calc(8.333%)]")}></div>
 
-                  <Card
-                    className={cn(
-                      "overflow-hidden border border-border transition-all duration-300 rounded-lg hover-scale",
-                      "shadow-xl border-4 border-white dark:border-gray-800", // Add shadow like in the About section
-                      "bg-gradient-to-br from-primary/40 to-accent/40",
-                      "backdrop-blur-sm"
-                    )}
-                  >
+                  <Card className={cn("overflow-hidden border border-border transition-all duration-300 rounded-lg hover-scale", "shadow-xl border-4 border-white dark:border-gray-800",
+              // Add shadow like in the About section
+              "bg-gradient-to-br from-primary/40 to-accent/40", "backdrop-blur-sm")}>
                     {/* Logo (if exists) */}
-                    {exp.logoUrl && (
-                      <div className="p-4 flex justify-center">
-                        <img
-                          src={exp.logoUrl}
-                          alt={`${exp.company} logo`}
-                          className="h-12 object-contain"
-                        />
-                      </div>
-                    )}
+                    {exp.logoUrl && <div className="p-4 flex justify-center">
+                        <img src={exp.logoUrl} alt={`${exp.company} logo`} className="h-12 object-contain" />
+                      </div>}
 
                     <CardContent className="p-6">
                       {/* Title & Company */}
                       <div className="mb-4">
-                        <h3 className="text-2xl font-bold text-foreground">
+                        <h3 className="text-2xl font-bold">
                           {t(exp.title)}
                         </h3>
                         <p className="text-lg font-medium text-gray-300">
@@ -143,35 +108,25 @@ const ExperienceSection = () => {
 
                       {/* Tags */}
                       <div className="flex flex-wrap gap-2">
-                        {exp.tags.map((tag, tagIndex) => (
-                          <Badge
-                            key={tagIndex}
-                            variant="secondary"
-                            className="font-normal bg-primary/60 hover:bg-primary/80 text-white"
-                          >
+                        {exp.tags.map((tag, tagIndex) => <Badge key={tagIndex} variant="secondary" className="font-normal bg-primary/60 hover:bg-primary/80 text-white">
                             {tag}
-                          </Badge>
-                        ))}
+                          </Badge>)}
                       </div>
                     </CardContent>
                   </Card>
                 </div>
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
 
         <div className="text-center mt-16">
-          <a
-            href="#"
-            className="inline-flex items-center text-primary hover:text-primary/80 transition-colors link-underline"
-          >
+          <a href="#" className="inline-flex items-center text-primary hover:text-primary/80 transition-colors link-underline">
             <Briefcase size={16} className="mr-2" />
             <span>
               {t({
-                en: "Download Full Resume",
-                de: "Vollständigen Lebenslauf herunterladen",
-              })}
+              en: "Download Full Resume",
+              de: "Vollständigen Lebenslauf herunterladen"
+            })}
             </span>
           </a>
         </div>
@@ -193,8 +148,6 @@ const ExperienceSection = () => {
           }
         `}
       </style>
-    </section>
-  );
+    </section>;
 };
-
 export default ExperienceSection;
