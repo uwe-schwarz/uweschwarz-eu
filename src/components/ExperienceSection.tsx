@@ -86,7 +86,7 @@ const ExperienceSection = () => {
                         <h3 className="text-2xl font-bold">
                           {t(exp.title)}
                         </h3>
-                        <p className="text-lg font-medium text-gray-300">
+                        <p className="text-lg font-medium">
                           {exp.company}
                         </p>
                       </div>
