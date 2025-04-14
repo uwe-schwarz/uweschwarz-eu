@@ -43,8 +43,12 @@ const HeroSection = () => {
       className="min-h-screen flex items-center pt-20 bg-grid relative overflow-hidden"
     >
       {/* Background Elements */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 rounded-full filter blur-3xl animate-float"></div>
-      <div className="absolute bottom-10 left-10 w-72 h-72 bg-accent/20 rounded-full filter blur-3xl animate-float animation-delay-1000"></div>
+      <div
+        className="absolute w-64 h-64 bg-primary/50 rounded-full filter blur-3xl animate-[move-bg-1_25s_ease-in-out_infinite]"
+      ></div>
+      <div
+        className="absolute w-72 h-72 bg-accent/50 rounded-full filter blur-3xl animate-[move-bg-2_30s_ease-in-out_infinite]"
+      ></div>
 
       {/* Content Container */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
