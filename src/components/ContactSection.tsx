@@ -72,7 +72,7 @@ const ContactSection = () => {
           title: t({ en: "Message sent!", de: "Nachricht gesendet!" }),
           description: t({
             en: "Thanks for reaching out. I'll get back to you soon.",
-            de: "Danke für Ihre Nachricht. Ich werde mich bald bei Ihnen melden.",
+            de: "Danke für deine Nachricht. Ich werde mich bald bei dir melden.",
           }),
         });
         
@@ -88,7 +88,7 @@ const ContactSection = () => {
         title: t({ en: "Error", de: "Fehler" }),
         description: t({
           en: "Failed to send message. Please try again later.",
-          de: "Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es später noch einmal.",
+          de: "Nachricht konnte nicht gesendet werden. Bitte versuche es später noch einmal.",
         }),
       });
     } finally {
@@ -239,7 +239,7 @@ const ContactSection = () => {
                         </FormLabel>
                         <FormControl>
                           <Input
-                            placeholder={t({ en: "Your name", de: "Ihr Name" })}
+                            placeholder={t({ en: "Your name", de: "Dein Name" })}
                             {...field}
                           />
                         </FormControl>
@@ -259,7 +259,7 @@ const ContactSection = () => {
                         <FormControl>
                           <Input
                             type="email"
-                            placeholder={t({ en: "Your email", de: "Ihre E-Mail" })}
+                            placeholder={t({ en: "Your email", de: "Deine E-Mail" })}
                             {...field}
                           />
                         </FormControl>
@@ -281,7 +281,7 @@ const ContactSection = () => {
                             rows={5}
                             placeholder={t({
                               en: "Your message",
-                              de: "Ihre Nachricht",
+                              de: "Deine Nachricht",
                             })}
                             {...field}
                           />
