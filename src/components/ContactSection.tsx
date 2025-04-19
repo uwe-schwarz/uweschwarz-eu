@@ -2,8 +2,8 @@
 import React from "react";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/SettingsContext";
-import { Mail, Github, Linkedin, Twitter, Send } from "lucide-react";
-import { SiX, SiXing, SiGithub } from "@icons-pack/react-simple-icons";
+import { Mail, Send } from "lucide-react";
+import { SiXing, SiX, SiGithub } from "@icons-pack/react-simple-icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -20,17 +20,19 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
-// Define form schema with Zod for validation
+// Form Schema mit Zod für Validierung
 const formSchema = z.object({
+  verify: z.string(),
   name: z.string().min(2, {
-    message: "Name must be at least 2 characters.",
+    message: "Name muss mindestens 2 Zeichen lang sein.",
   }),
   email: z.string().email({
-    message: "Please enter a valid email address.",
+    message: "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
   }),
   message: z.string().min(10, {
-    message: "Message must be at least 10 characters.",
+    message: "Nachricht muss mindestens 10 Zeichen lang sein.",
   }),
 });
 
@@ -40,49 +42,45 @@ const ContactSection = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Initialize React Hook Form
+  // React Hook Form initialisieren
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      verify: "",
       name: "",
       email: "",
       message: "",
     },
   });
 
-  // Handle form submission
+  // Formular absenden
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsSubmitting(true);
     
     try {
-      // This would be the API endpoint on your server or edge function
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
+      const response = await supabase.functions.invoke('resend', {
+        body: {
+          verify: values.verify,
           name: values.name,
           email: values.email,
           message: values.message,
-        }),
+        },
       });
 
-      if (!response.ok) {
+      if (response.data?.id) {
+        toast({
+          title: t({ en: "Message sent!", de: "Nachricht gesendet!" }),
+          description: t({
+            en: "Thanks for reaching out. I'll get back to you soon.",
+            de: "Danke für Ihre Nachricht. Ich werde mich bald bei Ihnen melden.",
+          }),
+        });
+        
+        // Formular zurücksetzen
+        form.reset();
+      } else {
         throw new Error('Failed to send message');
       }
-
-      toast({
-        title: t({ en: "Message sent!", de: "Nachricht gesendet!" }),
-        description: t({
-          en: "Thanks for reaching out. I'll get back to you soon.",
-          de: "Danke für deine Nachricht. Ich werde mich bald bei dir melden.",
-        }),
-      });
-      
-      // Reset form
-      form.reset();
-      
     } catch (error) {
       console.error('Error sending message:', error);
       toast({
@@ -90,7 +88,7 @@ const ContactSection = () => {
         title: t({ en: "Error", de: "Fehler" }),
         description: t({
           en: "Failed to send message. Please try again later.",
-          de: "Nachricht konnte nicht gesendet werden. Bitte versuche es später noch einmal.",
+          de: "Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es später noch einmal.",
         }),
       });
     } finally {
@@ -219,6 +217,18 @@ const ContactSection = () => {
                 className="bg-card rounded-xl p-8 border border-border shadow-sm"
               >
                 <div className="space-y-6">
+                  {/* Hidden verify field */}
+                  <FormField
+                    control={form.control}
+                    name="verify"
+                    render={({ field }) => (
+                      <Input
+                        type="hidden"
+                        {...field}
+                      />
+                    )}
+                  />
+
                   <FormField
                     control={form.control}
                     name="name"
@@ -229,7 +239,7 @@ const ContactSection = () => {
                         </FormLabel>
                         <FormControl>
                           <Input
-                            placeholder={t({ en: "Your name", de: "Dein Name" })}
+                            placeholder={t({ en: "Your name", de: "Ihr Name" })}
                             {...field}
                           />
                         </FormControl>
@@ -249,7 +259,7 @@ const ContactSection = () => {
                         <FormControl>
                           <Input
                             type="email"
-                            placeholder={t({ en: "Your email", de: "Deine E-Mail" })}
+                            placeholder={t({ en: "Your email", de: "Ihre E-Mail" })}
                             {...field}
                           />
                         </FormControl>
@@ -271,7 +281,7 @@ const ContactSection = () => {
                             rows={5}
                             placeholder={t({
                               en: "Your message",
-                              de: "Deine Nachricht",
+                              de: "Ihre Nachricht",
                             })}
                             {...field}
                           />
