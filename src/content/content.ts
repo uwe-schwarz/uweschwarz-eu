@@ -87,18 +87,35 @@ export interface ContactSection {
     message: LocalizedString;
     send: LocalizedString;
   };
+  formStatus: {
+    sentTitle: LocalizedString;
+    sentDescription: LocalizedString;
+    errorTitle: LocalizedString;
+    errorDescription: LocalizedString;
+    sending: LocalizedString;
+  };
+  formPlaceholders: {
+    name: LocalizedString;
+    email: LocalizedString;
+    message: LocalizedString;
+  };
+  infoTitle: LocalizedString;
+  findMeOn: LocalizedString;
+  infoText: LocalizedString;
 }
 
 export interface Footer {
   copyright: LocalizedString;
   links: NavItem[];
+  builtWith: LocalizedString;
+  lastUpdated: LocalizedString;
 }
 
 export interface ImprintSection {
   title: LocalizedString;
   contactTitle: LocalizedString;
   companyName: LocalizedString;
-  representative: LocalizedString;
+  representative?: LocalizedString;
   address: {
     street: LocalizedString;
     city: LocalizedString;
@@ -109,8 +126,8 @@ export interface ImprintSection {
   email: string;
   phoneLabel: LocalizedString;
   phone: string;
-  legalTitle: LocalizedString;
-  vatId: LocalizedString;
+  legalTitle?: LocalizedString;
+  vatId?: LocalizedString;
   registrationInfo?: LocalizedString;
   disclaimerTitle: LocalizedString;
   disclaimer: LocalizedString;
@@ -130,6 +147,8 @@ export interface SiteContent {
     description: LocalizedString;
     author: string;
   };
+  projectsSectionTitle: { en: string; de: string };
+  projectsSectionMore: { en: string; de: string };
   navigation: NavItem[];
   hero: HeroSection;
   about: AboutSection;
@@ -151,6 +170,13 @@ export interface SiteContent {
       dark: LocalizedString;
     };
   };
+  projectsLabels: {
+    demo: LocalizedString;
+    code: LocalizedString;
+  };
+  backToHome: LocalizedString;
+  experienceSectionTitle: LocalizedString;
+  downloadResume: LocalizedString;
 }
 
 export const siteContent: SiteContent = {
@@ -162,6 +188,8 @@ export const siteContent: SiteContent = {
     },
     author: "Uwe Schwarz",
   },
+  projectsSectionTitle: { en: "Featured Projects", de: "Ausgewählte Projekte" },
+  projectsSectionMore: { en: "View More Projects on GitHub", de: "Mehr Projekte auf GitHub ansehen" },
   navigation: [
     { label: { en: "Home", de: "Start" }, href: "#hero" },
     { label: { en: "About", de: "Über mich" }, href: "#about" },
@@ -410,16 +438,48 @@ export const siteContent: SiteContent = {
       message: { en: "Message", de: "Nachricht" },
       send: { en: "Send Message", de: "Nachricht senden" },
     },
+    formStatus: {
+      sentTitle: { en: "Message sent!", de: "Nachricht gesendet!" },
+      sentDescription: {
+        en: "Thanks for reaching out. I'll get back to you soon.",
+        de: "Danke für deine Nachricht. Ich werde mich bald bei dir melden.",
+      },
+      errorTitle: { en: "Error", de: "Fehler" },
+      errorDescription: {
+        en: "Failed to send message. Please try again later.",
+        de: "Nachricht konnte nicht gesendet werden. Bitte versuche es später noch einmal.",
+      },
+      sending: { en: "Sending...", de: "Senden..." },
+    },
+    formPlaceholders: {
+      name: { en: "Your name", de: "Dein Name" },
+      email: { en: "Your email", de: "Deine E-Mail" },
+      message: { en: "Your message", de: "Deine Nachricht" },
+    },
+    infoTitle: { en: "Let's Connect", de: "Lass uns in Kontakt treten" },
+    findMeOn: { en: "Find me on", de: "Finde mich auf" },
+    infoText: {
+      en: "Feel free to reach out for collaborations or just a friendly hello.",
+      de: "Kontaktiere mich gerne für Zusammenarbeiten oder einfach nur für ein freundliches Hallo.",
+    },
   },
   footer: {
     copyright: {
-      en: "© 2025 Oldman. All rights reserved.",
-      de: "© 2025 Oldman. Alle Rechte vorbehalten.",
+      en: "© year Uwe Schwarz. All rights reserved.",
+      de: "© year Uwe Schwarz. Alle Rechte vorbehalten.",
     },
     links: [
       { label: { en: "Privacy Policy", de: "Datenschutz" }, href: "/privacy" },
       { label: { en: "Imprint", de: "Impressum" }, href: "/imprint" },
     ],
+    builtWith: {
+      en: "Built with modern web technologies and a passion for clean code.",
+      de: "Erstellt mit modernen Web-Technologien und einer Leidenschaft für sauberen Code.",
+    },
+    lastUpdated: {
+      en: "Last updated: April 2025",
+      de: "Letzte Aktualisierung: April 2025",
+    },
   },
   imprint: {
     title: {
@@ -431,21 +491,21 @@ export const siteContent: SiteContent = {
       de: "Kontaktinformationen",
     },
     companyName: {
-      en: "Oldman Digital Solutions",
-      de: "Oldman Digital Solutions",
+      en: "Uwe Schwarz",
+      de: "Uwe Schwarz",
     },
-    representative: {
+/*    representative: {
       en: "Represented by: John Oldman",
       de: "Vertreten durch: John Oldman",
-    },
+    },*/
     address: {
       street: {
-        en: "Tech Street 42",
-        de: "Tech Straße 42",
+        en: "Uhlandstr. 20",
+        de: "Uhlandstr. 20",
       },
       city: {
-        en: "10115 Berlin",
-        de: "10115 Berlin",
+        en: "67069 Ludwigshafen",
+        de: "67069 Ludwigshafen",
       },
       country: {
         en: "Germany",
@@ -460,13 +520,13 @@ export const siteContent: SiteContent = {
       en: "Email",
       de: "E-Mail",
     },
-    email: "contact@oldman.cloud",
+    email: "mail@uweschwarz.eu",
     phoneLabel: {
       en: "Phone",
       de: "Telefon",
     },
-    phone: "+49 123 456789",
-    legalTitle: {
+    phone: "+49 151 64403667",
+/*    legalTitle: {
       en: "Legal Information",
       de: "Rechtliche Informationen",
     },
@@ -477,14 +537,21 @@ export const siteContent: SiteContent = {
     registrationInfo: {
       en: "Registered in the Commercial Register of the Local Court of Berlin, HRB 123456",
       de: "Eingetragen im Handelsregister des Amtsgerichts Berlin, HRB 123456",
-    },
+    }, */
     disclaimerTitle: {
       en: "Disclaimer",
       de: "Haftungsausschluss",
     },
     disclaimer: {
-      en: "The contents of this website have been created with the utmost care. However, I cannot guarantee the contents' accuracy, completeness, or topicality. According to statutory provisions, I am responsible for my content on these web pages. However, I am not obliged to monitor third-party information transmitted or stored on my website or to look for circumstances indicating illegal activity.",
-      de: "Die Inhalte dieser Website wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte kann ich jedoch keine Gewähr übernehmen. Nach §§ 8 bis 10 TMG bin ich als Diensteanbieter nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.",
+      en: "The content of this website has been prepared with the utmost care; however, I cannot guarantee its accuracy, completeness or timeliness. \
+          Under §§ 7, 8–10 of the German Telemedia Act (TMG), I am responsible for my own content on these pages in accordance with general laws, \
+          but I am not required to monitor third-party information transmitted or stored on my site, nor to investigate circumstances indicating illegal activity. \
+          Any obligations to remove or block the use of information under general laws shall remain unaffected.",
+      de: "Die Inhalte dieser Website wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte übernehme ich jedoch \
+          keine Gewähr. Gemäß §§ 7, 8–10 des Telemediengesetzes (TMG) bin ich als Diensteanbieter zwar für eigene Inhalte auf diesen Seiten nach den allgemeinen \
+          Gesetzen verantwortlich, jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, \
+          die auf eine rechtswidrige Tätigkeit hinweisen. Die Verpflichtung zur Entfernung oder Sperrung der Nutzung von Informationen gemäß den allgemeinen \
+          Gesetzen bleibt unberührt."
     },
   },
   privacy: {
@@ -623,4 +690,11 @@ export const siteContent: SiteContent = {
       },
     },
   },
+  projectsLabels: {
+    demo: { en: "Live Demo", de: "Live Demo" },
+    code: { en: "Code", de: "Code" },
+  },
+  backToHome: { en: "Back to Home", de: "Zurück zur Startseite" },
+  experienceSectionTitle: { en: "Experience", de: "Berufserfahrung" },
+  downloadResume: { en: "Download Full Resume", de: "Vollständigen Lebenslauf herunterladen" },
 };

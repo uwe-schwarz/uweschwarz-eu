@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { siteContent } from '@/content/content';
 import { useSettings } from '@/contexts/SettingsContext';
@@ -15,7 +14,7 @@ const ProjectsSection = () => {
       <div className="container mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">
           <span className="text-gradient">
-            {t({ en: "Featured Projects", de: "Ausgewählte Projekte" })}
+            {t(siteContent.projectsSectionTitle)}
           </span>
         </h2>
 
@@ -60,7 +59,7 @@ const ProjectsSection = () => {
                     <Button asChild variant="default" size="sm" className="gap-2">
                       <a href={project.demoUrl} target="_blank" rel="noreferrer">
                         <ExternalLink size={14} />
-                        <span>{t({ en: "Live Demo", de: "Live Demo" })}</span>
+                        <span>{t(siteContent.projectsLabels.demo)}</span>
                       </a>
                     </Button>
                   )}
@@ -69,7 +68,7 @@ const ProjectsSection = () => {
                     <Button asChild variant="outline" size="sm" className="gap-2">
                       <a href={project.repoUrl} target="_blank" rel="noreferrer">
                         <Github size={14} />
-                        <span>{t({ en: "Code", de: "Code" })}</span>
+                        <span>{t(siteContent.projectsLabels.code)}</span>
                       </a>
                     </Button>
                   )}
@@ -82,7 +81,7 @@ const ProjectsSection = () => {
         <div className="text-center mt-12">
           <Button asChild variant="link" className="text-primary hover:text-primary/80">
             <a href="https://github.com" target="_blank" rel="noreferrer">
-              {t({ en: "View More Projects on GitHub", de: "Mehr Projekte auf GitHub ansehen" })}
+              {t(siteContent.projectsSectionMore)}
               <ArrowRight size={16} className="ml-2" />
             </a>
           </Button>

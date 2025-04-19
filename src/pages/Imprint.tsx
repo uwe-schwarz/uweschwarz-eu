@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useSettings } from '@/contexts/SettingsContext';
 import { siteContent } from '@/content/content';
@@ -21,10 +20,7 @@ const Imprint = () => {
             <Link to="/">
               <Button variant="ghost" size="sm" className="mb-6">
                 <ArrowLeft size={16} className="mr-2" />
-                {t({
-                  en: "Back to Home",
-                  de: "Zurück zur Startseite"
-                })}
+                {t(siteContent.backToHome)}
               </Button>
             </Link>
             
@@ -34,7 +30,7 @@ const Imprint = () => {
               <section className="mb-8">
                 <h2 className="text-2xl font-semibold mb-4">{t(imprint.contactTitle)}</h2>
                 <p>{t(imprint.companyName)}</p>
-                <p>{t(imprint.representative)}</p>
+                {imprint.representative && <p>{t(imprint.representative)}</p>}
                 <p>{t(imprint.address.street)}</p>
                 <p>{t(imprint.address.city)}</p>
                 <p>{t(imprint.address.country)}</p>
@@ -46,15 +42,17 @@ const Imprint = () => {
                   {t(imprint.emailLabel)}: <a href={`mailto:${imprint.email}`} className="text-primary">{imprint.email}</a>
                 </p>
                 <p>
-                  {t(imprint.phoneLabel)}: <span>{imprint.phone}</span>
+                  {t(imprint.phoneLabel)}: <span><a href={`tel:${imprint.phone}`} className="text-primary">{imprint.phone}</a></span>
                 </p>
               </section>
               
-              <section className="mb-8">
-                <h2 className="text-2xl font-semibold mb-4">{t(imprint.legalTitle)}</h2>
-                <p>{t(imprint.vatId)}</p>
-                {imprint.registrationInfo && <p>{t(imprint.registrationInfo)}</p>}
-              </section>
+              {imprint.legalTitle && (
+                <section className="mb-8">
+                  <h2 className="text-2xl font-semibold mb-4">{t(imprint.legalTitle)}</h2>
+                  <p>{t(imprint.vatId)}</p>
+                  {imprint.registrationInfo && <p>{t(imprint.registrationInfo)}</p>}
+                </section>
+              )}
 
               <section>
                 <h2 className="text-2xl font-semibold mb-4">{t(imprint.disclaimerTitle)}</h2>

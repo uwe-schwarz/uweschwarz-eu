@@ -1,4 +1,3 @@
-
 import React from "react";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/SettingsContext";
@@ -69,11 +68,8 @@ const ContactSection = () => {
 
       if (response.data?.id) {
         toast({
-          title: t({ en: "Message sent!", de: "Nachricht gesendet!" }),
-          description: t({
-            en: "Thanks for reaching out. I'll get back to you soon.",
-            de: "Danke für deine Nachricht. Ich werde mich bald bei dir melden.",
-          }),
+          title: t(contact.formStatus.sentTitle),
+          description: t(contact.formStatus.sentDescription),
         });
         
         // Formular zurücksetzen
@@ -85,11 +81,8 @@ const ContactSection = () => {
       console.error('Error sending message:', error);
       toast({
         variant: "destructive",
-        title: t({ en: "Error", de: "Fehler" }),
-        description: t({
-          en: "Failed to send message. Please try again later.",
-          de: "Nachricht konnte nicht gesendet werden. Bitte versuche es später noch einmal.",
-        }),
+        title: t(contact.formStatus.errorTitle),
+        description: t(contact.formStatus.errorDescription),
       });
     } finally {
       setIsSubmitting(false);
@@ -113,13 +106,10 @@ const ContactSection = () => {
             <div className="bg-card rounded-xl p-8 border border-border shadow-sm">
               <div className="mb-8">
                 <h3 className="text-xl font-bold mb-4">
-                  {t({ en: "Let's Connect", de: "Lass uns in Kontakt treten" })}
+                  {t(contact.infoTitle)}
                 </h3>
                 <p className="text-muted-foreground mb-6">
-                  {t({
-                    en: "Feel free to reach out for collaborations or just a friendly hello.",
-                    de: "Kontaktiere mich gerne für Zusammenarbeiten oder einfach nur für ein freundliches Hallo.",
-                  })}
+                  {t(contact.infoText)}
                 </p>
 
                 <div className="flex items-center mb-4">
@@ -143,7 +133,7 @@ const ContactSection = () => {
               {/* Social Links */}
               <div>
                 <h4 className="text-lg font-medium mb-4">
-                  {t({ en: "Find me on", de: "Finde mich auf" })}
+                  {t(contact.findMeOn)}
                 </h4>
                 <div className="flex space-x-4">
                   {contact.socialLinks.github && (
@@ -239,7 +229,7 @@ const ContactSection = () => {
                         </FormLabel>
                         <FormControl>
                           <Input
-                            placeholder={t({ en: "Your name", de: "Dein Name" })}
+                            placeholder={t(contact.formPlaceholders.name)}
                             {...field}
                           />
                         </FormControl>
@@ -259,7 +249,7 @@ const ContactSection = () => {
                         <FormControl>
                           <Input
                             type="email"
-                            placeholder={t({ en: "Your email", de: "Deine E-Mail" })}
+                            placeholder={t(contact.formPlaceholders.email)}
                             {...field}
                           />
                         </FormControl>
@@ -279,10 +269,7 @@ const ContactSection = () => {
                         <FormControl>
                           <Textarea
                             rows={5}
-                            placeholder={t({
-                              en: "Your message",
-                              de: "Deine Nachricht",
-                            })}
+                            placeholder={t(contact.formPlaceholders.message)}
                             {...field}
                           />
                         </FormControl>
@@ -295,7 +282,7 @@ const ContactSection = () => {
                     {isSubmitting ? (
                       <div className="flex items-center justify-center">
                         <div className="w-4 h-4 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin mr-2"></div>
-                        {t({ en: "Sending...", de: "Senden..." })}
+                        {t(contact.formStatus.sending)}
                       </div>
                     ) : (
                       <>

@@ -43,10 +43,7 @@ const ExperienceSection = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">
           <span className="text-gradient">
-            {t({
-            en: "Experience",
-            de: "Berufserfahrung"
-          })}
+            {t(siteContent.experienceSectionTitle)}
           </span>
         </h2>
 
@@ -123,10 +120,7 @@ const ExperienceSection = () => {
           <a href="#" className="inline-flex items-center text-primary hover:text-primary/80 transition-colors link-underline">
             <Briefcase size={16} className="mr-2" />
             <span>
-              {t({
-              en: "Download Full Resume",
-              de: "Vollständigen Lebenslauf herunterladen"
-            })}
+              {t(siteContent.downloadResume)}
             </span>
           </a>
         </div>

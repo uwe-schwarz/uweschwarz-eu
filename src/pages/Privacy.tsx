@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useSettings } from '@/contexts/SettingsContext';
 import { siteContent } from '@/content/content';
@@ -21,10 +20,7 @@ const Privacy = () => {
             <Link to="/">
               <Button variant="ghost" size="sm" className="mb-6">
                 <ArrowLeft size={16} className="mr-2" />
-                {t({
-                  en: "Back to Home",
-                  de: "Zurück zur Startseite"
-                })}
+                {t(siteContent.backToHome)}
               </Button>
             </Link>
             

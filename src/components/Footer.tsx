@@ -21,7 +21,7 @@ const Footer = () => {
               <span className="text-gradient">Uwe Schwarz</span>
             </a>
             <p className="text-sm text-muted-foreground">
-              {t(footer.copyright).replace("2025", year.toString())}
+              {t(footer.copyright).replace("year", year.toString())}
             </p>
           </div>
 
@@ -41,17 +41,11 @@ const Footer = () => {
 
         <div className="mt-8 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center">
           <p className="text-xs text-muted-foreground mb-4 md:mb-0">
-            {t({
-              en: "Built with modern web technologies and a passion for clean code.",
-              de: "Erstellt mit modernen Web-Technologien und einer Leidenschaft für sauberen Code.",
-            })}
+            {t(footer.builtWith)}
           </p>
 
           <p className="text-xs text-muted-foreground">
-            {t({
-              en: "Last updated: April 2025",
-              de: "Letzte Aktualisierung: April 2025",
-            })}
+            {t(footer.lastUpdated)}
           </p>
         </div>
       </div>
