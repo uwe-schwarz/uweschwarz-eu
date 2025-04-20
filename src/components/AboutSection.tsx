@@ -40,15 +40,11 @@ const AboutSection = () => {
             <div className="relative">
               {/* Main image */}
               <div className="rounded-lg overflow-hidden shadow-xl hover-scale border-4 border-white dark:border-gray-800">
-                {/* This is a placeholder - you would replace this with an actual image */}
-                <div className="bg-gradient-to-br from-primary/40 to-accent/40 aspect-[4/5] flex items-center justify-center">
-                  <p className="text-lg text-center px-4 text-primary-foreground">
-                    [Image placeholder: A professional portrait photo would go here]<br/>
-                    <span className="text-sm block mt-2">
-                      Image prompt: "Professional portrait of a male software developer in his 40s with a friendly smile, sitting at a modern workspace with multiple monitors showing code, soft studio lighting, high quality"
-                    </span>
-                  </p>
-                </div>
+                <img 
+                  src="/about-me.png" 
+                  alt="Uwe Schwarz" 
+                  className="w-full h-full object-cover aspect-[4/5]"
+                />
               </div>
               
               {/* Decorative elements */}
