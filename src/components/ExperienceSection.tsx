@@ -50,7 +50,7 @@ const ExperienceSection = () => {
         {/* Timeline container */}
         <div ref={timelineRef} className="relative max-w-7xl mx-auto pb-12">
           {/* Vertical timeline line */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-primary/30 via-primary to-secondary/30 rounded"></div>
+          <div className="absolute md:left-0 left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-primary/30 via-primary to-secondary/30 rounded"></div>
 
           {/* Timeline Items */}
           <div className="mt-16">
@@ -60,22 +60,39 @@ const ExperienceSection = () => {
           // Bottom margin for mobile
           "transition-all duration-500 ease-out")}>
                 {/* Timeline dot */}
-                <div className="absolute left-1/2 top-8 transform -translate-x-1/2 z-10">
+                <div className="absolute top-8 transform -translate-x-1/2 z-10">
                   <div className="w-6 h-6 rounded-full bg-primary border-4 border-background shadow-lg"></div>
                 </div>
 
-                {/* Position cards on alternating sides */}
-                <div className={cn("md:col-span-5", index % 2 === 0 ? "md:col-start-1 md:text-right" : "md:col-start-8")}>
+                <div className={cn("md:col-span-11", "md:col-start-2")}>
                   {/* Custom connector line that stops before the card */}
-                  <div className={cn("hidden md:block absolute top-11 border-t-2 border-dashed border-primary/60 z-[5]", index % 2 === 0 ? "left-[calc(41.667%-15px)] right-[58.333%] w-[calc(8.333%)]" : "left-[50%+15px] right-[calc(41.667%-15px)] w-[calc(8.333%)]")}></div>
+                  {/* 
+                    For grid-cols-12 and gap-8 (2rem = 32px), col-start-2 means the card starts at (1/12)*100% + 8px (gap), 
+                    so the connector line should stretch from the timeline (center, left-0) to the start of col-start-2.
+                    The left offset is 0, the right offset is calc(100% - ((100%/12) + 2rem)), and width is accordingly.
+                  */}
+                  <div
+                    className={cn(
+                      "hidden md:block absolute top-11 border-t-2 border-dashed border-primary/60 z-[5]"
+                    )}
+                    style={{
+                      left: "15px",
+                      right: "calc(100% - (100%/12) - 0rem)",
+                      width: "auto",
+                    }}
+                  ></div>
 
                   <Card className={cn("overflow-hidden border border-border transition-all duration-300 rounded-lg hover-scale", "shadow-xl border-4 border-white dark:border-gray-800",
               // Add shadow like in the About section
               "bg-gradient-to-br from-primary/40 to-accent/40", "backdrop-blur-sm")}>
-                    {/* Logo (if exists) */}
-                    {exp.logoUrl && <div className="p-4 flex justify-center">
-                        <img src={exp.logoUrl} alt={`${exp.company} logo`} className="h-12 object-contain" />
-                      </div>}
+                    {/* Logo (if exists) - positioned right, offset from the corner with flowing text */}
+                    {exp.logoUrl && (
+                      <img
+                        src={exp.logoUrl}
+                        alt={`${exp.company} logo`}
+                        className="h-12 object-contain float-right ml-2 mb-2 mt-6 mr-6"
+                      />
+                    )}
 
                     <CardContent className="p-6">
                       {/* Title & Company */}
@@ -89,7 +106,10 @@ const ExperienceSection = () => {
                       </div>
 
                       {/* Period & Location */}
-                      <div className="flex flex-wrap gap-4 mb-4 text-sm text-muted-foreground">
+                      <div className={cn(
+                        "flex flex-wrap gap-4 mb-4 text-sm text-muted-foreground justify-center md:justify-end",
+                        "md:justify-start text-left"
+                      )}>
                         <div className="flex items-center">
                           <Calendar size={14} className="mr-1" />
                           <span>{t(exp.period)}</span>
@@ -101,12 +121,59 @@ const ExperienceSection = () => {
                       </div>
 
                       {/* Description */}
-                      <p className="mb-5">{t(exp.description)}</p>
+                      <ul className="mb-5 space-y-2 text-left list-none">
+                        {exp.description.map((item, i) => (
+                          <li key={i} className="flex items-start gap-2">
+                            {/* Symbol */}
+                            <span
+                              className={`mt-1 text-xs ${
+                                item.type === 'achievement'
+                                  ? 'text-primary'
+                                  : 'text-muted-foreground'
+                              }`}
+                            >
+                              {item.type === 'achievement' ? (
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="16"
+                                  height="16"
+                                  fill="currentColor"
+                                  viewBox="0 0 16 16"
+                                >
+                                  <path d="M13.485 1.929a1 1 0 0 1 .086 1.408l-7.071 8a1 1 0 0 1-1.485.041l-3-3a1 1 0 1 1 1.414-1.414l2.293 2.293 6.364-7.192a1 1 0 0 1 1.408-.086z" />
+                                </svg>
+                              ) : (
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="16"
+                                  height="16"
+                                  fill="currentColor"
+                                  viewBox="0 0 16 16"
+                                >
+                                  <path d="M5 3.5L11 8L5 12.5V3.5Z" />
+                                </svg>
+                              )}
+                            </span>
+                            <span className="flex-1">
+                              {item.type === 'achievement' ? (
+                                <>
+                                  <span className="font-semibold text-primary">
+                                    {t(siteContent.experienceAchievementPrefix)}
+                                  </span>{' '}
+                                  {t(item.text)}
+                                </>
+                              ) : (
+                                t(item.text)
+                              )}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
 
                       {/* Tags */}
                       <div className="flex flex-wrap gap-2">
-                        {exp.tags.map((tag, tagIndex) => <Badge key={tagIndex} variant="secondary" className="font-normal bg-primary/60 hover:bg-primary/80 text-white">
-                            {tag}
+                        {exp.tags.map((tag, tagIndex) => <Badge key={tagIndex} variant="secondary" className="font-normal bg-secondary hover:bg-secondary/80 text-foreground">
+                            {t(tag)}
                           </Badge>)}
                       </div>
                     </CardContent>
@@ -114,8 +181,19 @@ const ExperienceSection = () => {
                 </div>
               </div>)}
           </div>
+          
+          {/* More Projects */}
+          <div className="text-center mt-16">
+            <p className="inline-flex items-center text-primary hover:text-primary/80 transition-colors">
+              <Briefcase size={16} className="mr-2" />
+              <span>
+                {t(siteContent.moreProjects)}
+              </span>
+            </p>
+          </div>
         </div>
 
+        {/* Download Resume */}
         <div className="text-center mt-16">
           <a href="#" className="inline-flex items-center text-primary hover:text-primary/80 transition-colors link-underline">
             <Briefcase size={16} className="mr-2" />

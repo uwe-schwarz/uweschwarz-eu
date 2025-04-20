@@ -75,7 +75,7 @@ const HeroSection = () => {
                 size="lg"
                 className="rounded-full shadow-lg hover-scale"
               >
-                <a href="#projects">{t(hero.ctaPrimary)}</a>
+                <a href="#experience">{t(hero.ctaPrimary)}</a>
               </Button>
 
               <Button
