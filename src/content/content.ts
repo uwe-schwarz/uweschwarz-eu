@@ -54,7 +54,7 @@ export interface Project {
   description: LocalizedString;
   imageUrl: string;
   imageAlt: LocalizedString;
-  tags: string[];
+  tags: LocalizedString[];
   demoUrl?: string;
   repoUrl?: string;
 }
@@ -62,7 +62,7 @@ export interface Project {
 export interface Skill {
   name: string;
   icon: string;
-  category: "frontend" | "backend" | "tools" | "ai";
+  category: "security" | "infrastructure" | "tools" | "management";
   level: number;
 }
 
@@ -70,10 +70,10 @@ export interface SkillsSection {
   title: LocalizedString;
   subtitle: LocalizedString;
   categories: {
-    frontend: LocalizedString;
-    backend: LocalizedString;
+    security: LocalizedString;
+    infrastructure: LocalizedString;
     tools: LocalizedString;
-    ai: LocalizedString;
+    management: LocalizedString;
   };
 }
 
@@ -176,10 +176,6 @@ export interface SiteContent {
       light: LocalizedString;
       dark: LocalizedString;
     };
-  };
-  projectsLabels: {
-    demo: LocalizedString;
-    code: LocalizedString;
   };
   backToHome: LocalizedString;
   experienceSectionTitle: LocalizedString;
@@ -368,6 +364,7 @@ export const siteContent: SiteContent = {
         {en: "Atlassian Confluence", de: "Atlassian Confluence"},
         {en: "Microsoft Project", de: "Microsoft Project"},
         {en: "ServiceNow", de: "ServiceNow"},
+        {en: "Rubrik Security Cloud", de: "Rubrik Security Cloud"},
       ],
     },
     {
@@ -511,10 +508,9 @@ export const siteContent: SiteContent = {
       ],
       tags: [
         {en: "Team Management", de: "Teamleitung"},
-        {en: "Atlassian Jira", de: "Atlassian Jira"},
-        {en: "Atlassian Confluence", de: "Atlassian Confluence"},
+        {en: "Atlassian Jira & Confluence", de: "Atlassian Jira & Confluence"},
+        {en: "dovecot & postfix", de: "dovecot & postfix"},
         {en: "Microsoft Azure", de: "Microsoft Azure"},
-        {en: "Microsoft 365", de: "Microsoft 365"},
         {en: "IPv6", de: "IPv6"},
         {en: "High-Availability", de: "Hochverfügbarkeit"},
         {en: "Load Balancing", de: "Lastverteilung"},
@@ -528,81 +524,111 @@ export const siteContent: SiteContent = {
   projects: [
     {
       title: {
-        en: "AI-Powered Recommendation Engine",
-        de: "KI-gestützte Empfehlungs-Engine",
+        en: "Secure Mail Archive",
+        de: "Rechtssicheres Mailarchiv",
       },
       description: {
-        en: "A machine learning system that analyzes user behavior and provides personalized content recommendations. Utilizes collaborative filtering and deep learning models.",
-        de: "Ein Machine-Learning-System, das das Nutzerverhalten analysiert und personalisierte Inhaltsempfehlungen liefert. Nutzt kollaboratives Filtern und Deep-Learning-Modelle.",
+        en: "Coordination and development of a legally compliant email archiving solution for over 50,000 users – featuring immutable storage for 10+ years and enterprise-wide compliance.",
+        de: "Koordination und Entwicklung eines rechtssicheren Mailarchivs für über 50.000 Nutzer – mit unveränderbarer Speicherung für 10+ Jahre und unternehmensweiter Compliance.",
       },
-      imageUrl: "/placeholder.svg",
+      imageUrl: "/projects/mailarchive.png",
       imageAlt: {
-        en: "Recommendation Engine Dashboard",
-        de: "Empfehlungs-Engine Dashboard",
+        en: "Illustration of a legally compliant email archiving system: Includes an envelope icon, two database stacks, a filing cabinet, a clock, a calendar labeled ‘10+’, and a shield with a checkmark. Represents long-term, immutable email retention, security, and compliance for over 50,000 users.",
+        de: "Symbolgrafik zum rechtssicheren E-Mail-Archiv: Zu sehen sind ein E-Mail-Symbol, zwei Datenbankstapel, ein Aktenschrank, eine Uhr, ein Kalender mit der Aufschrift ‚10+‘ sowie ein Schutzschild mit Haken. Die Illustration steht für langfristige, unveränderbare E-Mail-Aufbewahrung, Sicherheit und Compliance für über 50.000 Nutzer.",
       },
-      tags: ["TensorFlow", "Python", "React", "AWS", "Machine Learning"],
-      demoUrl: "#",
-      repoUrl: "https://github.com",
+      tags: [
+        {en: "dovecot", de: "dovecot"},
+        {en: "postfix", de: "postfix"},
+        {en: "Linux", de: "Linux"},
+        {en: "CentOS", de: "CentOS"},
+      ],
+/*      demoUrl: "#",
+      repoUrl: "https://github.com",*/
     },
     {
-      title: {
-        en: "Enterprise Resource Planning System",
-        de: "Enterprise Resource Planning System",
+      "title": {
+        "en": "SOC 2 & ISO 27001 Certification",
+        "de": "SOC 2 & ISO 27001 Zertifizierung"
       },
-      description: {
-        en: "A comprehensive ERP solution for manufacturing companies. Features include inventory management, production planning, and financial reporting.",
-        de: "Eine umfassende ERP-Lösung für Fertigungsunternehmen. Funktionen umfassen Bestandsverwaltung, Produktionsplanung und Finanzberichterstattung.",
+      "description": {
+        "en": "Led the successful implementation of SOC 2 and ISO 27001 compliance frameworks, establishing robust information security policies and controls to meet industry standards and ensure data protection.",
+        "de": "Leitung der erfolgreichen Implementierung der SOC 2- und ISO 27001-Compliance-Frameworks, Aufbau robuster Informationssicherheitsrichtlinien und -kontrollen zur Einhaltung von Industriestandards und Gewährleistung des Datenschutzes."
       },
-      imageUrl: "/placeholder.svg",
-      imageAlt: { en: "ERP System Interface", de: "ERP-System-Schnittstelle" },
-      tags: ["Angular", "Node.js", "MongoDB", "Docker", "Redis"],
-      demoUrl: "#",
+      "imageUrl": "/projects/soc2_cert.png",
+      "imageAlt": {
+        "en": "Illustration representing SOC 2 and ISO 27001 certification: Shows a certification document with checkmarks for “SOC 2” and “ISO 27001”, a security shield, a padlock, and a secured database icon. The graphic symbolizes information security, compliance, and audit-proof data processing.",
+        "de": "Illustration zur Darstellung der SOC 2- und ISO 27001-Zertifizierung: Zu sehen sind ein Zertifizierungsdokument mit Häkchen bei „SOC 2“ und „ISO 27001“, ein Sicherheitsschild, ein Vorhängeschloss und ein gesichertes Datenbanksymbol. Die Grafik steht für Informationssicherheit, Compliance und revisionssichere Datenverarbeitung."
+      },
+      tags: [
+        {en: "SOC 2", de: "SOC 2"},
+        {en: "ISO 27001", de: "ISO 27001"},
+        {en: "Information Security", de: "Informationssicherheit"},
+        {en: "Compliance", de: "Compliance"},
+      ],
     },
     {
-      title: {
-        en: "Blockchain-based Supply Chain",
-        de: "Blockchain-basierte Lieferkette",
+      "title": {
+        "en": "Backup Infrastructure Modernization with Rubrik",
+        "de": "Modernisierung der Backup-Infrastruktur mit Rubrik"
       },
-      description: {
-        en: "A supply chain tracking system built on blockchain technology. Ensures transparency and traceability of products from manufacturer to consumer.",
-        de: "Ein auf Blockchain-Technologie basierendes System zur Verfolgung von Lieferketten. Gewährleistet Transparenz und Rückverfolgbarkeit von Produkten vom Hersteller zum Verbraucher.",
+      "description": {
+        "en": "Modernized the existing backup infrastructure by implementing Rubrik's enterprise backup solution, enhancing data protection, reducing recovery times, and simplifying management across hybrid environments.",
+        "de": "Modernisierung der bestehenden Backup-Infrastruktur durch Implementierung von Rubriks Enterprise-Backup-Lösung, Verbesserung des Datenschutzes, Reduzierung der Wiederherstellungszeiten und Vereinfachung des Managements in hybriden Umgebungen."
       },
-      imageUrl: "/placeholder.svg",
-      imageAlt: { en: "Supply Chain Dashboard", de: "Lieferketten-Dashboard" },
-      tags: ["Ethereum", "Solidity", "React", "Node.js", "Web3.js"],
-      repoUrl: "https://github.com",
-    },
+      "imageUrl": "/projects/backup_rubrik.png",
+      "imageAlt": {
+        "en": "Illustration depicting backup modernization with Rubrik: Features icons of secure cloud storage, data stacks, a recovery arrow, a laptop with an integration symbol, and the Rubrik logo. Represents modern data protection, fast recovery, and seamless system integration.",
+        "de": "Illustration zur Backup-Modernisierung mit Rubrik: Zu sehen sind Symbole für Cloud-Speicherung mit Sicherheitsschild, Datenbanken, ein Wiederherstellungspfeil, ein Laptop mit Integrationssymbol sowie das Rubrik-Logo. Die Grafik steht für moderne Datensicherung, schnelle Wiederherstellung und nahtlose Systemintegration."
+      },
+      tags: [
+        {en: "Rubrik", de: "Rubrik"},
+        {en: "Backup", de: "Backup"},
+        {en: "Data Protection", de: "Datenschutz"},
+        {en: "Hybrid Cloud", de: "Hybrid Cloud"},
+      ],
+    }
   ],
   skills: [
-    // Frontend
-    { name: "React", icon: "code", category: "frontend", level: 5 },
-    { name: "TypeScript", icon: "braces", category: "frontend", level: 5 },
-    { name: "Angular", icon: "code", category: "frontend", level: 4 },
-    { name: "Vue.js", icon: "code", category: "frontend", level: 3 },
-    { name: "HTML/CSS", icon: "file-code", category: "frontend", level: 5 },
-    { name: "Tailwind CSS", icon: "palette", category: "frontend", level: 5 },
+    // Security & Compliance
+    { name: "ISO27001", icon: "shield-check", category: "security", level: 3 },
+    { name: "SOC2", icon: "shield-check", category: "security", level: 5 },
+    { name: "GDPR / DSGVO", icon: "landmark", category: "security", level: 5 },
+    { name: "NIST Framework", icon: "book-check", category: "security", level: 4 },
+    { name: "MITRE ATT&CK", icon: "swords", category: "security", level: 4 },
+    { name: "BSI Grundschutz", icon: "book-check", category: "security", level: 5 },
+    { name: "Security Policy Dev.", icon: "file-check-2", category: "security", level: 5 },
+    { name: "Risk Management", icon: "alert-triangle", category: "security", level: 4 },
+    { name: "Vulnerability Mgmt.", icon: "scan-search", category: "security", level: 4 },
+    { name: "Incident Response", icon: "siren", category: "security", level: 5 },
+    { name: "Penetration Testing Mgmt.", icon: "bug", category: "security", level: 5 },
 
-    // Backend
-    { name: "Node.js", icon: "server", category: "backend", level: 5 },
-    { name: "Python", icon: "terminal", category: "backend", level: 4 },
-    { name: "Java", icon: "coffee", category: "backend", level: 4 },
-    { name: "PostgreSQL", icon: "database", category: "backend", level: 4 },
-    { name: "MongoDB", icon: "database", category: "backend", level: 5 },
-    { name: "GraphQL", icon: "git-branch", category: "backend", level: 4 },
+    // Infrastructure & Operations
+    { name: "Linux: Debian, Ubuntu, RHEL", icon: "server", category: "infrastructure", level: 5 },
+    { name: "Unix: FreeBSD, OpenBSD, Solaris", icon: "server-cog", category: "infrastructure", level: 3 },
+    { name: "macOS", icon: "laptop", category: "infrastructure", level: 5 },
+    { name: "Windows Server", icon: "server", category: "infrastructure", level: 3 },
+    { name: "High Availability Systems", icon: "server-cog", category: "infrastructure", level: 5 },
+    { name: "Data Center Operations", icon: "database", category: "infrastructure", level: 4 },
+    { name: "TCP/IP, DNS, DHCP", icon: "network", category: "infrastructure", level: 5 },
+    { name: "IPv6", icon: "network", category: "infrastructure", level: 4 },
 
-    // Tools
+    // Tools & Automation
+    { name: "Bash / Shell Scripting", icon: "terminal", category: "tools", level: 5 },
+    { name: "Python", icon: "terminal", category: "tools", level: 4 },
+    { name: "Postfix / Dovecot", icon: "mail", category: "tools", level: 5 },
+    { name: "Bind / Unbound", icon: "globe", category: "tools", level: 5 },
+    { name: "Squid Proxy", icon: "shield", category: "tools", level: 4 },
+    { name: "HAProxy", icon: "git-compare-arrows", category: "tools", level: 4 },
+    { name: "Puppet", icon: "bot", category: "tools", level: 3 },
     { name: "Git", icon: "git-branch", category: "tools", level: 5 },
-    { name: "Docker", icon: "box", category: "tools", level: 4 },
-    { name: "Kubernetes", icon: "layers", category: "tools", level: 3 },
-    { name: "AWS", icon: "cloud", category: "tools", level: 4 },
-    { name: "CI/CD", icon: "refresh-cw", category: "tools", level: 4 },
+    { name: "Docker", icon: "box", category: "tools", level: 3 },
 
-    // AI
-    { name: "TensorFlow", icon: "brain", category: "ai", level: 3 },
-    { name: "PyTorch", icon: "zap", category: "ai", level: 3 },
-    { name: "LangChain", icon: "link", category: "ai", level: 4 },
-    { name: "LLM Fine-tuning", icon: "settings", category: "ai", level: 3 },
-    { name: "Prompt Engineering", icon: "edit", category: "ai", level: 5 },
+    // Management & Strategy
+    { name: "Project Management", icon: "list-checks", category: "management", level: 5 },
+    { name: "Team Leadership", icon: "users", category: "management", level: 5 },
+    { name: "Stakeholder Communication", icon: "message-circle", category: "management", level: 5 },
+    { name: "IT Strategy", icon: "route", category: "management", level: 4 },
+    { name: "Technical Concepts", icon: "file-text", category: "management", level: 5 },
   ],
   skillsSection: {
     title: {
@@ -610,14 +636,14 @@ export const siteContent: SiteContent = {
       de: "Fähigkeiten & Technologien",
     },
     subtitle: {
-      en: "The tools I use to bring ideas to life",
-      de: "Die Werkzeuge, mit denen ich Ideen zum Leben erwecke",
+      en: "The tools I rely on to build secure and scalable IT systems",
+      de: "Die Werkzeuge, auf die ich für sichere und skalierbare IT-Systeme setze",
     },
     categories: {
-      frontend: { en: "Frontend", de: "Frontend" },
-      backend: { en: "Backend", de: "Backend" },
+      security: { en: "Security", de: "Sicherheit" },
+      infrastructure: { en: "Infrastructure", de: "Infrastruktur" },
       tools: { en: "Tools & DevOps", de: "Tools & DevOps" },
-      ai: { en: "AI & ML", de: "KI & ML" },
+      management: { en: "Management", de: "Management" },
     },
   },
   contact: {
@@ -897,10 +923,6 @@ export const siteContent: SiteContent = {
         de: "Zum dunklen Design wechseln",
       },
     },
-  },
-  projectsLabels: {
-    demo: { en: "Live Demo", de: "Live Demo" },
-    code: { en: "Code", de: "Code" },
   },
   backToHome: { en: "Back to Home", de: "Zurück zur Startseite" },
   experienceSectionTitle: { en: "Experience", de: "Berufserfahrung" },

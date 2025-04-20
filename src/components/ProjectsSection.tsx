@@ -27,12 +27,13 @@ const ProjectsSection = () => {
               {/* Project Image */}
               <div className="aspect-video relative">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/40 to-accent/40 flex items-center justify-center">
-                  <p className="text-center px-4 text-white">
-                    [Project image placeholder]<br/>
-                    <span className="text-xs block mt-1">
-                      Image prompt for project: "{t(project.imageAlt)}, minimalist illustration style with tech theme"
-                    </span>
-                  </p>
+                {project.imageUrl && (
+                      <img
+                        src={project.imageUrl}
+                        alt={`${t(project.imageAlt)}`}
+                        className="object-contain max-h-48 max-w-64 h-auto mx-auto"
+                      />
+                    )}
                 </div>
               </div>
               
@@ -48,31 +49,11 @@ const ProjectsSection = () => {
                 <div className="flex flex-wrap gap-2 mb-6">
                   {project.tags.map((tag, tagIndex) => (
                     <Badge key={tagIndex} variant="outline" className="font-normal">
-                      {tag}
+                      {t(tag)}
                     </Badge>
                   ))}
                 </div>
-                
-                {/* Links */}
-                <div className="flex gap-4">
-                  {project.demoUrl && (
-                    <Button asChild variant="default" size="sm" className="gap-2">
-                      <a href={project.demoUrl} target="_blank" rel="noreferrer">
-                        <ExternalLink size={14} />
-                        <span>{t(siteContent.projectsLabels.demo)}</span>
-                      </a>
-                    </Button>
-                  )}
-                  
-                  {project.repoUrl && (
-                    <Button asChild variant="outline" size="sm" className="gap-2">
-                      <a href={project.repoUrl} target="_blank" rel="noreferrer">
-                        <Github size={14} />
-                        <span>{t(siteContent.projectsLabels.code)}</span>
-                      </a>
-                    </Button>
-                  )}
-                </div>
+
               </div>
             </div>
           ))}
