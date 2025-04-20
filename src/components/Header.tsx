@@ -138,7 +138,7 @@ const Header = () => {
                     ) : (
                       <Link
                         key={item.href}
-                        to={`/${item.href.replace('#', '')}`}
+                        to={`/${item.href}`}
                         className="text-xl font-medium text-foreground hover:text-primary transition-colors"
                       >
                         {t(item.label)}
