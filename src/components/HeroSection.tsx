@@ -106,7 +106,7 @@ const HeroSection = () => {
                     <Avatar className="w-full h-full">
                       <AvatarImage
                         src="/profile.jpg"
-                        alt="Profile picture"
+                        alt={t(hero.imageAlt)}
                         className="object-cover w-full h-full"
                       />
                       <AvatarFallback className="text-4xl md:text-5xl font-bold">

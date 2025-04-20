@@ -10,6 +10,7 @@ export interface NavItem {
 
 export interface HeroSection {
   name: string;
+  imageAlt: LocalizedString;
   titleElements: LocalizedString[];
   description: LocalizedString;
   ctaPrimary: LocalizedString;
@@ -200,6 +201,10 @@ export const siteContent: SiteContent = {
   ],
   hero: {
     name: "Uwe Schwarz",
+    imageAlt: {
+      en: "Portrait photo of Uwe",
+      de: "Portraitfoto von Uwe",
+    },
     titleElements: [
       {
         en: "Project Manager",
@@ -269,8 +274,8 @@ export const siteContent: SiteContent = {
       },
     ],
     imageAlt: {
-      en: "Portrait photo of me at my workspace",
-      de: "Porträtfoto von mir an meinem Arbeitsplatz",
+      en: "Illustration of Uwe in three roles: at the top, he is working on a computer with green code on the screen, symbolically supported by an AI. At the bottom left, he explains a network diagram on a flipchart, and at the bottom right, he gives a presentation with a progress chart. The scenes are connected by flowing lines, representing the seamless transition between technology, planning, and communication.",
+      de: "Illustration von Uwe in drei Rollen: oben arbeitet er am Computer mit grünem Code auf dem Bildschirm, symbolisch unterstützt von einer KI. Unten links erklärt er ein Netzwerk-Diagramm auf einem Flipchart, und unten rechts hält er eine Präsentation mit einem Fortschrittsdiagramm. Die Szenen sind durch geschwungene Linien verbunden, was den fließenden Übergang zwischen Technik, Planung und Kommunikation darstellt.",
     },
     labels: {
       experience: { en: "Years of Experience", de: "Jahre Erfahrung" },

@@ -40,11 +40,11 @@ const AboutSection = () => {
             <div className="relative">
               {/* Main image */}
               <div className="rounded-lg overflow-hidden shadow-xl hover-scale border-4 border-white dark:border-gray-800">
-                <img 
-                  src="/about-me.png" 
-                  alt="Uwe Schwarz" 
-                  className="w-full h-full object-cover aspect-[4/5]"
-                />
+                <div className="bg-gradient-to-br from-primary/40 to-accent/40 aspect-[4/5] flex items-center justify-center">
+                  <img src="/about-me.png"
+                    alt={t(about.imageAlt)}
+                    className="size-4/5 object-cover aspect-[4/5]" />
+                </div>
               </div>
               
               {/* Decorative elements */}
