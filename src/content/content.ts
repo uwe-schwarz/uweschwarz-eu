@@ -62,7 +62,7 @@ export interface Project {
 export interface Skill {
   name: string;
   icon: string;
-  category: "security" | "infrastructure" | "tools" | "management";
+  category: "management" | "security" | "infrastructure" | "tools";
   level: number;
 }
 
@@ -155,7 +155,7 @@ export interface SiteContent {
     author: string;
   };
   projectsSectionTitle: { en: string; de: string };
-  projectsSectionMore: { en: string; de: string };
+  projectsSectionMore?: { en: string; de: string };
   navigation: NavItem[];
   hero: HeroSection;
   about: AboutSection;
@@ -194,7 +194,7 @@ export const siteContent: SiteContent = {
     author: "Uwe Schwarz",
   },
   projectsSectionTitle: { en: "Featured Projects", de: "Ausgewählte Projekte" },
-  projectsSectionMore: { en: "View More Projects on GitHub", de: "Mehr Projekte auf GitHub ansehen" },
+/*  projectsSectionMore: { en: "View More Projects on GitHub", de: "Mehr Projekte auf GitHub ansehen" }, */
   navigation: [
     { label: { en: "Home", de: "Start" }, href: "#hero" },
     { label: { en: "About", de: "Über mich" }, href: "#about" },

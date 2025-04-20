@@ -59,14 +59,16 @@ const ProjectsSection = () => {
           ))}
         </div>
         
-        <div className="text-center mt-12">
-          <Button asChild variant="link" className="text-primary hover:text-primary/80">
-            <a href="https://github.com" target="_blank" rel="noreferrer">
-              {t(siteContent.projectsSectionMore)}
-              <ArrowRight size={16} className="ml-2" />
-            </a>
-          </Button>
-        </div>
+        {siteContent.projectsSectionMore && (
+          <div className="text-center mt-12">
+            <Button asChild variant="link" className="text-primary hover:text-primary/80">
+              <a href="https://github.com/uwe-schwarz" target="_blank" rel="noreferrer">
+                {t(siteContent.projectsSectionMore)}  
+                <ArrowRight size={16} className="ml-2" />
+              </a>
+            </Button>
+          </div>
+        )}
       </div>
     </section>
   );

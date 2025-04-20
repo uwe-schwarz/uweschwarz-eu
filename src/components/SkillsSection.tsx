@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/SettingsContext";
@@ -85,9 +84,7 @@ const getSkillIcon = (iconName: string) => {
 const SkillsSection = () => {
   const { t } = useSettings();
   const { skills, skillsSection } = siteContent;
-  const [activeTab, setActiveTab] = useState<
-    "frontend" | "backend" | "tools" | "ai"
-  >("frontend");
+  const [activeTab, setActiveTab] = useState<"management" | "security" | "infrastructure" | "tools">("management");
 
   // Filter skills by category
   const filteredSkills = skills.filter((skill) => skill.category === activeTab);
@@ -105,12 +102,18 @@ const SkillsSection = () => {
 
         <div className="max-w-4xl mx-auto">
           <Tabs
-            defaultValue="security"
+            defaultValue="management"
             onValueChange={(value) => setActiveTab(value as any)}
             className="w-full"
           >
             <div className="flex justify-center mb-8">
               <TabsList className="flex-nowrap h-12">
+                <TabsTrigger value="management" className="gap-2 text-lg">
+                  <Briefcase className="w-5 h-5" />
+                  <span className="hidden sm:inline">
+                    {t(skillsSection.categories.management)}
+                  </span>
+                </TabsTrigger>
                 <TabsTrigger value="security" className="gap-2 text-lg">
                   <ShieldCheck className="w-5 h-5" />
                   <span className="hidden sm:inline">
@@ -127,12 +130,6 @@ const SkillsSection = () => {
                   <Wrench className="w-5 h-5" />
                   <span className="hidden sm:inline">
                     {t(skillsSection.categories.tools)}
-                  </span>
-                </TabsTrigger>
-                <TabsTrigger value="management" className="gap-2 text-lg">
-                  <Briefcase className="w-5 h-5" />
-                  <span className="hidden sm:inline">
-                    {t(skillsSection.categories.management)}
                   </span>
                 </TabsTrigger>
               </TabsList>
