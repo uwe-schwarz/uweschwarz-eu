@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Moon, Sun, Menu, X } from "lucide-react";
+import { Moon, Sun, Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useSettings } from "@/contexts/SettingsContext";
 import { siteContent } from "@/content/content";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { Link, useLocation } from "react-router-dom";
+
 const Header = () => {
   const { language, setLanguage, theme, setTheme, t } = useSettings();
   const [isScrolled, setIsScrolled] = useState(false);
   const isMobile = useIsMobile();
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   // Toggle for handling theme changes
   const toggleTheme = () => {
@@ -29,6 +33,7 @@ const Header = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -38,24 +43,33 @@ const Header = () => {
       }`}
     >
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        {/* Logo */}
-        <a
-          href="#hero"
+        <Link
+          to="/"
           className="text-2xl font-display font-bold text-foreground"
         >
           <span className="text-gradient text-4xl">Uwe Schwarz</span>
-        </a>
+        </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-6">
           {siteContent.navigation.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className="text-lg font-medium text-foreground hover:text-primary transition-colors link-underline"
-            >
-              {t(item.label)}
-            </a>
+            isHomePage ? (
+              <a
+                key={item.href}
+                href={item.href}
+                className="text-lg font-medium text-foreground hover:text-primary transition-colors link-underline"
+              >
+                {t(item.label)}
+              </a>
+            ) : (
+              <Link
+                key={item.href}
+                to={`/${item.href.replace('#', '')}`}
+                className="text-lg font-medium text-foreground hover:text-primary transition-colors link-underline"
+              >
+                {t(item.label)}
+              </Link>
+            )
           ))}
         </nav>
 
@@ -87,7 +101,7 @@ const Header = () => {
           </Button>
         </div>
 
-        {/* Mobile Menu using Sheet component */}
+        {/* Mobile Menu */}
         {isMobile && (
           <Sheet>
             <SheetTrigger asChild>
@@ -106,20 +120,30 @@ const Header = () => {
             >
               <div className="flex flex-col h-full">
                 <div className="border-b border-gray-200 dark:border-gray-800 py-4 px-6">
-                  <a href="#hero" className="text-2xl font-display font-bold">
+                  <Link to="/" className="text-2xl font-display font-bold">
                     <span className="text-gradient">Uwe Schwarz</span>
-                  </a>
+                  </Link>
                 </div>
 
                 <div className="flex-1 flex flex-col justify-center items-center space-y-6 py-8">
                   {siteContent.navigation.map((item) => (
-                    <a
-                      key={item.href}
-                      href={item.href}
-                      className="text-xl font-medium text-foreground hover:text-primary transition-colors"
-                    >
-                      {t(item.label)}
-                    </a>
+                    isHomePage ? (
+                      <a
+                        key={item.href}
+                        href={item.href}
+                        className="text-xl font-medium text-foreground hover:text-primary transition-colors"
+                      >
+                        {t(item.label)}
+                      </a>
+                    ) : (
+                      <Link
+                        key={item.href}
+                        to={`/${item.href.replace('#', '')}`}
+                        className="text-xl font-medium text-foreground hover:text-primary transition-colors"
+                      >
+                        {t(item.label)}
+                      </Link>
+                    )
                   ))}
                 </div>
 
@@ -156,4 +180,5 @@ const Header = () => {
     </header>
   );
 };
+
 export default Header;

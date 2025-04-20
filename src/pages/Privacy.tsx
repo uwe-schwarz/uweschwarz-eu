@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useSettings } from '@/contexts/SettingsContext';
 import { siteContent } from '@/content/content';
@@ -6,10 +7,12 @@ import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useScrollToTop } from '@/hooks/use-scroll-to-top';
 
 const Privacy = () => {
   const { t } = useSettings();
   const { privacy } = siteContent;
+  useScrollToTop();
 
   return (
     <div className="min-h-screen flex flex-col">
