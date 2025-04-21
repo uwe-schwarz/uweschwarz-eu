@@ -122,7 +122,7 @@ const ContactSection = () => {
                     </p>
                     <a
                       href={`mailto:${contact.email}`}
-                      className="text-foreground hover:text-primary transition-colors"
+                      className="text-foreground hover:text-primary transition-colors link-underline"
                     >
                       {contact.email}
                     </a>
@@ -137,7 +137,7 @@ const ContactSection = () => {
                     <p className="text-sm text-muted-foreground">
                       {t(contact.phoneLabel)}
                     </p>
-                    <a href={`tel:${contact.phone}`} className="text-foreground hover:text-primary transition-colors">
+                    <a href={`tel:${contact.phone}`} className="text-foreground hover:text-primary transition-colors link-underline">
                       {contact.phone}
                     </a>
                   </div>

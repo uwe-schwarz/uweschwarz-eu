@@ -31,7 +31,7 @@ const Footer = () => {
               <Link
                 key={index}
                 to={link.href}
-                className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                className="text-sm text-muted-foreground hover:text-primary transition-colors link-underline"
               >
                 {t(link.label)}
               </Link>

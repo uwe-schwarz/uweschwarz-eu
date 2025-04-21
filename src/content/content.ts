@@ -145,9 +145,11 @@ export interface ImprintSection {
 
 export interface PrivacySection {
   title: LocalizedString;
+  subtitle: LocalizedString;
   sections: Array<{
     title: LocalizedString;
     paragraphs: LocalizedString[];
+    list?: LocalizedString[];
   }>;
 }
 
@@ -800,122 +802,142 @@ export const siteContent: SiteContent = {
   privacy: {
     title: {
       en: "Privacy Policy",
-      de: "Datenschutzerklärung",
+      de: "Datenschutzerklärung"
+    },
+    subtitle: {
+      en: "Last updated: April 21, 2025",
+      de: "Letzte Aktualisierung: 21. April 2025"
     },
     sections: [
       {
         title: {
           en: "1. General Information",
-          de: "1. Allgemeine Informationen",
+          de: "1. Allgemeine Informationen"
         },
         paragraphs: [
           {
             en: "The protection of your personal data is important to me. This Privacy Policy explains how I collect, use, process, and share your information, including personal data, in connection with your access to and use of my website.",
-            de: "Der Schutz Ihrer persönlichen Daten ist mir wichtig. Diese Datenschutzerklärung erläutert, wie ich Ihre Informationen, einschließlich personenbezogener Daten, im Zusammenhang mit Ihrem Zugriff auf und der Nutzung meiner Website sammle, verwende, verarbeite und weitergebe.",
+            de: "Der Schutz Deiner persönlichen Daten ist mir wichtig. Diese Datenschutzerklärung erläutert, wie ich Deine Informationen, einschließlich personenbezogener Daten, im Zusammenhang mit Deinem Zugriff auf und der Nutzung meiner Website sammle, verwende, verarbeite und weitergebe."
           },
           {
             en: "By using the website, you consent to the collection and use of information in accordance with this policy.",
-            de: "Durch die Nutzung der Website stimmen Sie der Erfassung und Verwendung von Informationen gemäß dieser Richtlinie zu.",
-          },
-        ],
+            de: "Durch die Nutzung der Website stimmst Du der Erfassung und Verwendung von Informationen gemäß dieser Richtlinie zu."
+          }
+        ]
       },
       {
         title: {
           en: "2. Collection of Personal Data",
-          de: "2. Erhebung personenbezogener Daten",
+          de: "2. Erhebung personenbezogener Daten"
         },
         paragraphs: [
           {
             en: "When you interact with my website, I may collect certain information about you, such as:",
-            de: "Wenn Sie mit meiner Website interagieren, kann ich bestimmte Informationen über Sie sammeln, wie zum Beispiel:",
+            de: "Wenn Du mit meiner Website interagierst, kann ich bestimmte Informationen über Dich sammeln, wie zum Beispiel:"
+          }
+        ],
+        list: [
+          {
+            en: "Contact information (such as name, email address) that you voluntarily provide when using the contact form;",
+            de: "Kontaktinformationen (wie Name, E‑Mail‑Adresse), die Du freiwillig angibst, wenn Du das Kontaktformular nutzt;"
           },
           {
-            en: "- Contact information (such as name, email address) that you voluntarily provide when using the contact form;\n- Technical information about your device and internet connection, including your IP address, browser type, and operating system;\n- Information about your use of the website, including the pages you visit and the time and date of your visits.",
-            de: "- Kontaktinformationen (wie Name, E-Mail-Adresse), die Sie freiwillig angeben, wenn Sie das Kontaktformular nutzen;\n- Technische Informationen über Ihr Gerät und Ihre Internetverbindung, einschließlich Ihrer IP-Adresse, Browser-Typ und Betriebssystem;\n- Informationen über Ihre Nutzung der Website, einschließlich der von Ihnen besuchten Seiten und des Zeitpunkts Ihrer Besuche.",
+            en: "Technical information about your device and internet connection, including your IP address, browser type, and operating system;",
+            de: "Technische Informationen über Dein Gerät und Deine Internetverbindung, einschließlich Deiner IP‑Adresse, Deines Browser‑Typs und Betriebssystems;"
           },
-        ],
+          {
+            en: "Information about your use of the website, including the pages you visit and the time and date of your visits.",
+            de: "Informationen über Deine Nutzung der Website, einschließlich der von Dir besuchten Seiten und des Zeitpunkts Deiner Besuche."
+          }
+        ]
       },
       {
         title: {
-          en: "3. Use of Personal Data",
-          de: "3. Verwendung personenbezogener Daten",
+          en: "3. Use of Third‑Party Services",
+          de: "3. Einsatz von Drittanbieter‑Diensten"
         },
         paragraphs: [
           {
-            en: "I use the collected data for the following purposes:",
-            de: "Ich verwende die erhobenen Daten für folgende Zwecke:",
+            en: "This site is hosted by Cloudflare; I do not have direct access to server logs or your IP address there. For the contact form, I use a Supabase Edge Function which sends emails via Resend. Only the data you enter into the form is forwarded – no other personal data is stored.",
+            de: "Diese Seite wird bei Cloudflare gehostet; ich habe dort keinen direkten Zugriff auf Server‑Logs oder Deine IP‑Adresse. Für das Kontaktformular nutze ich eine Supabase Edge‑Function, die E‑Mails über Resend versendet. Es werden nur die von Dir im Formular eingegebenen Daten weitergeleitet – weitere personenbezogene Daten werden nicht gespeichert."
+          }
+        ],
+        list: [
+          {
+            en: "Cloudflare: 101 Townsend St, San Francisco, CA 94107, USA",
+            de: "Cloudflare: 101 Townsend St, San Francisco, CA 94107, USA"
           },
           {
-            en: "- To provide and maintain the website;\n- To respond to your inquiries and fulfill your requests;\n- To improve the website and user experience;\n- To analyze usage patterns and administer the website.",
-            de: "- Um die Website bereitzustellen und zu pflegen;\n- Um auf Ihre Anfragen zu antworten und Ihre Wünsche zu erfüllen;\n- Um die Website und die Benutzererfahrung zu verbessern;\n- Um Nutzungsmuster zu analysieren und die Website zu verwalten.",
+            en: "Supabase, Inc.: 970 Toa Payoh North #07‑04, Singapore 318992",
+            de: "Supabase, Inc.: 970 Toa Payoh North #07‑04, Singapore 318992"
           },
-        ],
+          {
+            en: "Resend: 2261 Market Street #5039, San Francisco, CA 94114, USA",
+            de: "Resend: 2261 Market Street #5039, San Francisco, CA 94114, USA"
+          }
+        ]
       },
       {
         title: {
-          en: "4. Cookies",
-          de: "4. Cookies",
+          en: "4. Cookies and Local Storage",
+          de: "4. Cookies und Local Storage"
         },
         paragraphs: [
           {
-            en: "This website uses cookies to enhance your browsing experience. Cookies are small text files that are stored on your device when you visit a website. They help me analyze web traffic and customize content to your preferences.",
-            de: "Diese Website verwendet Cookies, um Ihr Surferlebnis zu verbessern. Cookies sind kleine Textdateien, die auf Ihrem Gerät gespeichert werden, wenn Sie eine Website besuchen. Sie helfen mir, den Webverkehr zu analysieren und Inhalte an Ihre Präferenzen anzupassen.",
-          },
-          {
-            en: "You can control and/or delete cookies as you wish. You can delete all cookies that are already on your device and you can set most browsers to prevent them from being placed. However, if you do this, you may have to manually adjust some preferences every time you visit the website and some services and functionalities may not work.",
-            de: "Sie können Cookies nach Belieben kontrollieren und/oder löschen. Sie können alle Cookies löschen, die sich bereits auf Ihrem Gerät befinden, und Sie können die meisten Browser so einstellen, dass sie nicht platziert werden. Wenn Sie dies jedoch tun, müssen Sie möglicherweise einige Einstellungen bei jedem Besuch der Website manuell anpassen, und einige Dienste und Funktionalitäten funktionieren möglicherweise nicht.",
-          },
-        ],
+            en: "I do not use cookies. Only your language choice and theme preference are stored locally in your browser’s localStorage. You can clear this at any time in your browser settings.",
+            de: "Ich verwende keine Cookies. Lediglich Deine Sprachwahl und Theme‑Einstellung werden lokal im localStorage Deines Browsers gespeichert. Diese Daten kannst Du jederzeit über die Browsereinstellungen löschen."
+          }
+        ]
       },
       {
         title: {
-          en: "5. Data Security",
-          de: "5. Datensicherheit",
+          en: "5. External Links",
+          de: "5. Externe Links"
         },
         paragraphs: [
           {
-            en: "I take reasonable precautions to protect your personal data from loss, misuse, unauthorized access, disclosure, alteration, and destruction. However, no method of transmission over the Internet or electronic storage is 100% secure.",
-            de: "Ich ergreife angemessene Vorkehrungen, um Ihre personenbezogenen Daten vor Verlust, Missbrauch, unbefugtem Zugriff, Offenlegung, Veränderung und Vernichtung zu schützen. Keine Methode der Übertragung über das Internet oder der elektronischen Speicherung ist jedoch 100% sicher.",
-          },
-        ],
+            en: "The site contains links to GitHub, LinkedIn, Xing, X (formerly Twitter) and Bluesky. Since I embed no external content, clicking these links may transfer you to the respective platforms, whose privacy policies then apply.",
+            de: "Die Seite enthält Links zu GitHub, LinkedIn, Xing, X (ehemals Twitter) und Bluesky. Da keine externen Inhalte eingebunden sind, wirst Du beim Anklicken dieser Links auf die jeweiligen Plattformen weitergeleitet, deren Datenschutzerklärungen dann gelten."
+          }
+        ]
       },
       {
         title: {
-          en: "6. Your Rights",
-          de: "6. Ihre Rechte",
+          en: "6. Data Security",
+          de: "6. Datensicherheit"
         },
         paragraphs: [
           {
-            en: "Under applicable data protection laws, you have the following rights:",
-            de: "Nach den geltenden Datenschutzgesetzen haben Sie folgende Rechte:",
-          },
-          {
-            en: "- Right to access your personal data;\n- Right to rectification of inaccurate personal data;\n- Right to erasure of your personal data;\n- Right to restriction of processing of your personal data;\n- Right to data portability;\n- Right to object to the processing of your personal data.",
-            de: "- Recht auf Zugang zu Ihren personenbezogenen Daten;\n- Recht auf Berichtigung unrichtiger personenbezogener Daten;\n- Recht auf Löschung Ihrer personenbezogenen Daten;\n- Recht auf Einschränkung der Verarbeitung Ihrer personenbezogenen Daten;\n- Recht auf Datenübertragbarkeit;\n- Recht auf Widerspruch gegen die Verarbeitung Ihrer personenbezogenen Daten.",
-          },
-          {
-            en: "To exercise these rights, please contact me using the information provided in the Imprint section.",
-            de: "Um diese Rechte auszuüben, kontaktieren Sie mich bitte unter den im Impressum angegebenen Informationen.",
-          },
-        ],
+            en: "I take reasonable technical and organizational measures to protect your data against unauthorized access and loss. However, internet-based data transmission can never be 100% secure.",
+            de: "Ich ergreife angemessene technische und organisatorische Maßnahmen, um Deine Daten vor unbefugtem Zugriff und Verlust zu schützen. Eine 100%ige Sicherheit bei der Datenübertragung im Internet kann ich jedoch nicht garantieren."
+          }
+        ]
       },
       {
         title: {
           en: "7. Changes to This Privacy Policy",
-          de: "7. Änderungen dieser Datenschutzerklärung",
+          de: "7. Änderungen dieser Datenschutzerklärung"
         },
         paragraphs: [
           {
-            en: "I may update this Privacy Policy from time to time. I will notify you of any changes by posting the new Privacy Policy on this page and updating the effective date at the top of this Privacy Policy.",
-            de: "Ich kann diese Datenschutzerklärung von Zeit zu Zeit aktualisieren. Ich werde Sie über Änderungen informieren, indem ich die neue Datenschutzerklärung auf dieser Seite veröffentliche und das Datum des Inkrafttretens am Anfang dieser Datenschutzerklärung aktualisiere.",
-          },
-          {
-            en: "You are advised to review this Privacy Policy periodically for any changes.",
-            de: "Es wird empfohlen, diese Datenschutzerklärung regelmäßig auf Änderungen zu überprüfen.",
-          },
-        ],
+            en: "I may update this Privacy Policy at any time. The current version is published here with the date of last revision.",
+            de: "Ich kann diese Datenschutzerklärung jederzeit aktualisieren. Die jeweils aktuelle Version wird hier mit Datum der letzten Änderung veröffentlicht."
+          }
+        ]
       },
-    ],
+      {
+        title: {
+          en: "8. Contact",
+          de: "8. Kontakt"
+        },
+        paragraphs: [
+          {
+            en: "If you have questions about this Privacy Policy or your personal data, please use the contact form or write me directly at the email address provided there.",
+            de: "Wenn Du Fragen zu dieser Datenschutzerklärung oder Deinen persönlichen Daten hast, nutze bitte das Kontaktformular oder schreibe mir direkt an die dort angegebene E‑Mail‑Adresse."
+          }
+        ]
+      }
+    ]
   },
   translations: {
     languageSwitch: {

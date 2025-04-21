@@ -27,8 +27,9 @@ const Privacy = () => {
               </Button>
             </Link>
             
-            <h1 className="text-3xl font-bold mb-8">{t(privacy.title)}</h1>
-            
+            <h1 className="text-3xl font-bold mb-2">{t(privacy.title)}</h1>
+            <p className="text-sm mb-8">{t(privacy.subtitle)}</p>
+
             <div className="prose prose-lg dark:prose-invert max-w-none">
               {privacy.sections.map((section, index) => (
                 <section key={index} className="mb-8">
@@ -36,6 +37,13 @@ const Privacy = () => {
                   {section.paragraphs.map((paragraph, pIndex) => (
                     <p key={pIndex} className="mb-4">{t(paragraph)}</p>
                   ))}
+                  {section.list && (
+                    <ul className="list-disc pl-5 mb-4">
+                      {section.list.map((item, i) => (
+                        <li key={i}>{t(item)}</li>
+                      ))}
+                    </ul>
+                  )}
                 </section>
               ))}
             </div>
