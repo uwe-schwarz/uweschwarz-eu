@@ -13,6 +13,7 @@ const Header = () => {
   const isMobile = useIsMobile();
   const location = useLocation();
   const isHomePage = location.pathname === '/';
+  const [activeSection, setActiveSection] = useState<string>("hero");
 
   // Toggle for handling theme changes
   const toggleTheme = () => {
@@ -33,6 +34,28 @@ const Header = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (!isHomePage) return;
+    const handleScroll = () => {
+      const sectionIds = siteContent.navigation.map(item => item.href.replace('#', ''));
+      let current = sectionIds[0];
+      for (const id of sectionIds) {
+        const section = document.getElementById(id);
+        if (section) {
+          const rect = section.getBoundingClientRect();
+          if (rect.top <= 80 && rect.bottom > 80) {
+            current = id;
+            break;
+          }
+        }
+      }
+      setActiveSection(current);
+    };
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isHomePage]);
 
   return (
     <header
@@ -57,7 +80,7 @@ const Header = () => {
               <a
                 key={item.href}
                 href={item.href}
-                className="text-lg font-medium text-foreground hover:text-primary transition-colors link-underline"
+                className={`text-lg font-medium text-foreground hover:text-primary transition-colors link-underline${activeSection === item.href.replace('#', '') ? ' link-underline-active' : ''}`}
               >
                 {t(item.label)}
               </a>
@@ -131,7 +154,7 @@ const Header = () => {
                       <a
                         key={item.href}
                         href={item.href}
-                        className="text-xl font-medium text-foreground hover:text-primary transition-colors"
+                        className={`text-xl font-medium text-foreground hover:text-primary transition-colors${activeSection === item.href.replace('#', '') ? ' link-underline link-underline-active' : ''}`}
                       >
                         {t(item.label)}
                       </a>

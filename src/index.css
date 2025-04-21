@@ -104,6 +104,10 @@
     @apply relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full;
   }
 
+  .link-underline-active {
+    @apply after:w-full;
+  }
+
   .card-glass {
     @apply bg-white/10 backdrop-blur-md border border-white/20 dark:bg-gray-900/30 dark:border-gray-700/30;
   }
