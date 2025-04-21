@@ -341,7 +341,7 @@ export const siteContent: SiteContent = {
     {
       title: { en: "Project Manager Data Center Migration & Backup Modernization", de: "Projektmanager RZ-Umzug & Backup-Modernisierung" },
       company: "Private Bank",
-      logoUrl: "/logos/private_bank.png",
+      logoUrl: "/logos/nda.png",
       period: { en: "Jan 2024 - Present", de: "Jan 2024 - Heute" },
       location: "Hamburg, Germany",
       description: [
