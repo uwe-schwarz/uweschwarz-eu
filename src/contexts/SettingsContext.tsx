@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 type Language = 'en' | 'de';
@@ -35,8 +34,11 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [theme, setThemeState] = useState<Theme>('light');
 
   useEffect(() => {
-    setLanguageState(getBrowserLanguage());
+    const browserLang = getBrowserLanguage();
+    setLanguageState(browserLang);
     setThemeState(getInitialTheme());
+    // Set initial <html lang>
+    document.documentElement.setAttribute('lang', browserLang);
   }, []);
 
   useEffect(() => {
@@ -55,6 +57,8 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
     localStorage.setItem('language', lang);
+    // Set <html lang> attribute
+    document.documentElement.setAttribute('lang', lang);
   };
 
   // Theme setting function

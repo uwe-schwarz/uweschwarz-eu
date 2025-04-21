@@ -40,11 +40,13 @@ const Footer = () => {
         </div>
 
         <div className="mt-8 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center">
-          <p className="text-xs text-muted-foreground mb-4 md:mb-0">
-            {t(footer.builtWith)}
-          </p>
+          {footer.builtWith && (
+            <p className="text-xs text-muted-foreground mb-4 md:mb-0">
+              {t(footer.builtWith)}
+            </p>
+          )}
 
-          <p className="text-xs text-muted-foreground">
+          <p className="ml-auto text-xs text-muted-foreground">
             {t(footer.lastUpdated)}
           </p>
         </div>

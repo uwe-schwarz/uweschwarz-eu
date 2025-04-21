@@ -1,8 +1,8 @@
 import React from "react";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/SettingsContext";
-import { Mail, Send } from "lucide-react";
-import { SiXing, SiX, SiGithub } from "@icons-pack/react-simple-icons";
+import { Mail, Send, Phone } from "lucide-react";
+import { SiXing, SiX, SiGithub, SiBluesky } from "@icons-pack/react-simple-icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -128,6 +128,20 @@ const ContactSection = () => {
                     </a>
                   </div>
                 </div>
+
+                <div className="flex items-center mb-4">
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-4 text-primary">
+                    <Phone className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">
+                      {t(contact.phoneLabel)}
+                    </p>
+                    <a href={`tel:${contact.phone}`} className="text-foreground hover:text-primary transition-colors">
+                      {contact.phone}
+                    </a>
+                  </div>
+                </div>
               </div>
 
               {/* Social Links */}
@@ -194,6 +208,19 @@ const ContactSection = () => {
                       <SiX className="w-5 h-5" />
                     </a>
                   )}
+
+                  {contact.socialLinks.bluesky && (
+                    <a
+                      href={contact.socialLinks.bluesky}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
+                      aria-label="Bluesky"
+                    >
+                      <SiBluesky className="w-5 h-5" />
+                    </a>
+                  )}
+                  
                 </div>
               </div>
             </div>

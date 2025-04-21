@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/SettingsContext";
-import { Briefcase, MapPin, Calendar } from "lucide-react";
+import { Briefcase, MapPin, Calendar, MessageSquareMore } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
@@ -90,7 +90,7 @@ const ExperienceSection = () => {
                       <img
                         src={exp.logoUrl}
                         alt={`${exp.company} logo`}
-                        className="h-12 object-contain float-right ml-2 mb-2 mt-6 mr-6"
+                        className="h-12 object-contain mx-auto mt-6 md:mx-0 md:float-right md:ml-2 md:mb-2 md:mr-6"
                       />
                     )}
 
@@ -107,8 +107,8 @@ const ExperienceSection = () => {
 
                       {/* Period & Location */}
                       <div className={cn(
-                        "flex flex-wrap gap-4 mb-4 text-sm text-muted-foreground justify-center md:justify-end",
-                        "md:justify-start text-left"
+                        "flex flex-col items-start gap-2 mb-4 text-sm text-muted-foreground text-left",
+                        "md:flex-row md:gap-4 md:items-center"
                       )}>
                         <div className="flex items-center">
                           <Calendar size={14} className="mr-1" />
@@ -182,25 +182,23 @@ const ExperienceSection = () => {
               </div>)}
           </div>
           
-          {/* More Projects */}
-          <div className="text-center mt-16">
+          <div className="text-center mt-8">
+            {/* More Projects */}
             <p className="inline-flex items-center text-primary hover:text-primary/80 transition-colors">
-              <Briefcase size={16} className="mr-2" />
+              <MessageSquareMore size={24} className="mr-2" />
               <span>
                 {t(siteContent.moreProjects)}
               </span>
             </p>
+            <div className="mt-4"></div>
+            {/* Download Resume */}
+            <a href="#" className="inline-flex items-center text-primary hover:text-primary/80 transition-colors link-underline">
+              <Briefcase size={24} className="mr-2" />
+              <span>
+                {t(siteContent.downloadResume)}
+              </span>
+            </a>
           </div>
-        </div>
-
-        {/* Download Resume */}
-        <div className="text-center mt-16">
-          <a href="#" className="inline-flex items-center text-primary hover:text-primary/80 transition-colors link-underline">
-            <Briefcase size={16} className="mr-2" />
-            <span>
-              {t(siteContent.downloadResume)}
-            </span>
-          </a>
         </div>
       </div>
 

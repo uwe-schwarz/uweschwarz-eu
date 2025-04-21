@@ -82,11 +82,14 @@ export interface ContactSection {
   subtitle: LocalizedString;
   emailLabel: LocalizedString;
   email: string;
+  phoneLabel: LocalizedString;
+  phone: string;
   socialLinks: {
     github?: string;
     linkedin?: string;
     xing?: string;
     x?: string;
+    bluesky?: string;
   };
   formLabels: {
     name: LocalizedString;
@@ -114,7 +117,7 @@ export interface ContactSection {
 export interface Footer {
   copyright: LocalizedString;
   links: NavItem[];
-  builtWith: LocalizedString;
+  builtWith?: LocalizedString;
   lastUpdated: LocalizedString;
 }
 
@@ -241,34 +244,34 @@ export const siteContent: SiteContent = {
     },
     decorativeElements: [
       {
-        position: 83,
-        distance: 130,
-        code: "💡&nbsp;strategy",
+        position: 9,
+        distance: 92,
+        code: "🛡️&nbsp;GDPR",
       },
       {
-        position: 1,
-        distance: 110,
-        code: '🔐&nbsp;security',
-      },
-      {
-        position: 72,
-        distance: 130,
-        code: "📡&nbsp;networking",
+        position: 35,
+        distance: 72,
+        code: "🤖 AI",
       },
       {
         position: 52,
         distance: 85,
-        code: "🤖 AI",
-      },
-      {
-        position: 33,
-        distance: 70,
         code: "🤝&nbsp;Human&nbsp;API",
       },
       {
-        position: 15,
-        distance: 85,
-        code: "🛡️&nbsp;GDPR",
+        position: 66,
+        distance: 122,
+        code: "📡&nbsp;networking",
+      },
+      {
+        position: 84,
+        distance: 134,
+        code: "💡&nbsp;strategy",
+      },
+      {
+        position: 95,
+        distance: 110,
+        code: '🔐&nbsp;security',
       },
     ],
   },
@@ -384,11 +387,11 @@ export const siteContent: SiteContent = {
           en: 'Integration of services in SSO infrastructure.',
           de: 'Integration von Diensten in SSO-Infrastruktur.' } },
         { type: 'text', text: {
-          en: 'Support of certificate audits (SOC2, ISO27001)',
-          de: 'Unterstützung bei Zertifizierungsaudits (SOC2, ISO27001).' } },
+          en: 'Certificate audit: SOC2 and ISO27001',
+          de: 'Zertifizierungsaudit: SOC2 und ISO27001.' } },
         { type: 'text', text: {
-          en: 'Advice on all aspects of GDPR.',
-          de: 'Beratung zu allen Aspekten der DSGVO.' } },
+          en: 'Advice on all aspects of GDPR. Introduction of retention policies and data protection guidelines.',
+          de: 'Beratung zu allen Aspekten der DSGVO. Einführung von Aufbewahrungsfristen und Datenschutz-Richtlinien.' } },
         { type: 'text', text: {
           en: 'Introduction of security guidelines.',
           de: 'Einführung von Sicherheitsrichtlinien.' } },
@@ -475,7 +478,7 @@ export const siteContent: SiteContent = {
       ],
     },
     {
-      title: { en: "Team Coordinator / System Engineer", de: "Teamkoordinator / Systemingenieur" },
+      title: { en: "Team Coordinator / System Architect", de: "Teamkoordinator / Systemarchitekt" },
       company: "Deutsche Vermögensberatung AG",
       logoUrl: "/logos/dvag.svg",
       period: { en: "Jul 2018 - Dec 2018", de: "Jul 2018 - Dez 2018" },
@@ -524,8 +527,8 @@ export const siteContent: SiteContent = {
   projects: [
     {
       title: {
-        en: "Secure Mail Archive",
-        de: "Rechtssicheres Mailarchiv",
+        en: "Secure Email Archive",
+        de: "Rechtssicheres E-Mail-Archiv",
       },
       description: {
         en: "Coordination and development of a legally compliant email archiving solution for over 50,000 users – featuring immutable storage for 10+ years and enterprise-wide compliance.",
@@ -660,11 +663,17 @@ export const siteContent: SiteContent = {
       de: "E-Mail an",
     },
     email: "mail@uweschwarz.eu",
+    phoneLabel: {
+      en: "Phone",
+      de: "Telefon",
+    },
+    phone: "+49 151 64403667",
     socialLinks: {
       github: "https://github.com/uwe-schwarz",
       linkedin: "https://www.linkedin.com/in/uwe-schwarz-282531294/",
       xing: "https://www.xing.com/profile/Uwe_Schwarz72/",
       x: "https://x.com/e38383",
+      bluesky: "https://bsky.app/profile/oldman-cloud.bsky.social",
     },
     formLabels: {
       name: { en: "Name", de: "Name" },
@@ -706,10 +715,10 @@ export const siteContent: SiteContent = {
       { label: { en: "Privacy Policy", de: "Datenschutz" }, href: "/privacy" },
       { label: { en: "Imprint", de: "Impressum" }, href: "/imprint" },
     ],
-    builtWith: {
+/*    builtWith: {
       en: "Built with modern web technologies and a passion for clean code.",
       de: "Erstellt mit modernen Web-Technologien und einer Leidenschaft für sauberen Code.",
-    },
+    },*/
     lastUpdated: {
       en: "Last updated: April 2025",
       de: "Letzte Aktualisierung: April 2025",

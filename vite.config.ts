@@ -11,7 +11,8 @@ export default defineConfig(({ mode }) => ({
     port: 8080,
     // Add the new allowed host
     allowedHosts: [
-      "50fe7852-eb98-4875-a2bd-d6508bf54963.lovableproject.com"
+      "50fe7852-eb98-4875-a2bd-d6508bf54963.lovableproject.com",
+      "lip-deviation-rn-alternatively.trycloudflare.com",
     ],
   },
   plugins: [
