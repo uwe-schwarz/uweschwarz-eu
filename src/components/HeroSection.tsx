@@ -90,6 +90,10 @@ const HeroSection = () => {
                 <a href="#experience">{t(hero.ctaPrimary)}</a>
               </Button>
 
+              {/*
+              
+              TODO: CV
+
               <Button
                 asChild
                 variant="outline"
@@ -100,7 +104,7 @@ const HeroSection = () => {
                   <FileText className="w-4 h-4 mr-2" />
                   {t(hero.ctaSecondary)}
                 </a>
-              </Button>
+              </Button> */}
             </div>
           </div>
 
