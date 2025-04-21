@@ -12,7 +12,8 @@ export default defineConfig(({ mode }) => ({
     // Add the new allowed host
     allowedHosts: [
       "50fe7852-eb98-4875-a2bd-d6508bf54963.lovableproject.com",
-      "lip-deviation-rn-alternatively.trycloudflare.com",
+      "dev.uweschwarz.eu",
+      "pre.uweschwarz.eu",
     ],
   },
   plugins: [
