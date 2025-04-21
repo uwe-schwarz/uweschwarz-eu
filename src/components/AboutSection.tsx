@@ -26,7 +26,7 @@ const AboutSection = () => {
           <span className="text-gradient">{t(about.title)}</span>
         </h2>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
           {/* Image Column */}
           <div className="lg:col-span-2">
             <div className="relative">

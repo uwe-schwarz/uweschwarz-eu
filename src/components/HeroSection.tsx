@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useSettings } from "@/contexts/SettingsContext";
 import { siteContent } from "@/content/content";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { useFitText } from "@/hooks/use-fit-text";
 
 const HeroSection = () => {
   const { t } = useSettings();
@@ -20,6 +21,14 @@ const HeroSection = () => {
 
     return () => clearInterval(interval);
   }, [hero.titleElements.length]);
+
+  // FitText Hook for dynamic title
+  const currentTitle = t(hero.titleElements[titleIndex]);
+  const { ref: fitTextRef, fontSize } = useFitText({
+    minFontSize: 18,
+    maxFontSize: 48,
+    depKey: currentTitle,
+  });
 
   // Function to calculate position for decorative elements
   const calculatePosition = (position: number, distance: number) => {
@@ -57,11 +66,14 @@ const HeroSection = () => {
           <div className="lg:w-1/2 animate-fade-in">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-4">
               {hero.name}
+              <br />
               <span
+                ref={fitTextRef}
                 className="block text-gradient mt-2 h-[1.2em]"
                 key={titleIndex}
+                style={{ fontSize, lineHeight: 1.2, display: "inline-block", width: "100%", whiteSpace: "nowrap" }}
               >
-                {t(hero.titleElements[titleIndex])}
+                {currentTitle}
               </span>
             </h1>
 
