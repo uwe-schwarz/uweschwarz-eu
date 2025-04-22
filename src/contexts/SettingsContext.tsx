@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 type Language = 'en' | 'de';
@@ -14,8 +15,13 @@ interface SettingsContextType {
 const SettingsContext = createContext<SettingsContextType | undefined>(undefined);
 
 export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  // Get initial language from browser
+  // Get initial language from browser or localStorage
   const getBrowserLanguage = (): Language => {
+    // First check localStorage
+    const savedLanguage = localStorage.getItem('language') as Language;
+    if (savedLanguage === 'en' || savedLanguage === 'de') return savedLanguage;
+    
+    // Fall back to browser language
     const navigatorLanguage = navigator.language.substring(0, 2).toLowerCase();
     return navigatorLanguage === 'de' ? 'de' : 'en';
   };
