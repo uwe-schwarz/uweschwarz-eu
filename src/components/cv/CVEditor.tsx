@@ -14,10 +14,12 @@ interface CVEditorProps {
 const CVEditor: React.FC<CVEditorProps> = ({ data, onChange, language }) => {
   const { t } = useSettings();
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
+    header: true,
     about: true,
     experiences: false,
     skills: false,
-    projects: false
+    projects: false,
+    footer: false
   });
 
   const toggleSection = (section: string) => {
@@ -118,6 +120,96 @@ const CVEditor: React.FC<CVEditorProps> = ({ data, onChange, language }) => {
           de: 'Lebenslauf-Editor'
         })}
       </h2>
+      
+      {/* Header Section */}
+      <div className="mb-8 border-b pb-4">
+        <button 
+          onClick={() => toggleSection('header')}
+          className="w-full text-left font-bold text-lg mb-4 flex items-center"
+        >
+          {expandedSections.header ? <Minus className="mr-2 h-4 w-4" /> : <Plus className="mr-2 h-4 w-4" />}
+          {t({ en: 'Header', de: 'Kopfbereich' })}
+        </button>
+        {expandedSections.header && (
+          <div className="space-y-4 pl-4">
+            <div>
+              <label className="block text-sm font-medium mb-1">
+                {t({ en: 'Name', de: 'Name' })} (displayed as header name)
+              </label>
+              <Input 
+                value={data.hero.name != null ? String(data.hero.name) : ''}
+                onChange={(e) => handleChange(['hero', 'name'], String(e.target.value))}
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1">
+                {t({ en: 'Email', de: 'E-Mail' })}
+              </label>
+              <Input
+                value={data.contact.cvemail}
+                onChange={(e) => handleChange(['contact', 'cvemail'], String(e.target.value))}
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1">
+                {t({ en: 'Phone', de: 'Telefon' })}
+              </label>
+              <Input
+                value={data.contact.phone}
+                onChange={(e) => handleChange(['contact', 'phone'], String(e.target.value))}
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1">
+                {t({ en: 'Street', de: 'Straße' })}
+              </label>
+              <Input 
+                value={data.imprint.address.street.en != null ? data.imprint.address.street.en : ''}
+                onChange={(e) => handleMultiLangChange(['imprint', 'address', 'street'], 'en', e.target.value)}
+                placeholder="EN"
+              />
+              <Input 
+                value={data.imprint.address.street.de != null ? data.imprint.address.street.de : ''}
+                onChange={(e) => handleMultiLangChange(['imprint', 'address', 'street'], 'de', e.target.value)}
+                placeholder="DE"
+                className="mt-1"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1">
+                {t({ en: 'City', de: 'Stadt' })}
+              </label>
+              <Input 
+                value={data.imprint.address.city.en != null ? data.imprint.address.city.en : ''}
+                onChange={(e) => handleMultiLangChange(['imprint', 'address', 'city'], 'en', e.target.value)}
+                placeholder="EN"
+              />
+              <Input 
+                value={data.imprint.address.city.de != null ? data.imprint.address.city.de : ''}
+                onChange={(e) => handleMultiLangChange(['imprint', 'address', 'city'], 'de', e.target.value)}
+                placeholder="DE"
+                className="mt-1"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1">
+                {t({ en: 'Country', de: 'Land' })}
+              </label>
+              <Input 
+                value={data.imprint.address.country.en != null ? data.imprint.address.country.en : ''}
+                onChange={(e) => handleMultiLangChange(['imprint', 'address', 'country'], 'en', e.target.value)}
+                placeholder="EN"
+              />
+              <Input 
+                value={data.imprint.address.country.de != null ? data.imprint.address.country.de : ''}
+                onChange={(e) => handleMultiLangChange(['imprint', 'address', 'country'], 'de', e.target.value)}
+                placeholder="DE"
+                className="mt-1"
+              />
+            </div>
+          </div>
+        )}
+      </div>
       
       {/* About Section */}
       <div className="mb-8 border-b pb-4">
@@ -728,6 +820,37 @@ const CVEditor: React.FC<CVEditorProps> = ({ data, onChange, language }) => {
                 de: 'Fähigkeit hinzufügen'
               })}
             </Button>
+          </div>
+        )}
+      </div>
+      
+      {/* Footer Section */}
+      <div className="mb-8 border-b pb-4">
+        <button
+          onClick={() => toggleSection('footer')}
+          className="w-full text-left font-bold text-lg mb-4 flex items-center"
+        >
+          {expandedSections.footer ? <Minus className="mr-2 h-4 w-4" /> : <Plus className="mr-2 h-4 w-4" />}
+          {t({ en: 'Footer', de: 'Fußzeile' })}
+        </button>
+        {expandedSections.footer && (
+          <div className="space-y-4 pl-4">
+            <div>
+              <label className="block text-sm font-medium mb-1">
+                {t({ en: 'Copyright (EN)', de: 'Copyright (DE)' })}
+              </label>
+              <Textarea
+                value={data.footer.copyright.en}
+                onChange={(e) => handleMultiLangChange(['footer', 'copyright'], 'en', e.target.value)}
+                rows={2}
+                className="mb-2"
+              />
+              <Textarea
+                value={data.footer.copyright.de}
+                onChange={(e) => handleMultiLangChange(['footer', 'copyright'], 'de', e.target.value)}
+                rows={2}
+              />
+            </div>
           </div>
         )}
       </div>

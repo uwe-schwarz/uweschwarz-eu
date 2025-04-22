@@ -82,6 +82,7 @@ export interface ContactSection {
   subtitle: LocalizedString;
   emailLabel: LocalizedString;
   email: string;
+  cvemail: string;
   phoneLabel: LocalizedString;
   phone: string;
   socialLinks: {
@@ -666,6 +667,7 @@ export const siteContent: SiteContent = {
       de: "E-Mail an",
     },
     email: "mail@uweschwarz.eu",
+    cvemail: "uwe.schwarz@degit.de",
     phoneLabel: {
       en: "Phone",
       de: "Telefon",

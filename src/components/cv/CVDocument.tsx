@@ -197,7 +197,7 @@ interface CVDocumentProps {
 const CVDocument: React.FC<CVDocumentProps> = ({ language, data }) => {
   // Use passed data or fallback to siteContent
   const content = data || (require("@/content/content").siteContent);
-  const { about, experiences, skills, skillsSection, contact, footer } = content;
+  const { about, experiences, skills, skillsSection, contact, footer, hero, imprint } = content;
   
   // Helper function to get text in the current language
   const t = (text: { en: string; de: string }) => text[language];
@@ -229,22 +229,22 @@ const CVDocument: React.FC<CVDocumentProps> = ({ language, data }) => {
         {/* Header Section */}
         <View style={styles.header}>
           <View style={styles.headerLeft}>
-            <Text style={styles.name}>Uwe Schwarz</Text>
+            <Text style={styles.name}>{hero.name}</Text>
             <Text style={styles.title}>
               {t(about.paragraphs[0]).split('.')[0]}
             </Text>
           </View>
           <View style={styles.headerRight}>
-            <Text style={styles.contactInfo}>{contact.email}</Text>
+            <Text style={styles.contactInfo}>{contact.cvemail}</Text>
             <Text style={styles.contactInfo}>{contact.phone}</Text>
             <Text style={styles.contactInfo}>
-              {t(content.imprint.address.street)}
+              {t(imprint.address.street)}
             </Text>
             <Text style={styles.contactInfo}>
-              {t(content.imprint.address.city)}
+              {t(imprint.address.city)}
             </Text>
             <Text style={styles.contactInfo}>
-              {t(content.imprint.address.country)}
+              {t(imprint.address.country)}
             </Text>
           </View>
         </View>

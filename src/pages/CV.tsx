@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { PDFViewer, PDFDownloadLink } from "@react-pdf/renderer";
@@ -12,6 +11,24 @@ import CVEditor from "@/components/cv/CVEditor";
 
 const CV = () => {
   const { language, setLanguage, t } = useSettings();
+  // Unicode-safe Base64 encoding/decoding using TextEncoder/TextDecoder
+  const encodeData = (str: string): string => {
+    const bytes = new TextEncoder().encode(str);
+    let binary = '';
+    for (let i = 0; i < bytes.length; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return window.btoa(binary);
+  };
+  const decodeData = (b64: string): string => {
+    const binary = window.atob(b64);
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) {
+      bytes[i] = binary.charCodeAt(i);
+    }
+    return new TextDecoder().decode(bytes);
+  };
+
   const [clickCount, setClickCount] = useState(0);
   const [editMode, setEditMode] = useState(false);
   const [cvData, setCvData] = useState(siteContent);
@@ -19,14 +36,19 @@ const CV = () => {
 
   // Check URL for saved data on component mount
   useEffect(() => {
-    const url = new URL(window.location.href);
-    const savedData = url.searchParams.get('data');
+    // Read from hash: #data=base64string
+    const hash = window.location.hash;
+    let savedData = null;
+    if (hash.startsWith('#data=')) {
+      savedData = hash.slice(6);
+    }
     if (savedData) {
       try {
-        const decodedData = JSON.parse(atob(savedData));
+        const decodedJson = decodeData(savedData);
+        const decodedData = JSON.parse(decodedJson);
         setCvData(decodedData);
       } catch (e) {
-        console.error("Failed to parse saved data", e);
+        console.error('Failed to parse saved data', e);
       }
     }
   }, []);
@@ -44,12 +66,11 @@ const CV = () => {
 
   const handleDataChange = (newData) => {
     setCvData(newData);
-    
-    // Save to URL
-    const encodedData = btoa(JSON.stringify(newData));
-    const url = new URL(window.location.href);
-    url.searchParams.set('data', encodedData);
-    window.history.pushState({}, '', url.toString());
+    // Save to URL hash (Unicode-safe Base64)
+    const json = JSON.stringify(newData);
+    const encodedData = encodeData(json);
+    // Update URL hash without reloading
+    window.location.hash = `data=${encodedData}`;
   };
 
   const handleExitEditMode = () => {
@@ -141,7 +162,7 @@ const CV = () => {
               <div className="rounded-lg shadow-xl border-4 border-white dark:border-gray-800 flex-grow flex flex-col">
                 <div className="bg-gradient-to-br from-primary/40 to-accent/40 justify-center flex-grow flex flex-col">
                   <div className="m-6 flex flex-grow justify-center">
-                    <PDFViewer showToolbar={false} className="max-w-[796px] w-full h-full">
+                    <PDFViewer key={JSON.stringify(cvData)} showToolbar={false} className="max-w-[796px] w-full h-full">
                       <CVDocument language={language} data={cvData} />
                     </PDFViewer>
                   </div>
