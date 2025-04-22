@@ -117,7 +117,7 @@ const CV = () => {
         {/* Title */}
         <div className="mb-6">
           <h1 
-            className="text-4xl font-display font-bold mb-2 cursor-pointer"
+            className="text-4xl font-display font-bold mb-2"
             onClick={handleTitleClick}
           >
             {t({

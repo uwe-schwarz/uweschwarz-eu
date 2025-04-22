@@ -1,4 +1,3 @@
-
 import React from "react";
 import {
   Document,
@@ -302,7 +301,7 @@ const CVDocument: React.FC<CVDocumentProps> = ({ language, data }) => {
                   {t(skillsSection.categories[category as keyof typeof skillsSection.categories])}
                 </Text>
                 <View style={styles.skillContainer}>
-                  {categorySkills
+                  {(categorySkills as typeof skills)
                     .filter(skill => skill.level >= 4) // Only include high-level skills
                     .slice(0, 10) // Limit number of skills per category
                     .map((skill, index) => (

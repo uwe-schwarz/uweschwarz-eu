@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -28,7 +27,7 @@ const CVEditor: React.FC<CVEditorProps> = ({ data, onChange, language }) => {
     }));
   };
 
-  const handleChange = (path: string[], value: any) => {
+  const handleChange = (path: (string | number)[], value: any) => {
     // Create a deep copy of the data
     const newData = JSON.parse(JSON.stringify(data));
     
@@ -42,7 +41,7 @@ const CVEditor: React.FC<CVEditorProps> = ({ data, onChange, language }) => {
     onChange(newData);
   };
 
-  const handleMultiLangChange = (path: string[], lang: 'en' | 'de', value: string) => {
+  const handleMultiLangChange = (path: (string | number)[], lang: 'en' | 'de', value: string) => {
     // Create a deep copy of the data
     const newData = JSON.parse(JSON.stringify(data));
     
@@ -143,8 +142,8 @@ const CVEditor: React.FC<CVEditorProps> = ({ data, onChange, language }) => {
                 })}
               </label>
               <Textarea 
-                value={data.about.paragraphs[0].en} 
-                onChange={(e) => handleMultiLangChange(['about', 'paragraphs', 0], 'en', e.target.value)}
+                value={data.about.paragraphs[0].en != null ? String(data.about.paragraphs[0].en) : '' as string} 
+                onChange={(e) => handleMultiLangChange(['about', 'paragraphs', 0], 'en', String(e.target.value))}
                 className="mb-2"
               />
               
@@ -155,8 +154,8 @@ const CVEditor: React.FC<CVEditorProps> = ({ data, onChange, language }) => {
                 })}
               </label>
               <Textarea 
-                value={data.about.paragraphs[0].de} 
-                onChange={(e) => handleMultiLangChange(['about', 'paragraphs', 0], 'de', e.target.value)}
+                value={data.about.paragraphs[0].de != null ? String(data.about.paragraphs[0].de) : '' as string} 
+                onChange={(e) => handleMultiLangChange(['about', 'paragraphs', 0], 'de', String(e.target.value))}
                 className="mb-2"
               />
             </div>
@@ -169,8 +168,8 @@ const CVEditor: React.FC<CVEditorProps> = ({ data, onChange, language }) => {
                 })}
               </label>
               <Textarea 
-                value={data.about.paragraphs[1].en} 
-                onChange={(e) => handleMultiLangChange(['about', 'paragraphs', 1], 'en', e.target.value)}
+                value={data.about.paragraphs[1].en != null ? String(data.about.paragraphs[1].en) : '' as string} 
+                onChange={(e) => handleMultiLangChange(['about', 'paragraphs', 1], 'en', String(e.target.value))}
                 className="mb-2"
               />
               
@@ -181,8 +180,8 @@ const CVEditor: React.FC<CVEditorProps> = ({ data, onChange, language }) => {
                 })}
               </label>
               <Textarea 
-                value={data.about.paragraphs[1].de} 
-                onChange={(e) => handleMultiLangChange(['about', 'paragraphs', 1], 'de', e.target.value)}
+                value={data.about.paragraphs[1].de != null ? String(data.about.paragraphs[1].de) : '' as string} 
+                onChange={(e) => handleMultiLangChange(['about', 'paragraphs', 1], 'de', String(e.target.value))}
               />
             </div>
           </div>
@@ -226,8 +225,8 @@ const CVEditor: React.FC<CVEditorProps> = ({ data, onChange, language }) => {
                       })}
                     </label>
                     <Input 
-                      value={exp.title.en} 
-                      onChange={(e) => handleMultiLangChange(['experiences', expIndex, 'title'], 'en', e.target.value)}
+                      value={exp.title.en != null ? String(exp.title.en) : '' as string} 
+                      onChange={(e) => handleMultiLangChange(['experiences', expIndex, 'title'], 'en', String(e.target.value))}
                     />
                   </div>
                   <div>
@@ -238,8 +237,8 @@ const CVEditor: React.FC<CVEditorProps> = ({ data, onChange, language }) => {
                       })}
                     </label>
                     <Input 
-                      value={exp.title.de} 
-                      onChange={(e) => handleMultiLangChange(['experiences', expIndex, 'title'], 'de', e.target.value)}
+                      value={exp.title.de != null ? String(exp.title.de) : '' as string} 
+                      onChange={(e) => handleMultiLangChange(['experiences', expIndex, 'title'], 'de', String(e.target.value))}
                     />
                   </div>
                   
@@ -251,8 +250,8 @@ const CVEditor: React.FC<CVEditorProps> = ({ data, onChange, language }) => {
                       })}
                     </label>
                     <Input 
-                      value={exp.company} 
-                      onChange={(e) => handleChange(['experiences', expIndex, 'company'], e.target.value)}
+                      value={exp.company != null ? String(exp.company) : '' as string} 
+                      onChange={(e) => handleChange(['experiences', expIndex, 'company'], String(e.target.value))}
                     />
                   </div>
                   
@@ -264,8 +263,8 @@ const CVEditor: React.FC<CVEditorProps> = ({ data, onChange, language }) => {
                       })}
                     </label>
                     <Input 
-                      value={exp.location} 
-                      onChange={(e) => handleChange(['experiences', expIndex, 'location'], e.target.value)}
+                      value={exp.location != null ? String(exp.location) : '' as string} 
+                      onChange={(e) => handleChange(['experiences', expIndex, 'location'], String(e.target.value))}
                     />
                   </div>
                   
@@ -277,8 +276,8 @@ const CVEditor: React.FC<CVEditorProps> = ({ data, onChange, language }) => {
                       })}
                     </label>
                     <Input 
-                      value={exp.period.en} 
-                      onChange={(e) => handleMultiLangChange(['experiences', expIndex, 'period'], 'en', e.target.value)}
+                      value={exp.period.en != null ? String(exp.period.en) : '' as string} 
+                      onChange={(e) => handleMultiLangChange(['experiences', expIndex, 'period'], 'en', String(e.target.value))}
                     />
                   </div>
                   
@@ -290,8 +289,8 @@ const CVEditor: React.FC<CVEditorProps> = ({ data, onChange, language }) => {
                       })}
                     </label>
                     <Input 
-                      value={exp.period.de} 
-                      onChange={(e) => handleMultiLangChange(['experiences', expIndex, 'period'], 'de', e.target.value)}
+                      value={exp.period.de != null ? String(exp.period.de) : '' as string} 
+                      onChange={(e) => handleMultiLangChange(['experiences', expIndex, 'period'], 'de', String(e.target.value))}
                     />
                   </div>
                 </div>
@@ -354,10 +353,10 @@ const CVEditor: React.FC<CVEditorProps> = ({ data, onChange, language }) => {
                       <div>
                         <label className="block text-xs mb-1">EN</label>
                         <Textarea 
-                          value={item.text.en} 
+                          value={item.text.en != null ? String(item.text.en) : '' as string} 
                           onChange={(e) => {
                             const newData = JSON.parse(JSON.stringify(data));
-                            newData.experiences[expIndex].description[descIndex].text.en = e.target.value;
+                            newData.experiences[expIndex].description[descIndex].text.en = String(e.target.value);
                             onChange(newData);
                           }}
                           className="mb-2 text-sm"
@@ -366,10 +365,10 @@ const CVEditor: React.FC<CVEditorProps> = ({ data, onChange, language }) => {
                         
                         <label className="block text-xs mb-1">DE</label>
                         <Textarea 
-                          value={item.text.de} 
+                          value={item.text.de != null ? String(item.text.de) : '' as string} 
                           onChange={(e) => {
                             const newData = JSON.parse(JSON.stringify(data));
-                            newData.experiences[expIndex].description[descIndex].text.de = e.target.value;
+                            newData.experiences[expIndex].description[descIndex].text.de = String(e.target.value);
                             onChange(newData);
                           }}
                           className="text-sm"
@@ -391,20 +390,20 @@ const CVEditor: React.FC<CVEditorProps> = ({ data, onChange, language }) => {
                     <div key={tagIndex} className="flex mb-2">
                       <div className="flex-1 mr-2">
                         <Input 
-                          value={tag.en} 
+                          value={tag.en != null ? String(tag.en) : '' as string} 
                           onChange={(e) => {
                             const newData = JSON.parse(JSON.stringify(data));
-                            newData.experiences[expIndex].tags[tagIndex].en = e.target.value;
+                            newData.experiences[expIndex].tags[tagIndex].en = String(e.target.value);
                             onChange(newData);
                           }}
                           placeholder="English"
                           className="mb-1"
                         />
                         <Input 
-                          value={tag.de} 
+                          value={tag.de != null ? String(tag.de) : '' as string} 
                           onChange={(e) => {
                             const newData = JSON.parse(JSON.stringify(data));
-                            newData.experiences[expIndex].tags[tagIndex].de = e.target.value;
+                            newData.experiences[expIndex].tags[tagIndex].de = String(e.target.value);
                             onChange(newData);
                           }}
                           placeholder="Deutsch"
@@ -512,8 +511,8 @@ const CVEditor: React.FC<CVEditorProps> = ({ data, onChange, language }) => {
                       })}
                     </label>
                     <Input 
-                      value={project.title.en} 
-                      onChange={(e) => handleMultiLangChange(['projects', projectIndex, 'title'], 'en', e.target.value)}
+                      value={project.title.en != null ? String(project.title.en) : '' as string} 
+                      onChange={(e) => handleMultiLangChange(['projects', projectIndex, 'title'], 'en', String(e.target.value))}
                       className="mb-2"
                     />
                     
@@ -524,8 +523,8 @@ const CVEditor: React.FC<CVEditorProps> = ({ data, onChange, language }) => {
                       })}
                     </label>
                     <Input 
-                      value={project.title.de} 
-                      onChange={(e) => handleMultiLangChange(['projects', projectIndex, 'title'], 'de', e.target.value)}
+                      value={project.title.de != null ? String(project.title.de) : '' as string} 
+                      onChange={(e) => handleMultiLangChange(['projects', projectIndex, 'title'], 'de', String(e.target.value))}
                     />
                   </div>
                   
@@ -537,8 +536,8 @@ const CVEditor: React.FC<CVEditorProps> = ({ data, onChange, language }) => {
                       })}
                     </label>
                     <Textarea 
-                      value={project.description.en} 
-                      onChange={(e) => handleMultiLangChange(['projects', projectIndex, 'description'], 'en', e.target.value)}
+                      value={project.description.en != null ? String(project.description.en) : '' as string} 
+                      onChange={(e) => handleMultiLangChange(['projects', projectIndex, 'description'], 'en', String(e.target.value))}
                       className="mb-2"
                     />
                     
@@ -549,8 +548,8 @@ const CVEditor: React.FC<CVEditorProps> = ({ data, onChange, language }) => {
                       })}
                     </label>
                     <Textarea 
-                      value={project.description.de} 
-                      onChange={(e) => handleMultiLangChange(['projects', projectIndex, 'description'], 'de', e.target.value)}
+                      value={project.description.de != null ? String(project.description.de) : '' as string} 
+                      onChange={(e) => handleMultiLangChange(['projects', projectIndex, 'description'], 'de', String(e.target.value))}
                     />
                   </div>
                 </div>
@@ -566,20 +565,20 @@ const CVEditor: React.FC<CVEditorProps> = ({ data, onChange, language }) => {
                     <div key={tagIndex} className="flex mb-2">
                       <div className="flex-1 mr-2">
                         <Input 
-                          value={tag.en} 
+                          value={tag.en != null ? String(tag.en) : '' as string} 
                           onChange={(e) => {
                             const newData = JSON.parse(JSON.stringify(data));
-                            newData.projects[projectIndex].tags[tagIndex].en = e.target.value;
+                            newData.projects[projectIndex].tags[tagIndex].en = String(e.target.value);
                             onChange(newData);
                           }}
                           placeholder="English"
                           className="mb-1"
                         />
                         <Input 
-                          value={tag.de} 
+                          value={tag.de != null ? String(tag.de) : '' as string} 
                           onChange={(e) => {
                             const newData = JSON.parse(JSON.stringify(data));
-                            newData.projects[projectIndex].tags[tagIndex].de = e.target.value;
+                            newData.projects[projectIndex].tags[tagIndex].de = String(e.target.value);
                             onChange(newData);
                           }}
                           placeholder="Deutsch"
@@ -669,8 +668,8 @@ const CVEditor: React.FC<CVEditorProps> = ({ data, onChange, language }) => {
                       })}
                     </label>
                     <Input 
-                      value={skill.name} 
-                      onChange={(e) => handleChange(['skills', skillIndex, 'name'], e.target.value)}
+                      value={skill.name != null ? String(skill.name) : '' as string} 
+                      onChange={(e) => handleChange(['skills', skillIndex, 'name'], String(e.target.value))}
                     />
                   </div>
                   
@@ -682,8 +681,8 @@ const CVEditor: React.FC<CVEditorProps> = ({ data, onChange, language }) => {
                       })}
                     </label>
                     <Input 
-                      value={skill.category} 
-                      onChange={(e) => handleChange(['skills', skillIndex, 'category'], e.target.value)}
+                      value={skill.category != null ? String(skill.category) : '' as string} 
+                      onChange={(e) => handleChange(['skills', skillIndex, 'category'], String(e.target.value))}
                     />
                   </div>
                   
@@ -698,7 +697,7 @@ const CVEditor: React.FC<CVEditorProps> = ({ data, onChange, language }) => {
                       type="number" 
                       min="1" 
                       max="5" 
-                      value={skill.level} 
+                      value={skill.level != null ? String(skill.level) : '' as string} 
                       onChange={(e) => handleChange(['skills', skillIndex, 'level'], parseInt(e.target.value))}
                     />
                   </div>
