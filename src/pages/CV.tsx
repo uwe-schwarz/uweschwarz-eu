@@ -6,39 +6,40 @@ import { useSettings } from "@/contexts/SettingsContext";
 import { siteContent } from "@/content/content";
 import { Button } from "@/components/ui/button";
 import { useScrollToTop } from "@/hooks/use-scroll-to-top";
-import { Download, FileText, Globe, ArrowLeft } from "lucide-react";
-import ResumeDocument from "@/components/cv/ResumeDocument";
+import { Download, Globe, ArrowLeft } from "lucide-react";
+import CVDocument from "@/components/cv/CVDocument";
 
 const CV = () => {
   const { language, setLanguage, t } = useSettings();
   useScrollToTop();
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
+      {/* Header */}
       <div className="container mx-auto px-4 py-8">
-        <div className="flex justify-between items-center mb-8">
-          <Link to="/" className="flex items-center text-primary hover:text-primary/80">
+        <div className="flex justify-between items-center">
+          <Link to="/" className="flex items-center text-muted-foreground dark:text-primary hover:text-primary/80">
             <ArrowLeft className="mr-2 h-4 w-4" />
             <span>{t(siteContent.backToHome)}</span>
           </Link>
 
           <div className="flex items-center space-x-4">
             <Button
-              variant="outline"
+              variant="secondary"
               size="sm"
               onClick={() => setLanguage(language === 'en' ? 'de' : 'en')}
-              className="flex items-center"
+              className="rounded-full shadow-lg hover-scale"
             >
               <Globe className="mr-2 h-4 w-4" />
               {language === 'en' ? 'Deutsch' : 'English'}
             </Button>
 
             <PDFDownloadLink 
-              document={<ResumeDocument language={language} />} 
-              fileName={`uwe_schwarz_cv_${language}.pdf`}
+              document={<CVDocument language={language} />} 
+              fileName={`uwe_schwarz_cv_${language}_${new Date().toISOString().split('T')[0]}.pdf`}
             >
               {({ loading }) => (
-                <Button disabled={loading} className="flex items-center">
+                <Button disabled={loading} className="rounded-full shadow-lg hover-scale" variant="secondary">
                   <Download className="mr-2 h-4 w-4" />
                   {loading ? 'Loading...' : t({
                     en: 'Download PDF',
@@ -49,28 +50,37 @@ const CV = () => {
             </PDFDownloadLink>
           </div>
         </div>
+      </div>
 
+      {/* CV */}
+      <div className="bg-muted/80 px-8 py-4 flex-grow flex flex-col">
+        {/* Title */}
         <div className="mb-6">
           <h1 className="text-4xl font-display font-bold mb-2">{t({
-            en: 'Resume',
+            en: 'Curriculum Vitae',
             de: 'Lebenslauf'
           })}</h1>
-          <p className="text-muted-foreground">{t({
-            en: 'Preview your resume in the current language. You can download it or switch languages using the buttons above.',
-            de: 'Vorschau deines Lebenslaufs in der aktuellen Sprache. Du kannst ihn herunterladen oder die Sprache mit den Schaltflächen oben wechseln.'
-          })}</p>
         </div>
 
-        <div className="border rounded-lg overflow-hidden shadow-lg h-[800px] bg-white">
-          <PDFViewer
-            showToolbar={false}
-            className="w-full h-full"
-          >
-            <ResumeDocument language={language} />
-          </PDFViewer>
+        <div className="grid grid-cols-1 lg:grid-cols-8 gap-12 flex-grow">
+          <div className="lg:col-span-6 lg:col-start-2 flex-grow flex flex-col relative z-0 transform -translate-y-2 min-h-[500px]">
+              <div className="rounded-lg shadow-xl border-4 border-white dark:border-gray-800 flex-grow flex flex-col">
+                <div className="bg-gradient-to-br from-primary/40 to-accent/40 justify-center flex-grow flex flex-col">
+                  <div className="m-6 flex flex-grow justify-center">
+                    <PDFViewer showToolbar={false} className="max-w-[796px] w-full h-full">
+                      <CVDocument language={language} />
+                    </PDFViewer>
+                  </div>
+                </div>
+              </div>
+            
+              {/* Decorative elements */}
+              <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-primary rounded-lg transform rotate-6 -z-10"></div>
+              <div className="absolute -top-4 -right-4 w-20 h-20 bg-accent rounded-lg transform -rotate-6 -z-10"></div>
+          </div>
+        </div>
         </div>
       </div>
-    </div>
   );
 };
 

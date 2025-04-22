@@ -1,4 +1,3 @@
-
 import React from "react";
 import {
   Document,
@@ -11,20 +10,23 @@ import {
   Link
 } from "@react-pdf/renderer";
 import { siteContent } from "@/content/content";
+import InterRegular from "@/assets/fonts/Inter-Regular.ttf";
+import InterBold from "@/assets/fonts/Inter-Bold.ttf";
+import SpaceGroteskBold from "@/assets/fonts/SpaceGrotesk-Bold.ttf";
 
 // Register fonts - adjust with actual fonts if needed
 Font.register({
   family: "Inter",
   fonts: [
-    { src: "https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff2", fontWeight: 400 },
-    { src: "https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuFuYAZ9hiA.woff2", fontWeight: 700 },
+    { src: InterRegular, fontWeight: 400 },
+    { src: InterBold, fontWeight: 700 },
   ],
 });
 
 Font.register({
   family: "Space Grotesk",
   fonts: [
-    { src: "https://fonts.gstatic.com/s/spacegrotesk/v13/V8mQoQDjQSkFtoMM3T6r8E7mF71Q-gOoraIAEj7oUXskPMBBSSJLm2E.woff2", fontWeight: 700 },
+    { src: SpaceGroteskBold, fontWeight: 700 },
   ],
 });
 
@@ -188,11 +190,11 @@ const styles = StyleSheet.create({
   },
 });
 
-interface ResumeDocumentProps {
+interface CVDocumentProps {
   language: "en" | "de";
 }
 
-const ResumeDocument: React.FC<ResumeDocumentProps> = ({ language }) => {
+const CVDocument: React.FC<CVDocumentProps> = ({ language }) => {
   const { about, experiences, skills, skillsSection, contact, footer } = siteContent;
   
   // Helper function to get text in the current language
@@ -237,7 +239,10 @@ const ResumeDocument: React.FC<ResumeDocumentProps> = ({ language }) => {
               {t(siteContent.imprint.address.street)}
             </Text>
             <Text style={styles.contactInfo}>
-              {t(siteContent.imprint.address.city)}, {t(siteContent.imprint.address.country)}
+              {t(siteContent.imprint.address.city)}
+            </Text>
+            <Text style={styles.contactInfo}>
+              {t(siteContent.imprint.address.country)}
             </Text>
           </View>
         </View>
@@ -337,4 +342,4 @@ const ResumeDocument: React.FC<ResumeDocumentProps> = ({ language }) => {
   );
 };
 
-export default ResumeDocument;
+export default CVDocument;
