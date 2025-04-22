@@ -1,3 +1,4 @@
+
 import React from "react";
 import {
   Document,
@@ -9,7 +10,6 @@ import {
   Image,
   Link
 } from "@react-pdf/renderer";
-import { siteContent } from "@/content/content";
 import InterRegular from "@/assets/fonts/Inter-Regular.ttf";
 import InterBold from "@/assets/fonts/Inter-Bold.ttf";
 import SpaceGroteskBold from "@/assets/fonts/SpaceGrotesk-Bold.ttf";
@@ -192,10 +192,13 @@ const styles = StyleSheet.create({
 
 interface CVDocumentProps {
   language: "en" | "de";
+  data?: any; // Allow custom data to be passed in
 }
 
-const CVDocument: React.FC<CVDocumentProps> = ({ language }) => {
-  const { about, experiences, skills, skillsSection, contact, footer } = siteContent;
+const CVDocument: React.FC<CVDocumentProps> = ({ language, data }) => {
+  // Use passed data or fallback to siteContent
+  const content = data || (require("@/content/content").siteContent);
+  const { about, experiences, skills, skillsSection, contact, footer } = content;
   
   // Helper function to get text in the current language
   const t = (text: { en: string; de: string }) => text[language];
@@ -236,13 +239,13 @@ const CVDocument: React.FC<CVDocumentProps> = ({ language }) => {
             <Text style={styles.contactInfo}>{contact.email}</Text>
             <Text style={styles.contactInfo}>{contact.phone}</Text>
             <Text style={styles.contactInfo}>
-              {t(siteContent.imprint.address.street)}
+              {t(content.imprint.address.street)}
             </Text>
             <Text style={styles.contactInfo}>
-              {t(siteContent.imprint.address.city)}
+              {t(content.imprint.address.city)}
             </Text>
             <Text style={styles.contactInfo}>
-              {t(siteContent.imprint.address.country)}
+              {t(content.imprint.address.country)}
             </Text>
           </View>
         </View>
@@ -258,7 +261,7 @@ const CVDocument: React.FC<CVDocumentProps> = ({ language }) => {
         <View style={styles.twoColumns}>
           {/* Left Column - Experience */}
           <View style={styles.columnLeft}>
-            <Text style={styles.sectionTitle}>{t(siteContent.experienceSectionTitle)}</Text>
+            <Text style={styles.sectionTitle}>{t(content.experienceSectionTitle)}</Text>
             {sortedExperiences.slice(0, 3).map((exp, index) => (
               <View key={index} style={styles.experienceItem}>
                 <Text style={styles.jobTitle}>{t(exp.title)}</Text>
@@ -274,7 +277,7 @@ const CVDocument: React.FC<CVDocumentProps> = ({ language }) => {
                       <Text key={idx} style={styles.descriptionItem}>• {t(item.text)}</Text>
                     ) : (
                       <Text key={idx} style={styles.achievementItem}>
-                        • {t(siteContent.experienceAchievementPrefix)} {t(item.text)}
+                        • {t(content.experienceAchievementPrefix)} {t(item.text)}
                       </Text>
                     )
                   ))}
@@ -310,8 +313,8 @@ const CVDocument: React.FC<CVDocumentProps> = ({ language }) => {
             ))}
 
             {/* Projects Section */}
-            <Text style={styles.sectionTitle}>{t(siteContent.projectsSectionTitle)}</Text>
-            {siteContent.projects.slice(0, 2).map((project, index) => (
+            <Text style={styles.sectionTitle}>{t(content.projectsSectionTitle)}</Text>
+            {content.projects.slice(0, 2).map((project, index) => (
               <View key={index} style={styles.experienceItem}>
                 <Text style={styles.jobTitle}>{t(project.title)}</Text>
                 <Text style={styles.description}>{t(project.description)}</Text>
