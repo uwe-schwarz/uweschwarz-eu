@@ -36,9 +36,8 @@ const CV = () => {
             <PDFDownloadLink 
               document={<ResumeDocument language={language} />} 
               fileName={`uwe_schwarz_cv_${language}.pdf`}
-              className="inline-block"
             >
-              {({ blob, url, loading, error }) => (
+              {({ loading }) => (
                 <Button disabled={loading} className="flex items-center">
                   <Download className="mr-2 h-4 w-4" />
                   {loading ? 'Loading...' : t({
