@@ -5,6 +5,7 @@ import { Briefcase, MapPin, Calendar, MessageSquareMore } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+
 const ExperienceSection = () => {
   const {
     t
@@ -39,6 +40,7 @@ const ExperienceSection = () => {
       });
     };
   }, []);
+
   return <section id="experience" className="section-padding py-20 relative bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">
@@ -50,7 +52,14 @@ const ExperienceSection = () => {
         {/* Timeline container */}
         <div ref={timelineRef} className="relative max-w-7xl mx-auto pb-12">
           {/* Vertical timeline line */}
-          <div className="absolute md:left-0 left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-primary/30 via-primary to-secondary/30 rounded"></div>
+          <div className="absolute md:left-0 left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-primary/30 via-primary/70 to-secondary/30 rounded"></div>
+
+          {/* Animierter Overlay */}
+          <div className="absolute md:left-0 left-1/2 transform -translate-x-1/2 w-1 pointer-events-none h-full">
+            <div className="relative h-full w-full">
+              <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-transparent via-primary to-transparent animate-timeline-glow"></div>
+            </div>
+          </div>
 
           {/* Timeline Items */}
           <div className="mt-16">
@@ -220,6 +229,23 @@ const ExperienceSection = () => {
             .timeline-item .absolute {
               display: none;
             }
+          }
+
+          @keyframes timeline-glow {
+            0% {
+              top: 0;
+              opacity: 1;
+            }
+            90% {
+              opacity: 1;
+            }
+            100% {
+              top: calc(100% - 5rem); /* 5rem = 80px = h-20 */
+              opacity: 0;
+            }
+          }
+          .animate-timeline-glow {
+            animation: timeline-glow 10s linear infinite;
           }
         `}
       </style>
