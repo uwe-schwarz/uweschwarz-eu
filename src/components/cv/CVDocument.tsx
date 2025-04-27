@@ -1,6 +1,22 @@
-import React from 'react';
-import { Page, Text, View, Document, StyleSheet, Font } from '@react-pdf/renderer';
-import type { Content } from '@/content/content';
+import React from "react";
+import {
+  Document,
+  Page,
+  Text,
+  View,
+  StyleSheet,
+  Font,
+  Image,
+  Link,
+  Svg,
+  Path,
+  Line,
+  Rect,
+  G
+} from "@react-pdf/renderer";
+import InterRegular from "@/assets/fonts/Inter-Regular.ttf";
+import InterBold from "@/assets/fonts/Inter-Bold.ttf";
+import SpaceGroteskBold from "@/assets/fonts/SpaceGrotesk-Bold.ttf";
 
 // Register fonts - adjust with actual fonts if needed
 Font.register({
@@ -304,7 +320,7 @@ interface CVDocumentProps {
   data?: any; // Allow custom data to be passed in
 }
 
-const CVDocument: React.FC<{ language: 'en' | 'de', data: Content }> = ({ language, data }) => {
+const CVDocument: React.FC<CVDocumentProps> = ({ language, data }) => {
   // Use passed data or fallback to siteContent
   const content = data || (require("@/content/content").siteContent);
   const { about, experiences, skills, skillsSection, contact, footer, hero, imprint } = content;
@@ -332,11 +348,6 @@ const CVDocument: React.FC<{ language: 'en' | 'de', data: Content }> = ({ langua
     acc[skill.category].push(skill);
     return acc;
   }, {} as Record<string, typeof skills>);
-
-  const filteredSkills = (skills: any[]) => {
-    if (!Array.isArray(skills)) return [];
-    return skills.filter(skill => skill.level >= 4);
-  };
 
   return (
     <Document>
