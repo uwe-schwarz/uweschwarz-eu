@@ -376,8 +376,8 @@ const CVDocument: React.FC<CVDocumentProps> = ({ language, data }) => {
                 <View style={styles.skillContainer}>
                   {skillsByCategory.languages
                     .map((skill, index) => (
-                      <View style={styles.skillContainer}>
-                        <SpeechIcon /><Text key={index} style={styles.sidebarSkill}>{t(skill.name)}</Text>
+                      <View key={index} style={styles.skillContainer}>
+                        <SpeechIcon /><Text style={styles.sidebarSkill}>{t(skill.name)}</Text>
                       </View>
                     ))}
                 </View>

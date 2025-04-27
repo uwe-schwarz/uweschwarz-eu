@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+// Buffer shim for react-pdf (must be before pdf renderer import)
+import { Buffer } from 'buffer';
+// @ts-ignore
+(globalThis as any).Buffer = Buffer;
 import { PDFViewer, PDFDownloadLink } from "@react-pdf/renderer";
 import { useSettings } from "@/contexts/SettingsContext";
 import { siteContent } from "@/content/content";
@@ -7,8 +11,74 @@ import { Button } from "@/components/ui/button";
 import { useScrollToTop } from "@/hooks/use-scroll-to-top";
 import { Download, Globe, ArrowLeft, Save, Edit } from "lucide-react";
 import CVDocument from "@/components/cv/CVDocument";
+import { generateCvDocx } from "@/components/cv/CVDocumentDocx";
 import CVEditor from "@/components/cv/CVEditor";
 import { compressToUint8Array, decompressFromUint8Array } from "lz-string";
+
+
+// Reusable Buttons für PDF und DOCX Download
+const CvDownloadButtons: React.FC<{ language: 'en' | 'de'; cvData: any }> = ({ language, cvData }) => {
+  const [docxUrl, setDocxUrl] = useState<string | null>(null);
+  const [loadingDocx, setLoadingDocx] = useState(false);
+
+  const createDocx = async () => {
+    setLoadingDocx(true);
+    try {
+      const blob = await generateCvDocx({ language, data: cvData });
+      if (docxUrl) URL.revokeObjectURL(docxUrl);
+      const url = URL.createObjectURL(blob);
+      setDocxUrl(url);
+    } finally {
+      setLoadingDocx(false);
+    }
+  };
+
+  // Trigger Download-Link wenn URL bereit
+  useEffect(() => {
+    if (docxUrl) {
+      const link = document.createElement('a');
+      link.href = docxUrl;
+      link.download = `uwe_schwarz_cv_${language}_${new Date().toISOString().split('T')[0]}.docx`;
+      link.click();
+      // Clean up
+      setTimeout(() => {
+        URL.revokeObjectURL(docxUrl);
+        setDocxUrl(null);
+      }, 1000);
+    }
+  }, [docxUrl, language]);
+
+  return (
+    <div className="flex space-x-4">
+      <PDFDownloadLink
+        document={<CVDocument language={language} data={cvData} />}
+        fileName={`uwe_schwarz_cv_${language}_${new Date().toISOString().split('T')[0]}.pdf`}
+        className="no-underline"
+      >
+        {({ loading }: any) => (
+          <Button disabled={loading} className="rounded-full shadow-lg hover-scale" variant="secondary">
+            <Download className="mr-2 h-4 w-4" />
+            {loading
+              ? language === 'en' ? 'Loading …' : 'Wird geladen …'
+              : language === 'en' ? 'Download PDF' : 'PDF herunterladen'}
+          </Button>
+        )}
+      </PDFDownloadLink>
+
+      <Button
+        onClick={createDocx}
+        disabled={loadingDocx}
+        className="rounded-full shadow-lg hover-scale"
+        variant="secondary"
+      >
+        <Download className="mr-2 h-4 w-4" />
+        {loadingDocx
+          ? language === 'en' ? 'Loading …' : 'Wird geladen …'
+          : language === 'en' ? 'Download DOCX' : 'DOCX herunterladen'}
+      </Button>
+    </div>
+  );
+};
 
 const CV = () => {
   const { language, setLanguage, t } = useSettings();
@@ -131,6 +201,10 @@ const CV = () => {
                 </Button>
               )}
             </PDFDownloadLink>
+
+            {/* Download-Buttons */}
+            <CvDownloadButtons language={language} cvData={cvData} />
+
           </div>
         </div>
       </div>

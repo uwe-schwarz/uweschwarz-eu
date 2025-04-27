@@ -1,4 +1,3 @@
-
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
@@ -16,6 +15,9 @@ export default defineConfig(({ mode }) => ({
       "pre.uweschwarz.eu",
     ],
   },
+  optimizeDeps: {
+    include: [ 'buffer' ]
+  },
   plugins: [
     react(),
     mode === 'development' &&
@@ -23,6 +25,7 @@ export default defineConfig(({ mode }) => ({
   ].filter(Boolean),
   resolve: {
     alias: {
+      buffer: path.resolve(__dirname, 'node_modules', 'buffer', 'index.js'),
       "@": path.resolve(__dirname, "./src"),
     },
   },
