@@ -120,10 +120,11 @@ const CV = () => {
               fileName={`uwe_schwarz_cv_${language}_${new Date().toISOString().split('T')[0]}.pdf`}
               className="no-underline"
             >
-              {({ loading }) => (
+              {/* @ts-ignore: allow render callback despite type definitions */}
+              {({ loading }: any) => (
                 <Button disabled={loading} className="rounded-full shadow-lg hover-scale" variant="secondary">
                   <Download className="mr-2 h-4 w-4" />
-                  {loading ? t({en: 'Loading...', de: 'Wird geladen...'}) : t({
+                  {loading ? t({ en: 'Loading...', de: 'Wird geladen...' }) : t({
                     en: 'Download PDF',
                     de: 'PDF herunterladen'
                   })}
