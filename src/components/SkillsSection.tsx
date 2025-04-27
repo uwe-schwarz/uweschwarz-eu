@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/SettingsContext";
-import { AlertTriangle, BookCheck, Bot, Box, Bug, Brain, Briefcase, Cloud, Database, FileCheck2, FileText, FlaskConical, GitBranch, GitCompareArrows, Globe, Landmark, Laptop, ListChecks, Mail, MessageCircle, Network, Route, ScanSearch, Settings, Server, ServerCog, Shield, ShieldCheck, Siren, Sparkles, Swords, Terminal, Users, Wrench } from "lucide-react";
+import { AlertTriangle, BookCheck, Bot, Box, Bug, Brain, Briefcase, Cloud, Database, FileCheck2, FileText, Flag, FlaskConical, GitBranch, GitCompareArrows, Globe, Landmark, Laptop, ListChecks, Mail, MessageCircle, Network, Route, ScanSearch, Settings, Server, ServerCog, Shield, ShieldCheck, Siren, Sparkles, Swords, Terminal, Users, Wrench } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 
@@ -30,6 +30,8 @@ const getSkillIcon = (iconName: string) => {
       return <FileCheck2 className="w-5 h-5" />;
     case "file-text":
       return <FileText className="w-5 h-5" />;
+    case "flag":
+      return <Flag className="w-5 h-5" />;
     case "flask-conical":
       return <FlaskConical className="w-5 h-5" />;
     case "git-branch":
@@ -84,7 +86,7 @@ const getSkillIcon = (iconName: string) => {
 const SkillsSection = () => {
   const { t } = useSettings();
   const { skills, skillsSection } = siteContent;
-  const [activeTab, setActiveTab] = useState<"management" | "security" | "infrastructure" | "tools">("management");
+  const [activeTab, setActiveTab] = useState<"management" | "languages" | "security" | "infrastructure" | "tools">("management");
 
   // Filter skills by category
   const filteredSkills = skills.filter((skill) => skill.category === activeTab);
@@ -112,6 +114,12 @@ const SkillsSection = () => {
                   <Briefcase className="w-5 h-5" />
                   <span className="hidden sm:inline">
                     {t(skillsSection.categories.management)}
+                  </span>
+                </TabsTrigger>
+                <TabsTrigger value="languages" className="gap-2 text-lg">
+                  <Flag className="w-5 h-5" />
+                  <span className="hidden sm:inline">
+                    {t(skillsSection.categories.languages)}
                   </span>
                 </TabsTrigger>
                 <TabsTrigger value="security" className="gap-2 text-lg">
@@ -148,7 +156,7 @@ const SkillsSection = () => {
             <TabsContent value="management" className="mt-0">
               <SkillsGrid skills={filteredSkills} />
             </TabsContent>
-            <TabsContent value="side_projects" className="mt-0">
+            <TabsContent value="languages" className="mt-0">
               <SkillsGrid skills={filteredSkills} />
             </TabsContent>
           </Tabs>
@@ -163,8 +171,9 @@ interface SkillsGridProps {
 }
 
 const SkillsGrid = ({ skills }: SkillsGridProps) => {
+  const { t } = useSettings();
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-6">
       {skills.map((skill, index) => (
         <div
           key={index}
@@ -174,7 +183,7 @@ const SkillsGrid = ({ skills }: SkillsGridProps) => {
             {getSkillIcon(skill.icon)}
           </div>
 
-          <h3 className="text-base font-medium mb-2">{skill.name}</h3>
+          <h3 className="text-base font-medium mb-2">{t(skill.name)}</h3>
 
           <div className="flex gap-1">
             {[...Array(5)].map((_, i) => (

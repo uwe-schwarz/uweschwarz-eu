@@ -8,15 +8,16 @@ import { useScrollToTop } from "@/hooks/use-scroll-to-top";
 import { Download, Globe, ArrowLeft, Save, Edit } from "lucide-react";
 import CVDocument from "@/components/cv/CVDocument";
 import CVEditor from "@/components/cv/CVEditor";
+import { compressToUint8Array, decompressFromUint8Array } from "lz-string";
 
 const CV = () => {
   const { language, setLanguage, t } = useSettings();
-  // Unicode-safe Base64 encoding/decoding using TextEncoder/TextDecoder
+  // Unicode-safe LZ compression + Base64 encoding/decoding using TextEncoder/TextDecoder
   const encodeData = (str: string): string => {
-    const bytes = new TextEncoder().encode(str);
+    const compressed = compressToUint8Array(str);
     let binary = '';
-    for (let i = 0; i < bytes.length; i++) {
-      binary += String.fromCharCode(bytes[i]);
+    for (let i = 0; i < compressed.length; i++) {
+      binary += String.fromCharCode(compressed[i]);
     }
     return window.btoa(binary);
   };
@@ -26,7 +27,7 @@ const CV = () => {
     for (let i = 0; i < binary.length; i++) {
       bytes[i] = binary.charCodeAt(i);
     }
-    return new TextDecoder().decode(bytes);
+    return decompressFromUint8Array(bytes) || '';
   };
 
   const [clickCount, setClickCount] = useState(0);

@@ -60,9 +60,9 @@ export interface Project {
 }
 
 export interface Skill {
-  name: string;
+  name: LocalizedString;
   icon: string;
-  category: "management" | "security" | "infrastructure" | "tools";
+  category: "languages" | "management" | "security" | "infrastructure" | "tools";
   level: number;
 }
 
@@ -74,6 +74,7 @@ export interface SkillsSection {
     infrastructure: LocalizedString;
     tools: LocalizedString;
     management: LocalizedString;
+    languages: LocalizedString;
   };
 }
 
@@ -92,6 +93,7 @@ export interface ContactSection {
     x?: string;
     bluesky?: string;
   };
+  birthday?: string;
   formLabels: {
     name: LocalizedString;
     email: LocalizedString;
@@ -597,45 +599,49 @@ export const siteContent: SiteContent = {
   ],
   skills: [
     // Security & Compliance
-    { name: "ISO27001", icon: "shield-check", category: "security", level: 3 },
-    { name: "SOC2", icon: "shield-check", category: "security", level: 5 },
-    { name: "GDPR / DSGVO", icon: "landmark", category: "security", level: 5 },
-    { name: "NIST Framework", icon: "book-check", category: "security", level: 4 },
-    { name: "MITRE ATT&CK", icon: "swords", category: "security", level: 4 },
-    { name: "BSI Grundschutz", icon: "book-check", category: "security", level: 5 },
-    { name: "Security Policy Dev.", icon: "file-check-2", category: "security", level: 5 },
-    { name: "Risk Management", icon: "alert-triangle", category: "security", level: 4 },
-    { name: "Vulnerability Mgmt.", icon: "scan-search", category: "security", level: 4 },
-    { name: "Incident Response", icon: "siren", category: "security", level: 5 },
-    { name: "Penetration Testing Mgmt.", icon: "bug", category: "security", level: 5 },
+    { name: {en: "ISO27001", de: "ISO27001"}, icon: "shield-check", category: "security", level: 3 },
+    { name: {en: "SOC2", de: "SOC2"}, icon: "shield-check", category: "security", level: 4 },
+    { name: {en: "GDPR", de: "DSGVO"}, icon: "landmark", category: "security", level: 5 },
+    { name: {en: "NIST Framework", de: "NIST Framework"}, icon: "book-check", category: "security", level: 4 },
+    { name: {en: "MITRE ATT&CK", de: "MITRE ATT&CK"}, icon: "swords", category: "security", level: 4 },
+    { name: {en: "BSI IT Baseline Protection", de: "BSI IT-Grundschutz"}, icon: "book-check", category: "security", level: 5 },
+    { name: {en: "Security Policies", de: "Sicherheitsrichtlinien"}, icon: "file-check-2", category: "security", level: 5 },
+    { name: {en: "Risk Management", de: "Risikomanagement"}, icon: "alert-triangle", category: "security", level: 3 },
+    { name: {en: "Vulnerability Mgmt.", de: "Vulnerabilitätsmanagement"}, icon: "scan-search", category: "security", level: 5 },
+    { name: {en: "Incident Response", de: "Incident Response"}, icon: "siren", category: "security", level: 5 },
+    { name: {en: "Penetration Testing Mgmt.", de: "Penetration Testing Mgmt."}, icon: "bug", category: "security", level: 5 },
 
     // Infrastructure & Operations
-    { name: "Linux: Debian, Ubuntu, RHEL", icon: "server", category: "infrastructure", level: 5 },
-    { name: "Unix: FreeBSD, OpenBSD, Solaris", icon: "server-cog", category: "infrastructure", level: 3 },
-    { name: "macOS", icon: "laptop", category: "infrastructure", level: 5 },
-    { name: "Windows Server", icon: "server", category: "infrastructure", level: 3 },
-    { name: "High Availability Systems", icon: "server-cog", category: "infrastructure", level: 5 },
-    { name: "Data Center Operations", icon: "database", category: "infrastructure", level: 4 },
-    { name: "TCP/IP, DNS, DHCP", icon: "network", category: "infrastructure", level: 5 },
-    { name: "IPv6", icon: "network", category: "infrastructure", level: 4 },
+    { name: {en: "Linux: Debian, Ubuntu, RHEL", de: "Linux: Debian, Ubuntu, RHEL"}, icon: "server", category: "infrastructure", level: 5 },
+    { name: {en: "Unix: FreeBSD, OpenBSD, Solaris", de: "Unix: FreeBSD, OpenBSD, Solaris"}, icon: "server-cog", category: "infrastructure", level: 3 },
+    { name: {en: "macOS", de: "macOS"}, icon: "laptop", category: "infrastructure", level: 5 },
+    { name: {en: "Windows Server", de: "Windows Server"}, icon: "server", category: "infrastructure", level: 2 },
+    { name: {en: "High Availability Systems", de: "Hochverfügbarkeitssysteme"}, icon: "server-cog", category: "infrastructure", level: 5 },
+    { name: {en: "Data Center Operations", de: "Rechenzentrumsbetrieb"}, icon: "database", category: "infrastructure", level: 4 },
+    { name: {en: "TCP/IP, DNS, DHCP", de: "TCP/IP, DNS, DHCP"}, icon: "network", category: "infrastructure", level: 5 },
+    { name: {en: "IPv6", de: "IPv6"}, icon: "network", category: "infrastructure", level: 5 },
 
     // Tools & Automation
-    { name: "Bash / Shell Scripting", icon: "terminal", category: "tools", level: 5 },
-    { name: "Python", icon: "terminal", category: "tools", level: 4 },
-    { name: "Postfix / Dovecot", icon: "mail", category: "tools", level: 5 },
-    { name: "Bind / Unbound", icon: "globe", category: "tools", level: 5 },
-    { name: "Squid Proxy", icon: "shield", category: "tools", level: 4 },
-    { name: "HAProxy", icon: "git-compare-arrows", category: "tools", level: 4 },
-    { name: "Puppet", icon: "bot", category: "tools", level: 3 },
-    { name: "Git", icon: "git-branch", category: "tools", level: 5 },
-    { name: "Docker", icon: "box", category: "tools", level: 3 },
+    { name: {en: "Bash / Shell Scripting", de: "Bash / Shell Skripte"}, icon: "terminal", category: "tools", level: 5 },
+    { name: {en: "Python", de: "Python"}, icon: "terminal", category: "tools", level: 3 },
+    { name: {en: "Postfix / Dovecot", de: "Postfix / Dovecot"}, icon: "mail", category: "tools", level: 4 },
+    { name: {en: "Bind / Unbound", de: "Bind / Unbound"}, icon: "globe", category: "tools", level: 5 },
+    { name: {en: "Squid Proxy", de: "Squid Proxy"}, icon: "shield", category: "tools", level: 4 },
+    { name: {en: "HAProxy", de: "HAProxy"}, icon: "git-compare-arrows", category: "tools", level: 4 },
+    { name: {en: "Puppet", de: "Puppet"}, icon: "bot", category: "tools", level: 3 },
+    { name: {en: "Git", de: "Git"}, icon: "git-branch", category: "tools", level: 5 },
+    { name: {en: "Docker", de: "Docker"}, icon: "box", category: "tools", level: 4 },
 
     // Management & Strategy
-    { name: "Project Management", icon: "list-checks", category: "management", level: 5 },
-    { name: "Team Leadership", icon: "users", category: "management", level: 5 },
-    { name: "Stakeholder Communication", icon: "message-circle", category: "management", level: 5 },
-    { name: "IT Strategy", icon: "route", category: "management", level: 4 },
-    { name: "Technical Concepts", icon: "file-text", category: "management", level: 5 },
+    { name: {en: "Project Management", de: "Projektmanagement"}, icon: "list-checks", category: "management", level: 5 },
+    { name: {en: "Team Leadership", de: "Teamleitung"}, icon: "users", category: "management", level: 5 },
+    { name: {en: "Stakeholder Communication", de: "Stakeholder-Kommunikation"}, icon: "message-circle", category: "management", level: 5 },
+    { name: {en: "IT Strategy", de: "IT-Strategie"}, icon: "route", category: "management", level: 4 },
+    { name: {en: "Technical Concepts", de: "Technische Konzepte"}, icon: "file-text", category: "management", level: 5 },
+
+    // Languages
+    { name: {en: "German (Native)", de: "Deutsch (Muttersprache)"}, icon: "flag", category: "languages", level: 5 },
+    { name: {en: "English (C2)", de: "Englisch (C2)"}, icon: "flag", category: "languages", level: 5 },
   ],
   skillsSection: {
     title: {
@@ -651,6 +657,7 @@ export const siteContent: SiteContent = {
       infrastructure: { en: "Infrastructure", de: "Infrastruktur" },
       tools: { en: "Tools & DevOps", de: "Tools & DevOps" },
       management: { en: "Management", de: "Management" },
+      languages: { en: "Languages", de: "Sprachen" },
     },
   },
   contact: {
@@ -675,11 +682,12 @@ export const siteContent: SiteContent = {
     phone: "+49 151 64403667",
     socialLinks: {
       github: "https://github.com/uwe-schwarz",
-      linkedin: "https://www.linkedin.com/in/uwe-schwarz-282531294/",
-      xing: "https://www.xing.com/profile/Uwe_Schwarz72/",
+      linkedin: "https://www.linkedin.com/in/uwe-schwarz-282531294",
+      xing: "https://www.xing.com/profile/Uwe_Schwarz72",
       x: "https://x.com/e38383",
       bluesky: "https://bsky.app/profile/oldman-cloud.bsky.social",
     },
+    birthday: "1978-02-19",
     formLabels: {
       name: { en: "Name", de: "Name" },
       email: { en: "Email", de: "E-Mail" },

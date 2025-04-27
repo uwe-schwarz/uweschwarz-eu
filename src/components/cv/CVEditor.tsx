@@ -755,16 +755,29 @@ const CVEditor: React.FC<CVEditorProps> = ({ data, onChange, language }) => {
                   <div>
                     <label className="block text-xs font-medium mb-1">
                       {t({
-                        en: 'Name',
-                        de: 'Name'
+                        en: 'Name (EN)',
+                        de: 'Name (EN)'
                       })}
                     </label>
                     <Input 
-                      value={skill.name != null ? String(skill.name) : '' as string} 
-                      onChange={(e) => handleChange(['skills', skillIndex, 'name'], String(e.target.value))}
+                      value={skill.name.en != null ? String(skill.name.en) : '' as string} 
+                      onChange={(e) => handleMultiLangChange(['skills', skillIndex, 'name'], 'en', String(e.target.value))}
                     />
                   </div>
-                  
+
+                  <div>
+                    <label className="block text-xs font-medium mb-1">
+                      {t({
+                        en: 'Name (DE)',
+                        de: 'Name (DE)'
+                      })}
+                    </label>
+                    <Input 
+                      value={skill.name.de != null ? String(skill.name.de) : '' as string} 
+                      onChange={(e) => handleMultiLangChange(['skills', skillIndex, 'name'], 'de', String(e.target.value))}
+                    />
+                  </div>
+
                   <div>
                     <label className="block text-xs font-medium mb-1">
                       {t({
