@@ -9,7 +9,7 @@ import { useSettings } from "@/contexts/SettingsContext";
 import { siteContent } from "@/content/content";
 import { Button } from "@/components/ui/button";
 import { useScrollToTop } from "@/hooks/use-scroll-to-top";
-import { Download, Globe, ArrowLeft, Save, Edit } from "lucide-react";
+import { Download, Globe, ArrowLeft, Save, Edit, Moon, Sun } from "lucide-react";
 import CVDocument from "@/components/cv/CVDocument";
 import { generateCvDocx } from "@/components/cv/CVDocumentDocx";
 import CVEditor from "@/components/cv/CVEditor";
@@ -122,7 +122,7 @@ const CvDownloadButtons: React.FC<{ language: 'en' | 'de'; cvData: any }> = ({ l
 };
 
 const CV = () => {
-  const { language, setLanguage, t } = useSettings();
+  const { language, setLanguage, theme, setTheme, t } = useSettings();
   // Unicode-safe LZ compression + Base64 encoding/decoding using TextEncoder/TextDecoder
   const encodeData = (str: string): string => {
     const compressed = compressToUint8Array(str);
@@ -219,6 +219,15 @@ const CV = () => {
             <Button
               variant="secondary"
               size="sm"
+              onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+              className="rounded-full shadow-lg hover-scale"
+            >
+              {theme === 'light' ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
+            </Button>
+
+            <Button
+              variant="secondary"
+              size="sm"
               onClick={() => setLanguage(language === 'en' ? 'de' : 'en')}
               className="rounded-full shadow-lg hover-scale"
             >
@@ -228,7 +237,6 @@ const CV = () => {
 
             {/* Download-Buttons */}
             <CvDownloadButtons language={language} cvData={cvData} />
-
           </div>
         </div>
       </div>
