@@ -8,6 +8,7 @@ import {
     TableRow,
     TableCell,
     Footer,
+    PageNumber,
     AlignmentType,
     HeadingLevel,
     BorderStyle,
@@ -15,16 +16,21 @@ import {
   
   // Define your theme colors (hex without #)
   const theme = {
-    background: "FFFFFF",
-    sidebarBg: "2E2E2E",
+//    secondary: "#dbe3ef",  // hsl(217.2, 32.6%, 82.5%)
+//    muted: "#dbe3ef",
+//    border: "#dbe3ef",
+
+
+    background: "E6E9F3",
+    sidebarBg: "1B6E5A",
     sidebarText: "FFFFFF",
-    accent: "FF5722",
-    primary: "1976D2",
-    sectionTitle: "424242",
-    sectionLine: "BDBDBD",
-    tagBg: "E0E0E0",
-    tagText: "424242",
-    foreground: "212121",
+    accent: "3A2366",
+    primary: "1B6E5A",
+    sectionTitle: "3A2366",
+    sectionLine: "DBE3EF",
+    tagBg: "F1F0FB",
+    tagText: "3A2366",
+    foreground: "07090B",
   };
   
   /**
@@ -68,12 +74,26 @@ import {
       skillsByCategory[s.category].push(s);
     });
   
-    // 1) Make the document instance (provide an empty sections array so options is defined)
-    const doc = new Document({ sections: [] });
-  
+    // 1) Make the document instance with default 'Inter' font style
+    const doc = new Document({
+        creator: imprint.name,
+        description: (language === 'en' ? "CV of " : "CV von ") + imprint.name,
+        title: "CV " + imprint.name,
+        styles: {
+            paragraphStyles: [
+            {
+                id: 'Normal',
+                name: 'Normal',
+                run: { font: 'Inter' },
+            },
+            ],
+      },
+      sections: [],
+    });
+
     // 2) Attach the image via ImageRun
-    const profileImg = new ImageRun({ data: profileImage, transformation: { width: 80, height: 80 } });
-  
+    const profileImg = new ImageRun({ type: 'jpeg', data: profileImage, transformation: { width: 80, height: 80 } });
+
     // 3) Build your sections _afterwards_, using the `profileImg` you just created
     doc.addSection({
       properties: { page: { margin: { top: 720, right: 720, bottom: 720, left: 720 } } },
@@ -84,9 +104,9 @@ import {
               alignment: AlignmentType.CENTER,
               children: [
                 new TextRun({ text: language === 'en' ? 'Page ' : 'Seite ', size: 16, color: theme.accent }),
-                new TextRun({ children: ['{PAGE}'] }),
+                new TextRun({ children: [PageNumber.CURRENT] }),
                 new TextRun({ text: language === 'en' ? ' of ' : ' von ', size: 16, color: theme.accent }),
-                new TextRun({ children: ['{NUMPAGES}'] }),
+                new TextRun({ children: [PageNumber.TOTAL_PAGES] }),
                 new TextRun({ text: ' | ', size: 16, color: theme.accent }),
                 new TextRun({ text: language === 'en' ? 'Last updated: ' : 'Letztes Update: ', size: 16, color: theme.accent }),
                 new TextRun({ text: new Date().toLocaleDateString(language === 'en' ? 'en-US' : 'de-DE', { year: 'numeric', month: 'long' }), size: 16, color: theme.accent }),
@@ -134,16 +154,13 @@ import {
                         ],
                       })
                     ),
-                    // Skills im Sidebar
+                    // Languages im Sidebar
                     new Paragraph({ text: '' }),
-                    new Paragraph({ spacing: { after: 100 }, children: [new TextRun({ text: t(skillsSection.title), bold: true, size: 18, font: 'Space Grotesk', color: theme.sidebarText })] }),
-                    ...Object.entries(skillsByCategory).flatMap(([cat, catSkills]) => [
-                      new Paragraph({ spacing: { before: 100, after: 50 }, children: [new TextRun({ text: t(skillsSection.categories[cat]), bold: true, size: 16, color: theme.sidebarText })] }),
-                      new Paragraph({ children: catSkills.filter(s => s.level >= 4).slice(0, 10).flatMap((s, idx) => [
-                        new TextRun({ text: s.name, size: 16, color: theme.sidebarText }),
-                        idx < catSkills.length - 1 ? new TextRun({ text: ", ", size: 16, color: theme.sidebarText }) : null,
-                      ]).filter(Boolean) }),
-                    ]),
+                    new Paragraph({ spacing: { after: 100 }, children: [new TextRun({ text: t({ en: 'Languages', de: 'Sprachen' }), bold: true, size: 18, font: 'Space Grotesk', color: theme.sidebarText })] }),
+                    new Paragraph({ children: (skillsByCategory.languages || []).map((s, idx) => [
+                        new TextRun({ text: t(s.name), size: 16, color: theme.sidebarText }),
+                        idx < (skillsByCategory.languages || []).length - 1 ? new TextRun({ text: ", ", size: 16, color: theme.sidebarText }) : null,
+                      ]).flat().filter(Boolean) }),
                   ],
                 }),
   
@@ -160,7 +177,7 @@ import {
                     new Paragraph({ text: t(about.paragraphs[1]), size: 18, spacing: { after: 200 } }),
   
                     // Erfahrung
-                    new Paragraph({ text: t(content.experienceSectionTitle), heading: HeadingLevel.HEADING_2, thematicBreak: true }),
+                    new Paragraph({ text: t(content.experienceSectionTitle), heading: HeadingLevel.HEADING_2, thematicBreak: true, keepLines: true }),
                     ...sortedExperiences.map(exp => [
                       new Paragraph({ text: t(exp.title), bold: true, size: 20 }),
                       new Paragraph({ children: [
@@ -168,16 +185,18 @@ import {
                         new TextRun({ text: ` — ${t(exp.period)}`, size: 18, color: theme.accent }),
                       ]}),
                       new Paragraph({ text: exp.location, size: 18, color: theme.accent, spacing: { after: 100 } }),
-                      ...exp.description.map(item => new Paragraph({ bullet: { level: 0 }, children: [new TextRun({ text: t(item.text), size: 18, color: item.type === 'achievement' ? theme.primary : theme.foreground, bold: item.type === 'achievement' })] })),
+                      ...exp.description.map(item => new Paragraph({ bullet: { level: 0 }, children: [new TextRun({ text: item.type === 'text' ? t(item.text) : t(content.experienceAchievementPrefix) + ' ' + t(item.text), size: 18, color: item.type === 'achievement' ? theme.primary : theme.foreground, bold: item.type === 'achievement' })] })),
                       new Paragraph({ text: '' }),
                     ]).flat(),
   
                     // Skills
                     new Paragraph({ text: t(skillsSection.title), heading: HeadingLevel.HEADING_2, thematicBreak: true }),
-                    ...Object.entries(skillsByCategory).flatMap(([cat, catSkills]) => [
+                    ...Object.entries(skillsByCategory)
+                      .filter(([cat]) => cat !== "languages")
+                      .flatMap(([cat, catSkills]) => [
                       new Paragraph({ text: t(skillsSection.categories[cat]), bold: true, size: 20 }),
                       new Paragraph({ children: catSkills.filter(s => s.level >= 4).slice(0, 10).flatMap((s, idx) => [
-                        new TextRun({ text: s.name, size: 18, color: theme.primary }),
+                        new TextRun({ text: t(s.name), size: 18, color: theme.primary }),
                         idx < catSkills.length - 1 ? new TextRun({ text: ", ", size: 18, color: theme.primary }) : null,
                       ]).filter(Boolean) }),
                     ]),

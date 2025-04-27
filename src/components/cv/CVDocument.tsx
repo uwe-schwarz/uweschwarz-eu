@@ -40,9 +40,9 @@ const theme = {
   foreground: "#07090b", // hsl(210, 40%, 2%)
   primary: "#1b6e5a",    // hsl(153, 65%, 35%)
   accent: "#3a2366",     // hsl(262, 61%, 26%)
-  secondary: "#dbe3ef",  // hsl(217.2, 32.6%, 82.5%)
-  muted: "#dbe3ef",
-  border: "#dbe3ef",
+//  secondary: "#dbe3ef",  // hsl(217.2, 32.6%, 82.5%)
+//  muted: "#dbe3ef",
+//  border: "#dbe3ef",
   tagBg: "#f1f0fb",
   tagText: "#3a2366",
   sectionTitle: "#3a2366",
