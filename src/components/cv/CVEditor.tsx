@@ -821,8 +821,8 @@ const CVEditor: React.FC<CVEditorProps> = ({ data, onChange, language }) => {
             
             <Button 
               onClick={() => addArrayItem(['skills'], {
-                name: 'New Skill',
-                category: 'technical',
+                name: { en: 'New Skill', de: 'Neue Fähigkeit' },
+                category: 'management',
                 level: 3,
               })}
               className="w-full"
