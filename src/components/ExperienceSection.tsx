@@ -201,17 +201,12 @@ const ExperienceSection = () => {
             </p>
             <div className="mt-4"></div>
             {/* Download Resume */}
-            {/*
-
-            TODO: CV
-            
-            <a href="#" className="inline-flex items-center text-primary hover:text-primary/80 transition-colors link-underline">
+            <a href="/cv" className="inline-flex items-center text-primary hover:text-primary/80 transition-colors link-underline">
               <Briefcase size={24} className="mr-2" />
               <span>
                 {t(siteContent.downloadResume)}
               </span>
             </a>
-            */}
           </div>
         </div>
       </div>

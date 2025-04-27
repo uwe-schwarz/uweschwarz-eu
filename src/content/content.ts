@@ -970,5 +970,5 @@ export const siteContent: SiteContent = {
   experienceSectionTitle: { en: "Experience", de: "Berufserfahrung" },
   experienceAchievementPrefix: { en: "Achievement:", de: "Erfolg:" },
   moreProjects: { en: "Previous projects or references are available upon request.", de: "Frühere Projekte oder Referenzen sind auf Anfrage verfügbar." },
-  downloadResume: { en: "Download Full Resume", de: "Vollständigen Lebenslauf herunterladen" },
+  downloadResume: { en: "Download CV", de: "Lebenslauf herunterladen" },
 };
