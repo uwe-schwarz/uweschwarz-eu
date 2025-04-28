@@ -17,6 +17,7 @@ import {
 import InterRegular from "@/assets/fonts/Inter-Regular.ttf";
 import InterBold from "@/assets/fonts/Inter-Bold.ttf";
 import SpaceGroteskBold from "@/assets/fonts/SpaceGrotesk-Bold.ttf";
+import { SVGProps } from "react";
 
 // Register fonts - adjust with actual fonts if needed
 Font.register({
@@ -99,6 +100,11 @@ const SpeechIcon = () => (
       <Path fill={theme.icon} d="M83 143 c9 -2 23 -2 30 0 6 3 -1 5 -18 5 -16 0 -22 -2 -12 -5z"></Path>
       <Path fill={theme.icon} d="M83 113 c9 -2 23 -2 30 0 6 3 -1 5 -18 5 -16 0 -22 -2 -12 -5z"></Path>
     </G>
+  </Svg>
+);
+const WebIcon = () => (
+  <Svg width={12} height={12} viewBox="0 0 24 24">
+    <Path fill="none" stroke={theme.icon} strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 8h16m-7.5 12H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v7M8 4v4m8 14l5-5m0 4.5V17h-4.5"/>
   </Svg>
 );
 const EmptyIcon = () => (
@@ -362,6 +368,7 @@ const CVDocument: React.FC<CVDocumentProps> = ({ language, data }) => {
             <Text style={styles.sidebarTitle}>{language === 'en' ? 'Reach me at' : 'Kontakt'}</Text>
             <View style={styles.sidebarContactRow}><MailIcon /><Text style={styles.sidebarContactText}>{contact.cvemail}</Text></View>
             <View style={styles.sidebarContactRow}><PhoneIcon /><Text style={styles.sidebarContactText}>{contact.phone}</Text></View>
+            <View style={styles.sidebarContactRow}><WebIcon /><Text style={styles.sidebarContactText}>{contact.homepage}</Text></View>
             <View style={styles.sidebarContactRow}><LinkedInIcon /><Text style={styles.sidebarContactText}>{contact.socialLinks.linkedin.replace('https://www.linkedin.com/in', '')}</Text></View>
             <View style={styles.sidebarContactRow}><XingIcon /><Text style={styles.sidebarContactText}>{contact.socialLinks.xing.replace('https://www.xing.com/profile', '')}</Text></View>
             <View style={styles.sidebarContactRow}><CalendarIcon /><Text style={styles.sidebarContactText}>{contact.birthday}</Text></View>

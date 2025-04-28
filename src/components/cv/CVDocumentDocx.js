@@ -141,6 +141,7 @@ import {
                     ...[
                       ['Email', contact.cvemail],
                       ['Phone', contact.phone],
+                      ['Homepage', contact.homepage],
                       ['LinkedIn', contact.socialLinks.linkedin],
                       ['Xing', contact.socialLinks.xing],
                       ['Birthday', contact.birthday],
