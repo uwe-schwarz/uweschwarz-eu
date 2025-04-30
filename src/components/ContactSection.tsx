@@ -21,25 +21,25 @@ import {
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
-// Form Schema mit Zod für Validierung
-const formSchema = z.object({
-  verify: z.string(),
-  name: z.string().min(2, {
-    message: "Name muss mindestens 2 Zeichen lang sein.",
-  }),
-  email: z.string().email({
-    message: "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
-  }),
-  message: z.string().min(10, {
-    message: "Nachricht muss mindestens 10 Zeichen lang sein.",
-  }),
-});
-
 const ContactSection = () => {
   const { t } = useSettings();
   const { contact } = siteContent;
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Form Schema mit Zod für Validierung
+  const formSchema = z.object({
+    verify: z.string(),
+    name: z.string().min(2, {
+      message: t(contact.formStatus.validation.name),
+    }),
+    email: z.string().email({
+      message: t(contact.formStatus.validation.email),
+    }),
+    message: z.string().min(10, {
+      message: t(contact.formStatus.validation.message),
+    }),
+  });
 
   // React Hook Form initialisieren
   const form = useForm<z.infer<typeof formSchema>>({

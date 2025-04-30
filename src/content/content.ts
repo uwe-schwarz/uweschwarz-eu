@@ -112,6 +112,20 @@ export interface ContactSection {
     errorTitle: LocalizedString;
     errorDescription: LocalizedString;
     sending: LocalizedString;
+    validation: {
+      name: {
+        en: string;
+        de: string;
+      };
+      email: {
+        en: string;
+        de: string;
+      };
+      message: {
+        en: string;
+        de: string;
+      };
+    };
   };
   formPlaceholders: {
     name: LocalizedString;
@@ -1071,6 +1085,20 @@ export const siteContent: SiteContent = {
         de: "Nachricht konnte nicht gesendet werden. Bitte versuche es später noch einmal.",
       },
       sending: { en: "Sending...", de: "Senden..." },
+      validation: {
+        name: {
+          en: "Name must be at least 2 characters long.",
+          de: "Name muss mindestens 2 Zeichen lang sein.",
+        },
+        email: {
+          en: "Please enter a valid email address.",
+          de: "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+        },
+        message: {
+          en: "Message must be at least 10 characters long.",
+          de: "Nachricht muss mindestens 10 Zeichen lang sein.",
+        },
+      },
     },
     formPlaceholders: {
       name: { en: "Your name", de: "Dein Name" },
