@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/form";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import ReactCloudflareTurnstile from "react-cloudflare-turnstile";
+import { Turnstile } from '@marsidev/react-turnstile'
 
 const ContactSection = () => {
   const { t } = useSettings();
@@ -237,9 +237,9 @@ const ContactSection = () => {
                 <div className="space-y-6">
                   {/* Turnstile */}
                   <div className="hidden">
-                    <ReactCloudflareTurnstile
-                      turnstileSiteKey={"0x4AAAAAABXMxyZWFT3a7dxQ"}
-                      callback={(token) => {
+                    <Turnstile
+                      siteKey={"0x4AAAAAABXMxyZWFT3a7dxQ"}
+                      onSuccess={(token) => {
                           // save the token, validate it server-side
                           form.setValue("verify", token);
                       }}
