@@ -640,7 +640,7 @@ export const siteContent: SiteContent = {
       },
       company: "Deutsche Vermögensberatung AG",
       logoUrl: "/logos/dvag.svg",
-      period: { en: "Jul 2018 - Dec 2018", de: "Jul 2018 - Dez 2018" },
+      period: { en: "Jul 2015 - Dec 2018", de: "Jul 2015 - Dez 2018" },
       location: "Frankfurt am Main, Germany",
       description: [
         {
