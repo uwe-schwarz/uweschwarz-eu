@@ -110,31 +110,31 @@ const SkillsSection = () => {
           >
             <div className="flex justify-center mb-8">
               <TabsList className="flex-nowrap h-12">
-                <TabsTrigger value="management" className="gap-2 text-lg">
+                <TabsTrigger value="management" className="gap-2 text-lg" name={t(skillsSection.categories.management)} aria-label={t(skillsSection.categories.management)}>
                   <Briefcase className="w-5 h-5" />
                   <span className="hidden sm:inline">
                     {t(skillsSection.categories.management)}
                   </span>
                 </TabsTrigger>
-                <TabsTrigger value="languages" className="gap-2 text-lg">
+                <TabsTrigger value="languages" className="gap-2 text-lg" name={t(skillsSection.categories.languages)} aria-label={t(skillsSection.categories.languages)}>
                   <Flag className="w-5 h-5" />
                   <span className="hidden sm:inline">
                     {t(skillsSection.categories.languages)}
                   </span>
                 </TabsTrigger>
-                <TabsTrigger value="security" className="gap-2 text-lg">
+                <TabsTrigger value="security" className="gap-2 text-lg" name={t(skillsSection.categories.security)} aria-label={t(skillsSection.categories.security)}>
                   <ShieldCheck className="w-5 h-5" />
                   <span className="hidden sm:inline">
                     {t(skillsSection.categories.security)}
                   </span>
                 </TabsTrigger>
-                <TabsTrigger value="infrastructure" className="gap-2 text-lg">
+                <TabsTrigger value="infrastructure" className="gap-2 text-lg" name={t(skillsSection.categories.infrastructure)} aria-label={t(skillsSection.categories.infrastructure)}>
                   <Network className="w-5 h-5" />
                   <span className="hidden sm:inline">
                     {t(skillsSection.categories.infrastructure)}
                   </span>
                 </TabsTrigger>
-                <TabsTrigger value="tools" className="gap-2 text-lg">
+                <TabsTrigger value="tools" className="gap-2 text-lg" name={t(skillsSection.categories.tools)} aria-label={t(skillsSection.categories.tools)}>
                   <Wrench className="w-5 h-5" />
                   <span className="hidden sm:inline">
                     {t(skillsSection.categories.tools)}

@@ -116,7 +116,7 @@ const ExperienceSection = () => {
 
                       {/* Period & Location */}
                       <div className={cn(
-                        "flex flex-col items-start gap-2 mb-4 text-sm text-muted-foreground text-left",
+                        "flex flex-col items-start gap-2 mb-4 text-sm text-card-foreground/70 text-left",
                         "md:flex-row md:gap-4 md:items-center"
                       )}>
                         <div className="flex items-center">
