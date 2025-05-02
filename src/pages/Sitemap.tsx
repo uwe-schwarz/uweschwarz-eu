@@ -40,12 +40,21 @@ const Sitemap = () => {
   </url>
 </urlset>`;
 
+  // Default title and description with fallbacks
+  const sitemapTitle = siteContent.sitemap?.title 
+    ? t(siteContent.sitemap.title) 
+    : 'Sitemap';
+  
+  const sitemapDescription = siteContent.sitemap?.description 
+    ? t(siteContent.sitemap.description) 
+    : 'Here are all the pages on this website:';
+
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-6">{t(siteContent.sitemap?.title || 'Sitemap')}</h1>
+        <h1 className="text-3xl font-bold mb-6">{sitemapTitle}</h1>
         <div className="mb-8">
-          <p className="mb-4">{t(siteContent.sitemap?.description || 'Here are all the pages on this website:')}</p>
+          <p className="mb-4">{sitemapDescription}</p>
           <ul className="list-disc pl-5 space-y-2">
             <li><a href="/" className="text-primary hover:underline">Homepage</a></li>
             <li><a href="/cv" className="text-primary hover:underline">CV / Resume</a></li>

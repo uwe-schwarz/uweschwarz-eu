@@ -176,6 +176,11 @@ export interface PrivacySection {
   }>;
 }
 
+export interface SitemapSection {
+  title: LocalizedString;
+  description: LocalizedString;
+}
+
 export interface SiteContent {
   siteMetadata: {
     title: string;
@@ -195,6 +200,7 @@ export interface SiteContent {
   footer: Footer;
   imprint: ImprintSection;
   privacy: PrivacySection;
+  sitemap?: SitemapSection;
   translations: {
     languageSwitch: {
       en: string;
@@ -1342,6 +1348,16 @@ export const siteContent: SiteContent = {
         ],
       },
     ],
+  },
+  sitemap: {
+    title: {
+      en: "Sitemap",
+      de: "Seitenübersicht"
+    },
+    description: {
+      en: "Here are all the pages on this website:",
+      de: "Hier sind alle Seiten dieser Website:"
+    }
   },
   translations: {
     languageSwitch: {
