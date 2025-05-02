@@ -11,7 +11,6 @@ import Privacy from "./pages/Privacy";
 import NotFound from "./pages/NotFound";
 import CV from "./pages/CV";
 import Sitemap from "./pages/Sitemap";
-import SitemapXML from "./pages/SitemapXML";
 
 const queryClient = new QueryClient();
 
@@ -28,7 +27,6 @@ const App = () => (
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/cv" element={<CV />} />
             <Route path="/sitemap" element={<Sitemap />} />
-            <Route path="/sitemap.xml" element={<SitemapXML />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -41,7 +41,7 @@ const Footer = () => {
               to="/sitemap" 
               className="text-sm text-muted-foreground hover:text-primary transition-colors link-underline"
             >
-              Sitemap
+              {t(siteContent.sitemap.title)}
             </Link>
           </nav>
         </div>

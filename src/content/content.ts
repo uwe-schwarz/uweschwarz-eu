@@ -137,6 +137,10 @@ export interface ContactSection {
   infoText: LocalizedString;
 }
 
+export interface CV {
+  title: LocalizedString;
+}
+
 export interface Footer {
   copyright: LocalizedString;
   links: NavItem[];
@@ -197,6 +201,7 @@ export interface SiteContent {
   skills: Skill[];
   skillsSection: SkillsSection;
   contact: ContactSection;
+  cv: CV;
   footer: Footer;
   imprint: ImprintSection;
   privacy: PrivacySection;
@@ -1117,6 +1122,9 @@ export const siteContent: SiteContent = {
       en: "Feel free to reach out for collaborations or just a friendly hello.",
       de: "Kontaktiere mich gerne für Zusammenarbeiten oder einfach nur für ein freundliches Hallo.",
     },
+  },
+  cv: {
+    title: { en: "Resume / CV", de: "Lebenslauf / CV" },
   },
   footer: {
     copyright: {

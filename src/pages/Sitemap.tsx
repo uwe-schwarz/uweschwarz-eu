@@ -1,79 +1,92 @@
-
-import React from 'react';
 import { useSettings } from '@/contexts/SettingsContext';
 import { siteContent } from '@/content/content';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { ArrowLeft } from 'lucide-react';
 
 const Sitemap = () => {
   const { t } = useSettings();
-  const baseUrl = window.location.origin;
-  
-  // Get current date in format YYYY-MM-DD
-  const today = new Date().toISOString().split('T')[0];
 
-  // Create XML content
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>${baseUrl}/</loc>
-    <lastmod>${today}</lastmod>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>${baseUrl}/imprint</loc>
-    <lastmod>${today}</lastmod>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>${baseUrl}/privacy</loc>
-    <lastmod>${today}</lastmod>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>${baseUrl}/cv</loc>
-    <lastmod>${today}</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>${baseUrl}/sitemap</loc>
-    <lastmod>${today}</lastmod>
-    <priority>0.3</priority>
-  </url>
-</urlset>`;
-
-  // Default title and description with fallbacks
-  const sitemapTitle = siteContent.sitemap?.title 
-    ? t(siteContent.sitemap.title) 
-    : 'Sitemap';
-  
-  const sitemapDescription = siteContent.sitemap?.description 
-    ? t(siteContent.sitemap.description) 
-    : 'Here are all the pages on this website:';
+  const navigationLinks = siteContent.navigation?.map((item) => t(item.label)).join(' / ');
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-6">{sitemapTitle}</h1>
-        <div className="mb-8">
-          <p className="mb-4">{sitemapDescription}</p>
-          <ul className="list-disc pl-5 space-y-2">
-            <li><a href="/" className="text-primary hover:underline">Homepage</a></li>
-            <li><a href="/cv" className="text-primary hover:underline">CV / Resume</a></li>
-            <li><a href="/imprint" className="text-primary hover:underline">Imprint</a></li>
-            <li><a href="/privacy" className="text-primary hover:underline">Privacy Policy</a></li>
-            <li><a href="/sitemap.xml" className="text-primary hover:underline">XML Sitemap</a></li>
-          </ul>
+    <div className="min-h-screen flex flex-col">
+      <Header />
+      <main className="flex-grow pt-24 pb-16">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto">
+            <Link to="/">
+              <Button variant="ghost" size="sm" className="mb-6">
+                <ArrowLeft size={16} className="mr-2" />
+                {t(siteContent.backToHome)}
+              </Button>
+            </Link>
+            <h1 className="text-3xl font-bold mb-8">{t(siteContent.sitemap.title)}</h1>
+            <div className="mb-8">
+              <p className="mb-4">{t(siteContent.sitemap.description)}</p>
+              <ul className="list-disc pl-5 space-y-2">
+                <li className="text-primary">{navigationLinks}</li>
+                <li><a href="/cv" className="text-primary hover:underline">{t(siteContent.cv.title)}</a></li>
+                <li><a href="/imprint" className="text-primary hover:underline">{t(siteContent.imprint.title)}</a></li>
+                <li><a href="/privacy" className="text-primary hover:underline">{t(siteContent.privacy.title)}</a></li>
+                <li><a href="/sitemap.xml" className="text-primary hover:underline">{t(siteContent.sitemap.title)} (XML)</a></li>
+              </ul>
+            </div>
+          </div>
         </div>
-        
-        <div className="mt-8 pt-8 border-t border-border">
-          <h2 className="text-xl font-semibold mb-4">XML Sitemap</h2>
-          <p className="mb-4">View the <a href="/sitemap.xml" className="text-primary hover:underline">XML Sitemap</a> for search engines.</p>
-          <pre className="bg-muted p-4 rounded-md overflow-x-auto text-xs">
-            {xml}
-          </pre>
-        </div>
-      </div>
+      </main>
+      <Footer />
     </div>
   );
 };
 
 export default Sitemap;
+
+
+
+
+/*
+            
+            <div className="prose prose-lg dark:prose-invert max-w-none">
+              <section className="mb-8">
+                <h2 className="text-2xl font-semibold mb-4">{t(imprint.contactTitle)}</h2>
+                <p>{t(imprint.companyName)}</p>
+                {imprint.representative && <p>{t(imprint.representative)}</p>}
+                <p>{t(imprint.address.street)}</p>
+                <p>{t(imprint.address.city)}</p>
+                <p>{t(imprint.address.country)}</p>
+              </section>
+              
+              <section className="mb-8">
+                <h2 className="text-2xl font-semibold mb-4">{t(imprint.contactInfoTitle)}</h2>
+                <p>
+                  {t(imprint.emailLabel)}: <a href={`mailto:${imprint.email}`} className="text-primary">{imprint.email}</a>
+                </p>
+                <p>
+                  {t(imprint.phoneLabel)}: <span><a href={`tel:${imprint.phone}`} className="text-primary">{imprint.phone}</a></span>
+                </p>
+              </section>
+              
+              {imprint.legalTitle && (
+                <section className="mb-8">
+                  <h2 className="text-2xl font-semibold mb-4">{t(imprint.legalTitle)}</h2>
+                  <p>{t(imprint.vatId)}</p>
+                  {imprint.registrationInfo && <p>{t(imprint.registrationInfo)}</p>}
+                </section>
+              )}
+
+              <section>
+                <h2 className="text-2xl font-semibold mb-4">{t(imprint.disclaimerTitle)}</h2>
+                <p>{t(imprint.disclaimer)}</p>
+              </section>
+            </div>
+          </div>
+        </div>
+      </main>
+      <Footer />
+    </div>
+  );
+
+*/
