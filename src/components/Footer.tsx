@@ -1,3 +1,4 @@
+
 import React from "react";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/SettingsContext";
@@ -36,6 +37,12 @@ const Footer = () => {
                 {t(link.label)}
               </Link>
             ))}
+            <Link 
+              to="/sitemap" 
+              className="text-sm text-muted-foreground hover:text-primary transition-colors link-underline"
+            >
+              Sitemap
+            </Link>
           </nav>
         </div>
 
