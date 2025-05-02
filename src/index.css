@@ -8,6 +8,7 @@
 @layer base {
   :root {
     hyphens: auto;
+    --radius: 0.5rem;
     
     /* Light theme (L‑Werte = 100% − Dark‑L‑Werte) */
     --background: 225 25% 88%;          /* 100−12 */
@@ -180,11 +181,6 @@ code {
 
 pre {
   @apply bg-gray-100 dark:bg-gray-800 p-4 rounded-lg overflow-x-auto text-sm my-4;
-}
-
-/* AI badge */
-.ai-badge {
-  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary dark:bg-primary/20;
 }
 
 /* Keyframes for background element movement */

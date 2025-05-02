@@ -138,7 +138,7 @@ const HeroSection = () => {
                 return (
                   <div
                     key={index}
-                    className="absolute p-4 bg-card rounded-lg shadow-lg transform rotate-3 animate-float"
+                    className="absolute p-4 card-glass rounded-lg shadow-lg transform rotate-3 animate-float"
                     style={{
                       ...posStyle,
                       transform: `${posStyle.transform} rotate(${
@@ -147,7 +147,7 @@ const HeroSection = () => {
                     }}
                   >
                     <code
-                      className="text-xs sm:text-sm text-primary/80"
+                      className="text-xs sm:text-sm text-gradient"
                       dangerouslySetInnerHTML={{ __html: element.code }}
                     />
                   </div>

@@ -287,7 +287,7 @@ export const siteContent: SiteContent = {
       {
         position: 35,
         distance: 72,
-        code: "🤖&nbspr;AI",
+        code: "🤖&nbsp;AI",
       },
       {
         position: 52,
