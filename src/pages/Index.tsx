@@ -1,13 +1,13 @@
-
-import React from 'react';
+import React, { Suspense } from 'react';
 import Header from '@/components/Header';
 import HeroSection from '@/components/HeroSection';
 import AboutSection from '@/components/AboutSection';
 import ExperienceSection from '@/components/ExperienceSection';
-import ProjectsSection from '@/components/ProjectsSection';
-import SkillsSection from '@/components/SkillsSection';
-import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
+
+const ProjectsSection = React.lazy(() => import('@/components/ProjectsSection'));
+const SkillsSection = React.lazy(() => import('@/components/SkillsSection'));
+const ContactSection = React.lazy(() => import('@/components/ContactSection'));
 
 const Index = () => {
   return (
@@ -17,9 +17,15 @@ const Index = () => {
         <HeroSection />
         <AboutSection />
         <ExperienceSection />
-        <ProjectsSection />
-        <SkillsSection />
-        <ContactSection />
+        <Suspense fallback={<div>Loading…</div>}>
+          <ProjectsSection />
+        </Suspense>
+        <Suspense fallback={<div>Loading…</div>}>
+          <SkillsSection />
+        </Suspense>
+        <Suspense fallback={<div>Loading…</div>}>
+          <ContactSection />
+        </Suspense>
       </main>
       <Footer />
     </div>
