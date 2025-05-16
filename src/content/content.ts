@@ -389,8 +389,8 @@ export const siteContent: SiteContent = {
         en: "Project Manager Data Center Migration & Backup Modernization",
         de: "Projektmanager RZ-Umzug & Backup-Modernisierung",
       },
-      company: "Private Bank",
-      logoUrl: "/logos/nda.png",
+      company: "Joh. Berenberg, Gossler & Co. KG",
+      logoUrl: "/logos/berenberg.svg",
       period: { en: "Jan 2024 - Present", de: "Jan 2024 - Heute" },
       location: "Hamburg, Germany",
       description: [
