@@ -1,73 +1,97 @@
-# Welcome to your Lovable project
+# Personal Portfolio Website
 
-## Project info
+This is a personal portfolio website built with React, TypeScript, Vite, and Tailwind CSS. It showcases my projects, skills, and experience.
 
-**URL**: https://lovable.dev/projects/6f7d4b0a-0328-466c-8cd2-e028f6617397
+## Technologies Used
 
-## How can I edit this code?
+- **React:** A JavaScript library for building user interfaces.
+- **TypeScript:** A typed superset of JavaScript that compiles to plain JavaScript.
+- **Vite:** A fast build tool and development server for modern web projects.
+- **Tailwind CSS:** A utility-first CSS framework for rapidly building custom designs.
+- **shadcn-ui:** A collection of re-usable components built using Radix UI and Tailwind CSS.
+- **Supabase:** An open source Firebase alternative for building secure and scalable backend services.
+- **React Router:** For declarative routing in React applications.
+- **React Hook Form:** For flexible and extensible forms in React.
+- **Recharts:** A composable charting library built on React components.
+- **Lucide React:** A library of simply beautiful icons.
 
-There are several ways of editing your application.
+## Getting Started
 
-**Use Lovable**
+### Prerequisites
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/6f7d4b0a-0328-466c-8cd2-e028f6617397) and start prompting.
+- Node.js (v18 or higher recommended)
+- npm (comes with Node.js)
 
-Changes made via Lovable will be committed automatically to this repo.
+### Installation and Running Locally
 
-**Use your preferred IDE**
+1.  **Clone the repository:**
+    ```bash
+    git clone <YOUR_GIT_URL>
+    cd <YOUR_PROJECT_NAME>
+    ```
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+3.  **Start the development server:**
+    ```bash
+    npm run dev
+    ```
+    This will start the Vite development server, usually on `http://localhost:5173`. The application will automatically reload if you change any of the source files.
 
-Follow these steps:
+## Building the Project
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+To create a production build of the project, run:
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```bash
+npm run build
 ```
+This command will generate a `dist` folder in the project root with the optimized static assets for your application.
 
-**Edit a file directly in GitHub**
+## Testing
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+This project uses ESLint for linting. To run the linter, use:
 
-**Use GitHub Codespaces**
+```bash
+npm run lint
+```
+Currently, there are no automated end-to-end or unit tests configured for this project.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Deployment to Cloudflare Pages
 
-## What technologies are used for this project?
+This project can be easily deployed to Cloudflare Pages.
 
-This project is built with:
+### Prerequisites
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- A Cloudflare account.
+- Your project pushed to a GitHub repository.
 
-## How can I deploy this project?
+### Steps:
 
-Simply open [Lovable](https://lovable.dev/projects/6f7d4b0a-0328-466c-8cd2-e028f6617397) and click on Share -> Publish.
+1.  **Log in to Cloudflare:** Go to your Cloudflare dashboard.
+2.  **Connect to Git:**
+    *   In the sidebar, navigate to **Workers & Pages**.
+    *   Click on **Create application**, then select the **Pages** tab.
+    *   Click **Connect to Git**.
+3.  **Select Repository:**
+    *   Choose the GitHub repository where your project is hosted.
+    *   Click **Begin setup**.
+4.  **Configure Build Settings:**
+    *   **Project name:** Choose a name for your Pages project.
+    *   **Production branch:** Select the branch you want to deploy (e.g., `main` or `master`).
+    *   **Framework preset:** Select **Vite** from the dropdown. Cloudflare Pages will automatically detect most settings.
+    *   **Build command:** This should be automatically set to `npm run build` (or `vite build`).
+    *   **Build output directory:** This should be automatically set to `dist`.
+    *   **(Optional) Environment Variables:** If your project requires environment variables (e.g., for Supabase integration), add them under **Environment variables (advanced)**.
+        *   `VITE_SUPABASE_URL`: Your Supabase project URL.
+        *   `VITE_SUPABASE_ANON_KEY`: Your Supabase anonymous public key.
+5.  **Deploy:**
+    *   Click **Save and Deploy**.
+    *   Cloudflare Pages will now build and deploy your site. You can monitor the deployment progress.
+    *   Once deployed, you'll get a unique `*.pages.dev` subdomain for your project. You can also add custom domains later.
 
-## Can I connect a custom domain to my Lovable project?
+### Subsequent Deployments
 
-Yes it is!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+Cloudflare Pages will automatically redeploy your site whenever you push new changes to the connected production branch in your GitHub repository.
