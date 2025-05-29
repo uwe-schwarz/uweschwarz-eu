@@ -1,7 +1,7 @@
 
 import React from "react";
 import { siteContent } from "@/content/content";
-import { useSettings } from "@/contexts/SettingsContext";
+import { useSettings } from "@/contexts/settings-hook";
 import { Link } from "react-router-dom";
 
 const Footer = () => {

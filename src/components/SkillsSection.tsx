@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { siteContent } from "@/content/content";
-import { useSettings } from "@/contexts/SettingsContext";
+import { useSettings } from "@/contexts/settings-hook";
 import { AlertTriangle, BookCheck, Bot, Box, Bug, Brain, Briefcase, Cloud, Database, FileCheck2, FileText, Flag, FlaskConical, GitBranch, GitCompareArrows, Globe, Landmark, Laptop, ListChecks, Mail, MessageCircle, Network, Route, ScanSearch, Settings, Server, ServerCog, Shield, ShieldCheck, Siren, Sparkles, Swords, Terminal, Users, Wrench } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
@@ -86,7 +86,8 @@ const getSkillIcon = (iconName: string) => {
 const SkillsSection = () => {
   const { t } = useSettings();
   const { skills, skillsSection } = siteContent;
-  const [activeTab, setActiveTab] = useState<"management" | "languages" | "security" | "infrastructure" | "tools">("management");
+  type TabValue = "management" | "languages" | "security" | "infrastructure" | "tools";
+  const [activeTab, setActiveTab] = useState<TabValue>("management");
 
   // Filter skills by category
   const filteredSkills = skills.filter((skill) => skill.category === activeTab);
@@ -105,7 +106,7 @@ const SkillsSection = () => {
         <div className="max-w-4xl mx-auto">
           <Tabs
             defaultValue="management"
-            onValueChange={(value) => setActiveTab(value as any)}
+            onValueChange={(value) => setActiveTab(value as TabValue)}
             className="w-full"
           >
             <div className="flex justify-center mb-8">

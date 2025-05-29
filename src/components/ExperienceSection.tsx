@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { siteContent } from "@/content/content";
-import { useSettings } from "@/contexts/SettingsContext";
+import { useSettings } from "@/contexts/settings-hook";
 import { Briefcase, MapPin, Calendar, MessageSquareMore } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";

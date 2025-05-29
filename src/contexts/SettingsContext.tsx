@@ -1,21 +1,15 @@
-
-import React, { createContext, useContext, useState, useEffect } from 'react';
-
-type Language = 'en' | 'de';
-type Theme = 'light' | 'dark';
-
-interface SettingsContextType {
-  language: Language;
-  theme: Theme;
-  setLanguage: (lang: Language) => void;
-  setTheme: (theme: Theme) => void;
-  t: (text: { en: string; de: string }) => string;
-}
-
-const SettingsContext = createContext<SettingsContextType | undefined>(undefined);
+import React, { useState, useEffect } from 'react';
+import {
+  SettingsContext,
+  type Language,
+  type Theme,
+  type SettingsContextType,
+} from './settings-hook';
 
 export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // Get initial language from browser or localStorage
+  // The useSettings hook is defined and exported from ./settings-hook.ts
+  // This file should only export the SettingsProvider component.
   const getBrowserLanguage = (): Language => {
     // First check localStorage
     const savedLanguage = localStorage.getItem('language') as Language;
@@ -84,11 +78,5 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     </SettingsContext.Provider>
   );
 };
-
-export const useSettings = (): SettingsContextType => {
-  const context = useContext(SettingsContext);
-  if (context === undefined) {
-    throw new Error('useSettings must be used within a SettingsProvider');
-  }
-  return context;
-};
+// Ensure useSettings is NOT re-exported or defined here.
+// It should be imported directly from './settings-hook' by components that need it.

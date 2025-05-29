@@ -3,11 +3,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Save, Plus, Minus } from "lucide-react";
-import { useSettings } from "@/contexts/SettingsContext";
+import { useSettings } from "@/contexts/settings-hook";
+import { SiteContent, Experience, ExperienceDescriptionItem, LocalizedString, Project, Skill } from "@/content/content";
+
+type FieldValue = string | number | boolean | LocalizedString | ExperienceDescriptionItem[] | LocalizedString[];
+type ArrayItemTemplate = Experience | Project | Skill | LocalizedString | ExperienceDescriptionItem;
 
 interface CVEditorProps {
-  data: any;
-  onChange: (newData: any) => void;
+  data: SiteContent;
+  onChange: (newData: SiteContent) => void;
   language: "en" | "de";
 }
 
@@ -29,7 +33,7 @@ const CVEditor: React.FC<CVEditorProps> = ({ data, onChange, language }) => {
     }));
   };
 
-  const handleChange = (path: (string | number)[], value: any) => {
+  const handleChange = (path: (string | number)[], value: FieldValue) => {
     // Create a deep copy of the data
     const newData = JSON.parse(JSON.stringify(data));
     
@@ -63,7 +67,7 @@ const CVEditor: React.FC<CVEditorProps> = ({ data, onChange, language }) => {
     onChange(newData);
   };
 
-  const addArrayItem = (path: string[], template: any) => {
+  const addArrayItem = (path: string[], template: ArrayItemTemplate) => {
     // Create a deep copy of the data
     const newData = JSON.parse(JSON.stringify(data));
     
@@ -295,7 +299,7 @@ const CVEditor: React.FC<CVEditorProps> = ({ data, onChange, language }) => {
         
         {expandedSections.experiences && (
           <div className="space-y-6">
-            {data.experiences.map((exp: any, expIndex: number) => (
+            {data.experiences.map((exp: Experience, expIndex: number) => (
               <div key={expIndex} className="p-4 border rounded-lg">
                 <div className="flex justify-between items-center mb-2">
                   <h3 className="font-bold">{`Experience ${expIndex + 1}`}</h3>
@@ -421,7 +425,7 @@ const CVEditor: React.FC<CVEditorProps> = ({ data, onChange, language }) => {
                     </div>
                   </div>
                   
-                  {exp.description.map((item: any, descIndex: number) => (
+                  {exp.description.map((item: ExperienceDescriptionItem, descIndex: number) => (
                     <div key={descIndex} className="p-3 border rounded mb-2">
                       <div className="flex justify-between items-center mb-2">
                         <span className="text-sm font-medium">
@@ -478,7 +482,7 @@ const CVEditor: React.FC<CVEditorProps> = ({ data, onChange, language }) => {
                       de: 'Stichworte'
                     })}
                   </label>
-                  {exp.tags.map((tag: any, tagIndex: number) => (
+                  {exp.tags.map((tag: LocalizedString, tagIndex: number) => (
                     <div key={tagIndex} className="flex mb-2">
                       <div className="flex-1 mr-2">
                         <Input 
@@ -581,7 +585,7 @@ const CVEditor: React.FC<CVEditorProps> = ({ data, onChange, language }) => {
         
         {expandedSections.projects && (
           <div className="space-y-6">
-            {data.projects.map((project: any, projectIndex: number) => (
+            {data.projects.map((project: Project, projectIndex: number) => (
               <div key={projectIndex} className="p-4 border rounded-lg">
                 <div className="flex justify-between items-center mb-2">
                   <h3 className="font-bold">{`Project ${projectIndex + 1}`}</h3>
@@ -653,7 +657,7 @@ const CVEditor: React.FC<CVEditorProps> = ({ data, onChange, language }) => {
                       de: 'Stichworte'
                     })}
                   </label>
-                  {project.tags.map((tag: any, tagIndex: number) => (
+                  {project.tags.map((tag: LocalizedString, tagIndex: number) => (
                     <div key={tagIndex} className="flex mb-2">
                       <div className="flex-1 mr-2">
                         <Input 
@@ -749,7 +753,7 @@ const CVEditor: React.FC<CVEditorProps> = ({ data, onChange, language }) => {
         
         {expandedSections.skills && (
           <div className="space-y-6">
-            {data.skills.map((skill: any, skillIndex: number) => (
+            {data.skills.map((skill: Skill, skillIndex: number) => (
               <div key={skillIndex} className="p-3 border rounded-lg flex items-center">
                 <div className="flex-1 grid grid-cols-2 gap-2">
                   <div>

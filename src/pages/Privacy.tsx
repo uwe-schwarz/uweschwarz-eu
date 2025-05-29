@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { useSettings } from '@/contexts/SettingsContext';
+import { useSettings } from '@/contexts/settings-hook';
 import { siteContent } from '@/content/content';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';

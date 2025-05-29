@@ -1,6 +1,6 @@
 import React from 'react';
 import { siteContent } from '@/content/content';
-import { useSettings } from '@/contexts/SettingsContext';
+import { useSettings } from '@/contexts/settings-hook';
 import { ExternalLink, Github, ArrowRight } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';

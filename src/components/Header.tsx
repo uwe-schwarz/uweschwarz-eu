@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Moon, Sun, Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { useSettings } from "@/contexts/SettingsContext";
+import { useSettings } from "@/contexts/settings-hook";
 import { siteContent } from "@/content/content";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";

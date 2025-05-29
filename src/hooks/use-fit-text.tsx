@@ -4,7 +4,7 @@ interface UseFitTextOptions {
   minFontSize?: number;
   maxFontSize?: number;
   resolution?: number; // px, how precise the fitting should be
-  depKey?: any; // dependency to trigger recalculation (e.g. text)
+  depKey?: unknown; // dependency to trigger recalculation (e.g. text)
 }
 
 export function useFitText({
@@ -47,6 +47,7 @@ export function useFitText({
       }
     }
     setFontSize(best);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- depKey is intentionally a dependency to allow external trigger
   }, [minFontSize, maxFontSize, resolution, depKey]);
 
   useLayoutEffect(() => {
@@ -54,7 +55,7 @@ export function useFitText({
     // Listen for container resize
     const parent = containerRef.current?.parentElement;
     if (!parent) return;
-    const ro = new (window as any).ResizeObserver(fit);
+    const ro = new window.ResizeObserver(fit);
     ro.observe(parent);
     return () => {
       ro.disconnect();
