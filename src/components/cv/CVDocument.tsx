@@ -18,6 +18,7 @@ import InterRegular from "@/assets/fonts/Inter-Regular.ttf";
 import InterBold from "@/assets/fonts/Inter-Bold.ttf";
 import SpaceGroteskBold from "@/assets/fonts/SpaceGrotesk-Bold.ttf";
 import { SVGProps } from "react";
+import { siteContent as defaultSiteContent, SiteContent } from "@/content/content";
 
 // Register fonts - adjust with actual fonts if needed
 Font.register({
@@ -323,12 +324,12 @@ const styles = StyleSheet.create({
 
 interface CVDocumentProps {
   language: "en" | "de";
-  data?: any; // Allow custom data to be passed in
+  data?: SiteContent; // Allow custom data to be passed in
 }
 
 const CVDocument: React.FC<CVDocumentProps> = ({ language, data }) => {
   // Use passed data or fallback to siteContent
-  const content = data || (require("@/content/content").siteContent);
+  const content = data || defaultSiteContent;
   const { about, experiences, skills, skillsSection, contact, footer, hero, imprint } = content;
   
   // Helper function to get text in the current language

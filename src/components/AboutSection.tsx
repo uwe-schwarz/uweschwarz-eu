@@ -1,9 +1,9 @@
 import React from 'react';
-import { useSettings } from '@/contexts/SettingsContext';
+import { useSettings } from '@/contexts/settings-hook';
 import { siteContent } from '@/content/content';
-import { Users, FolderArchive, Code } from 'lucide-react';
+import { Users, FolderArchive, Code, LucideIcon } from 'lucide-react';
 
-const iconMap: Record<string, any> = {
+const iconMap: Record<string, LucideIcon> = {
   experience: Users,
   projects: FolderArchive,
   technologies: Code,

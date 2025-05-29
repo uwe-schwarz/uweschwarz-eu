@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ArrowDown, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useSettings } from "@/contexts/SettingsContext";
+import { useSettings } from "@/contexts/settings-hook";
 import { siteContent } from "@/content/content";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { useFitText } from "@/hooks/use-fit-text";

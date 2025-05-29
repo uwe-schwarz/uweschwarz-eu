@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 // Buffer shim for react-pdf (must be before pdf renderer import)
 import { Buffer } from 'buffer';
-// @ts-ignore
-(globalThis as any).Buffer = Buffer;
+// @ts-expect-error TODO: Buffer is a polyfill for react-pdf, this might not be needed with future library versions
+(globalThis as typeof globalThis & { Buffer?: unknown }).Buffer = Buffer;
 import { PDFViewer, PDFDownloadLink } from "@react-pdf/renderer";
-import { useSettings } from "@/contexts/SettingsContext";
-import { siteContent } from "@/content/content";
+import { useSettings } from "@/contexts/settings-hook";
+import { siteContent, SiteContent } from "@/content/content";
 import { Button } from "@/components/ui/button";
 import { useScrollToTop } from "@/hooks/use-scroll-to-top";
 import { Download, Globe, ArrowLeft, Save, Edit, Moon, Sun } from "lucide-react";
@@ -17,7 +17,7 @@ import { compressToUint8Array, decompressFromUint8Array } from "lz-string";
 
 
 // Reusable Buttons für PDF und DOCX Download
-const CvDownloadButtons: React.FC<{ language: 'en' | 'de'; cvData: any }> = ({ language, cvData }) => {
+const CvDownloadButtons: React.FC<{ language: 'en' | 'de'; cvData: SiteContent }> = ({ language, cvData }) => {
   const [docxUrl, setDocxUrl] = useState<string | null>(null);
   const [loadingDocx, setLoadingDocx] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
@@ -58,7 +58,7 @@ const CvDownloadButtons: React.FC<{ language: 'en' | 'de'; cvData: any }> = ({ l
           fileName={`uwe_schwarz_cv_${language}_${new Date().toISOString().split('T')[0]}.pdf`}
           className="no-underline"
         >
-          {({ loading }: any) => (
+          {({ loading }: { loading: boolean }) => (
             <Button disabled={loading} className="rounded-full shadow-lg hover-scale" variant="secondary">
               <Download className="mr-2 h-4 w-4" />
               {loading
@@ -95,7 +95,7 @@ const CvDownloadButtons: React.FC<{ language: 'en' | 'de'; cvData: any }> = ({ l
               fileName={`uwe_schwarz_cv_${language}_${new Date().toISOString().split('T')[0]}.pdf`}
               className="no-underline block px-4 py-2 text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700"
             >
-              {({ loading }: any) => (
+              {({ loading }: { loading: boolean }) => (
                 <span className="flex items-center text-gray-900 dark:text-gray-100">
                   <Download className="mr-2 h-4 w-4" />
                   {loading
@@ -176,7 +176,7 @@ const CV = () => {
     });
   };
 
-  const handleDataChange = (newData) => {
+  const handleDataChange = (newData: SiteContent) => {
     setCvData(newData);
     // Save to URL hash (Unicode-safe Base64)
     const json = JSON.stringify(newData);

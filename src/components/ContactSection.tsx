@@ -1,6 +1,6 @@
 import React from "react";
 import { siteContent } from "@/content/content";
-import { useSettings } from "@/contexts/SettingsContext";
+import { useSettings } from "@/contexts/settings-hook";
 import { Mail, Send, Phone } from "lucide-react";
 import { SiXing, SiX, SiGithub, SiBluesky } from "@icons-pack/react-simple-icons";
 import { Button } from "@/components/ui/button";
@@ -8,10 +8,10 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, FormProvider } from "react-hook-form"; // Import FormProvider
 import * as z from "zod";
 import {
-  Form,
+  // Form, // Removed Form from here
   FormControl,
   FormField,
   FormItem,
@@ -229,7 +229,7 @@ const ContactSection = () => {
 
           {/* Contact Form */}
           <div>
-            <Form {...form}>
+            <FormProvider {...form}> {/* Use FormProvider here */}
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
                 className="bg-card rounded-xl p-8 border border-border shadow-sm"
@@ -331,7 +331,7 @@ const ContactSection = () => {
                   </Button>
                 </div>
               </form>
-            </Form>
+            </FormProvider> {/* Corrected closing tag */}
           </div>
         </div>
       </div>
