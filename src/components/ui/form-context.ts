@@ -13,8 +13,8 @@ export type FormFieldContextValue<
   name: TName
 }
 
-export const FormFieldContext = React.createContext<FormFieldContextValue>(
-  {} as FormFieldContextValue
+export const FormFieldContext = React.createContext<FormFieldContextValue | null>(
+  null
 )
 
 // Original FormItemContextValue and FormItemContext
@@ -22,25 +22,26 @@ export type FormItemContextValue = {
   id: string
 }
 
-export const FormItemContext = React.createContext<FormItemContextValue>(
-  {} as FormItemContextValue
+export const FormItemContext = React.createContext<FormItemContextValue | null>(
+  null
 )
 
 // Original useFormField hook
 export const useFormField = () => {
   const fieldContext = React.useContext(FormFieldContext)
   const itemContext = React.useContext(FormItemContext)
-  const { getFieldState, formState } = useFormContext()
-
-  const fieldState = getFieldState(fieldContext.name, formState)
 
   if (!fieldContext) {
     throw new Error("useFormField should be used within <FormField>")
   }
-  
+
   if (!itemContext) {
     throw new Error("useFormField should be used within <FormItem>")
   }
+
+  const { getFieldState, formState } = useFormContext()
+
+  const fieldState = getFieldState(fieldContext.name, formState)
 
 
   const { id } = itemContext
