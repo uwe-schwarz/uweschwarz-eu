@@ -39,7 +39,7 @@ This is a personal portfolio website built with React, TypeScript, Vite, and Tai
     ```bash
     npm run dev
     ```
-    This will start the Vite development server, usually on `http://localhost:5173`. The application will automatically reload if you change any of the source files.
+    This will start the Vite development server, usually on `http://localhost:8080`. The application will automatically reload if you change any of the source files.
 
 ## Building the Project
 
