@@ -11,7 +11,7 @@ const urls = [
   },
   {
     url: '/cv',
-    files: ['src/pages/CV.tsx', 'src/components/cv/CVDocument.tsx', 'src/components/cv/CVDocumentDocx.js'],
+    files: ['src/pages/CV.tsx', 'src/components/cv/CVDocument.tsx', 'src/components/cv/CVDocumentDocx.tsx'],
     priority: 0.8
   },
   {
