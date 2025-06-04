@@ -19,7 +19,7 @@ This is a personal portfolio website built with React, TypeScript, Vite, and Tai
 
 ### Prerequisites
 
-- Node.js (v18 or higher recommended)
+- Node.js (v20 or higher recommended)
 - npm (comes with Node.js)
 
 ### Installation and Running Locally
