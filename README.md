@@ -8,7 +8,7 @@ This is a personal portfolio website built with React, TypeScript, Vite, and Tai
 - **TypeScript:** A typed superset of JavaScript that compiles to plain JavaScript.
 - **Vite:** A fast build tool and development server for modern web projects.
 - **Tailwind CSS:** A utility-first CSS framework for rapidly building custom designs.
-- **shadcn-ui:** A collection of re-usable components built using Radix UI and Tailwind CSS.
+- **shadcn-ui:** A collection of reusable components built using Radix UI and Tailwind CSS.
 - **Supabase:** An open source Firebase alternative for building secure and scalable backend services.
 - **React Router:** For declarative routing in React applications.
 - **React Hook Form:** For flexible and extensible forms in React.
