@@ -1,18 +1,21 @@
 import {
-    Document,
-    Packer,
-    Paragraph,
-    TextRun,
-    ImageRun,
-    Table,
-    TableRow,
-    TableCell,
-    Footer,
-    PageNumber,
-    AlignmentType,
-    HeadingLevel,
-    BorderStyle,
-  } from "docx";
+  Document,
+  Packer,
+  Paragraph,
+  TextRun,
+  ImageRun,
+  Table,
+  TableRow,
+  TableCell,
+  Footer,
+  PageNumber,
+  AlignmentType,
+  HeadingLevel,
+  BorderStyle,
+} from "docx";
+import type { SiteContent, Skill } from "@/content/content";
+
+type LocalizedString = { en: string; de: string };
   
   // Define your theme colors (hex without #)
   const theme = {
@@ -38,7 +41,7 @@ import {
    * @param {string} url URL des Bildes
    * @returns {Promise<Uint8Array>}
    */
-  async function fetchImageBuffer(url) {
+async function fetchImageBuffer(url: string): Promise<Uint8Array> {
     const response = await fetch(url);
     const arrayBuffer = await response.arrayBuffer();
     return new Uint8Array(arrayBuffer);
@@ -49,14 +52,15 @@ import {
    * @param {{ language: 'en'|'de'; data?: any }} options
    * @returns {Promise<Blob>} erzeugtes .docx als Blob
    */
-  export async function generateCvDocx({ language, data }) {
+export async function generateCvDocx({ language, data }: { language: "en" | "de"; data?: SiteContent }): Promise<Blob> {
     const profileImage = await fetchImageBuffer('/profile.jpg');
   
-    const content = data || window.siteContent; // content aus globalem Objekt oder prop
+    const content: SiteContent =
+      data || (window as unknown as { siteContent: SiteContent }).siteContent; // content aus globalem Objekt oder prop
     const { about, experiences, skills, skillsSection, contact, footer, hero, imprint } = content;
   
     // Übersetzungs-Helper
-    const t = (obj) => obj[language] || "";
+    const t = (obj: LocalizedString): string => obj[language] || "";
   
     // Erfahrungen sortieren (Present/Heute zuerst)
     const sortedExperiences = [...experiences].sort((a, b) => {
@@ -68,7 +72,7 @@ import {
     });
   
     // Skills gruppieren
-    const skillsByCategory = {};
+    const skillsByCategory: Record<Skill["category"], Skill[]> = {} as Record<Skill["category"], Skill[]>;
     skills.forEach((s) => {
       if (!skillsByCategory[s.category]) skillsByCategory[s.category] = [];
       skillsByCategory[s.category].push(s);
@@ -158,10 +162,18 @@ import {
                     // Languages im Sidebar
                     new Paragraph({ text: '' }),
                     new Paragraph({ spacing: { after: 100 }, children: [new TextRun({ text: t({ en: 'Languages', de: 'Sprachen' }), bold: true, size: 18, font: 'Space Grotesk', color: theme.sidebarText })] }),
-                    new Paragraph({ children: (skillsByCategory.languages || []).map((s, idx) => [
-                        new TextRun({ text: t(s.name), size: 16, color: theme.sidebarText }),
-                        idx < (skillsByCategory.languages || []).length - 1 ? new TextRun({ text: ", ", size: 16, color: theme.sidebarText }) : null,
-                      ]).flat().filter(Boolean) }),
+                    new Paragraph({
+                      children: (
+                        (skillsByCategory.languages || []).map((s, idx) => [
+                          new TextRun({ text: t(s.name), size: 16, color: theme.sidebarText }),
+                          idx < (skillsByCategory.languages || []).length - 1
+                            ? new TextRun({ text: ", ", size: 16, color: theme.sidebarText })
+                            : null,
+                        ]) as (TextRun | null)[]
+                      )
+                        .flat()
+                        .filter(Boolean) as TextRun[],
+                    })
                   ],
                 }),
   
@@ -196,10 +208,20 @@ import {
                       .filter(([cat]) => cat !== "languages")
                       .flatMap(([cat, catSkills]) => [
                       new Paragraph({ text: t(skillsSection.categories[cat]), bold: true, size: 20 }),
-                      new Paragraph({ children: catSkills.filter(s => s.level >= 4).slice(0, 10).flatMap((s, idx) => [
-                        new TextRun({ text: t(s.name), size: 18, color: theme.primary }),
-                        idx < catSkills.length - 1 ? new TextRun({ text: ", ", size: 18, color: theme.primary }) : null,
-                      ]).filter(Boolean) }),
+                      new Paragraph({
+                        children: (
+                          catSkills
+                            .filter((s) => s.level >= 4)
+                            .slice(0, 10)
+                            .flatMap((s, idx) => [
+                              new TextRun({ text: t(s.name), size: 18, color: theme.primary }),
+                              idx < catSkills.length - 1
+                                ? new TextRun({ text: ", ", size: 18, color: theme.primary })
+                                : null,
+                            ]) as (TextRun | null)[]
+                        )
+                          .filter(Boolean) as TextRun[],
+                      }),
                     ]),
                   ],
                 }),
@@ -212,5 +234,4 @@ import {
   
     // Erzeuge Browser-Blob direkt mit Packer.toBlob
     return await Packer.toBlob(doc);
-  }
-  
+}
