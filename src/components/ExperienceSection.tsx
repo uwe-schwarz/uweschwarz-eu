@@ -52,10 +52,10 @@ const ExperienceSection = () => {
         {/* Timeline container */}
         <div ref={timelineRef} className="relative max-w-7xl mx-auto pb-12">
           {/* Vertical timeline line */}
-          <div className="absolute md:left-0 left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-primary/30 via-primary/70 to-secondary/30 rounded"></div>
+          <div className="absolute md:block hidden left-0 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-primary/30 via-primary/70 to-secondary/30 rounded"></div>
 
           {/* Animierter Overlay */}
-          <div className="absolute md:left-0 left-1/2 transform -translate-x-1/2 w-1 pointer-events-none h-full">
+          <div className="absolute md:block hidden left0 transform -translate-x-1/2 w-1 pointer-events-none h-full">
             <div className="relative h-full w-full">
               <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-transparent via-primary to-transparent animate-timeline-glow"></div>
             </div>
