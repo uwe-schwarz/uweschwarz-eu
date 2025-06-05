@@ -23,6 +23,6 @@ if (!('ResizeObserver' in window)) {
     unobserve() {}
     disconnect() {}
   }
-  // @ts-ignore
+  // @ts-expect-error ResizeObserver not implemented in jsdom
   window.ResizeObserver = ResizeObserver
 }
