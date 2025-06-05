@@ -218,6 +218,14 @@ export async function generateCvDocx({ language, data }: { language: "en" | "de"
                             }),
                         }),
                       ]),
+
+                      // Featured Projects
+                      new Paragraph({ text: t(content.projectsSectionTitle), heading: HeadingLevel.HEADING_2, thematicBreak: true }),
+                      ...content.projects.map(project => [
+                        new Paragraph({ children: [new TextRun({ text: t(project.title), bold: true, size: 20 })] }),
+                        new Paragraph({ children: [new TextRun({ text: t(project.description), size: 18 })], spacing: { after: 100 } }),
+                        new Paragraph({ text: '' }),
+                      ]).flat(),
                     ],
                   }),
                 ],
