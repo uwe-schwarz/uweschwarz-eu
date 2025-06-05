@@ -368,8 +368,8 @@ const CVDocument: React.FC<CVDocumentProps> = ({ language, data }) => {
           {/* Contact Info */}
           <View style={styles.sidebarSection}>
             <Text style={styles.sidebarTitle}>{language === 'en' ? 'Reach me at' : 'Kontakt'}</Text>
-            <View style={styles.sidebarContactRow}><MailIcon /><Text style={styles.sidebarContactText}>{contact.cvemail}</Text></View>
-            <View style={styles.sidebarContactRow}><PhoneIcon /><Text style={styles.sidebarContactText}>{contact.phone}</Text></View>
+            <View style={styles.sidebarContactRow}><MailIcon /><Link href={`mailto:${contact.cvemail}`} style={styles.sidebarContactText}>{contact.cvemail}</Link></View>
+            <View style={styles.sidebarContactRow}><PhoneIcon /><Link href={`tel:${contact.phone}`} style={styles.sidebarContactText}>{contact.phone}</Link></View>
             <View style={styles.sidebarContactRow}><WebIcon /><Link href={contact.homepage} style={styles.sidebarContactText}>{contact.homepage.replace('https://', '')}</Link></View>
             <View style={styles.sidebarContactRow}><LinkedInIcon /><Link href={contact.socialLinks.linkedin} style={styles.sidebarContactText}>{contact.socialLinks.linkedin.replace('https://www.linkedin.com/in', '')}</Link></View>
             <View style={styles.sidebarContactRow}><XingIcon /><Link href={contact.socialLinks.xing} style={styles.sidebarContactText}>{contact.socialLinks.xing.replace('https://www.xing.com/profile', '')}</Link></View>
