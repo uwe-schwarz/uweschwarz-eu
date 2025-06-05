@@ -67,7 +67,8 @@ export interface Skill {
     | "management"
     | "security"
     | "infrastructure"
-    | "tools";
+    | "tools"
+    | "ai";
   level: number;
 }
 
@@ -78,6 +79,7 @@ export interface SkillsSection {
     security: LocalizedString;
     infrastructure: LocalizedString;
     tools: LocalizedString;
+    ai: LocalizedString;
     management: LocalizedString;
     languages: LocalizedString;
   };
@@ -580,6 +582,13 @@ export const siteContent: SiteContent = {
           },
         },
         {
+          "type": "text",
+          "text": {
+            "en": "Led and managed the Security Operations Center (SOC) team, overseeing daily operations, incident response, and continuous improvement of security processes.",
+            "de": "Leitung und Management des Security Operations Center (SOC)-Teams, einschließlich der täglichen Betriebsüberwachung, Incident Response und kontinuierlichen Verbesserung der Sicherheitsprozesse."
+          },
+        },
+        {
           type: "text",
           text: {
             en: "Security audits.",
@@ -633,11 +642,11 @@ export const siteContent: SiteContent = {
         { en: "Security", de: "Sicherheit" },
         { en: "GDPR", de: "DSGVO" },
         { en: "ISO 27001", de: "ISO 27001" },
+        { en: "BSI / NIS2 / NIST / MITRE", de: "BSI / NIS2 / NIST / MITRE" },
+        { en: "ITIL", de: "ITIL" },
         { en: "Guidelines", de: "Richtlinien" },
-        { en: "Atlassian Jira", de: "Atlassian Jira" },
-        { en: "Atlassian Confluence", de: "Atlassian Confluence" },
-        { en: "Palo Alto", de: "Palo Alto" },
-        { en: "Cisco", de: "Cisco" },
+        { en: "Atlassian Jira & Confluence", de: "Atlassian Jira & Confluence" },
+        { en: "Palo Alto / Cisco", de: "Palo Alto / Cisco" },
         { en: "Microsoft Azure", de: "Microsoft Azure" },
         { en: "Microsoft Sentinel", de: "Microsoft Sentinel" },
         { en: "Microsoft Defender", de: "Microsoft Defender" },
@@ -793,6 +802,28 @@ export const siteContent: SiteContent = {
         { en: "Backup", de: "Backup" },
         { en: "Data Protection", de: "Datenschutz" },
         { en: "Hybrid Cloud", de: "Hybrid Cloud" },
+      ],
+    },
+    {
+      title: {
+        en: "Automated Document Management with OCR and AI Categorization",
+        de: "Automatisierte Dokumentenverwaltung mit OCR und KI-Kategorisierung",
+      },
+      description: {
+        en: "Developed a private system to digitize all personal documents and letters using OCR technology. Integrated AI-based classification to automatically sort documents into predefined categories, enabling efficient search, retrieval, and archival. Additionally, implemented automated analysis to detect tax-relevant documents for income tax purposes and tag them accordingly.",
+        de: "Entwicklung eines privaten Systems zur Digitalisierung aller persönlichen Dokumente und Briefe mittels OCR-Technologie. Integration einer KI-gestützten Klassifizierung zur automatischen Sortierung der Dokumente in vordefinierte Kategorien für effizientes Suchen, Auffinden und Archivieren. Zusätzlich wurde eine automatisierte Auswertung implementiert, um steuerrelevante Dokumente für die Einkommensteuer zu erkennen und entsprechend zu taggen.",
+      },
+      imageUrl: "/projects/ocr_ai_documents.png",
+      imageAlt: {
+        en: "Illustration showing document scanning and AI classification: A scanner, digitized documents, AI nodes connecting to folder icons, and categorized labels like 'Finance', 'Health', and 'Insurance'. Represents automated document processing and intelligent organization.",
+        de: "Illustration zur Dokumentenerfassung und KI-Kategorisierung: Ein Scanner, digitalisierte Dokumente, KI-Knoten, die mit Ordnersymbolen verbunden sind, sowie kategorisierte Labels wie 'Finanzen', 'Gesundheit' und 'Versicherung'. Die Grafik steht für automatisierte Dokumentenverarbeitung und intelligente Organisation.",
+      },
+      tags: [
+        { en: "OCR", de: "OCR" },
+        { en: "AI Categorization", de: "KI-Kategorisierung" },
+        { en: "AI Agent", de: "KI-Agent" },
+        { en: "Document Management", de: "Dokumentenverwaltung" },
+        { en: "Automation", de: "Automatisierung" },
       ],
     },
   ],
@@ -1018,6 +1049,44 @@ export const siteContent: SiteContent = {
       level: 5,
     },
 
+    // Artificial Intelligence
+    {
+      name: { en: "Agentic AI", de: "Agentische KI" },
+      icon: "bot",
+      category: "ai",
+      level: 4
+    },
+    {
+      name: { en: "Multimodal AI", de: "Multimodale KI" },
+      icon: "image",
+      category: "ai",
+      level: 5
+    },
+    {
+      name: { en: "Causal AI", de: "Kausale KI" },
+      icon: "git-branch",
+      category: "ai",
+      level: 4
+    },
+    {
+      name: { en: "Generative Engine Optimization (GEO)", de: "Generative Engine Optimization (GEO)" },
+      icon: "search-code",
+      category: "ai",
+      level: 3
+    },
+    {
+      name: { en: "AI Multimedia Generation", de: "KI-Multimediaerzeugung" },
+      icon: "video",
+      category: "ai",
+      level: 3
+    },
+    {
+      name: { en: "AI Ethics & Governance", de: "KI-Ethik & Governance" },
+      icon: "scale",
+      category: "ai",
+      level: 5
+    },
+
     // Languages
     {
       name: { en: "German (Native)", de: "Deutsch (Muttersprache)" },
@@ -1045,6 +1114,7 @@ export const siteContent: SiteContent = {
       security: { en: "Security", de: "Sicherheit" },
       infrastructure: { en: "Infrastructure", de: "Infrastruktur" },
       tools: { en: "Tools & DevOps", de: "Tools & DevOps" },
+      ai: { en: "AI", de: "KI" },
       management: { en: "Management", de: "Management" },
       languages: { en: "Languages", de: "Sprachen" },
     },
@@ -1077,7 +1147,7 @@ export const siteContent: SiteContent = {
       bluesky: "https://bsky.app/profile/oldman-cloud.bsky.social",
     },
     birthday: "1978-02-19",
-    homepage: "uweschwarz.eu",
+    homepage: "https://uweschwarz.eu",
     formLabels: {
       name: { en: "Name", de: "Name" },
       email: { en: "Email", de: "E-Mail" },
@@ -1360,12 +1430,12 @@ export const siteContent: SiteContent = {
   sitemap: {
     title: {
       en: "Sitemap",
-      de: "Seitenübersicht"
+      de: "Seitenübersicht",
     },
     description: {
       en: "Here are all the pages on this website:",
-      de: "Hier sind alle Seiten dieser Website:"
-    }
+      de: "Hier sind alle Seiten dieser Website:",
+    },
   },
   translations: {
     languageSwitch: {

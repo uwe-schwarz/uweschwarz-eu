@@ -50,6 +50,7 @@ const theme = {
   sectionTitle: "#3a2366",
   sectionLine: "#dbe3ef",
   sidebarText: "#fff",
+  sidebarFooterText: "#aaaaaa",
   sidebarBg: "#1b6e5a",
   icon: "#fff",
 };
@@ -120,6 +121,7 @@ const styles = StyleSheet.create({
     fontFamily: "Inter",
     minHeight: "100%",
     paddingTop: 24,
+    paddingBottom: 0,
   },
   sidebar: {
     width: 150,
@@ -312,12 +314,11 @@ const styles = StyleSheet.create({
   footer: {
     position: "absolute",
     bottom: 18,
-    left: 0,
-    right: 0,
+    left: -75,
+    width: 150,
     fontSize: 8,
-    color: theme.accent,
+    color: theme.sidebarFooterText,
     textAlign: "center",
-    borderTop: `1 solid ${theme.sectionLine}`,
     paddingTop: 7,
   },
 });
@@ -367,11 +368,11 @@ const CVDocument: React.FC<CVDocumentProps> = ({ language, data }) => {
           {/* Contact Info */}
           <View style={styles.sidebarSection}>
             <Text style={styles.sidebarTitle}>{language === 'en' ? 'Reach me at' : 'Kontakt'}</Text>
-            <View style={styles.sidebarContactRow}><MailIcon /><Text style={styles.sidebarContactText}>{contact.cvemail}</Text></View>
-            <View style={styles.sidebarContactRow}><PhoneIcon /><Text style={styles.sidebarContactText}>{contact.phone}</Text></View>
-            <View style={styles.sidebarContactRow}><WebIcon /><Text style={styles.sidebarContactText}>{contact.homepage}</Text></View>
-            <View style={styles.sidebarContactRow}><LinkedInIcon /><Text style={styles.sidebarContactText}>{contact.socialLinks.linkedin.replace('https://www.linkedin.com/in', '')}</Text></View>
-            <View style={styles.sidebarContactRow}><XingIcon /><Text style={styles.sidebarContactText}>{contact.socialLinks.xing.replace('https://www.xing.com/profile', '')}</Text></View>
+            <View style={styles.sidebarContactRow}><MailIcon /><Link href={`mailto:${contact.cvemail}`} style={styles.sidebarContactText}>{contact.cvemail}</Link></View>
+            <View style={styles.sidebarContactRow}><PhoneIcon /><Link href={`tel:${contact.phone}`} style={styles.sidebarContactText}>{contact.phone}</Link></View>
+            <View style={styles.sidebarContactRow}><WebIcon /><Link href={contact.homepage} style={styles.sidebarContactText}>{contact.homepage.replace('https://', '')}</Link></View>
+            <View style={styles.sidebarContactRow}><LinkedInIcon /><Link href={contact.socialLinks.linkedin} style={styles.sidebarContactText}>{contact.socialLinks.linkedin.replace('https://www.linkedin.com/in', '')}</Link></View>
+            <View style={styles.sidebarContactRow}><XingIcon /><Link href={contact.socialLinks.xing} style={styles.sidebarContactText}>{contact.socialLinks.xing.replace('https://www.xing.com/profile', '')}</Link></View>
             <View style={styles.sidebarContactRow}><CalendarIcon /><Text style={styles.sidebarContactText}>{contact.birthday}</Text></View>
             <View style={styles.sidebarContactRow}><MapIcon /><Text style={styles.sidebarContactText}>{t(imprint.address.street)}</Text></View>
             <View style={styles.sidebarContactRow}><EmptyIcon /><Text style={styles.sidebarContactText}>{t(imprint.address.city)}</Text></View>
@@ -431,7 +432,7 @@ const CVDocument: React.FC<CVDocumentProps> = ({ language, data }) => {
                 </View>
                 
                 <View style={styles.tagContainer}>
-                  {exp.tags.slice(0, 5).map((tag, tagIndex) => (
+                  {exp.tags.map((tag, tagIndex) => (
                     <Text key={tagIndex} style={styles.tag}>{t(tag)}</Text>
                   ))}
                 </View>
@@ -459,21 +460,21 @@ const CVDocument: React.FC<CVDocumentProps> = ({ language, data }) => {
               </View>
             ))}
           </View>
-          {/* Projects
+          {/* Projects */}
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>{t(content.projectsSectionTitle)}</Text>
-            {content.projects.slice(0, 2).map((project, index) => (
-              <View key={index} style={styles.experienceItem}>
+            {content.projects.map((project, index) => (
+              <View key={index} style={styles.experienceItem} wrap={false}>
                 <Text style={styles.jobTitle}>{t(project.title)}</Text>
                 <Text style={styles.description}>{t(project.description)}</Text>
                 <View style={styles.tagContainer}>
-                  {project.tags.slice(0, 3).map((tag, tagIndex) => (
+                  {project.tags.slice(0, 5).map((tag, tagIndex) => (
                     <Text key={tagIndex} style={styles.tag}>{t(tag)}</Text>
                   ))}
                 </View>
               </View>
             ))}
-          </View> */}
+          </View>
           {/* Footer */}
           <View style={styles.footer} fixed>
             <Text
@@ -488,7 +489,7 @@ const CVDocument: React.FC<CVDocumentProps> = ({ language, data }) => {
                   month: 'long',
                 });
 
-                return `${pageLabel} ${pageNumber} ${pageNumberLabel} ${totalPages} | ${updateLabel}: ${date}`;
+                return `${pageLabel} ${pageNumber} ${pageNumberLabel} ${totalPages}\n${updateLabel}: ${date}`;
               }}
             />
           </View>

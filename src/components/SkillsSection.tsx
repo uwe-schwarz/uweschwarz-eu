@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
-import { AlertTriangle, BookCheck, Bot, Box, Bug, Brain, Briefcase, Cloud, Database, FileCheck2, FileText, Flag, FlaskConical, GitBranch, GitCompareArrows, Globe, Landmark, Laptop, ListChecks, Mail, MessageCircle, Network, Route, ScanSearch, Settings, Server, ServerCog, Shield, ShieldCheck, Siren, Sparkles, Swords, Terminal, Users, Wrench } from "lucide-react";
+import { AlertTriangle, BookCheck, Bot, Box, Bug, Brain, Briefcase, Cloud, Database, FileCheck2, FileText, Flag, FlaskConical, GitBranch, GitCompareArrows, Globe, Image, Landmark, Laptop, ListChecks, Mail, MessageCircle, Network, Route, Scale, ScanSearch, SearchCode, Settings, Server, ServerCog, Shield, ShieldCheck, Siren, Sparkles, Swords, Terminal, Users, Video, Wrench } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 
@@ -40,6 +40,8 @@ const getSkillIcon = (iconName: string) => {
       return <GitCompareArrows className="w-5 h-5" />;
     case "globe":
       return <Globe className="w-5 h-5" />;
+    case "image":
+      return <Image className="w-5 h-5" />;
     case "landmark":
       return <Landmark className="w-5 h-5" />;
     case "list-checks":
@@ -54,8 +56,12 @@ const getSkillIcon = (iconName: string) => {
       return <Network className="w-5 h-5" />;
     case "route":
       return <Route className="w-5 h-5" />;
+    case "scale":
+      return <Scale className="w-5 h-5" />;
     case "scan-search":
       return <ScanSearch className="w-5 h-5" />;
+    case "search-code":
+      return <SearchCode className="w-5 h-5" />;
     case "settings":
       return <Settings className="w-5 h-5" />;
     case "server":
@@ -76,6 +82,8 @@ const getSkillIcon = (iconName: string) => {
       return <Terminal className="w-5 h-5" />;
     case "users":
       return <Users className="w-5 h-5" />;
+    case "video":
+      return <Video className="w-5 h-5" />;
     case "wrench":
       return <Wrench className="w-5 h-5" />;
     default:
@@ -86,7 +94,7 @@ const getSkillIcon = (iconName: string) => {
 const SkillsSection = () => {
   const { t } = useSettings();
   const { skills, skillsSection } = siteContent;
-  type TabValue = "management" | "languages" | "security" | "infrastructure" | "tools";
+  type TabValue = "management" | "languages" | "security" | "ai" | "infrastructure" | "tools";
   const [activeTab, setActiveTab] = useState<TabValue>("management");
 
   // Filter skills by category
@@ -129,6 +137,12 @@ const SkillsSection = () => {
                     {t(skillsSection.categories.security)}
                   </span>
                 </TabsTrigger>
+                <TabsTrigger value="ai" className="gap-2 text-lg" name={t(skillsSection.categories.ai)} aria-label={t(skillsSection.categories.ai)}>
+                  <Bot className="w-5 h-5" />
+                  <span className="hidden sm:inline">
+                    {t(skillsSection.categories.ai)}
+                  </span>
+                </TabsTrigger>
                 <TabsTrigger value="infrastructure" className="gap-2 text-lg" name={t(skillsSection.categories.infrastructure)} aria-label={t(skillsSection.categories.infrastructure)}>
                   <Network className="w-5 h-5" />
                   <span className="hidden sm:inline">
@@ -152,6 +166,9 @@ const SkillsSection = () => {
               <SkillsGrid skills={filteredSkills} />
             </TabsContent>
             <TabsContent value="tools" className="mt-0">
+              <SkillsGrid skills={filteredSkills} />
+            </TabsContent>
+            <TabsContent value="ai" className="mt-0">
               <SkillsGrid skills={filteredSkills} />
             </TabsContent>
             <TabsContent value="management" className="mt-0">
