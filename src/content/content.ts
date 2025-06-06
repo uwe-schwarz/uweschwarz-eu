@@ -247,8 +247,8 @@ export const siteContent: SiteContent = {
   hero: {
     name: "Uwe Schwarz",
     imageAlt: {
-      en: "Portrait photo of Uwe",
-      de: "Portraitfoto von Uwe",
+      en: "Portrait photo of Uwe Schwarz, Project Manager and IT Security Expert.",
+      de: "Portraitfoto von Uwe Schwarz, Projektmanager und IT-Sicherheitsexperte.",
     },
     titleElements: [
       {
