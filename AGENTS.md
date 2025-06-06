@@ -14,7 +14,7 @@ This repository contains a personal portfolio built with React, TypeScript, Vite
 - `npm test` – execute unit tests via Vitest.
 
 ## Git hooks
-A pre-commit hook is configured with Husky. It runs `node scripts/generate-sitemap.cjs` and stages the resulting `public/sitemap.xml` file. Ensure the sitemap is updated and committed when making changes.
+A pre-commit hook is configured with Husky. When committing on the `main` branch it runs `node scripts/generate-sitemap.cjs` and stages the resulting `public/sitemap.xml` file. Ensure the sitemap is updated and committed when changes land on `main`.
 
 ## Agent workflow
 When modifying files in this repository:
