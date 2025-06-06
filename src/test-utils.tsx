@@ -14,7 +14,7 @@ export function renderWithSettings(ui: React.ReactElement, ctx?: Partial<Setting
   }
 
   return render(
-    <MemoryRouter future={{ v7_relativeSplatPath: true }}>
+    <MemoryRouter future={{ v7_relativeSplatPath: true, v7_startTransition: true }}>
       <SettingsContext.Provider value={contextValue}>
         {ui}
       </SettingsContext.Provider>
