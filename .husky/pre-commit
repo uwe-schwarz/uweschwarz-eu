@@ -1,1 +1,4 @@
-node scripts/generate-sitemap.cjs && git add public/sitemap.xml
+branch=$(git symbolic-ref --short HEAD)
+if [ "$branch" = "main" ]; then
+  node scripts/generate-sitemap.cjs && git add public/sitemap.xml
+fi
