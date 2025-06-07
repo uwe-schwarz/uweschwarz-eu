@@ -1,6 +1,10 @@
 @import "@fontsource/inter";
 @import "@fontsource/space-grotesk";
 
+@view-transition {
+  navigation: auto;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
