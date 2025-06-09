@@ -11,6 +11,7 @@ This is a personal portfolio website built with React, TypeScript, Vite, and Tai
 - **shadcn-ui:** A collection of reusable components built using Radix UI and Tailwind CSS.
 - **Supabase:** An open source Firebase alternative for building secure and scalable backend services.
 - **React Router:** For declarative routing in React applications.
+- **vite-plugin-prerender:** Generates static HTML for selected routes at build time.
 - **React Hook Form:** For flexible and extensible forms in React.
 - **Recharts:** A composable charting library built on React components.
 - **Lucide React:** A library of simply beautiful icons.
@@ -49,6 +50,7 @@ To create a production build of the project, run:
 npm run build
 ```
 This command will generate a `dist` folder in the project root with the optimized static assets for your application.
+During the build, `vite-plugin-prerender` generates static HTML for the `/` route to improve initial load performance.
 
 ## Testing
 
