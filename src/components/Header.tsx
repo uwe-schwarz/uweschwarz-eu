@@ -5,14 +5,20 @@ import { useSettings } from "@/contexts/settings-hook";
 import { siteContent } from "@/content/content";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "@/components/ui/link";
 
 const Header = () => {
   const { language, setLanguage, theme, setTheme, t } = useSettings();
   const [isScrolled, setIsScrolled] = useState(false);
   const isMobile = useIsMobile();
-  const location = useLocation();
-  const isHomePage = location.pathname === '/';
+  // Check if we're on the home page using window.location (client-side only)
+  const [isHomePage, setIsHomePage] = useState(true);
+  
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setIsHomePage(window.location.pathname === '/');
+    }
+  }, []);
   const [activeSection, setActiveSection] = useState<string>("hero");
 
   // Toggle for handling theme changes

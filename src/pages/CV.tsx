@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@/components/ui/link";
 // Buffer shim for react-pdf (must be before pdf renderer import)
 import { Buffer } from 'buffer';
 // @ts-expect-error TODO: Buffer is a polyfill for react-pdf, this might not be needed with future library versions
@@ -13,7 +13,8 @@ import { Download, Globe, ArrowLeft, Save, Edit, Moon, Sun } from "lucide-react"
 import CVDocument from "@/components/cv/CVDocument";
 import { generateCvDocx } from "@/components/cv/CVDocumentDocx";
 import CVEditor from "@/components/cv/CVEditor";
-import { compressToUint8Array, decompressFromUint8Array } from "lz-string";
+import LZString from "lz-string";
+const { compressToUint8Array, decompressFromUint8Array } = LZString;
 
 
 // Reusable Buttons für PDF und DOCX Download

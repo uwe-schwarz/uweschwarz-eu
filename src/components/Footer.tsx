@@ -2,7 +2,7 @@
 import React from "react";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
-import { Link } from "react-router-dom";
+import { Link } from "@/components/ui/link";
 
 const Footer = () => {
   const { t } = useSettings();

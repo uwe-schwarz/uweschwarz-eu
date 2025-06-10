@@ -2,7 +2,7 @@ import { useSettings } from '@/contexts/settings-hook';
 import { siteContent } from '@/content/content';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { Link } from 'react-router-dom';
+import { Link } from '@/components/ui/link';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 
