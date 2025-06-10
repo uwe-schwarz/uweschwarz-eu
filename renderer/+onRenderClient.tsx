@@ -33,7 +33,7 @@ const onRenderClient: OnRenderClientAsync = async (pageContext) => {
         <SettingsProvider>
           <Toaster />
           <Sonner />
-          <PageComponent {...pageProps} />
+          <PageComponent {...pageProps} pageContext={pageContext} />
         </SettingsProvider>
       </TooltipProvider>
     </QueryClientProvider>

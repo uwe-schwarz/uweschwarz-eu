@@ -30,7 +30,7 @@ const onRenderHtml: OnRenderHtmlAsync = async (pageContext) => {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <SettingsProvider>
-          <PageComponent {...pageProps} />
+          <PageComponent {...pageProps} pageContext={pageContext} />
         </SettingsProvider>
       </TooltipProvider>
     </QueryClientProvider>
