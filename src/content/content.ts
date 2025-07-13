@@ -1144,7 +1144,6 @@ export const siteContent: SiteContent = {
       linkedin: "https://www.linkedin.com/in/uwe-schwarz-282531294",
       xing: "https://www.xing.com/profile/Uwe_Schwarz72",
       x: "https://x.com/e38383",
-      bluesky: "https://bsky.app/profile/oldman-cloud.bsky.social",
     },
     birthday: "1978-02-19",
     homepage: "https://uweschwarz.eu",
@@ -1384,8 +1383,8 @@ export const siteContent: SiteContent = {
         },
         paragraphs: [
           {
-            en: "The site contains links to GitHub, LinkedIn, Xing, X (formerly Twitter) and Bluesky. Since I embed no external content, clicking these links may transfer you to the respective platforms, whose privacy policies then apply.",
-            de: "Die Seite enthält Links zu GitHub, LinkedIn, Xing, X (ehemals Twitter) und Bluesky. Da keine externen Inhalte eingebunden sind, wirst Du beim Anklicken dieser Links auf die jeweiligen Plattformen weitergeleitet, deren Datenschutzerklärungen dann gelten.",
+            en: "The site contains links to GitHub, LinkedIn, Xing and X (formerly Twitter). Since I embed no external content, clicking these links may transfer you to the respective platforms, whose privacy policies then apply.",
+            de: "Die Seite enthält Links zu GitHub, LinkedIn, Xing und X (ehemals Twitter). Da keine externen Inhalte eingebunden sind, wirst Du beim Anklicken dieser Links auf die jeweiligen Plattformen weitergeleitet, deren Datenschutzerklärungen dann gelten.",
           },
         ],
       },
