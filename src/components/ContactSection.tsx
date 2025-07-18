@@ -2,7 +2,7 @@ import React from "react";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
 import { Mail, Send, Phone } from "lucide-react";
-import { SiXing, SiX, SiGithub, SiBluesky } from "@icons-pack/react-simple-icons";
+import { SiXing, SiX, SiGithub, SiBluesky, SiFreelancermap } from "@icons-pack/react-simple-icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -221,7 +221,18 @@ const ContactSection = () => {
                       <SiBluesky className="w-5 h-5" />
                     </a>
                   )}
-                  
+
+                  {contact.socialLinks.freelancermap && (
+                    <a
+                      href={contact.socialLinks.freelancermap}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
+                      aria-label="Freelancermap"
+                    >
+                      <SiFreelancermap className="w-5 h-5" />
+                    </a>
+                  )}
                 </div>
               </div>
             </div>

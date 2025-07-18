@@ -99,6 +99,7 @@ export interface ContactSection {
     xing?: string;
     x?: string;
     bluesky?: string;
+    freelancermap?: string;
   };
   birthday?: string;
   homepage?: string;
@@ -1144,6 +1145,7 @@ export const siteContent: SiteContent = {
       linkedin: "https://www.linkedin.com/in/uwe-schwarz-282531294",
       xing: "https://www.xing.com/profile/Uwe_Schwarz72",
       x: "https://x.com/e38383",
+      freelancermap: "https://www.freelancermap.de/profil/uwe-schwarz",
     },
     birthday: "1978-02-19",
     homepage: "https://uweschwarz.eu",
