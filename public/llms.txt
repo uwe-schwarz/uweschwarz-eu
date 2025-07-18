@@ -1,0 +1,278 @@
+# llms.txt for uweschwarz.eu
+# This file provides structured information for AI language models.
+# For more information, see https://llmstxt.org/
+# Version 1.0, Generated on 2025-07-18
+
+# --- PERMISSIONS ---
+User-Agent: *
+Allow: /
+
+# --- METADATA ---
+Sitemap: https://uweschwarz.eu/sitemap.xml
+
+# --- FIELDS ---
+
+[Type]:
+[en] Personal Portfolio & CV
+[de] Persönliches Portfolio & Lebenslauf
+
+[Owner]:
+[en] Uwe Schwarz
+[de] Uwe Schwarz
+
+[Published]:
+[en] 2025-07-18
+[de] 18.07.2025
+
+[Languages]:
+[en] English, German
+[de] Englisch, Deutsch
+
+[Summary]:
+[en] Portfolio of Uwe Schwarz: Project Manager, IT Security Expert & AI Enthusiast
+[de] Portfolio von Uwe Schwarz: Projektmanager, IT-Sicherheitsexperte und KI-Enthusiast
+
+[Hero-Description]:
+[en] I connect technology, people, and business goals – acting as the bridge between teams, stakeholders, and systems. Whether it's IT security, networking, high-availability infrastructure, or email solutions, I take ownership, lead complex projects, and ensure the results are not just technically sound, but strategically aligned and built to last.
+[de] Ich bringe Technik, Menschen und Geschäftsziele zusammen – als Brücke zwischen Teams, Stakeholdern und Systemen. Ob IT-Security, Netzwerke, hochverfügbare Systeme oder E-Mail-Infrastruktur: Ich übernehme Verantwortung, leite komplexe Projekte und stelle sicher, dass Lösungen nicht nur funktionieren, sondern auch strategisch passen und langfristig tragen.
+
+[About-Me]:
+[en] With over two decades of hands-on experience in IT and project leadership, I specialize in building secure, scalable, and future-ready systems. From high-stakes data center migrations to evolving security strategies for regulated industries, I’ve led diverse teams and initiatives that drive tangible business outcomes.
+[de] Mit über zwei Jahrzehnten praktischer Erfahrung in der IT und Projektleitung spezialisiere ich mich auf den Aufbau sicherer, skalierbarer und zukunftsfähiger Systeme. Von kritischen Rechenzentrumsumzügen bis hin zur Weiterentwicklung von Sicherheitsstrategien für regulierte Branchen habe ich vielfältige Teams und Projekte geleitet, die messbare Ergebnisse liefern.
+[en] I act as the bridge between technical complexity and strategic clarity. Whether I’m aligning teams on a security roadmap, modernizing infrastructure, or translating compliance requirements into real-world action, I bring a clear head, calm hands, and a passion for connecting the dots between tech and people.
+[de] Ich fungiere als Brücke zwischen technischer Komplexität und strategischer Klarheit. Ob es darum geht, Teams auf eine Sicherheits-Roadmap auszurichten, Infrastrukturen zu modernisieren oder Compliance-Anforderungen in greifbare Maßnahmen zu übersetzen – ich bringe einen kühlen Kopf, ruhige Hände und die Leidenschaft mit, Technik und Menschen zusammenzubringen.
+[en] Outside the day-to-day, I stay curious. I’m particularly fascinated by AI and its potential to enhance everything from cybersecurity to user experience. I enjoy experimenting with new tools, self-hosted solutions, and smart workflows – always with an eye on what’s practical, elegant, and secure.
+[de] Abseits des Tagesgeschäfts bleibe ich neugierig. Besonders faszinieren mich KI-Technologien und ihr Potenzial, von Cybersicherheit bis Benutzererlebnis neue Maßstäbe zu setzen. Ich experimentiere gerne mit neuen Tools, self-hosted Lösungen und smarten Workflows – immer mit Blick auf das, was praktikabel, elegant und sicher ist.
+
+[Main-Topics]:
+- Home / Start
+- About / Über mich
+- Experience / Erfahrung
+- Projects / Projekte
+- Skills / Fähigkeiten
+- Contact / Kontakt
+
+[Keywords]:
+[en] Uwe Schwarz, Project Manager, IT Security Expert, AI Enthusiast, Consultant, ISO27001, SOC2, GDPR, NIST Framework, MITRE ATT&CK, BSI IT Baseline Protection, Security Policies, Risk Management, Vulnerability Mgmt., Incident Response
+[de] Uwe Schwarz, Projektmanager, IT-Sicherheitsexperte, KI-Enthusiast, Berater, ISO27001, SOC2, DSGVO, NIST Framework, MITRE ATT&CK, BSI IT-Grundschutz, Sicherheitsrichtlinien, Risikomanagement, Vulnerabilitätsmanagement, Incident Response
+
+[Site-Structure]:
+[en]
+- /: Homepage with main sections (Hero, About, Skills, Experience, Projects, Contact).
+- /cv: Interactive page for viewing and downloading the CV.
+- /imprint: Legal notice.
+- /privacy: Privacy policy.
+- /sitemap: Human-readable sitemap.
+[de]
+- /: Startseite mit den Hauptbereichen (Hero, Über Mich, Fähigkeiten, Erfahrung, Projekte, Kontakt).
+- /cv: Interaktive Seite zum Ansehen und Herunterladen des Lebenslaufs.
+- /imprint: Impressum.
+- /privacy: Datenschutzerklärung.
+- /sitemap: Für Menschen lesbare Sitemap.
+
+[Contact]:
+[en] Contact information is available via the contact form on the main page or via email to mail@uweschwarz.eu.
+[de] Kontaktinformationen sind über das Kontaktformular auf der Startseite oder per E-Mail an mail@uweschwarz.eu verfügbar.
+
+# --- EXPERIENCE ---
+
+[Experience]:
+  [en] Member of the Board
+  [de] Vorstandsmitglied
+  [en] Company: DEGIT AG
+  [de] Firma: DEGIT AG
+  [en] May 2018 - Present
+  [de] Mai 2018 - Heute
+  - [en] Information Security Officer and Data Protection and Privacy Officer.
+  - [de] Informationssicherheitsbeauftragter sowie Datenschutz- und Privatsphärebeauftragter.
+  - [en] Access to experts from multiple fields.
+  - [de] Zugang zu Experten aus verschiedenen Bereichen.
+  - [en] Competent and focused partner for all consulting needs.
+  - [de] Kompetenter und fokussierter Partner für alle Beratungsanforderungen.
+
+[Experience]:
+  [en] Project Manager Data Center Migration & Backup Modernization
+  [de] Projektmanager RZ-Umzug & Backup-Modernisierung
+  [en] Company: Joh. Berenberg, Gossler & Co. KG
+  [de] Firma: Joh. Berenberg, Gossler & Co. KG
+  [en] Jan 2024 - Present
+  [de] Jan 2024 - Heute
+  - [en] Project management data center relocation.
+  - [de] Projektmanagement für die Verlagerung der Rechenzentren.
+  - [en] Backup modernization and optimization, including migration to cloud-based solutions.
+  - [de] Modernisierung und Optimierung des Backups, einschließlich Migration zu cloudbasierten Lösungen.
+  - [en] Modernizing Solaris infrastructure.
+  - [de] Modernisierung der Solaris-Infrastruktur.
+  - [en] Successfully managed the relocation of two data centers, resulting in a reduction in downtime.
+  - [de] Erfolgreiche Leitung der Verlagerung von zwei Rechenzentren, wodurch die Ausfallzeiten reduziert wurden.
+  - [en] Modernized the bank’s backup infrastructure, reducing recovery time objectives (RTO) and minimizing the risk of data loss.
+  - [de] Modernisierung der Backup-Infrastruktur der Bank, was zu einer Reduzierung der Wiederherstellungszeiten (RTO) führte.
+  - [en] Migrated outdated Solaris infrastructure across the organization, improving system performance and cutting maintenance costs.
+  - [de] Migration der veralteten Solaris-Infrastruktur im gesamten Unternehmen.
+
+[Experience]:
+  [en] Information Security Officer
+  [de] Informationssicherheitsbeauftragter
+  [en] Company: Threedium Ltd.
+  [de] Firma: Threedium Ltd.
+  [en] Oct 2023 - Jun 2024
+  [de] Okt 2023 - Jun 2024
+  - [en] Consulting in all questions about and around IT security.
+  - [de] Beratung in allen Fragen der IT-Sicherheit.
+  - [en] Support of the DevOps team.
+  - [de] Unterstützung des DevOps-Teams.
+  - [en] Integration of services in SSO infrastructure.
+  - [de] Integration von Diensten in SSO-Infrastruktur.
+  - [en] Certificate audit: SOC2 and ISO27001
+  - [de] Zertifizierungsaudit: SOC2 und ISO27001.
+  - [en] Advice on all aspects of GDPR. Introduction of retention policies and data protection guidelines.
+  - [de] Beratung zu allen Aspekten der DSGVO. Einführung von Aufbewahrungsfristen und Datenschutz-Richtlinien.
+  - [en] Introduction of security guidelines.
+  - [de] Einführung von Sicherheitsrichtlinien.
+  - [en] Implemented IT security measures that passed a SOC2 audit with zero non-conformities, securing key client contracts.
+  - [de] Implementierung von IT-Sicherheitsmaßnahmen, die bei einem SOC2-Audit ohne Beanstandungen bestanden.
+  - [en] Integrated SSO infrastructure across multiple platforms, improving security and user experience.
+  - [de] Integration der SSO-Infrastruktur über mehrere Plattformen hinweg, Verbesserung der Sicherheit und Benutzererfahrung.
+  - [en] Led the team in passing ISO27001 certification within a tight six-month deadline, which opened new markets for the company.
+  - [de] Führung des Teams zur erfolgreichen ISO27001-Zertifizierung innerhalb einer straffen sechsmonatigen Frist, wodurch neue Märkte für das Unternehmen erschlossen wurden.
+
+[Experience]:
+  [en] IT Security Consultant
+  [de] IT-Sicherheitsexperte
+  [en] Company: Deutsche Vermögensberatung AG
+  [de] Firma: Deutsche Vermögensberatung AG
+  [en] Jan 2019 - Sep 2023
+  [de] Jan 2019 - Sep 2023
+  - [en] Consulting regarding any security topics, focus on server and networks.
+  - [de] Beratung zu allen Sicherheitsthemen, Schwerpunkt auf Server und Netzwerke.
+  - [en] Support and strategy handling during a (large) security incident.
+  - [de] Unterstützung und Strategieplanung während eines großen Sicherheitsvorfalls.
+  - [en] Writing (security) policies and technical concepts.
+  - [de] Erstellung von (Sicherheits-)Richtlinien und technischen Konzepten.
+  - [en] Automation vulnerability and inicident management.
+  - [de] Automatisierung des Schwachstellen- und Vorfallsmanagements.
+  - [en] Support for building IT architecture and strategy.
+  - [de] Unterstützung beim Aufbau von IT-Architektur und Strategie.
+  - [en] Preparation and accompanying of penetration tests.
+  - [de] Vorbereitung und Begleitung von Penetrationstests.
+  - [en] Led and managed the Security Operations Center (SOC) team, overseeing daily operations, incident response, and continuous improvement of security processes.
+  - [de] Leitung und Management des Security Operations Center (SOC)-Teams, einschließlich der täglichen Betriebsüberwachung, Incident Response und kontinuierlichen Verbesserung der Sicherheitsprozesse.
+  - [en] Security audits.
+  - [de] Sicherheits-Audits.
+  - [en] Specialization in the areas of Linux and networking.
+  - [de] Spezialisierung in den Bereichen Linux und Netzwerke.
+  - [en] IT security consulting also on Windows, Cloud (primarily Azure) and application development.
+  - [de] IT-Sicherheitsberatung auch für Windows, Cloud (vor allem Azure) und Anwendungsentwicklung.
+  - [en] Advice on data protection and certification issues (e.g. ISO27001, BSI Grundschutz, NIST framework, MITRE).
+  - [de] Beratung zu Datenschutz- und Zertifizierungsfragen (z.B. ISO27001, BSI Grundschutz, NIST-Framework, MITRE).
+  - [en] Managed the response to a major security incident, coordinating efforts that minimized data loss and restored operations.
+  - [de] Leitung der Reaktion auf einen großen Sicherheitsvorfall, Koordination der Maßnahmen zur Minimierung von Datenverlusten und Wiederherstellung des Betriebs.
+  - [en] Developed and automated a vulnerability management system, reducing incident response time and increasing system uptime.
+  - [de] Entwicklung und Automatisierung eines Schwachstellenmanagementsystems, Reduzierung der Reaktionszeiten bei Vorfällen und Erhöhung der Systemverfügbarkeit.
+  - [en] Implemented security policies that were later adopted as best practices company-wide.
+  - [de] Implementierung von Sicherheitsrichtlinien, die später als Best Practices im gesamten Unternehmen übernommen wurden.
+
+[Experience]:
+  [en] Team Coordinator / System Architect
+  [de] Teamkoordinator / Systemarchitekt
+  [en] Company: Deutsche Vermögensberatung AG
+  [de] Firma: Deutsche Vermögensberatung AG
+  [en] Jul 2015 - Dec 2018
+  [de] Jul 2015 - Dez 2018
+  - [en] Coordination (about 50%) and planning of resources of a (8 person) team.
+  - [de] Koordination (ca. 50%) und Ressourcenplanung eines (8-köpfigen) Teams.
+  - [en] Focus of the team: e-mail, cloud storage, load balancing, proxy and DNS (all linux based).
+  - [de] Schwerpunkt des Teams: E-Mail, Cloud-Speicher, Lastverteilung, Proxy und DNS (alles Linux-basiert).
+  - [en] Debugging und solving of problems mainly in the area mail (but not solely).
+  - [de] Fehlerbehebung und Problemlösung hauptsächlich im Bereich E-Mail (aber nicht ausschließlich).
+  - [en] Consulting and implementation of IPv6, security topics, high-availability systems and more topics.
+  - [de] Beratung und Implementierung von IPv6, Sicherheitsthemen, Hochverfügbarkeitssystemen und weiteren Themen.
+  - [en] Project part time management: data centre relocation, reconstruction of all servers.
+  - [de] Teilprojektleitung: Rechenzentrumsumzug, Neuaufbau aller Server.
+  - [en] Coordinated a successful data center relocation project.
+  - [de] Koordination eines erfolgreichen Rechenzentrumsumzugsprojekts.
+  - [en] Led the implementation of IPv6 across the organization, future-proofing the network.
+  - [de] Leitung der Implementierung von IPv6 im gesamten Unternehmen, Zukunftssicherung des Netzwerks.
+  - [en] Improved team efficiency through the introduction of automated processes and resource management tools.
+  - [de] Verbesserung der Teameffizienz durch Einführung automatisierter Prozesse und Ressourcenmanagement-Tools.
+
+# --- PROJECTS ---
+
+[Project]:
+  [en] Secure Email Archive
+  [de] Rechtssicheres E-Mail-Archiv
+  [en] Coordination and development of a legally compliant email archiving solution for over 50,000 users – featuring immutable storage for 10+ years and enterprise-wide compliance.
+  [de] Koordination und Entwicklung eines rechtssicheren Mailarchivs für über 50.000 Nutzer – mit unveränderbarer Speicherung für 10+ Jahre und unternehmensweiter Compliance.
+
+[Project]:
+  [en] SOC 2 & ISO 27001 Certification
+  [de] SOC 2 & ISO 27001 Zertifizierung
+  [en] Led the successful implementation of SOC 2 and ISO 27001 compliance frameworks, establishing robust information security policies and controls to meet industry standards and ensure data protection.
+  [de] Leitung der erfolgreichen Implementierung der SOC 2- und ISO 27001-Compliance-Frameworks, Aufbau robuster Informationssicherheitsrichtlinien und -kontrollen zur Einhaltung von Industriestandards und Gewährleistung des Datenschutzes.
+
+[Project]:
+  [en] Backup Infrastructure Modernization with Rubrik
+  [de] Modernisierung der Backup-Infrastruktur mit Rubrik
+  [en] Modernized the existing backup infrastructure by implementing Rubrik's enterprise backup solution, enhancing data protection, reducing recovery times, and simplifying management across hybrid environments.
+  [de] Modernisierung der bestehenden Backup-Infrastruktur durch Implementierung von Rubriks Enterprise-Backup-Lösung, Verbesserung des Datenschutzes, Reduzierung der Wiederherstellungszeiten und Vereinfachung des Managements in hybriden Umgebungen.
+
+[Project]:
+  [en] Automated Document Management with OCR and AI Categorization
+  [de] Automatisierte Dokumentenverwaltung mit OCR und KI-Kategorisierung
+  [en] Developed a private system to digitize all personal documents and letters using OCR technology. Integrated AI-based classification to automatically sort documents into predefined categories, enabling efficient search, retrieval, and archival. Additionally, implemented automated analysis to detect tax-relevant documents for income tax purposes and tag them accordingly.
+  [de] Entwicklung eines privaten Systems zur Digitalisierung aller persönlichen Dokumente und Briefe mittels OCR-Technologie. Integration einer KI-gestützten Klassifizierung zur automatischen Sortierung der Dokumente in vordefinierte Kategorien für effizientes Suchen, Auffinden und Archivieren. Zusätzlich wurde eine automatisierte Auswertung implementiert, um steuerrelevante Dokumente für die Einkommensteuer zu erkennen und entsprechend zu taggen.
+
+# --- SKILLS ---
+
+[Skill-Category: Security / Sicherheit]:
+  - ISO27001 / ISO27001
+  - SOC2 / SOC2
+  - GDPR / DSGVO
+  - NIST Framework / NIST Framework
+  - MITRE ATT&CK / MITRE ATT&CK
+  - BSI IT Baseline Protection / BSI IT-Grundschutz
+  - Security Policies / Sicherheitsrichtlinien
+  - Risk Management / Risikomanagement
+  - Vulnerability Mgmt. / Vulnerabilitätsmanagement
+  - Incident Response / Incident Response
+  - Penetration Testing Mgmt. / Penetration Testing Mgmt.
+
+[Skill-Category: Infrastructure / Infrastruktur]:
+  - Linux: Debian, Ubuntu, RHEL / Linux: Debian, Ubuntu, RHEL
+  - Unix: FreeBSD, OpenBSD, Solaris / Unix: FreeBSD, OpenBSD, Solaris
+  - macOS / macOS
+  - Windows Server / Windows Server
+  - High Availability Systems / Hochverfügbarkeitssysteme
+  - Data Center Operations / Rechenzentrumsbetrieb
+  - TCP/IP, DNS, DHCP / TCP/IP, DNS, DHCP
+  - IPv6 / IPv6
+
+[Skill-Category: Tools & DevOps / Tools & DevOps]:
+  - Bash / Shell Scripting / Bash / Shell Skripte
+  - Python / Python
+  - Postfix / Dovecot / Postfix / Dovecot
+  - Bind / Unbound / Bind / Unbound
+  - Squid Proxy / Squid Proxy
+  - HAProxy / HAProxy
+  - Puppet / Puppet
+  - Git / Git
+  - Docker / Docker
+
+[Skill-Category: AI / KI]:
+  - Agentic AI / Agentische KI
+  - Multimodal AI / Multimodale KI
+  - Causal AI / Kausale KI
+  - Generative Engine Optimization (GEO) / Generative Engine Optimization (GEO)
+  - AI Multimedia Generation / KI-Multimediaerzeugung
+  - AI Ethics & Governance / KI-Ethik & Governance
+
+[Skill-Category: Management / Management]:
+  - Project Management / Projektmanagement
+  - Team Leadership / Teamleitung
+  - Stakeholder Communication / Stakeholder-Kommunikation
+  - IT Strategy / IT-Strategie
+  - Technical Concepts / Technische Konzepte
+
+[Skill-Category: Languages / Sprachen]:
+  - German (Native) / Deutsch (Muttersprache)
+  - English (C2) / Englisch (C2)
