@@ -20,7 +20,7 @@ export async function onRequestPost(context) {
 
   const safeName = escapeHtml(body.name);
   const safeEmail = escapeHtml(body.email);
-  const safeMessage = escapeHtml(body.message);
+  const safeMessage = escapeHtml(body.message).replace(/\n/g, '<br>');
 
   const html = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
     <html dir="ltr" lang="en">
@@ -152,13 +152,16 @@ export async function onRequestPost(context) {
     </body>
     </html>`;
 
-  const data = await resend.emails.send({
-    from: `${safeName} <uweschwarz-eu@oldman.cloud>`,
-    replyTo: [body.email],
-    to: ['mail@uweschwarz.eu'],
-    subject: `Contact Form: uweschwarz.eu`,
-    html: html,
-  });
-
-  return Response.json(data);
+  try {
+    const data = await resend.emails.send({
+      from: `${safeName} <uweschwarz-eu@oldman.cloud>`,
+      replyTo: [body.email],
+      to: ['mail@uweschwarz.eu'],
+      subject: `Contact Form: uweschwarz.eu`,
+      html: html,
+    });
+    return Response.json(data);
+  } catch (err) {
+    return Response.json({ error: 'Failed to send email', details: err.message }, { status: 500 });
+  }
 }
