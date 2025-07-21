@@ -19,8 +19,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
-import { Turnstile } from '@marsidev/react-turnstile'
 
 const ContactSection = () => {
   const { t } = useSettings();
@@ -56,30 +54,34 @@ const ContactSection = () => {
   // Formular absenden
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsSubmitting(true);
-    
+
     try {
-      const response = await supabase.functions.invoke('resend', {
-        body: {
+      const response = await fetch("/api/send-mail", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
           verify: values.verify,
           name: values.name,
           email: values.email,
-          message: values.message,
-        },
+          message: values.message
+        }),
       });
 
-      if (response.data?.id) {
+      const data = await response.json();
+
+      if (response.ok && data) {
         toast({
           title: t(contact.formStatus.sentTitle),
           description: t(contact.formStatus.sentDescription),
         });
-        
-        // Formular zurücksetzen
         form.reset();
       } else {
-        throw new Error('Failed to send message');
+        throw new Error(data?.error || "Failed to send message");
       }
     } catch (error) {
-      console.error('Error sending message:', error);
+      console.error("Error sending message:", error);
       toast({
         variant: "destructive",
         title: t(contact.formStatus.errorTitle),
@@ -246,16 +248,6 @@ const ContactSection = () => {
                 className="bg-card rounded-xl p-8 border border-border shadow-sm"
               >
                 <div className="space-y-6">
-                  {/* Turnstile */}
-                  <div className="hidden">
-                    <Turnstile
-                      siteKey={"0x4AAAAAABXMxyZWFT3a7dxQ"}
-                      onSuccess={(token) => {
-                          // save the token, validate it server-side
-                          form.setValue("verify", token);
-                      }}
-                    />
-                  </div>
                   {/* Hidden verify field */}
                   <FormField
                     control={form.control}
