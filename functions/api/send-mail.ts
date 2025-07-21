@@ -110,10 +110,9 @@ export async function onRequestPost(context) {
   </html>`;
 
   const data = await resend.emails.send({
-    from: `${safeName} <contact@aktion-gegen-krebs.online>`,
+    from: `${safeName} <uweschwarz-eu@oldman.cloud>`,
     replyTo: [body.email],
-    // to: [body.email]
-    to: ['uwe@dy42.de'],
+    to: ['mail@uweschwarz.eu'],
     subject: `Contact Form: uweschwarz.eu`,
     html: html,
   });
