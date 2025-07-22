@@ -157,7 +157,7 @@ export async function onRequestPost(context) {
       from: `${safeName} <uweschwarz-eu@oldman.cloud>`,
       replyTo: [body.email],
       to: ['mail@uweschwarz.eu'],
-      subject: `Contact Form: uweschwarz.eu`,
+      subject: `Contact Form Submission from ${safeName} on ${new Date().toISOString()}`,
       html: html,
     });
     return Response.json(data);
