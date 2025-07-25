@@ -442,11 +442,12 @@ export const siteContent: SiteContent = {
       ],
       tags: [
         { en: "Project Management", de: "Projektmanagement" },
+        { en: "Rubrik Security Cloud", de: "Rubrik Security Cloud" },
         { en: "Atlassian Jira", de: "Atlassian Jira" },
         { en: "Atlassian Confluence", de: "Atlassian Confluence" },
         { en: "Microsoft Project", de: "Microsoft Project" },
         { en: "ServiceNow", de: "ServiceNow" },
-        { en: "Rubrik Security Cloud", de: "Rubrik Security Cloud" },
+        { en: "LeanIX", de: "LeanIX" },
       ],
     },
     {
