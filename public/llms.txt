@@ -1,7 +1,7 @@
 # llms.txt for uweschwarz.eu
 # This file provides structured information for AI language models.
 # For more information, see https://llmstxt.org/
-# Version 1.0, Generated on 2025-07-25
+# Version 1.0, Generated on 2025-07-28
 
 # --- PERMISSIONS ---
 User-Agent: *
@@ -21,8 +21,8 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
 [de] Uwe Schwarz
 
 [Published]:
-[en] 2025-07-25
-[de] 25.07.2025
+[en] 2025-07-28
+[de] 28.07.2025
 
 [Languages]:
 [en] English, German
@@ -95,8 +95,8 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
   [de] Projektmanager RZ-Umzug & Backup-Modernisierung
   [en] Company: Joh. Berenberg, Gossler & Co. KG
   [de] Firma: Joh. Berenberg, Gossler & Co. KG
-  [en] Jan 2024 - Present
-  [de] Jan 2024 - Heute
+  [en] Jan 2024 - Sep 2025
+  [de] Jan 2024 - Sep 2025
   - [en] Project management data center relocation.
   - [de] Projektmanagement für die Verlagerung der Rechenzentren.
   - [en] Backup modernization and optimization, including migration to cloud-based solutions.

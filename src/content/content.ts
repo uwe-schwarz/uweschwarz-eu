@@ -394,7 +394,7 @@ export const siteContent: SiteContent = {
       },
       company: "Joh. Berenberg, Gossler & Co. KG",
       logoUrl: "/logos/berenberg.svg",
-      period: { en: "Jan 2024 - Present", de: "Jan 2024 - Heute" },
+      period: { en: "Jan 2024 - Sep 2025", de: "Jan 2024 - Sep 2025" },
       location: "Hamburg, Germany",
       description: [
         {
