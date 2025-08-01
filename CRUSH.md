@@ -1,4 +1,4 @@
-# AGENTS Instructions
+# CRUSH Agent Instructions
 
 This repository contains a personal portfolio built with React, TypeScript, Vite and Tailwind CSS.
 
@@ -7,7 +7,7 @@ This repository contains a personal portfolio built with React, TypeScript, Vite
 - `public/` – static assets such as the generated `sitemap.xml`.
 - `scripts/` – utility scripts executed by the build or git hooks.
 
-## Useful commands
+## Essential commands
 - `npm run dev` – start a development server on port 8080.
 - `npm run build` – create a production build.
 - `npm run lint` – run ESLint over the codebase.
@@ -26,9 +26,3 @@ A pre-commit hook is configured with Husky. When committing on the `main` branch
 - Define props interfaces extending React HTML attributes
 - Use interfaces for object shapes and types for unions
 - Handle errors with try/catch in async operations and API functions
-
-## Agent workflow
-When modifying files in this repository:
-1. Run `npm run lint` and `npm test` before committing to confirm everything passes.
-2. Include a clear commit message summarising the change.
-3. Reference any modified files in PR summaries when applicable.
