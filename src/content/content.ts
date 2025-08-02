@@ -179,7 +179,13 @@ export interface PrivacySection {
   sections: Array<{
     title: LocalizedString;
     paragraphs: LocalizedString[];
-    list?: LocalizedString[];
+    list?: Array<
+      LocalizedString | {
+        en: string;
+        de: string;
+        description?: LocalizedString;
+      }
+    >;
   }>;
 }
 
@@ -194,8 +200,8 @@ export interface SiteContent {
     description: LocalizedString;
     author: string;
   };
-  projectsSectionTitle: { en: string; de: string };
-  projectsSectionMore?: { en: string; de: string };
+  projectsSectionTitle: LocalizedString;
+  projectsSectionMore?: LocalizedString;
   navigation: NavItem[];
   hero: HeroSection;
   about: AboutSection;
@@ -1278,15 +1284,8 @@ export const siteContent: SiteContent = {
       de: "Haftungsausschluss",
     },
     disclaimer: {
-      en: "The content of this website has been prepared with the utmost care; however, I cannot guarantee its accuracy, completeness or timeliness. \
-          Under §§ 7, 8–10 of the German Telemedia Act (TMG), I am responsible for my own content on these pages in accordance with general laws, \
-          but I am not required to monitor third-party information transmitted or stored on my site, nor to investigate circumstances indicating illegal activity. \
-          Any obligations to remove or block the use of information under general laws shall remain unaffected.",
-      de: "Die Inhalte dieser Website wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte übernehme ich jedoch \
-          keine Gewähr. Gemäß §§ 7, 8–10 des Telemediengesetzes (TMG) bin ich als Diensteanbieter zwar für eigene Inhalte auf diesen Seiten nach den allgemeinen \
-          Gesetzen verantwortlich, jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, \
-          die auf eine rechtswidrige Tätigkeit hinweisen. Die Verpflichtung zur Entfernung oder Sperrung der Nutzung von Informationen gemäß den allgemeinen \
-          Gesetzen bleibt unberührt.",
+      en: "The operators of linked websites are solely responsible for their content.",
+      de: "Für externe Links sind ausschließlich deren Betreiber verantwortlich.",
     },
   },
   privacy: {
@@ -1295,118 +1294,202 @@ export const siteContent: SiteContent = {
       de: "Datenschutzerklärung",
     },
     subtitle: {
-      en: "Last updated: April 21, 2025",
-      de: "Letzte Aktualisierung: 21. April 2025",
+      en: "Last updated: August 02, 2025",
+      de: "Letzte Aktualisierung: 02. August 2025",
     },
     sections: [
       {
         title: {
-          en: "1. General Information",
-          de: "1. Allgemeine Informationen",
+          en: "1. Controller",
+          de: "1. Verantwortliche Stelle",
         },
         paragraphs: [
           {
-            en: "The protection of your personal data is important to me. This Privacy Policy explains how I collect, use, process, and share your information, including personal data, in connection with your access to and use of my website.",
-            de: "Der Schutz Deiner persönlichen Daten ist mir wichtig. Diese Datenschutzerklärung erläutert, wie ich Deine Informationen, einschließlich personenbezogener Daten, im Zusammenhang mit Deinem Zugriff auf und der Nutzung meiner Website sammle, verwende, verarbeite und weitergebe.",
+            en: "Responsible for the processing of personal data:",
+            de: "Verantwortlich für die Verarbeitung personenbezogener Daten:",
+          },
+        ],
+        list: [
+          {
+            en: "Uwe Schwarz",
+            de: "Uwe Schwarz",
           },
           {
-            en: "By using the website, you consent to the collection and use of information in accordance with this policy.",
-            de: "Durch die Nutzung der Website stimmst Du der Erfassung und Verwendung von Informationen gemäß dieser Richtlinie zu.",
+            en: "Uhlandstr. 20",
+            de: "Uhlandstr. 20",
+          },
+          {
+            en: "67069 Ludwigshafen",
+            de: "67069 Ludwigshafen",
+          },
+          {
+            en: "Germany",
+            de: "Deutschland",
+          },
+          {
+            en: "Email: mail@uweschwarz.eu",
+            de: "E-Mail: mail@uweschwarz.eu",
+          },
+          {
+            en: "Phone: +49 151 64403667",
+            de: "Telefon: +49 151 64403667",
           },
         ],
       },
       {
         title: {
-          en: "2. Collection of Personal Data",
-          de: "2. Erhebung personenbezogener Daten",
+          en: "Data Protection Officer",
+          de: "Datenschutzbeauftragter",
         },
         paragraphs: [
           {
-            en: "When you interact with my website, I may collect certain information about you, such as:",
-            de: "Wenn Du mit meiner Website interagierst, kann ich bestimmte Informationen über Dich sammeln, wie zum Beispiel:",
-          },
-        ],
-        list: [
-          {
-            en: "Contact information (such as name, email address) that you voluntarily provide when using the contact form;",
-            de: "Kontaktinformationen (wie Name, E‑Mail‑Adresse), die Du freiwillig angibst, wenn Du das Kontaktformular nutzt;",
-          },
-          {
-            en: "Technical information about your device and internet connection, including your IP address, browser type, and operating system;",
-            de: "Technische Informationen über Dein Gerät und Deine Internetverbindung, einschließlich Deiner IP‑Adresse, Deines Browser‑Typs und Betriebssystems;",
-          },
-          {
-            en: "Information about your use of the website, including the pages you visit and the time and date of your visits.",
-            de: "Informationen über Deine Nutzung der Website, einschließlich der von Dir besuchten Seiten und des Zeitpunkts Deiner Besuche.",
-          },
-        ],
+            en: "No Data Protection Officer has been appointed, as this is not required under Art. 37 GDPR.",
+            de: "Ein Datenschutzbeauftragter wurde nicht benannt, da dies gemäß Art. 37 DSGVO nicht erforderlich ist."
+          }
+        ]
       },
       {
         title: {
-          en: "3. Use of Third‑Party Services",
-          de: "3. Einsatz von Drittanbieter‑Diensten",
+          en: "Contact Form",
+          de: "Kontaktformular",
         },
         paragraphs: [
           {
-            en: "This site is hosted by Cloudflare; I do not have direct access to server logs or your IP address there. For the contact form, I use a Supabase Edge Function which sends emails via Resend. Only the data you enter into the form is forwarded – no other personal data is stored.",
-            de: "Diese Seite wird bei Cloudflare gehostet; ich habe dort keinen direkten Zugriff auf Server‑Logs oder Deine IP‑Adresse. Für das Kontaktformular nutze ich eine Supabase Edge‑Function, die E‑Mails über Resend versendet. Es werden nur die von Dir im Formular eingegebenen Daten weitergeleitet – weitere personenbezogene Daten werden nicht gespeichert.",
+            en: "This form processes data (name, e-mail, message) solely to reply to your request. Basis: consent / contract performance (Art. 6 GDPR lit. a & b).",
+            de: "Die hier eingegebenen Daten (Name, E-Mail, Nachricht) verwenden wir ausschließlich zur Beantwortung deiner Anfrage. Rechtsgrundlage: Einwilligung und Vertragserfüllung (Art. 6 Abs. 1 lit. a & b DSGVO).",
+          },
+        ]
+      },
+      {
+        title: {
+          en: "Use of Third-Party Services",
+          de: "Einsatz von Drittanbieter-Diensten",
+        },
+        paragraphs: [
+          {
+            en: "This site is hosted by Cloudflare; I do not have direct access to server logs or your IP address there. For the contact form, I use Resend to send emails. Only the data you enter into the form is forwarded – no other personal data is stored.",
+            de: "Diese Seite wird bei Cloudflare gehostet; ich habe dort keinen direkten Zugriff auf Server-Logs oder Deine IP-Adresse. Für das Kontaktformular nutze ich Resend, um E-Mails zu versenden. Es werden nur die von Dir im Formular eingegebenen Daten weitergeleitet – weitere personenbezogene Daten werden nicht gespeichert.",
+          },
+          {
+            en: "Log retention: max. 30 days",
+            de: "Log-Aufbewahrung: max. 30 Tage",
           },
         ],
         list: [
           {
-            en: "Cloudflare: 101 Townsend St, San Francisco, CA 94107, USA",
-            de: "Cloudflare: 101 Townsend St, San Francisco, CA 94107, USA",
-          },
-          {
-            en: "Supabase, Inc.: 970 Toa Payoh North #07‑04, Singapore 318992",
-            de: "Supabase, Inc.: 970 Toa Payoh North #07‑04, Singapore 318992",
+            en: "Cloudflare: 101 Townsend St, San Francisco, CA 94107, USA<br />Cloudflare Germany GmbH: Rosental 7, c/o Mindspace, 80331 München, Germany",
+            de: "Cloudflare: 101 Townsend St, San Francisco, CA 94107, USA<br />Cloudflare Germany GmbH: Rosental 7, c/o Mindspace, 80331 München, Germany",
+            description: {
+              en: "Legal basis: legitimate interests (Art. 6(1)(f) GDPR) to ensure website performance and security.<br />Cloudflare is certified under the EU-U.S. Data Privacy Framework and processes data under its principles. See: https://www.cloudflare.com/privacypolicy/.",
+              de: "Rechtsgrundlage: berechtigte Interessen (Art. 6 Abs. 1 lit. f DSGVO) zur Gewährleistung der Performance und Sicherheit der Website.<br />Cloudflare ist nach dem EU-US Data Privacy Framework zertifiziert und verarbeitet Daten gemäß dessen Grundsätzen. Details: https://www.cloudflare.com/privacypolicy/."
+            }
           },
           {
             en: "Resend: 2261 Market Street #5039, San Francisco, CA 94114, USA",
             de: "Resend: 2261 Market Street #5039, San Francisco, CA 94114, USA",
+            description: {
+              en: "Legal basis: performance of a contract (Art. 6(1)(b) GDPR), as Resend sends emails on your behalf.<br />Resend’s DPA includes Standard Contractual Clauses (SCC) for transfers to the US. See: https://resend.com/legal/dpa.",
+              de: "Rechtsgrundlage: Vertragserfüllung (Art. 6 Abs. 1 lit. b DSGVO), da Resend E-Mails in deinem Auftrag versendet.<br />Resend nutzt Standardvertragsklauseln (SCC) in ihrem DPA, um den Datentransfer in die USA zu legitimieren. DPA: https://resend.com/legal/dpa."
+            }
           },
         ],
       },
       {
         title: {
-          en: "4. Cookies and Local Storage",
-          de: "4. Cookies und Local Storage",
+          en: "Legal Basis & International Transfers",
+          de: "Rechtsgrundlagen & Drittlandsübermittlung",
         },
         paragraphs: [
           {
-            en: "I do not use cookies. Only your language choice and theme preference are stored locally in your browser’s localStorage. You can clear this at any time in your browser settings.",
-            de: "Ich verwende keine Cookies. Lediglich Deine Sprachwahl und Theme‑Einstellung werden lokal im localStorage Deines Browsers gespeichert. Diese Daten kannst Du jederzeit über die Browsereinstellungen löschen.",
+            en: "Cloudflare processes data under legitimate interests (Art. 6(1)(f) GDPR) and is certified under the EU-US Data Privacy Framework (see https://www.cloudflare.com/privacypolicy).",
+            de: "Cloudflare verarbeitet Daten auf Basis berechtigter Interessen (Art. 6 Abs. 1 lit. f DSGVO) und ist nach dem EU-US Data Privacy Framework zertifiziert (siehe https://www.cloudflare.com/privacypolicy)."
           },
-        ],
-      },
+          {
+            en: "Resend acts on contract performance (Art. 6(1)(b) GDPR) and uses Standard Contractual Clauses for US transfers (see https://resend.com/legal/dpa).",
+            de: "Resend handelt zur Vertragserfüllung (Art. 6 Abs. 1 lit. b DSGVO) und nutzt Standardvertragsklauseln für Datenübermittlungen in die USA (siehe https://resend.com/legal/dpa)."
+          }
+        ]
+      },      
       {
         title: {
-          en: "5. External Links",
-          de: "5. Externe Links",
+          en: "Cookies and Local Storage",
+          de: "Cookies und Local Storage",
         },
         paragraphs: [
           {
-            en: "The site contains links to GitHub, LinkedIn, Xing and X (formerly Twitter). Since I embed no external content, clicking these links may transfer you to the respective platforms, whose privacy policies then apply.",
-            de: "Die Seite enthält Links zu GitHub, LinkedIn, Xing und X (ehemals Twitter). Da keine externen Inhalte eingebunden sind, wirst Du beim Anklicken dieser Links auf die jeweiligen Plattformen weitergeleitet, deren Datenschutzerklärungen dann gelten.",
+            en: "I do not use cookies. Only your language choice and theme preference are stored locally in your browser’s localStorage. The storage of theme preferences and language selection in localStorage is based on legitimate interests (Art. 6(1)(f) GDPR) to enhance user experience. You can clear this at any time in your browser settings.",
+            de: "Ich verwende keine Cookies. Lediglich Deine Sprachwahl und Theme-Einstellung werden lokal im localStorage Deines Browsers gespeichert. Die Speicherung von Theme-Einstellungen und Sprachwahl im localStorage beruht auf berechtigten Interessen (Art. 6 Abs. 1 lit. f DSGVO) zur Verbesserung der Benutzererfahrung. Du kannst diese Daten jederzeit über deine Browser-Einstellungen löschen.",
           },
         ],
       },
       {
         title: {
-          en: "6. Data Security",
-          de: "6. Datensicherheit",
+          en: "External Links",
+          de: "Externe Links",
+        },
+        paragraphs: [
+          {
+            en: "The site contains links to GitHub, LinkedIn, Xing, Freelancermap and X (formerly Twitter). Since I embed no external content, clicking these links may transfer you to the respective platforms, whose privacy policies then apply.",
+            de: "Die Seite enthält Links zu GitHub, LinkedIn, Xing, Freelancermap und X (ehemals Twitter). Da keine externen Inhalte eingebunden sind, wirst Du beim Anklicken dieser Links auf die jeweiligen Plattformen weitergeleitet, deren Datenschutzerklärungen dann gelten.",
+          },
+        ],
+      },
+      {
+        title: {
+          en: "Data Security",
+          de: "Datensicherheit",
         },
         paragraphs: [
           {
             en: "I take reasonable technical and organizational measures to protect your data against unauthorized access and loss. However, internet-based data transmission can never be 100% secure.",
             de: "Ich ergreife angemessene technische und organisatorische Maßnahmen, um Deine Daten vor unbefugtem Zugriff und Verlust zu schützen. Eine 100%ige Sicherheit bei der Datenübertragung im Internet kann ich jedoch nicht garantieren.",
           },
+          {
+            en: "Technical and Organisational Measures: this site uses TLS 1.3 (if supported by your browser), access controls with MFA, pseudonymisation/encryption at rest, and regular security audits.",
+            de: "Technisch-organisatorische Maßnahmen: diese Seite nutzt TLS 1.3 (falls vom Browser unterstützt), Zugangskontrollen mit MFA, Pseudonymisierung/Verschlüsselung ruhender Daten und regelmäßige Sicherheitsaudits."
+          }
         ],
       },
       {
         title: {
-          en: "7. Changes to This Privacy Policy",
-          de: "7. Änderungen dieser Datenschutzerklärung",
+          en: "Data Subject Rights",
+          de: "Betroffenenrechte",
+        },
+        paragraphs: [
+          {
+            en: "Data subjects have the right to access (Art. 15), rectify (Art. 16), erase (Art. 17), restrict processing (Art. 18), data portability (Art. 20), object (Art. 21), and withdraw consent at any time (Art. 7(3)). These rights can be exercised by contacting mail@uweschwarz.eu.",
+            de: "Betroffene Personen haben das Recht auf Auskunft (Art. 15), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20), Widerspruch (Art. 21) sowie Widerruf erteilter Einwilligungen (Art. 7 Abs. 3). Diese Rechte können unter mail@uweschwarz.eu geltend gemacht werden.",
+          },
+        ],
+      },
+      {
+        title: {
+          en: "Supervisory Authority",
+          de: "Aufsichtsbehörde",
+        },
+        paragraphs: [
+          {
+            en: "You have the right to lodge a complaint with a supervisory authority, e.g.: Rhineland-Palatinate Commissioner for Data Protection, Hintere Bleiche 34, 55116 Mainz, Germany; Tel. +49 6131 8920-0; poststelle@datenschutz.rlp.de.",
+            de: "Du kannst dich bei einer Aufsichtsbehörde beschweren, z. B.: Landesbeauftragte für Datenschutz RLP, Hintere Bleiche 34, 55116 Mainz; Tel. 06131 8920-0; poststelle@datenschutz.rlp.de."
+          }
+        ]
+      },
+      {
+        title: {
+          en: "Automated Decision-making",
+          de: "Automatisierte Entscheidungsfindung",
+        },
+        paragraphs: [
+          {
+            en: "No automated decision-making or profiling takes place in these processing operations (Art. 22 GDPR).",
+            de: "Es findet keine automatisierte Entscheidungsfindung oder Profiling statt (Art. 22 DSGVO)."
+          }
+        ]
+      },
+      {
+        title: {
+          en: "Changes to This Privacy Policy",
+          de: "Änderungen dieser Datenschutzerklärung",
         },
         paragraphs: [
           {
@@ -1414,19 +1497,7 @@ export const siteContent: SiteContent = {
             de: "Ich kann diese Datenschutzerklärung jederzeit aktualisieren. Die jeweils aktuelle Version wird hier mit Datum der letzten Änderung veröffentlicht.",
           },
         ],
-      },
-      {
-        title: {
-          en: "8. Contact",
-          de: "8. Kontakt",
-        },
-        paragraphs: [
-          {
-            en: "If you have questions about this Privacy Policy or your personal data, please use the contact form or write me directly at the email address provided there.",
-            de: "Wenn Du Fragen zu dieser Datenschutzerklärung oder Deinen persönlichen Daten hast, nutze bitte das Kontaktformular oder schreibe mir direkt an die dort angegebene E‑Mail‑Adresse.",
-          },
-        ],
-      },
+      }
     ],
   },
   sitemap: {

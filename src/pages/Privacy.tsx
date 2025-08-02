@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useSettings } from '@/contexts/settings-hook';
 import { siteContent } from '@/content/content';
@@ -8,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useScrollToTop } from '@/hooks/use-scroll-to-top';
+
 
 const Privacy = () => {
   const { t } = useSettings();
@@ -39,9 +39,30 @@ const Privacy = () => {
                   ))}
                   {section.list && (
                     <ul className="list-disc pl-5 mb-4">
-                      {section.list.map((item, i) => (
-                        <li key={i}>{t(item)}</li>
-                      ))}
+                      {section.list.map((item, i) => {
+                        if (typeof item === 'string') {
+                          return (
+                            <li key={i}>
+                              <span>{item}</span>
+                            </li>
+                          );
+                        }
+                        
+                        const localizedItem = item as { en: string; de: string; description?: { en: string; de: string } };
+                        const text = t(localizedItem);
+                        const descriptionText = localizedItem.description ? t(localizedItem.description) : null;
+
+                        return (
+                          <li key={i} className="flex flex-col">
+                            <span dangerouslySetInnerHTML={{ __html: text }} />
+                            {descriptionText && (
+                              <span className="text-sm text-muted-foreground ml-4 mt-1">
+                                <span dangerouslySetInnerHTML={{ __html: descriptionText }} />
+                              </span>
+                            )}
+                          </li>
+                        );
+                      })}
                     </ul>
                   )}
                 </section>
