@@ -1300,8 +1300,8 @@ export const siteContent: SiteContent = {
     sections: [
       {
         title: {
-          en: "1. Controller",
-          de: "1. Verantwortliche Stelle",
+          en: "Controller",
+          de: "Verantwortliche Stelle",
         },
         paragraphs: [
           {
