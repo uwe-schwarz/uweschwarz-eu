@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
-import { Briefcase, MapPin, Calendar, MessageSquareMore } from "lucide-react";
+import { FileText, MapPin, Calendar, MessageSquareMore } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
@@ -202,7 +202,7 @@ const ExperienceSection = () => {
             <div className="mt-4"></div>
             {/* Download Resume */}
             <a href="/cv" className="inline-flex items-center text-primary hover:text-primary/80 transition-colors link-underline">
-              <Briefcase size={24} className="mr-2" />
+              <FileText size={24} className="mr-2" />
               <span>
                 {t(siteContent.downloadResume)}
               </span>
