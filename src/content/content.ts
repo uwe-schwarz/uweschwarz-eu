@@ -194,6 +194,10 @@ export interface SitemapSection {
   description: LocalizedString;
 }
 
+export interface LLMSSection {
+  title: LocalizedString;
+}
+
 export interface SiteContent {
   siteMetadata: {
     title: string;
@@ -215,6 +219,7 @@ export interface SiteContent {
   imprint: ImprintSection;
   privacy: PrivacySection;
   sitemap?: SitemapSection;
+  llms?: LLMSSection;
   translations: {
     languageSwitch: {
       en: string;
@@ -1508,6 +1513,12 @@ export const siteContent: SiteContent = {
     description: {
       en: "Here are all the pages on this website:",
       de: "Hier sind alle Seiten dieser Website:",
+    },
+  },
+  llms: {
+    title: {
+      en: "Overview for AI Agents",
+      de: "Übersicht für AI Agents",
     },
   },
   translations: {

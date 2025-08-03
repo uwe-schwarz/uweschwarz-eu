@@ -32,6 +32,7 @@ const Sitemap = () => {
                 <li><a href="/imprint" className="text-primary hover:underline">{t(siteContent.imprint.title)}</a></li>
                 <li><a href="/privacy" className="text-primary hover:underline">{t(siteContent.privacy.title)}</a></li>
                 <li><a href="/sitemap.xml" className="text-primary hover:underline">{t(siteContent.sitemap.title)} (XML)</a></li>
+                <li><a href="/llms.txt" className="text-primary hover:underline">{t(siteContent.llms.title)} (Markdown)</a></li>
               </ul>
             </div>
           </div>

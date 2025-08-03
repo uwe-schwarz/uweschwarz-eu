@@ -103,7 +103,6 @@ const Header = () => {
             variant="ghost"
             size="sm"
             onClick={toggleLanguage}
-            className="text-foreground hover:text-primary"
           >
             {language === "en" ? "DE" : "EN"}
           </Button>
@@ -113,7 +112,6 @@ const Header = () => {
             variant="ghost"
             size="icon"
             onClick={toggleTheme}
-            className="text-foreground hover:text-primary"
             aria-label={t(
               theme === "light"
                 ? siteContent.translations.themeSwitch.light

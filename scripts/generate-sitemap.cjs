@@ -25,8 +25,13 @@ const urls = [
     priority: 0.5
   },
   {
-    url: '/sitemap',
-    files: ['src/pages/Sitemap.tsx'],
+    url: '/sitemap.xml',
+    files: ['src/pages/Sitemap.tsx', 'src/pages/Index.tsx', 'src/components/Header.tsx', 'src/components/Footer.tsx'],
+    priority: 0.3
+  },
+  {
+    url: '/llms.txt',
+    files: ['src/pages/LLMs.tsx', 'src/pages/Index.tsx', 'src/components/Header.tsx', 'src/components/Footer.tsx'],
     priority: 0.3
   }
 ];
