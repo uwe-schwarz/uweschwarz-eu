@@ -85,7 +85,7 @@ const HeroSection = () => {
               <Button
                 asChild
                 size="lg"
-                className="rounded-full shadow-lg hover-scale text-foreground dark:text-background"
+                className="rounded-full shadow-lg hover-scale"
               >
                 <a href="#experience">{t(hero.ctaPrimary)}</a>
               </Button>
