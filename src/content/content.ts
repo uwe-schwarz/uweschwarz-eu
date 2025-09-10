@@ -399,6 +399,82 @@ export const siteContent: SiteContent = {
       ],
     },
     {
+      "title": {
+        "en": "Founding Member & Data Protection Officer",
+        "de": "Gründungsmitglied & Datenschutzbeauftragter"
+      },
+      "company": "AKTion gegen Krebs gUG",
+      "logoUrl": "/logos/aktion-gegen-krebs.png",
+      "period": { "en": "May 2025 - Present", "de": "Mai 2025 - Heute" },
+      "location": "Seevetal, Germany",
+      "description": [
+        {
+          "type": "text",
+          "text": {
+            "en": "Founding member responsible for data protection and GDPR compliance.",
+            "de": "Gründungsmitglied mit Verantwortung für Datenschutz und DSGVO-Compliance."
+          }
+        },
+        {
+          "type": "text",
+          "text": {
+            "en": "Developed and maintain the organization's website and backend systems.",
+            "de": "Entwicklung und Betreuung der Website sowie der Backend-Systeme."
+          }
+        },
+        {
+          "type": "text",
+          "text": {
+            "en": "Planning and implementing AI-supported workflows for case management.",
+            "de": "Planung und Implementierung KI-gestützter Workflows für die Fallbearbeitung."
+          }
+        },
+        {
+          "type": "text",
+          "text": {
+            "en": "Responsible for IT security strategy and risk management.",
+            "de": "Verantwortlich für IT-Sicherheitsstrategie und Risikomanagement."
+          }
+        },
+        {
+          "type": "achievement",
+          "text": {
+            "en": "Established GDPR-compliant data protection framework from the ground up.",
+            "de": "Aufbau eines DSGVO-konformen Datenschutzrahmens von Grund auf."
+          }
+        },
+        {
+          "type": "achievement",
+          "text": {
+            "en": "Developed and launched the organization's online presence.",
+            "de": "Entwicklung und Launch des Online-Auftritts der Organisation."
+          }
+        },
+        {
+          "type": "achievement",
+          "text": {
+            "en": "Designed secure IT infrastructure tailored to sensitive medical and legal data.",
+            "de": "Konzeption einer sicheren IT-Infrastruktur für sensible medizinische und juristische Daten."
+          }
+        },
+        {
+          "type": "achievement",
+          "text": {
+            "en": "Initiated the integration of AI tools to support efficient case processing.",
+            "de": "Initiierung der Integration von KI-Tools zur effizienten Fallbearbeitung."
+          }
+        }
+      ],
+      "tags": [
+        { "en": "Data Protection", "de": "Datenschutz" },
+        { "en": "IT Security", "de": "IT-Sicherheit" },
+        { "en": "AI Workflows", "de": "KI-Workflows" },
+        { "en": "Agentic AI", "de": "Agentische KI (Agentic AI)" },
+        { "en": "Backend Systems", "de": "Backend-Systeme" },
+        { "en": "Backup-Strategies", "de": "Backup-Strategien" }
+      ]
+    },
+    {
       title: {
         en: "Project Manager Data Center Migration & Backup Modernization",
         de: "Projektmanager RZ-Umzug & Backup-Modernisierung",
@@ -758,8 +834,8 @@ export const siteContent: SiteContent = {
         de: "Rechtssicheres E-Mail-Archiv",
       },
       description: {
-        en: "Coordination and development of a legally compliant email archiving solution for over 50,000 users – featuring immutable storage for 10+ years and enterprise-wide compliance.",
-        de: "Koordination und Entwicklung eines rechtssicheren Mailarchivs für über 50.000 Nutzer – mit unveränderbarer Speicherung für 10+ Jahre und unternehmensweiter Compliance.",
+        en: "Led the coordination, architecture, and implementation of a legally compliant enterprise-wide email archiving solution for more than 50,000 users. The system ensures immutable storage of all communication for over 10 years, meeting strict regulatory and auditing requirements. Based on open-source technologies, the archive was designed with scalability, redundancy, and long-term maintainability in mind. Integrated monitoring, indexing, and full-text search enable efficient retrieval of historical correspondence.",
+        de: "Leitung der Koordination, Architektur und Implementierung einer rechtssicheren E-Mail-Archivierungslösung für mehr als 50.000 Nutzer. Das System gewährleistet die unveränderbare Speicherung sämtlicher Kommunikation über mehr als 10 Jahre und erfüllt strenge regulatorische sowie prüfungsrelevante Anforderungen. Basierend auf Open-Source-Technologien wurde das Archiv mit Blick auf Skalierbarkeit, Redundanz und langfristige Wartbarkeit konzipiert. Integriertes Monitoring, Indexierung und Volltextsuche ermöglichen ein effizientes Auffinden historischer Korrespondenz."
       },
       imageUrl: "/projects/mailarchive.png",
       imageAlt: {
@@ -771,9 +847,31 @@ export const siteContent: SiteContent = {
         { en: "postfix", de: "postfix" },
         { en: "Linux", de: "Linux" },
         { en: "CentOS", de: "CentOS" },
+        { en: "Compliance", de: "Compliance" },
+        { en: "Archiving", de: "Archivierung" },
+        { en: "Email Security", de: "E-Mail-Sicherheit" }
       ],
-      /*      demoUrl: "#",
-      repoUrl: "https://github.com",*/
+    },
+    {
+      "title": {
+        "en": "AI-Supported Case Management",
+        "de": "KI-unterstützte Fallbearbeitung"
+      },
+      "description": {
+        "en": "Designed and implemented a system to support the processing of cancer-related cases using AI. The platform integrates secure data handling, structured workflows, and AI-based assistance to prioritize, analyze, and streamline case management. This ensures faster response times and improved quality in handling sensitive medical and legal information.",
+        "de": "Konzeption und Implementierung eines Systems zur Unterstützung der Bearbeitung krebsbezogener Fälle mit KI. Die Plattform integriert sichere Datenverarbeitung, strukturierte Workflows und KI-basierte Assistenz, um Fälle zu priorisieren, zu analysieren und die Fallbearbeitung zu optimieren. Dadurch werden schnellere Reaktionszeiten und eine verbesserte Qualität im Umgang mit sensiblen medizinischen und juristischen Informationen gewährleistet."
+      },
+      "imageUrl": "/projects/ai_case_management.png",
+      "imageAlt": {
+        "en": "Illustration showing AI-assisted workflows in case management: secure data vault, AI decision nodes, and case files moving through an optimized pipeline.",
+        "de": "Illustration zu KI-gestützten Workflows in der Fallbearbeitung: sicherer Datenspeicher, KI-Entscheidungsknoten und Fallakten, die durch eine optimierte Prozesskette laufen."
+      },
+      "tags": [
+        { "en": "Agentic AI Workflow", "de": "Agentischer KI-Workflow" },
+        { "en": "Case Management", "de": "Fallbearbeitung" },
+        { "en": "Data Protection", "de": "Datenschutz" },
+        { "en": "Automation", "de": "Automatisierung" }
+      ]
     },
     {
       title: {

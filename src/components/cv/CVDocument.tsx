@@ -440,7 +440,7 @@ const CVDocument: React.FC<CVDocumentProps> = ({ language, data }) => {
             ))}
           </View>
           {/* Skills */}
-          <View style={styles.section}>
+          <View style={styles.section} wrap={false}>
             <Text style={styles.sectionTitle}>{t(skillsSection.title)}</Text>
             {Object.entries(skillsByCategory)
               .filter(([category]) => category !== 'languages')
