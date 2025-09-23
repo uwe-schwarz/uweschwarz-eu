@@ -391,11 +391,40 @@ export const siteContent: SiteContent = {
             de: "Kompetenter und fokussierter Partner für alle Beratungsanforderungen.",
           },
         },
+        {
+          type: "text",
+          text: {
+            en: "Building a secure and compliant IT infrastructure with a focus on modern technologies (IPv6, Zero Trust, Zero-Config VPN, etc.) and best practices.",
+            de: "Aufbau einer sicheren und rechtskonformen IT-Infrastruktur mit Schwerpunkt auf modernen Technologien (IPv6, Zero Trust, Zero-Config VPN, etc.) und Best Practices.",
+          },
+        },
+        {
+          type: "achievement",
+          text: {
+            en: "Implemented a Zero-Config VPN solution that allows for easy and secure remote access to the company's resources.",
+            de: "Implementierung einer Zero-Config VPN-Lösung, die es ermöglicht, einfache und sichere Remote-Zugriff auf die Unternehmensressourcen zu ermöglichen.",
+          },
+        },
+        {
+          type: "achievement",
+          text: {
+            en: "Build an internal training platform for the company's employees to improve their security awareness, risk management and compliance.",
+            de: "Erstellung einer internen Trainingsplattform für die Mitarbeiter der Firma, um Sicherheitsbewusstsein, Risikomanagement und Compliance zu verbessern.",
+          },
+        },
       ],
       tags: [
         { en: "Security", de: "Sicherheit" },
         { en: "Privacy", de: "Datenschutz" },
         { en: "Microsoft 365", de: "Microsoft 365" },
+        { en: "IPv6", de: "IPv6" },
+        { en: "Zero Trust", de: "Zero Trust" },
+        { en: "Zero-Config VPN", de: "Zero-Config VPN" },
+        { en: "Best Practices", de: "Best Practices" },
+        { en: "Training", de: "Training" },
+        { en: "Security Awareness", de: "Sicherheitsbewusstsein" },
+        { en: "Risk Management", de: "Risikomanagement" },
+        { en: "Compliance", de: "Compliance" },
       ],
     },
     {
@@ -453,8 +482,8 @@ export const siteContent: SiteContent = {
         {
           "type": "achievement",
           "text": {
-            "en": "Designed secure IT infrastructure tailored to sensitive medical and legal data.",
-            "de": "Konzeption einer sicheren IT-Infrastruktur für sensible medizinische und juristische Daten."
+            "en": "Designed secure IT infrastructure (IPv6, Zero Trust, Zero-Config VPN, etc.) tailored to sensitive medical and legal data.",
+            "de": "Konzeption einer sicheren IT-Infrastruktur (IPv6, Zero Trust, Zero-Config VPN, etc.) für sensible medizinische und juristische Daten."
           }
         },
         {
@@ -471,7 +500,12 @@ export const siteContent: SiteContent = {
         { "en": "AI Workflows", "de": "KI-Workflows" },
         { "en": "Agentic AI", "de": "Agentische KI (Agentic AI)" },
         { "en": "Backend Systems", "de": "Backend-Systeme" },
-        { "en": "Backup-Strategies", "de": "Backup-Strategien" }
+        { "en": "Backup-Strategies", "de": "Backup-Strategien" },
+        { "en": "IPv6", "de": "IPv6" },
+        { "en": "Zero Trust", "de": "Zero Trust" },
+        { "en": "Zero-Config VPN", "de": "Zero-Config VPN" },
+        { "en": "Risk Management", "de": "Risikomanagement" },
+        { "en": "Compliance", "de": "Compliance" },
       ]
     },
     {
@@ -487,43 +521,50 @@ export const siteContent: SiteContent = {
         {
           type: "text",
           text: {
-            en: "Project management data center relocation.",
-            de: "Projektmanagement für die Verlagerung der Rechenzentren.",
+            en: "Project management: relocation of two data centers.",
+            de: "Projektmanagement: Verlagerung von zwei Rechenzentren.",
           },
         },
         {
           type: "text",
           text: {
-            en: "Backup modernization and optimization, including migration to cloud-based solutions.",
-            de: "Modernisierung und Optimierung des Backups, einschließlich Migration zu cloudbasierten Lösungen.",
+            en: "Backup modernization and optimization, including migration to cloud-based solutions based on Rubrik Security Cloud.",
+            de: "Modernisierung und Optimierung des Backups, einschließlich Migration zu cloudbasierten Lösungen basierend auf Rubrik Security Cloud.",
           },
         },
         {
           type: "text",
           text: {
-            en: "Modernizing Solaris infrastructure.",
-            de: "Modernisierung der Solaris-Infrastruktur.",
+            en: "Modernizing Solaris infrastructure, converting legacy applications and systems to modern technologies.",
+            de: "Modernisierung der Solaris-Infrastruktur, Konvertierung von Legacy-Anwendungen und Systemen zu modernen Technologien.",
+          },
+        },
+        {
+          type: "text",
+          text: {
+            en: "Converting a legacy network to a new segmented network structure (including IPv6, Firewalls, etc.)",
+            de: "Überführung eines Legacy-Netzes in eine neue segmentierte Netzstruktur (einschließlich IPv6, Firewalls, etc.)",
           },
         },
         {
           type: "achievement",
           text: {
-            en: "Successfully managed the relocation of two data centers, resulting in a reduction in downtime.",
-            de: "Erfolgreiche Leitung der Verlagerung von zwei Rechenzentren, wodurch die Ausfallzeiten reduziert wurden.",
+            en: "Successfully managed the relocation of two data centers, resulting in a reduction in downtime and cost savings.",
+            de: "Erfolgreiche Leitung der Verlagerung von zwei Rechenzentren, wodurch die Ausfallzeiten reduziert wurden und Kosten gespart werden.",
           },
         },
         {
           type: "achievement",
           text: {
             en: "Modernized the bank’s backup infrastructure, reducing recovery time objectives (RTO) and minimizing the risk of data loss.",
-            de: "Modernisierung der Backup-Infrastruktur der Bank, was zu einer Reduzierung der Wiederherstellungszeiten (RTO) führte.",
+            de: "Modernisierung der Backup-Infrastruktur der Bank, was zu einer Reduzierung der Wiederherstellungszeiten (RTO) führte und das Risiko der Datenverluste minimiert.",
           },
         },
         {
           type: "achievement",
           text: {
             en: "Migrated outdated Solaris infrastructure across the organization, improving system performance and cutting maintenance costs.",
-            de: "Migration der veralteten Solaris-Infrastruktur im gesamten Unternehmen.",
+            de: "Migration der veralteten Solaris-Infrastruktur im gesamten Unternehmen, Verbesserung der Systemleistung und Reduktion der Wartungskosten.",
           },
         },
       ],
@@ -535,6 +576,11 @@ export const siteContent: SiteContent = {
         { en: "Microsoft Project", de: "Microsoft Project" },
         { en: "ServiceNow", de: "ServiceNow" },
         { en: "LeanIX", de: "LeanIX" },
+        { en: "IPv6", de: "IPv6" },
+        { en: "Network", de: "Netzwerk" },
+        { en: "Compliance", de: "Compliance" },
+        { en: "Backup", de: "Backup" },
+        { en: "DORA", de: "DORA" },
       ],
     },
     {
@@ -659,15 +705,15 @@ export const siteContent: SiteContent = {
         {
           type: "text",
           text: {
-            en: "Support for building IT architecture and strategy.",
-            de: "Unterstützung beim Aufbau von IT-Architektur und Strategie.",
+            en: "Support for building IT architecture and strategy (including network architecture, cloud infrastructure, firewall concepts, etc.).",
+            de: "Unterstützung beim Aufbau von IT-Architektur und Strategie (einschließlich Netzwerkarchitektur, Cloud-Infrastruktur, Firewall-Konzepte, etc.).",
           },
         },
         {
           type: "text",
           text: {
-            en: "Preparation and accompanying of penetration tests.",
-            de: "Vorbereitung und Begleitung von Penetrationstests.",
+            en: "Preparation and accompanying of penetration tests (including network, cloud, applications, Active Directory, etc.).",
+            de: "Vorbereitung und Begleitung von Penetrationstests (einschließlich Netzwerk, Cloud, Anwendungen, Active Directory, etc.).",
           },
         },
         {
@@ -893,6 +939,30 @@ export const siteContent: SiteContent = {
         { en: "Information Security", de: "Informationssicherheit" },
         { en: "Compliance", de: "Compliance" },
       ],
+    },
+    {
+      "title": {
+        "en": "Zero-Config IPv6 VPN Network",
+        "de": "Zero-Config IPv6 VPN Netzwerk"
+      },
+      "description": {
+        "en": "Designed and implemented a secure, zero-configuration VPN network leveraging IPv6 as the foundation for global connectivity. The solution enables seamless peer-to-peer communication without manual setup, NAT traversal, or complex provisioning, while ensuring strong encryption and modern authentication mechanisms. By combining simple rules with advanced security controls, the network architecture provides resilient, scalable, and privacy-preserving access across distributed environments.",
+        "de": "Konzeption und Aufbau eines sicheren Zero-Config-VPN-Netzes auf Basis von IPv6 als Fundament für weltweite Konnektivität. Die Lösung ermöglicht nahtlose Peer-to-Peer-Kommunikation ohne manuelle Einrichtung, NAT-Traversal oder komplexe Provisionierung, bei gleichzeitig starker Verschlüsselung und modernen Authentifizierungsmechanismen. Durch die Kombination von einfachen Regeln mit erweiterten Sicherheitskontrollen entsteht eine widerstandsfähige, skalierbare und datenschutzfreundliche Netzwerkarchitektur für verteilte Umgebungen."
+      },
+      "imageUrl": "/projects/zeroconfigvpn.png",
+      "imageAlt": {
+        "en": "Illustration of a zero-configuration VPN: interconnected shielded devices connected by a global IPv6 network grid, lock icons indicating encryption, and auto-config symbols representing seamless setup without manual intervention.",
+        "de": "Symbolgrafik für ein Zero-Config-VPN: Vernetzte, geschützte Geräte, die über ein globales IPv6-Netzwerk verbunden sind, mit Schloss-Symbolen für Verschlüsselung und Auto-Config-Elementen für die nahtlose Einrichtung ohne manuelles Eingreifen."
+      },
+      "tags": [
+        { "en": "IPv6", "de": "IPv6" },
+        { "en": "Zero-Config", "de": "Zero-Config" },
+        { "en": "VPN", "de": "VPN" },
+        { "en": "Encryption", "de": "Verschlüsselung" },
+        { "en": "Authentication", "de": "Authentifizierung" },
+        { "en": "Compliance", "de": "Compliance" },
+        { "en": "Network Security", "de": "Netzwerksicherheit" }
+      ]
     },
     {
       title: {
