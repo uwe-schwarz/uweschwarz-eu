@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
-import { AlertTriangle, BookCheck, Bot, Box, Bug, Brain, Briefcase, Cloud, Database, FileCheck2, FileText, Flag, FlaskConical, GitBranch, GitCompareArrows, Globe, Image, Landmark, Laptop, ListChecks, Mail, MessageCircle, Network, Route, Scale, ScanSearch, SearchCode, Settings, Server, ServerCog, Shield, ShieldCheck, Siren, Sparkles, Swords, Terminal, Users, Video, Wrench } from "lucide-react";
+import { AlertTriangle, BookCheck, Bot, Box, Bug, Brain, Briefcase, Cloud, Database, FileCheck2, FileText, Flag, FlaskConical, GitBranch, GitCompareArrows, Globe, Image, Landmark, Laptop, ListChecks, Mail, MessageCircle, MousePointer2, Network, Route, Scale, ScanSearch, SearchCode, Settings, Server, ServerCog, Shield, ShieldCheck, Siren, Sparkles, Swords, Terminal, Users, Video, Grid2X2, Wrench, Heart, Star, CircleOff } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 
@@ -22,6 +22,8 @@ const getSkillIcon = (iconName: string) => {
       return <Bot className="w-5 h-5" />;
     case "box":
       return <Box className="w-5 h-5" />;
+    case "circle-off":
+      return <CircleOff className="w-5 h-5" />;
     case "cloud":
       return <Cloud className="w-5 h-5" />;
     case "database":
@@ -40,6 +42,8 @@ const getSkillIcon = (iconName: string) => {
       return <GitCompareArrows className="w-5 h-5" />;
     case "globe":
       return <Globe className="w-5 h-5" />;
+    case "heart":
+      return <Heart className="w-5 h-5" />;
     case "image":
       return <Image className="w-5 h-5" />;
     case "landmark":
@@ -52,6 +56,8 @@ const getSkillIcon = (iconName: string) => {
       return <Mail className="w-5 h-5" />;
     case "message-circle":
       return <MessageCircle className="w-5 h-5" />;
+    case "mouse-pointer-2":
+      return <MousePointer2 className="w-5 h-5" />;
     case "network":
       return <Network className="w-5 h-5" />;
     case "route":
@@ -78,12 +84,16 @@ const getSkillIcon = (iconName: string) => {
       return <Sparkles className="w-5 h-5" />;
     case "swords":
       return <Swords className="w-5 h-5" />;
+    case "star":
+      return <Star className="w-5 h-5" />;
     case "terminal":
       return <Terminal className="w-5 h-5" />;
     case "users":
       return <Users className="w-5 h-5" />;
     case "video":
       return <Video className="w-5 h-5" />;
+    case "windows":
+      return <Grid2X2 className="w-5 h-5" />;
     case "wrench":
       return <Wrench className="w-5 h-5" />;
     default:

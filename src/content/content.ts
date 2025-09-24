@@ -417,6 +417,10 @@ export const siteContent: SiteContent = {
         { en: "Security", de: "Sicherheit" },
         { en: "Privacy", de: "Datenschutz" },
         { en: "Microsoft 365", de: "Microsoft 365" },
+        { en: "Notion", de: "Notion" },
+        { en: "Cloudflare", de: "Cloudflare" },
+        { en: "Resend", de: "Resend" },
+        { en: "Supabase", de: "Supabase" },
         { en: "IPv6", de: "IPv6" },
         { en: "Zero Trust", de: "Zero Trust" },
         { en: "Zero-Config VPN", de: "Zero-Config VPN" },
@@ -506,6 +510,10 @@ export const siteContent: SiteContent = {
         { "en": "Zero-Config VPN", "de": "Zero-Config VPN" },
         { "en": "Risk Management", "de": "Risikomanagement" },
         { "en": "Compliance", "de": "Compliance" },
+        { "en": "Notion", "de": "Notion" },
+        { "en": "Cloudflare", "de": "Cloudflare" },
+        { "en": "Resend", "de": "Resend" },
+        { "en": "Supabase", "de": "Supabase" },
       ]
     },
     {
@@ -576,10 +584,13 @@ export const siteContent: SiteContent = {
         { en: "Microsoft Project", de: "Microsoft Project" },
         { en: "ServiceNow", de: "ServiceNow" },
         { en: "LeanIX", de: "LeanIX" },
+        { en: "Delinea", de: "Delinea" },
         { en: "IPv6", de: "IPv6" },
         { en: "Network", de: "Netzwerk" },
         { en: "Compliance", de: "Compliance" },
         { en: "Backup", de: "Backup" },
+        { en: "Solaris", de: "Solaris" },
+        { en: "Rubrik", de: "Rubrik" },
         { en: "DORA", de: "DORA" },
       ],
     },
@@ -659,12 +670,21 @@ export const siteContent: SiteContent = {
       ],
       tags: [
         { en: "Security", de: "Sicherheit" },
+        { en: "Data Protection", de: "Datenschutz" },
         { en: "SSO", de: "SSO" },
         { en: "GDPR", de: "DSGVO" },
         { en: "ISO 27001", de: "ISO 27001" },
         { en: "SOC 2", de: "SOC 2" },
         { en: "Atlassian Jira", de: "Atlassian Jira" },
         { en: "Atlassian Confluence", de: "Atlassian Confluence" },
+        { en: "Palo Alto Firewall", de: "Palo Alto Firewall" },
+        { en: "Cisco", de: "Cisco" },
+        { en: "VMware", de: "VMware" },
+        { en: "Windows", de: "Windows" },
+        { en: "Linux", de: "Linux" },
+        { en: "Microsoft Azure", de: "Microsoft Azure" },
+        { en: "Incident Response", de: "Incident Response" },
+        { en: "Penetration Testing", de: "Penetration Testing" },
       ],
     },
     {
@@ -1014,7 +1034,7 @@ export const siteContent: SiteContent = {
       name: { en: "ISO27001", de: "ISO27001" },
       icon: "shield-check",
       category: "security",
-      level: 3,
+      level: 4,
     },
     {
       name: { en: "SOC2", de: "SOC2" },
@@ -1107,9 +1127,27 @@ export const siteContent: SiteContent = {
     },
     {
       name: { en: "Windows Server", de: "Windows Server" },
-      icon: "server",
+      icon: "windows",
       category: "infrastructure",
       level: 2,
+    },
+    {
+      name: { en: "Cloudflare", de: "Cloudflare" },
+      icon: "cloud",
+      category: "infrastructure",
+      level: 4,
+    },
+    {
+      name: { en: "Resend", de: "Resend" },
+      icon: "mail",
+      category: "infrastructure",
+      level: 5,
+    },
+    {
+      name: { en: "Supabase", de: "Supabase" },
+      icon: "database",
+      category: "infrastructure",
+      level: 4,
     },
     {
       name: {
@@ -1145,6 +1183,24 @@ export const siteContent: SiteContent = {
       icon: "terminal",
       category: "tools",
       level: 5,
+    },
+    {
+      name: { en: "Notion", de: "Notion" },
+      icon: "file-text",
+      category: "tools",
+      level: 4,
+    },
+    {
+      name: { en: "Git", de: "Git" },
+      icon: "git-branch",
+      category: "tools",
+      level: 4,
+    },
+    {
+      name: { en: "Cursor", de: "Cursor" },
+      icon: "mouse-pointer-2",
+      category: "tools",
+      level: 4,
     },
     {
       name: { en: "Python", de: "Python" },
@@ -1248,6 +1304,36 @@ export const siteContent: SiteContent = {
       icon: "git-branch",
       category: "ai",
       level: 4
+    },
+    {
+      name: { en: "Lovable", de: "Lovable" },
+      icon: "heart",
+      category: "ai",
+      level: 5
+    },
+    {
+      name: { en: "OpenAI / ChatGPT", de: "OpenAI / ChatGPT" },
+      icon: "brain",
+      category: "ai",
+      level: 5
+    },
+    {
+      name: { en: "Anthropic / Claude", de: "Anthropic / Claude" },
+      icon: "star",
+      category: "ai",
+      level: 5
+    },
+    {
+      name: { en: "Google / Gemini", de: "Google / Gemini" },
+      icon: "sparkles",
+      category: "ai",
+      level: 5
+    },
+    {
+      name: { en: "xAI / Grok", de: "xAI / Grok" },
+      icon: "circle-off",
+      category: "ai",
+      level: 5
     },
     {
       name: { en: "Generative Engine Optimization (GEO)", de: "Generative Engine Optimization (GEO)" },

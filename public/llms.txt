@@ -1,7 +1,7 @@
 # llms.txt for uweschwarz.eu
 # This file provides structured information for AI language models.
 # For more information, see https://llmstxt.org/
-# Version 1.0, Generated on 2025-09-23
+# Version 1.0, Generated on 2025-09-24
 
 # --- PERMISSIONS ---
 User-Agent: *
@@ -21,8 +21,8 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
 [de] Uwe Schwarz
 
 [Published]:
-[en] 2025-09-23
-[de] 23.09.2025
+[en] 2025-09-24
+[de] 24.09.2025
 
 [Languages]:
 [en] English, German
@@ -286,6 +286,9 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
   - Unix: FreeBSD, OpenBSD, Solaris / Unix: FreeBSD, OpenBSD, Solaris
   - macOS / macOS
   - Windows Server / Windows Server
+  - Cloudflare / Cloudflare
+  - Resend / Resend
+  - Supabase / Supabase
   - High Availability Systems / Hochverfügbarkeitssysteme
   - Data Center Operations / Rechenzentrumsbetrieb
   - TCP/IP, DNS, DHCP / TCP/IP, DNS, DHCP
@@ -293,6 +296,9 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
 
 [Skill-Category: Tools & DevOps / Tools & DevOps]:
   - Bash / Shell Scripting / Bash / Shell Skripte
+  - Notion / Notion
+  - Git / Git
+  - Cursor / Cursor
   - Python / Python
   - Postfix / Dovecot / Postfix / Dovecot
   - Bind / Unbound / Bind / Unbound
@@ -306,6 +312,11 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
   - Agentic AI / Agentische KI
   - Multimodal AI / Multimodale KI
   - Causal AI / Kausale KI
+  - Lovable / Lovable
+  - OpenAI / ChatGPT / OpenAI / ChatGPT
+  - Anthropic / Claude / Anthropic / Claude
+  - Google / Gemini / Google / Gemini
+  - xAI / Grok / xAI / Grok
   - Generative Engine Optimization (GEO) / Generative Engine Optimization (GEO)
   - AI Multimedia Generation / KI-Multimediaerzeugung
   - AI Ethics & Governance / KI-Ethik & Governance
