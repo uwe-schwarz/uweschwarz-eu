@@ -355,7 +355,7 @@ export const siteContent: SiteContent = {
     },
     stats: [
       { key: "experience", value: { en: "20+", de: "20+" } },
-      { key: "projects", value: { en: "10+", de: "10+" } },
+      { key: "projects", value: { en: "40+", de: "40+" } },
       { key: "technologies", value: { en: "20+", de: "20+" } },
     ],
   },
@@ -1098,6 +1098,15 @@ export const siteContent: SiteContent = {
       icon: "bug",
       category: "security",
       level: 5,
+    },
+    {
+      name: {
+        en: "Proxy & Secure Web Gateways",
+        de: "Proxy & Secure Web Gateways",
+      },
+      icon: "shield",
+      category: "security",
+      level: 4,
     },
 
     // Infrastructure & Operations
