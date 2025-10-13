@@ -970,6 +970,29 @@ export const siteContent: SiteContent = {
     },
     {
       "title": {
+        "en": "EU AI Act Training Platform",
+        "de": "Schulungsplattform zum EU AI Act"
+      },
+      "description": {
+        "en": "Designed and developed a modular training platform covering the EU Artificial Intelligence Act (EU AI Act). The course provides a structured learning path with interactive slides, voice narration, and integrated quizzes to ensure a clear understanding of the regulation’s scope, risk-based framework, and compliance implications. The platform includes five sections — from fundamentals to governance, risk categories, and real-world applications — and was built with future expansion in mind to accommodate upcoming modules on data protection, ethical AI, and technical implementation guidelines.",
+        "de": "Konzeption und Aufbau einer modularen Schulungsplattform zum EU-Gesetz über Künstliche Intelligenz (EU AI Act). Der Kurs vermittelt in klar strukturierten Lerneinheiten mit interaktiven Folien, Audiokommentaren und integrierten Quizfragen ein fundiertes Verständnis zu Geltungsbereich, risikobasiertem Ansatz und Compliance-Auswirkungen. Die Plattform umfasst fünf Sektionen – von den Grundlagen über Governance und Risikokategorien bis hin zu Praxisanwendungen – und wurde so entwickelt, dass sie zukünftig um weitere Module zu Datenschutz, ethischer KI und technischen Umsetzungsvorgaben erweitert werden kann."
+      },
+      "imageUrl": "/projects/ai_act_training.png",
+      "imageAlt": {
+        "en": "Screenshot of the EU AI Act training platform showing completed modules, quizzes, and a structured overview of sections such as risk-based approach, governance, and compliance strategies.",
+        "de": "Screenshot der Schulungsplattform zum EU AI Act mit abgeschlossenen Modulen, Quizfragen und einer strukturierten Übersicht über Themen wie risikobasierter Ansatz, Governance und Compliance-Strategien."
+      },
+      "tags": [
+        { "en": "EU AI Act", "de": "EU AI Act" },
+        { "en": "Compliance Training", "de": "Compliance-Schulung" },
+        { "en": "AI Governance", "de": "KI-Governance" },
+        { "en": "E-Learning", "de": "E-Learning" },
+        { "en": "Education Platform", "de": "Schulungsplattform" },
+        { "en": "Regulatory Framework", "de": "Regulatorischer Rahmen" }
+      ]
+    },
+    {
+      "title": {
         "en": "Zero-Config IPv6 VPN Network",
         "de": "Zero-Config IPv6 VPN Netzwerk"
       },
