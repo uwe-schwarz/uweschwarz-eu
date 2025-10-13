@@ -91,6 +91,8 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
   - [de] Kompetenter und fokussierter Partner für alle Beratungsanforderungen.
   - [en] Building a secure and compliant IT infrastructure with a focus on modern technologies (IPv6, Zero Trust, Zero-Config VPN, etc.) and best practices.
   - [de] Aufbau einer sicheren und rechtskonformen IT-Infrastruktur mit Schwerpunkt auf modernen Technologien (IPv6, Zero Trust, Zero-Config VPN, etc.) und Best Practices.
+  - [en] Design and implementation of a comprehensive training unit on the EU AI Act to raise awareness, ensure compliance, and provide practical guidance for project teams.
+  - [de] Konzeption und Aufbau einer Schulungseinheit zum EU AI Act (EU-Verordnung über Künstliche Intelligenz) zur Sensibilisierung, Sicherstellung der Compliance und praxisnahen Vermittlung für Projektteams.
   - [en] Implemented a Zero-Config VPN solution that allows for easy and secure remote access to the company's resources.
   - [de] Implementierung einer Zero-Config VPN-Lösung, die es ermöglicht, einfache und sichere Remote-Zugriff auf die Unternehmensressourcen zu ermöglichen.
   - [en] Build an internal training platform for the company's employees to improve their security awareness, risk management and compliance.

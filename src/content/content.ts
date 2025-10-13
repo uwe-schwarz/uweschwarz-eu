@@ -399,6 +399,13 @@ export const siteContent: SiteContent = {
           },
         },
         {
+          type: "text",
+          text: {
+            en: "Design and implementation of a comprehensive training unit on the EU AI Act to raise awareness, ensure compliance, and provide practical guidance for project teams.",
+            de: "Konzeption und Aufbau einer Schulungseinheit zum EU AI Act (EU-Verordnung über Künstliche Intelligenz) zur Sensibilisierung, Sicherstellung der Compliance und praxisnahen Vermittlung für Projektteams.",
+          },
+        },
+        {
           type: "achievement",
           text: {
             en: "Implemented a Zero-Config VPN solution that allows for easy and secure remote access to the company's resources.",
@@ -429,6 +436,7 @@ export const siteContent: SiteContent = {
         { en: "Security Awareness", de: "Sicherheitsbewusstsein" },
         { en: "Risk Management", de: "Risikomanagement" },
         { en: "Compliance", de: "Compliance" },
+        { en: "EU AI Act", de: "EU AI Act" },
       ],
     },
     {
