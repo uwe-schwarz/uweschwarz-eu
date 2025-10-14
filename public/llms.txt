@@ -313,6 +313,7 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
   - Bind / Unbound / Bind / Unbound
   - Squid Proxy / Squid Proxy
   - HAProxy / HAProxy
+  - Caddy / Caddy
   - Puppet / Puppet
   - Docker / Docker
 

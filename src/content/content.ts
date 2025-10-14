@@ -1,3 +1,60 @@
+import type { ComponentType } from "react";
+import {
+  AlertTriangle,
+  BookCheck,
+  Bot,
+  Box,
+  Bug,
+  Database,
+  FileCheck2,
+  FileText,
+  Flag,
+  GitBranch,
+  GitCompareArrows,
+  Globe,
+  Heart,
+  Image,
+  Landmark,
+  ListChecks,
+  Mail,
+  MessageCircle,
+  Network,
+  Route,
+  Scale,
+  ScanSearch,
+  SearchCode,
+  Shield,
+  ShieldCheck,
+  Siren,
+  Swords,
+  Terminal,
+  Users,
+  Video,
+  Grid2X2,
+  ShieldPlus,
+  ServerCrash,
+  CodeXml,
+  Cable,
+} from "lucide-react";
+import {
+  SiAnthropic,
+  SiApple,
+  SiCaddy,
+  SiCloudflare,
+  SiDocker,
+  SiFreebsd,
+  SiGit,
+  SiGooglegemini,
+  SiLinux,
+  SiNotion,
+  SiOpenai,
+  SiPuppet,
+  SiPython,
+  SiResend,
+  SiSupabase,
+  SiX,
+} from "react-icons/si";
+
 interface LocalizedString {
   en: string;
   de: string;
@@ -61,7 +118,7 @@ export interface Project {
 
 export interface Skill {
   name: LocalizedString;
-  icon: string;
+  icon: ComponentType<{ className?: string }>;
   category:
     | "languages"
     | "management"
@@ -1063,61 +1120,61 @@ export const siteContent: SiteContent = {
     // Security & Compliance
     {
       name: { en: "ISO27001", de: "ISO27001" },
-      icon: "shield-check",
+      icon: ShieldCheck,
       category: "security",
       level: 4,
     },
     {
       name: { en: "SOC2", de: "SOC2" },
-      icon: "shield-check",
+      icon: ShieldPlus,
       category: "security",
       level: 4,
     },
     {
       name: { en: "GDPR", de: "DSGVO" },
-      icon: "landmark",
+      icon: Landmark,
       category: "security",
       level: 5,
     },
     {
       name: { en: "NIST Framework", de: "NIST Framework" },
-      icon: "book-check",
+      icon: BookCheck,
       category: "security",
       level: 4,
     },
     {
       name: { en: "MITRE ATT&CK", de: "MITRE ATT&CK" },
-      icon: "swords",
+      icon: Swords,
       category: "security",
       level: 4,
     },
     {
       name: { en: "BSI IT Baseline Protection", de: "BSI IT-Grundschutz" },
-      icon: "book-check",
+      icon: BookCheck,
       category: "security",
       level: 5,
     },
     {
       name: { en: "Security Policies", de: "Sicherheitsrichtlinien" },
-      icon: "file-check-2",
+      icon: FileCheck2,
       category: "security",
       level: 5,
     },
     {
       name: { en: "Risk Management", de: "Risikomanagement" },
-      icon: "alert-triangle",
+      icon: AlertTriangle,
       category: "security",
       level: 3,
     },
     {
       name: { en: "Vulnerability Mgmt.", de: "Vulnerabilitätsmanagement" },
-      icon: "scan-search",
+      icon: ScanSearch,
       category: "security",
       level: 5,
     },
     {
       name: { en: "Incident Response", de: "Incident Response" },
-      icon: "siren",
+      icon: Siren,
       category: "security",
       level: 5,
     },
@@ -1126,7 +1183,7 @@ export const siteContent: SiteContent = {
         en: "Penetration Testing Mgmt.",
         de: "Penetration Testing Mgmt.",
       },
-      icon: "bug",
+      icon: Bug,
       category: "security",
       level: 5,
     },
@@ -1135,7 +1192,7 @@ export const siteContent: SiteContent = {
         en: "Proxy & Secure Web Gateways",
         de: "Proxy & Secure Web Gateways",
       },
-      icon: "shield",
+      icon: Shield,
       category: "security",
       level: 4,
     },
@@ -1146,7 +1203,7 @@ export const siteContent: SiteContent = {
         en: "Linux: Debian, Ubuntu, RHEL",
         de: "Linux: Debian, Ubuntu, RHEL",
       },
-      icon: "server",
+      icon: SiLinux,
       category: "infrastructure",
       level: 5,
     },
@@ -1155,37 +1212,37 @@ export const siteContent: SiteContent = {
         en: "Unix: FreeBSD, OpenBSD, Solaris",
         de: "Unix: FreeBSD, OpenBSD, Solaris",
       },
-      icon: "server-cog",
+      icon: SiFreebsd,
       category: "infrastructure",
       level: 3,
     },
     {
       name: { en: "macOS", de: "macOS" },
-      icon: "laptop",
+      icon: SiApple,
       category: "infrastructure",
       level: 5,
     },
     {
       name: { en: "Windows Server", de: "Windows Server" },
-      icon: "windows",
+      icon: Grid2X2,
       category: "infrastructure",
       level: 2,
     },
     {
       name: { en: "Cloudflare", de: "Cloudflare" },
-      icon: "cloud",
+      icon: SiCloudflare,
       category: "infrastructure",
       level: 4,
     },
     {
       name: { en: "Resend", de: "Resend" },
-      icon: "mail",
+      icon: SiResend,
       category: "infrastructure",
       level: 5,
     },
     {
       name: { en: "Supabase", de: "Supabase" },
-      icon: "database",
+      icon: SiSupabase,
       category: "infrastructure",
       level: 4,
     },
@@ -1194,25 +1251,25 @@ export const siteContent: SiteContent = {
         en: "High Availability Systems",
         de: "Hochverfügbarkeitssysteme",
       },
-      icon: "server-cog",
+      icon: ServerCrash,
       category: "infrastructure",
       level: 5,
     },
     {
       name: { en: "Data Center Operations", de: "Rechenzentrumsbetrieb" },
-      icon: "database",
+      icon: Database,
       category: "infrastructure",
       level: 4,
     },
     {
       name: { en: "TCP/IP, DNS, DHCP", de: "TCP/IP, DNS, DHCP" },
-      icon: "network",
+      icon: Network,
       category: "infrastructure",
       level: 5,
     },
     {
       name: { en: "IPv6", de: "IPv6" },
-      icon: "network",
+      icon: Cable,
       category: "infrastructure",
       level: 5,
     },
@@ -1220,67 +1277,73 @@ export const siteContent: SiteContent = {
     // Tools & Automation
     {
       name: { en: "Bash / Shell Scripting", de: "Bash / Shell Skripte" },
-      icon: "terminal",
+      icon: Terminal,
       category: "tools",
       level: 5,
     },
     {
       name: { en: "Notion", de: "Notion" },
-      icon: "file-text",
+      icon: SiNotion,
       category: "tools",
       level: 4,
     },
     {
       name: { en: "Git", de: "Git" },
-      icon: "git-branch",
+      icon: SiGit,
       category: "tools",
       level: 4,
     },
     {
       name: { en: "Cursor", de: "Cursor" },
-      icon: "mouse-pointer-2",
+      icon: CodeXml,
       category: "tools",
       level: 4,
     },
     {
       name: { en: "Python", de: "Python" },
-      icon: "terminal",
+      icon: SiPython,
       category: "tools",
       level: 3,
     },
     {
       name: { en: "Postfix / Dovecot", de: "Postfix / Dovecot" },
-      icon: "mail",
+      icon: Mail,
       category: "tools",
       level: 4,
     },
     {
       name: { en: "Bind / Unbound", de: "Bind / Unbound" },
-      icon: "globe",
+      icon: Globe,
       category: "tools",
       level: 5,
     },
     {
       name: { en: "Squid Proxy", de: "Squid Proxy" },
-      icon: "shield",
+      icon: Shield,
       category: "tools",
       level: 4,
     },
     {
       name: { en: "HAProxy", de: "HAProxy" },
-      icon: "git-compare-arrows",
+      icon: GitCompareArrows,
+      category: "tools",
+      level: 4,
+    },
+    {
+      name: { en: "Caddy", de: "Caddy" },
+      icon: SiCaddy,
       category: "tools",
       level: 4,
     },
     {
       name: { en: "Puppet", de: "Puppet" },
-      icon: "bot",
+      icon: SiPuppet,
       category: "tools",
       level: 3,
     },
     {
       name: { en: "Docker", de: "Docker" },
-      icon: "box",
+      icon: SiDocker,
       category: "tools",
       level: 4,
     },
@@ -1288,13 +1351,13 @@ export const siteContent: SiteContent = {
     // Management & Strategy
     {
       name: { en: "Project Management", de: "Projektmanagement" },
-      icon: "list-checks",
+      icon: ListChecks,
       category: "management",
       level: 5,
     },
     {
       name: { en: "Team Leadership", de: "Teamleitung" },
-      icon: "users",
+      icon: Users,
       category: "management",
       level: 5,
     },
@@ -1303,19 +1366,19 @@ export const siteContent: SiteContent = {
         en: "Stakeholder Communication",
         de: "Stakeholder-Kommunikation",
       },
-      icon: "message-circle",
+      icon: MessageCircle,
       category: "management",
       level: 5,
     },
     {
       name: { en: "IT Strategy", de: "IT-Strategie" },
-      icon: "route",
+      icon: Route,
       category: "management",
       level: 4,
     },
     {
       name: { en: "Technical Concepts", de: "Technische Konzepte" },
-      icon: "file-text",
+      icon: FileText,
       category: "management",
       level: 5,
     },
@@ -1323,67 +1386,67 @@ export const siteContent: SiteContent = {
     // Artificial Intelligence
     {
       name: { en: "Agentic AI", de: "Agentische KI" },
-      icon: "bot",
+      icon: Bot,
       category: "ai",
       level: 4
     },
     {
       name: { en: "Multimodal AI", de: "Multimodale KI" },
-      icon: "image",
+      icon: Image,
       category: "ai",
       level: 5
     },
     {
       name: { en: "Causal AI", de: "Kausale KI" },
-      icon: "git-branch",
+      icon: GitBranch,
       category: "ai",
       level: 4
     },
     {
       name: { en: "Lovable", de: "Lovable" },
-      icon: "heart",
+      icon: Heart,
       category: "ai",
       level: 5
     },
     {
       name: { en: "OpenAI / ChatGPT", de: "OpenAI / ChatGPT" },
-      icon: "brain",
+      icon: SiOpenai,
       category: "ai",
       level: 5
     },
     {
       name: { en: "Anthropic / Claude", de: "Anthropic / Claude" },
-      icon: "star",
+      icon: SiAnthropic,
       category: "ai",
       level: 5
     },
     {
       name: { en: "Google / Gemini", de: "Google / Gemini" },
-      icon: "sparkles",
+      icon: SiGooglegemini,
       category: "ai",
       level: 5
     },
     {
       name: { en: "xAI / Grok", de: "xAI / Grok" },
-      icon: "circle-off",
+      icon: SiX,
       category: "ai",
       level: 5
     },
     {
       name: { en: "Generative Engine Optimization (GEO)", de: "Generative Engine Optimization (GEO)" },
-      icon: "search-code",
+      icon: SearchCode,
       category: "ai",
       level: 3
     },
     {
       name: { en: "AI Multimedia Generation", de: "KI-Multimediaerzeugung" },
-      icon: "video",
+      icon: Video,
       category: "ai",
       level: 3
     },
     {
       name: { en: "AI Ethics & Governance", de: "KI-Ethik & Governance" },
-      icon: "scale",
+      icon: Scale,
       category: "ai",
       level: 5
     },
@@ -1391,13 +1454,13 @@ export const siteContent: SiteContent = {
     // Languages
     {
       name: { en: "German (Native)", de: "Deutsch (Muttersprache)" },
-      icon: "flag",
+      icon: Flag,
       category: "languages",
       level: 5,
     },
     {
       name: { en: "English (C2)", de: "Englisch (C2)" },
-      icon: "flag",
+      icon: Flag,
       category: "languages",
       level: 5,
     },
