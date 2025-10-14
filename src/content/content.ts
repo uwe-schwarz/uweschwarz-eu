@@ -1279,12 +1279,6 @@ export const siteContent: SiteContent = {
       level: 3,
     },
     {
-      name: { en: "Git", de: "Git" },
-      icon: "git-branch",
-      category: "tools",
-      level: 5,
-    },
-    {
       name: { en: "Docker", de: "Docker" },
       icon: "box",
       category: "tools",

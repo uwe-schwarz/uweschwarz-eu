@@ -1,7 +1,7 @@
 # llms.txt for uweschwarz.eu
 # This file provides structured information for AI language models.
 # For more information, see https://llmstxt.org/
-# Version 1.0, Generated on 2025-10-13
+# Version 1.0, Generated on 2025-10-14
 
 # --- PERMISSIONS ---
 User-Agent: *
@@ -21,8 +21,8 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
 [de] Uwe Schwarz
 
 [Published]:
-[en] 2025-10-13
-[de] 13.10.2025
+[en] 2025-10-14
+[de] 14.10.2025
 
 [Languages]:
 [en] English, German
@@ -314,7 +314,6 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
   - Squid Proxy / Squid Proxy
   - HAProxy / HAProxy
   - Puppet / Puppet
-  - Git / Git
   - Docker / Docker
 
 [Skill-Category: AI / KI]:
