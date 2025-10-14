@@ -101,7 +101,7 @@ export async function generateCvDocx({ language, data }: { language: "en" | "de"
             {
                 id: 'Normal',
                 name: 'Normal',
-                run: { font: 'Inter' },
+                run: { font: 'Public Sans' },
             },
             ],
       },

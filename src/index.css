@@ -1,4 +1,5 @@
-@import "@fontsource/inter";
+/* @import "@fontsource/inter"; */
+@import "@fontsource/public-sans";
 @import "@fontsource/space-grotesk";
 
 @view-transition {

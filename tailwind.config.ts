@@ -73,7 +73,7 @@ export default {
 				}
 			},
 			fontFamily: {
-				sans: ['Inter', 'sans-serif'],
+				sans: ['Public Sans', 'sans-serif'],
 				display: ['"Space Grotesk"', 'sans-serif'],
 			},
 			borderRadius: {

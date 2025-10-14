@@ -14,18 +14,17 @@ import {
   Rect,
   G
 } from "@react-pdf/renderer";
-import InterRegular from "@/assets/fonts/Inter-Regular.ttf";
-import InterBold from "@/assets/fonts/Inter-Bold.ttf";
+import PublicSansRegular from "@/assets/fonts/PublicSans-Regular.ttf";
+import PublicSansBold from "@/assets/fonts/PublicSans-Bold.ttf";
 import SpaceGroteskBold from "@/assets/fonts/SpaceGrotesk-Bold.ttf";
-import { SVGProps } from "react";
 import { siteContent as defaultSiteContent, SiteContent } from "@/content/content";
 
 // Register fonts - adjust with actual fonts if needed
 Font.register({
-  family: "Inter",
+  family: "Public Sans",
   fonts: [
-    { src: InterRegular, fontWeight: 400 },
-    { src: InterBold, fontWeight: 700 },
+    { src: PublicSansRegular, fontWeight: 400 },
+    { src: PublicSansBold, fontWeight: 700 },
   ],
 });
 
@@ -118,7 +117,7 @@ const styles = StyleSheet.create({
   page: {
     flexDirection: "row",
     backgroundColor: theme.background,
-    fontFamily: "Inter",
+    fontFamily: "Public Sans",
     minHeight: "100%",
     paddingTop: 24,
     paddingBottom: 0,
