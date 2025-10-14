@@ -1,125 +1,56 @@
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 // Buffer shim for react-pdf (must be before pdf renderer import)
 import { Buffer } from 'buffer';
 // @ts-expect-error TODO: Buffer is a polyfill for react-pdf, this might not be needed with future library versions
 (globalThis as typeof globalThis & { Buffer?: unknown }).Buffer = Buffer;
-import { PDFViewer, PDFDownloadLink } from "@react-pdf/renderer";
 import { useSettings } from "@/contexts/settings-hook";
 import { siteContent, SiteContent } from "@/content/content";
 import { Button } from "@/components/ui/button";
 import { useScrollToTop } from "@/hooks/use-scroll-to-top";
-import { Download, Globe, ArrowLeft, Save, Edit, Moon, Sun } from "lucide-react";
-import CVDocument from "@/components/cv/CVDocument";
-import { generateCvDocx } from "@/components/cv/CVDocumentDocx";
-import CVEditor from "@/components/cv/CVEditor";
+import { Globe, ArrowLeft, Edit, Moon, Sun } from "lucide-react";
 import { compressToUint8Array, decompressFromUint8Array } from "lz-string";
+import { Skeleton } from "@/components/ui/skeleton";
+
+const CVDownloadButtons = React.lazy(() => import("@/components/cv/CVDownloadButtons"));
+const CVEditor = React.lazy(() => import("@/components/cv/CVEditor"));
+const CVPdfPreview = React.lazy(() => import("@/components/cv/CVPdfPreview"));
 
 
-// Reusable Buttons für PDF und DOCX Download
-const CvDownloadButtons: React.FC<{ language: 'en' | 'de'; cvData: SiteContent }> = ({ language, cvData }) => {
-  const [docxUrl, setDocxUrl] = useState<string | null>(null);
-  const [loadingDocx, setLoadingDocx] = useState(false);
-  const [openMenu, setOpenMenu] = useState(false);
+const DownloadButtonsFallback = () => (
+  <>
+    <div className="hidden md:flex space-x-4">
+      <Skeleton className="h-10 w-40 rounded-full" />
+      <Skeleton className="h-10 w-48 rounded-full" />
+    </div>
+    <div className="md:hidden relative">
+      <Skeleton className="h-10 w-10 rounded-full" />
+    </div>
+  </>
+);
 
-  const createDocx = async () => {
-    setLoadingDocx(true);
-    try {
-      const blob = await generateCvDocx({ language, data: cvData });
-      if (docxUrl) URL.revokeObjectURL(docxUrl);
-      const url = URL.createObjectURL(blob);
-      setDocxUrl(url);
-    } finally {
-      setLoadingDocx(false);
-    }
-  };
+DownloadButtonsFallback.displayName = "DownloadButtonsFallback";
 
-  // Trigger Download-Link wenn URL bereit
-  useEffect(() => {
-    if (docxUrl) {
-      const link = document.createElement('a');
-      link.href = docxUrl;
-      link.download = `uwe_schwarz_cv_${language}_${new Date().toISOString().split('T')[0]}.docx`;
-      link.click();
-      // Clean up
-      setTimeout(() => {
-        URL.revokeObjectURL(docxUrl);
-        setDocxUrl(null);
-      }, 1000);
-    }
-  }, [docxUrl, language]);
+const EditorFallback = () => (
+  <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 mb-10">
+    <Skeleton className="h-8 w-48 mb-4" />
+    <div className="space-y-4">
+      <Skeleton className="h-10 w-full" />
+      <Skeleton className="h-10 w-full" />
+      <Skeleton className="h-24 w-full" />
+    </div>
+  </div>
+);
 
-  return (
-    <>
-      {/* Desktop: separate buttons */}
-      <div className="hidden md:flex space-x-4">
-        <PDFDownloadLink
-          document={<CVDocument language={language} data={cvData} />}
-          fileName={`uwe_schwarz_cv_${language}_${new Date().toISOString().split('T')[0]}.pdf`}
-          className="no-underline"
-        >
-          {({ loading }: { loading: boolean }) => (
-            <Button disabled={loading} className="rounded-full shadow-lg hover-scale" variant="secondary">
-              <Download className="mr-2 h-4 w-4" />
-              {loading
-                ? language === 'en' ? 'Loading …' : 'Wird geladen …'
-                : language === 'en' ? 'Download PDF' : 'PDF herunterladen'}
-            </Button>
-          )}
-        </PDFDownloadLink>
-        <Button
-          onClick={createDocx}
-          disabled={loadingDocx}
-          className="rounded-full shadow-lg hover-scale"
-          variant="secondary"
-        >
-          <Download className="mr-2 h-4 w-4" />
-          {loadingDocx
-            ? language === 'en' ? 'Loading …' : 'Wird geladen …'
-            : language === 'en' ? 'Download DOCX' : 'DOCX herunterladen'}
-        </Button>
-      </div>
-      {/* Mobile: dropdown menu */}
-      <div className="md:hidden relative">
-        <Button
-          onClick={() => setOpenMenu(!openMenu)}
-          className="rounded-full shadow-lg hover-scale"
-          variant="secondary"
-        >
-          <Download className="h-4 w-4" />
-        </Button>
-        {openMenu && (
-          <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-lg z-10">
-            <PDFDownloadLink
-              document={<CVDocument language={language} data={cvData} />}
-              fileName={`uwe_schwarz_cv_${language}_${new Date().toISOString().split('T')[0]}.pdf`}
-              className="no-underline block px-4 py-2 text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700"
-            >
-              {({ loading }: { loading: boolean }) => (
-                <span className="flex items-center text-gray-900 dark:text-gray-100">
-                  <Download className="mr-2 h-4 w-4" />
-                  {loading
-                    ? language === 'en' ? 'Loading …' : 'Wird geladen …'
-                    : language === 'en' ? 'Download PDF' : 'PDF herunterladen'}
-                </span>
-              )}
-            </PDFDownloadLink>
-            <button
-              onClick={() => { setOpenMenu(false); createDocx(); }}
-              disabled={loadingDocx}
-              className="w-full text-left px-4 py-2 text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center"
-            >
-              <Download className="mr-2 h-4 w-4" />
-              {loadingDocx
-                ? language === 'en' ? 'Loading …' : 'Wird geladen …'
-                : language === 'en' ? 'Download DOCX' : 'DOCX herunterladen'}
-            </button>
-          </div>
-        )}
-      </div>
-    </>
-  );
-};
+EditorFallback.displayName = "EditorFallback";
+
+const PdfPreviewFallback = () => (
+  <div className="flex w-full items-center justify-center">
+    <Skeleton className="h-[842px] w-[595px] max-w-full rounded-lg" />
+  </div>
+);
+
+PdfPreviewFallback.displayName = "PdfPreviewFallback";
 
 const CV = () => {
   const { language, setLanguage, theme, setTheme, t } = useSettings();
@@ -236,7 +167,9 @@ const CV = () => {
             </Button>
 
             {/* Download-Buttons */}
-            <CvDownloadButtons language={language} cvData={cvData} />
+            <Suspense fallback={<DownloadButtonsFallback />}>
+              <CVDownloadButtons language={language} cvData={cvData} />
+            </Suspense>
           </div>
         </div>
       </div>
@@ -259,20 +192,22 @@ const CV = () => {
         <div className="grid grid-cols-1 lg:grid-cols-8 gap-12 flex-grow">
           {editMode ? (
             <div className="lg:col-span-6 lg:col-start-2">
-              <CVEditor 
-                data={cvData} 
-                onChange={handleDataChange}
-                language={language}
-              />
+              <Suspense fallback={<EditorFallback />}>
+                <CVEditor
+                  data={cvData}
+                  onChange={handleDataChange}
+                  language={language}
+                />
+              </Suspense>
             </div>
           ) : (
             <div className="lg:col-span-6 lg:col-start-2 flex-grow flex flex-col relative z-0 transform -translate-y-2 min-h-[500px]">
               <div className="rounded-lg shadow-xl border-4 border-white dark:border-gray-800 flex-grow flex flex-col">
                 <div className="bg-gradient-to-br from-primary/40 to-accent/40 justify-center flex-grow flex flex-col">
                   <div className="m-6 flex flex-grow justify-center">
-                    <PDFViewer key={JSON.stringify(cvData)} showToolbar={false} className="max-w-[796px] w-full h-full">
-                      <CVDocument language={language} data={cvData} />
-                    </PDFViewer>
+                    <Suspense fallback={<PdfPreviewFallback />}>
+                      <CVPdfPreview language={language} data={cvData} />
+                    </Suspense>
                   </div>
                 </div>
               </div>
