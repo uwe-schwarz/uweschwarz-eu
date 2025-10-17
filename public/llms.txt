@@ -135,8 +135,8 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
   - [de] Verantwortlich für die Modernisierung und Einführung der neuen unternehmensweiten Backup-Plattform auf Basis der Rubrik Security Cloud.
   - [en] Supported the transition of Solaris infrastructure and legacy systems towards modern, cloud-ready architectures.
   - [de] Mitverantwortung bei der Weiterentwicklung der Solaris-Infrastruktur und der schrittweisen Ablösung von Legacy-Systemen durch moderne, cloudfähige Architekturen.
-  - [en] Contributed to the redesign and renewal of the legacy network into a modern, segmented structure with improved security segmentation.
-  - [de] Mitwirkung bei der Neugestaltung und Erneuerung der Legacy-Netzwerkinfrastruktur hin zu einer modernen, segmentierten Architektur mit verbesserter Security-Segmentierung.
+  - [en] Contributed to the redesign and renewal of the legacy network into a modern, segmented structure with improved security focus.
+  - [de] Mitwirkung bei der Neugestaltung und Erneuerung der Legacy-Netzwerkinfrastruktur hin zu einer modernen, segmentierten Architektur mit verbesserter Security-Fokussierung.
   - [en] Successfully led the Rubrik Security Cloud modernization project, enhancing data protection, compliance, and recovery performance across all business units.
   - [de] Erfolgreiche Leitung des Modernisierungsprojekts der Rubrik Security Cloud mit deutlichen Verbesserungen bei Datensicherheit, Compliance und Wiederherstellungszeiten in allen Fachbereichen.
   - [en] Contributed to the successful relocation of two data centers with minimized downtime and coordinated dependencies across multiple infrastructure domains.

@@ -615,8 +615,8 @@ export const siteContent: SiteContent = {
         {
           type: "text",
           "text": {
-            "en": "Contributed to the redesign and renewal of the legacy network into a modern, segmented structure with improved security segmentation.",
-            "de": "Mitwirkung bei der Neugestaltung und Erneuerung der Legacy-Netzwerkinfrastruktur hin zu einer modernen, segmentierten Architektur mit verbesserter Security-Segmentierung."
+            "en": "Contributed to the redesign and renewal of the legacy network into a modern, segmented structure with improved security focus.",
+            "de": "Mitwirkung bei der Neugestaltung und Erneuerung der Legacy-Netzwerkinfrastruktur hin zu einer modernen, segmentierten Architektur mit verbesserter Security-Fokussierung."
           }
         },
         {
