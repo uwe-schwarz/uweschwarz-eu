@@ -16,47 +16,35 @@ import {
 import type { SiteContent, Skill } from "@/content/content";
 
 type LocalizedString = { en: string; de: string };
-  
-  // Define your theme colors (hex without #)
-  const theme = {
-//    secondary: "#dbe3ef",  // hsl(217.2, 32.6%, 82.5%)
-//    muted: "#dbe3ef",
-//    border: "#dbe3ef",
 
+// Define your theme colors (hex without #)
+const theme = {
+  background: "E6E9F3",
+  sidebarBg: "1B6E5A",
+  sidebarText: "FFFFFF",
+  accent: "3A2366",
+  primary: "1B6E5A",
+  sectionTitle: "3A2366",
+  sectionLine: "DBE3EF",
+  tagBg: "F1F0FB",
+  tagText: "3A2366",
+  foreground: "07090B",
+};
 
-    background: "E6E9F3",
-    sidebarBg: "1B6E5A",
-    sidebarText: "FFFFFF",
-    accent: "3A2366",
-    primary: "1B6E5A",
-    sectionTitle: "3A2366",
-    sectionLine: "DBE3EF",
-    tagBg: "F1F0FB",
-    tagText: "3A2366",
-    foreground: "07090B",
-  };
-  
-  /**
-   * Hilfsfunktion, um ein Bild vom Server als ArrayBuffer zu holen
-   * @param {string} url URL des Bildes
-   * @returns {Promise<Uint8Array>}
-   */
-async function fetchImageBuffer(url: string): Promise<Uint8Array> {
-    const response = await fetch(url);
-    const arrayBuffer = await response.arrayBuffer();
-    return new Uint8Array(arrayBuffer);
-  }
-  
-  /**
-   * Generiert ein Word-Dokument im Browser (als Blob).
-   * @param {{ language: 'en'|'de'; data?: any }} options
-   * @returns {Promise<Blob>} erzeugtes .docx als Blob
-   */
-export async function generateCvDocx({ language, data }: { language: "en" | "de"; data?: SiteContent }): Promise<Blob> {
-    const profileImage = await fetchImageBuffer('/profile.jpg');
-  
-    const content: SiteContent =
-      data || (window as unknown as { siteContent: SiteContent }).siteContent; // content aus globalem Objekt oder prop
+/**
+ * Generiert ein Word-Dokument als Buffer für Node- und Browser-Umgebungen.
+ */
+export async function generateCvDocx({
+  language,
+  data,
+  profileImage,
+}: {
+  language: "en" | "de";
+  data: SiteContent;
+  profileImage: Uint8Array | ArrayBuffer;
+}): Promise<Uint8Array> {
+    const profileImageBytes = profileImage instanceof Uint8Array ? profileImage : new Uint8Array(profileImage);
+    const content: SiteContent = data;
     const { about, experiences, skills, skillsSection, contact, footer, hero, imprint } = content;
   
     // Übersetzungs-Helper
@@ -79,7 +67,7 @@ export async function generateCvDocx({ language, data }: { language: "en" | "de"
     });
   
     // Attach the image via ImageRun
-    const profileImg = new ImageRun({ type: 'jpg', data: profileImage, transformation: { width: 80, height: 80 } });
+    const profileImg = new ImageRun({ type: 'jpg', data: profileImageBytes, transformation: { width: 80, height: 80 } });
 
     // Build the languages paragraph children
     const languagesChildren: TextRun[] = [];
@@ -237,5 +225,6 @@ export async function generateCvDocx({ language, data }: { language: "en" | "de"
     });
   
     // Erzeuge Browser-Blob direkt mit Packer.toBlob
-    return await Packer.toBlob(doc);
+    const buffer = await Packer.toBuffer(doc);
+    return buffer instanceof Uint8Array ? buffer : new Uint8Array(buffer);
 }

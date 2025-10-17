@@ -14,24 +14,33 @@ import {
   Rect,
   G
 } from "@react-pdf/renderer";
-import PublicSansRegular from "@/assets/fonts/PublicSans-Regular.ttf";
-import PublicSansBold from "@/assets/fonts/PublicSans-Bold.ttf";
-import SpaceGroteskBold from "@/assets/fonts/SpaceGrotesk-Bold.ttf";
 import { siteContent as defaultSiteContent, SiteContent } from "@/content/content";
+
+const resolveFontSource = (relativePath: string) => {
+  const url = new URL(relativePath, import.meta.url);
+  if (typeof window === "undefined") {
+    return decodeURIComponent(url.pathname);
+  }
+  return url.href;
+};
+
+const publicSansRegular = resolveFontSource("../../assets/fonts/PublicSans-Regular.ttf");
+const publicSansBold = resolveFontSource("../../assets/fonts/PublicSans-Bold.ttf");
+const spaceGroteskBold = resolveFontSource("../../assets/fonts/SpaceGrotesk-Bold.ttf");
 
 // Register fonts - adjust with actual fonts if needed
 Font.register({
   family: "Public Sans",
   fonts: [
-    { src: PublicSansRegular, fontWeight: 400 },
-    { src: PublicSansBold, fontWeight: 700 },
+    { src: publicSansRegular, fontWeight: 400 },
+    { src: publicSansBold, fontWeight: 700 },
   ],
 });
 
 Font.register({
   family: "Space Grotesk",
   fonts: [
-    { src: SpaceGroteskBold, fontWeight: 700 },
+    { src: spaceGroteskBold, fontWeight: 700 },
   ],
 });
 
@@ -325,12 +334,14 @@ const styles = StyleSheet.create({
 interface CVDocumentProps {
   language: "en" | "de";
   data?: SiteContent; // Allow custom data to be passed in
+  profileImageSrc?: string | Uint8Array | ArrayBuffer; // Override profile image source when available
 }
 
-const CVDocument: React.FC<CVDocumentProps> = ({ language, data }) => {
+const CVDocument: React.FC<CVDocumentProps> = ({ language, data, profileImageSrc }) => {
   // Use passed data or fallback to siteContent
   const content = data || defaultSiteContent;
   const { about, experiences, skills, skillsSection, contact, footer, hero, imprint } = content;
+  const profileImage = profileImageSrc ?? "/profile.jpg";
   
   // Helper function to get text in the current language
   const t = (text: { en: string; de: string }) => text[language];
@@ -363,7 +374,7 @@ const CVDocument: React.FC<CVDocumentProps> = ({ language, data }) => {
         <View style={styles.sidebar} fixed />
         <View style={styles.sidebar}>        
           {/* Photo */}
-          <Image style={styles.photo} src="/profile.jpg" />
+          <Image style={styles.photo} src={profileImage} />
           {/* Contact Info */}
           <View style={styles.sidebarSection}>
             <Text style={styles.sidebarTitle}>{language === 'en' ? 'Reach me at' : 'Kontakt'}</Text>

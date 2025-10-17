@@ -9,7 +9,8 @@
     "build:dev": "vite build --mode development",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "generate:sitemap": "node scripts/generate-sitemap.cjs",
-    "generate:llms": "tsx scripts/generate-llms.ts",
+    "generate:llms": "bun scripts/generate-llms.ts",
+    "generate:cv": "bun scripts/generate-cv-assets.ts",
     "prepare": "husky",
     "test": "vitest"
   },
