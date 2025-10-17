@@ -99,12 +99,13 @@ const CV: React.FC = () => {
           <div className="lg:col-span-6 lg:col-start-2 flex-grow flex flex-col relative z-0 transform -translate-y-2 min-h-[500px]">
             <div className="rounded-lg shadow-xl border-4 border-white dark:border-gray-800 flex-grow flex flex-col">
               <div className="bg-gradient-to-br from-primary/40 to-accent/40 flex-grow flex flex-col justify-center">
-                <div className="m-6 flex flex-grow justify-center">
+                <div className="m-6 flex flex-grow justify-center overflow-hidden">
                   <iframe
                     key={language}
                     src={pdfUrl}
                     title={language === "en" ? "Curriculum Vitae" : "Lebenslauf"}
-                    className="max-w-[796px] w-full h-[1120px] rounded-lg border-0 bg-white"
+                    className="max-w-[796px] w-full h-full rounded-lg border-0 bg-white shadow-inner min-h-[500px]"
+                    scrolling="no"
                   />
                 </div>
               </div>
