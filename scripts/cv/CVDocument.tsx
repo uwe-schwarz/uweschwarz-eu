@@ -14,7 +14,7 @@ import {
   Rect,
   G
 } from "@react-pdf/renderer";
-import { siteContent as defaultSiteContent, SiteContent } from "@/content/content";
+import { siteContent as defaultSiteContent, SiteContent } from "../../src/content/content";
 
 const resolveFontSource = (relativePath: string) => {
   const url = new URL(relativePath, import.meta.url);
@@ -24,9 +24,9 @@ const resolveFontSource = (relativePath: string) => {
   return url.href;
 };
 
-const publicSansRegular = resolveFontSource("../../assets/fonts/PublicSans-Regular.ttf");
-const publicSansBold = resolveFontSource("../../assets/fonts/PublicSans-Bold.ttf");
-const spaceGroteskBold = resolveFontSource("../../assets/fonts/SpaceGrotesk-Bold.ttf");
+const publicSansRegular = resolveFontSource("../fonts/PublicSans-Regular.ttf");
+const publicSansBold = resolveFontSource("../fonts/PublicSans-Bold.ttf");
+const spaceGroteskBold = resolveFontSource("../fonts/SpaceGrotesk-Bold.ttf");
 
 // Register fonts - adjust with actual fonts if needed
 Font.register({
@@ -374,15 +374,15 @@ const CVDocument: React.FC<CVDocumentProps> = ({ language, data, profileImageSrc
         <View style={styles.sidebar} fixed />
         <View style={styles.sidebar}>        
           {/* Photo */}
-          <Image style={styles.photo} src={profileImage} />
+          <Image style={styles.photo} src={profileImage as string} />
           {/* Contact Info */}
           <View style={styles.sidebarSection}>
             <Text style={styles.sidebarTitle}>{language === 'en' ? 'Reach me at' : 'Kontakt'}</Text>
             <View style={styles.sidebarContactRow}><MailIcon /><Link href={`mailto:${contact.cvemail}`} style={styles.sidebarContactText}>{contact.cvemail}</Link></View>
             <View style={styles.sidebarContactRow}><PhoneIcon /><Link href={`tel:${contact.phone}`} style={styles.sidebarContactText}>{contact.phone}</Link></View>
-            <View style={styles.sidebarContactRow}><WebIcon /><Link href={contact.homepage} style={styles.sidebarContactText}>{contact.homepage.replace('https://', '')}</Link></View>
-            <View style={styles.sidebarContactRow}><LinkedInIcon /><Link href={contact.socialLinks.linkedin} style={styles.sidebarContactText}>{contact.socialLinks.linkedin.replace('https://www.linkedin.com/in', '')}</Link></View>
-            <View style={styles.sidebarContactRow}><XingIcon /><Link href={contact.socialLinks.xing} style={styles.sidebarContactText}>{contact.socialLinks.xing.replace('https://www.xing.com/profile', '')}</Link></View>
+            <View style={styles.sidebarContactRow}><WebIcon /><Link href={contact.homepage ?? ''} style={styles.sidebarContactText}>{contact.homepage?.replace('https://', '')}</Link></View>
+            <View style={styles.sidebarContactRow}><LinkedInIcon /><Link href={contact.socialLinks.linkedin} style={styles.sidebarContactText}>{contact.socialLinks.linkedin?.replace('https://www.linkedin.com/in', '')}</Link></View>
+            <View style={styles.sidebarContactRow}><XingIcon /><Link href={contact.socialLinks.xing} style={styles.sidebarContactText}>{contact.socialLinks.xing?.replace('https://www.xing.com/profile', '')}</Link></View>
             <View style={styles.sidebarContactRow}><CalendarIcon /><Text style={styles.sidebarContactText}>{contact.birthday}</Text></View>
             <View style={styles.sidebarContactRow}><MapIcon /><Text style={styles.sidebarContactText}>{t(imprint.address.street)}</Text></View>
             <View style={styles.sidebarContactRow}><EmptyIcon /><Text style={styles.sidebarContactText}>{t(imprint.address.city)}</Text></View>

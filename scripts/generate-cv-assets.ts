@@ -4,9 +4,9 @@ import { Buffer } from "node:buffer";
 import { fileURLToPath } from "node:url";
 import React from "react";
 import ReactPDF from "@react-pdf/renderer";
-import CVDocument from "@/components/cv/CVDocument";
-import { siteContent } from "@/content/content";
-import { generateCvDocx } from "@/components/cv/CVDocumentDocx";
+import CVDocument from "./cv/CVDocument";
+import { siteContent } from "../src/content/content";
+import { generateCvDocx } from "./cv/CVDocumentDocx";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -22,7 +22,51 @@ async function ensureDirectory(dir: string) {
   await fs.mkdir(dir, { recursive: true });
 }
 
+async function getFileModTime(filePath: string): Promise<Date | null> {
+  try {
+    const stats = await fs.stat(filePath);
+    return stats.mtime;
+  } catch {
+    return null;
+  }
+}
+
+async function shouldRegenerate(): Promise<boolean> {
+  const contentPath = path.resolve(projectRoot, "src/content/content.ts");
+  const contentModTime = await getFileModTime(contentPath);
+
+  if (!contentModTime) {
+    console.log("Content file not found, regenerating...");
+    return true;
+  }
+
+  for (const language of languages) {
+    const pdfPath = path.join(publicDir, resolveOutputName(language, "pdf"));
+    const docxPath = path.join(publicDir, resolveOutputName(language, "docx"));
+
+    const pdfModTime = await getFileModTime(pdfPath);
+    const docxModTime = await getFileModTime(docxPath);
+
+    if (!pdfModTime || !docxModTime) {
+      console.log(`CV files for ${language} not found, regenerating...`);
+      return true;
+    }
+
+    if (contentModTime > pdfModTime || contentModTime > docxModTime) {
+      console.log(`Content is newer than existing CV files for ${language}, regenerating...`);
+      return true;
+    }
+  }
+
+  console.log("CV files are up to date, skipping generation.");
+  return false;
+}
+
 async function main() {
+  if (!(await shouldRegenerate())) {
+    return;
+  }
+
   await ensureDirectory(publicDir);
 
   const profileImagePath = path.join(publicDir, "profile.jpg");

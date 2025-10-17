@@ -6,32 +6,32 @@ const baseUrl = 'https://uweschwarz.eu'; // Change to your domain
 const urls = [
   {
     url: '/',
-    files: ['src/pages/Index.tsx', 'src/components/Header.tsx', 'src/components/HeroSection.tsx', 'src/components/AboutSection.tsx', 'src/components/ExperienceSection.tsx', 'src/components/ProjectsSection.tsx', 'src/components/SkillsSection.tsx', 'src/components/ContactSection.tsx', 'src/components/Footer.tsx'],
+    files: ['src/content/content.ts', 'src/pages/Index.tsx', 'src/components/Header.tsx', 'src/components/HeroSection.tsx', 'src/components/AboutSection.tsx', 'src/components/ExperienceSection.tsx', 'src/components/ProjectsSection.tsx', 'src/components/SkillsSection.tsx', 'src/components/ContactSection.tsx', 'src/components/Footer.tsx'],
     priority: 1.0
   },
   {
     url: '/cv',
-    files: ['src/pages/CV.tsx', 'src/components/cv/CVDocument.tsx', 'src/components/cv/CVDocumentDocx.tsx'],
+    files: ['src/content/content.ts', 'src/pages/CV.tsx', 'src/components/cv/CVDocument.tsx', 'src/components/cv/CVDocumentDocx.tsx'],
     priority: 0.8
   },
   {
     url: '/imprint',
-    files: ['src/pages/Imprint.tsx', 'src/components/Header.tsx', 'src/components/Footer.tsx'],
+    files: ['src/content/content.ts', 'src/pages/Imprint.tsx', 'src/components/Header.tsx', 'src/components/Footer.tsx'],
     priority: 0.5
   },
   {
     url: '/privacy',
-    files: ['src/pages/Privacy.tsx', 'src/components/Header.tsx', 'src/components/Footer.tsx'],
+    files: ['src/content/content.ts', 'src/pages/Privacy.tsx', 'src/components/Header.tsx', 'src/components/Footer.tsx'],
     priority: 0.5
   },
   {
     url: '/sitemap.xml',
-    files: ['src/pages/Sitemap.tsx', 'src/pages/Index.tsx', 'src/components/Header.tsx', 'src/components/Footer.tsx'],
+    files: ['src/pages/Sitemap.tsx', 'src/pages/Index.tsx', 'src/components/Header.tsx', 'src/components/Footer.tsx', 'src/content/content.ts'],
     priority: 0.3
   },
   {
     url: '/llms.txt',
-    files: ['src/pages/LLMs.tsx', 'src/pages/Index.tsx', 'src/components/Header.tsx', 'src/components/Footer.tsx'],
+    files: ['src/content/content.ts'],
     priority: 0.3
   }
 ];
