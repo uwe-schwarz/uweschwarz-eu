@@ -1,7 +1,7 @@
 # llms.txt for uweschwarz.eu
 # This file provides structured information for AI language models.
 # For more information, see https://llmstxt.org/
-# Version 1.0, Generated on 2025-10-14
+# Version 1.0, Generated on 2025-10-17
 
 # --- PERMISSIONS ---
 User-Agent: *
@@ -21,8 +21,8 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
 [de] Uwe Schwarz
 
 [Published]:
-[en] 2025-10-14
-[de] 14.10.2025
+[en] 2025-10-17
+[de] 17.10.2025
 
 [Languages]:
 [en] English, German
@@ -123,26 +123,24 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
   - [de] Initiierung der Integration von KI-Tools zur effizienten Fallbearbeitung.
 
 [Experience]:
-  [en] Project Manager Data Center Migration & Backup Modernization
-  [de] Projektmanager RZ-Umzug & Backup-Modernisierung
+  [en] Subproject Lead – Data Center Migration & Backup Modernization
+  [de] Teilprojektleiter – RZ-Migration & Backup-Modernisierung
   [en] Company: Joh. Berenberg, Gossler & Co. KG
   [de] Firma: Joh. Berenberg, Gossler & Co. KG
   [en] Jan 2024 - Sep 2025
   [de] Jan 2024 - Sep 2025
-  - [en] Project management: relocation of two data centers.
-  - [de] Projektmanagement: Verlagerung von zwei Rechenzentren.
-  - [en] Backup modernization and optimization, including migration to cloud-based solutions based on Rubrik Security Cloud.
-  - [de] Modernisierung und Optimierung des Backups, einschließlich Migration zu cloudbasierten Lösungen basierend auf Rubrik Security Cloud.
-  - [en] Modernizing Solaris infrastructure, converting legacy applications and systems to modern technologies.
-  - [de] Modernisierung der Solaris-Infrastruktur, Konvertierung von Legacy-Anwendungen und Systemen zu modernen Technologien.
-  - [en] Converting a legacy network to a new segmented network structure (including IPv6, Firewalls, etc.)
-  - [de] Überführung eines Legacy-Netzes in eine neue segmentierte Netzstruktur (einschließlich IPv6, Firewalls, etc.)
-  - [en] Successfully managed the relocation of two data centers, resulting in a reduction in downtime and cost savings.
-  - [de] Erfolgreiche Leitung der Verlagerung von zwei Rechenzentren, wodurch die Ausfallzeiten reduziert wurden und Kosten gespart werden.
-  - [en] Modernized the bank’s backup infrastructure, reducing recovery time objectives (RTO) and minimizing the risk of data loss.
-  - [de] Modernisierung der Backup-Infrastruktur der Bank, was zu einer Reduzierung der Wiederherstellungszeiten (RTO) führte und das Risiko der Datenverluste minimiert.
-  - [en] Migrated outdated Solaris infrastructure across the organization, improving system performance and cutting maintenance costs.
-  - [de] Migration der veralteten Solaris-Infrastruktur im gesamten Unternehmen, Verbesserung der Systemleistung und Reduktion der Wartungskosten.
+  - [en] Subproject lead within the data center migration project, focusing on Solaris, Linux, storage, and backup environments.
+  - [de] Teilprojektleitung im Rahmen des RZ-Migrationsprojekts mit Schwerpunkt auf Solaris-, Linux-, Storage- und Backup-Umgebungen.
+  - [en] Responsible for the modernization and full implementation of the new enterprise backup platform based on Rubrik Security Cloud.
+  - [de] Verantwortlich für die Modernisierung und Einführung der neuen unternehmensweiten Backup-Plattform auf Basis der Rubrik Security Cloud.
+  - [en] Supported the transition of Solaris infrastructure and legacy systems towards modern, cloud-ready architectures.
+  - [de] Mitverantwortung bei der Weiterentwicklung der Solaris-Infrastruktur und der schrittweisen Ablösung von Legacy-Systemen durch moderne, cloudfähige Architekturen.
+  - [en] Contributed to the redesign and renewal of the legacy network into a modern, segmented structure with improved security segmentation.
+  - [de] Mitwirkung bei der Neugestaltung und Erneuerung der Legacy-Netzwerkinfrastruktur hin zu einer modernen, segmentierten Architektur mit verbesserter Security-Segmentierung.
+  - [en] Successfully led the Rubrik Security Cloud modernization project, enhancing data protection, compliance, and recovery performance across all business units.
+  - [de] Erfolgreiche Leitung des Modernisierungsprojekts der Rubrik Security Cloud mit deutlichen Verbesserungen bei Datensicherheit, Compliance und Wiederherstellungszeiten in allen Fachbereichen.
+  - [en] Contributed to the successful relocation of two data centers with minimized downtime and coordinated dependencies across multiple infrastructure domains.
+  - [de] Beitrag zur erfolgreichen Verlagerung von zwei Rechenzentren mit minimalen Ausfallzeiten und abgestimmten Abhängigkeiten über mehrere Infrastrukturbereiche hinweg.
 
 [Experience]:
   [en] Information Security Officer

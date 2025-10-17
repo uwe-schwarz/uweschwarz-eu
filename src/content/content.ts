@@ -583,8 +583,8 @@ export const siteContent: SiteContent = {
     },
     {
       title: {
-        en: "Project Manager Data Center Migration & Backup Modernization",
-        de: "Projektmanager RZ-Umzug & Backup-Modernisierung",
+        en: "Subproject Lead – Data Center Migration & Backup Modernization",
+        de: "Teilprojektleiter – RZ-Migration & Backup-Modernisierung",
       },
       company: "Joh. Berenberg, Gossler & Co. KG",
       logoUrl: "/logos/berenberg.svg",
@@ -593,53 +593,46 @@ export const siteContent: SiteContent = {
       description: [
         {
           type: "text",
-          text: {
-            en: "Project management: relocation of two data centers.",
-            de: "Projektmanagement: Verlagerung von zwei Rechenzentren.",
-          },
+          "text": {
+            "en": "Subproject lead within the data center migration project, focusing on Solaris, Linux, storage, and backup environments.",
+            "de": "Teilprojektleitung im Rahmen des RZ-Migrationsprojekts mit Schwerpunkt auf Solaris-, Linux-, Storage- und Backup-Umgebungen."
+          }
         },
         {
           type: "text",
-          text: {
-            en: "Backup modernization and optimization, including migration to cloud-based solutions based on Rubrik Security Cloud.",
-            de: "Modernisierung und Optimierung des Backups, einschließlich Migration zu cloudbasierten Lösungen basierend auf Rubrik Security Cloud.",
-          },
+          "text": {
+            "en": "Responsible for the modernization and full implementation of the new enterprise backup platform based on Rubrik Security Cloud.",
+            "de": "Verantwortlich für die Modernisierung und Einführung der neuen unternehmensweiten Backup-Plattform auf Basis der Rubrik Security Cloud."
+          }
         },
         {
           type: "text",
-          text: {
-            en: "Modernizing Solaris infrastructure, converting legacy applications and systems to modern technologies.",
-            de: "Modernisierung der Solaris-Infrastruktur, Konvertierung von Legacy-Anwendungen und Systemen zu modernen Technologien.",
-          },
+          "text": {
+            "en": "Supported the transition of Solaris infrastructure and legacy systems towards modern, cloud-ready architectures.",
+            "de": "Mitverantwortung bei der Weiterentwicklung der Solaris-Infrastruktur und der schrittweisen Ablösung von Legacy-Systemen durch moderne, cloudfähige Architekturen."
+          }
         },
         {
           type: "text",
-          text: {
-            en: "Converting a legacy network to a new segmented network structure (including IPv6, Firewalls, etc.)",
-            de: "Überführung eines Legacy-Netzes in eine neue segmentierte Netzstruktur (einschließlich IPv6, Firewalls, etc.)",
-          },
+          "text": {
+            "en": "Contributed to the redesign and renewal of the legacy network into a modern, segmented structure with improved security segmentation.",
+            "de": "Mitwirkung bei der Neugestaltung und Erneuerung der Legacy-Netzwerkinfrastruktur hin zu einer modernen, segmentierten Architektur mit verbesserter Security-Segmentierung."
+          }
         },
         {
           type: "achievement",
-          text: {
-            en: "Successfully managed the relocation of two data centers, resulting in a reduction in downtime and cost savings.",
-            de: "Erfolgreiche Leitung der Verlagerung von zwei Rechenzentren, wodurch die Ausfallzeiten reduziert wurden und Kosten gespart werden.",
-          },
+          "text": {
+            "en": "Successfully led the Rubrik Security Cloud modernization project, enhancing data protection, compliance, and recovery performance across all business units.",
+            "de": "Erfolgreiche Leitung des Modernisierungsprojekts der Rubrik Security Cloud mit deutlichen Verbesserungen bei Datensicherheit, Compliance und Wiederherstellungszeiten in allen Fachbereichen."
+          }
         },
         {
           type: "achievement",
-          text: {
-            en: "Modernized the bank’s backup infrastructure, reducing recovery time objectives (RTO) and minimizing the risk of data loss.",
-            de: "Modernisierung der Backup-Infrastruktur der Bank, was zu einer Reduzierung der Wiederherstellungszeiten (RTO) führte und das Risiko der Datenverluste minimiert.",
-          },
-        },
-        {
-          type: "achievement",
-          text: {
-            en: "Migrated outdated Solaris infrastructure across the organization, improving system performance and cutting maintenance costs.",
-            de: "Migration der veralteten Solaris-Infrastruktur im gesamten Unternehmen, Verbesserung der Systemleistung und Reduktion der Wartungskosten.",
-          },
-        },
+          "text": {
+            "en": "Contributed to the successful relocation of two data centers with minimized downtime and coordinated dependencies across multiple infrastructure domains.",
+            "de": "Beitrag zur erfolgreichen Verlagerung von zwei Rechenzentren mit minimalen Ausfallzeiten und abgestimmten Abhängigkeiten über mehrere Infrastrukturbereiche hinweg."
+          }
+        }
       ],
       tags: [
         { en: "Project Management", de: "Projektmanagement" },
