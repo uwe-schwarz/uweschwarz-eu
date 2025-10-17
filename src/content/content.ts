@@ -583,8 +583,8 @@ export const siteContent: SiteContent = {
     },
     {
       title: {
-        en: "Subproject Lead – Data Center Migration & Backup Modernization",
-        de: "Teilprojektleiter – RZ-Migration & Backup-Modernisierung",
+        en: "Subproject Lead Data Center Migration & Backup Modernization",
+        de: "Teilprojektleiter RZ-Migration & Backup-Modernisierung",
       },
       company: "Joh. Berenberg, Gossler & Co. KG",
       logoUrl: "/logos/berenberg.svg",

@@ -123,8 +123,8 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
   - [de] Initiierung der Integration von KI-Tools zur effizienten Fallbearbeitung.
 
 [Experience]:
-  [en] Subproject Lead – Data Center Migration & Backup Modernization
-  [de] Teilprojektleiter – RZ-Migration & Backup-Modernisierung
+  [en] Subproject Lead Data Center Migration & Backup Modernization
+  [de] Teilprojektleiter RZ-Migration & Backup-Modernisierung
   [en] Company: Joh. Berenberg, Gossler & Co. KG
   [de] Firma: Joh. Berenberg, Gossler & Co. KG
   [en] Jan 2024 - Sep 2025
