@@ -15,6 +15,26 @@ const urls = [
     priority: 0.8
   },
   {
+    url: '/uwe-schwarz-cv-de.pdf',
+    files: ['src/content/content.ts'],
+    priority: 0.7
+  },
+  {
+    url: '/uwe-schwarz-cv-en.pdf',
+    files: ['src/content/content.ts'],
+    priority: 0.7
+  },
+  { 
+    url: '/uwe-schwarz-cv-de.docx',
+    files: ['src/content/content.ts'],
+    priority: 0.7
+  },
+  {
+    url: '/uwe-schwarz-cv-en.docx',
+    files: ['src/content/content.ts'],
+    priority: 0.7
+  },
+  {
     url: '/imprint',
     files: ['src/content/content.ts', 'src/pages/Imprint.tsx', 'src/components/Header.tsx', 'src/components/Footer.tsx'],
     priority: 0.5
