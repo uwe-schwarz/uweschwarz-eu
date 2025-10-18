@@ -29,15 +29,15 @@ const EmailTemplate = ({ name, email, message }: { name: string; email: string; 
   const colors = {
     background: 'hsl(210, 40%, 98%)', // Light background (will become dark)
     foreground: 'hsl(225, 25%, 12%)', // Dark text (will become light)
-    card: 'hsl(210, 40%, 95%)', // Light card (will become dark card)
+    card: 'hsl(220, 30%, 92%)', // Light blue-gray card (will become dark blue-gray)
     cardForeground: 'hsl(225, 25%, 12%)', // Dark text (will become light)
     primary: 'hsl(333, 65%, 35%)', // Inverted teal to magenta/red
     primaryForeground: 'hsl(0, 0%, 70%)', // Light gray (will become dark)
     accent: 'hsl(82, 61%, 26%)', // Inverted purple to yellow-green
     accentForeground: 'hsl(225, 25%, 12%)', // Dark text (will become light)
-    muted: 'hsl(37.8, 32.6%, 82.5%)', // Light muted (will become dark)
-    mutedForeground: 'hsl(35, 20.2%, 34.9%)', // Dark muted text (will become light)
-    border: 'hsl(37.8, 32.6%, 82.5%)', // Light border (will become dark)
+    muted: 'hsl(215, 25%, 85%)', // Light blue-tinted muted (will become dark blue)
+    mutedForeground: 'hsl(215, 20%, 35%)', // Dark blue-tinted text (will become light blue)
+    border: 'hsl(215, 25%, 85%)', // Light blue-tinted border (will become dark blue)
   };
 
   return (
