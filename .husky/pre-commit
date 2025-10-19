@@ -1,6 +1,6 @@
 branch=$(git symbolic-ref --short HEAD)
 if [ "$branch" = "main" ]; then
-  bun run generate:sitemap && git add public/sitemap.xml
+  bun run generate:cv      && git add public/uwe-schwarz-cv-en-*.pdf public/uwe-schwarz-cv-de-*.pdf public/uwe-schwarz-cv-en-*.docx public/uwe-schwarz-cv-de-*.docx
   bun run generate:llms    && git add public/llms.txt
-  bun run generate:cv      && git add public/uwe-schwarz-cv-en.pdf public/uwe-schwarz-cv-de.pdf public/uwe-schwarz-cv-en.docx public/uwe-schwarz-cv-de.docx
+  bun run generate:sitemap && git add public/sitemap.xml
 fi

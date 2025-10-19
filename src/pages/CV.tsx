@@ -5,17 +5,7 @@ import { useSettings } from "@/contexts/settings-hook";
 import { siteContent } from "@/content/content";
 import { Button } from "@/components/ui/button";
 import { useScrollToTop } from "@/hooks/use-scroll-to-top";
-
-const CV_ASSETS = {
-  en: {
-    pdf: "/uwe-schwarz-cv-en.pdf",
-    docx: "/uwe-schwarz-cv-en.docx",
-  },
-  de: {
-    pdf: "/uwe-schwarz-cv-de.pdf",
-    docx: "/uwe-schwarz-cv-de.docx",
-  },
-} as const;
+import { CV_ASSETS } from "@/generated/cv-assets";
 
 const CvDownloadButtons: React.FC<{ language: "en" | "de" }> = ({ language }) => {
   const pdfUrl = CV_ASSETS[language].pdf;

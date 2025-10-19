@@ -3,6 +3,21 @@ const path = require('path');
 
 const baseUrl = 'https://uweschwarz.eu'; // Change to your domain
 
+// Generate CV asset paths dynamically to match the generate-cv-assets.ts script
+function generateCvAssetPath(language, extension) {
+  // Get the content modification time to match the CV asset generation
+  const contentPath = path.join(__dirname, '..', 'src/content/content.ts');
+  try {
+    const stats = fs.statSync(contentPath);
+    const date = stats.mtime.toISOString().split('T')[0]; // YYYY-MM-DD format
+    return `/uwe-schwarz-cv-${language}-${date}.${extension}`;
+  } catch (e) {
+    // Fallback to current date if content file not found
+    const date = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
+    return `/uwe-schwarz-cv-${language}-${date}.${extension}`;
+  }
+}
+
 const urls = [
   {
     url: '/',
@@ -15,22 +30,22 @@ const urls = [
     priority: 0.8
   },
   {
-    url: '/uwe-schwarz-cv-de.pdf',
+    url: generateCvAssetPath('de', 'pdf'),
     files: ['src/content/content.ts'],
     priority: 0.7
   },
   {
-    url: '/uwe-schwarz-cv-en.pdf',
-    files: ['src/content/content.ts'],
-    priority: 0.7
-  },
-  { 
-    url: '/uwe-schwarz-cv-de.docx',
+    url: generateCvAssetPath('en', 'pdf'),
     files: ['src/content/content.ts'],
     priority: 0.7
   },
   {
-    url: '/uwe-schwarz-cv-en.docx',
+    url: generateCvAssetPath('de', 'docx'),
+    files: ['src/content/content.ts'],
+    priority: 0.7
+  },
+  {
+    url: generateCvAssetPath('en', 'docx'),
     files: ['src/content/content.ts'],
     priority: 0.7
   },
