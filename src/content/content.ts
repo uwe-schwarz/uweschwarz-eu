@@ -456,11 +456,11 @@ export const siteContent: SiteContent = {
           },
         },
         {
-          type: "text",
-          text: {
-            en: "Design and implementation of a comprehensive training unit on the EU AI Act to raise awareness, ensure compliance, and provide practical guidance for project teams.",
-            de: "Konzeption und Aufbau einer Schulungseinheit zum EU AI Act (EU-Verordnung über Künstliche Intelligenz) zur Sensibilisierung, Sicherstellung der Compliance und praxisnahen Vermittlung für Projektteams.",
-          },
+          "type": "text",
+          "text": {
+            "en": "Responsible for corporate governance in IT security, privacy and compliance topics.",
+            "de": "Verantwortlich für Governance in den Bereichen IT-Sicherheit, Datenschutz und Compliance."
+          }
         },
         {
           type: "achievement",
@@ -470,30 +470,30 @@ export const siteContent: SiteContent = {
           },
         },
         {
-          type: "achievement",
-          text: {
-            en: "Build an internal training platform for the company's employees to improve their security awareness, risk management and compliance.",
-            de: "Erstellung einer internen Trainingsplattform für die Mitarbeiter der Firma, um Sicherheitsbewusstsein, Risikomanagement und Compliance zu verbessern.",
-          },
+          "type": "achievement",
+          "text": {
+            "en": "Introduced a company-wide training framework for information security, risk management and compliance.",
+            "de": "Einführung eines unternehmensweiten Schulungsrahmens zu Informationssicherheit, Risikomanagement und Compliance."
+          }
         },
       ],
       tags: [
-        { en: "Security", de: "Sicherheit" },
-        { en: "Privacy", de: "Datenschutz" },
-        { en: "Microsoft 365", de: "Microsoft 365" },
-        { en: "Notion", de: "Notion" },
-        { en: "Cloudflare", de: "Cloudflare" },
-        { en: "Resend", de: "Resend" },
-        { en: "Supabase", de: "Supabase" },
-        { en: "IPv6", de: "IPv6" },
-        { en: "Zero Trust", de: "Zero Trust" },
-        { en: "Zero-Config VPN", de: "Zero-Config VPN" },
-        { en: "Best Practices", de: "Best Practices" },
-        { en: "Training", de: "Training" },
-        { en: "Security Awareness", de: "Sicherheitsbewusstsein" },
-        { en: "Risk Management", de: "Risikomanagement" },
-        { en: "Compliance", de: "Compliance" },
-        { en: "EU AI Act", de: "EU AI Act" },
+        { "en": "Security", "de": "Sicherheit" },
+        { "en": "Privacy", "de": "Datenschutz" },
+        { "en": "Microsoft 365", "de": "Microsoft 365" },
+        { "en": "Notion", "de": "Notion" },
+        { "en": "Cloudflare", "de": "Cloudflare" },
+        { "en": "Resend", "de": "Resend" },
+        { "en": "Supabase", "de": "Supabase" },
+        { "en": "IPv6", "de": "IPv6" },
+        { "en": "Zero Trust", "de": "Zero Trust" },
+        { "en": "Zero-Config VPN", "de": "Zero-Config VPN" },
+        { "en": "Governance", "de": "Governance" },
+        { "en": "Training", "de": "Training" },
+        { "en": "Security Awareness", "de": "Sicherheitsbewusstsein" },
+        { "en": "Risk Management", "de": "Risikomanagement" },
+        { "en": "Compliance", "de": "Compliance" },
+        { "en": "EU AI Act", "de": "EU AI Act" },
       ],
     },
     {
@@ -581,6 +581,82 @@ export const siteContent: SiteContent = {
         { "en": "Supabase", "de": "Supabase" },
       ]
     },
+    {
+      "title": {
+        "en": "AI Training Platform & AI Tools Evaluation",
+        "de": "KI-Trainingsplattform & Evaluierung von KI-Werkzeugen"
+      },
+      "company": "DEGIT AG",
+      "logoUrl": "/logos/degit.png",
+      "period": { "en": "Aug 2025 – Oct 2025", "de": "Aug 2025 – Okt 2025" },
+      "location": "Remote / Hockenheim, Germany",
+      "description": [
+        {
+          "type": "text",
+          "text": {
+            "en": "Design and implementation of an internal AI training platform for corporate use, focusing on compliance with the EU AI Act and practical enablement of teams.",
+            "de": "Konzeption und Aufbau einer internen KI-Trainingsplattform für den Unternehmenseinsatz mit Fokus auf EU-AI-Act-Compliance und praxisnahe Befähigung der Teams."
+          }
+        },
+        {
+          "type": "text",
+          "text": {
+            "en": "Evaluation and decision paper comparing leading AI and automation platforms with regard to data protection, reliability, API integration and governance readiness.",
+            "de": "Bewertung und Entscheidungsvorlage zum Vergleich führender KI- und Automatisierungsplattformen hinsichtlich Datenschutz, Zuverlässigkeit, API-Integration und Governance-Tauglichkeit."
+          }
+        },
+        {
+          "type": "text",
+          "text": {
+            "en": "Evaluation of emerging Agentic AI workflows for multi-step task orchestration and their integration into enterprise automation environments.",
+            "de": "Evaluierung aufkommender Agentic-AI-Workflows zur mehrstufigen Aufgabenorchestrierung und deren Integration in Unternehmensautomatisierungsumgebungen."
+          }
+        },        
+        {
+          "type": "achievement",
+          "text": {
+            "en": "Analyzed and benchmarked: OpenAI ChatGPT, OpenAI Open-Weight GPT-OSS, Microsoft Copilot, Perplexity, Anthropic Claude, Apple Foundation, z.AI GLM, n8n, make.com, Zapier.",
+            "de": "Analysiert und bewertet: OpenAI ChatGPT, OpenAI Open-Weight GPT-OSS, Microsoft Copilot, Perplexity, Anthropic Claude, Apple Foundation, z.AI GLM, n8n, make.com und Zapier."
+          }
+        },
+        {
+          "type": "achievement",
+          "text": {
+            "en": "Developed a modular learning platform prototype integrated with Supabase and Cloudflare, offering role-based content and progress tracking.",
+            "de": "Entwicklung eines modularen Lernplattform-Prototyps mit Supabase- und Cloudflare-Integration, rollenbasierten Inhalten und Fortschrittsverfolgung."
+          }
+        },
+        {
+          "type": "achievement",
+          "text": {
+            "en": "Produced a comparative decision framework supporting management’s AI adoption strategy.",
+            "de": "Erstellung eines vergleichenden Entscheidungsrahmens zur Unterstützung der KI-Einführungsstrategie des Unternehmens."
+          }
+        }
+      ],
+      "tags": [
+        { "en": "AI Evaluation", "de": "KI-Evaluierung" },
+        { "en": "AI Training", "de": "KI-Training" },
+        { "en": "EU AI Act", "de": "EU AI Act" },
+        { "en": "Supabase", "de": "Supabase" },
+        { "en": "Cloudflare", "de": "Cloudflare" },
+        { "en": "Automation", "de": "Automatisierung" },
+        { "en": "n8n", "de": "n8n" },
+        { "en": "make.com", "de": "make.com" },
+        { "en": "Zapier", "de": "Zapier" },
+        { "en": "OpenAI", "de": "OpenAI" },
+        { "en": "Apple Foundation", "de": "Apple Foundation" },
+        { "en": "Anthropic Claude", "de": "Anthropic Claude" },
+        { "en": "Microsoft Copilot", "de": "Microsoft Copilot" },
+        { "en": "Perplexity", "de": "Perplexity" },
+        { "en": "z.AI GLM", "de": "z.AI GLM" },
+        { "en": "Agentic AI", "de": "Agentische KI" },
+        { "en": "Enterprise Automation", "de": "Unternehmensautomatisierung" },
+        { "en": "Cursor", "de": "Cursor" },
+        { "en": "Claude Code", "de": "Claude Code" },
+        { "en": "OpenAI Codex", "de": "OpenAI Codex" },
+      ]
+    },    
     {
       title: {
         en: "Subproject Lead Data Center Migration & Backup Modernization",

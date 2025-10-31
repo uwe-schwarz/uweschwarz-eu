@@ -3,11 +3,11 @@
 
 export const CV_ASSETS = {
   en: {
-    pdf: "/uwe-schwarz-cv-en-2025-10-22.pdf",
-    docx: "/uwe-schwarz-cv-en-2025-10-22.docx",
+    pdf: "/uwe-schwarz-cv-en-2025-10-31.pdf",
+    docx: "/uwe-schwarz-cv-en-2025-10-31.docx",
   },
   de: {
-    pdf: "/uwe-schwarz-cv-de-2025-10-22.pdf",
-    docx: "/uwe-schwarz-cv-de-2025-10-22.docx",
+    pdf: "/uwe-schwarz-cv-de-2025-10-31.pdf",
+    docx: "/uwe-schwarz-cv-de-2025-10-31.docx",
   },
 } as const;
