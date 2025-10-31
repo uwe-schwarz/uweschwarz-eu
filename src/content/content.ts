@@ -589,7 +589,7 @@ export const siteContent: SiteContent = {
       "company": "DEGIT AG",
       "logoUrl": "/logos/degit.png",
       "period": { "en": "Aug 2025 – Oct 2025", "de": "Aug 2025 – Okt 2025" },
-      "location": "Remote / Hockenheim, Germany",
+      "location": "Hockenheim, Germany",
       "description": [
         {
           "type": "text",
@@ -611,7 +611,7 @@ export const siteContent: SiteContent = {
             "en": "Evaluation of emerging Agentic AI workflows for multi-step task orchestration and their integration into enterprise automation environments.",
             "de": "Evaluierung aufkommender Agentic-AI-Workflows zur mehrstufigen Aufgabenorchestrierung und deren Integration in Unternehmensautomatisierungsumgebungen."
           }
-        },        
+        },
         {
           "type": "achievement",
           "text": {
@@ -656,7 +656,7 @@ export const siteContent: SiteContent = {
         { "en": "Claude Code", "de": "Claude Code" },
         { "en": "OpenAI Codex", "de": "OpenAI Codex" },
       ]
-    },    
+    },
     {
       title: {
         en: "Subproject Lead Data Center Migration & Backup Modernization",
@@ -1842,7 +1842,7 @@ export const siteContent: SiteContent = {
             de: "Resend handelt zur Vertragserfüllung (Art. 6 Abs. 1 lit. b DSGVO) und nutzt Standardvertragsklauseln für Datenübermittlungen in die USA (siehe https://resend.com/legal/dpa)."
           }
         ]
-      },      
+      },
       {
         title: {
           en: "Cookies and Local Storage",
