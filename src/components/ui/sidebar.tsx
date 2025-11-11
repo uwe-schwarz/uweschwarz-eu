@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 // VariantProps removed as cva is no longer used directly in this file

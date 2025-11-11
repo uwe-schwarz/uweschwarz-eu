@@ -1,3 +1,5 @@
+"use client";
+
 import { useRef, useLayoutEffect, useState, useCallback } from "react";
 
 interface UseFitTextOptions {

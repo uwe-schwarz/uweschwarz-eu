@@ -1,9 +1,9 @@
 import fs from 'fs/promises';
 import path from 'path';
-import { siteContent } from '../src/content/content';
+import { siteContent, type LocalizedString } from '../src/content/content';
 
 // Helper function to format bilingual content
-const formatBilingual = (item, indent = '') => {
+const formatBilingual = (item: LocalizedString | string | undefined, indent = ''): string => {
   if (!item) return '';
   if (typeof item === 'string') return `${indent}${item}\n`;
   if (item.en && item.de) {
@@ -42,7 +42,8 @@ async function generateLlmsTxt() {
     
     // Add Skills
     llmsTxtContent += '\n# --- SKILLS ---\n';
-    for (const category in content.skillsSection.categories) {
+    const categories = Object.keys(content.skillsSection.categories) as Array<keyof typeof content.skillsSection.categories>;
+    for (const category of categories) {
         const categoryName = content.skillsSection.categories[category];
         llmsTxtContent += `\n[Skill-Category: ${categoryName.en} / ${categoryName.de}]:\n`;
         content.skills

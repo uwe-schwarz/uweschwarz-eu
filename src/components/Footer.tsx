@@ -1,13 +1,17 @@
 
-import React from "react";
+"use client";
+
+import Link from "next/link";
+import type { Route } from "next";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
-import { Link } from "react-router-dom";
 
 const Footer = () => {
   const { t } = useSettings();
   const { footer } = siteContent;
+  const sitemap = siteContent.sitemap;
   const year = new Date().getFullYear();
+  const sitemapLabel = sitemap ? t(sitemap.title) : t({ en: "Sitemap", de: "Sitemap" });
 
   return (
     <footer className="bg-muted py-12">
@@ -31,17 +35,17 @@ const Footer = () => {
             {footer.links.map((link, index) => (
               <Link
                 key={index}
-                to={link.href}
+                href={link.href as Route}
                 className="text-sm text-muted-foreground hover:text-primary transition-colors link-underline"
               >
                 {t(link.label)}
               </Link>
             ))}
-            <Link 
-              to="/sitemap" 
+            <Link
+              href={"/sitemap" as Route}
               className="text-sm text-muted-foreground hover:text-primary transition-colors link-underline"
             >
-              {t(siteContent.sitemap.title)}
+              {sitemapLabel}
             </Link>
           </nav>
         </div>

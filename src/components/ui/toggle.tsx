@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react"
 import * as TogglePrimitive from "@radix-ui/react-toggle"
 import { cn } from "@/lib/utils"
@@ -18,3 +20,4 @@ const Toggle = React.forwardRef<
 Toggle.displayName = TogglePrimitive.Root.displayName
 
 export { Toggle }
+export { toggleVariants, type ToggleVariantProps } from "./toggle-variants"

@@ -3,12 +3,13 @@ import tailwindcssAnimate from "tailwindcss-animate";
 
 export default {
 	darkMode: ["class"],
-	content: [
-		"./pages/**/*.{ts,tsx}",
-		"./components/**/*.{ts,tsx}",
-		"./app/**/*.{ts,tsx}",
-		"./src/**/*.{ts,tsx}",
-	],
+        content: [
+                "./src/app/**/*.{ts,tsx}",
+                "./src/components/**/*.{ts,tsx}",
+                "./src/contexts/**/*.{ts,tsx}",
+                "./src/hooks/**/*.{ts,tsx}",
+                "./src/content/**/*.{ts,tsx}",
+        ],
 	prefix: "",
 	theme: {
 		container: {

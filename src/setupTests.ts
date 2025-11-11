@@ -1,5 +1,21 @@
 import '@testing-library/jest-dom/vitest'
 import { vi } from 'vitest'
+import React from 'react'
+
+vi.mock('next/navigation', () => ({
+  usePathname: () => '/',
+  useRouter: () => ({
+    push: vi.fn(),
+    replace: vi.fn(),
+    prefetch: vi.fn(),
+  }),
+}));
+
+vi.mock('next/link', () => ({
+  __esModule: true,
+  default: ({ href, children, ...rest }: { href: string; children: React.ReactNode }) =>
+    React.createElement('a', { href, ...rest }, children),
+}));
 
 if (!('matchMedia' in window)) {
   Object.defineProperty(window, 'matchMedia', {

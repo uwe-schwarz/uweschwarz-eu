@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import { useSettings } from '@/contexts/settings-hook';
 import { siteContent } from '@/content/content';
@@ -69,7 +71,7 @@ const AboutSection = () => {
                       <stat.icon size={24} />
                     </div>
                     <span className="text-3xl font-bold mb-1">{t(stat.value)}</span>
-                    <span className="text-sm text-muted-foreground">{t(about.labels[stat.key])}</span>
+                    <span className="text-sm text-muted-foreground">{t(about.labels[stat.key as keyof typeof about.labels])}</span>
                   </div>
                 </div>
               ))}
