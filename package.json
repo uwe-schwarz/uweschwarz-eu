@@ -4,15 +4,14 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "bun run --bun next dev",
+    "build": "bun run --bun next build",
     "start": "next start",
     "lint": "eslint . --ext ts,tsx --max-warnings 0",
-    "generate:sitemap": "node scripts/generate-sitemap.cjs",
+    "generate:sitemap": "bun scripts/generate-sitemap.cjs",
     "generate:llms": "bun scripts/generate-llms.ts",
     "generate:cv": "bun scripts/generate-cv-assets.ts",
-    "prepare": "husky",
-    "test": "vitest"
+    "prepare": "husky"
   },
   "dependencies": {
     "@fontsource/public-sans": "^5.2.7",
@@ -39,7 +38,7 @@
     "@radix-ui/react-select": "2.2.5",
     "@radix-ui/react-separator": "1.1.7",
     "@radix-ui/react-slider": "1.3.5",
-    "@radix-ui/react-slot": "^1.2.3",
+    "@radix-ui/react-slot": "^1.2.4",
     "@radix-ui/react-switch": "1.2.5",
     "@radix-ui/react-tabs": "1.1.12",
     "@radix-ui/react-toast": "1.2.14",
@@ -49,7 +48,7 @@
     "@react-email/components": "^0.5.7",
     "@react-email/render": "^1.4.0",
     "@react-pdf/renderer": "4.3.0",
-    "@supabase/supabase-js": "^2.79.0",
+    "@supabase/supabase-js": "^2.81.1",
     "@tanstack/react-query": "5.77.2",
     "buffer": "6.0.3",
     "caniuse-lite": "1.0.30001718",
@@ -79,7 +78,7 @@
   },
   "devDependencies": {
     "@eslint/js": "9.25.1",
-    "@next/eslint-plugin-next": "^15.3.1",
+    "@next/eslint-plugin-next": "^15.5.6",
     "@tailwindcss/typography": "0.5.16",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
@@ -88,9 +87,8 @@
     "@types/node": "22.15.3",
     "@types/react": "19.0.7",
     "@types/react-dom": "19.0.3",
-    "@vitejs/plugin-react-swc": "3.9.0",
     "autoprefixer": "10.4.21",
-    "eslint": "^9.38.0",
+    "eslint": "^9.39.1",
     "eslint-plugin-react-hooks": "5.2.0",
     "globals": "15.15.0",
     "husky": "9.1.7",
@@ -99,11 +97,11 @@
     "tailwindcss": "3.4.17",
     "tsx": "^4.20.6",
     "typescript": "5.8.3",
-    "typescript-eslint": "8.31.1",
-    "vitest": "^3.2.4"
+    "typescript-eslint": "8.31.1"
   },
   "trustedDependencies": [
     "@swc/core",
-    "esbuild"
+    "esbuild",
+    "sharp"
   ]
 }
