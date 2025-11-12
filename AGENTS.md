@@ -1,6 +1,6 @@
 # AGENTS Instructions
 
-This repository contains a personal portfolio built with React, TypeScript, Vite and Tailwind CSS.
+This repository contains a personal portfolio built with Next.js, React, TypeScript, and Tailwind CSS.
 
 ## Project layout
 - `src/` – application source code (pages, components, hooks).
@@ -8,12 +8,15 @@ This repository contains a personal portfolio built with React, TypeScript, Vite
 - `scripts/` – utility scripts executed by the build or git hooks.
 
 ## Useful commands
-- `bun run dev` – start a development server on port 8080.
+- `bun install` – install dependencies and keep `bun.lock` in sync.
+- `bun run dev` – start a Next.js development server on port 8080.
 - `bun run build` – create a production build.
 - `bun run lint` – run ESLint over the codebase.
 
+Always rely on Bun for package management or scripting; avoid npm/pnpm commands.
+
 ## Git hooks
-A pre-commit hook is configured with Husky. When committing on the `main` branch it runs `node scripts/generate-sitemap.cjs` and stages the resulting `public/sitemap.xml` file. Ensure the sitemap is updated and committed when changes land on `main`.
+A pre-commit hook is configured with Husky. When committing on the `main` branch it runs the Bun scripts that regenerate the CV assets, `llms.txt`, and the sitemap, then stages `public/uwe-schwarz-*`, `public/llms.txt`, `public/sitemap.xml`, and `src/generated/cv-assets.ts`. Make sure those generated artifacts stay current before merging changes into `main`.
 
 ## Code style guidelines
 - Use PascalCase for components and interfaces, camelCase for functions/variables
