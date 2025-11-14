@@ -16,7 +16,7 @@ This is a personal portfolio website built with **Next.js 16**, **React 19**, **
 ### Prerequisites
 
 - Node.js (v18 or higher recommended)
-- npm (bundled with Node.js)
+- bun (bundled with Node.js)
 
 ### Installation and Running Locally
 
@@ -28,12 +28,12 @@ This is a personal portfolio website built with **Next.js 16**, **React 19**, **
 
 2. **Install dependencies:**
    ```bash
-   npm install
+   bun install
    ```
 
 3. **Start the development server:**
    ```bash
-   npm run dev
+   bun run dev
    ```
    The Next.js development server starts on `http://localhost:3000`. The application automatically reloads when you change source files.
 
@@ -42,38 +42,30 @@ This is a personal portfolio website built with **Next.js 16**, **React 19**, **
 Create a production build with:
 
 ```bash
-npm run build
+bun run build
 ```
 
 To preview the production bundle locally:
 
 ```bash
-npm run start
-```
-
-## Testing
-
-Run the unit test suite with Vitest:
-
-```bash
-npm test
+bun run start
 ```
 
 ## Deployment to Vercel
 
 This project is optimised for deployment on [Vercel](https://vercel.com/).
 
-1. Push the repository to GitHub (or another Git provider).
+1. Push the repository to GitHub
 2. Import the project into Vercel and select the repository.
-3. Vercel automatically detects the Next.js framework. Use the default build command (`npm run build`) and output directory (`.next`).
+3. Vercel automatically detects the Next.js framework. Use the default build command (`bun run build`) and output directory (`.next`).
 4. Configure environment variables (for example `RESEND_API_KEY`) in the Vercel dashboard as needed.
 5. Deploy. Subsequent pushes to the configured branch trigger new deployments automatically.
 
 ## Useful Scripts
 
-- `npm run generate:cv` – regenerate downloadable CV assets based on content changes.
-- `npm run generate:sitemap` – refresh the static sitemap XML.
-- `npm run generate:llms` – produce the `llms.txt` description for AI crawlers.
+- `bun run generate:cv` – regenerate downloadable CV assets based on content changes.
+- `bun run generate:sitemap` – refresh the static sitemap XML.
+- `bun run generate:llms` – produce the `llms.txt` description for AI crawlers.
 
 ## Automated Assets
 
