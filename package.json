@@ -14,8 +14,6 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@fontsource/public-sans": "^5.2.7",
-    "@fontsource/space-grotesk": "5.2.7",
     "@hookform/resolvers": "5.0.1",
     "@icons-pack/react-simple-icons": "12.9.0",
     "@radix-ui/react-avatar": "1.1.10",

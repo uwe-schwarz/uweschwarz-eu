@@ -5,8 +5,6 @@
     "": {
       "name": "uweschwarz-eu",
       "dependencies": {
-        "@fontsource/public-sans": "^5.2.7",
-        "@fontsource/space-grotesk": "5.2.7",
         "@hookform/resolvers": "5.0.1",
         "@icons-pack/react-simple-icons": "12.9.0",
         "@radix-ui/react-avatar": "1.1.10",
@@ -101,10 +99,6 @@
     "@floating-ui/react-dom": ["@floating-ui/react-dom@2.1.6", "", { "dependencies": { "@floating-ui/dom": "^1.7.4" }, "peerDependencies": { "react": ">=16.8.0", "react-dom": ">=16.8.0" } }, "sha512-4JX6rEatQEvlmgU80wZyq9RT96HZJa88q8hp0pBd+LrczeDI4o6uA2M+uvxngVHo4Ihr8uibXxH6+70zhAFrVw=="],
 
     "@floating-ui/utils": ["@floating-ui/utils@0.2.10", "", {}, "sha512-aGTxbpbg8/b5JfU1HXSrbH3wXZuLPJcNEcZQFMxLs3oSzgtVu6nFPkbbGGUvBcUjKV2YyB9Wxxabo+HEH9tcRQ=="],
-
-    "@fontsource/public-sans": ["@fontsource/public-sans@5.2.7", "", {}, "sha512-pVttDr3HvhVIt2x6sZJfZKksNEpq23C1JCHTQwT9KWJdmFRdNeRM8gQftq8uP72sPW+p3Ku9x8HPk2E392DFvg=="],
-
-    "@fontsource/space-grotesk": ["@fontsource/space-grotesk@5.2.7", "", {}, "sha512-erQDZxKdwm5g+47wqJRxh6FB4SJeIgjaK5Iyuht9lGlZ4Wl4Qqv+8xan6oBRfsJHUjALJVQ/fNTIdv9/kIEf+Q=="],
 
     "@hookform/resolvers": ["@hookform/resolvers@5.0.1", "", { "dependencies": { "@standard-schema/utils": "^0.3.0" }, "peerDependencies": { "react-hook-form": "^7.55.0" } }, "sha512-u/+Jp83luQNx9AdyW2fIPGY6Y7NG68eN2ZW8FOJYL+M0i4s49+refdJdOp/A9n9HFQtQs3HIDHQvX3ZET2o7YA=="],
 

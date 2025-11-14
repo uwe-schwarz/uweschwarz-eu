@@ -1,7 +1,22 @@
 import type { ReactNode } from "react";
+import { Public_Sans, Space_Grotesk } from "next/font/google";
 import { cn } from "@/lib/utils";
 import "./globals.css";
 import Providers from "./providers";
+
+const publicSans = Public_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  variable: "--font-sans",
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  variable: "--font-display",
+});
 
 const title = "Uwe Schwarz - Project Manager, IT Security Specialist & AI Enthusiast";
 const description =
@@ -14,7 +29,11 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={cn(publicSans.variable, spaceGrotesk.variable)}
+    >
       <head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />

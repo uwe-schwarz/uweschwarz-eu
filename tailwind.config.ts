@@ -74,8 +74,8 @@ export default {
 				}
 			},
 			fontFamily: {
-				sans: ['Public Sans', 'sans-serif'],
-				display: ['"Space Grotesk"', 'sans-serif'],
+				sans: ['var(--font-sans)', 'sans-serif'],
+				display: ['var(--font-display)', 'sans-serif'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
