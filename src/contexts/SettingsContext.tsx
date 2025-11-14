@@ -9,58 +9,69 @@ import {
 } from './settings-hook';
 
 export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  // Get initial language from browser or localStorage
-  // The useSettings hook is defined and exported from ./settings-hook.ts
-  // This file should only export the SettingsProvider component.
-  const getBrowserLanguage = (): Language => {
-    // First check localStorage
-    const savedLanguage = localStorage.getItem('language') as Language;
-    if (savedLanguage === 'en' || savedLanguage === 'de') return savedLanguage;
-    
-    // Fall back to browser language
-    const navigatorLanguage = navigator.language.substring(0, 2).toLowerCase();
-    return navigatorLanguage === 'de' ? 'de' : 'en';
-  };
-
-  // Get initial theme from system preference
-  const getInitialTheme = (): Theme => {
-    if (typeof window === 'undefined') return 'light';
-    
-    const savedTheme = window.localStorage.getItem('theme') as Theme;
-    if (savedTheme) return savedTheme;
-
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  };
-
+  // Start with default values to avoid hydration mismatch
+  // These will be updated after mount with actual user preferences
   const [language, setLanguageState] = useState<Language>('en');
   const [theme, setThemeState] = useState<Theme>('light');
+  const [isInitialized, setIsInitialized] = useState(false);
 
+  // Initialize from browser/localStorage after component mounts (client-side only)
+  // This is wrapped in useEffect to avoid hydration mismatch - we need consistent
+  // server/client initial render, then update to actual preferences after mount
   useEffect(() => {
-    const browserLang = getBrowserLanguage();
-    setLanguageState(browserLang);
-    setThemeState(getInitialTheme());
-    // Set initial <html lang>
-    document.documentElement.setAttribute('lang', browserLang);
+    // Get language from localStorage or browser
+    const savedLanguage = localStorage.getItem('language') as Language;
+    let newLanguage: Language;
+    if (savedLanguage === 'en' || savedLanguage === 'de') {
+      newLanguage = savedLanguage;
+    } else {
+      const navigatorLanguage = navigator.language.substring(0, 2).toLowerCase();
+      newLanguage = navigatorLanguage === 'de' ? 'de' : 'en';
+    }
+
+    // Get theme from localStorage or system preference
+    const savedTheme = localStorage.getItem('theme') as Theme;
+    let newTheme: Theme;
+    if (savedTheme) {
+      newTheme = savedTheme;
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      newTheme = 'dark';
+    } else {
+      newTheme = 'light';
+    }
+
+    // Batch state updates together
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- Initialization after mount to avoid hydration mismatch
+    setLanguageState(newLanguage);
+    setThemeState(newTheme);
+    setIsInitialized(true);
   }, []);
 
+  // Set <html lang> attribute whenever language changes
   useEffect(() => {
+    if (isInitialized) {
+      document.documentElement.setAttribute('lang', language);
+    }
+  }, [language, isInitialized]);
+
+  useEffect(() => {
+    if (!isInitialized) return;
+
     const root = window.document.documentElement;
-    
+
     if (theme === 'dark') {
       root.classList.add('dark');
     } else {
       root.classList.remove('dark');
     }
-    
+
     localStorage.setItem('theme', theme);
-  }, [theme]);
+  }, [theme, isInitialized]);
 
   // Language setting function
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
     localStorage.setItem('language', lang);
-    // Set <html lang> attribute
-    document.documentElement.setAttribute('lang', lang);
   };
 
   // Theme setting function
