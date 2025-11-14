@@ -73,15 +73,19 @@
   }
 
   * {
-    @apply border-border;
+    border-color: hsl(var(--border));
   }
 
   html {
-    @apply scroll-smooth;
+    scroll-behavior: smooth;
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: var(--font-sans), sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   h1,
@@ -90,32 +94,84 @@
   h4,
   h5,
   h6 {
-    @apply font-display font-medium;
+    font-family: var(--font-display), sans-serif;
+    font-weight: 500;
   }
 
   .section-padding {
-    @apply py-16 px-4 sm:py-24 sm:px-8 lg:px-16;
+    padding: 4rem 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .section-padding {
+      padding-top: 6rem;
+      padding-bottom: 6rem;
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .section-padding {
+      padding-left: 4rem;
+      padding-right: 4rem;
+    }
   }
 
   /* Custom animations and transitions */
   .hover-scale {
-    @apply transition-transform duration-300 hover:scale-[1.02];
+    transition-property: transform;
+    transition-duration: 300ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .hover-scale:hover {
+    transform: scale(1.02);
   }
 
   .link-underline {
-    @apply relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full;
+    position: relative;
   }
 
-  .link-underline-active {
-    @apply after:w-full;
+  .link-underline::after {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 0.125rem;
+    width: 0;
+    background-color: hsl(var(--primary));
+    transition-property: all;
+    transition-duration: 300ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    content: "";
+  }
+
+  .link-underline:hover::after {
+    width: 100%;
+  }
+
+  .link-underline-active::after {
+    width: 100%;
   }
 
   .card-glass {
-    @apply bg-white/10 backdrop-blur-md border border-white/20 dark:bg-gray-900/30 dark:border-gray-700/30;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-width: 1px;
+    border-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .dark .card-glass {
+    background-color: rgba(17, 24, 39, 0.3);
+    border-color: rgba(55, 65, 81, 0.3);
   }
 
   .text-gradient {
-    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+    background-image: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--accent)));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 }
 
@@ -177,11 +233,29 @@
 
 /* Code syntax highlighting */
 code {
-  @apply bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-sm;
+  background-color: rgb(243 244 246);
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.dark code {
+  background-color: rgb(31 41 55);
 }
 
 pre {
-  @apply bg-gray-100 dark:bg-gray-800 p-4 rounded-lg overflow-x-auto text-sm my-4;
+  background-color: rgb(243 244 246);
+  padding: 1rem;
+  border-radius: 0.75rem;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  margin: 1rem 0;
+}
+
+.dark pre {
+  background-color: rgb(31 41 55);
 }
 
 /* Keyframes for background element movement */
