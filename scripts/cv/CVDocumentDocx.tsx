@@ -13,7 +13,7 @@ import {
   HeadingLevel,
   BorderStyle,
 } from "docx";
-import type { SiteContent, Skill } from "@/content/content";
+import type { SiteContent, Skill, Experience } from "@/content/content";
 
 type LocalizedString = { en: string; de: string };
 
@@ -66,6 +66,85 @@ export async function generateCvDocx({
       skillsByCategory[s.category].push(s);
     });
   
+    const majorExperiences = sortedExperiences.filter(exp => exp.projectScale !== "small");
+    const smallExperiences = sortedExperiences.filter(exp => exp.projectScale === "small");
+
+    const createExperienceParagraphs = (exp: Experience): Paragraph[] => [
+      new Paragraph({ children: [new TextRun({ text: t(exp.title), bold: true, size: 20 })] }),
+      new Paragraph({
+        children: [
+          new TextRun({ text: exp.company, size: 18, color: theme.primary }),
+          new TextRun({ text: ` — ${t(exp.period)}`, size: 18, color: theme.accent }),
+        ],
+      }),
+      new Paragraph({
+        children: [new TextRun({ text: t(exp.location), size: 18, color: theme.accent })],
+        spacing: { after: 100 },
+      }),
+      ...exp.description.map((item) => new Paragraph({
+        bullet: { level: 0 },
+        children: [
+          new TextRun({
+            text: item.type === "text"
+              ? t(item.text)
+              : `${t(content.experienceAchievementPrefix)} ${t(item.text)}`,
+            size: 18,
+            color: item.type === "achievement" ? theme.primary : theme.foreground,
+            bold: item.type === "achievement",
+          }),
+        ],
+      })),
+      new Paragraph({ text: "" }),
+    ];
+
+    const createExperienceGroup = (
+      title: LocalizedString,
+      subtitle: LocalizedString,
+      note: LocalizedString,
+      entries: Experience[]
+    ): Paragraph[] => {
+      if (!entries.length) {
+        return [];
+      }
+      return [
+        new Paragraph({
+          spacing: { before: 150, after: 50 },
+          children: [new TextRun({ text: t(title), bold: true, size: 20 })],
+        }),
+        new Paragraph({
+          spacing: { after: 50 },
+          children: [new TextRun({ text: t(subtitle), size: 18, color: theme.primary })],
+        }),
+        new Paragraph({
+          spacing: { after: 80 },
+          children: [new TextRun({ text: t(note), size: 16, color: theme.accent })],
+        }),
+        ...entries.flatMap(createExperienceParagraphs),
+      ];
+    };
+
+    const experienceSectionParagraphs: Paragraph[] = [
+      new Paragraph({
+        text: t(content.experienceSectionTitle),
+        heading: HeadingLevel.HEADING_2,
+        thematicBreak: true,
+        keepLines: true,
+        spacing: { after: 100 },
+      }),
+      ...createExperienceGroup(
+        content.experienceBigProjectsTitle,
+        content.experienceBigProjectsSubtitle,
+        content.experienceBigProjectsNote,
+        majorExperiences
+      ),
+      ...createExperienceGroup(
+        content.experienceSmallProjectsTitle,
+        content.experienceSmallProjectsSubtitle,
+        content.experienceSmallProjectsNote,
+        smallExperiences
+      ),
+    ];
+
     // Attach the image via ImageRun
     const profileImg = new ImageRun({ type: 'jpg', data: profileImageBytes, transformation: { width: 80, height: 80 } });
 
@@ -175,17 +254,7 @@ export async function generateCvDocx({
                       new Paragraph({ children: [new TextRun({ text: t(about.paragraphs[1]), size: 18 })], spacing: { after: 200 } }),
     
                       // Erfahrung
-                      new Paragraph({ text: t(content.experienceSectionTitle), heading: HeadingLevel.HEADING_2, thematicBreak: true, keepLines: true }),
-                      ...sortedExperiences.map(exp => [
-                        new Paragraph({ children: [new TextRun({ text: t(exp.title), bold: true, size: 20 })] }),
-                        new Paragraph({ children: [
-                          new TextRun({ text: exp.company, italics: true, size: 18, color: theme.primary }),
-                          new TextRun({ text: ` — ${t(exp.period)}`, size: 18, color: theme.accent }),
-                        ]}),
-                        new Paragraph({ children: [new TextRun({ text: exp.location, size: 18, color: theme.accent })], spacing: { after: 100 } }),
-                        ...exp.description.map(item => new Paragraph({ bullet: { level: 0 }, children: [new TextRun({ text: item.type === 'text' ? t(item.text) : t(content.experienceAchievementPrefix) + ' ' + t(item.text), size: 18, color: item.type === 'achievement' ? theme.primary : theme.foreground, bold: item.type === 'achievement' })] })),
-                        new Paragraph({ text: '' }),
-                      ]).flat(),
+                      ...experienceSectionParagraphs,
     
                       // Skills
                       new Paragraph({ text: t(skillsSection.title), heading: HeadingLevel.HEADING_2, thematicBreak: true }),

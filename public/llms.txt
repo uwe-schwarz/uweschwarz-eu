@@ -107,16 +107,14 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
   [de] Mai 2025 - Heute
   - [en] Founding member responsible for data protection and GDPR compliance.
   - [de] Gründungsmitglied mit Verantwortung für Datenschutz und DSGVO-Compliance.
-  - [en] Developed and maintain the organization's website and backend systems.
-  - [de] Entwicklung und Betreuung der Website sowie der Backend-Systeme.
+  - [en] Developed and maintain the organization's backend systems.
+  - [de] Entwicklung und Betreuung der Backend-Systeme.
   - [en] Planning and implementing AI-supported workflows for case management.
   - [de] Planung und Implementierung KI-gestützter Workflows für die Fallbearbeitung.
   - [en] Responsible for IT security strategy and risk management.
   - [de] Verantwortlich für IT-Sicherheitsstrategie und Risikomanagement.
   - [en] Established GDPR-compliant data protection framework from the ground up.
   - [de] Aufbau eines DSGVO-konformen Datenschutzrahmens von Grund auf.
-  - [en] Developed and launched the organization's online presence.
-  - [de] Entwicklung und Launch des Online-Auftritts der Organisation.
   - [en] Designed secure IT infrastructure (IPv6, Zero Trust, Zero-Config VPN, etc.) tailored to sensitive medical and legal data.
   - [de] Konzeption einer sicheren IT-Infrastruktur (IPv6, Zero Trust, Zero-Config VPN, etc.) für sensible medizinische und juristische Daten.
   - [en] Initiated the integration of AI tools to support efficient case processing.

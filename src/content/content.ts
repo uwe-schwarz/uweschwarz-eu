@@ -100,10 +100,11 @@ export interface Experience {
   title: LocalizedString;
   company: string;
   period: LocalizedString;
-  location: string;
+  location: LocalizedString;
   description: ExperienceDescriptionItem[];
   tags: LocalizedString[];
   logoUrl?: string;
+  projectScale?: "major" | "small";
 }
 
 export interface Project {
@@ -289,6 +290,12 @@ export interface SiteContent {
   };
   backToHome: LocalizedString;
   experienceSectionTitle: LocalizedString;
+  experienceBigProjectsTitle: LocalizedString;
+  experienceBigProjectsSubtitle: LocalizedString;
+  experienceBigProjectsNote: LocalizedString;
+  experienceSmallProjectsTitle: LocalizedString;
+  experienceSmallProjectsSubtitle: LocalizedString;
+  experienceSmallProjectsNote: LocalizedString;
   experienceAchievementPrefix: LocalizedString;
   moreProjects: LocalizedString;
   downloadResume: LocalizedString;
@@ -303,7 +310,7 @@ export const siteContent: SiteContent = {
     },
     author: "Uwe Schwarz",
   },
-  projectsSectionTitle: { en: "Featured Projects", de: "Ausgewählte Projekte" },
+  projectsSectionTitle: { en: "Developed Solutions", de: "Entwickelte Lösungen" },
   /*  projectsSectionMore: { en: "View More Projects on GitHub", de: "Mehr Projekte auf GitHub ansehen" }, */
   navigation: [
     { label: { en: "Home", de: "Start" }, href: "#hero" },
@@ -424,8 +431,12 @@ export const siteContent: SiteContent = {
       },
       company: "DEGIT AG",
       logoUrl: "/logos/degit.png",
+      projectScale: "small",
       period: { en: "May 2018 - Present", de: "Mai 2018 - Heute" },
-      location: "Hockenheim, Germany",
+      location: {
+        en: "Hockenheim, Germany",
+        de: "Hockenheim, Deutschland",
+      },
       description: [
         {
           type: "text",
@@ -503,8 +514,12 @@ export const siteContent: SiteContent = {
       },
       "company": "AKTion gegen Krebs gUG",
       "logoUrl": "/logos/aktion-gegen-krebs.png",
+      "projectScale": "small",
       "period": { "en": "May 2025 - Present", "de": "Mai 2025 - Heute" },
-      "location": "Seevetal, Germany",
+      location: {
+        en: "Seevetal, Germany",
+        de: "Seevetal, Deutschland",
+      },
       "description": [
         {
           "type": "text",
@@ -516,8 +531,8 @@ export const siteContent: SiteContent = {
         {
           "type": "text",
           "text": {
-            "en": "Developed and maintain the organization's website and backend systems.",
-            "de": "Entwicklung und Betreuung der Website sowie der Backend-Systeme."
+            "en": "Developed and maintain the organization's backend systems.",
+            "de": "Entwicklung und Betreuung der Backend-Systeme."
           }
         },
         {
@@ -539,13 +554,6 @@ export const siteContent: SiteContent = {
           "text": {
             "en": "Established GDPR-compliant data protection framework from the ground up.",
             "de": "Aufbau eines DSGVO-konformen Datenschutzrahmens von Grund auf."
-          }
-        },
-        {
-          "type": "achievement",
-          "text": {
-            "en": "Developed and launched the organization's online presence.",
-            "de": "Entwicklung und Launch des Online-Auftritts der Organisation."
           }
         },
         {
@@ -588,8 +596,12 @@ export const siteContent: SiteContent = {
       },
       "company": "DEGIT AG",
       "logoUrl": "/logos/degit.png",
+      "projectScale": "small",
       "period": { "en": "Aug 2025 – Oct 2025", "de": "Aug 2025 – Okt 2025" },
-      "location": "Hockenheim, Germany",
+      location: {
+        en: "Hockenheim, Germany",
+        de: "Hockenheim, Deutschland",
+      },
       "description": [
         {
           "type": "text",
@@ -665,7 +677,10 @@ export const siteContent: SiteContent = {
       company: "Joh. Berenberg, Gossler & Co. KG",
       logoUrl: "/logos/berenberg.svg",
       period: { en: "Jan 2024 - Sep 2025", de: "Jan 2024 - Sep 2025" },
-      location: "Hamburg, Germany",
+      location: {
+        en: "Hamburg, Germany",
+        de: "Hamburg, Deutschland",
+      },
       description: [
         {
           type: "text",
@@ -736,7 +751,10 @@ export const siteContent: SiteContent = {
       company: "Threedium Ltd.",
       logoUrl: "/logos/threedium.svg",
       period: { en: "Oct 2023 - Jun 2024", de: "Okt 2023 - Jun 2024" },
-      location: "London, United Kingdom",
+      location: {
+        en: "London, United Kingdom",
+        de: "London, Vereinigtes Königreich",
+      },
       description: [
         {
           type: "text",
@@ -826,7 +844,10 @@ export const siteContent: SiteContent = {
       company: "Deutsche Vermögensberatung AG",
       logoUrl: "/logos/dvag.svg",
       period: { en: "Jan 2019 - Sep 2023", de: "Jan 2019 - Sep 2023" },
-      location: "Frankfurt am Main, Germany",
+      location: {
+        en: "Frankfurt am Main, Germany",
+        de: "Frankfurt am Main, Deutschland",
+      },
       description: [
         {
           type: "text",
@@ -950,7 +971,10 @@ export const siteContent: SiteContent = {
       company: "Deutsche Vermögensberatung AG",
       logoUrl: "/logos/dvag.svg",
       period: { en: "Jul 2015 - Dec 2018", de: "Jul 2015 - Dez 2018" },
-      location: "Frankfurt am Main, Germany",
+      location: {
+        en: "Frankfurt am Main, Germany",
+        de: "Frankfurt am Main, Deutschland",
+      },
       description: [
         {
           type: "text",
@@ -1967,10 +1991,34 @@ export const siteContent: SiteContent = {
   },
   backToHome: { en: "Back to Home", de: "Zurück zur Startseite" },
   experienceSectionTitle: { en: "Experience", de: "Berufserfahrung" },
+  experienceBigProjectsTitle: {
+    en: "Key Projects",
+    de: "Schlüsselprojekte",
+  },
+  experienceBigProjectsSubtitle: {
+    en: "Major technical and organizational engagements with long-term responsibility.",
+    de: "Wesentliche technische und organisatorische Engagements mit langfristiger Verantwortung.",
+  },
+  experienceBigProjectsNote: {
+    en: "A curated selection of multi-month and multi-year engagements; further details available on request.",
+    de: "Eine kuratierte Auswahl mehrmonatiger und mehrjähriger Engagements; weitere Details gerne auf Anfrage.",
+  },
+  experienceSmallProjectsTitle: {
+    en: "Additional & Focused Projects",
+    de: "Zusatz- & Schwerpunktprojekte",
+  },
+  experienceSmallProjectsSubtitle: {
+    en: "Complementary or specialized projects with flexible scope.",
+    de: "Ergänzende oder spezialisierte Projekte mit flexiblem Umfang.",
+  },
+  experienceSmallProjectsNote: {
+    en: "Specialized, flexible, or focused initiatives that complement the broader work.",
+    de: "Spezialisierte, flexible oder fokussierte Initiativen, die die Gesamtarbeit ergänzen.",
+  },
   experienceAchievementPrefix: { en: "Achievement:", de: "Erfolg:" },
   moreProjects: {
-    en: "Previous projects or references are available upon request.",
-    de: "Frühere Projekte oder Referenzen sind auf Anfrage verfügbar.",
+    en: "More previous projects or references available upon request.",
+    de: "Weitere frühere Projekte oder Referenzen sind auf Anfrage verfügbar.",
   },
   downloadResume: { en: "Download CV", de: "Lebenslauf herunterladen" },
 };
