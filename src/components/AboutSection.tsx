@@ -39,7 +39,7 @@ const AboutSection = () => {
                   <Image
                     src="/about-me.webp"
                     alt={t(about.imageAlt)}
-                    sizes="(min-width: 1024px) 384px, (min-width: 768px) 320px, 240px"
+                    sizes="(min-width:1280px) 500px, (min-width:1024px) 400px, (min-width:768px) 900px, 600px"
                     fill
                     className="object-cover"
                     priority

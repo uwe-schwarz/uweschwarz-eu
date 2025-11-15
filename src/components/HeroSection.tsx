@@ -8,33 +8,18 @@ import { useSettings } from "@/contexts/settings-hook";
 import { siteContent } from "@/content/content";
 import { useFitText } from "@/hooks/use-fit-text";
 
-const ProfilePicture = React.memo(({ alt }: { alt: string }) => {
-  const [imageLoaded, setImageLoaded] = useState(false);
-  const [imageError, setImageError] = useState(false);
-
-  return (
-    <div className="w-full h-full rounded-full bg-background flex items-center justify-center overflow-hidden relative">
-      <Image
-        src="/profile.webp"
-        alt={alt}
-        fill
-        sizes="(max-width: 768px) 60vw, 30vw"
-        className={`object-cover transition-opacity duration-500 ${
-          imageLoaded && !imageError ? "opacity-100" : "opacity-0"
-        }`}
-        onLoadingComplete={() => setImageLoaded(true)}
-        onError={() => setImageError(true)}
-        priority
-      />
-
-      {(!imageLoaded || imageError) && (
-        <span className="absolute inset-0 flex items-center justify-center text-4xl md:text-5xl font-display font-bold text-gradient">
-          Uwe
-        </span>
-      )}
-    </div>
-  );
-});
+const ProfilePicture = React.memo(({ alt }: { alt: string }) => (
+  <div className="w-full h-full rounded-full bg-background flex items-center justify-center overflow-hidden relative">
+    <Image
+      src="/profile.webp"
+      alt={alt}
+      fill
+      sizes="(min-width:1200px) 360px, (min-width:1024px) 334px, (min-width:768px) 360px, 300px"
+      className="object-cover"
+      priority
+    />
+  </div>
+));
 
 ProfilePicture.displayName = "ProfilePicture";
 

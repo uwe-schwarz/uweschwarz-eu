@@ -104,7 +104,7 @@ const ExperienceSection = () => {
                         alt={`${exp.company} logo`}
                         width={96}
                         height={48}
-                        className="object-contain mx-auto mt-6 md:mx-0 md:float-right md:ml-2 md:mb-2 md:mr-6"
+                        className="object-contain mx-auto mt-6 md:mx-0 md:float-right md:ml-2 md:mb-2 md:mr-6 w-24 h-auto"
                       />
                     )}
 
