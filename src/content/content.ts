@@ -104,6 +104,7 @@ export interface Experience {
   description: ExperienceDescriptionItem[];
   tags: LocalizedString[];
   logoUrl?: string;
+  projectScale?: "major" | "small";
 }
 
 export interface Project {
@@ -289,6 +290,12 @@ export interface SiteContent {
   };
   backToHome: LocalizedString;
   experienceSectionTitle: LocalizedString;
+  experienceBigProjectsTitle: LocalizedString;
+  experienceBigProjectsSubtitle: LocalizedString;
+  experienceBigProjectsNote: LocalizedString;
+  experienceSmallProjectsTitle: LocalizedString;
+  experienceSmallProjectsSubtitle: LocalizedString;
+  experienceSmallProjectsNote: LocalizedString;
   experienceAchievementPrefix: LocalizedString;
   moreProjects: LocalizedString;
   downloadResume: LocalizedString;
@@ -424,6 +431,7 @@ export const siteContent: SiteContent = {
       },
       company: "DEGIT AG",
       logoUrl: "/logos/degit.png",
+      projectScale: "small",
       period: { en: "May 2018 - Present", de: "Mai 2018 - Heute" },
       location: "Hockenheim, Germany",
       description: [
@@ -503,6 +511,7 @@ export const siteContent: SiteContent = {
       },
       "company": "AKTion gegen Krebs gUG",
       "logoUrl": "/logos/aktion-gegen-krebs.png",
+      "projectScale": "small",
       "period": { "en": "May 2025 - Present", "de": "Mai 2025 - Heute" },
       "location": "Seevetal, Germany",
       "description": [
@@ -516,8 +525,8 @@ export const siteContent: SiteContent = {
         {
           "type": "text",
           "text": {
-            "en": "Developed and maintain the organization's website and backend systems.",
-            "de": "Entwicklung und Betreuung der Website sowie der Backend-Systeme."
+            "en": "Developed and maintain the organization's backend systems.",
+            "de": "Entwicklung und Betreuung der Backend-Systeme."
           }
         },
         {
@@ -539,13 +548,6 @@ export const siteContent: SiteContent = {
           "text": {
             "en": "Established GDPR-compliant data protection framework from the ground up.",
             "de": "Aufbau eines DSGVO-konformen Datenschutzrahmens von Grund auf."
-          }
-        },
-        {
-          "type": "achievement",
-          "text": {
-            "en": "Developed and launched the organization's online presence.",
-            "de": "Entwicklung und Launch des Online-Auftritts der Organisation."
           }
         },
         {
@@ -588,6 +590,7 @@ export const siteContent: SiteContent = {
       },
       "company": "DEGIT AG",
       "logoUrl": "/logos/degit.png",
+      "projectScale": "small",
       "period": { "en": "Aug 2025 – Oct 2025", "de": "Aug 2025 – Okt 2025" },
       "location": "Hockenheim, Germany",
       "description": [
@@ -1967,6 +1970,30 @@ export const siteContent: SiteContent = {
   },
   backToHome: { en: "Back to Home", de: "Zurück zur Startseite" },
   experienceSectionTitle: { en: "Experience", de: "Berufserfahrung" },
+  experienceBigProjectsTitle: {
+    en: "Signature Engagements",
+    de: "Leitprojekte",
+  },
+  experienceBigProjectsSubtitle: {
+    en: "Long-running leadership roles and programs that shape strategic outcomes.",
+    de: "Langfristige Führungsrollen und Programme, die strategische Ergebnisse prägen.",
+  },
+  experienceBigProjectsNote: {
+    en: "This is a curated selection of multi-month and multi-year engagements; more major projects are available on request.",
+    de: "Dies ist eine Auswahl mehrmonatiger und mehrjähriger Engagements; weitere große Projekte gerne auf Anfrage.",
+  },
+  experienceSmallProjectsTitle: {
+    en: "Curated Contributions",
+    de: "Kuratiertes Engagement",
+  },
+  experienceSmallProjectsSubtitle: {
+    en: "Part-time, flexible, or focused initiatives that complement the bigger picture.",
+    de: "Teilzeitige, flexible oder fokussierte Initiativen, die das Gesamtbild ergänzen.",
+  },
+  experienceSmallProjectsNote: {
+    en: "Only a handful of small projects are shown below; even more collaborations are available on request.",
+    de: "Nur eine Handvoll kleiner Projekte wird unten gezeigt; weitere Kooperationen auf Anfrage.",
+  },
   experienceAchievementPrefix: { en: "Achievement:", de: "Erfolg:" },
   moreProjects: {
     en: "Previous projects or references are available upon request.",

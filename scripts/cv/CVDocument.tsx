@@ -224,6 +224,17 @@ const styles = StyleSheet.create({
     borderBottom: `1 solid ${theme.sectionLine}`,
     paddingBottom: 2,
   },
+  groupSubtitle: {
+    fontSize: 9,
+    color: theme.primary,
+    marginBottom: 4,
+    fontStyle: "italic",
+  },
+  groupNote: {
+    fontSize: 8,
+    color: theme.accent,
+    marginBottom: 8,
+  },
   section: {
     marginBottom: 16,
   },
@@ -358,6 +369,9 @@ const CVDocument: React.FC<CVDocumentProps> = ({ language, data, profileImageSrc
     return 0;
   });
 
+  const majorExperiences = sortedExperiences.filter(exp => exp.projectScale !== "small");
+  const smallExperiences = sortedExperiences.filter(exp => exp.projectScale === "small");
+
   // Group skills by category
   const skillsByCategory = skills.reduce((acc, skill) => {
     if (!acc[skill.category]) {
@@ -366,6 +380,40 @@ const CVDocument: React.FC<CVDocumentProps> = ({ language, data, profileImageSrc
     acc[skill.category].push(skill);
     return acc;
   }, {} as Record<string, typeof skills>);
+
+  const renderExperienceEntries = (items: SiteContent["experiences"]) =>
+    items.map((exp, index) => (
+      <View key={`${exp.company}-${index}`} style={styles.experienceItem} wrap={false}>
+        <Text style={styles.jobTitle}>{t(exp.title)}</Text>
+        <View style={styles.experienceHeader}>
+          <Text style={styles.companyName}>{exp.company}</Text>
+          <Text style={styles.period}>{t(exp.period)}</Text>
+        </View>
+        <Text style={styles.location}>{exp.location}</Text>
+
+        <View style={styles.descriptionList}>
+          {exp.description.map((item, idx) =>
+            item.type === "text" ? (
+              <Text key={idx} style={styles.descriptionItem}>
+                • {t(item.text)}
+              </Text>
+            ) : (
+              <Text key={idx} style={styles.achievementItem}>
+                • {t(content.experienceAchievementPrefix)} {t(item.text)}
+              </Text>
+            )
+          )}
+        </View>
+
+        <View style={styles.tagContainer}>
+          {exp.tags.map((tag, tagIndex) => (
+            <Text key={tagIndex} style={styles.tag}>
+              {t(tag)}
+            </Text>
+          ))}
+        </View>
+      </View>
+    ));
 
   return (
     <Document>
@@ -420,34 +468,22 @@ const CVDocument: React.FC<CVDocumentProps> = ({ language, data, profileImageSrc
           {/* Experience */}
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>{t(content.experienceSectionTitle)}</Text>
-            {sortedExperiences.map((exp, index) => (
-              <View key={index} style={styles.experienceItem} wrap={false}>
-                <Text style={styles.jobTitle}>{t(exp.title)}</Text>
-                <View style={styles.experienceHeader}>
-                  <Text style={styles.companyName}>{exp.company}</Text>
-                  <Text style={styles.period}>{t(exp.period)}</Text>
-                </View>
-                <Text style={styles.location}>{exp.location}</Text>
-                
-                <View style={styles.descriptionList}>
-                  {exp.description.map((item, idx) => (
-                    item.type === 'text' ? (
-                      <Text key={idx} style={styles.descriptionItem}>• {t(item.text)}</Text>
-                    ) : (
-                      <Text key={idx} style={styles.achievementItem}>
-                        • {t(content.experienceAchievementPrefix)} {t(item.text)}
-                      </Text>
-                    )
-                  ))}
-                </View>
-                
-                <View style={styles.tagContainer}>
-                  {exp.tags.map((tag, tagIndex) => (
-                    <Text key={tagIndex} style={styles.tag}>{t(tag)}</Text>
-                  ))}
-                </View>
+            {majorExperiences.length > 0 && (
+              <View style={{ marginBottom: 12 }}>
+                <Text style={styles.skillCategoryTitle}>{t(content.experienceBigProjectsTitle)}</Text>
+                <Text style={styles.groupSubtitle}>{t(content.experienceBigProjectsSubtitle)}</Text>
+                <Text style={styles.groupNote}>{t(content.experienceBigProjectsNote)}</Text>
+                {renderExperienceEntries(majorExperiences)}
               </View>
-            ))}
+            )}
+            {smallExperiences.length > 0 && (
+              <View style={{ marginTop: 12 }}>
+                <Text style={styles.skillCategoryTitle}>{t(content.experienceSmallProjectsTitle)}</Text>
+                <Text style={styles.groupSubtitle}>{t(content.experienceSmallProjectsSubtitle)}</Text>
+                <Text style={styles.groupNote}>{t(content.experienceSmallProjectsNote)}</Text>
+                {renderExperienceEntries(smallExperiences)}
+              </View>
+            )}
           </View>
           {/* Skills */}
           <View style={styles.section} wrap={false}>
