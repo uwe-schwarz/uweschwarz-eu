@@ -73,7 +73,7 @@ export async function generateCvDocx({
       new Paragraph({ children: [new TextRun({ text: t(exp.title), bold: true, size: 20 })] }),
       new Paragraph({
         children: [
-          new TextRun({ text: exp.company, italics: true, size: 18, color: theme.primary }),
+          new TextRun({ text: exp.company, size: 18, color: theme.primary }),
           new TextRun({ text: ` — ${t(exp.period)}`, size: 18, color: theme.accent }),
         ],
       }),

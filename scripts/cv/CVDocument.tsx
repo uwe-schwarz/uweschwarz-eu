@@ -228,7 +228,6 @@ const styles = StyleSheet.create({
     fontSize: 9,
     color: theme.primary,
     marginBottom: 4,
-    fontStyle: "italic",
   },
   groupNote: {
     fontSize: 8,
