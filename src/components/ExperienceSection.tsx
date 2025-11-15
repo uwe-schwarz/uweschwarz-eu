@@ -192,37 +192,35 @@ const ExperienceSection = () => {
           </span>
         </h2>
 
-        <div className="space-y-16">
-          {majorExperiences.length > 0 && <div className="space-y-6">
-              <div className="max-w-4xl mx-auto text-center space-y-3">
-                <h3 className="text-3xl md:text-4xl font-semibold text-primary">
-                  {t(siteContent.experienceBigProjectsTitle)}
-                </h3>
-                <p className="text-lg text-muted-foreground">
-                  {t(siteContent.experienceBigProjectsSubtitle)}
-                </p>
-                <p className="text-sm italic text-muted-foreground/70">
-                  {t(siteContent.experienceBigProjectsNote)}
-                </p>
-              </div>
-              {renderExperienceTimeline(majorExperiences, "major")}
-            </div>}
+        {majorExperiences.length > 0 && <div className="space-y-6">
+            <div className="max-w-4xl mx-auto text-center space-y-3">
+              <h3 className="text-3xl md:text-4xl font-semibold text-primary">
+                {t(siteContent.experienceBigProjectsTitle)}
+              </h3>
+              <p className="text-lg text-muted-foreground">
+                {t(siteContent.experienceBigProjectsSubtitle)}
+              </p>
+              <p className="text-sm italic text-muted-foreground/70">
+                {t(siteContent.experienceBigProjectsNote)}
+              </p>
+            </div>
+            {renderExperienceTimeline(majorExperiences, "major")}
+          </div>}
 
-          {smallExperiences.length > 0 && <div className="space-y-6 pt-12 border-t border-border/40">
-              <div className="max-w-4xl mx-auto text-center space-y-3">
-                <h3 className="text-3xl md:text-4xl font-semibold text-primary">
-                  {t(siteContent.experienceSmallProjectsTitle)}
-                </h3>
-                <p className="text-lg text-muted-foreground">
-                  {t(siteContent.experienceSmallProjectsSubtitle)}
-                </p>
-                <p className="text-sm italic text-muted-foreground/70">
-                  {t(siteContent.experienceSmallProjectsNote)}
-                </p>
-              </div>
-              {renderExperienceTimeline(smallExperiences, "small")}
-            </div>}
-        </div>
+        {smallExperiences.length > 0 && <div className="space-y-6 pt-12 border-t border-border/40">
+            <div className="max-w-4xl mx-auto text-center space-y-3">
+              <h3 className="text-3xl md:text-4xl font-semibold text-primary">
+                {t(siteContent.experienceSmallProjectsTitle)}
+              </h3>
+              <p className="text-lg text-muted-foreground">
+                {t(siteContent.experienceSmallProjectsSubtitle)}
+              </p>
+              <p className="text-sm italic text-muted-foreground/70">
+                {t(siteContent.experienceSmallProjectsNote)}
+              </p>
+            </div>
+            {renderExperienceTimeline(smallExperiences, "small")}
+          </div>}
 
         <div className="text-center mt-8">
           {/* More Projects */}
