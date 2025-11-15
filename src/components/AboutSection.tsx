@@ -1,3 +1,6 @@
+"use client";
+
+import Image from 'next/image';
 import React from 'react';
 import { useSettings } from '@/contexts/settings-hook';
 import { siteContent } from '@/content/content';
@@ -32,10 +35,15 @@ const AboutSection = () => {
             <div className="relative">
               {/* Main image */}
               <div className="rounded-lg overflow-hidden shadow-xl hover-scale border-4 border-white dark:border-gray-800">
-                <div className="bg-gradient-to-br from-primary/40 to-accent/40 aspect-[4/5] flex items-center justify-center">
-                  <img src="/about-me.webp"
+                <div className="bg-gradient-to-br from-primary/40 to-accent/40 aspect-[4/5] relative overflow-hidden">
+                  <Image
+                    src="/about-me.webp"
                     alt={t(about.imageAlt)}
-                    className="size-4/5 object-cover aspect-[4/5]" />
+                    sizes="(min-width: 1024px) 384px, (min-width: 768px) 320px, 240px"
+                    fill
+                    className="object-cover"
+                    priority
+                  />
                 </div>
               </div>
               
@@ -69,7 +77,7 @@ const AboutSection = () => {
                       <stat.icon size={24} />
                     </div>
                     <span className="text-3xl font-bold mb-1">{t(stat.value)}</span>
-                    <span className="text-sm text-muted-foreground">{t(about.labels[stat.key])}</span>
+                    <span className="text-sm text-muted-foreground">{t(about.labels[stat.key as keyof typeof about.labels])}</span>
                   </div>
                 </div>
               ))}

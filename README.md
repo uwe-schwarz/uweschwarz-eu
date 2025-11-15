@@ -1,97 +1,72 @@
 # Personal Portfolio Website
 
-This is a personal portfolio website built with React, TypeScript, Vite, and Tailwind CSS. It showcases my projects, skills, and experience.
+This is a personal portfolio website built with **Next.js 16**, **React 19**, **TypeScript**, and **Tailwind CSS**. It showcases my projects, skills, and experience with modern UX enhancements powered by shadcn/ui, Radix primitives, and React Query.
 
 ## Technologies Used
 
-- **React:** A JavaScript library for building user interfaces.
-- **TypeScript:** A typed superset of JavaScript that compiles to plain JavaScript.
-- **Vite:** A fast build tool and development server for modern web projects.
-- **Tailwind CSS:** A utility-first CSS framework for rapidly building custom designs.
-- **shadcn-ui:** A collection of reusable components built using Radix UI and Tailwind CSS.
-- **Supabase:** An open source Firebase alternative for building secure and scalable backend services.
-- **React Router:** For declarative routing in React applications.
-- **React Hook Form:** For flexible and extensible forms in React.
-- **Recharts:** A composable charting library built on React components.
-- **Lucide React:** A library of simply beautiful icons.
+- **Next.js 16** with the App Router for hybrid SSR/CSR routing.
+- **React 19** and **TypeScript** for type-safe, interactive UI components.
+- **Tailwind CSS** and **shadcn/ui** for rapid, accessible component styling.
+- **Supabase** integrations and custom scripts for dynamic CV asset generation.
+- **React Query** for client-side data management.
+- **Resend** for handling contact form submissions through a Next.js route handler.
 
 ## Getting Started
 
 ### Prerequisites
 
 - Node.js (v18 or higher recommended)
-- npm (comes with Node.js)
+- bun (bundled with Node.js)
 
 ### Installation and Running Locally
 
-1.  **Clone the repository:**
-    ```bash
-    git clone <YOUR_GIT_URL>
-    cd <YOUR_PROJECT_NAME>
-    ```
+1. **Clone the repository:**
+   ```bash
+   git clone <YOUR_GIT_URL>
+   cd <YOUR_PROJECT_NAME>
+   ```
 
-2.  **Install dependencies:**
-    ```bash
-    npm install
-    ```
+2. **Install dependencies:**
+   ```bash
+   bun install
+   ```
 
-3.  **Start the development server:**
-    ```bash
-    npm run dev
-    ```
-    This will start the Vite development server, usually on `http://localhost:8080`. The application will automatically reload if you change any of the source files.
+3. **Start the development server:**
+   ```bash
+   bun run dev
+   ```
+   The Next.js development server starts on `http://localhost:3000`. The application automatically reloads when you change source files.
 
 ## Building the Project
 
-To create a production build of the project, run:
+Create a production build with:
 
 ```bash
-npm run build
+bun run build
 ```
-This command will generate a `dist` folder in the project root with the optimized static assets for your application.
 
-## Testing
-
-This project uses ESLint for linting. To run the linter, use:
+To preview the production bundle locally:
 
 ```bash
-npm run lint
+bun run start
 ```
-Currently, there are no automated end-to-end or unit tests configured for this project.
 
-## Deployment to Cloudflare Pages
+## Deployment to Vercel
 
-This project can be easily deployed to Cloudflare Pages.
+This project is optimised for deployment on [Vercel](https://vercel.com/).
 
-### Prerequisites
+1. Push the repository to GitHub
+2. Import the project into Vercel and select the repository.
+3. Vercel automatically detects the Next.js framework. Use the default build command (`bun run build`) and output directory (`.next`).
+4. Configure environment variables (for example `RESEND_API_KEY`) in the Vercel dashboard as needed.
+5. Deploy. Subsequent pushes to the configured branch trigger new deployments automatically.
 
-- A Cloudflare account.
-- Your project pushed to a GitHub repository.
+## Useful Scripts
 
-### Steps:
+- `bun run generate:cv` – regenerate downloadable CV assets based on content changes.
+- `bun run generate:sitemap` – refresh the static sitemap XML.
+- `bun run generate:llms` – produce the `llms.txt` description for AI crawlers.
 
-1.  **Log in to Cloudflare:** Go to your Cloudflare dashboard.
-2.  **Connect to Git:**
-    *   In the sidebar, navigate to **Workers & Pages**.
-    *   Click on **Create application**, then select the **Pages** tab.
-    *   Click **Connect to Git**.
-3.  **Select Repository:**
-    *   Choose the GitHub repository where your project is hosted.
-    *   Click **Begin setup**.
-4.  **Configure Build Settings:**
-    *   **Project name:** Choose a name for your Pages project.
-    *   **Production branch:** Select the branch you want to deploy (e.g., `main` or `master`).
-    *   **Framework preset:** Select **Vite** from the dropdown. Cloudflare Pages will automatically detect most settings.
-    *   **Build command:** This should be automatically set to `npm run build` (or `vite build`).
-    *   **Build output directory:** This should be automatically set to `dist`.
-    *   **(Optional) Environment Variables:** If your project requires environment variables (e.g., for Supabase integration), add them under **Environment variables (advanced)**.
-        *   `VITE_SUPABASE_URL`: Your Supabase project URL.
-        *   `VITE_SUPABASE_ANON_KEY`: Your Supabase anonymous public key.
-5.  **Deploy:**
-    *   Click **Save and Deploy**.
-    *   Cloudflare Pages will now build and deploy your site. You can monitor the deployment progress.
-    *   Once deployed, you'll get a unique `*.pages.dev` subdomain for your project. You can also add custom domains later.
+## Automated Assets
 
-### Subsequent Deployments
-
-Cloudflare Pages will automatically redeploy your site whenever you push new changes to the connected production branch in your GitHub repository.
+Git hooks ensure that the sitemap and CV artefacts stay in sync with content changes. Remember to commit generated files when scripts update them.

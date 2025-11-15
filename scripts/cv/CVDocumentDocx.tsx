@@ -192,7 +192,7 @@ export async function generateCvDocx({
                       ...Object.entries(skillsByCategory)
                         .filter(([cat]) => cat !== "languages")
                         .flatMap(([cat, catSkills]) => [
-                        new Paragraph({ children: [new TextRun({ text: t(skillsSection.categories[cat]), bold: true, size: 20 })] }),
+                        new Paragraph({ children: [new TextRun({ text: t(skillsSection.categories[cat as keyof typeof skillsSection.categories]), bold: true, size: 20 })] }),
                         new Paragraph({
                           children: catSkills
                             .filter((s) => s.level >= 4)

@@ -3,12 +3,13 @@ import tailwindcssAnimate from "tailwindcss-animate";
 
 export default {
 	darkMode: ["class"],
-	content: [
-		"./pages/**/*.{ts,tsx}",
-		"./components/**/*.{ts,tsx}",
-		"./app/**/*.{ts,tsx}",
-		"./src/**/*.{ts,tsx}",
-	],
+        content: [
+                "./src/app/**/*.{ts,tsx}",
+                "./src/components/**/*.{ts,tsx}",
+                "./src/contexts/**/*.{ts,tsx}",
+                "./src/hooks/**/*.{ts,tsx}",
+                "./src/content/**/*.{ts,tsx}",
+        ],
 	prefix: "",
 	theme: {
 		container: {
@@ -73,8 +74,8 @@ export default {
 				}
 			},
 			fontFamily: {
-				sans: ['Public Sans', 'sans-serif'],
-				display: ['"Space Grotesk"', 'sans-serif'],
+				sans: ['var(--font-sans)', 'sans-serif'],
+				display: ['var(--font-display)', 'sans-serif'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

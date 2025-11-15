@@ -21,12 +21,12 @@ function generateCvAssetPath(language, extension) {
 const urls = [
   {
     url: '/',
-    files: ['src/content/content.ts', 'src/pages/Index.tsx', 'src/components/Header.tsx', 'src/components/HeroSection.tsx', 'src/components/AboutSection.tsx', 'src/components/ExperienceSection.tsx', 'src/components/ProjectsSection.tsx', 'src/components/SkillsSection.tsx', 'src/components/ContactSection.tsx', 'src/components/Footer.tsx'],
+    files: ['src/content/content.ts', 'src/app/page.tsx', 'src/components/Header.tsx', 'src/components/HeroSection.tsx', 'src/components/AboutSection.tsx', 'src/components/ExperienceSection.tsx', 'src/components/ProjectsSection.tsx', 'src/components/SkillsSection.tsx', 'src/components/ContactSection.tsx', 'src/components/Footer.tsx'],
     priority: 1.0
   },
   {
     url: '/cv',
-    files: ['src/content/content.ts', 'src/pages/CV.tsx', 'src/components/cv/CVDocument.tsx', 'src/components/cv/CVDocumentDocx.tsx'],
+    files: ['src/content/content.ts', 'src/app/cv/page.tsx', 'src/components/cv/CVDocument.tsx', 'src/components/cv/CVDocumentDocx.tsx'],
     priority: 0.8
   },
   {
@@ -51,17 +51,17 @@ const urls = [
   },
   {
     url: '/imprint',
-    files: ['src/content/content.ts', 'src/pages/Imprint.tsx', 'src/components/Header.tsx', 'src/components/Footer.tsx'],
+    files: ['src/content/content.ts', 'src/app/imprint/page.tsx', 'src/components/Header.tsx', 'src/components/Footer.tsx'],
     priority: 0.5
   },
   {
     url: '/privacy',
-    files: ['src/content/content.ts', 'src/pages/Privacy.tsx', 'src/components/Header.tsx', 'src/components/Footer.tsx'],
+    files: ['src/content/content.ts', 'src/app/privacy/page.tsx', 'src/components/Header.tsx', 'src/components/Footer.tsx'],
     priority: 0.5
   },
   {
     url: '/sitemap.xml',
-    files: ['src/pages/Sitemap.tsx', 'src/pages/Index.tsx', 'src/components/Header.tsx', 'src/components/Footer.tsx', 'src/content/content.ts'],
+    files: ['src/app/sitemap/page.tsx', 'src/app/page.tsx', 'src/components/Header.tsx', 'src/components/Footer.tsx', 'src/content/content.ts'],
     priority: 0.3
   },
   {

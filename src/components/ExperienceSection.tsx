@@ -1,3 +1,6 @@
+"use client";
+
+import Image from "next/image";
 import React, { useEffect, useRef } from "react";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
@@ -96,10 +99,12 @@ const ExperienceSection = () => {
               "bg-gradient-to-br from-primary/40 to-accent/40", "backdrop-blur-sm")}>
                     {/* Logo (if exists) - positioned right, offset from the corner with flowing text */}
                     {exp.logoUrl && (
-                      <img
+                      <Image
                         src={exp.logoUrl}
                         alt={`${exp.company} logo`}
-                        className="h-12 object-contain mx-auto mt-6 md:mx-0 md:float-right md:ml-2 md:mb-2 md:mr-6"
+                        width={96}
+                        height={48}
+                        className="object-contain mx-auto mt-6 md:mx-0 md:float-right md:ml-2 md:mb-2 md:mr-6"
                       />
                     )}
 

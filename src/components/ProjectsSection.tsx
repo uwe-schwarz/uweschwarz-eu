@@ -1,3 +1,6 @@
+"use client";
+
+import Image from 'next/image';
 import React from 'react';
 import { siteContent } from '@/content/content';
 import { useSettings } from '@/contexts/settings-hook';
@@ -41,11 +44,15 @@ const ProjectsSection = () => {
                     <div className="aspect-video relative">
                       <div className="absolute inset-0 bg-gradient-to-br from-primary/40 to-accent/40 flex items-center justify-center">
                         {project.imageUrl && (
-                          <img
-                            src={project.imageUrl}
-                            alt={`${t(project.imageAlt)}`}
-                            className="object-contain max-h-48 max-w-64 h-auto mx-auto"
-                          />
+                          <div className="relative h-48 w-full max-w-[16rem]">
+                            <Image
+                              src={project.imageUrl}
+                              alt={`${t(project.imageAlt)}`}
+                              fill
+                              sizes="(min-width: 1024px) 320px, (min-width: 768px) 256px, 192px"
+                              className="object-contain"
+                            />
+                          </div>
                         )}
                       </div>
                     </div>

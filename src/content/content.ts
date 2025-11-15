@@ -55,7 +55,7 @@ import {
   SiX,
 } from "react-icons/si";
 
-interface LocalizedString {
+export interface LocalizedString {
   en: string;
   de: string;
 }

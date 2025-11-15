@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";

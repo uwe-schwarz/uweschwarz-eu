@@ -1,19 +1,24 @@
-import React, { useState, useEffect } from "react";
+"use client";
+
+import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Moon, Sun, Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useSettings } from "@/contexts/settings-hook";
 import { siteContent } from "@/content/content";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Link, useLocation } from "react-router-dom";
 
 const Header = () => {
   const { language, setLanguage, theme, setTheme, t } = useSettings();
   const [isScrolled, setIsScrolled] = useState(false);
   const isMobile = useIsMobile();
-  const location = useLocation();
-  const isHomePage = location.pathname === '/';
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
   const [activeSection, setActiveSection] = useState<string>("hero");
+
+  const navigationItems = useMemo(() => siteContent.navigation, []);
 
   // Toggle for handling theme changes
   const toggleTheme = () => {
@@ -38,7 +43,7 @@ const Header = () => {
   useEffect(() => {
     if (!isHomePage) return;
     const handleScroll = () => {
-      const sectionIds = siteContent.navigation.map(item => item.href.replace('#', ''));
+      const sectionIds = navigationItems.map(item => item.href.replace('#', ''));
       let current = sectionIds[0];
       for (const id of sectionIds) {
         const section = document.getElementById(id);
@@ -55,7 +60,7 @@ const Header = () => {
     window.addEventListener("scroll", handleScroll);
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [isHomePage]);
+  }, [isHomePage, navigationItems]);
 
   return (
     <header
@@ -67,7 +72,7 @@ const Header = () => {
     >
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <Link
-          to="/"
+          href="/"
           className="text-2xl font-display font-bold text-foreground"
         >
           <span className="text-gradient text-4xl">Uwe Schwarz</span>
@@ -75,25 +80,31 @@ const Header = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-6">
-          {siteContent.navigation.map((item) => (
-            isHomePage ? (
-              <a
-                key={item.href}
-                href={item.href}
-                className={`text-lg font-medium text-foreground hover:text-primary transition-colors link-underline${activeSection === item.href.replace('#', '') ? ' link-underline-active' : ''}`}
-              >
-                {t(item.label)}
-              </a>
-            ) : (
+          {navigationItems.map((item) => {
+            const hash = item.href.replace('#', '');
+
+            if (isHomePage) {
+              return (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className={`text-lg font-medium text-foreground hover:text-primary transition-colors link-underline${activeSection === hash ? ' link-underline-active' : ''}`}
+                >
+                  {t(item.label)}
+                </a>
+              );
+            }
+
+            return (
               <Link
                 key={item.href}
-                to={`/${item.href}`}
+                href={{ pathname: '/', hash: item.href as `#${string}` }}
                 className="text-lg font-medium text-foreground hover:text-primary transition-colors link-underline"
               >
                 {t(item.label)}
               </Link>
-            )
-          ))}
+            );
+          })}
         </nav>
 
         {/* Control Buttons */}
@@ -141,31 +152,37 @@ const Header = () => {
             >
               <div className="flex flex-col h-full">
                 <div className="border-b border-gray-200 dark:border-gray-800 py-4 px-6">
-                  <Link to="/" className="text-2xl font-display font-bold">
+                  <Link href="/" className="text-2xl font-display font-bold">
                     <span className="text-gradient">Uwe Schwarz</span>
                   </Link>
                 </div>
 
                 <div className="flex-1 flex flex-col justify-center items-center space-y-6 py-8">
-                  {siteContent.navigation.map((item) => (
-                    isHomePage ? (
-                      <a
-                        key={item.href}
-                        href={item.href}
-                        className={`text-xl font-medium text-foreground hover:text-primary transition-colors${activeSection === item.href.replace('#', '') ? ' link-underline link-underline-active' : ''}`}
-                      >
-                        {t(item.label)}
-                      </a>
-                    ) : (
+                  {navigationItems.map((item) => {
+                    const hash = item.href.replace('#', '');
+
+                    if (isHomePage) {
+                      return (
+                        <a
+                          key={item.href}
+                          href={item.href}
+                          className={`text-xl font-medium text-foreground hover:text-primary transition-colors${activeSection === hash ? ' link-underline link-underline-active' : ''}`}
+                        >
+                          {t(item.label)}
+                        </a>
+                      );
+                    }
+
+                    return (
                       <Link
                         key={item.href}
-                        to={`/${item.href}`}
+                        href={{ pathname: '/', hash: item.href as `#${string}` }}
                         className="text-xl font-medium text-foreground hover:text-primary transition-colors"
                       >
                         {t(item.label)}
                       </Link>
-                    )
-                  ))}
+                    );
+                  })}
                 </div>
 
                 <div className="border-t border-gray-200 dark:border-gray-800 p-6 flex gap-4">
