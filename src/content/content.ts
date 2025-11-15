@@ -310,7 +310,7 @@ export const siteContent: SiteContent = {
     },
     author: "Uwe Schwarz",
   },
-  projectsSectionTitle: { en: "Featured Projects", de: "Ausgewählte Projekte" },
+  projectsSectionTitle: { en: "Developed Solutions", de: "Entwickelte Lösungen" },
   /*  projectsSectionMore: { en: "View More Projects on GitHub", de: "Mehr Projekte auf GitHub ansehen" }, */
   navigation: [
     { label: { en: "Home", de: "Start" }, href: "#hero" },
@@ -1971,33 +1971,33 @@ export const siteContent: SiteContent = {
   backToHome: { en: "Back to Home", de: "Zurück zur Startseite" },
   experienceSectionTitle: { en: "Experience", de: "Berufserfahrung" },
   experienceBigProjectsTitle: {
-    en: "Signature Engagements",
-    de: "Leitprojekte",
+    en: "Key Projects",
+    de: "Schlüsselprojekte",
   },
   experienceBigProjectsSubtitle: {
-    en: "Long-running leadership roles and programs that shape strategic outcomes.",
-    de: "Langfristige Führungsrollen und Programme, die strategische Ergebnisse prägen.",
+    en: "Major technical and organizational engagements with long-term responsibility.",
+    de: "Wesentliche technische und organisatorische Engagements mit langfristiger Verantwortung.",
   },
   experienceBigProjectsNote: {
-    en: "This is a curated selection of multi-month and multi-year engagements; more major projects are available on request.",
-    de: "Dies ist eine Auswahl mehrmonatiger und mehrjähriger Engagements; weitere große Projekte gerne auf Anfrage.",
+    en: "A curated selection of multi-month and multi-year engagements; further details available on request.",
+    de: "Eine kuratierte Auswahl mehrmonatiger und mehrjähriger Engagements; weitere Details gerne auf Anfrage.",
   },
   experienceSmallProjectsTitle: {
-    en: "Curated Contributions",
-    de: "Kuratiertes Engagement",
+    en: "Additional & Focused Projects",
+    de: "Zusatz- & Schwerpunktprojekte",
   },
   experienceSmallProjectsSubtitle: {
-    en: "Part-time, flexible, or focused initiatives that complement the bigger picture.",
-    de: "Teilzeitige, flexible oder fokussierte Initiativen, die das Gesamtbild ergänzen.",
+    en: "Complementary or specialized projects with flexible scope.",
+    de: "Ergänzende oder spezialisierte Projekte mit flexiblem Umfang.",
   },
   experienceSmallProjectsNote: {
-    en: "Only a handful of small projects are shown below; even more collaborations are available on request.",
-    de: "Nur eine Handvoll kleiner Projekte wird unten gezeigt; weitere Kooperationen auf Anfrage.",
+    en: "Specialized, flexible, or focused initiatives that complement the broader work.",
+    de: "Spezialisierte, flexible oder fokussierte Initiativen, die die Gesamtarbeit ergänzen.",
   },
   experienceAchievementPrefix: { en: "Achievement:", de: "Erfolg:" },
   moreProjects: {
-    en: "Previous projects or references are available upon request.",
-    de: "Frühere Projekte oder Referenzen sind auf Anfrage verfügbar.",
+    en: "More previous projects or references available upon request.",
+    de: "Weitere frühere Projekte oder Referenzen sind auf Anfrage verfügbar.",
   },
   downloadResume: { en: "Download CV", de: "Lebenslauf herunterladen" },
 };

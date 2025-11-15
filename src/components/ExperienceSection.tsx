@@ -210,7 +210,7 @@ const ExperienceSection = () => {
 
           {smallExperiences.length > 0 && <div className="space-y-6 pt-12 border-t border-border/40">
               <div className="max-w-4xl mx-auto text-center space-y-3">
-                <h3 className="text-3xl md:text-4xl font-semibold text-secondary">
+                <h3 className="text-3xl md:text-4xl font-semibold text-primary">
                   {t(siteContent.experienceSmallProjectsTitle)}
                 </h3>
                 <p className="text-lg text-muted-foreground">
