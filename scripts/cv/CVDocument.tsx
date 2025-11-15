@@ -388,7 +388,7 @@ const CVDocument: React.FC<CVDocumentProps> = ({ language, data, profileImageSrc
           <Text style={styles.companyName}>{exp.company}</Text>
           <Text style={styles.period}>{t(exp.period)}</Text>
         </View>
-        <Text style={styles.location}>{exp.location}</Text>
+        <Text style={styles.location}>{t(exp.location)}</Text>
 
         <View style={styles.descriptionList}>
           {exp.description.map((item, idx) =>

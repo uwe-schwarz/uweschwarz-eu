@@ -100,7 +100,7 @@ export interface Experience {
   title: LocalizedString;
   company: string;
   period: LocalizedString;
-  location: string;
+  location: LocalizedString;
   description: ExperienceDescriptionItem[];
   tags: LocalizedString[];
   logoUrl?: string;
@@ -433,7 +433,10 @@ export const siteContent: SiteContent = {
       logoUrl: "/logos/degit.png",
       projectScale: "small",
       period: { en: "May 2018 - Present", de: "Mai 2018 - Heute" },
-      location: "Hockenheim, Germany",
+      location: {
+        en: "Hockenheim, Germany",
+        de: "Hockenheim, Deutschland",
+      },
       description: [
         {
           type: "text",
@@ -513,7 +516,10 @@ export const siteContent: SiteContent = {
       "logoUrl": "/logos/aktion-gegen-krebs.png",
       "projectScale": "small",
       "period": { "en": "May 2025 - Present", "de": "Mai 2025 - Heute" },
-      "location": "Seevetal, Germany",
+      location: {
+        en: "Seevetal, Germany",
+        de: "Seevetal, Deutschland",
+      },
       "description": [
         {
           "type": "text",
@@ -592,7 +598,10 @@ export const siteContent: SiteContent = {
       "logoUrl": "/logos/degit.png",
       "projectScale": "small",
       "period": { "en": "Aug 2025 – Oct 2025", "de": "Aug 2025 – Okt 2025" },
-      "location": "Hockenheim, Germany",
+      location: {
+        en: "Hockenheim, Germany",
+        de: "Hockenheim, Deutschland",
+      },
       "description": [
         {
           "type": "text",
@@ -668,7 +677,10 @@ export const siteContent: SiteContent = {
       company: "Joh. Berenberg, Gossler & Co. KG",
       logoUrl: "/logos/berenberg.svg",
       period: { en: "Jan 2024 - Sep 2025", de: "Jan 2024 - Sep 2025" },
-      location: "Hamburg, Germany",
+      location: {
+        en: "Hamburg, Germany",
+        de: "Hamburg, Deutschland",
+      },
       description: [
         {
           type: "text",
@@ -739,7 +751,10 @@ export const siteContent: SiteContent = {
       company: "Threedium Ltd.",
       logoUrl: "/logos/threedium.svg",
       period: { en: "Oct 2023 - Jun 2024", de: "Okt 2023 - Jun 2024" },
-      location: "London, United Kingdom",
+      location: {
+        en: "London, United Kingdom",
+        de: "London, Vereinigtes Königreich",
+      },
       description: [
         {
           type: "text",
@@ -829,7 +844,10 @@ export const siteContent: SiteContent = {
       company: "Deutsche Vermögensberatung AG",
       logoUrl: "/logos/dvag.svg",
       period: { en: "Jan 2019 - Sep 2023", de: "Jan 2019 - Sep 2023" },
-      location: "Frankfurt am Main, Germany",
+      location: {
+        en: "Frankfurt am Main, Germany",
+        de: "Frankfurt am Main, Deutschland",
+      },
       description: [
         {
           type: "text",
@@ -953,7 +971,10 @@ export const siteContent: SiteContent = {
       company: "Deutsche Vermögensberatung AG",
       logoUrl: "/logos/dvag.svg",
       period: { en: "Jul 2015 - Dec 2018", de: "Jul 2015 - Dez 2018" },
-      location: "Frankfurt am Main, Germany",
+      location: {
+        en: "Frankfurt am Main, Germany",
+        de: "Frankfurt am Main, Deutschland",
+      },
       description: [
         {
           type: "text",
