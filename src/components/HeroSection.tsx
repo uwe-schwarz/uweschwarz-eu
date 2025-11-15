@@ -1,12 +1,42 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import { ArrowDown, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useSettings } from "@/contexts/settings-hook";
 import { siteContent } from "@/content/content";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { useFitText } from "@/hooks/use-fit-text";
+
+const ProfilePicture = React.memo(({ alt }: { alt: string }) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
+
+  return (
+    <div className="w-full h-full rounded-full bg-background flex items-center justify-center overflow-hidden relative">
+      <Image
+        src="/profile.webp"
+        alt={alt}
+        fill
+        sizes="(max-width: 768px) 60vw, 30vw"
+        className={`object-cover transition-opacity duration-500 ${
+          imageLoaded && !imageError ? "opacity-100" : "opacity-0"
+        }`}
+        onLoadingComplete={() => setImageLoaded(true)}
+        onError={() => setImageError(true)}
+        priority
+      />
+
+      {(!imageLoaded || imageError) && (
+        <span className="absolute inset-0 flex items-center justify-center text-4xl md:text-5xl font-display font-bold text-gradient">
+          Uwe
+        </span>
+      )}
+    </div>
+  );
+});
+
+ProfilePicture.displayName = "ProfilePicture";
 
 const HeroSection = () => {
   const { t } = useSettings();
@@ -117,16 +147,7 @@ const HeroSection = () => {
                 <div className="w-[75%] h-[75%] rounded-full bg-gradient-to-br from-primary/20 to-accent/20 p-1">
                   <div className="w-full h-full rounded-full bg-background flex items-center justify-center overflow-hidden">
                     {/* Profile image */}
-                    <Avatar className="w-full h-full">
-                      <AvatarImage
-                        src="/profile.webp"
-                        alt={t(hero.imageAlt)}
-                        className="object-cover w-full h-full"
-                      />
-                      <AvatarFallback className="text-4xl md:text-5xl font-bold">
-                        US
-                      </AvatarFallback>
-                    </Avatar>
+                    <ProfilePicture alt={t(hero.imageAlt)} />
                   </div>
                 </div>
               </div>
