@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { Public_Sans, Space_Grotesk } from "next/font/google";
 import { cn } from "@/lib/utils";
+import { Analytics } from '@vercel/analytics/next';
 import "./globals.css";
 import Providers from "./providers";
 
@@ -66,6 +67,7 @@ export default function RootLayout({
       </head>
       <body className={cn("min-h-screen bg-background font-sans antialiased text-foreground")}>
         <Providers>{children}</Providers>
+        <Analytics />;
       </body>
     </html>
   );
