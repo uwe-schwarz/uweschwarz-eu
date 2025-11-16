@@ -90,7 +90,7 @@ export default function CvPage() {
                 <div className="m-6 flex grow justify-center overflow-hidden">
                   <iframe
                     key={language}
-                    src={pdfUrl}
+                    src={`${pdfUrl}#zoom=100&view=FitH&pagemode=none&toolbar=0`}
                     title={language === "en" ? "Curriculum Vitae" : "Lebenslauf"}
                     className="min-h-[500px] h-full w-full max-w-[796px] rounded-lg border-0 bg-white shadow-inner"
                     scrolling="no"

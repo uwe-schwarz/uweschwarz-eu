@@ -93,10 +93,6 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
   - [de] Aufbau einer sicheren und rechtskonformen IT-Infrastruktur mit Schwerpunkt auf modernen Technologien (IPv6, Zero Trust, Zero-Config VPN, etc.) und Best Practices.
   - [en] Responsible for corporate governance in IT security, privacy and compliance topics.
   - [de] Verantwortlich für Governance in den Bereichen IT-Sicherheit, Datenschutz und Compliance.
-  - [en] Implemented a Zero-Config VPN solution that allows for easy and secure remote access to the company's resources.
-  - [de] Implementierung einer Zero-Config VPN-Lösung, die es ermöglicht, einfache und sichere Remote-Zugriff auf die Unternehmensressourcen zu ermöglichen.
-  - [en] Introduced a company-wide training framework for information security, risk management and compliance.
-  - [de] Einführung eines unternehmensweiten Schulungsrahmens zu Informationssicherheit, Risikomanagement und Compliance.
 
 [Experience]:
   [en] Founding Member & Data Protection Officer
@@ -115,10 +111,6 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
   - [de] Verantwortlich für IT-Sicherheitsstrategie und Risikomanagement.
   - [en] Established GDPR-compliant data protection framework from the ground up.
   - [de] Aufbau eines DSGVO-konformen Datenschutzrahmens von Grund auf.
-  - [en] Designed secure IT infrastructure (IPv6, Zero Trust, Zero-Config VPN, etc.) tailored to sensitive medical and legal data.
-  - [de] Konzeption einer sicheren IT-Infrastruktur (IPv6, Zero Trust, Zero-Config VPN, etc.) für sensible medizinische und juristische Daten.
-  - [en] Initiated the integration of AI tools to support efficient case processing.
-  - [de] Initiierung der Integration von KI-Tools zur effizienten Fallbearbeitung.
 
 [Experience]:
   [en] AI Training Platform & AI Tools Evaluation
@@ -135,10 +127,6 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
   - [de] Evaluierung aufkommender Agentic-AI-Workflows zur mehrstufigen Aufgabenorchestrierung und deren Integration in Unternehmensautomatisierungsumgebungen.
   - [en] Analyzed and benchmarked: OpenAI ChatGPT, OpenAI Open-Weight GPT-OSS, Microsoft Copilot, Perplexity, Anthropic Claude, Apple Foundation, z.AI GLM, n8n, make.com, Zapier.
   - [de] Analysiert und bewertet: OpenAI ChatGPT, OpenAI Open-Weight GPT-OSS, Microsoft Copilot, Perplexity, Anthropic Claude, Apple Foundation, z.AI GLM, n8n, make.com und Zapier.
-  - [en] Developed a modular learning platform prototype integrated with Supabase and Cloudflare, offering role-based content and progress tracking.
-  - [de] Entwicklung eines modularen Lernplattform-Prototyps mit Supabase- und Cloudflare-Integration, rollenbasierten Inhalten und Fortschrittsverfolgung.
-  - [en] Produced a comparative decision framework supporting management’s AI adoption strategy.
-  - [de] Erstellung eines vergleichenden Entscheidungsrahmens zur Unterstützung der KI-Einführungsstrategie des Unternehmens.
 
 [Experience]:
   [en] Subproject Lead Data Center Migration & Backup Modernization
@@ -187,6 +175,22 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
   - [de] Führung des Teams zur erfolgreichen ISO27001-Zertifizierung innerhalb einer straffen sechsmonatigen Frist, wodurch neue Märkte für das Unternehmen erschlossen wurden.
 
 [Experience]:
+  [en] Code Review & Security Advisory
+  [de] Code-Review & Security-Beratung
+  [en] Company: GEHR Datentechnik GmbH
+  [de] Firma: GEHR Datentechnik GmbH
+  [en] Oct 2023
+  [de] Okt 2023
+  - [en] Comprehensive code review of the existing PHP application with a structured assessment of critical, medium and low-severity issues.
+  - [de] Umfassendes Code-Review der bestehenden PHP-Anwendung mit mit mit strukturierter Bewertung von Findings hoher, mittlerer und niedriger Schwere.
+  - [en] Creation of a detailed review document including technical findings, recommended remediation steps, and prioritization for development teams.
+  - [de] Erstellung eines ausführlichen Review-Papiers mit technischen Befunden, empfohlenen Maßnahmen und Priorisierung für die Entwicklungsteams.
+  - [en] Consulting on application and infrastructure security with a focus on practical improvements, secure coding patterns and operational hardening.
+  - [de] Beratung zu Anwendungs- und Infrastruktursicherheit mit Fokus auf praxisnahe Verbesserungen, sichere Coding-Patterns und betriebliches Hardening.
+  - [en] Support during the implementation phase to fix identified issues and improve overall application resilience.
+  - [de] Unterstützung während der Umsetzung zur Behebung identifizierter Probleme und zur Verbesserung der Gesamtstabilität der Anwendung.
+
+[Experience]:
   [en] IT Security Consultant
   [de] IT-Sicherheitsexperte
   [en] Company: Deutsche Vermögensberatung AG
@@ -229,8 +233,8 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
   [de] Firma: Deutsche Vermögensberatung AG
   [en] Jul 2015 - Dec 2018
   [de] Jul 2015 - Dez 2018
-  - [en] Coordination (about 50%) and planning of resources of a (8 person) team.
-  - [de] Koordination (ca. 50%) und Ressourcenplanung eines (8-köpfigen) Teams.
+  - [en] Coordination and planning of resources of a small team.
+  - [de] Koordination und Ressourcenplanung eines kleinen Teams.
   - [en] Focus of the team: e-mail, cloud storage, load balancing, proxy and DNS (all linux based).
   - [de] Schwerpunkt des Teams: E-Mail, Cloud-Speicher, Lastverteilung, Proxy und DNS (alles Linux-basiert).
   - [en] Debugging und solving of problems mainly in the area mail (but not solely).
@@ -245,6 +249,28 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
   - [de] Leitung der Implementierung von IPv6 im gesamten Unternehmen, Zukunftssicherung des Netzwerks.
   - [en] Improved team efficiency through the introduction of automated processes and resource management tools.
   - [de] Verbesserung der Teameffizienz durch Einführung automatisierter Prozesse und Ressourcenmanagement-Tools.
+
+[Experience]:
+  [en] Product Owner / System Architect
+  [de] Product Owner / Systemarchitekt
+  [en] Company: Deutsche Vermögensberatung AG
+  [de] Firma: Deutsche Vermögensberatung AG
+  [en] Jan 2013 - Jun 2015
+  [de] Jan 2013 - Jun 2015
+  - [en] Product Owner and system architect for the enterprise-wide email archiving platform, including requirements management, technical roadmap, and long-term evolution.
+  - [de] Product Owner und Systemarchitekt für die unternehmensweite E-Mail-Archivierungsplattform, einschließlich Anforderungsmanagement, technischer Roadmap und langfristiger Weiterentwicklung.
+  - [en] Led the design and implementation of a legally compliant archive for more than 50,000 users, ensuring immutable retention, auditability, and long-term maintainability.
+  - [de] Leitung der Design- und Implementierung eines rechtssicheren Archivs für über 50.000 Nutzer mit rechtssicherer Aufbewahrung, Prüfbarkeit und langfristiger Wartbarkeit.
+  - [en] Introduced scalable storage, redundancy concepts, monitoring, indexing and full-text search to enable efficient retrieval of historical correspondence.
+  - [de] Einführung skalierbarer Speicher- und Redundanzkonzepte sowie Monitoring, Indexierung und Volltextsuche zur effizienten Auffindbarkeit historischer Korrespondenz.
+  - [en] Close collaboration with legal, compliance, and auditing teams to meet regulatory requirements and ensure long-term evidentiary integrity.
+  - [de] Enge Zusammenarbeit mit Legal-, Compliance- und Audit-Teams zur Erfüllung regulatorischer Anforderungen und langfristigen Beweissicherheit.
+  - [en] Secondary responsibilities in the surrounding mail infrastructure (dovecot, postfix), Linux-based services, DNS, proxy, load balancing and cloud storage.
+  - [de] Nebenverantwortlichkeiten in der umliegenden Mail-Infrastruktur (dovecot, postfix), Linux-basierten Diensten, DNS, Proxy, Lastverteilung und Cloud-Speicher.
+  - [en] Delivered a stable, compliant archive used daily across the entire organization.
+  - [de] Bereitstellung eines stabilen, compliance-gerechten Archivsystems, das im gesamten Unternehmen täglich genutzt wurde.
+  - [en] Established future-proof data retention strategies aligned with strict regulatory expectations.
+  - [de] Etablierung zukunftssicherer Aufbewahrungsstrategien im Einklang mit strengen regulatorischen Vorgaben.
 
 # --- PROJECTS ---
 
