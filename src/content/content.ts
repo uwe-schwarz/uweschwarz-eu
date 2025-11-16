@@ -473,20 +473,6 @@ export const siteContent: SiteContent = {
             "de": "Verantwortlich für Governance in den Bereichen IT-Sicherheit, Datenschutz und Compliance."
           }
         },
-        {
-          type: "achievement",
-          text: {
-            en: "Implemented a Zero-Config VPN solution that allows for easy and secure remote access to the company's resources.",
-            de: "Implementierung einer Zero-Config VPN-Lösung, die es ermöglicht, einfache und sichere Remote-Zugriff auf die Unternehmensressourcen zu ermöglichen.",
-          },
-        },
-        {
-          "type": "achievement",
-          "text": {
-            "en": "Introduced a company-wide training framework for information security, risk management and compliance.",
-            "de": "Einführung eines unternehmensweiten Schulungsrahmens zu Informationssicherheit, Risikomanagement und Compliance."
-          }
-        },
       ],
       tags: [
         { "en": "Security", "de": "Sicherheit" },
@@ -550,24 +536,10 @@ export const siteContent: SiteContent = {
           }
         },
         {
-          "type": "achievement",
+          "type": "text",
           "text": {
             "en": "Established GDPR-compliant data protection framework from the ground up.",
             "de": "Aufbau eines DSGVO-konformen Datenschutzrahmens von Grund auf."
-          }
-        },
-        {
-          "type": "achievement",
-          "text": {
-            "en": "Designed secure IT infrastructure (IPv6, Zero Trust, Zero-Config VPN, etc.) tailored to sensitive medical and legal data.",
-            "de": "Konzeption einer sicheren IT-Infrastruktur (IPv6, Zero Trust, Zero-Config VPN, etc.) für sensible medizinische und juristische Daten."
-          }
-        },
-        {
-          "type": "achievement",
-          "text": {
-            "en": "Initiated the integration of AI tools to support efficient case processing.",
-            "de": "Initiierung der Integration von KI-Tools zur effizienten Fallbearbeitung."
           }
         }
       ],
@@ -625,24 +597,10 @@ export const siteContent: SiteContent = {
           }
         },
         {
-          "type": "achievement",
+          "type": "text",
           "text": {
             "en": "Analyzed and benchmarked: OpenAI ChatGPT, OpenAI Open-Weight GPT-OSS, Microsoft Copilot, Perplexity, Anthropic Claude, Apple Foundation, z.AI GLM, n8n, make.com, Zapier.",
             "de": "Analysiert und bewertet: OpenAI ChatGPT, OpenAI Open-Weight GPT-OSS, Microsoft Copilot, Perplexity, Anthropic Claude, Apple Foundation, z.AI GLM, n8n, make.com und Zapier."
-          }
-        },
-        {
-          "type": "achievement",
-          "text": {
-            "en": "Developed a modular learning platform prototype integrated with Supabase and Cloudflare, offering role-based content and progress tracking.",
-            "de": "Entwicklung eines modularen Lernplattform-Prototyps mit Supabase- und Cloudflare-Integration, rollenbasierten Inhalten und Fortschrittsverfolgung."
-          }
-        },
-        {
-          "type": "achievement",
-          "text": {
-            "en": "Produced a comparative decision framework supporting management’s AI adoption strategy.",
-            "de": "Erstellung eines vergleichenden Entscheidungsrahmens zur Unterstützung der KI-Einführungsstrategie des Unternehmens."
           }
         }
       ],
@@ -840,6 +798,63 @@ export const siteContent: SiteContent = {
       ],
     },
     {
+      "title": {
+        "en": "Code Review & Security Advisory",
+        "de": "Code-Review & Security-Beratung"
+      },
+      "company": "GEHR Datentechnik GmbH",
+      "logoUrl": "/logos/gehr.png",
+      "projectScale": "small",
+      "period": { "en": "Oct 2023", "de": "Okt 2023" },
+      "location": {
+        "en": "Mannheim, Germany",
+        "de": "Mannheim, Deutschland"
+      },
+      "description": [
+        {
+          "type": "text",
+          "text": {
+            "en": "Comprehensive code review of the existing PHP application with a structured assessment of critical, medium and low-severity issues.",
+            "de": "Umfassendes Code-Review der bestehenden PHP-Anwendung mit mit mit strukturierter Bewertung von Findings hoher, mittlerer und niedriger Schwere."
+          }
+        },
+        {
+          "type": "text",
+          "text": {
+            "en": "Creation of a detailed review document including technical findings, recommended remediation steps, and prioritization for development teams.",
+            "de": "Erstellung eines ausführlichen Review-Papiers mit technischen Befunden, empfohlenen Maßnahmen und Priorisierung für die Entwicklungsteams."
+          }
+        },
+        {
+          "type": "text",
+          "text": {
+            "en": "Consulting on application and infrastructure security with a focus on practical improvements, secure coding patterns and operational hardening.",
+            "de": "Beratung zu Anwendungs- und Infrastruktursicherheit mit Fokus auf praxisnahe Verbesserungen, sichere Coding-Patterns und betriebliches Hardening."
+          }
+        },
+        {
+          "type": "text",
+          "text": {
+            "en": "Support during the implementation phase to fix identified issues and improve overall application resilience.",
+            "de": "Unterstützung während der Umsetzung zur Behebung identifizierter Probleme und zur Verbesserung der Gesamtstabilität der Anwendung."
+          }
+        }
+      ],
+      "tags": [
+        { "en": "Code Review", "de": "Code-Review" },
+        { "en": "Security Advisory", "de": "Security-Beratung" },
+        { "en": "Vulnerability Analysis", "de": "Schwachstellenanalyse" },
+        { "en": "GDPR", "de": "DSGVO" },
+        { "en": "OWASP", "de": "OWASP" },
+        { "en": "Web Security", "de": "Web-Sicherheit" },
+        { "en": "Data Protection", "de": "Datenschutz" },
+        { "en": "Risk Assessment", "de": "Risikobewertung" },
+        { "en": "Linux", "de": "Linux" },
+        { "en": "PHP", "de": "PHP" },
+        { "en": "MySQL", "de": "MySQL" },
+      ]
+    },    
+    {
       title: { en: "IT Security Consultant", de: "IT-Sicherheitsexperte" },
       company: "Deutsche Vermögensberatung AG",
       logoUrl: "/logos/dvag.svg",
@@ -979,8 +994,8 @@ export const siteContent: SiteContent = {
         {
           type: "text",
           text: {
-            en: "Coordination (about 50%) and planning of resources of a (8 person) team.",
-            de: "Koordination (ca. 50%) und Ressourcenplanung eines (8-köpfigen) Teams.",
+            en: "Coordination and planning of resources of a small team.",
+            de: "Koordination und Ressourcenplanung eines kleinen Teams.",
           },
         },
         {
@@ -1048,6 +1063,85 @@ export const siteContent: SiteContent = {
         { en: "Cloud Storage", de: "Cloud-Speicher" },
         { en: "Proxy", de: "Proxy" },
         { en: "DNS", de: "DNS" },
+      ],
+    },
+    {
+      title: {
+        en: "Product Owner / System Architect",
+        de: "Product Owner / Systemarchitekt",
+      },
+      company: "Deutsche Vermögensberatung AG",
+      logoUrl: "/logos/dvag.svg",
+      period: { en: "Jan 2013 - Jun 2015", de: "Jan 2013 - Jun 2015" },
+      location: {
+        en: "Frankfurt am Main, Germany",
+        de: "Frankfurt am Main, Deutschland",
+      },
+      "description": [
+        {
+          "type": "text",
+          "text": {
+            "en": "Product Owner and system architect for the enterprise-wide email archiving platform, including requirements management, technical roadmap, and long-term evolution.",
+            "de": "Product Owner und Systemarchitekt für die unternehmensweite E-Mail-Archivierungsplattform, einschließlich Anforderungsmanagement, technischer Roadmap und langfristiger Weiterentwicklung."
+          }
+        },
+        {
+          "type": "text",
+          "text": {
+            "en": "Led the design and implementation of a legally compliant archive for more than 50,000 users, ensuring immutable retention, auditability, and long-term maintainability.",
+            "de": "Leitung der Design- und Implementierung eines rechtssicheren Archivs für über 50.000 Nutzer mit rechtssicherer Aufbewahrung, Prüfbarkeit und langfristiger Wartbarkeit."
+          }
+        },
+        {
+          "type": "text",
+          "text": {
+            "en": "Introduced scalable storage, redundancy concepts, monitoring, indexing and full-text search to enable efficient retrieval of historical correspondence.",
+            "de": "Einführung skalierbarer Speicher- und Redundanzkonzepte sowie Monitoring, Indexierung und Volltextsuche zur effizienten Auffindbarkeit historischer Korrespondenz."
+          }
+        },
+        {
+          "type": "text",
+          "text": {
+            "en": "Close collaboration with legal, compliance, and auditing teams to meet regulatory requirements and ensure long-term evidentiary integrity.",
+            "de": "Enge Zusammenarbeit mit Legal-, Compliance- und Audit-Teams zur Erfüllung regulatorischer Anforderungen und langfristigen Beweissicherheit."
+          }
+        },
+        {
+          "type": "text",
+          "text": {
+            "en": "Secondary responsibilities in the surrounding mail infrastructure (dovecot, postfix), Linux-based services, DNS, proxy, load balancing and cloud storage.",
+            "de": "Nebenverantwortlichkeiten in der umliegenden Mail-Infrastruktur (dovecot, postfix), Linux-basierten Diensten, DNS, Proxy, Lastverteilung und Cloud-Speicher."
+          }
+        },
+        {
+          "type": "achievement",
+          "text": {
+            "en": "Delivered a stable, compliant archive used daily across the entire organization.",
+            "de": "Bereitstellung eines stabilen, compliance-gerechten Archivsystems, das im gesamten Unternehmen täglich genutzt wurde."
+          }
+        },
+        {
+          "type": "achievement",
+          "text": {
+            "en": "Established future-proof data retention strategies aligned with strict regulatory expectations.",
+            "de": "Etablierung zukunftssicherer Aufbewahrungsstrategien im Einklang mit strengen regulatorischen Vorgaben."
+          }
+        }
+      ],
+      tags: [
+        { "en": "Email Archiving", "de": "E-Mail-Archivierung" },
+        { "en": "Compliance", "de": "Compliance" },
+        { "en": "Retention Policies", "de": "Aufbewahrungspflichten" },
+        { "en": "dovecot", "de": "dovecot" },
+        { "en": "postfix", "de": "postfix" },
+        { "en": "Linux", "de": "Linux" },
+        { "en": "High Availability", "de": "Hochverfügbarkeit" },
+        { "en": "Monitoring", "de": "Monitoring" },
+        { "en": "Full-Text Search", "de": "Volltextsuche" },
+        { "en": "Indexing", "de": "Indexierung" },
+        { "en": "Scalability", "de": "Skalierbarkeit" },
+        { "en": "Auditability", "de": "Prüfbarkeit" },
+        { "en": "IPv6", "de": "IPv6" }
       ],
     },
   ],
@@ -1996,12 +2090,12 @@ export const siteContent: SiteContent = {
     de: "Schlüsselprojekte",
   },
   experienceBigProjectsSubtitle: {
-    en: "Major technical and organizational engagements with long-term responsibility.",
-    de: "Wesentliche technische und organisatorische Engagements mit langfristiger Verantwortung.",
+    en: "Major technical and organizational engagements with high responsibility.",
+    de: "Wesentliche technische und organisatorische Engagements mit hoher Verantwortung.",
   },
   experienceBigProjectsNote: {
-    en: "A curated selection of multi-month and multi-year engagements; further details available on request.",
-    de: "Eine kuratierte Auswahl mehrmonatiger und mehrjähriger Engagements; weitere Details gerne auf Anfrage.",
+    en: "A curated selection of multi-month and multi-year work; further details on request.",
+    de: "Eine kuratierte Auswahl mehrmonatiger und mehrjähriger Arbeiten; weitere Details auf Anfrage.",
   },
   experienceSmallProjectsTitle: {
     en: "Additional & Focused Projects",
