@@ -35,7 +35,7 @@ const AboutSection = () => {
             <div className="relative">
               {/* Main image */}
               <div className="rounded-lg overflow-hidden shadow-xl hover-scale border-4 border-white dark:border-gray-800">
-                <div className="bg-gradient-to-br from-primary/40 to-accent/40 aspect-[4/5] relative overflow-hidden">
+                <div className="bg-linear-to-br from-primary/40 to-accent/40 aspect-4/5 relative overflow-hidden">
                   <Image
                     src="/about-me.webp"
                     alt={t(about.imageAlt)}

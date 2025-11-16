@@ -73,7 +73,7 @@ export default function CvPage() {
         </div>
       </div>
 
-      <div className="flex flex-grow flex-col bg-muted/80 px-4 py-4 md:px-8">
+      <div className="flex grow flex-col bg-muted/80 px-4 py-4 md:px-8">
         <div className="mb-6">
           <h1 className="mb-2 font-display text-4xl font-bold">
             {t({
@@ -83,11 +83,11 @@ export default function CvPage() {
           </h1>
         </div>
 
-        <div className="grid flex-grow grid-cols-1 gap-12 lg:grid-cols-8">
+        <div className="grid grow grid-cols-1 gap-12 lg:grid-cols-8">
           <div className="relative z-0 flex min-h-[500px] flex-col lg:col-span-6 lg:col-start-2">
-            <div className="flex flex-grow flex-col rounded-lg border-4 border-white shadow-xl dark:border-gray-800">
-              <div className="flex flex-grow flex-col justify-center bg-gradient-to-br from-primary/40 to-accent/40">
-                <div className="m-6 flex flex-grow justify-center overflow-hidden">
+            <div className="flex grow flex-col rounded-lg border-4 border-white shadow-xl dark:border-gray-800">
+              <div className="flex grow flex-col justify-center bg-linear-to-br from-primary/40 to-accent/40">
+                <div className="m-6 flex grow justify-center overflow-hidden">
                   <iframe
                     key={language}
                     src={pdfUrl}

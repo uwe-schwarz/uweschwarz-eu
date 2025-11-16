@@ -125,11 +125,11 @@ const HeroSection = () => {
           <div className="lg:w-1/2 mt-10 lg:mt-0 flex justify-center lg:justify-end">
             <div className="relative w-full max-w-lg aspect-square">
               {/* Background glow effect */}
-              <div className="w-full h-full rounded-full bg-gradient-to-br from-primary to-accent/70 shadow-xl filter blur-sm absolute"></div>
+              <div className="w-full h-full rounded-full bg-linear-to-br from-primary to-accent/70 shadow-xl filter blur-sm absolute"></div>
 
               {/* Profile picture container */}
               <div className="w-[95%] h-[95%] rounded-full bg-background absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center overflow-hidden">
-                <div className="w-[75%] h-[75%] rounded-full bg-gradient-to-br from-primary/20 to-accent/20 p-1">
+                <div className="w-[75%] h-[75%] rounded-full bg-linear-to-br from-primary/20 to-accent/20 p-1">
                   <div className="w-full h-full rounded-full bg-background flex items-center justify-center overflow-hidden">
                     {/* Profile image */}
                     <ProfilePicture alt={t(hero.imageAlt)} />

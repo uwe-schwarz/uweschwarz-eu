@@ -52,10 +52,10 @@ const ExperienceSection = () => {
     }
 
     return <div key={sectionKey} className="relative max-w-7xl mx-auto pb-12">
-        <div className="absolute md:block hidden left-0 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-primary/30 via-primary/70 to-secondary/30 rounded"></div>
+        <div className="absolute md:block hidden left-0 transform -translate-x-1/2 h-full w-1 bg-linear-to-b from-primary/30 via-primary/70 to-secondary/30 rounded"></div>
         <div className="absolute md:block hidden left0 transform -translate-x-1/2 w-1 pointer-events-none h-full">
           <div className="relative h-full w-full">
-            <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-transparent via-primary to-transparent animate-timeline-glow"></div>
+            <div className="absolute top-0 left-0 w-full h-20 bg-linear-to-b from-transparent via-primary to-transparent animate-timeline-glow"></div>
           </div>
         </div>
 
@@ -71,7 +71,7 @@ const ExperienceSection = () => {
               <div className={cn("md:col-span-11", "md:col-start-2")}>
                 <div
                   className={cn(
-                    "hidden md:block absolute top-11 border-t-2 border-dashed border-primary/60 z-[5]"
+                    "hidden md:block absolute top-11 border-t-2 border-dashed border-primary/60 z-5"
                   )}
                   style={{
                     left: "15px",
@@ -82,7 +82,7 @@ const ExperienceSection = () => {
 
                 <Card className={cn("overflow-hidden border border-border transition-all duration-300 rounded-lg hover-scale", "shadow-xl border-4 border-white dark:border-gray-800",
               // Add shadow like in the About section
-              "bg-gradient-to-br from-primary/40 to-accent/40", "backdrop-blur-sm")}>
+              "bg-linear-to-br from-primary/40 to-accent/40", "backdrop-blur-sm")}>
                   {/* Logo (if exists) - positioned right, offset from the corner with flowing text */}
                   {exp.logoUrl && (
                     <Image

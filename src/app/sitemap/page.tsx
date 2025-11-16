@@ -21,7 +21,7 @@ export default function SitemapPage() {
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
-      <main className="flex-grow pb-16 pt-24">
+      <main className="grow pb-16 pt-24">
         <div className="container mx-auto px-4">
           <div className="mx-auto max-w-3xl">
             <Button asChild variant="ghost" size="sm" className="mb-6">
