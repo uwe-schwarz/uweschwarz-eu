@@ -3,6 +3,8 @@
 
 import Link from "next/link";
 import type { Route } from "next";
+
+import { CV_LAST_UPDATED } from "@/generated/cv-assets";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
 
@@ -58,7 +60,7 @@ const Footer = () => {
           )}
 
           <p className="ml-auto text-xs text-muted-foreground">
-            {t(footer.lastUpdated)}
+            {t(CV_LAST_UPDATED)}
           </p>
         </div>
       </div>

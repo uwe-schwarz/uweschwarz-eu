@@ -206,7 +206,6 @@ export interface Footer {
   copyright: LocalizedString;
   links: NavItem[];
   builtWith?: LocalizedString;
-  lastUpdated: LocalizedString;
 }
 
 export interface ImprintSection {
@@ -1760,10 +1759,6 @@ export const siteContent: SiteContent = {
       en: "Built with modern web technologies and a passion for clean code.",
       de: "Erstellt mit modernen Web-Technologien und einer Leidenschaft für sauberen Code.",
     },*/
-    lastUpdated: {
-      en: "Last updated: April 2025",
-      de: "Letzte Aktualisierung: April 2025",
-    },
   },
   imprint: {
     title: {

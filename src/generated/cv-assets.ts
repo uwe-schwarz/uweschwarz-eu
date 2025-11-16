@@ -11,3 +11,8 @@ export const CV_ASSETS = {
     docx: "/uwe-schwarz-cv-de-2025-11-16.docx",
   },
 } as const;
+
+export const CV_LAST_UPDATED = {
+  en: "Last updated: November 2025",
+  de: "Letzte Aktualisierung: November 2025",
+} as const;
