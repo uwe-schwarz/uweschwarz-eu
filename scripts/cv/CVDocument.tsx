@@ -476,7 +476,7 @@ const CVDocument: React.FC<CVDocumentProps> = ({ language, data, profileImageSrc
               </View>
             )}
             {smallExperiences.length > 0 && (
-              <View style={{ marginTop: 12 }}>
+              <View style={{ marginTop: 12 } }>
                 <Text style={styles.skillCategoryTitle}>{t(content.experienceSmallProjectsTitle)}</Text>
                 <Text style={styles.groupSubtitle}>{t(content.experienceSmallProjectsSubtitle)}</Text>
                 <Text style={styles.groupNote}>{t(content.experienceSmallProjectsNote)}</Text>

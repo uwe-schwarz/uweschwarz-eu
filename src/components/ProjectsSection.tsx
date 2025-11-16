@@ -42,7 +42,7 @@ const ProjectsSection = () => {
                   <div className="bg-card rounded-xl overflow-hidden shadow-md border border-border hover-scale transition-all h-full">
                     {/* Project Image */}
                     <div className="aspect-video relative">
-                      <div className="absolute inset-0 bg-gradient-to-br from-primary/40 to-accent/40 flex items-center justify-center">
+                      <div className="absolute inset-0 bg-linear-to-br from-primary/40 to-accent/40 flex items-center justify-center">
                         {project.imageUrl && (
                           <div className="relative h-48 w-full max-w-[16rem]">
                             <Image
