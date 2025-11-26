@@ -273,6 +273,7 @@ const ContactSection = () => {
                         <FormControl>
                           <Input
                             placeholder={t(contact.formPlaceholders.name)}
+                            autoComplete="name"
                             {...field}
                           />
                         </FormControl>
@@ -293,6 +294,7 @@ const ContactSection = () => {
                           <Input
                             type="email"
                             placeholder={t(contact.formPlaceholders.email)}
+                            autoComplete="email"
                             {...field}
                           />
                         </FormControl>

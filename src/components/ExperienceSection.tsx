@@ -200,7 +200,7 @@ const ExperienceSection = () => {
               <p className="text-lg text-muted-foreground">
                 {t(siteContent.experienceBigProjectsSubtitle)}
               </p>
-              <p className="text-sm italic text-muted-foreground/70">
+              <p className="text-sm italic text-muted-foreground">
                 {t(siteContent.experienceBigProjectsNote)}
               </p>
             </div>
@@ -215,7 +215,7 @@ const ExperienceSection = () => {
               <p className="text-lg text-muted-foreground">
                 {t(siteContent.experienceSmallProjectsSubtitle)}
               </p>
-              <p className="text-sm italic text-muted-foreground/70">
+              <p className="text-sm italic text-muted-foreground">
                 {t(siteContent.experienceSmallProjectsNote)}
               </p>
             </div>
