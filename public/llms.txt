@@ -1,7 +1,7 @@
 # llms.txt for uweschwarz.eu
 # This file provides structured information for AI language models.
 # For more information, see https://llmstxt.org/
-# Version 1.0, Generated on 2025-11-26
+# Version 1.0, Generated on 2025-11-27
 
 # --- PERMISSIONS ---
 User-Agent: *
@@ -21,8 +21,8 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
 [de] Uwe Schwarz
 
 [Published]:
-[en] 2025-11-26
-[de] 26.11.2025
+[en] 2025-11-27
+[de] 27.11.2025
 
 [Languages]:
 [en] English, German

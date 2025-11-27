@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   SettingsContext,
   type Language,
@@ -8,55 +8,48 @@ import {
   type SettingsContextType,
 } from './settings-hook';
 
-export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  // Start with default values to avoid hydration mismatch
-  // These will be updated after mount with actual user preferences
-  const [language, setLanguageState] = useState<Language>('en');
-  const [theme, setThemeState] = useState<Theme>('light');
-  const [isInitialized, setIsInitialized] = useState(false);
+interface SettingsProviderProps {
+  children: React.ReactNode;
+  initialLanguage: Language;
+}
 
-  // Initialize from browser/localStorage after component mounts (client-side only)
-  // This is wrapped in useEffect to avoid hydration mismatch - we need consistent
-  // server/client initial render, then update to actual preferences after mount
+const getInitialLanguage = (fallback: Language): Language => {
+  if (typeof window === 'undefined') return fallback;
+
+  const saved = localStorage.getItem('language') as Language | null;
+  if (saved === 'en' || saved === 'de') return saved;
+
+  const navigatorLanguage = navigator.language?.substring(0, 2).toLowerCase();
+  if (navigatorLanguage === 'de') return 'de';
+
+  return fallback;
+};
+
+const getInitialTheme = (): Theme => {
+  if (typeof window === 'undefined') return 'light';
+
+  const saved = localStorage.getItem('theme') as Theme | null;
+  if (saved === 'light' || saved === 'dark') return saved;
+
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+};
+
+export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children, initialLanguage }) => {
+  const [language, setLanguageState] = useState<Language>(() => getInitialLanguage(initialLanguage));
+  const [theme, setThemeState] = useState<Theme>(() => getInitialTheme());
+
+  // Keep <html lang> in sync with current language
   useEffect(() => {
-    // Get language from localStorage or browser
-    const savedLanguage = localStorage.getItem('language') as Language;
-    let newLanguage: Language;
-    if (savedLanguage === 'en' || savedLanguage === 'de') {
-      newLanguage = savedLanguage;
-    } else {
-      const navigatorLanguage = navigator.language.substring(0, 2).toLowerCase();
-      newLanguage = navigatorLanguage === 'de' ? 'de' : 'en';
+    if (typeof document === 'undefined') return;
+    document.documentElement.setAttribute('lang', language);
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('language', language);
     }
+  }, [language]);
 
-    // Get theme from localStorage or system preference
-    const savedTheme = localStorage.getItem('theme') as Theme;
-    let newTheme: Theme;
-    if (savedTheme) {
-      newTheme = savedTheme;
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      newTheme = 'dark';
-    } else {
-      newTheme = 'light';
-    }
-
-    // Batch state updates together
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- Initialization after mount to avoid hydration mismatch
-    setLanguageState(newLanguage);
-    setThemeState(newTheme);
-    setIsInitialized(true);
-  }, []);
-
-  // Set <html lang> attribute whenever language changes
+  // Sync theme to DOM + localStorage
   useEffect(() => {
-    if (isInitialized) {
-      document.documentElement.setAttribute('lang', language);
-    }
-  }, [language, isInitialized]);
-
-  useEffect(() => {
-    if (!isInitialized) return;
-
+    if (typeof document === 'undefined') return;
     const root = window.document.documentElement;
 
     if (theme === 'dark') {
@@ -65,19 +58,25 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       root.classList.remove('dark');
     }
 
-    localStorage.setItem('theme', theme);
-  }, [theme, isInitialized]);
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('theme', theme);
+    }
+  }, [theme]);
 
   // Language setting function
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
-    localStorage.setItem('language', lang);
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('language', lang);
+    }
   };
 
   // Theme setting function
   const setTheme = (theme: Theme) => {
     setThemeState(theme);
-    localStorage.setItem('theme', theme);
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('theme', theme);
+    }
   };
 
   // Translation helper

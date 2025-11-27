@@ -1,9 +1,11 @@
 import type { ReactNode } from "react";
+import { headers } from "next/headers";
 import { Public_Sans, Space_Grotesk } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { Analytics } from '@vercel/analytics/next';
 import "./globals.css";
 import Providers from "./providers";
+import { detectPreferredLanguage } from "@/lib/detect-language";
 
 const publicSans = Public_Sans({
   subsets: ["latin"],
@@ -26,12 +28,22 @@ const siteUrl = "https://uweschwarz.eu";
 const ogImage = `${siteUrl}/profile.webp`;
 const twitterHandle = "@e38383";
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: ReactNode }>) {
+  const headerList = await headers();
+
+  // Guard for any non-standard header implementations (e.g. Turbopack dev)
+  const acceptLanguage =
+    typeof (headerList as Headers | undefined)?.get === "function"
+      ? (headerList as Headers).get("accept-language")
+      : null;
+
+  const initialLanguage = detectPreferredLanguage(acceptLanguage);
+
   return (
     <html
-      lang="en"
+      lang={initialLanguage}
       suppressHydrationWarning
       className={cn(publicSans.variable, spaceGrotesk.variable)}
     >
@@ -66,7 +78,7 @@ export default function RootLayout({
         />
       </head>
       <body className={cn("min-h-screen bg-background font-sans antialiased text-foreground")}>
-        <Providers>{children}</Providers>
+        <Providers initialLanguage={initialLanguage}>{children}</Providers>
         <Analytics />;
       </body>
     </html>

@@ -1,24 +1,14 @@
-"use client";
+import type { ReactNode } from "react";
+import ProvidersClient from "./providers.client";
+import type { Language } from "@/contexts/settings-hook";
 
-import { useState, type ReactNode } from "react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { SettingsProvider } from "@/contexts/SettingsContext";
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-
-export default function Providers({ children }: { children: ReactNode }) {
-  const [queryClient] = useState(() => new QueryClient());
-
-  return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider delayDuration={150}>
-        <SettingsProvider>
-          {children}
-          <Toaster />
-          <Sonner />
-        </SettingsProvider>
-      </TooltipProvider>
-    </QueryClientProvider>
-  );
+export default function Providers({
+  children,
+  initialLanguage,
+}: {
+  children: ReactNode;
+  initialLanguage: Language;
+}) {
+  return <ProvidersClient initialLanguage={initialLanguage}>{children}</ProvidersClient>;
 }
+
