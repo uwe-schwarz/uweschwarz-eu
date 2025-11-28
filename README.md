@@ -1,6 +1,6 @@
 # Personal Portfolio Website
 
-This is a personal portfolio website built with **Next.js 16**, **React 19**, **TypeScript**, and **Tailwind CSS**. It showcases my projects, skills, and experience with modern UX enhancements powered by shadcn/ui, Radix primitives, and React Query.
+This is a personal portfolio website built with **Next.js 16**, **React 19**, **TypeScript**, and **Tailwind CSS**. It showcases my projects, skills, and experience with modern UX enhancements powered by shadcn/ui, Radix primitives, and React Query. The site features automatic browser language detection (English/German) and generates dynamic CV assets.
 
 ## Technologies Used
 
@@ -16,7 +16,7 @@ This is a personal portfolio website built with **Next.js 16**, **React 19**, **
 ### Prerequisites
 
 - Node.js (v18 or higher recommended)
-- bun (bundled with Node.js)
+- Bun package manager
 
 ### Installation and Running Locally
 
@@ -35,7 +35,7 @@ This is a personal portfolio website built with **Next.js 16**, **React 19**, **
    ```bash
    bun run dev
    ```
-   The Next.js development server starts on `http://localhost:3000`. The application automatically reloads when you change source files.
+   The Next.js development server starts on `http://localhost:3000` (or the next available port). The application automatically reloads when you change source files.
 
 ## Building the Project
 
@@ -56,10 +56,10 @@ bun run start
 This project is optimised for deployment on [Vercel](https://vercel.com/).
 
 1. Push the repository to GitHub
-2. Import the project into Vercel and select the repository.
-3. Vercel automatically detects the Next.js framework. Use the default build command (`bun run build`) and output directory (`.next`).
-4. Configure environment variables (for example `RESEND_API_KEY`) in the Vercel dashboard as needed.
-5. Deploy. Subsequent pushes to the configured branch trigger new deployments automatically.
+2. Import the project into Vercel and select the repository
+3. Vercel automatically detects the Next.js framework and configures the build settings
+4. Configure environment variables in the Vercel dashboard (see Environment Variables section below)
+5. Deploy. Subsequent pushes to the configured branch trigger new deployments automatically
 
 ## Useful Scripts
 
@@ -67,6 +67,21 @@ This project is optimised for deployment on [Vercel](https://vercel.com/).
 - `bun run generate:sitemap` – refresh the static sitemap XML.
 - `bun run generate:llms` – produce the `llms.txt` description for AI crawlers.
 
+## Environment Variables
+
+The following environment variables may need to be configured:
+
+- `RESEND_API_KEY` - Required for contact form functionality
+- Other API keys as needed for integrations
+
 ## Automated Assets
 
 Git hooks ensure that the sitemap and CV artefacts stay in sync with content changes. Remember to commit generated files when scripts update them.
+
+## Features
+
+- **Automatic Language Detection**: Detects user's browser language preference and serves content in English or German
+- **Dynamic CV Generation**: Automatically generates downloadable CV assets in multiple formats
+- **Responsive Design**: Optimized for desktop and mobile devices
+- **SEO Optimized**: Automatic sitemap generation and meta tags
+- **Contact Form**: Integrated email functionality via Resend API
