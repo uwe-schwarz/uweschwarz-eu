@@ -1,11 +1,11 @@
 import type { ReactNode } from "react";
-import { headers } from "next/headers";
+import Script from "next/script";
 import { Public_Sans, Space_Grotesk } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { Analytics } from '@vercel/analytics/next';
 import "./globals.css";
 import Providers from "./providers";
-import { detectPreferredLanguage } from "@/lib/detect-language";
+import type { Language } from "@/contexts/settings-hook";
 
 const publicSans = Public_Sans({
   subsets: ["latin"],
@@ -28,22 +28,49 @@ const siteUrl = "https://uweschwarz.eu";
 const ogImage = `${siteUrl}/profile.webp`;
 const twitterHandle = "@e38383";
 
-export default async function RootLayout({
+const defaultLanguage: Language = "en";
+
+const clientPreferenceScript = `(() => {
+  const root = document.documentElement;
+
+  const getLanguage = () => {
+    const stored = localStorage.getItem("language");
+    if (stored === "en" || stored === "de") return stored;
+
+    const navigatorLanguage = navigator.language?.substring(0, 2).toLowerCase();
+    return navigatorLanguage === "de" ? "de" : "en";
+  };
+
+  const getTheme = () => {
+    const stored = localStorage.getItem("theme");
+    if (stored === "light" || stored === "dark") return stored;
+
+    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  };
+
+  try {
+    const language = getLanguage();
+    root.setAttribute("lang", language);
+
+    const theme = getTheme();
+    if (theme === "dark") {
+      root.classList.add("dark");
+    } else {
+      root.classList.remove("dark");
+    }
+  } catch (error) {
+    if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      root.classList.add("dark");
+    }
+  }
+})();`;
+
+export default function RootLayout({
   children,
 }: Readonly<{ children: ReactNode }>) {
-  const headerList = await headers();
-
-  // Guard for any non-standard header implementations (e.g. Turbopack dev)
-  const acceptLanguage =
-    typeof (headerList as Headers | undefined)?.get === "function"
-      ? (headerList as Headers).get("accept-language")
-      : null;
-
-  const initialLanguage = detectPreferredLanguage(acceptLanguage);
-
   return (
     <html
-      lang={initialLanguage}
+      lang={defaultLanguage}
       suppressHydrationWarning
       className={cn(publicSans.variable, spaceGrotesk.variable)}
     >
@@ -78,8 +105,13 @@ export default async function RootLayout({
         />
       </head>
       <body className={cn("min-h-screen bg-background font-sans antialiased text-foreground")}>
-        <Providers initialLanguage={initialLanguage}>{children}</Providers>
-        <Analytics />;
+        <Script
+          id="client-preferences"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{ __html: clientPreferenceScript }}
+        />
+        <Providers initialLanguage={defaultLanguage}>{children}</Providers>
+        <Analytics />
       </body>
     </html>
   );
