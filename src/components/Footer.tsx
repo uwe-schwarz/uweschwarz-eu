@@ -7,13 +7,15 @@ import type { Route } from "next";
 import { CV_LAST_UPDATED } from "@/generated/cv-assets";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
+import { withLanguagePrefix } from "@/lib/i18n";
 
 const Footer = () => {
-  const { t } = useSettings();
+  const { language, t } = useSettings();
   const { footer } = siteContent;
   const sitemap = siteContent.sitemap;
   const year = new Date().getFullYear();
   const sitemapLabel = sitemap ? t(sitemap.title) : t({ en: "Sitemap", de: "Sitemap" });
+  const homeHref = withLanguagePrefix(language, "/");
 
   return (
     <footer className="bg-muted py-12">
@@ -21,12 +23,12 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center">
           {/* Logo and copyright */}
           <div className="mb-6 md:mb-0">
-            <a
-              href="#hero"
+            <Link
+              href={`${homeHref}#hero` as Route}
               className="text-xl font-display font-bold text-foreground mb-2 inline-block"
             >
               <span className="text-gradient">Uwe Schwarz</span>
-            </a>
+            </Link>
             <p className="text-sm text-muted-foreground">
               {t(footer.copyright).replace("year", year.toString())}
             </p>
@@ -37,14 +39,14 @@ const Footer = () => {
             {footer.links.map((link, index) => (
               <Link
                 key={index}
-                href={link.href as Route}
+                href={withLanguagePrefix(language, link.href) as Route}
                 className="text-sm text-muted-foreground hover:text-primary transition-colors link-underline"
               >
                 {t(link.label)}
               </Link>
             ))}
             <Link
-              href={"/sitemap" as Route}
+              href={withLanguagePrefix(language, "/sitemap") as Route}
               className="text-sm text-muted-foreground hover:text-primary transition-colors link-underline"
             >
               {sitemapLabel}

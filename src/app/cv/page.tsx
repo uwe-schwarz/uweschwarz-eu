@@ -1,12 +1,15 @@
 "use client";
 
 import Link from "next/link";
+import type { Route } from "next";
 import { Download, Globe, ArrowLeft, Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useSettings } from "@/contexts/settings-hook";
 import { siteContent } from "@/content/content";
 import { useScrollToTop } from "@/hooks/use-scroll-to-top";
 import { CV_ASSETS } from "@/generated/cv-assets";
+import { replacePathLanguage, withLanguagePrefix } from "@/lib/i18n";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const CvDownloadButtons = ({ language }: { language: "en" | "de" }) => {
   const pdfUrl = CV_ASSETS[language].pdf;
@@ -32,15 +35,37 @@ const CvDownloadButtons = ({ language }: { language: "en" | "de" }) => {
 
 export default function CvPage() {
   const { language, setLanguage, theme, setTheme, t } = useSettings();
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   useScrollToTop();
 
   const pdfUrl = CV_ASSETS[language].pdf;
+  const getPersistedLanguage = (): "en" | "de" | null => {
+    try {
+      const saved = localStorage.getItem("language");
+      return saved === "en" || saved === "de" ? saved : null;
+    } catch {
+      return null;
+    }
+  };
+
+  const getPersistedTheme = (): "light" | "dark" | null => {
+    try {
+      const saved = localStorage.getItem("theme");
+      return saved === "light" || saved === "dark" ? saved : null;
+    } catch {
+      return null;
+    }
+  };
+
+  const homeHref = withLanguagePrefix(language, "/");
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-          <Link href="/" className="flex items-center text-muted-foreground hover:text-primary/80 dark:text-primary">
+          <Link href={homeHref as Route} className="flex items-center text-muted-foreground hover:text-primary/80 dark:text-primary">
             <ArrowLeft className="mr-2 h-4 w-4" />
             <span>{t(siteContent.backToHome)}</span>
           </Link>
@@ -50,7 +75,10 @@ export default function CvPage() {
               <Button
                 variant="secondary"
                 size="sm"
-                onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+                onClick={() => {
+                  const current = getPersistedTheme() ?? theme;
+                  setTheme(current === "light" ? "dark" : "light");
+                }}
                 className="rounded-full shadow-lg hover-scale"
                 aria-label={theme === "light" ? "Switch to dark theme" : "Switch to light theme"}
               >
@@ -60,7 +88,16 @@ export default function CvPage() {
               <Button
                 variant="secondary"
                 size="sm"
-                onClick={() => setLanguage(language === "en" ? "de" : "en")}
+                onClick={() => {
+                  const current = getPersistedLanguage() ?? language;
+                  const nextLanguage = current === "en" ? "de" : "en";
+                  setLanguage(nextLanguage);
+
+                  const query = searchParams?.toString();
+                  const hash = typeof window !== "undefined" ? window.location.hash : "";
+                  const nextPath = replacePathLanguage(pathname, nextLanguage);
+                  router.push(`${nextPath}${query ? `?${query}` : ""}${hash}` as Route);
+                }}
                 className="rounded-full shadow-lg hover-scale"
               >
                 <Globe className="mr-2 h-4 w-4" />

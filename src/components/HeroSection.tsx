@@ -2,11 +2,14 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import type { Route } from "next";
 import { ArrowDown, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useSettings } from "@/contexts/settings-hook";
 import { siteContent } from "@/content/content";
 import { useFitText } from "@/hooks/use-fit-text";
+import { withLanguagePrefix } from "@/lib/i18n";
 
 const ProfilePicture = React.memo(({ alt }: { alt: string }) => (
   <div className="w-full h-full rounded-full bg-background flex items-center justify-center overflow-hidden relative">
@@ -24,7 +27,7 @@ const ProfilePicture = React.memo(({ alt }: { alt: string }) => (
 ProfilePicture.displayName = "ProfilePicture";
 
 const HeroSection = () => {
-  const { t } = useSettings();
+  const { language, t } = useSettings();
   const { hero } = siteContent;
 
   // State for the rotating title
@@ -113,10 +116,10 @@ const HeroSection = () => {
                 size="lg"
                 className="rounded-full shadow-sm hover-scale"
               >
-                <a href="/cv">
+                <Link href={withLanguagePrefix(language, "/cv") as Route}>
                   <FileText className="w-4 h-4 mr-2" />
                   {t(hero.ctaSecondary)}
-                </a>
+                </Link>
               </Button>
             </div>
           </div>

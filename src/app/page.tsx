@@ -1,40 +1,37 @@
-"use client";
+import type { Metadata } from "next";
+import { cookies, headers } from "next/headers";
+import { redirect } from "next/navigation";
 
-import dynamic from "next/dynamic";
-import Header from "@/components/Header";
-import HeroSection from "@/components/HeroSection";
-import AboutSection from "@/components/AboutSection";
-import ExperienceSection from "@/components/ExperienceSection";
-import Footer from "@/components/Footer";
+import { detectPreferredLanguage } from "@/lib/detect-language";
+import { DEFAULT_LANGUAGE, isSupportedLanguage } from "@/lib/i18n";
 
-const ProjectsSection = dynamic(() => import("@/components/ProjectsSection"), {
-  loading: () => <div className="py-16 text-center">Loading…</div>,
-  ssr: false,
-});
+export async function generateMetadata(): Promise<Metadata> {
+  const siteUrl = "https://uweschwarz.eu";
 
-const SkillsSection = dynamic(() => import("@/components/SkillsSection"), {
-  loading: () => <div className="py-16 text-center">Loading…</div>,
-  ssr: false,
-});
+  return {
+    title: "Uwe Schwarz - Project Manager, IT Security Specialist & AI Enthusiast",
+    description: "Portfolio of Uwe Schwarz - Project Manager, IT Security Specialist & AI Enthusiast",
+    metadataBase: new URL(siteUrl),
+    alternates: {
+      languages: {
+        en: `${siteUrl}/en`,
+        de: `${siteUrl}/de`,
+      },
+    },
+  };
+}
 
-const ContactSection = dynamic(() => import("@/components/ContactSection"), {
-  loading: () => <div className="py-16 text-center">Loading…</div>,
-  ssr: false,
-});
+export default async function RootPage() {
+  const cookieStore = await cookies();
+  const cookieLanguage = cookieStore.get("language")?.value;
 
-export default function HomePage() {
-  return (
-    <div className="flex min-h-screen flex-col">
-      <Header />
-      <main className="grow">
-        <HeroSection />
-        <AboutSection />
-        <ExperienceSection />
-        <ProjectsSection />
-        <SkillsSection />
-        <ContactSection />
-      </main>
-      <Footer />
-    </div>
-  );
+  if (isSupportedLanguage(cookieLanguage)) {
+    redirect(`/${cookieLanguage}`);
+  }
+
+  const headerList = await headers();
+  const acceptLanguage = headerList.get("accept-language");
+  const detected = detectPreferredLanguage(acceptLanguage) ?? DEFAULT_LANGUAGE;
+
+  redirect(`/${detected}`);
 }

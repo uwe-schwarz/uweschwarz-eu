@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import React, { useEffect } from "react";
+import Link from "next/link";
+import type { Route } from "next";
 import { siteContent } from "@/content/content";
 import type { Experience } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
@@ -9,9 +11,11 @@ import { FileText, MapPin, Calendar, MessageSquareMore } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { withLanguagePrefix } from "@/lib/i18n";
 
 const ExperienceSection = () => {
   const {
+    language,
     t
   } = useSettings();
   const {
@@ -232,12 +236,15 @@ const ExperienceSection = () => {
           </p>
           <div className="mt-4"></div>
           {/* Download Resume */}
-          <a href="/cv" className="inline-flex items-center text-primary hover:text-primary/80 transition-colors link-underline">
+          <Link
+            href={withLanguagePrefix(language, "/cv") as Route}
+            className="inline-flex items-center text-primary hover:text-primary/80 transition-colors link-underline"
+          >
             <FileText size={24} className="mr-2" />
             <span>
               {t(siteContent.downloadResume)}
             </span>
-          </a>
+          </Link>
         </div>
       </div>
 

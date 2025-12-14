@@ -2,32 +2,63 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import type { Route } from "next";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Moon, Sun, Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useSettings } from "@/contexts/settings-hook";
 import { siteContent } from "@/content/content";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { replacePathLanguage, withLanguagePrefix } from "@/lib/i18n";
 
 const Header = () => {
   const { language, setLanguage, theme, setTheme, t } = useSettings();
+  const router = useRouter();
   const [isScrolled, setIsScrolled] = useState(false);
   const isMobile = useIsMobile();
   const pathname = usePathname();
-  const isHomePage = pathname === "/";
+  const searchParams = useSearchParams();
+  const homeHref = withLanguagePrefix(language, "/");
+  const isHomePage = pathname === homeHref;
   const [activeSection, setActiveSection] = useState<string>("hero");
 
   const navigationItems = useMemo(() => siteContent.navigation, []);
 
+  const getPersistedLanguage = (): "en" | "de" | null => {
+    try {
+      const saved = localStorage.getItem("language");
+      return saved === "en" || saved === "de" ? saved : null;
+    } catch {
+      return null;
+    }
+  };
+
+  const getPersistedTheme = (): "light" | "dark" | null => {
+    try {
+      const saved = localStorage.getItem("theme");
+      return saved === "light" || saved === "dark" ? saved : null;
+    } catch {
+      return null;
+    }
+  };
+
   // Toggle for handling theme changes
   const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light");
+    const current = getPersistedTheme() ?? theme;
+    setTheme(current === "light" ? "dark" : "light");
   };
 
   // Toggle for handling language changes
   const toggleLanguage = () => {
-    setLanguage(language === "en" ? "de" : "en");
+    const current = getPersistedLanguage() ?? language;
+    const nextLanguage = current === "en" ? "de" : "en";
+    setLanguage(nextLanguage);
+
+    const query = searchParams?.toString();
+    const hash = typeof window !== "undefined" ? window.location.hash : "";
+    const nextPath = replacePathLanguage(pathname, nextLanguage);
+    router.push(`${nextPath}${query ? `?${query}` : ""}${hash}` as Route);
   };
 
   // Detect scroll for header styling
@@ -72,7 +103,7 @@ const Header = () => {
     >
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <Link
-          href="/"
+          href={homeHref as Route}
           className="text-2xl font-display font-bold text-foreground"
         >
           <span className="text-gradient text-4xl">Uwe Schwarz</span>
@@ -98,7 +129,7 @@ const Header = () => {
             return (
               <Link
                 key={item.href}
-                href={{ pathname: '/', hash: item.href as `#${string}` }}
+                href={`${homeHref}${item.href}` as Route}
                 className="text-lg font-medium text-foreground hover:text-primary transition-colors link-underline"
               >
                 {t(item.label)}
@@ -125,8 +156,8 @@ const Header = () => {
             onClick={toggleTheme}
             aria-label={t(
               theme === "light"
-                ? siteContent.translations.themeSwitch.light
-                : siteContent.translations.themeSwitch.dark
+                ? siteContent.translations.themeSwitch.dark
+                : siteContent.translations.themeSwitch.light
             )}
           >
             {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
@@ -152,7 +183,7 @@ const Header = () => {
             >
               <div className="flex flex-col h-full">
                 <div className="border-b border-gray-200 dark:border-gray-800 py-4 px-6">
-                  <Link href="/" className="text-2xl font-display font-bold">
+                  <Link href={homeHref as Route} className="text-2xl font-display font-bold">
                     <span className="text-gradient">Uwe Schwarz</span>
                   </Link>
                 </div>
@@ -176,7 +207,7 @@ const Header = () => {
                     return (
                       <Link
                         key={item.href}
-                        href={{ pathname: '/', hash: item.href as `#${string}` }}
+                        href={`${homeHref}${item.href}` as Route}
                         className="text-xl font-medium text-foreground hover:text-primary transition-colors"
                       >
                         {t(item.label)}

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import type { Route } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useSettings } from "@/contexts/settings-hook";
@@ -8,11 +9,13 @@ import { siteContent } from "@/content/content";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { useScrollToTop } from "@/hooks/use-scroll-to-top";
+import { withLanguagePrefix } from "@/lib/i18n";
 
 export default function PrivacyPage() {
-  const { t } = useSettings();
+  const { language, t } = useSettings();
   const { privacy } = siteContent;
   useScrollToTop();
+  const homeHref = withLanguagePrefix(language, "/");
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -21,7 +24,7 @@ export default function PrivacyPage() {
         <div className="container mx-auto px-4">
           <div className="mx-auto max-w-3xl">
             <Button asChild variant="ghost" size="sm" className="mb-6">
-              <Link href="/">
+              <Link href={homeHref as Route}>
                 <ArrowLeft size={16} className="mr-2" />
                 {t(siteContent.backToHome)}
               </Link>
