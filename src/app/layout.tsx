@@ -1,11 +1,9 @@
 import type { ReactNode } from "react";
-import { headers } from "next/headers";
 import { Public_Sans, Space_Grotesk } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { Analytics } from '@vercel/analytics/next';
 import "./globals.css";
 import Providers from "./providers";
-import { detectPreferredLanguage } from "@/lib/detect-language";
 
 const publicSans = Public_Sans({
   subsets: ["latin"],
@@ -28,18 +26,43 @@ const siteUrl = "https://uweschwarz.eu";
 const ogImage = `${siteUrl}/profile.webp`;
 const twitterHandle = "@e38383";
 
-export default async function RootLayout({
+const preferenceBootstrapScript = `(() => {
+  try {
+    const storedLanguage = localStorage.getItem('language');
+    const navigatorLanguage = navigator.language?.slice(0, 2).toLowerCase();
+    const language = storedLanguage === 'de' || storedLanguage === 'en'
+      ? storedLanguage
+      : navigatorLanguage === 'de'
+        ? 'de'
+        : 'en';
+
+    document.documentElement.setAttribute('lang', language);
+    localStorage.setItem('language', language);
+
+    const storedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const theme = storedTheme === 'dark' || storedTheme === 'light'
+      ? storedTheme
+      : prefersDark
+        ? 'dark'
+        : 'light';
+
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+
+    localStorage.setItem('theme', theme);
+  } catch {
+    // If the user has disabled localStorage or scripting, silently fall back to defaults
+  }
+})();`;
+
+export default function RootLayout({
   children,
 }: Readonly<{ children: ReactNode }>) {
-  const headerList = await headers();
-
-  // Guard for any non-standard header implementations (e.g. Turbopack dev)
-  const acceptLanguage =
-    typeof (headerList as Headers | undefined)?.get === "function"
-      ? (headerList as Headers).get("accept-language")
-      : null;
-
-  const initialLanguage = detectPreferredLanguage(acceptLanguage);
+  const initialLanguage = "en" as const;
 
   return (
     <html
@@ -70,6 +93,8 @@ export default async function RootLayout({
         <meta name="twitter:image" content={ogImage} />
 
         <link rel="icon" type="image/svg+xml" href="/us.svg" />
+
+        <script dangerouslySetInnerHTML={{ __html: preferenceBootstrapScript }} />
 
         <script
           defer
