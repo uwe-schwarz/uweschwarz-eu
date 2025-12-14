@@ -35,6 +35,23 @@ export default function CvPage() {
   useScrollToTop();
 
   const pdfUrl = CV_ASSETS[language].pdf;
+  const getPersistedLanguage = (): "en" | "de" | null => {
+    try {
+      const saved = localStorage.getItem("language");
+      return saved === "en" || saved === "de" ? saved : null;
+    } catch {
+      return null;
+    }
+  };
+
+  const getPersistedTheme = (): "light" | "dark" | null => {
+    try {
+      const saved = localStorage.getItem("theme");
+      return saved === "light" || saved === "dark" ? saved : null;
+    } catch {
+      return null;
+    }
+  };
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
@@ -50,7 +67,10 @@ export default function CvPage() {
               <Button
                 variant="secondary"
                 size="sm"
-                onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+                onClick={() => {
+                  const current = getPersistedTheme() ?? theme;
+                  setTheme(current === "light" ? "dark" : "light");
+                }}
                 className="rounded-full shadow-lg hover-scale"
                 aria-label={theme === "light" ? "Switch to dark theme" : "Switch to light theme"}
               >
@@ -60,7 +80,10 @@ export default function CvPage() {
               <Button
                 variant="secondary"
                 size="sm"
-                onClick={() => setLanguage(language === "en" ? "de" : "en")}
+                onClick={() => {
+                  const current = getPersistedLanguage() ?? language;
+                  setLanguage(current === "en" ? "de" : "en");
+                }}
                 className="rounded-full shadow-lg hover-scale"
               >
                 <Globe className="mr-2 h-4 w-4" />

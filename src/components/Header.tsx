@@ -20,14 +20,34 @@ const Header = () => {
 
   const navigationItems = useMemo(() => siteContent.navigation, []);
 
+  const getPersistedLanguage = (): "en" | "de" | null => {
+    try {
+      const saved = localStorage.getItem("language");
+      return saved === "en" || saved === "de" ? saved : null;
+    } catch {
+      return null;
+    }
+  };
+
+  const getPersistedTheme = (): "light" | "dark" | null => {
+    try {
+      const saved = localStorage.getItem("theme");
+      return saved === "light" || saved === "dark" ? saved : null;
+    } catch {
+      return null;
+    }
+  };
+
   // Toggle for handling theme changes
   const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light");
+    const current = getPersistedTheme() ?? theme;
+    setTheme(current === "light" ? "dark" : "light");
   };
 
   // Toggle for handling language changes
   const toggleLanguage = () => {
-    setLanguage(language === "en" ? "de" : "en");
+    const current = getPersistedLanguage() ?? language;
+    setLanguage(current === "en" ? "de" : "en");
   };
 
   // Detect scroll for header styling
