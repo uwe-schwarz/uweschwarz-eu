@@ -22,12 +22,7 @@ const spaceGrotesk = Space_Grotesk({
   variable: "--font-display",
 });
 
-const title = "Uwe Schwarz - Project Manager, IT Security Specialist & AI Enthusiast";
-const description =
-  "Portfolio of Uwe Schwarz - Project Manager, IT Security Specialist & AI Enthusiast";
 const siteUrl = "https://uweschwarz.eu";
-const ogImage = `${siteUrl}/profile.webp`;
-const twitterHandle = "@e38383";
 
 export default async function RootLayout({
   children,
@@ -62,8 +57,6 @@ export default async function RootLayout({
       data-scroll-behavior="smooth"
     >
       <head>
-        <meta charSet="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="view-transition" content="same-origin" />
 
         <script
@@ -82,23 +75,6 @@ export default async function RootLayout({
 })();`,
           }}
         />
-
-        <title>{title}</title>
-        <meta name="description" content={description} />
-        <meta name="author" content="Uwe Schwarz" />
-        <link rel="canonical" href={siteUrl} />
-
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={siteUrl} />
-        <meta property="og:image" content={ogImage} />
-
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content={twitterHandle} />
-        <meta name="twitter:title" content={title} />
-        <meta name="twitter:description" content={description} />
-        <meta name="twitter:image" content={ogImage} />
 
         <link rel="icon" type="image/svg+xml" href="/us.svg" />
 

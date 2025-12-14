@@ -1,8 +1,25 @@
+import type { Metadata } from "next";
 import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 import { detectPreferredLanguage } from "@/lib/detect-language";
 import { DEFAULT_LANGUAGE, isSupportedLanguage } from "@/lib/i18n";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const siteUrl = "https://uweschwarz.eu";
+
+  return {
+    title: "Uwe Schwarz - Project Manager, IT Security Specialist & AI Enthusiast",
+    description: "Portfolio of Uwe Schwarz - Project Manager, IT Security Specialist & AI Enthusiast",
+    metadataBase: new URL(siteUrl),
+    alternates: {
+      languages: {
+        en: `${siteUrl}/en`,
+        de: `${siteUrl}/de`,
+      },
+    },
+  };
+}
 
 export default async function RootPage() {
   const cookieStore = await cookies();
