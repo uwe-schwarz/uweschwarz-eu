@@ -3,9 +3,12 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { isSupportedLanguage, withLanguagePrefix } from "@/lib/i18n";
 
 export default function NotFound() {
   const pathname = usePathname();
+  const firstSegment = pathname.split("/")[1];
+  const homeHref = isSupportedLanguage(firstSegment) ? withLanguagePrefix(firstSegment, "/") : "/";
 
   useEffect(() => {
     console.error("404 Error: User attempted to access non-existent route:", pathname);
@@ -16,7 +19,7 @@ export default function NotFound() {
       <div className="text-center">
         <h1 className="mb-4 text-4xl font-bold">404</h1>
         <p className="mb-4 text-xl text-muted-foreground">Oops! Page not found</p>
-        <Link href="/" className="text-primary underline underline-offset-4">
+        <Link href={homeHref} className="text-primary underline underline-offset-4">
           Return to Home
         </Link>
       </div>

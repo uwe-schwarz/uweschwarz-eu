@@ -2,14 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
-    <loc>https://uweschwarz.eu/</loc>
-    <lastmod>2025-11-26</lastmod>
+    <loc>https://uweschwarz.eu/en</loc>
+    <lastmod>2025-12-14</lastmod>
     <priority>1</priority>
   </url>
 
   <url>
-    <loc>https://uweschwarz.eu/cv</loc>
-    <lastmod>2025-11-16</lastmod>
+    <loc>https://uweschwarz.eu/de</loc>
+    <lastmod>2025-12-14</lastmod>
+    <priority>1</priority>
+  </url>
+
+  <url>
+    <loc>https://uweschwarz.eu/en/cv</loc>
+    <lastmod>2025-12-14</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://uweschwarz.eu/de/cv</loc>
+    <lastmod>2025-12-14</lastmod>
     <priority>0.8</priority>
   </url>
 
@@ -38,20 +50,44 @@
   </url>
 
   <url>
-    <loc>https://uweschwarz.eu/imprint</loc>
-    <lastmod>2025-11-16</lastmod>
+    <loc>https://uweschwarz.eu/en/imprint</loc>
+    <lastmod>2025-12-14</lastmod>
     <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://uweschwarz.eu/privacy</loc>
-    <lastmod>2025-11-16</lastmod>
+    <loc>https://uweschwarz.eu/de/imprint</loc>
+    <lastmod>2025-12-14</lastmod>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://uweschwarz.eu/en/privacy</loc>
+    <lastmod>2025-12-14</lastmod>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://uweschwarz.eu/de/privacy</loc>
+    <lastmod>2025-12-14</lastmod>
     <priority>0.5</priority>
   </url>
 
   <url>
     <loc>https://uweschwarz.eu/sitemap.xml</loc>
-    <lastmod>2025-11-16</lastmod>
+    <lastmod>2025-12-14</lastmod>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://uweschwarz.eu/en/sitemap</loc>
+    <lastmod>2025-12-14</lastmod>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://uweschwarz.eu/de/sitemap</loc>
+    <lastmod>2025-12-14</lastmod>
     <priority>0.3</priority>
   </url>
 

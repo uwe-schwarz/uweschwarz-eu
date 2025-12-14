@@ -1,40 +1,20 @@
-"use client";
+import { cookies, headers } from "next/headers";
+import { redirect } from "next/navigation";
 
-import dynamic from "next/dynamic";
-import Header from "@/components/Header";
-import HeroSection from "@/components/HeroSection";
-import AboutSection from "@/components/AboutSection";
-import ExperienceSection from "@/components/ExperienceSection";
-import Footer from "@/components/Footer";
+import { detectPreferredLanguage } from "@/lib/detect-language";
+import { DEFAULT_LANGUAGE, isSupportedLanguage } from "@/lib/i18n";
 
-const ProjectsSection = dynamic(() => import("@/components/ProjectsSection"), {
-  loading: () => <div className="py-16 text-center">Loading…</div>,
-  ssr: false,
-});
+export default async function RootPage() {
+  const cookieStore = await cookies();
+  const cookieLanguage = cookieStore.get("language")?.value;
 
-const SkillsSection = dynamic(() => import("@/components/SkillsSection"), {
-  loading: () => <div className="py-16 text-center">Loading…</div>,
-  ssr: false,
-});
+  if (isSupportedLanguage(cookieLanguage)) {
+    redirect(`/${cookieLanguage}`);
+  }
 
-const ContactSection = dynamic(() => import("@/components/ContactSection"), {
-  loading: () => <div className="py-16 text-center">Loading…</div>,
-  ssr: false,
-});
+  const headerList = await headers();
+  const acceptLanguage = headerList.get("accept-language");
+  const detected = detectPreferredLanguage(acceptLanguage) ?? DEFAULT_LANGUAGE;
 
-export default function HomePage() {
-  return (
-    <div className="flex min-h-screen flex-col">
-      <Header />
-      <main className="grow">
-        <HeroSection />
-        <AboutSection />
-        <ExperienceSection />
-        <ProjectsSection />
-        <SkillsSection />
-        <ContactSection />
-      </main>
-      <Footer />
-    </div>
-  );
+  redirect(`/${detected}`);
 }

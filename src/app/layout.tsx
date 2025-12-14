@@ -4,9 +4,9 @@ import { Public_Sans, Space_Grotesk } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { Analytics } from '@vercel/analytics/next';
 import "./globals.css";
-import Providers from "./providers";
 import { detectPreferredLanguage } from "@/lib/detect-language";
 import type { Language, Theme } from "@/contexts/settings-hook";
+import { isSupportedLanguage } from "@/lib/i18n";
 
 const publicSans = Public_Sans({
   subsets: ["latin"],
@@ -31,7 +31,9 @@ const twitterHandle = "@e38383";
 
 export default async function RootLayout({
   children,
-}: Readonly<{ children: ReactNode }>) {
+  params,
+}: Readonly<{ children: ReactNode; params: Promise<{ lang?: string }> }>) {
+  const { lang: routeLang } = await params;
   const cookieStore = await cookies();
   const cookieLanguage = cookieStore.get("language")?.value as Language | undefined;
   const cookieTheme = cookieStore.get("theme")?.value as Theme | undefined;
@@ -44,8 +46,9 @@ export default async function RootLayout({
       ? (headerList as Headers).get("accept-language")
       : null;
 
-  const initialLanguage: Language =
-    cookieLanguage === "en" || cookieLanguage === "de"
+  const initialLanguage: Language = isSupportedLanguage(routeLang)
+    ? routeLang
+    : cookieLanguage === "en" || cookieLanguage === "de"
       ? cookieLanguage
       : detectPreferredLanguage(acceptLanguage);
 
@@ -56,6 +59,7 @@ export default async function RootLayout({
       lang={initialLanguage}
       suppressHydrationWarning
       className={cn(publicSans.variable, spaceGrotesk.variable, initialTheme === "dark" && "dark")}
+      data-scroll-behavior="smooth"
     >
       <head>
         <meta charSet="UTF-8" />
@@ -105,9 +109,7 @@ export default async function RootLayout({
         />
       </head>
       <body className={cn("min-h-screen bg-background font-sans antialiased text-foreground")}>
-        <Providers initialLanguage={initialLanguage} initialTheme={initialTheme}>
-          {children}
-        </Providers>
+        {children}
         <Analytics />;
       </body>
     </html>

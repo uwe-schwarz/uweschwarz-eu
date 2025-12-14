@@ -20,13 +20,23 @@ function generateCvAssetPath(language, extension) {
 
 const urls = [
   {
-    url: '/',
-    files: ['src/content/content.ts', 'src/app/page.tsx', 'src/components/Header.tsx', 'src/components/HeroSection.tsx', 'src/components/AboutSection.tsx', 'src/components/ExperienceSection.tsx', 'src/components/ProjectsSection.tsx', 'src/components/SkillsSection.tsx', 'src/components/ContactSection.tsx', 'src/components/Footer.tsx'],
+    url: '/en',
+    files: ['src/content/content.ts', 'src/app/[lang]/page.tsx', 'src/components/Header.tsx', 'src/components/HeroSection.tsx', 'src/components/AboutSection.tsx', 'src/components/ExperienceSection.tsx', 'src/components/ProjectsSection.tsx', 'src/components/SkillsSection.tsx', 'src/components/ContactSection.tsx', 'src/components/Footer.tsx'],
     priority: 1.0
   },
   {
-    url: '/cv',
-    files: ['src/content/content.ts', 'src/app/cv/page.tsx', 'src/components/cv/CVDocument.tsx', 'src/components/cv/CVDocumentDocx.tsx'],
+    url: '/de',
+    files: ['src/content/content.ts', 'src/app/[lang]/page.tsx', 'src/components/Header.tsx', 'src/components/HeroSection.tsx', 'src/components/AboutSection.tsx', 'src/components/ExperienceSection.tsx', 'src/components/ProjectsSection.tsx', 'src/components/SkillsSection.tsx', 'src/components/ContactSection.tsx', 'src/components/Footer.tsx'],
+    priority: 1.0
+  },
+  {
+    url: '/en/cv',
+    files: ['src/content/content.ts', 'src/app/cv/page.tsx', 'src/app/[lang]/cv/page.tsx', 'src/components/cv/CVDocument.tsx', 'src/components/cv/CVDocumentDocx.tsx'],
+    priority: 0.8
+  },
+  {
+    url: '/de/cv',
+    files: ['src/content/content.ts', 'src/app/cv/page.tsx', 'src/app/[lang]/cv/page.tsx', 'src/components/cv/CVDocument.tsx', 'src/components/cv/CVDocumentDocx.tsx'],
     priority: 0.8
   },
   {
@@ -50,18 +60,38 @@ const urls = [
     priority: 0.7
   },
   {
-    url: '/imprint',
-    files: ['src/content/content.ts', 'src/app/imprint/page.tsx', 'src/components/Header.tsx', 'src/components/Footer.tsx'],
+    url: '/en/imprint',
+    files: ['src/content/content.ts', 'src/app/imprint/page.tsx', 'src/app/[lang]/imprint/page.tsx', 'src/components/Header.tsx', 'src/components/Footer.tsx'],
     priority: 0.5
   },
   {
-    url: '/privacy',
-    files: ['src/content/content.ts', 'src/app/privacy/page.tsx', 'src/components/Header.tsx', 'src/components/Footer.tsx'],
+    url: '/de/imprint',
+    files: ['src/content/content.ts', 'src/app/imprint/page.tsx', 'src/app/[lang]/imprint/page.tsx', 'src/components/Header.tsx', 'src/components/Footer.tsx'],
+    priority: 0.5
+  },
+  {
+    url: '/en/privacy',
+    files: ['src/content/content.ts', 'src/app/privacy/page.tsx', 'src/app/[lang]/privacy/page.tsx', 'src/components/Header.tsx', 'src/components/Footer.tsx'],
+    priority: 0.5
+  },
+  {
+    url: '/de/privacy',
+    files: ['src/content/content.ts', 'src/app/privacy/page.tsx', 'src/app/[lang]/privacy/page.tsx', 'src/components/Header.tsx', 'src/components/Footer.tsx'],
     priority: 0.5
   },
   {
     url: '/sitemap.xml',
-    files: ['src/app/sitemap/page.tsx', 'src/app/page.tsx', 'src/components/Header.tsx', 'src/components/Footer.tsx', 'src/content/content.ts'],
+    files: ['src/app/sitemap/page.tsx', 'src/app/[lang]/sitemap/page.tsx', 'src/app/[lang]/page.tsx', 'src/components/Header.tsx', 'src/components/Footer.tsx', 'src/content/content.ts'],
+    priority: 0.3
+  },
+  {
+    url: '/en/sitemap',
+    files: ['src/app/sitemap/page.tsx', 'src/app/[lang]/sitemap/page.tsx', 'src/components/Header.tsx', 'src/components/Footer.tsx', 'src/content/content.ts'],
+    priority: 0.3
+  },
+  {
+    url: '/de/sitemap',
+    files: ['src/app/sitemap/page.tsx', 'src/app/[lang]/sitemap/page.tsx', 'src/components/Header.tsx', 'src/components/Footer.tsx', 'src/content/content.ts'],
     priority: 0.3
   },
   {

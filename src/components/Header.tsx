@@ -2,20 +2,24 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Moon, Sun, Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useSettings } from "@/contexts/settings-hook";
 import { siteContent } from "@/content/content";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { replacePathLanguage, withLanguagePrefix } from "@/lib/i18n";
 
 const Header = () => {
   const { language, setLanguage, theme, setTheme, t } = useSettings();
+  const router = useRouter();
   const [isScrolled, setIsScrolled] = useState(false);
   const isMobile = useIsMobile();
   const pathname = usePathname();
-  const isHomePage = pathname === "/";
+  const searchParams = useSearchParams();
+  const homeHref = withLanguagePrefix(language, "/");
+  const isHomePage = pathname === homeHref;
   const [activeSection, setActiveSection] = useState<string>("hero");
 
   const navigationItems = useMemo(() => siteContent.navigation, []);
@@ -47,7 +51,13 @@ const Header = () => {
   // Toggle for handling language changes
   const toggleLanguage = () => {
     const current = getPersistedLanguage() ?? language;
-    setLanguage(current === "en" ? "de" : "en");
+    const nextLanguage = current === "en" ? "de" : "en";
+    setLanguage(nextLanguage);
+
+    const query = searchParams?.toString();
+    const hash = typeof window !== "undefined" ? window.location.hash : "";
+    const nextPath = replacePathLanguage(pathname, nextLanguage);
+    router.push(`${nextPath}${query ? `?${query}` : ""}${hash}`);
   };
 
   // Detect scroll for header styling
@@ -92,7 +102,7 @@ const Header = () => {
     >
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <Link
-          href="/"
+          href={homeHref}
           className="text-2xl font-display font-bold text-foreground"
         >
           <span className="text-gradient text-4xl">Uwe Schwarz</span>
@@ -118,7 +128,7 @@ const Header = () => {
             return (
               <Link
                 key={item.href}
-                href={{ pathname: '/', hash: item.href as `#${string}` }}
+                href={`${homeHref}${item.href}`}
                 className="text-lg font-medium text-foreground hover:text-primary transition-colors link-underline"
               >
                 {t(item.label)}
@@ -172,7 +182,7 @@ const Header = () => {
             >
               <div className="flex flex-col h-full">
                 <div className="border-b border-gray-200 dark:border-gray-800 py-4 px-6">
-                  <Link href="/" className="text-2xl font-display font-bold">
+                  <Link href={homeHref} className="text-2xl font-display font-bold">
                     <span className="text-gradient">Uwe Schwarz</span>
                   </Link>
                 </div>
@@ -196,7 +206,7 @@ const Header = () => {
                     return (
                       <Link
                         key={item.href}
-                        href={{ pathname: '/', hash: item.href as `#${string}` }}
+                        href={`${homeHref}${item.href}`}
                         className="text-xl font-medium text-foreground hover:text-primary transition-colors"
                       >
                         {t(item.label)}

@@ -1,13 +1,13 @@
 import type { Language } from '@/contexts/settings-hook';
 
-const SUPPORTED_LANGUAGES: Language[] = ['en', 'de'];
+import { DEFAULT_LANGUAGE, isSupportedLanguage } from "@/lib/i18n";
 
 /**
  * Parse the Accept-Language header and return the preferred supported language.
  * Falls back to English when nothing usable is found.
  */
 export const detectPreferredLanguage = (acceptLanguage?: string | null): Language => {
-  if (!acceptLanguage) return 'en';
+  if (!acceptLanguage) return DEFAULT_LANGUAGE;
 
   // Split on commas, keep the q value if present, and sort by highest quality
   const choices = acceptLanguage
@@ -21,11 +21,11 @@ export const detectPreferredLanguage = (acceptLanguage?: string | null): Languag
 
   for (const { tag } of choices) {
     const base = tag.slice(0, 2) as Language;
-    if (SUPPORTED_LANGUAGES.includes(base)) {
+    if (isSupportedLanguage(base)) {
       return base;
     }
   }
 
-  return 'en';
+  return DEFAULT_LANGUAGE;
 };
 

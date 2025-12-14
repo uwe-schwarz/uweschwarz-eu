@@ -7,6 +7,8 @@ import { useSettings } from "@/contexts/settings-hook";
 import { siteContent } from "@/content/content";
 import { useScrollToTop } from "@/hooks/use-scroll-to-top";
 import { CV_ASSETS } from "@/generated/cv-assets";
+import { replacePathLanguage, withLanguagePrefix } from "@/lib/i18n";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const CvDownloadButtons = ({ language }: { language: "en" | "de" }) => {
   const pdfUrl = CV_ASSETS[language].pdf;
@@ -32,6 +34,9 @@ const CvDownloadButtons = ({ language }: { language: "en" | "de" }) => {
 
 export default function CvPage() {
   const { language, setLanguage, theme, setTheme, t } = useSettings();
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   useScrollToTop();
 
   const pdfUrl = CV_ASSETS[language].pdf;
@@ -53,11 +58,13 @@ export default function CvPage() {
     }
   };
 
+  const homeHref = withLanguagePrefix(language, "/");
+
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-          <Link href="/" className="flex items-center text-muted-foreground hover:text-primary/80 dark:text-primary">
+          <Link href={homeHref} className="flex items-center text-muted-foreground hover:text-primary/80 dark:text-primary">
             <ArrowLeft className="mr-2 h-4 w-4" />
             <span>{t(siteContent.backToHome)}</span>
           </Link>
@@ -82,7 +89,13 @@ export default function CvPage() {
                 size="sm"
                 onClick={() => {
                   const current = getPersistedLanguage() ?? language;
-                  setLanguage(current === "en" ? "de" : "en");
+                  const nextLanguage = current === "en" ? "de" : "en";
+                  setLanguage(nextLanguage);
+
+                  const query = searchParams?.toString();
+                  const hash = typeof window !== "undefined" ? window.location.hash : "";
+                  const nextPath = replacePathLanguage(pathname, nextLanguage);
+                  router.push(`${nextPath}${query ? `?${query}` : ""}${hash}`);
                 }}
                 className="rounded-full shadow-lg hover-scale"
               >
