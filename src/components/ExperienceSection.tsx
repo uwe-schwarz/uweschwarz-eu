@@ -3,6 +3,7 @@
 import Image from "next/image";
 import React, { useEffect } from "react";
 import Link from "next/link";
+import type { Route } from "next";
 import { siteContent } from "@/content/content";
 import type { Experience } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
@@ -236,7 +237,7 @@ const ExperienceSection = () => {
           <div className="mt-4"></div>
           {/* Download Resume */}
           <Link
-            href={withLanguagePrefix(language, "/cv")}
+            href={withLanguagePrefix(language, "/cv") as Route}
             className="inline-flex items-center text-primary hover:text-primary/80 transition-colors link-underline"
           >
             <FileText size={24} className="mr-2" />

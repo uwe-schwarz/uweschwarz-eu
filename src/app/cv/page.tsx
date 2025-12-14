@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import type { Route } from "next";
 import { Download, Globe, ArrowLeft, Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useSettings } from "@/contexts/settings-hook";
@@ -64,7 +65,7 @@ export default function CvPage() {
     <div className="flex min-h-screen flex-col bg-background">
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-          <Link href={homeHref} className="flex items-center text-muted-foreground hover:text-primary/80 dark:text-primary">
+          <Link href={homeHref as Route} className="flex items-center text-muted-foreground hover:text-primary/80 dark:text-primary">
             <ArrowLeft className="mr-2 h-4 w-4" />
             <span>{t(siteContent.backToHome)}</span>
           </Link>
@@ -95,7 +96,7 @@ export default function CvPage() {
                   const query = searchParams?.toString();
                   const hash = typeof window !== "undefined" ? window.location.hash : "";
                   const nextPath = replacePathLanguage(pathname, nextLanguage);
-                  router.push(`${nextPath}${query ? `?${query}` : ""}${hash}`);
+                  router.push(`${nextPath}${query ? `?${query}` : ""}${hash}` as Route);
                 }}
                 className="rounded-full shadow-lg hover-scale"
               >

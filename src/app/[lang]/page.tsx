@@ -1,43 +1,35 @@
-"use client";
+import type { Metadata } from "next";
+import ClientComponents from "./client-components";
 
-import dynamic from "next/dynamic";
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
 
-import Header from "@/components/Header";
-import HeroSection from "@/components/HeroSection";
-import AboutSection from "@/components/AboutSection";
-import ExperienceSection from "@/components/ExperienceSection";
-import Footer from "@/components/Footer";
+  const baseUrl = "https://uweschwarz.eu";
+  const canonicalUrl = `${baseUrl}/${lang}`;
 
-const ProjectsSection = dynamic(() => import("@/components/ProjectsSection"), {
-  loading: () => <div className="py-16 text-center">Loading…</div>,
-  ssr: false,
-});
+  const title = lang === "de"
+    ? "Uwe Schwarz - Projektmanager, IT-Sicherheitsspezialist & AI-Enthusiast"
+    : "Uwe Schwarz - Project Manager, IT Security Specialist & AI Enthusiast";
 
-const SkillsSection = dynamic(() => import("@/components/SkillsSection"), {
-  loading: () => <div className="py-16 text-center">Loading…</div>,
-  ssr: false,
-});
+  const description = lang === "de"
+    ? "Portfolio von Uwe Schwarz - Projektmanager, IT-Sicherheitsspezialist & AI-Enthusiast"
+    : "Portfolio of Uwe Schwarz - Project Manager, IT Security Specialist & AI Enthusiast";
 
-const ContactSection = dynamic(() => import("@/components/ContactSection"), {
-  loading: () => <div className="py-16 text-center">Loading…</div>,
-  ssr: false,
-});
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+  };
+}
 
 export default function HomePage() {
-  return (
-    <div className="flex min-h-screen flex-col">
-      <Header />
-      <main className="grow">
-        <HeroSection />
-        <AboutSection />
-        <ExperienceSection />
-        <ProjectsSection />
-        <SkillsSection />
-        <ContactSection />
-      </main>
-      <Footer />
-    </div>
-  );
+  return <ClientComponents />;
 }
 
 

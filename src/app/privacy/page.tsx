@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import type { Route } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useSettings } from "@/contexts/settings-hook";
@@ -23,7 +24,7 @@ export default function PrivacyPage() {
         <div className="container mx-auto px-4">
           <div className="mx-auto max-w-3xl">
             <Button asChild variant="ghost" size="sm" className="mb-6">
-              <Link href={homeHref}>
+              <Link href={homeHref as Route}>
                 <ArrowLeft size={16} className="mr-2" />
                 {t(siteContent.backToHome)}
               </Link>

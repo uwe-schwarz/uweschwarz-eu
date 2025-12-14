@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 
 import Providers from "@/app/providers";
 import type { Language, Theme } from "@/contexts/settings-hook";
@@ -10,6 +11,84 @@ export const dynamicParams = false;
 
 export function generateStaticParams(): { lang: Language }[] {
   return SUPPORTED_LANGUAGES.map((lang) => ({ lang }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
+
+  if (!isSupportedLanguage(lang)) {
+    return {};
+  }
+
+  const baseUrl = "https://uweschwarz.eu";
+  const canonicalUrl = `${baseUrl}/${lang}`;
+
+  const title = lang === "de"
+    ? "Uwe Schwarz - Projektmanager, IT-Sicherheitsspezialist & AI-Enthusiast"
+    : "Uwe Schwarz - Project Manager, IT Security Specialist & AI Enthusiast";
+
+  const description = lang === "de"
+    ? "Portfolio von Uwe Schwarz - Projektmanager, IT-Sicherheitsspezialist & AI-Enthusiast"
+    : "Portfolio of Uwe Schwarz - Project Manager, IT Security Specialist & AI Enthusiast";
+
+  const ogImage = `${baseUrl}/profile.webp`;
+  const twitterHandle = "@e38383";
+
+  // Generate hreflang links for all supported languages
+  const alternates = {
+    canonical: canonicalUrl,
+    languages: Object.fromEntries(
+      SUPPORTED_LANGUAGES.map((supportedLang) => [
+        supportedLang,
+        `${baseUrl}/${supportedLang}`,
+      ])
+    ),
+  };
+
+  return {
+    title,
+    description,
+    metadataBase: new URL(baseUrl),
+    alternates,
+    openGraph: {
+      title,
+      description,
+      url: canonicalUrl,
+      siteName: "Uwe Schwarz",
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: lang === "de" ? "Uwe Schwarz - Portfolio" : "Uwe Schwarz - Portfolio",
+        },
+      ],
+      locale: lang === "de" ? "de_DE" : "en_US",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [ogImage],
+      creator: twitterHandle,
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
+    },
+  };
 }
 
 export default async function LangLayout({

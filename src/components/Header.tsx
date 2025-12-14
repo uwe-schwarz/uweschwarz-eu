@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import type { Route } from "next";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Moon, Sun, Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -57,7 +58,7 @@ const Header = () => {
     const query = searchParams?.toString();
     const hash = typeof window !== "undefined" ? window.location.hash : "";
     const nextPath = replacePathLanguage(pathname, nextLanguage);
-    router.push(`${nextPath}${query ? `?${query}` : ""}${hash}`);
+    router.push(`${nextPath}${query ? `?${query}` : ""}${hash}` as Route);
   };
 
   // Detect scroll for header styling
@@ -102,7 +103,7 @@ const Header = () => {
     >
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <Link
-          href={homeHref}
+          href={homeHref as Route}
           className="text-2xl font-display font-bold text-foreground"
         >
           <span className="text-gradient text-4xl">Uwe Schwarz</span>
@@ -128,7 +129,7 @@ const Header = () => {
             return (
               <Link
                 key={item.href}
-                href={`${homeHref}${item.href}`}
+                href={`${homeHref}${item.href}` as Route}
                 className="text-lg font-medium text-foreground hover:text-primary transition-colors link-underline"
               >
                 {t(item.label)}
@@ -182,7 +183,7 @@ const Header = () => {
             >
               <div className="flex flex-col h-full">
                 <div className="border-b border-gray-200 dark:border-gray-800 py-4 px-6">
-                  <Link href={homeHref} className="text-2xl font-display font-bold">
+                  <Link href={homeHref as Route} className="text-2xl font-display font-bold">
                     <span className="text-gradient">Uwe Schwarz</span>
                   </Link>
                 </div>
@@ -206,7 +207,7 @@ const Header = () => {
                     return (
                       <Link
                         key={item.href}
-                        href={`${homeHref}${item.href}`}
+                        href={`${homeHref}${item.href}` as Route}
                         className="text-xl font-medium text-foreground hover:text-primary transition-colors"
                       >
                         {t(item.label)}
