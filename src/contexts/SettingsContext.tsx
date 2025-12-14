@@ -1,50 +1,86 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useSyncExternalStore } from 'react';
 import {
   SettingsContext,
   type Language,
   type Theme,
-  type SettingsContextType,
 } from './settings-hook';
 
 interface SettingsProviderProps {
   children: React.ReactNode;
   initialLanguage: Language;
+  initialTheme: Theme;
 }
 
-const getInitialLanguage = (fallback: Language): Language => {
-  if (typeof window === 'undefined') return fallback;
+const SETTINGS_CHANGED_EVENT = "settings-changed";
 
-  const saved = localStorage.getItem('language') as Language | null;
-  if (saved === 'en' || saved === 'de') return saved;
-
-  const navigatorLanguage = navigator.language?.substring(0, 2).toLowerCase();
-  if (navigatorLanguage === 'de') return 'de';
-
-  return fallback;
+const setClientCookie = (name: string, value: string) => {
+  if (typeof document === "undefined") return;
+  // 1 year, lax, site-wide. (No `secure` so this also works on localhost)
+  document.cookie = `${name}=${encodeURIComponent(value)}; path=/; max-age=31536000; samesite=lax`;
 };
 
-const getInitialTheme = (): Theme => {
-  if (typeof window === 'undefined') return 'light';
+export const SettingsProvider: React.FC<SettingsProviderProps> = ({
+  children,
+  initialLanguage,
+  initialTheme,
+}) => {
+  // IMPORTANT: Keep hydration deterministic.
+  // `useSyncExternalStore` lets React use the server snapshot during hydration,
+  // and then update to client preferences (localStorage / system) after hydration,
+  // without causing hydration mismatches.
+  const subscribe = (onStoreChange: () => void) => {
+    if (typeof window === "undefined") return () => undefined;
 
-  const saved = localStorage.getItem('theme') as Theme | null;
-  if (saved === 'light' || saved === 'dark') return saved;
+    const mql = window.matchMedia?.("(prefers-color-scheme: dark)");
+    const onMqlChange = () => onStoreChange();
 
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-};
+    window.addEventListener("storage", onStoreChange);
+    window.addEventListener(SETTINGS_CHANGED_EVENT, onStoreChange);
+    mql?.addEventListener?.("change", onMqlChange);
 
-export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children, initialLanguage }) => {
-  const [language, setLanguageState] = useState<Language>(() => getInitialLanguage(initialLanguage));
-  const [theme, setThemeState] = useState<Theme>(() => getInitialTheme());
+    return () => {
+      window.removeEventListener("storage", onStoreChange);
+      window.removeEventListener(SETTINGS_CHANGED_EVENT, onStoreChange);
+      mql?.removeEventListener?.("change", onMqlChange);
+    };
+  };
+
+  const getLanguageSnapshot = (): Language => {
+    try {
+      const saved = localStorage.getItem("language") as Language | null;
+      if (saved === "en" || saved === "de") return saved;
+    } catch {
+      // ignore
+    }
+    return initialLanguage;
+  };
+
+  const getThemeSnapshot = (): Theme => {
+    try {
+      const saved = localStorage.getItem("theme") as Theme | null;
+      if (saved === "light" || saved === "dark") return saved;
+    } catch {
+      // ignore
+    }
+
+    try {
+      return window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    } catch {
+      // ignore
+    }
+
+    return initialTheme;
+  };
+
+  const language = useSyncExternalStore(subscribe, getLanguageSnapshot, () => initialLanguage);
+  const theme = useSyncExternalStore(subscribe, getThemeSnapshot, () => initialTheme);
 
   // Keep <html lang> in sync with current language
   useEffect(() => {
     if (typeof document === 'undefined') return;
     document.documentElement.setAttribute('lang', language);
-    if (typeof localStorage !== 'undefined') {
-      localStorage.setItem('language', language);
-    }
   }, [language]);
 
   // Sync theme to DOM + localStorage
@@ -57,25 +93,27 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children, in
     } else {
       root.classList.remove('dark');
     }
-
-    if (typeof localStorage !== 'undefined') {
-      localStorage.setItem('theme', theme);
-    }
   }, [theme]);
 
   // Language setting function
   const setLanguage = (lang: Language) => {
-    setLanguageState(lang);
     if (typeof localStorage !== 'undefined') {
       localStorage.setItem('language', lang);
+    }
+    setClientCookie("language", lang);
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new Event(SETTINGS_CHANGED_EVENT));
     }
   };
 
   // Theme setting function
   const setTheme = (theme: Theme) => {
-    setThemeState(theme);
     if (typeof localStorage !== 'undefined') {
       localStorage.setItem('theme', theme);
+    }
+    setClientCookie("theme", theme);
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new Event(SETTINGS_CHANGED_EVENT));
     }
   };
 

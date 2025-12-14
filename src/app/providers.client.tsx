@@ -6,21 +6,23 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { SettingsProvider } from "@/contexts/SettingsContext";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
-import type { Language } from "@/contexts/settings-hook";
+import type { Language, Theme } from "@/contexts/settings-hook";
 
 export default function ProvidersClient({
   children,
   initialLanguage,
+  initialTheme,
 }: {
   children: ReactNode;
   initialLanguage: Language;
+  initialTheme: Theme;
 }) {
   const [queryClient] = useState(() => new QueryClient());
 
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider delayDuration={150}>
-        <SettingsProvider initialLanguage={initialLanguage}>
+        <SettingsProvider initialLanguage={initialLanguage} initialTheme={initialTheme}>
           {children}
           <Toaster />
           <Sonner />

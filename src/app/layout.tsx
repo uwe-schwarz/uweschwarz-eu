@@ -1,11 +1,12 @@
 import type { ReactNode } from "react";
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { Public_Sans, Space_Grotesk } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { Analytics } from '@vercel/analytics/next';
 import "./globals.css";
 import Providers from "./providers";
 import { detectPreferredLanguage } from "@/lib/detect-language";
+import type { Language, Theme } from "@/contexts/settings-hook";
 
 const publicSans = Public_Sans({
   subsets: ["latin"],
@@ -31,6 +32,10 @@ const twitterHandle = "@e38383";
 export default async function RootLayout({
   children,
 }: Readonly<{ children: ReactNode }>) {
+  const cookieStore = await cookies();
+  const cookieLanguage = cookieStore.get("language")?.value as Language | undefined;
+  const cookieTheme = cookieStore.get("theme")?.value as Theme | undefined;
+
   const headerList = await headers();
 
   // Guard for any non-standard header implementations (e.g. Turbopack dev)
@@ -39,18 +44,40 @@ export default async function RootLayout({
       ? (headerList as Headers).get("accept-language")
       : null;
 
-  const initialLanguage = detectPreferredLanguage(acceptLanguage);
+  const initialLanguage: Language =
+    cookieLanguage === "en" || cookieLanguage === "de"
+      ? cookieLanguage
+      : detectPreferredLanguage(acceptLanguage);
+
+  const initialTheme: Theme = cookieTheme === "dark" || cookieTheme === "light" ? cookieTheme : "light";
 
   return (
     <html
       lang={initialLanguage}
       suppressHydrationWarning
-      className={cn(publicSans.variable, spaceGrotesk.variable)}
+      className={cn(publicSans.variable, spaceGrotesk.variable, initialTheme === "dark" && "dark")}
     >
       <head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="view-transition" content="same-origin" />
+
+        <script
+          // Ensure the initial theme class matches user preference before React hydration.
+          // This prevents a flash and keeps the visual theme correct on first paint.
+          dangerouslySetInnerHTML={{
+            __html: `
+(() => {
+  try {
+    const stored = localStorage.getItem('theme');
+    const explicit = stored === 'dark' || stored === 'light' ? stored : null;
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const shouldDark = explicit ? explicit === 'dark' : !!prefersDark;
+    document.documentElement.classList.toggle('dark', shouldDark);
+  } catch {}
+})();`,
+          }}
+        />
 
         <title>{title}</title>
         <meta name="description" content={description} />
@@ -78,7 +105,9 @@ export default async function RootLayout({
         />
       </head>
       <body className={cn("min-h-screen bg-background font-sans antialiased text-foreground")}>
-        <Providers initialLanguage={initialLanguage}>{children}</Providers>
+        <Providers initialLanguage={initialLanguage} initialTheme={initialTheme}>
+          {children}
+        </Providers>
         <Analytics />;
       </body>
     </html>

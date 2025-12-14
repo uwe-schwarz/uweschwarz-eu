@@ -125,8 +125,8 @@ const Header = () => {
             onClick={toggleTheme}
             aria-label={t(
               theme === "light"
-                ? siteContent.translations.themeSwitch.light
-                : siteContent.translations.themeSwitch.dark
+                ? siteContent.translations.themeSwitch.dark
+                : siteContent.translations.themeSwitch.light
             )}
           >
             {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
