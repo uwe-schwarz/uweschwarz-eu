@@ -418,8 +418,8 @@ export const siteContent: SiteContent = {
     },
     stats: [
       { key: "experience", value: { en: "20+", de: "20+" } },
-      { key: "projects", value: { en: "40+", de: "40+" } },
-      { key: "technologies", value: { en: "20+", de: "20+" } },
+      { key: "projects", value: { en: "30+", de: "30+" } },
+      { key: "technologies", value: { en: "50+", de: "50+" } },
     ],
   },
   experiences: [
@@ -852,7 +852,7 @@ export const siteContent: SiteContent = {
         { "en": "PHP", "de": "PHP" },
         { "en": "MySQL", "de": "MySQL" },
       ]
-    },    
+    },
     {
       title: { en: "IT Security Consultant", de: "IT-Sicherheitsexperte" },
       company: "Deutsche Vermögensberatung AG",
