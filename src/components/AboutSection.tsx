@@ -1,15 +1,18 @@
 "use client";
 
 import Image from 'next/image';
-import React from 'react';
 import { useSettings } from '@/contexts/settings-hook';
 import { siteContent } from '@/content/content';
-import { Users, FolderArchive, Code, LucideIcon } from 'lucide-react';
+import { UsersIcon } from '@/components/icons/users';
+import { FolderCheckIcon } from '@/components/icons/folder-check';
+import { FlaskIcon } from '@/components/icons/flask';
 
-const iconMap: Record<string, LucideIcon> = {
-  experience: Users,
-  projects: FolderArchive,
-  technologies: Code,
+type IconComponent = React.ComponentType<{ size?: number; className?: string }>;
+
+const iconMap: Record<string, IconComponent> = {
+  experience: UsersIcon,
+  projects: FolderCheckIcon,
+  technologies: FlaskIcon,
 };
 
 const AboutSection = () => {
@@ -19,7 +22,7 @@ const AboutSection = () => {
   // Stats display (now fully from content)
   const stats = about.stats.map(stat => ({
     ...stat,
-    icon: iconMap[stat.key] || Users,
+    icon: iconMap[stat.key] || UsersIcon,
   }));
 
   return (

@@ -4,7 +4,8 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Route } from "next";
-import { ArrowDown, FileText } from "lucide-react";
+import { ArrowDown } from "lucide-react";
+import { FileTextIcon } from "@/components/icons/file-text";
 import { Button } from "@/components/ui/button";
 import { useSettings } from "@/contexts/settings-hook";
 import { siteContent } from "@/content/content";
@@ -117,7 +118,7 @@ const HeroSection = () => {
                 className="rounded-full shadow-sm hover-scale"
               >
                 <Link href={withLanguagePrefix(language, "/cv") as Route}>
-                  <FileText className="w-4 h-4 mr-2" />
+                  <FileTextIcon size={16} className="mr-2" />
                   {t(hero.ctaSecondary)}
                 </Link>
               </Button>

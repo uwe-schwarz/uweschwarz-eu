@@ -7,7 +7,10 @@ import type { Route } from "next";
 import { siteContent } from "@/content/content";
 import type { Experience } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
-import { FileText, MapPin, Calendar, MessageSquareMore } from "lucide-react";
+import { FileTextIcon } from "@/components/icons/file-text";
+import { MapPinIcon } from "@/components/icons/map-pin";
+import { CalendarDaysIcon } from "@/components/icons/calendar-days";
+import { ArchiveIcon } from "@/components/icons/archive";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
@@ -115,11 +118,11 @@ const ExperienceSection = () => {
                       "md:flex-row md:gap-4 md:items-center"
                     )}>
                       <div className="flex items-center">
-                        <Calendar size={14} className="mr-1" />
+                        <CalendarDaysIcon size={14} className="mr-1" />
                         <span>{t(exp.period)}</span>
                       </div>
                       <div className="flex items-center">
-                        <MapPin size={14} className="mr-1" />
+                        <MapPinIcon size={14} className="mr-1" />
                         <span>{t(exp.location)}</span>
                       </div>
                     </div>
@@ -228,19 +231,19 @@ const ExperienceSection = () => {
 
         <div className="text-center mt-8">
           {/* More Projects */}
-          <p className="inline-flex items-center text-primary hover:text-primary/80 transition-colors">
-            <MessageSquareMore size={24} className="mr-2" />
+          <div className="inline-flex items-center text-primary hover:text-primary/80 transition-colors">
+            <ArchiveIcon size={24} className="mr-2" />
             <span>
               {t(siteContent.moreProjects)}
             </span>
-          </p>
+          </div>
           <div className="mt-4"></div>
           {/* Download Resume */}
           <Link
             href={withLanguagePrefix(language, "/cv") as Route}
             className="inline-flex items-center text-primary hover:text-primary/80 transition-colors link-underline"
           >
-            <FileText size={24} className="mr-2" />
+            <FileTextIcon size={24} className="mr-2" />
             <span>
               {t(siteContent.downloadResume)}
             </span>
