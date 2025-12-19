@@ -9,12 +9,7 @@ interface UseFitTextOptions {
   depKey?: unknown; // dependency to trigger recalculation (e.g. text)
 }
 
-export function useFitText({
-  minFontSize = 18,
-  maxFontSize = 48,
-  resolution = 1,
-  depKey,
-}: UseFitTextOptions = {}) {
+export function useFitText({ minFontSize = 18, maxFontSize = 48, resolution = 1, depKey }: UseFitTextOptions = {}) {
   const containerRef = useRef<HTMLSpanElement>(null);
   const [fontSize, setFontSize] = useState(maxFontSize);
 
@@ -71,4 +66,4 @@ export function useFitText({
   }, [fit]);
 
   return { ref: containerRef, fontSize };
-} 
+}

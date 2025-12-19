@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { cookies, headers } from "next/headers";
 import { Public_Sans, Space_Grotesk } from "next/font/google";
 import { cn } from "@/lib/utils";
-import { Analytics } from '@vercel/analytics/next';
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { detectPreferredLanguage } from "@/lib/detect-language";
 import type { Language, Theme } from "@/contexts/settings-hook";
@@ -78,11 +78,7 @@ export default async function RootLayout({
 
         <link rel="icon" type="image/svg+xml" href="/us.svg" />
 
-        <script
-          defer
-          src="https://cloud.umami.is/script.js"
-          data-website-id="74cb157f-1973-4ade-a5f9-1202a8604bbb"
-        />
+        <script defer src="https://cloud.umami.is/script.js" data-website-id="74cb157f-1973-4ade-a5f9-1202a8604bbb" />
       </head>
       <body className={cn("min-h-screen bg-background font-sans antialiased text-foreground")}>
         {children}

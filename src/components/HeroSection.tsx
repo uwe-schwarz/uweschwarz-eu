@@ -68,17 +68,10 @@ const HeroSection = () => {
   };
 
   return (
-    <section
-      id="hero"
-      className="min-h-screen flex items-center pt-20 bg-grid relative overflow-hidden"
-    >
+    <section id="hero" className="min-h-screen flex items-center pt-20 bg-grid relative overflow-hidden">
       {/* Background Elements */}
-      <div
-        className="absolute w-64 h-64 bg-primary/50 rounded-full filter blur-3xl animate-[move-bg-1_25s_ease-in-out_infinite]"
-      ></div>
-      <div
-        className="absolute w-72 h-72 bg-accent/50 rounded-full filter blur-3xl animate-[move-bg-2_30s_ease-in-out_infinite]"
-      ></div>
+      <div className="absolute w-64 h-64 bg-primary/50 rounded-full filter blur-3xl animate-[move-bg-1_25s_ease-in-out_infinite]"></div>
+      <div className="absolute w-72 h-72 bg-accent/50 rounded-full filter blur-3xl animate-[move-bg-2_30s_ease-in-out_infinite]"></div>
 
       {/* Content Container */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -92,31 +85,26 @@ const HeroSection = () => {
                 ref={fitTextRef}
                 className="block text-gradient mt-2 h-[1.2em]"
                 key={titleIndex}
-                style={{ fontSize, lineHeight: 1.2, display: "inline-block", width: "100%", whiteSpace: "nowrap" }}
+                style={{
+                  fontSize,
+                  lineHeight: 1.2,
+                  display: "inline-block",
+                  width: "100%",
+                  whiteSpace: "nowrap",
+                }}
               >
                 {currentTitle}
               </span>
             </h1>
 
-            <p className="text-lg md:text-xl text-muted-foreground max-w-lg mb-8">
-              {t(hero.description)}
-            </p>
+            <p className="text-lg md:text-xl text-muted-foreground max-w-lg mb-8">{t(hero.description)}</p>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button
-                asChild
-                size="lg"
-                className="rounded-full shadow-lg hover-scale"
-              >
+              <Button asChild size="lg" className="rounded-full shadow-lg hover-scale">
                 <a href="#experience">{t(hero.ctaPrimary)}</a>
               </Button>
 
-              <Button
-                asChild
-                variant="outline"
-                size="lg"
-                className="rounded-full shadow-sm hover-scale"
-              >
+              <Button asChild variant="outline" size="lg" className="rounded-full shadow-sm hover-scale">
                 <Link href={withLanguagePrefix(language, "/cv") as Route}>
                   <FileTextIcon size={16} className="mr-2" />
                   {t(hero.ctaSecondary)}
@@ -143,19 +131,14 @@ const HeroSection = () => {
 
               {/* Dynamically positioned decorative elements - now without animation-delay for immediate positioning */}
               {hero.decorativeElements.map((element, index) => {
-                const posStyle = calculatePosition(
-                  element.position,
-                  element.distance
-                );
+                const posStyle = calculatePosition(element.position, element.distance);
                 return (
                   <div
                     key={index}
                     className="absolute p-4 card-glass rounded-lg shadow-lg transform rotate-3 animate-float"
                     style={{
                       ...posStyle,
-                      transform: `${posStyle.transform} rotate(${
-                        index * 9 - 6
-                      }deg)`,
+                      transform: `${posStyle.transform} rotate(${index * 9 - 6}deg)`,
                     }}
                   >
                     <code

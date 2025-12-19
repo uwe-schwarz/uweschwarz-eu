@@ -1,18 +1,7 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { render } from "@react-email/render";
-import {
-  Body,
-  Container,
-  Head,
-  Heading,
-  Html,
-  Preview,
-  Section,
-  Text,
-  Tailwind,
-  Font,
-} from "@react-email/components";
+import { Body, Container, Head, Heading, Html, Preview, Section, Text, Tailwind, Font } from "@react-email/components";
 
 function escapeHtml(str: string) {
   return str
@@ -54,7 +43,10 @@ const EmailTemplate = ({ name, email, message }: { name: string; email: string; 
       </Head>
       <Preview>New contact form submission</Preview>
       <Tailwind>
-        <Body className="py-[40px] font-sans" style={{ backgroundColor: colors.background, fontFamily: "Inter, Arial, sans-serif" }}>
+        <Body
+          className="py-[40px] font-sans"
+          style={{ backgroundColor: colors.background, fontFamily: "Inter, Arial, sans-serif" }}
+        >
           <Container className="mx-auto max-w-[600px] rounded-[8px] p-[20px]" style={{ backgroundColor: colors.card }}>
             <Section>
               <div
@@ -188,7 +180,7 @@ export async function POST(request: Request) {
       name: safeName,
       email: safeEmail,
       message: safeMessage,
-    })
+    }),
   );
 
   try {
@@ -202,9 +194,6 @@ export async function POST(request: Request) {
     return NextResponse.json(data);
   } catch (error) {
     const err = error as Error;
-    return NextResponse.json(
-      { error: "Failed to send email", details: err.message },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to send email", details: err.message }, { status: 500 });
   }
 }

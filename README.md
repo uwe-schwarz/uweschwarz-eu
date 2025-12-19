@@ -21,12 +21,14 @@ This is a personal portfolio website built with **Next.js 16**, **React 19**, **
 ### Installation and Running Locally
 
 1. **Clone the repository:**
+
    ```bash
    git clone <YOUR_GIT_URL>
    cd <YOUR_PROJECT_NAME>
    ```
 
 2. **Install dependencies:**
+
    ```bash
    bun install
    ```

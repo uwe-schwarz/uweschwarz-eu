@@ -17,37 +17,35 @@ import { cn } from "@/lib/utils";
 import { withLanguagePrefix } from "@/lib/i18n";
 
 const ExperienceSection = () => {
-  const {
-    language,
-    t
-  } = useSettings();
-  const {
-    experiences
-  } = siteContent;
-  const majorExperiences = experiences.filter(exp => exp.projectScale !== "small");
-  const smallExperiences = experiences.filter(exp => exp.projectScale === "small");
+  const { language, t } = useSettings();
+  const { experiences } = siteContent;
+  const majorExperiences = experiences.filter((exp) => exp.projectScale !== "small");
+  const smallExperiences = experiences.filter((exp) => exp.projectScale === "small");
 
   // Animation beim Scrollen
   useEffect(() => {
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("animate-fade-in");
-          entry.target.classList.remove("opacity-0");
-        }
-      });
-    }, {
-      root: null,
-      rootMargin: "0px",
-      threshold: 0.1
-    });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate-fade-in");
+            entry.target.classList.remove("opacity-0");
+          }
+        });
+      },
+      {
+        root: null,
+        rootMargin: "0px",
+        threshold: 0.1,
+      },
+    );
     const timelineItems = document.querySelectorAll(".timeline-item");
-    timelineItems.forEach(item => {
+    timelineItems.forEach((item) => {
       item.classList.add("opacity-0");
       observer.observe(item);
     });
     return () => {
-      timelineItems.forEach(item => {
+      timelineItems.forEach((item) => {
         observer.unobserve(item);
       });
     };
@@ -58,7 +56,8 @@ const ExperienceSection = () => {
       return null;
     }
 
-    return <div key={sectionKey} className="relative max-w-7xl mx-auto pb-12">
+    return (
+      <div key={sectionKey} className="relative max-w-7xl mx-auto pb-12">
         <div className="absolute md:block hidden left-0 transform -translate-x-1/2 h-full w-1 bg-linear-to-b from-primary/30 via-primary/70 to-secondary/30 rounded"></div>
         <div className="absolute md:block hidden left0 transform -translate-x-1/2 w-1 pointer-events-none h-full">
           <div className="relative h-full w-full">
@@ -67,9 +66,16 @@ const ExperienceSection = () => {
         </div>
 
         <div className="mt-16">
-          {items.map((exp, index) => <div key={`${sectionKey}-${index}`} className={cn("timeline-item grid grid-cols-1 md:grid-cols-12 gap-8 relative", index !== 0 ? "-mt-20 md:mt-10" : "",
-            "mb-16 md:mb-0",
-            "transition-all duration-500 ease-out")}>
+          {items.map((exp, index) => (
+            <div
+              key={`${sectionKey}-${index}`}
+              className={cn(
+                "timeline-item grid grid-cols-1 md:grid-cols-12 gap-8 relative",
+                index !== 0 ? "-mt-20 md:mt-10" : "",
+                "mb-16 md:mb-0",
+                "transition-all duration-500 ease-out",
+              )}
+            >
               {/* Timeline dot */}
               <div className="absolute top-8 transform -translate-x-1/2 z-10">
                 <div className="w-6 h-6 rounded-full bg-primary border-4 border-background shadow-lg"></div>
@@ -77,9 +83,7 @@ const ExperienceSection = () => {
 
               <div className={cn("md:col-span-11", "md:col-start-2")}>
                 <div
-                  className={cn(
-                    "hidden md:block absolute top-11 border-t-2 border-dashed border-primary/60 z-5"
-                  )}
+                  className={cn("hidden md:block absolute top-11 border-t-2 border-dashed border-primary/60 z-5")}
                   style={{
                     left: "15px",
                     right: "calc(100% - (100%/12) - 0rem)",
@@ -87,9 +91,15 @@ const ExperienceSection = () => {
                   }}
                 ></div>
 
-                <Card className={cn("overflow-hidden border border-border transition-all duration-300 rounded-lg hover-scale", "shadow-xl border-4 border-white dark:border-gray-800",
-              // Add shadow like in the About section
-              "bg-linear-to-br from-primary/40 to-accent/40", "backdrop-blur-sm")}>
+                <Card
+                  className={cn(
+                    "overflow-hidden border border-border transition-all duration-300 rounded-lg hover-scale",
+                    "shadow-xl border-4 border-white dark:border-gray-800",
+                    // Add shadow like in the About section
+                    "bg-linear-to-br from-primary/40 to-accent/40",
+                    "backdrop-blur-sm",
+                  )}
+                >
                   {/* Logo (if exists) - positioned right, offset from the corner with flowing text */}
                   {exp.logoUrl && (
                     <Image
@@ -104,19 +114,17 @@ const ExperienceSection = () => {
                   <CardContent className="p-6">
                     {/* Title & Company */}
                     <div className="mb-4">
-                      <h3 className="text-2xl font-bold">
-                        {t(exp.title)}
-                      </h3>
-                      <p className="text-lg font-medium">
-                        {exp.company}
-                      </p>
+                      <h3 className="text-2xl font-bold">{t(exp.title)}</h3>
+                      <p className="text-lg font-medium">{exp.company}</p>
                     </div>
 
                     {/* Period & Location */}
-                    <div className={cn(
-                      "flex flex-col items-start gap-2 mb-4 text-sm text-card-foreground/70 text-left",
-                      "md:flex-row md:gap-4 md:items-center"
-                    )}>
+                    <div
+                      className={cn(
+                        "flex flex-col items-start gap-2 mb-4 text-sm text-card-foreground/70 text-left",
+                        "md:flex-row md:gap-4 md:items-center",
+                      )}
+                    >
                       <div className="flex items-center">
                         <CalendarDaysIcon size={14} className="mr-1" />
                         <span>{t(exp.period)}</span>
@@ -134,12 +142,10 @@ const ExperienceSection = () => {
                           {/* Symbol */}
                           <span
                             className={`mt-1 text-xs ${
-                              item.type === 'achievement'
-                                ? 'text-primary'
-                                : 'text-muted-foreground'
+                              item.type === "achievement" ? "text-primary" : "text-muted-foreground"
                             }`}
                           >
-                            {item.type === 'achievement' ? (
+                            {item.type === "achievement" ? (
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="16"
@@ -162,11 +168,11 @@ const ExperienceSection = () => {
                             )}
                           </span>
                           <span className="flex-1">
-                            {item.type === 'achievement' ? (
+                            {item.type === "achievement" ? (
                               <>
                                 <span className="font-semibold text-primary">
                                   {t(siteContent.experienceAchievementPrefix)}
-                                </span>{' '}
+                                </span>{" "}
                                 {t(item.text)}
                               </>
                             ) : (
@@ -179,63 +185,64 @@ const ExperienceSection = () => {
 
                     {/* Tags */}
                     <div className="flex flex-wrap gap-2">
-                      {exp.tags.map((tag, tagIndex) => <Badge key={tagIndex} variant="secondary" className="font-normal bg-secondary hover:bg-secondary/80 text-foreground">
+                      {exp.tags.map((tag, tagIndex) => (
+                        <Badge
+                          key={tagIndex}
+                          variant="secondary"
+                          className="font-normal bg-secondary hover:bg-secondary/80 text-foreground"
+                        >
                           {t(tag)}
-                        </Badge>)}
+                        </Badge>
+                      ))}
                     </div>
                   </CardContent>
                 </Card>
               </div>
-            </div>)}
+            </div>
+          ))}
         </div>
-      </div>;
+      </div>
+    );
   };
 
-  return <section id="experience" className="section-padding py-20 relative bg-background">
+  return (
+    <section id="experience" className="section-padding py-20 relative bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">
-          <span className="text-gradient">
-            {t(siteContent.experienceSectionTitle)}
-          </span>
+          <span className="text-gradient">{t(siteContent.experienceSectionTitle)}</span>
         </h2>
 
-        {majorExperiences.length > 0 && <div className="space-y-6">
+        {majorExperiences.length > 0 && (
+          <div className="space-y-6">
             <div className="max-w-4xl mx-auto text-center space-y-3">
               <h3 className="text-3xl md:text-4xl font-semibold text-primary">
                 {t(siteContent.experienceBigProjectsTitle)}
               </h3>
-              <p className="text-lg text-muted-foreground">
-                {t(siteContent.experienceBigProjectsSubtitle)}
-              </p>
-              <p className="text-sm italic text-muted-foreground">
-                {t(siteContent.experienceBigProjectsNote)}
-              </p>
+              <p className="text-lg text-muted-foreground">{t(siteContent.experienceBigProjectsSubtitle)}</p>
+              <p className="text-sm italic text-muted-foreground">{t(siteContent.experienceBigProjectsNote)}</p>
             </div>
             {renderExperienceTimeline(majorExperiences, "major")}
-          </div>}
+          </div>
+        )}
 
-        {smallExperiences.length > 0 && <div className="space-y-6 pt-12 border-t border-border/40">
+        {smallExperiences.length > 0 && (
+          <div className="space-y-6 pt-12 border-t border-border/40">
             <div className="max-w-4xl mx-auto text-center space-y-3">
               <h3 className="text-3xl md:text-4xl font-semibold text-primary">
                 {t(siteContent.experienceSmallProjectsTitle)}
               </h3>
-              <p className="text-lg text-muted-foreground">
-                {t(siteContent.experienceSmallProjectsSubtitle)}
-              </p>
-              <p className="text-sm italic text-muted-foreground">
-                {t(siteContent.experienceSmallProjectsNote)}
-              </p>
+              <p className="text-lg text-muted-foreground">{t(siteContent.experienceSmallProjectsSubtitle)}</p>
+              <p className="text-sm italic text-muted-foreground">{t(siteContent.experienceSmallProjectsNote)}</p>
             </div>
             {renderExperienceTimeline(smallExperiences, "small")}
-          </div>}
+          </div>
+        )}
 
         <div className="text-center mt-8">
           {/* More Projects */}
           <div className="inline-flex items-center text-primary hover:text-primary/80 transition-colors">
             <ArchiveIcon size={24} className="mr-2" />
-            <span>
-              {t(siteContent.moreProjects)}
-            </span>
+            <span>{t(siteContent.moreProjects)}</span>
           </div>
           <div className="mt-4"></div>
           {/* Download Resume */}
@@ -244,9 +251,7 @@ const ExperienceSection = () => {
             className="inline-flex items-center text-primary hover:text-primary/80 transition-colors link-underline"
           >
             <FileTextIcon size={24} className="mr-2" />
-            <span>
-              {t(siteContent.downloadResume)}
-            </span>
+            <span>{t(siteContent.downloadResume)}</span>
           </Link>
         </div>
       </div>
@@ -284,6 +289,7 @@ const ExperienceSection = () => {
           }
         `}
       </style>
-    </section>;
+    </section>
+  );
 };
 export default ExperienceSection;

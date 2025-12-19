@@ -31,7 +31,7 @@ export function middleware(request: NextRequest) {
 
   const language = isSupportedLanguage(cookieLanguage)
     ? cookieLanguage
-    : detectPreferredLanguage(acceptLanguage) ?? DEFAULT_LANGUAGE;
+    : (detectPreferredLanguage(acceptLanguage) ?? DEFAULT_LANGUAGE);
 
   const url = request.nextUrl.clone();
   url.pathname = replacePathLanguage(pathname, language);
@@ -51,5 +51,3 @@ export function middleware(request: NextRequest) {
 export const config = {
   matcher: ["/((?!_next/static|_next/image).*)"],
 };
-
-

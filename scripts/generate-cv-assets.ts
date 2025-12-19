@@ -15,8 +15,7 @@ const publicDir = path.resolve(projectRoot, "public");
 
 const languages: Array<"en" | "de"> = ["en", "de"];
 
-const formatMonthYear = (date: Date, locale: string) =>
-  date.toLocaleString(locale, { month: "long", year: "numeric" });
+const formatMonthYear = (date: Date, locale: string) => date.toLocaleString(locale, { month: "long", year: "numeric" });
 
 const buildLastUpdatedLabel = (date: Date) => ({
   en: `Last updated: ${formatMonthYear(date, "en-US")}`,
@@ -24,7 +23,7 @@ const buildLastUpdatedLabel = (date: Date) => ({
 });
 
 const resolveOutputName = (language: "en" | "de", extension: "pdf" | "docx", contentModTime: Date) => {
-  const date = contentModTime.toISOString().split('T')[0]; // YYYY-MM-DD format
+  const date = contentModTime.toISOString().split("T")[0]; // YYYY-MM-DD format
   return `uwe-schwarz-cv-${language}-${date}.${extension}`;
 };
 
@@ -37,11 +36,12 @@ async function cleanupOldFiles(contentModTime: Date) {
     const files = await fs.readdir(publicDir);
 
     // Remove old CV files that don't match the current date
-    const currentDate = contentModTime.toISOString().split('T')[0];
-    const oldCvFiles = files.filter(file =>
-      file.startsWith('uwe-schwarz-cv-') &&
-      (file.endsWith('.pdf') || file.endsWith('.docx')) &&
-      !file.includes(`-${currentDate}.`)
+    const currentDate = contentModTime.toISOString().split("T")[0];
+    const oldCvFiles = files.filter(
+      (file) =>
+        file.startsWith("uwe-schwarz-cv-") &&
+        (file.endsWith(".pdf") || file.endsWith(".docx")) &&
+        !file.includes(`-${currentDate}.`),
     );
 
     for (const file of oldCvFiles) {
@@ -50,7 +50,7 @@ async function cleanupOldFiles(contentModTime: Date) {
       console.log(`Removed old CV file: ${file}`);
     }
   } catch (error) {
-    console.warn('Failed to cleanup old files:', error);
+    console.warn("Failed to cleanup old files:", error);
   }
 }
 
@@ -63,7 +63,10 @@ async function getFileModTime(filePath: string): Promise<Date | null> {
   }
 }
 
-async function shouldRegenerate(): Promise<{ shouldRegenerate: boolean; contentModTime: Date | null }> {
+async function shouldRegenerate(): Promise<{
+  shouldRegenerate: boolean;
+  contentModTime: Date | null;
+}> {
   const contentPath = path.resolve(projectRoot, "src/content/content.ts");
   const contentModTime = await getFileModTime(contentPath);
 
@@ -131,8 +134,11 @@ async function main() {
 
   console.log(
     `Generated CV assets: ${languages
-      .map((lang) => `${resolveOutputName(lang, "pdf", contentModTime)}, ${resolveOutputName(lang, "docx", contentModTime)}`)
-      .join("; ")}`
+      .map(
+        (lang) =>
+          `${resolveOutputName(lang, "pdf", contentModTime)}, ${resolveOutputName(lang, "docx", contentModTime)}`,
+      )
+      .join("; ")}`,
   );
 
   await cleanupOldFiles(contentModTime);

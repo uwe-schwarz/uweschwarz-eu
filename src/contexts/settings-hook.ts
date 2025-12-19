@@ -1,9 +1,9 @@
 "use client";
 
-import React, { createContext, useContext } from 'react';
+import React, { createContext, useContext } from "react";
 
-export type Language = 'en' | 'de';
-export type Theme = 'light' | 'dark';
+export type Language = "en" | "de";
+export type Theme = "light" | "dark";
 
 export interface SettingsContextType {
   language: Language;
@@ -18,7 +18,7 @@ export const SettingsContext = createContext<SettingsContextType | undefined>(un
 export const useSettings = (): SettingsContextType => {
   const context = useContext(SettingsContext);
   if (context === undefined) {
-    throw new Error('useSettings must be used within a SettingsProvider');
+    throw new Error("useSettings must be used within a SettingsProvider");
   }
   return context;
 };

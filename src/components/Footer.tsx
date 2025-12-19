@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -29,9 +28,7 @@ const Footer = () => {
             >
               <span className="text-gradient">Uwe Schwarz</span>
             </Link>
-            <p className="text-sm text-muted-foreground">
-              {t(footer.copyright).replace("year", year.toString())}
-            </p>
+            <p className="text-sm text-muted-foreground">{t(footer.copyright).replace("year", year.toString())}</p>
           </div>
 
           {/* Links */}
@@ -55,15 +52,9 @@ const Footer = () => {
         </div>
 
         <div className="mt-8 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center">
-          {footer.builtWith && (
-            <p className="text-xs text-muted-foreground mb-4 md:mb-0">
-              {t(footer.builtWith)}
-            </p>
-          )}
+          {footer.builtWith && <p className="text-xs text-muted-foreground mb-4 md:mb-0">{t(footer.builtWith)}</p>}
 
-          <p className="ml-auto text-xs text-muted-foreground">
-            {t(CV_LAST_UPDATED)}
-          </p>
+          <p className="ml-auto text-xs text-muted-foreground">{t(CV_LAST_UPDATED)}</p>
         </div>
       </div>
     </footer>

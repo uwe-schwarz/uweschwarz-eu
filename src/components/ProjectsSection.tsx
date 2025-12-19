@@ -1,19 +1,13 @@
 "use client";
 
-import Image from 'next/image';
-import React from 'react';
-import { siteContent } from '@/content/content';
-import { useSettings } from '@/contexts/settings-hook';
-import { ArrowRight } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '@/components/ui/carousel';
+import Image from "next/image";
+import React from "react";
+import { siteContent } from "@/content/content";
+import { useSettings } from "@/contexts/settings-hook";
+import { ArrowRight } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 const ProjectsSection = () => {
   const { t } = useSettings();
@@ -23,9 +17,7 @@ const ProjectsSection = () => {
     <section id="projects" className="section-padding bg-muted/30">
       <div className="container mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">
-          <span className="text-gradient">
-            {t(siteContent.projectsSectionTitle)}
-          </span>
+          <span className="text-gradient">{t(siteContent.projectsSectionTitle)}</span>
         </h2>
 
         <div className="relative px-12">
@@ -56,15 +48,13 @@ const ProjectsSection = () => {
                         )}
                       </div>
                     </div>
-                    
+
                     {/* Content */}
                     <div className="p-6">
                       <h3 className="text-xl font-bold mb-2">{t(project.title)}</h3>
-                      
-                      <p className="text-muted-foreground mb-4">
-                        {t(project.description)}
-                      </p>
-                      
+
+                      <p className="text-muted-foreground mb-4">{t(project.description)}</p>
+
                       {/* Tags */}
                       <div className="flex flex-wrap gap-2 mb-6">
                         {project.tags.map((tag, tagIndex) => (
@@ -82,12 +72,12 @@ const ProjectsSection = () => {
             <CarouselNext className="flex" />
           </Carousel>
         </div>
-        
+
         {siteContent.projectsSectionMore && (
           <div className="text-center mt-12">
             <Button asChild variant="link" className="text-primary hover:text-primary/80">
               <a href="https://github.com/uwe-schwarz" target="_blank" rel="noreferrer">
-                {t(siteContent.projectsSectionMore)}  
+                {t(siteContent.projectsSectionMore)}
                 <ArrowRight size={16} className="ml-2" />
               </a>
             </Button>

@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import type { Variants } from 'motion/react';
-import type { HTMLAttributes } from 'react';
-import { forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
-import { motion, useAnimation } from 'motion/react';
+import type { Variants } from "motion/react";
+import type { HTMLAttributes } from "react";
+import { forwardRef, useCallback, useImperativeHandle, useRef } from "react";
+import { motion, useAnimation } from "motion/react";
 
-import { cn } from '@/lib/utils';
+import { cn } from "@/lib/utils";
 
 export interface FolderCheckIconHandle {
   startAnimation: () => void;
@@ -28,8 +28,8 @@ const CHECK_VARIANTS: Variants = {
     pathLength: [0, 1],
     opacity: [0, 1],
     transition: {
-      pathLength: { duration: 0.4, ease: 'easeInOut' },
-      opacity: { duration: 0.4, ease: 'easeInOut' },
+      pathLength: { duration: 0.4, ease: "easeInOut" },
+      opacity: { duration: 0.4, ease: "easeInOut" },
     },
   },
 };
@@ -42,40 +42,35 @@ const FolderCheckIcon = forwardRef<FolderCheckIconHandle, FolderCheckIconProps>(
     useImperativeHandle(ref, () => {
       isControlledRef.current = true;
       return {
-        startAnimation: () => controls.start('animate'),
-        stopAnimation: () => controls.start('normal'),
+        startAnimation: () => controls.start("animate"),
+        stopAnimation: () => controls.start("normal"),
       };
     });
 
     const handleMouseEnter = useCallback(
       (e: React.MouseEvent<HTMLDivElement>) => {
         if (!isControlledRef.current) {
-          controls.start('animate');
+          controls.start("animate");
         } else {
           onMouseEnter?.(e);
         }
       },
-      [controls, onMouseEnter]
+      [controls, onMouseEnter],
     );
 
     const handleMouseLeave = useCallback(
       (e: React.MouseEvent<HTMLDivElement>) => {
         if (!isControlledRef.current) {
-          controls.start('normal');
+          controls.start("normal");
         } else {
           onMouseLeave?.(e);
         }
       },
-      [controls, onMouseLeave]
+      [controls, onMouseLeave],
     );
 
     return (
-      <div
-        className={cn(className)}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        {...props}
-      >
+      <div className={cn(className)} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} {...props}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width={size}
@@ -93,14 +88,14 @@ const FolderCheckIcon = forwardRef<FolderCheckIconHandle, FolderCheckIconProps>(
             animate={controls}
             initial="normal"
             variants={CHECK_VARIANTS}
-            style={{ transformOrigin: 'center' }}
+            style={{ transformOrigin: "center" }}
           />
         </svg>
       </div>
     );
-  }
+  },
 );
 
-FolderCheckIcon.displayName = 'FolderCheckIcon';
+FolderCheckIcon.displayName = "FolderCheckIcon";
 
 export { FolderCheckIcon };

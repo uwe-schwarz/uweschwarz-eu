@@ -1,11 +1,7 @@
 "use client";
 
-import React, { useEffect, useSyncExternalStore } from 'react';
-import {
-  SettingsContext,
-  type Language,
-  type Theme,
-} from './settings-hook';
+import React, { useEffect, useSyncExternalStore } from "react";
+import { SettingsContext, type Language, type Theme } from "./settings-hook";
 
 interface SettingsProviderProps {
   children: React.ReactNode;
@@ -21,11 +17,7 @@ const setClientCookie = (name: string, value: string) => {
   document.cookie = `${name}=${encodeURIComponent(value)}; path=/; max-age=31536000; samesite=lax`;
 };
 
-export const SettingsProvider: React.FC<SettingsProviderProps> = ({
-  children,
-  initialLanguage,
-  initialTheme,
-}) => {
+export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children, initialLanguage, initialTheme }) => {
   // IMPORTANT: Keep hydration deterministic.
   // `useSyncExternalStore` lets React use the server snapshot during hydration,
   // and then update to client preferences (localStorage / system) after hydration,
@@ -79,26 +71,26 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({
 
   // Keep <html lang> in sync with current language
   useEffect(() => {
-    if (typeof document === 'undefined') return;
-    document.documentElement.setAttribute('lang', language);
+    if (typeof document === "undefined") return;
+    document.documentElement.setAttribute("lang", language);
   }, [language]);
 
   // Sync theme to DOM + localStorage
   useEffect(() => {
-    if (typeof document === 'undefined') return;
+    if (typeof document === "undefined") return;
     const root = window.document.documentElement;
 
-    if (theme === 'dark') {
-      root.classList.add('dark');
+    if (theme === "dark") {
+      root.classList.add("dark");
     } else {
-      root.classList.remove('dark');
+      root.classList.remove("dark");
     }
   }, [theme]);
 
   // Language setting function
   const setLanguage = (lang: Language) => {
-    if (typeof localStorage !== 'undefined') {
-      localStorage.setItem('language', lang);
+    if (typeof localStorage !== "undefined") {
+      localStorage.setItem("language", lang);
     }
     setClientCookie("language", lang);
     if (typeof window !== "undefined") {
@@ -108,8 +100,8 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({
 
   // Theme setting function
   const setTheme = (theme: Theme) => {
-    if (typeof localStorage !== 'undefined') {
-      localStorage.setItem('theme', theme);
+    if (typeof localStorage !== "undefined") {
+      localStorage.setItem("theme", theme);
     }
     setClientCookie("theme", theme);
     if (typeof window !== "undefined") {

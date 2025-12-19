@@ -1,11 +1,11 @@
 "use client";
 
-import Image from 'next/image';
-import { useSettings } from '@/contexts/settings-hook';
-import { siteContent } from '@/content/content';
-import { UsersIcon } from '@/components/icons/users';
-import { FolderCheckIcon } from '@/components/icons/folder-check';
-import { FlaskIcon } from '@/components/icons/flask';
+import Image from "next/image";
+import { useSettings } from "@/contexts/settings-hook";
+import { siteContent } from "@/content/content";
+import { UsersIcon } from "@/components/icons/users";
+import { FolderCheckIcon } from "@/components/icons/folder-check";
+import { FlaskIcon } from "@/components/icons/flask";
 
 type IconComponent = React.ComponentType<{ size?: number; className?: string }>;
 
@@ -20,7 +20,7 @@ const AboutSection = () => {
   const { about } = siteContent;
 
   // Stats display (now fully from content)
-  const stats = about.stats.map(stat => ({
+  const stats = about.stats.map((stat) => ({
     ...stat,
     icon: iconMap[stat.key] || UsersIcon,
   }));
@@ -49,7 +49,7 @@ const AboutSection = () => {
                   />
                 </div>
               </div>
-              
+
               {/* Decorative elements */}
               <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-primary rounded-lg transform rotate-6 -z-10"></div>
               <div className="absolute -top-4 -right-4 w-20 h-20 bg-accent rounded-lg transform -rotate-6 -z-10"></div>
@@ -60,19 +60,19 @@ const AboutSection = () => {
           <div className="lg:col-span-3">
             {/* About paragraphs */}
             {about.paragraphs.map((paragraph, index) => (
-              <p 
-                key={index} 
-                className={`text-base md:text-lg leading-relaxed ${index !== about.paragraphs.length - 1 ? 'mb-6' : ''}`}
+              <p
+                key={index}
+                className={`text-base md:text-lg leading-relaxed ${index !== about.paragraphs.length - 1 ? "mb-6" : ""}`}
               >
                 {t(paragraph)}
               </p>
             ))}
-            
+
             {/* Stats */}
             <div className={`grid grid-cols-1 sm:grid-cols-${stats.length} gap-8 mt-10`}>
               {stats.map((stat, index) => (
-                <div 
-                  key={stat.key} 
+                <div
+                  key={stat.key}
                   className="p-4 bg-card rounded-lg shadow-sm border border-border hover-scale transition-all"
                 >
                   <div className="flex flex-col items-center text-center">
@@ -80,7 +80,9 @@ const AboutSection = () => {
                       <stat.icon size={24} />
                     </div>
                     <span className="text-3xl font-bold mb-1">{t(stat.value)}</span>
-                    <span className="text-sm text-muted-foreground">{t(about.labels[stat.key as keyof typeof about.labels])}</span>
+                    <span className="text-sm text-muted-foreground">
+                      {t(about.labels[stat.key as keyof typeof about.labels])}
+                    </span>
                   </div>
                 </div>
               ))}

@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import type { Variants } from 'motion/react';
-import type { HTMLAttributes } from 'react';
-import { forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
-import { motion, useAnimation } from 'motion/react';
+import type { Variants } from "motion/react";
+import type { HTMLAttributes } from "react";
+import { forwardRef, useCallback, useImperativeHandle, useRef } from "react";
+import { motion, useAnimation } from "motion/react";
 
-import { cn } from '@/lib/utils';
+import { cn } from "@/lib/utils";
 
 export interface MapPinIconHandle {
   startAnimation: () => void;
@@ -54,40 +54,35 @@ const MapPinIcon = forwardRef<MapPinIconHandle, MapPinIconProps>(
       isControlledRef.current = true;
 
       return {
-        startAnimation: () => controls.start('animate'),
-        stopAnimation: () => controls.start('normal'),
+        startAnimation: () => controls.start("animate"),
+        stopAnimation: () => controls.start("normal"),
       };
     });
 
     const handleMouseEnter = useCallback(
       (e: React.MouseEvent<HTMLDivElement>) => {
         if (!isControlledRef.current) {
-          controls.start('animate');
+          controls.start("animate");
         } else {
           onMouseEnter?.(e);
         }
       },
-      [controls, onMouseEnter]
+      [controls, onMouseEnter],
     );
 
     const handleMouseLeave = useCallback(
       (e: React.MouseEvent<HTMLDivElement>) => {
         if (!isControlledRef.current) {
-          controls.start('normal');
+          controls.start("normal");
         } else {
           onMouseLeave?.(e);
         }
       },
-      [controls, onMouseLeave]
+      [controls, onMouseLeave],
     );
 
     return (
-      <div
-        className={cn(className)}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        {...props}
-      >
+      <div className={cn(className)} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} {...props}>
         <motion.svg
           xmlns="http://www.w3.org/2000/svg"
           width={size}
@@ -103,20 +98,13 @@ const MapPinIcon = forwardRef<MapPinIconHandle, MapPinIconProps>(
           animate={controls}
         >
           <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
-          <motion.circle
-            cx="12"
-            cy="10"
-            r="3"
-            variants={CIRCLE_VARIANTS}
-            initial="normal"
-            animate={controls}
-          />
+          <motion.circle cx="12" cy="10" r="3" variants={CIRCLE_VARIANTS} initial="normal" animate={controls} />
         </motion.svg>
       </div>
     );
-  }
+  },
 );
 
-MapPinIcon.displayName = 'MapPinIcon';
+MapPinIcon.displayName = "MapPinIcon";
 
 export { MapPinIcon };

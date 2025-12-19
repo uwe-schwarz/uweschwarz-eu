@@ -45,13 +45,13 @@ export default function ImprintPage() {
               <section className="mb-8">
                 <h2 className="mb-4 text-2xl font-semibold">{t(imprint.contactInfoTitle)}</h2>
                 <p>
-                  {t(imprint.emailLabel)}: {" "}
+                  {t(imprint.emailLabel)}:{" "}
                   <a href={`mailto:${imprint.email}`} className="text-primary">
                     {imprint.email}
                   </a>
                 </p>
                 <p>
-                  {t(imprint.phoneLabel)}: {" "}
+                  {t(imprint.phoneLabel)}:{" "}
                   <a href={`tel:${imprint.phone}`} className="text-primary">
                     {imprint.phone}
                   </a>

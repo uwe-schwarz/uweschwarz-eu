@@ -120,13 +120,7 @@ export interface Project {
 export interface Skill {
   name: LocalizedString;
   icon: ComponentType<{ className?: string }>;
-  category:
-    | "languages"
-    | "management"
-    | "security"
-    | "infrastructure"
-    | "tools"
-    | "ai";
+  category: "languages" | "management" | "security" | "infrastructure" | "tools" | "ai";
   level: number;
 }
 
@@ -237,11 +231,12 @@ export interface PrivacySection {
     title: LocalizedString;
     paragraphs: LocalizedString[];
     list?: Array<
-      LocalizedString | {
-        en: string;
-        de: string;
-        description?: LocalizedString;
-      }
+      | LocalizedString
+      | {
+          en: string;
+          de: string;
+          description?: LocalizedString;
+        }
     >;
   }>;
 }
@@ -466,165 +461,165 @@ export const siteContent: SiteContent = {
           },
         },
         {
-          "type": "text",
-          "text": {
-            "en": "Responsible for corporate governance in IT security, privacy and compliance topics.",
-            "de": "Verantwortlich für Governance in den Bereichen IT-Sicherheit, Datenschutz und Compliance."
-          }
+          type: "text",
+          text: {
+            en: "Responsible for corporate governance in IT security, privacy and compliance topics.",
+            de: "Verantwortlich für Governance in den Bereichen IT-Sicherheit, Datenschutz und Compliance.",
+          },
         },
       ],
       tags: [
-        { "en": "Security", "de": "Sicherheit" },
-        { "en": "Privacy", "de": "Datenschutz" },
-        { "en": "Microsoft 365", "de": "Microsoft 365" },
-        { "en": "Notion", "de": "Notion" },
-        { "en": "Cloudflare", "de": "Cloudflare" },
-        { "en": "Resend", "de": "Resend" },
-        { "en": "Supabase", "de": "Supabase" },
-        { "en": "IPv6", "de": "IPv6" },
-        { "en": "Zero Trust", "de": "Zero Trust" },
-        { "en": "Zero-Config VPN", "de": "Zero-Config VPN" },
-        { "en": "Governance", "de": "Governance" },
-        { "en": "Training", "de": "Training" },
-        { "en": "Security Awareness", "de": "Sicherheitsbewusstsein" },
-        { "en": "Risk Management", "de": "Risikomanagement" },
-        { "en": "Compliance", "de": "Compliance" },
-        { "en": "EU AI Act", "de": "EU AI Act" },
+        { en: "Security", de: "Sicherheit" },
+        { en: "Privacy", de: "Datenschutz" },
+        { en: "Microsoft 365", de: "Microsoft 365" },
+        { en: "Notion", de: "Notion" },
+        { en: "Cloudflare", de: "Cloudflare" },
+        { en: "Resend", de: "Resend" },
+        { en: "Supabase", de: "Supabase" },
+        { en: "IPv6", de: "IPv6" },
+        { en: "Zero Trust", de: "Zero Trust" },
+        { en: "Zero-Config VPN", de: "Zero-Config VPN" },
+        { en: "Governance", de: "Governance" },
+        { en: "Training", de: "Training" },
+        { en: "Security Awareness", de: "Sicherheitsbewusstsein" },
+        { en: "Risk Management", de: "Risikomanagement" },
+        { en: "Compliance", de: "Compliance" },
+        { en: "EU AI Act", de: "EU AI Act" },
       ],
     },
     {
-      "title": {
-        "en": "Founding Member & Data Protection Officer",
-        "de": "Gründungsmitglied & Datenschutzbeauftragter"
+      title: {
+        en: "Founding Member & Data Protection Officer",
+        de: "Gründungsmitglied & Datenschutzbeauftragter",
       },
-      "company": "AKTion gegen Krebs gUG",
-      "logoUrl": "/logos/aktion-gegen-krebs.png",
-      "projectScale": "small",
-      "period": { "en": "May 2025 - Present", "de": "Mai 2025 - Heute" },
+      company: "AKTion gegen Krebs gUG",
+      logoUrl: "/logos/aktion-gegen-krebs.png",
+      projectScale: "small",
+      period: { en: "May 2025 - Present", de: "Mai 2025 - Heute" },
       location: {
         en: "Seevetal, Germany",
         de: "Seevetal, Deutschland",
       },
-      "description": [
+      description: [
         {
-          "type": "text",
-          "text": {
-            "en": "Founding member responsible for data protection and GDPR compliance.",
-            "de": "Gründungsmitglied mit Verantwortung für Datenschutz und DSGVO-Compliance."
-          }
+          type: "text",
+          text: {
+            en: "Founding member responsible for data protection and GDPR compliance.",
+            de: "Gründungsmitglied mit Verantwortung für Datenschutz und DSGVO-Compliance.",
+          },
         },
         {
-          "type": "text",
-          "text": {
-            "en": "Developed and maintain the organization's backend systems.",
-            "de": "Entwicklung und Betreuung der Backend-Systeme."
-          }
+          type: "text",
+          text: {
+            en: "Developed and maintain the organization's backend systems.",
+            de: "Entwicklung und Betreuung der Backend-Systeme.",
+          },
         },
         {
-          "type": "text",
-          "text": {
-            "en": "Planning and implementing AI-supported workflows for case management.",
-            "de": "Planung und Implementierung KI-gestützter Workflows für die Fallbearbeitung."
-          }
+          type: "text",
+          text: {
+            en: "Planning and implementing AI-supported workflows for case management.",
+            de: "Planung und Implementierung KI-gestützter Workflows für die Fallbearbeitung.",
+          },
         },
         {
-          "type": "text",
-          "text": {
-            "en": "Responsible for IT security strategy and risk management.",
-            "de": "Verantwortlich für IT-Sicherheitsstrategie und Risikomanagement."
-          }
+          type: "text",
+          text: {
+            en: "Responsible for IT security strategy and risk management.",
+            de: "Verantwortlich für IT-Sicherheitsstrategie und Risikomanagement.",
+          },
         },
         {
-          "type": "text",
-          "text": {
-            "en": "Established GDPR-compliant data protection framework from the ground up.",
-            "de": "Aufbau eines DSGVO-konformen Datenschutzrahmens von Grund auf."
-          }
-        }
+          type: "text",
+          text: {
+            en: "Established GDPR-compliant data protection framework from the ground up.",
+            de: "Aufbau eines DSGVO-konformen Datenschutzrahmens von Grund auf.",
+          },
+        },
       ],
-      "tags": [
-        { "en": "Data Protection", "de": "Datenschutz" },
-        { "en": "IT Security", "de": "IT-Sicherheit" },
-        { "en": "AI Workflows", "de": "KI-Workflows" },
-        { "en": "Agentic AI", "de": "Agentische KI (Agentic AI)" },
-        { "en": "Backend Systems", "de": "Backend-Systeme" },
-        { "en": "Backup-Strategies", "de": "Backup-Strategien" },
-        { "en": "IPv6", "de": "IPv6" },
-        { "en": "Zero Trust", "de": "Zero Trust" },
-        { "en": "Zero-Config VPN", "de": "Zero-Config VPN" },
-        { "en": "Risk Management", "de": "Risikomanagement" },
-        { "en": "Compliance", "de": "Compliance" },
-        { "en": "Notion", "de": "Notion" },
-        { "en": "Cloudflare", "de": "Cloudflare" },
-        { "en": "Resend", "de": "Resend" },
-        { "en": "Supabase", "de": "Supabase" },
-      ]
+      tags: [
+        { en: "Data Protection", de: "Datenschutz" },
+        { en: "IT Security", de: "IT-Sicherheit" },
+        { en: "AI Workflows", de: "KI-Workflows" },
+        { en: "Agentic AI", de: "Agentische KI (Agentic AI)" },
+        { en: "Backend Systems", de: "Backend-Systeme" },
+        { en: "Backup-Strategies", de: "Backup-Strategien" },
+        { en: "IPv6", de: "IPv6" },
+        { en: "Zero Trust", de: "Zero Trust" },
+        { en: "Zero-Config VPN", de: "Zero-Config VPN" },
+        { en: "Risk Management", de: "Risikomanagement" },
+        { en: "Compliance", de: "Compliance" },
+        { en: "Notion", de: "Notion" },
+        { en: "Cloudflare", de: "Cloudflare" },
+        { en: "Resend", de: "Resend" },
+        { en: "Supabase", de: "Supabase" },
+      ],
     },
     {
-      "title": {
-        "en": "AI Training Platform & AI Tools Evaluation",
-        "de": "KI-Trainingsplattform & Evaluierung von KI-Werkzeugen"
+      title: {
+        en: "AI Training Platform & AI Tools Evaluation",
+        de: "KI-Trainingsplattform & Evaluierung von KI-Werkzeugen",
       },
-      "company": "DEGIT AG",
-      "logoUrl": "/logos/degit.png",
-      "projectScale": "small",
-      "period": { "en": "Aug 2025 – Oct 2025", "de": "Aug 2025 – Okt 2025" },
+      company: "DEGIT AG",
+      logoUrl: "/logos/degit.png",
+      projectScale: "small",
+      period: { en: "Aug 2025 – Oct 2025", de: "Aug 2025 – Okt 2025" },
       location: {
         en: "Hockenheim, Germany",
         de: "Hockenheim, Deutschland",
       },
-      "description": [
+      description: [
         {
-          "type": "text",
-          "text": {
-            "en": "Design and implementation of an internal AI training platform for corporate use, focusing on compliance with the EU AI Act and practical enablement of teams.",
-            "de": "Konzeption und Aufbau einer internen KI-Trainingsplattform für den Unternehmenseinsatz mit Fokus auf EU-AI-Act-Compliance und praxisnahe Befähigung der Teams."
-          }
+          type: "text",
+          text: {
+            en: "Design and implementation of an internal AI training platform for corporate use, focusing on compliance with the EU AI Act and practical enablement of teams.",
+            de: "Konzeption und Aufbau einer internen KI-Trainingsplattform für den Unternehmenseinsatz mit Fokus auf EU-AI-Act-Compliance und praxisnahe Befähigung der Teams.",
+          },
         },
         {
-          "type": "text",
-          "text": {
-            "en": "Evaluation and decision paper comparing leading AI and automation platforms with regard to data protection, reliability, API integration and governance readiness.",
-            "de": "Bewertung und Entscheidungsvorlage zum Vergleich führender KI- und Automatisierungsplattformen hinsichtlich Datenschutz, Zuverlässigkeit, API-Integration und Governance-Tauglichkeit."
-          }
+          type: "text",
+          text: {
+            en: "Evaluation and decision paper comparing leading AI and automation platforms with regard to data protection, reliability, API integration and governance readiness.",
+            de: "Bewertung und Entscheidungsvorlage zum Vergleich führender KI- und Automatisierungsplattformen hinsichtlich Datenschutz, Zuverlässigkeit, API-Integration und Governance-Tauglichkeit.",
+          },
         },
         {
-          "type": "text",
-          "text": {
-            "en": "Evaluation of emerging Agentic AI workflows for multi-step task orchestration and their integration into enterprise automation environments.",
-            "de": "Evaluierung aufkommender Agentic-AI-Workflows zur mehrstufigen Aufgabenorchestrierung und deren Integration in Unternehmensautomatisierungsumgebungen."
-          }
+          type: "text",
+          text: {
+            en: "Evaluation of emerging Agentic AI workflows for multi-step task orchestration and their integration into enterprise automation environments.",
+            de: "Evaluierung aufkommender Agentic-AI-Workflows zur mehrstufigen Aufgabenorchestrierung und deren Integration in Unternehmensautomatisierungsumgebungen.",
+          },
         },
         {
-          "type": "text",
-          "text": {
-            "en": "Analyzed and benchmarked: OpenAI ChatGPT, OpenAI Open-Weight GPT-OSS, Microsoft Copilot, Perplexity, Anthropic Claude, Apple Foundation, z.AI GLM, n8n, make.com, Zapier.",
-            "de": "Analysiert und bewertet: OpenAI ChatGPT, OpenAI Open-Weight GPT-OSS, Microsoft Copilot, Perplexity, Anthropic Claude, Apple Foundation, z.AI GLM, n8n, make.com und Zapier."
-          }
-        }
+          type: "text",
+          text: {
+            en: "Analyzed and benchmarked: OpenAI ChatGPT, OpenAI Open-Weight GPT-OSS, Microsoft Copilot, Perplexity, Anthropic Claude, Apple Foundation, z.AI GLM, n8n, make.com, Zapier.",
+            de: "Analysiert und bewertet: OpenAI ChatGPT, OpenAI Open-Weight GPT-OSS, Microsoft Copilot, Perplexity, Anthropic Claude, Apple Foundation, z.AI GLM, n8n, make.com und Zapier.",
+          },
+        },
       ],
-      "tags": [
-        { "en": "AI Evaluation", "de": "KI-Evaluierung" },
-        { "en": "AI Training", "de": "KI-Training" },
-        { "en": "EU AI Act", "de": "EU AI Act" },
-        { "en": "Supabase", "de": "Supabase" },
-        { "en": "Cloudflare", "de": "Cloudflare" },
-        { "en": "Automation", "de": "Automatisierung" },
-        { "en": "n8n", "de": "n8n" },
-        { "en": "make.com", "de": "make.com" },
-        { "en": "Zapier", "de": "Zapier" },
-        { "en": "OpenAI", "de": "OpenAI" },
-        { "en": "Apple Foundation", "de": "Apple Foundation" },
-        { "en": "Anthropic Claude", "de": "Anthropic Claude" },
-        { "en": "Microsoft Copilot", "de": "Microsoft Copilot" },
-        { "en": "Perplexity", "de": "Perplexity" },
-        { "en": "z.AI GLM", "de": "z.AI GLM" },
-        { "en": "Agentic AI", "de": "Agentische KI" },
-        { "en": "Enterprise Automation", "de": "Unternehmensautomatisierung" },
-        { "en": "Cursor", "de": "Cursor" },
-        { "en": "Claude Code", "de": "Claude Code" },
-        { "en": "OpenAI Codex", "de": "OpenAI Codex" },
-      ]
+      tags: [
+        { en: "AI Evaluation", de: "KI-Evaluierung" },
+        { en: "AI Training", de: "KI-Training" },
+        { en: "EU AI Act", de: "EU AI Act" },
+        { en: "Supabase", de: "Supabase" },
+        { en: "Cloudflare", de: "Cloudflare" },
+        { en: "Automation", de: "Automatisierung" },
+        { en: "n8n", de: "n8n" },
+        { en: "make.com", de: "make.com" },
+        { en: "Zapier", de: "Zapier" },
+        { en: "OpenAI", de: "OpenAI" },
+        { en: "Apple Foundation", de: "Apple Foundation" },
+        { en: "Anthropic Claude", de: "Anthropic Claude" },
+        { en: "Microsoft Copilot", de: "Microsoft Copilot" },
+        { en: "Perplexity", de: "Perplexity" },
+        { en: "z.AI GLM", de: "z.AI GLM" },
+        { en: "Agentic AI", de: "Agentische KI" },
+        { en: "Enterprise Automation", de: "Unternehmensautomatisierung" },
+        { en: "Cursor", de: "Cursor" },
+        { en: "Claude Code", de: "Claude Code" },
+        { en: "OpenAI Codex", de: "OpenAI Codex" },
+      ],
     },
     {
       title: {
@@ -641,46 +636,46 @@ export const siteContent: SiteContent = {
       description: [
         {
           type: "text",
-          "text": {
-            "en": "Subproject lead within the data center migration project, focusing on Solaris, Linux, storage, and backup environments.",
-            "de": "Teilprojektleitung im Rahmen des RZ-Migrationsprojekts mit Schwerpunkt auf Solaris-, Linux-, Storage- und Backup-Umgebungen."
-          }
+          text: {
+            en: "Subproject lead within the data center migration project, focusing on Solaris, Linux, storage, and backup environments.",
+            de: "Teilprojektleitung im Rahmen des RZ-Migrationsprojekts mit Schwerpunkt auf Solaris-, Linux-, Storage- und Backup-Umgebungen.",
+          },
         },
         {
           type: "text",
-          "text": {
-            "en": "Responsible for the modernization and full implementation of the new enterprise backup platform based on Rubrik Security Cloud.",
-            "de": "Verantwortlich für die Modernisierung und Einführung der neuen unternehmensweiten Backup-Plattform auf Basis der Rubrik Security Cloud."
-          }
+          text: {
+            en: "Responsible for the modernization and full implementation of the new enterprise backup platform based on Rubrik Security Cloud.",
+            de: "Verantwortlich für die Modernisierung und Einführung der neuen unternehmensweiten Backup-Plattform auf Basis der Rubrik Security Cloud.",
+          },
         },
         {
           type: "text",
-          "text": {
-            "en": "Supported the transition of Solaris infrastructure and legacy systems towards modern, cloud-ready architectures.",
-            "de": "Mitverantwortung bei der Weiterentwicklung der Solaris-Infrastruktur und der schrittweisen Ablösung von Legacy-Systemen durch moderne, cloudfähige Architekturen."
-          }
+          text: {
+            en: "Supported the transition of Solaris infrastructure and legacy systems towards modern, cloud-ready architectures.",
+            de: "Mitverantwortung bei der Weiterentwicklung der Solaris-Infrastruktur und der schrittweisen Ablösung von Legacy-Systemen durch moderne, cloudfähige Architekturen.",
+          },
         },
         {
           type: "text",
-          "text": {
-            "en": "Contributed to the redesign and renewal of the legacy network into a modern, segmented structure with improved security focus.",
-            "de": "Mitwirkung bei der Neugestaltung und Erneuerung der Legacy-Netzwerkinfrastruktur hin zu einer modernen, segmentierten Architektur mit verbesserter Security-Fokussierung."
-          }
+          text: {
+            en: "Contributed to the redesign and renewal of the legacy network into a modern, segmented structure with improved security focus.",
+            de: "Mitwirkung bei der Neugestaltung und Erneuerung der Legacy-Netzwerkinfrastruktur hin zu einer modernen, segmentierten Architektur mit verbesserter Security-Fokussierung.",
+          },
         },
         {
           type: "achievement",
-          "text": {
-            "en": "Successfully led the Rubrik Security Cloud modernization project, enhancing data protection, compliance, and recovery performance across all business units.",
-            "de": "Erfolgreiche Leitung des Modernisierungsprojekts der Rubrik Security Cloud mit deutlichen Verbesserungen bei Datensicherheit, Compliance und Wiederherstellungszeiten in allen Fachbereichen."
-          }
+          text: {
+            en: "Successfully led the Rubrik Security Cloud modernization project, enhancing data protection, compliance, and recovery performance across all business units.",
+            de: "Erfolgreiche Leitung des Modernisierungsprojekts der Rubrik Security Cloud mit deutlichen Verbesserungen bei Datensicherheit, Compliance und Wiederherstellungszeiten in allen Fachbereichen.",
+          },
         },
         {
           type: "achievement",
-          "text": {
-            "en": "Contributed to the successful relocation of two data centers with minimized downtime and coordinated dependencies across multiple infrastructure domains.",
-            "de": "Beitrag zur erfolgreichen Verlagerung von zwei Rechenzentren mit minimalen Ausfallzeiten und abgestimmten Abhängigkeiten über mehrere Infrastrukturbereiche hinweg."
-          }
-        }
+          text: {
+            en: "Contributed to the successful relocation of two data centers with minimized downtime and coordinated dependencies across multiple infrastructure domains.",
+            de: "Beitrag zur erfolgreichen Verlagerung von zwei Rechenzentren mit minimalen Ausfallzeiten und abgestimmten Abhängigkeiten über mehrere Infrastrukturbereiche hinweg.",
+          },
+        },
       ],
       tags: [
         { en: "Project Management", de: "Projektmanagement" },
@@ -797,61 +792,61 @@ export const siteContent: SiteContent = {
       ],
     },
     {
-      "title": {
-        "en": "Code Review & Security Advisory",
-        "de": "Code-Review & Security-Beratung"
+      title: {
+        en: "Code Review & Security Advisory",
+        de: "Code-Review & Security-Beratung",
       },
-      "company": "GEHR Datentechnik GmbH",
-      "logoUrl": "/logos/gehr.png",
-      "projectScale": "small",
-      "period": { "en": "Oct 2023", "de": "Okt 2023" },
-      "location": {
-        "en": "Mannheim, Germany",
-        "de": "Mannheim, Deutschland"
+      company: "GEHR Datentechnik GmbH",
+      logoUrl: "/logos/gehr.png",
+      projectScale: "small",
+      period: { en: "Oct 2023", de: "Okt 2023" },
+      location: {
+        en: "Mannheim, Germany",
+        de: "Mannheim, Deutschland",
       },
-      "description": [
+      description: [
         {
-          "type": "text",
-          "text": {
-            "en": "Comprehensive code review of the existing PHP application with a structured assessment of critical, medium and low-severity issues.",
-            "de": "Umfassendes Code-Review der bestehenden PHP-Anwendung mit mit mit strukturierter Bewertung von Findings hoher, mittlerer und niedriger Schwere."
-          }
+          type: "text",
+          text: {
+            en: "Comprehensive code review of the existing PHP application with a structured assessment of critical, medium and low-severity issues.",
+            de: "Umfassendes Code-Review der bestehenden PHP-Anwendung mit mit mit strukturierter Bewertung von Findings hoher, mittlerer und niedriger Schwere.",
+          },
         },
         {
-          "type": "text",
-          "text": {
-            "en": "Creation of a detailed review document including technical findings, recommended remediation steps, and prioritization for development teams.",
-            "de": "Erstellung eines ausführlichen Review-Papiers mit technischen Befunden, empfohlenen Maßnahmen und Priorisierung für die Entwicklungsteams."
-          }
+          type: "text",
+          text: {
+            en: "Creation of a detailed review document including technical findings, recommended remediation steps, and prioritization for development teams.",
+            de: "Erstellung eines ausführlichen Review-Papiers mit technischen Befunden, empfohlenen Maßnahmen und Priorisierung für die Entwicklungsteams.",
+          },
         },
         {
-          "type": "text",
-          "text": {
-            "en": "Consulting on application and infrastructure security with a focus on practical improvements, secure coding patterns and operational hardening.",
-            "de": "Beratung zu Anwendungs- und Infrastruktursicherheit mit Fokus auf praxisnahe Verbesserungen, sichere Coding-Patterns und betriebliches Hardening."
-          }
+          type: "text",
+          text: {
+            en: "Consulting on application and infrastructure security with a focus on practical improvements, secure coding patterns and operational hardening.",
+            de: "Beratung zu Anwendungs- und Infrastruktursicherheit mit Fokus auf praxisnahe Verbesserungen, sichere Coding-Patterns und betriebliches Hardening.",
+          },
         },
         {
-          "type": "text",
-          "text": {
-            "en": "Support during the implementation phase to fix identified issues and improve overall application resilience.",
-            "de": "Unterstützung während der Umsetzung zur Behebung identifizierter Probleme und zur Verbesserung der Gesamtstabilität der Anwendung."
-          }
-        }
+          type: "text",
+          text: {
+            en: "Support during the implementation phase to fix identified issues and improve overall application resilience.",
+            de: "Unterstützung während der Umsetzung zur Behebung identifizierter Probleme und zur Verbesserung der Gesamtstabilität der Anwendung.",
+          },
+        },
       ],
-      "tags": [
-        { "en": "Code Review", "de": "Code-Review" },
-        { "en": "Security Advisory", "de": "Security-Beratung" },
-        { "en": "Vulnerability Analysis", "de": "Schwachstellenanalyse" },
-        { "en": "GDPR", "de": "DSGVO" },
-        { "en": "OWASP", "de": "OWASP" },
-        { "en": "Web Security", "de": "Web-Sicherheit" },
-        { "en": "Data Protection", "de": "Datenschutz" },
-        { "en": "Risk Assessment", "de": "Risikobewertung" },
-        { "en": "Linux", "de": "Linux" },
-        { "en": "PHP", "de": "PHP" },
-        { "en": "MySQL", "de": "MySQL" },
-      ]
+      tags: [
+        { en: "Code Review", de: "Code-Review" },
+        { en: "Security Advisory", de: "Security-Beratung" },
+        { en: "Vulnerability Analysis", de: "Schwachstellenanalyse" },
+        { en: "GDPR", de: "DSGVO" },
+        { en: "OWASP", de: "OWASP" },
+        { en: "Web Security", de: "Web-Sicherheit" },
+        { en: "Data Protection", de: "Datenschutz" },
+        { en: "Risk Assessment", de: "Risikobewertung" },
+        { en: "Linux", de: "Linux" },
+        { en: "PHP", de: "PHP" },
+        { en: "MySQL", de: "MySQL" },
+      ],
     },
     {
       title: { en: "IT Security Consultant", de: "IT-Sicherheitsexperte" },
@@ -906,10 +901,10 @@ export const siteContent: SiteContent = {
           },
         },
         {
-          "type": "text",
-          "text": {
-            "en": "Led and managed the Security Operations Center (SOC) team, overseeing daily operations, incident response, and continuous improvement of security processes.",
-            "de": "Leitung und Management des Security Operations Center (SOC)-Teams, einschließlich der täglichen Betriebsüberwachung, Incident Response und kontinuierlichen Verbesserung der Sicherheitsprozesse."
+          type: "text",
+          text: {
+            en: "Led and managed the Security Operations Center (SOC) team, overseeing daily operations, incident response, and continuous improvement of security processes.",
+            de: "Leitung und Management des Security Operations Center (SOC)-Teams, einschließlich der täglichen Betriebsüberwachung, Incident Response und kontinuierlichen Verbesserung der Sicherheitsprozesse.",
           },
         },
         {
@@ -1076,71 +1071,71 @@ export const siteContent: SiteContent = {
         en: "Frankfurt am Main, Germany",
         de: "Frankfurt am Main, Deutschland",
       },
-      "description": [
+      description: [
         {
-          "type": "text",
-          "text": {
-            "en": "Product Owner and system architect for the enterprise-wide email archiving platform, including requirements management, technical roadmap, and long-term evolution.",
-            "de": "Product Owner und Systemarchitekt für die unternehmensweite E-Mail-Archivierungsplattform, einschließlich Anforderungsmanagement, technischer Roadmap und langfristiger Weiterentwicklung."
-          }
+          type: "text",
+          text: {
+            en: "Product Owner and system architect for the enterprise-wide email archiving platform, including requirements management, technical roadmap, and long-term evolution.",
+            de: "Product Owner und Systemarchitekt für die unternehmensweite E-Mail-Archivierungsplattform, einschließlich Anforderungsmanagement, technischer Roadmap und langfristiger Weiterentwicklung.",
+          },
         },
         {
-          "type": "text",
-          "text": {
-            "en": "Led the design and implementation of a legally compliant archive for more than 50,000 users, ensuring immutable retention, auditability, and long-term maintainability.",
-            "de": "Leitung der Design- und Implementierung eines rechtssicheren Archivs für über 50.000 Nutzer mit rechtssicherer Aufbewahrung, Prüfbarkeit und langfristiger Wartbarkeit."
-          }
+          type: "text",
+          text: {
+            en: "Led the design and implementation of a legally compliant archive for more than 50,000 users, ensuring immutable retention, auditability, and long-term maintainability.",
+            de: "Leitung der Design- und Implementierung eines rechtssicheren Archivs für über 50.000 Nutzer mit rechtssicherer Aufbewahrung, Prüfbarkeit und langfristiger Wartbarkeit.",
+          },
         },
         {
-          "type": "text",
-          "text": {
-            "en": "Introduced scalable storage, redundancy concepts, monitoring, indexing and full-text search to enable efficient retrieval of historical correspondence.",
-            "de": "Einführung skalierbarer Speicher- und Redundanzkonzepte sowie Monitoring, Indexierung und Volltextsuche zur effizienten Auffindbarkeit historischer Korrespondenz."
-          }
+          type: "text",
+          text: {
+            en: "Introduced scalable storage, redundancy concepts, monitoring, indexing and full-text search to enable efficient retrieval of historical correspondence.",
+            de: "Einführung skalierbarer Speicher- und Redundanzkonzepte sowie Monitoring, Indexierung und Volltextsuche zur effizienten Auffindbarkeit historischer Korrespondenz.",
+          },
         },
         {
-          "type": "text",
-          "text": {
-            "en": "Close collaboration with legal, compliance, and auditing teams to meet regulatory requirements and ensure long-term evidentiary integrity.",
-            "de": "Enge Zusammenarbeit mit Legal-, Compliance- und Audit-Teams zur Erfüllung regulatorischer Anforderungen und langfristigen Beweissicherheit."
-          }
+          type: "text",
+          text: {
+            en: "Close collaboration with legal, compliance, and auditing teams to meet regulatory requirements and ensure long-term evidentiary integrity.",
+            de: "Enge Zusammenarbeit mit Legal-, Compliance- und Audit-Teams zur Erfüllung regulatorischer Anforderungen und langfristigen Beweissicherheit.",
+          },
         },
         {
-          "type": "text",
-          "text": {
-            "en": "Secondary responsibilities in the surrounding mail infrastructure (dovecot, postfix), Linux-based services, DNS, proxy, load balancing and cloud storage.",
-            "de": "Nebenverantwortlichkeiten in der umliegenden Mail-Infrastruktur (dovecot, postfix), Linux-basierten Diensten, DNS, Proxy, Lastverteilung und Cloud-Speicher."
-          }
+          type: "text",
+          text: {
+            en: "Secondary responsibilities in the surrounding mail infrastructure (dovecot, postfix), Linux-based services, DNS, proxy, load balancing and cloud storage.",
+            de: "Nebenverantwortlichkeiten in der umliegenden Mail-Infrastruktur (dovecot, postfix), Linux-basierten Diensten, DNS, Proxy, Lastverteilung und Cloud-Speicher.",
+          },
         },
         {
-          "type": "achievement",
-          "text": {
-            "en": "Delivered a stable, compliant archive used daily across the entire organization.",
-            "de": "Bereitstellung eines stabilen, compliance-gerechten Archivsystems, das im gesamten Unternehmen täglich genutzt wurde."
-          }
+          type: "achievement",
+          text: {
+            en: "Delivered a stable, compliant archive used daily across the entire organization.",
+            de: "Bereitstellung eines stabilen, compliance-gerechten Archivsystems, das im gesamten Unternehmen täglich genutzt wurde.",
+          },
         },
         {
-          "type": "achievement",
-          "text": {
-            "en": "Established future-proof data retention strategies aligned with strict regulatory expectations.",
-            "de": "Etablierung zukunftssicherer Aufbewahrungsstrategien im Einklang mit strengen regulatorischen Vorgaben."
-          }
-        }
+          type: "achievement",
+          text: {
+            en: "Established future-proof data retention strategies aligned with strict regulatory expectations.",
+            de: "Etablierung zukunftssicherer Aufbewahrungsstrategien im Einklang mit strengen regulatorischen Vorgaben.",
+          },
+        },
       ],
       tags: [
-        { "en": "Email Archiving", "de": "E-Mail-Archivierung" },
-        { "en": "Compliance", "de": "Compliance" },
-        { "en": "Retention Policies", "de": "Aufbewahrungspflichten" },
-        { "en": "dovecot", "de": "dovecot" },
-        { "en": "postfix", "de": "postfix" },
-        { "en": "Linux", "de": "Linux" },
-        { "en": "High Availability", "de": "Hochverfügbarkeit" },
-        { "en": "Monitoring", "de": "Monitoring" },
-        { "en": "Full-Text Search", "de": "Volltextsuche" },
-        { "en": "Indexing", "de": "Indexierung" },
-        { "en": "Scalability", "de": "Skalierbarkeit" },
-        { "en": "Auditability", "de": "Prüfbarkeit" },
-        { "en": "IPv6", "de": "IPv6" }
+        { en: "Email Archiving", de: "E-Mail-Archivierung" },
+        { en: "Compliance", de: "Compliance" },
+        { en: "Retention Policies", de: "Aufbewahrungspflichten" },
+        { en: "dovecot", de: "dovecot" },
+        { en: "postfix", de: "postfix" },
+        { en: "Linux", de: "Linux" },
+        { en: "High Availability", de: "Hochverfügbarkeit" },
+        { en: "Monitoring", de: "Monitoring" },
+        { en: "Full-Text Search", de: "Volltextsuche" },
+        { en: "Indexing", de: "Indexierung" },
+        { en: "Scalability", de: "Skalierbarkeit" },
+        { en: "Auditability", de: "Prüfbarkeit" },
+        { en: "IPv6", de: "IPv6" },
       ],
     },
   ],
@@ -1152,7 +1147,7 @@ export const siteContent: SiteContent = {
       },
       description: {
         en: "Led the coordination, architecture, and implementation of a legally compliant enterprise-wide email archiving solution for more than 50,000 users. The system ensures immutable storage of all communication for over 10 years, meeting strict regulatory and auditing requirements. Based on open-source technologies, the archive was designed with scalability, redundancy, and long-term maintainability in mind. Integrated monitoring, indexing, and full-text search enable efficient retrieval of historical correspondence.",
-        de: "Leitung der Koordination, Architektur und Implementierung einer rechtssicheren E-Mail-Archivierungslösung für mehr als 50.000 Nutzer. Das System gewährleistet die unveränderbare Speicherung sämtlicher Kommunikation über mehr als 10 Jahre und erfüllt strenge regulatorische sowie prüfungsrelevante Anforderungen. Basierend auf Open-Source-Technologien wurde das Archiv mit Blick auf Skalierbarkeit, Redundanz und langfristige Wartbarkeit konzipiert. Integriertes Monitoring, Indexierung und Volltextsuche ermöglichen ein effizientes Auffinden historischer Korrespondenz."
+        de: "Leitung der Koordination, Architektur und Implementierung einer rechtssicheren E-Mail-Archivierungslösung für mehr als 50.000 Nutzer. Das System gewährleistet die unveränderbare Speicherung sämtlicher Kommunikation über mehr als 10 Jahre und erfüllt strenge regulatorische sowie prüfungsrelevante Anforderungen. Basierend auf Open-Source-Technologien wurde das Archiv mit Blick auf Skalierbarkeit, Redundanz und langfristige Wartbarkeit konzipiert. Integriertes Monitoring, Indexierung und Volltextsuche ermöglichen ein effizientes Auffinden historischer Korrespondenz.",
       },
       imageUrl: "/projects/mailarchive.webp",
       imageAlt: {
@@ -1166,29 +1161,29 @@ export const siteContent: SiteContent = {
         { en: "CentOS", de: "CentOS" },
         { en: "Compliance", de: "Compliance" },
         { en: "Archiving", de: "Archivierung" },
-        { en: "Email Security", de: "E-Mail-Sicherheit" }
+        { en: "Email Security", de: "E-Mail-Sicherheit" },
       ],
     },
     {
-      "title": {
-        "en": "AI-Supported Case Management",
-        "de": "KI-unterstützte Fallbearbeitung"
+      title: {
+        en: "AI-Supported Case Management",
+        de: "KI-unterstützte Fallbearbeitung",
       },
-      "description": {
-        "en": "Designed and implemented a system to support the processing of cancer-related cases using AI. The platform integrates secure data handling, structured workflows, and AI-based assistance to prioritize, analyze, and streamline case management. This ensures faster response times and improved quality in handling sensitive medical and legal information.",
-        "de": "Konzeption und Implementierung eines Systems zur Unterstützung der Bearbeitung krebsbezogener Fälle mit KI. Die Plattform integriert sichere Datenverarbeitung, strukturierte Workflows und KI-basierte Assistenz, um Fälle zu priorisieren, zu analysieren und die Fallbearbeitung zu optimieren. Dadurch werden schnellere Reaktionszeiten und eine verbesserte Qualität im Umgang mit sensiblen medizinischen und juristischen Informationen gewährleistet."
+      description: {
+        en: "Designed and implemented a system to support the processing of cancer-related cases using AI. The platform integrates secure data handling, structured workflows, and AI-based assistance to prioritize, analyze, and streamline case management. This ensures faster response times and improved quality in handling sensitive medical and legal information.",
+        de: "Konzeption und Implementierung eines Systems zur Unterstützung der Bearbeitung krebsbezogener Fälle mit KI. Die Plattform integriert sichere Datenverarbeitung, strukturierte Workflows und KI-basierte Assistenz, um Fälle zu priorisieren, zu analysieren und die Fallbearbeitung zu optimieren. Dadurch werden schnellere Reaktionszeiten und eine verbesserte Qualität im Umgang mit sensiblen medizinischen und juristischen Informationen gewährleistet.",
       },
-      "imageUrl": "/projects/ai_case_management.webp",
-      "imageAlt": {
-        "en": "Illustration showing AI-assisted workflows in case management: secure data vault, AI decision nodes, and case files moving through an optimized pipeline.",
-        "de": "Illustration zu KI-gestützten Workflows in der Fallbearbeitung: sicherer Datenspeicher, KI-Entscheidungsknoten und Fallakten, die durch eine optimierte Prozesskette laufen."
+      imageUrl: "/projects/ai_case_management.webp",
+      imageAlt: {
+        en: "Illustration showing AI-assisted workflows in case management: secure data vault, AI decision nodes, and case files moving through an optimized pipeline.",
+        de: "Illustration zu KI-gestützten Workflows in der Fallbearbeitung: sicherer Datenspeicher, KI-Entscheidungsknoten und Fallakten, die durch eine optimierte Prozesskette laufen.",
       },
-      "tags": [
-        { "en": "Agentic AI Workflow", "de": "Agentischer KI-Workflow" },
-        { "en": "Case Management", "de": "Fallbearbeitung" },
-        { "en": "Data Protection", "de": "Datenschutz" },
-        { "en": "Automation", "de": "Automatisierung" }
-      ]
+      tags: [
+        { en: "Agentic AI Workflow", de: "Agentischer KI-Workflow" },
+        { en: "Case Management", de: "Fallbearbeitung" },
+        { en: "Data Protection", de: "Datenschutz" },
+        { en: "Automation", de: "Automatisierung" },
+      ],
     },
     {
       title: {
@@ -1212,51 +1207,51 @@ export const siteContent: SiteContent = {
       ],
     },
     {
-      "title": {
-        "en": "EU AI Act Training Platform",
-        "de": "Schulungsplattform zum EU AI Act"
+      title: {
+        en: "EU AI Act Training Platform",
+        de: "Schulungsplattform zum EU AI Act",
       },
-      "description": {
-        "en": "Designed and developed a modular training platform covering the EU Artificial Intelligence Act (EU AI Act). The course provides a structured learning path with interactive slides, voice narration, and integrated quizzes to ensure a clear understanding of the regulation’s scope, risk-based framework, and compliance implications. The platform includes five sections — from fundamentals to governance, risk categories, and real-world applications — and was built with future expansion in mind to accommodate upcoming modules on data protection, ethical AI, and technical implementation guidelines.",
-        "de": "Konzeption und Aufbau einer modularen Schulungsplattform zum EU-Gesetz über Künstliche Intelligenz (EU AI Act). Der Kurs vermittelt in klar strukturierten Lerneinheiten mit interaktiven Folien, Audiokommentaren und integrierten Quizfragen ein fundiertes Verständnis zu Geltungsbereich, risikobasiertem Ansatz und Compliance-Auswirkungen. Die Plattform umfasst fünf Sektionen – von den Grundlagen über Governance und Risikokategorien bis hin zu Praxisanwendungen – und wurde so entwickelt, dass sie zukünftig um weitere Module zu Datenschutz, ethischer KI und technischen Umsetzungsvorgaben erweitert werden kann."
+      description: {
+        en: "Designed and developed a modular training platform covering the EU Artificial Intelligence Act (EU AI Act). The course provides a structured learning path with interactive slides, voice narration, and integrated quizzes to ensure a clear understanding of the regulation’s scope, risk-based framework, and compliance implications. The platform includes five sections — from fundamentals to governance, risk categories, and real-world applications — and was built with future expansion in mind to accommodate upcoming modules on data protection, ethical AI, and technical implementation guidelines.",
+        de: "Konzeption und Aufbau einer modularen Schulungsplattform zum EU-Gesetz über Künstliche Intelligenz (EU AI Act). Der Kurs vermittelt in klar strukturierten Lerneinheiten mit interaktiven Folien, Audiokommentaren und integrierten Quizfragen ein fundiertes Verständnis zu Geltungsbereich, risikobasiertem Ansatz und Compliance-Auswirkungen. Die Plattform umfasst fünf Sektionen – von den Grundlagen über Governance und Risikokategorien bis hin zu Praxisanwendungen – und wurde so entwickelt, dass sie zukünftig um weitere Module zu Datenschutz, ethischer KI und technischen Umsetzungsvorgaben erweitert werden kann.",
       },
-      "imageUrl": "/projects/ai_act_training.webp",
-      "imageAlt": {
-        "en": "Screenshot of the EU AI Act training platform showing completed modules, quizzes, and a structured overview of sections such as risk-based approach, governance, and compliance strategies.",
-        "de": "Screenshot der Schulungsplattform zum EU AI Act mit abgeschlossenen Modulen, Quizfragen und einer strukturierten Übersicht über Themen wie risikobasierter Ansatz, Governance und Compliance-Strategien."
+      imageUrl: "/projects/ai_act_training.webp",
+      imageAlt: {
+        en: "Screenshot of the EU AI Act training platform showing completed modules, quizzes, and a structured overview of sections such as risk-based approach, governance, and compliance strategies.",
+        de: "Screenshot der Schulungsplattform zum EU AI Act mit abgeschlossenen Modulen, Quizfragen und einer strukturierten Übersicht über Themen wie risikobasierter Ansatz, Governance und Compliance-Strategien.",
       },
-      "tags": [
-        { "en": "EU AI Act", "de": "EU AI Act" },
-        { "en": "Compliance Training", "de": "Compliance-Schulung" },
-        { "en": "AI Governance", "de": "KI-Governance" },
-        { "en": "E-Learning", "de": "E-Learning" },
-        { "en": "Education Platform", "de": "Schulungsplattform" },
-        { "en": "Regulatory Framework", "de": "Regulatorischer Rahmen" }
-      ]
+      tags: [
+        { en: "EU AI Act", de: "EU AI Act" },
+        { en: "Compliance Training", de: "Compliance-Schulung" },
+        { en: "AI Governance", de: "KI-Governance" },
+        { en: "E-Learning", de: "E-Learning" },
+        { en: "Education Platform", de: "Schulungsplattform" },
+        { en: "Regulatory Framework", de: "Regulatorischer Rahmen" },
+      ],
     },
     {
-      "title": {
-        "en": "Zero-Config IPv6 VPN Network",
-        "de": "Zero-Config IPv6 VPN Netzwerk"
+      title: {
+        en: "Zero-Config IPv6 VPN Network",
+        de: "Zero-Config IPv6 VPN Netzwerk",
       },
-      "description": {
-        "en": "Designed and implemented a secure, zero-configuration VPN network leveraging IPv6 as the foundation for global connectivity. The solution enables seamless peer-to-peer communication without manual setup, NAT traversal, or complex provisioning, while ensuring strong encryption and modern authentication mechanisms. By combining simple rules with advanced security controls, the network architecture provides resilient, scalable, and privacy-preserving access across distributed environments.",
-        "de": "Konzeption und Aufbau eines sicheren Zero-Config-VPN-Netzes auf Basis von IPv6 als Fundament für weltweite Konnektivität. Die Lösung ermöglicht nahtlose Peer-to-Peer-Kommunikation ohne manuelle Einrichtung, NAT-Traversal oder komplexe Provisionierung, bei gleichzeitig starker Verschlüsselung und modernen Authentifizierungsmechanismen. Durch die Kombination von einfachen Regeln mit erweiterten Sicherheitskontrollen entsteht eine widerstandsfähige, skalierbare und datenschutzfreundliche Netzwerkarchitektur für verteilte Umgebungen."
+      description: {
+        en: "Designed and implemented a secure, zero-configuration VPN network leveraging IPv6 as the foundation for global connectivity. The solution enables seamless peer-to-peer communication without manual setup, NAT traversal, or complex provisioning, while ensuring strong encryption and modern authentication mechanisms. By combining simple rules with advanced security controls, the network architecture provides resilient, scalable, and privacy-preserving access across distributed environments.",
+        de: "Konzeption und Aufbau eines sicheren Zero-Config-VPN-Netzes auf Basis von IPv6 als Fundament für weltweite Konnektivität. Die Lösung ermöglicht nahtlose Peer-to-Peer-Kommunikation ohne manuelle Einrichtung, NAT-Traversal oder komplexe Provisionierung, bei gleichzeitig starker Verschlüsselung und modernen Authentifizierungsmechanismen. Durch die Kombination von einfachen Regeln mit erweiterten Sicherheitskontrollen entsteht eine widerstandsfähige, skalierbare und datenschutzfreundliche Netzwerkarchitektur für verteilte Umgebungen.",
       },
-      "imageUrl": "/projects/zeroconfigvpn.webp",
-      "imageAlt": {
-        "en": "Illustration of a zero-configuration VPN: interconnected shielded devices connected by a global IPv6 network grid, lock icons indicating encryption, and auto-config symbols representing seamless setup without manual intervention.",
-        "de": "Symbolgrafik für ein Zero-Config-VPN: Vernetzte, geschützte Geräte, die über ein globales IPv6-Netzwerk verbunden sind, mit Schloss-Symbolen für Verschlüsselung und Auto-Config-Elementen für die nahtlose Einrichtung ohne manuelles Eingreifen."
+      imageUrl: "/projects/zeroconfigvpn.webp",
+      imageAlt: {
+        en: "Illustration of a zero-configuration VPN: interconnected shielded devices connected by a global IPv6 network grid, lock icons indicating encryption, and auto-config symbols representing seamless setup without manual intervention.",
+        de: "Symbolgrafik für ein Zero-Config-VPN: Vernetzte, geschützte Geräte, die über ein globales IPv6-Netzwerk verbunden sind, mit Schloss-Symbolen für Verschlüsselung und Auto-Config-Elementen für die nahtlose Einrichtung ohne manuelles Eingreifen.",
       },
-      "tags": [
-        { "en": "IPv6", "de": "IPv6" },
-        { "en": "Zero-Config", "de": "Zero-Config" },
-        { "en": "VPN", "de": "VPN" },
-        { "en": "Encryption", "de": "Verschlüsselung" },
-        { "en": "Authentication", "de": "Authentifizierung" },
-        { "en": "Compliance", "de": "Compliance" },
-        { "en": "Network Security", "de": "Netzwerksicherheit" }
-      ]
+      tags: [
+        { en: "IPv6", de: "IPv6" },
+        { en: "Zero-Config", de: "Zero-Config" },
+        { en: "VPN", de: "VPN" },
+        { en: "Encryption", de: "Verschlüsselung" },
+        { en: "Authentication", de: "Authentifizierung" },
+        { en: "Compliance", de: "Compliance" },
+        { en: "Network Security", de: "Netzwerksicherheit" },
+      ],
     },
     {
       title: {
@@ -1574,67 +1569,70 @@ export const siteContent: SiteContent = {
       name: { en: "Agentic AI", de: "Agentische KI" },
       icon: Bot,
       category: "ai",
-      level: 4
+      level: 4,
     },
     {
       name: { en: "Multimodal AI", de: "Multimodale KI" },
       icon: Image,
       category: "ai",
-      level: 5
+      level: 5,
     },
     {
       name: { en: "Causal AI", de: "Kausale KI" },
       icon: GitBranch,
       category: "ai",
-      level: 4
+      level: 4,
     },
     {
       name: { en: "Lovable", de: "Lovable" },
       icon: Heart,
       category: "ai",
-      level: 5
+      level: 5,
     },
     {
       name: { en: "OpenAI / ChatGPT", de: "OpenAI / ChatGPT" },
       icon: SiOpenai,
       category: "ai",
-      level: 5
+      level: 5,
     },
     {
       name: { en: "Anthropic / Claude", de: "Anthropic / Claude" },
       icon: SiAnthropic,
       category: "ai",
-      level: 5
+      level: 5,
     },
     {
       name: { en: "Google / Gemini", de: "Google / Gemini" },
       icon: SiGooglegemini,
       category: "ai",
-      level: 5
+      level: 5,
     },
     {
       name: { en: "xAI / Grok", de: "xAI / Grok" },
       icon: SiX,
       category: "ai",
-      level: 5
+      level: 5,
     },
     {
-      name: { en: "Generative Engine Optimization (GEO)", de: "Generative Engine Optimization (GEO)" },
+      name: {
+        en: "Generative Engine Optimization (GEO)",
+        de: "Generative Engine Optimization (GEO)",
+      },
       icon: SearchCode,
       category: "ai",
-      level: 3
+      level: 3,
     },
     {
       name: { en: "AI Multimedia Generation", de: "KI-Multimediaerzeugung" },
       icon: Video,
       category: "ai",
-      level: 3
+      level: 3,
     },
     {
       name: { en: "AI Ethics & Governance", de: "KI-Ethik & Governance" },
       icon: Scale,
       category: "ai",
-      level: 5
+      level: 5,
     },
 
     // Languages
@@ -1882,9 +1880,9 @@ export const siteContent: SiteContent = {
         paragraphs: [
           {
             en: "No Data Protection Officer has been appointed, as this is not required under Art. 37 GDPR.",
-            de: "Ein Datenschutzbeauftragter wurde nicht benannt, da dies gemäß Art. 37 DSGVO nicht erforderlich ist."
-          }
-        ]
+            de: "Ein Datenschutzbeauftragter wurde nicht benannt, da dies gemäß Art. 37 DSGVO nicht erforderlich ist.",
+          },
+        ],
       },
       {
         title: {
@@ -1896,7 +1894,7 @@ export const siteContent: SiteContent = {
             en: "This form processes data (name, e-mail, message) solely to reply to your request. Basis: consent / contract performance (Art. 6 GDPR lit. a & b).",
             de: "Die hier eingegebenen Daten (Name, E-Mail, Nachricht) verwenden wir ausschließlich zur Beantwortung deiner Anfrage. Rechtsgrundlage: Einwilligung und Vertragserfüllung (Art. 6 Abs. 1 lit. a & b DSGVO).",
           },
-        ]
+        ],
       },
       {
         title: {
@@ -1919,25 +1917,25 @@ export const siteContent: SiteContent = {
             de: "Cloudflare: 101 Townsend St, San Francisco, CA 94107, USA<br />Cloudflare Germany GmbH: Rosental 7, c/o Mindspace, 80331 München, Germany",
             description: {
               en: "Legal basis: legitimate interests (Art. 6(1)(f) GDPR) to ensure website performance and security.<br />Cloudflare is certified under the EU-U.S. Data Privacy Framework and processes data under its principles. See: https://www.cloudflare.com/privacypolicy/.",
-              de: "Rechtsgrundlage: berechtigte Interessen (Art. 6 Abs. 1 lit. f DSGVO) zur Gewährleistung der Performance und Sicherheit der Website.<br />Cloudflare ist nach dem EU-US Data Privacy Framework zertifiziert und verarbeitet Daten gemäß dessen Grundsätzen. Details: https://www.cloudflare.com/privacypolicy/."
-            }
+              de: "Rechtsgrundlage: berechtigte Interessen (Art. 6 Abs. 1 lit. f DSGVO) zur Gewährleistung der Performance und Sicherheit der Website.<br />Cloudflare ist nach dem EU-US Data Privacy Framework zertifiziert und verarbeitet Daten gemäß dessen Grundsätzen. Details: https://www.cloudflare.com/privacypolicy/.",
+            },
           },
           {
             en: "Resend: 2261 Market Street #5039, San Francisco, CA 94114, USA",
             de: "Resend: 2261 Market Street #5039, San Francisco, CA 94114, USA",
             description: {
               en: "Legal basis: performance of a contract (Art. 6(1)(b) GDPR), as Resend sends emails on your behalf.<br />Resend’s DPA includes Standard Contractual Clauses (SCC) for transfers to the US. See: https://resend.com/legal/dpa.",
-              de: "Rechtsgrundlage: Vertragserfüllung (Art. 6 Abs. 1 lit. b DSGVO), da Resend E-Mails in deinem Auftrag versendet.<br />Resend nutzt Standardvertragsklauseln (SCC) in ihrem DPA, um den Datentransfer in die USA zu legitimieren. DPA: https://resend.com/legal/dpa."
-            }
+              de: "Rechtsgrundlage: Vertragserfüllung (Art. 6 Abs. 1 lit. b DSGVO), da Resend E-Mails in deinem Auftrag versendet.<br />Resend nutzt Standardvertragsklauseln (SCC) in ihrem DPA, um den Datentransfer in die USA zu legitimieren. DPA: https://resend.com/legal/dpa.",
+            },
           },
           {
             en: "Umami Software, Inc.: 1362 42nd Ave., San Francisco, CA, 94122, USA",
             de: "Umami Software, Inc.: 1362 42nd Ave., San Francisco, CA, 94122, USA",
             description: {
-              "en": "Legal basis: legitimate interests (Art. 6(1)(f) GDPR) to enable website-analytics in a privacy-respective way.<br />Umami is a privacy-aware web analytics tool that does not use cookies or collect personal identifiers in its standard configuration. See: https://umami.is/privacy.",
-              "de": "Rechtsgrundlage: berechtigte Interessen (Art. 6 Abs. 1 lit. f DSGVO) zur Durchführung der Website-Analyse in datenschutzfreundlicher Weise.<br />Umami ist ein datenschutzbewusstes Web-Analytics-Tool, das in seiner Standardkonfiguration keine Cookies verwendet und keine personenbezogenen Kennungen erhebt. Details: https://umami.is/privacy."
-            }
-          }
+              en: "Legal basis: legitimate interests (Art. 6(1)(f) GDPR) to enable website-analytics in a privacy-respective way.<br />Umami is a privacy-aware web analytics tool that does not use cookies or collect personal identifiers in its standard configuration. See: https://umami.is/privacy.",
+              de: "Rechtsgrundlage: berechtigte Interessen (Art. 6 Abs. 1 lit. f DSGVO) zur Durchführung der Website-Analyse in datenschutzfreundlicher Weise.<br />Umami ist ein datenschutzbewusstes Web-Analytics-Tool, das in seiner Standardkonfiguration keine Cookies verwendet und keine personenbezogenen Kennungen erhebt. Details: https://umami.is/privacy.",
+            },
+          },
         ],
       },
       {
@@ -1948,13 +1946,13 @@ export const siteContent: SiteContent = {
         paragraphs: [
           {
             en: "Cloudflare processes data under legitimate interests (Art. 6(1)(f) GDPR) and is certified under the EU-US Data Privacy Framework (see https://www.cloudflare.com/privacypolicy).",
-            de: "Cloudflare verarbeitet Daten auf Basis berechtigter Interessen (Art. 6 Abs. 1 lit. f DSGVO) und ist nach dem EU-US Data Privacy Framework zertifiziert (siehe https://www.cloudflare.com/privacypolicy)."
+            de: "Cloudflare verarbeitet Daten auf Basis berechtigter Interessen (Art. 6 Abs. 1 lit. f DSGVO) und ist nach dem EU-US Data Privacy Framework zertifiziert (siehe https://www.cloudflare.com/privacypolicy).",
           },
           {
             en: "Resend acts on contract performance (Art. 6(1)(b) GDPR) and uses Standard Contractual Clauses for US transfers (see https://resend.com/legal/dpa).",
-            de: "Resend handelt zur Vertragserfüllung (Art. 6 Abs. 1 lit. b DSGVO) und nutzt Standardvertragsklauseln für Datenübermittlungen in die USA (siehe https://resend.com/legal/dpa)."
-          }
-        ]
+            de: "Resend handelt zur Vertragserfüllung (Art. 6 Abs. 1 lit. b DSGVO) und nutzt Standardvertragsklauseln für Datenübermittlungen in die USA (siehe https://resend.com/legal/dpa).",
+          },
+        ],
       },
       {
         title: {
@@ -1992,8 +1990,8 @@ export const siteContent: SiteContent = {
           },
           {
             en: "Technical and Organisational Measures: this site uses TLS 1.3 (if supported by your browser), access controls with MFA, pseudonymisation/encryption at rest, and regular security audits.",
-            de: "Technisch-organisatorische Maßnahmen: diese Seite nutzt TLS 1.3 (falls vom Browser unterstützt), Zugangskontrollen mit MFA, Pseudonymisierung/Verschlüsselung ruhender Daten und regelmäßige Sicherheitsaudits."
-          }
+            de: "Technisch-organisatorische Maßnahmen: diese Seite nutzt TLS 1.3 (falls vom Browser unterstützt), Zugangskontrollen mit MFA, Pseudonymisierung/Verschlüsselung ruhender Daten und regelmäßige Sicherheitsaudits.",
+          },
         ],
       },
       {
@@ -2016,9 +2014,9 @@ export const siteContent: SiteContent = {
         paragraphs: [
           {
             en: "You have the right to lodge a complaint with a supervisory authority, e.g.: Rhineland-Palatinate Commissioner for Data Protection, Hintere Bleiche 34, 55116 Mainz, Germany; Tel. +49 6131 8920-0; poststelle@datenschutz.rlp.de.",
-            de: "Du kannst dich bei einer Aufsichtsbehörde beschweren, z. B.: Landesbeauftragte für Datenschutz RLP, Hintere Bleiche 34, 55116 Mainz; Tel. 06131 8920-0; poststelle@datenschutz.rlp.de."
-          }
-        ]
+            de: "Du kannst dich bei einer Aufsichtsbehörde beschweren, z. B.: Landesbeauftragte für Datenschutz RLP, Hintere Bleiche 34, 55116 Mainz; Tel. 06131 8920-0; poststelle@datenschutz.rlp.de.",
+          },
+        ],
       },
       {
         title: {
@@ -2028,9 +2026,9 @@ export const siteContent: SiteContent = {
         paragraphs: [
           {
             en: "No automated decision-making or profiling takes place in these processing operations (Art. 22 GDPR).",
-            de: "Es findet keine automatisierte Entscheidungsfindung oder Profiling statt (Art. 22 DSGVO)."
-          }
-        ]
+            de: "Es findet keine automatisierte Entscheidungsfindung oder Profiling statt (Art. 22 DSGVO).",
+          },
+        ],
       },
       {
         title: {
@@ -2043,7 +2041,7 @@ export const siteContent: SiteContent = {
             de: "Ich kann diese Datenschutzerklärung jederzeit aktualisieren. Die jeweils aktuelle Version wird hier mit Datum der letzten Änderung veröffentlicht.",
           },
         ],
-      }
+      },
     ],
   },
   sitemap: {

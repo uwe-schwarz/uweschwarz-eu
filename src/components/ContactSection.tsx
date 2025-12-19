@@ -67,7 +67,7 @@ const ContactSection = () => {
           verify: values.verify,
           name: values.name,
           email: values.email,
-          message: values.message
+          message: values.message,
         }),
       });
 
@@ -101,30 +101,22 @@ const ContactSection = () => {
           <span className="text-gradient">{t(contact.title)}</span>
         </h2>
 
-        <p className="text-center text-muted-foreground max-w-2xl mx-auto mb-16">
-          {t(contact.subtitle)}
-        </p>
+        <p className="text-center text-muted-foreground max-w-2xl mx-auto mb-16">{t(contact.subtitle)}</p>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
           {/* Contact Info */}
           <div className="flex flex-col justify-center">
             <div className="bg-card rounded-xl p-8 border border-border shadow-sm">
               <div className="mb-8">
-                <h3 className="text-xl font-bold mb-4">
-                  {t(contact.infoTitle)}
-                </h3>
-                <p className="text-muted-foreground mb-6">
-                  {t(contact.infoText)}
-                </p>
+                <h3 className="text-xl font-bold mb-4">{t(contact.infoTitle)}</h3>
+                <p className="text-muted-foreground mb-6">{t(contact.infoText)}</p>
 
                 <div className="flex items-center mb-4">
                   <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-4 text-primary">
                     <Mail className="w-5 h-5" />
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">
-                      {t(contact.emailLabel)}
-                    </p>
+                    <p className="text-sm text-muted-foreground">{t(contact.emailLabel)}</p>
                     <a
                       href={`mailto:${contact.email}`}
                       className="text-foreground hover:text-primary transition-colors link-underline"
@@ -139,10 +131,11 @@ const ContactSection = () => {
                     <Phone className="w-5 h-5" />
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">
-                      {t(contact.phoneLabel)}
-                    </p>
-                    <a href={`tel:${contact.phone}`} className="text-foreground hover:text-primary transition-colors link-underline">
+                    <p className="text-sm text-muted-foreground">{t(contact.phoneLabel)}</p>
+                    <a
+                      href={`tel:${contact.phone}`}
+                      className="text-foreground hover:text-primary transition-colors link-underline"
+                    >
                       {contact.phone}
                     </a>
                   </div>
@@ -151,9 +144,7 @@ const ContactSection = () => {
 
               {/* Social Links */}
               <div>
-                <h4 className="text-lg font-medium mb-4">
-                  {t(contact.findMeOn)}
-                </h4>
+                <h4 className="text-lg font-medium mb-4">{t(contact.findMeOn)}</h4>
                 <div className="flex space-x-4">
                   {contact.socialLinks.github && (
                     <a
@@ -244,7 +235,9 @@ const ContactSection = () => {
 
           {/* Contact Form */}
           <div>
-            <FormProvider {...form}> {/* Use FormProvider here */}
+            <FormProvider {...form}>
+              {" "}
+              {/* Use FormProvider here */}
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
                 className="bg-card rounded-xl p-8 border border-border shadow-sm"
@@ -254,12 +247,7 @@ const ContactSection = () => {
                   <FormField
                     control={form.control}
                     name="verify"
-                    render={({ field }) => (
-                      <Input
-                        type="hidden"
-                        {...field}
-                      />
-                    )}
+                    render={({ field }) => <Input type="hidden" {...field} />}
                   />
 
                   <FormField
@@ -267,15 +255,9 @@ const ContactSection = () => {
                     name="name"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>
-                          {t(contact.formLabels.name)}
-                        </FormLabel>
+                        <FormLabel>{t(contact.formLabels.name)}</FormLabel>
                         <FormControl>
-                          <Input
-                            placeholder={t(contact.formPlaceholders.name)}
-                            autoComplete="name"
-                            {...field}
-                          />
+                          <Input placeholder={t(contact.formPlaceholders.name)} autoComplete="name" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -287,9 +269,7 @@ const ContactSection = () => {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>
-                          {t(contact.formLabels.email)}
-                        </FormLabel>
+                        <FormLabel>{t(contact.formLabels.email)}</FormLabel>
                         <FormControl>
                           <Input
                             type="email"
@@ -308,15 +288,9 @@ const ContactSection = () => {
                     name="message"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>
-                          {t(contact.formLabels.message)}
-                        </FormLabel>
+                        <FormLabel>{t(contact.formLabels.message)}</FormLabel>
                         <FormControl>
-                          <Textarea
-                            rows={5}
-                            placeholder={t(contact.formPlaceholders.message)}
-                            {...field}
-                          />
+                          <Textarea rows={5} placeholder={t(contact.formPlaceholders.message)} {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -338,7 +312,8 @@ const ContactSection = () => {
                   </Button>
                 </div>
               </form>
-            </FormProvider> {/* Corrected closing tag */}
+            </FormProvider>{" "}
+            {/* Corrected closing tag */}
           </div>
         </div>
       </div>

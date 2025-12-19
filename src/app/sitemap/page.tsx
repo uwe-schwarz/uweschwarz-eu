@@ -44,12 +44,18 @@ export default function SitemapPage() {
                   </Link>
                 </li>
                 <li>
-                  <Link href={withLanguagePrefix(language, "/imprint") as Route} className="text-primary hover:underline">
+                  <Link
+                    href={withLanguagePrefix(language, "/imprint") as Route}
+                    className="text-primary hover:underline"
+                  >
                     {t(siteContent.imprint.title)}
                   </Link>
                 </li>
                 <li>
-                  <Link href={withLanguagePrefix(language, "/privacy") as Route} className="text-primary hover:underline">
+                  <Link
+                    href={withLanguagePrefix(language, "/privacy") as Route}
+                    className="text-primary hover:underline"
+                  >
                     {t(siteContent.privacy.title)}
                   </Link>
                 </li>

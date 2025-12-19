@@ -1,4 +1,4 @@
-import type { Language } from '@/contexts/settings-hook';
+import type { Language } from "@/contexts/settings-hook";
 
 import { DEFAULT_LANGUAGE, isSupportedLanguage } from "@/lib/i18n";
 
@@ -11,9 +11,9 @@ export const detectPreferredLanguage = (acceptLanguage?: string | null): Languag
 
   // Split on commas, keep the q value if present, and sort by highest quality
   const choices = acceptLanguage
-    .split(',')
+    .split(",")
     .map((part) => {
-      const [tag, qValue] = part.trim().split(';q=');
+      const [tag, qValue] = part.trim().split(";q=");
       const quality = qValue ? Number.parseFloat(qValue) || 0 : 1;
       return { tag: tag.toLowerCase(), quality };
     })
@@ -28,4 +28,3 @@ export const detectPreferredLanguage = (acceptLanguage?: string | null): Languag
 
   return DEFAULT_LANGUAGE;
 };
-

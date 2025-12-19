@@ -23,53 +23,65 @@ const SkillsSection = () => {
           <span className="text-gradient">{t(skillsSection.title)}</span>
         </h2>
 
-        <p className="text-center text-muted-foreground max-w-2xl mx-auto mb-16">
-          {t(skillsSection.subtitle)}
-        </p>
+        <p className="text-center text-muted-foreground max-w-2xl mx-auto mb-16">{t(skillsSection.subtitle)}</p>
 
         <div className="max-w-4xl mx-auto">
-          <Tabs
-            defaultValue="management"
-            onValueChange={(value) => setActiveTab(value as TabValue)}
-            className="w-full"
-          >
+          <Tabs defaultValue="management" onValueChange={(value) => setActiveTab(value as TabValue)} className="w-full">
             <div className="flex justify-center mb-8">
               <TabsList className="flex-nowrap h-12">
-                <TabsTrigger value="management" className="gap-2 text-lg" name={t(skillsSection.categories.management)} aria-label={t(skillsSection.categories.management)}>
+                <TabsTrigger
+                  value="management"
+                  className="gap-2 text-lg"
+                  name={t(skillsSection.categories.management)}
+                  aria-label={t(skillsSection.categories.management)}
+                >
                   <Briefcase className="w-5 h-5" />
-                  <span className="hidden sm:inline">
-                    {t(skillsSection.categories.management)}
-                  </span>
+                  <span className="hidden sm:inline">{t(skillsSection.categories.management)}</span>
                 </TabsTrigger>
-                <TabsTrigger value="languages" className="gap-2 text-lg" name={t(skillsSection.categories.languages)} aria-label={t(skillsSection.categories.languages)}>
+                <TabsTrigger
+                  value="languages"
+                  className="gap-2 text-lg"
+                  name={t(skillsSection.categories.languages)}
+                  aria-label={t(skillsSection.categories.languages)}
+                >
                   <Flag className="w-5 h-5" />
-                  <span className="hidden sm:inline">
-                    {t(skillsSection.categories.languages)}
-                  </span>
+                  <span className="hidden sm:inline">{t(skillsSection.categories.languages)}</span>
                 </TabsTrigger>
-                <TabsTrigger value="security" className="gap-2 text-lg" name={t(skillsSection.categories.security)} aria-label={t(skillsSection.categories.security)}>
+                <TabsTrigger
+                  value="security"
+                  className="gap-2 text-lg"
+                  name={t(skillsSection.categories.security)}
+                  aria-label={t(skillsSection.categories.security)}
+                >
                   <ShieldCheck className="w-5 h-5" />
-                  <span className="hidden sm:inline">
-                    {t(skillsSection.categories.security)}
-                  </span>
+                  <span className="hidden sm:inline">{t(skillsSection.categories.security)}</span>
                 </TabsTrigger>
-                <TabsTrigger value="ai" className="gap-2 text-lg" name={t(skillsSection.categories.ai)} aria-label={t(skillsSection.categories.ai)}>
+                <TabsTrigger
+                  value="ai"
+                  className="gap-2 text-lg"
+                  name={t(skillsSection.categories.ai)}
+                  aria-label={t(skillsSection.categories.ai)}
+                >
                   <Bot className="w-5 h-5" />
-                  <span className="hidden sm:inline">
-                    {t(skillsSection.categories.ai)}
-                  </span>
+                  <span className="hidden sm:inline">{t(skillsSection.categories.ai)}</span>
                 </TabsTrigger>
-                <TabsTrigger value="infrastructure" className="gap-2 text-lg" name={t(skillsSection.categories.infrastructure)} aria-label={t(skillsSection.categories.infrastructure)}>
+                <TabsTrigger
+                  value="infrastructure"
+                  className="gap-2 text-lg"
+                  name={t(skillsSection.categories.infrastructure)}
+                  aria-label={t(skillsSection.categories.infrastructure)}
+                >
                   <Network className="w-5 h-5" />
-                  <span className="hidden sm:inline">
-                    {t(skillsSection.categories.infrastructure)}
-                  </span>
+                  <span className="hidden sm:inline">{t(skillsSection.categories.infrastructure)}</span>
                 </TabsTrigger>
-                <TabsTrigger value="tools" className="gap-2 text-lg" name={t(skillsSection.categories.tools)} aria-label={t(skillsSection.categories.tools)}>
+                <TabsTrigger
+                  value="tools"
+                  className="gap-2 text-lg"
+                  name={t(skillsSection.categories.tools)}
+                  aria-label={t(skillsSection.categories.tools)}
+                >
                   <Wrench className="w-5 h-5" />
-                  <span className="hidden sm:inline">
-                    {t(skillsSection.categories.tools)}
-                  </span>
+                  <span className="hidden sm:inline">{t(skillsSection.categories.tools)}</span>
                 </TabsTrigger>
               </TabsList>
             </div>
@@ -123,13 +135,7 @@ const SkillsGrid = ({ skills }: SkillsGridProps) => {
 
             <div className="flex gap-1">
               {[...Array(5)].map((_, i) => (
-                <div
-                  key={i}
-                  className={cn(
-                    "w-2 h-2 rounded-full",
-                    i < skill.level ? "bg-primary" : "bg-muted"
-                  )}
-                />
+                <div key={i} className={cn("w-2 h-2 rounded-full", i < skill.level ? "bg-primary" : "bg-muted")} />
               ))}
             </div>
           </div>

@@ -34,5 +34,3 @@ export const replacePathLanguage = (pathname: string, lang: Language) => {
   if (!pathname || pathname === "/") return `/${lang}`;
   return withLanguagePrefix(lang, pathname);
 };
-
-

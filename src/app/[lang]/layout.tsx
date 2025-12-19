@@ -13,11 +13,7 @@ export function generateStaticParams(): { lang: Language }[] {
   return SUPPORTED_LANGUAGES.map((lang) => ({ lang }));
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ lang: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
 
   if (!isSupportedLanguage(lang)) {
@@ -27,13 +23,15 @@ export async function generateMetadata({
   const baseUrl = "https://uweschwarz.eu";
   const canonicalUrl = `${baseUrl}/${lang}`;
 
-  const title = lang === "de"
-    ? "Uwe Schwarz - Projektmanager, IT-Sicherheitsspezialist & AI-Enthusiast"
-    : "Uwe Schwarz - Project Manager, IT Security Specialist & AI Enthusiast";
+  const title =
+    lang === "de"
+      ? "Uwe Schwarz - Projektmanager, IT-Sicherheitsspezialist & AI-Enthusiast"
+      : "Uwe Schwarz - Project Manager, IT Security Specialist & AI Enthusiast";
 
-  const description = lang === "de"
-    ? "Portfolio von Uwe Schwarz - Projektmanager, IT-Sicherheitsspezialist & AI-Enthusiast"
-    : "Portfolio of Uwe Schwarz - Project Manager, IT Security Specialist & AI Enthusiast";
+  const description =
+    lang === "de"
+      ? "Portfolio von Uwe Schwarz - Projektmanager, IT-Sicherheitsspezialist & AI-Enthusiast"
+      : "Portfolio of Uwe Schwarz - Project Manager, IT Security Specialist & AI Enthusiast";
 
   const ogImage = `${baseUrl}/profile.webp`;
   const twitterHandle = "@e38383";
@@ -42,10 +40,7 @@ export async function generateMetadata({
   const alternates = {
     canonical: canonicalUrl,
     languages: Object.fromEntries(
-      SUPPORTED_LANGUAGES.map((supportedLang) => [
-        supportedLang,
-        `${baseUrl}/${supportedLang}`,
-      ])
+      SUPPORTED_LANGUAGES.map((supportedLang) => [supportedLang, `${baseUrl}/${supportedLang}`]),
     ),
   };
 
