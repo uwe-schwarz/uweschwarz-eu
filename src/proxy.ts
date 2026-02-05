@@ -6,7 +6,7 @@ import { DEFAULT_LANGUAGE, isSupportedLanguage, replacePathLanguage } from "@/li
 
 const PUBLIC_FILE = /\.(.*)$/;
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Skip Next internals and public files.
