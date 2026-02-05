@@ -1,7 +1,7 @@
 # llms.txt for uweschwarz.eu
 # This file provides structured information for AI language models.
 # For more information, see https://llmstxt.org/
-# Version 1.0, Generated on 2026-01-16
+# Version 1.0, Generated on 2026-02-05
 
 # --- PERMISSIONS ---
 User-Agent: *
@@ -21,8 +21,8 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
 [de] Uwe Schwarz
 
 [Published]:
-[en] 2026-01-16
-[de] 16.01.2026
+[en] 2026-02-05
+[de] 05.02.2026
 
 [Languages]:
 [en] English, German
@@ -93,6 +93,26 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
   - [de] Aufbau einer sicheren und rechtskonformen IT-Infrastruktur mit Schwerpunkt auf modernen Technologien (IPv6, Zero Trust, Zero-Config VPN, etc.) und Best Practices.
   - [en] Responsible for corporate governance in IT security, privacy and compliance topics.
   - [de] Verantwortlich für Governance in den Bereichen IT-Sicherheit, Datenschutz und Compliance.
+
+[Experience]:
+  [en] SchlauFabrik – Multi-tenant Compliance & AI Training Platform
+  [de] SchlauFabrik – Multi-Tenant Compliance- & KI-Trainingsplattform
+  [en] Company: xtensible UG (haftungsbeschränkt) & Co. KG
+  [de] Firma: xtensible UG (haftungsbeschränkt) & Co. KG
+  [en] December 2025 - Present
+  [de] Dezember 2025 - Heute
+  - [en] Designed and built a modern, responsive training platform for compliance and AI topics with tenant isolation and role-based access.
+  - [de] Konzeption und Umsetzung einer modernen, responsiven Trainingsplattform für Compliance- und KI-Themen mit Mandantentrennung und RBAC.
+  - [en] Implemented security-by-design with Postgres Row-Level Security, audit logging, rate limiting, and hardened authentication flows (Passkey/Magic Link/2FA/SSO).
+  - [de] Umsetzung von Security-by-Design mit Postgres Row-Level Security, Audit-Logs, Rate Limiting sowie gehärteten Auth-Flows (Passkey/Magic Link/2FA/SSO).
+  - [en] Built course delivery with progress tracking, quizzes, enrollments, and admin dashboards for tenant/user management.
+  - [de] Aufbau der Kursplattform inkl. Fortschritts-Tracking, Quiz, Zuweisungen sowie Admin-Dashboards für Tenant-/User-Management.
+  - [en] Delivered tamper-evident PDF certificates with QR verification and cryptographic hashing; enabled bulk export for audits.
+  - [de] Implementierung manipulationssicherer PDF-Zertifikate mit QR-Verifikation und kryptografischem Hashing inkl. Bulk-Export für Audits.
+  - [en] Integrated Stripe billing (subscriptions, portal, webhooks) with license models and soft-lock mechanisms for tenant limits.
+  - [de] Integration von Stripe-Abrechnung (Subscriptions, Portal, Webhooks) inkl. Lizenzmodellen und Soft-Lock-Mechanismen für Tenant-Limits.
+  - [en] Tech: Next.js (App Router), TypeScript, Bun, Tailwind, next-intl (DE/EN), Neon Postgres, Stripe, Resend, Vitest/Playwright.
+  - [de] Tech: Next.js (App Router), TypeScript, Bun, Tailwind, next-intl (DE/EN), Neon Postgres, Stripe, Resend, Vitest/Playwright.
 
 [Experience]:
   [en] Founding Member & Data Protection Officer
