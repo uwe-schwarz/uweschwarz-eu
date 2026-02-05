@@ -489,6 +489,75 @@ export const siteContent: SiteContent = {
     },
     {
       title: {
+        en: "SchlauFabrik \u2013 Multi-tenant Compliance & AI Training Platform",
+        de: "SchlauFabrik \u2013 Multi-Tenant Compliance- & KI-Trainingsplattform",
+      },
+      company: "xtensible UG (haftungsbeschränkt) & Co. KG",
+      logoUrl: "/logos/schlaufabrik.png",
+      projectScale: "small",
+      period: { en: "December 2025 - Present", de: "Dezember 2025 - Heute" },
+      location: "Hockenheim, Germany",
+      description: [
+        {
+          type: "text",
+          text: {
+            en: "Designed and built a modern, responsive training platform for compliance and AI topics with tenant isolation and role-based access.",
+            de: "Konzeption und Umsetzung einer modernen, responsiven Trainingsplattform f\u00fcr Compliance- und KI-Themen mit Mandantentrennung und RBAC.",
+          },
+        },
+        {
+          type: "text",
+          text: {
+            en: "Implemented security-by-design with Postgres Row-Level Security, audit logging, rate limiting, and hardened authentication flows (Passkey/Magic Link/2FA/SSO).",
+            de: "Umsetzung von Security-by-Design mit Postgres Row-Level Security, Audit-Logs, Rate Limiting sowie geh\u00e4rteten Auth-Flows (Passkey/Magic Link/2FA/SSO).",
+          },
+        },
+        {
+          type: "text",
+          text: {
+            en: "Built course delivery with progress tracking, quizzes, enrollments, and admin dashboards for tenant/user management.",
+            de: "Aufbau der Kursplattform inkl. Fortschritts-Tracking, Quiz, Zuweisungen sowie Admin-Dashboards f\u00fcr Tenant-/User-Management.",
+          },
+        },
+        {
+          type: "text",
+          text: {
+            en: "Delivered tamper-evident PDF certificates with QR verification and cryptographic hashing; enabled bulk export for audits.",
+            de: "Implementierung manipulationssicherer PDF-Zertifikate mit QR-Verifikation und kryptografischem Hashing inkl. Bulk-Export f\u00fcr Audits.",
+          },
+        },
+        {
+          type: "text",
+          text: {
+            en: "Integrated Stripe billing (subscriptions, portal, webhooks) with license models and soft-lock mechanisms for tenant limits.",
+            de: "Integration von Stripe-Abrechnung (Subscriptions, Portal, Webhooks) inkl. Lizenzmodellen und Soft-Lock-Mechanismen f\u00fcr Tenant-Limits.",
+          },
+        },
+        {
+          type: "text",
+          text: {
+            en: "Tech: Next.js (App Router), TypeScript, Bun, Tailwind, next-intl (DE/EN), Neon Postgres, Stripe, Resend, Vitest/Playwright.",
+            de: "Tech: Next.js (App Router), TypeScript, Bun, Tailwind, next-intl (DE/EN), Neon Postgres, Stripe, Resend, Vitest/Playwright.",
+          },
+        },
+      ],
+      tags: [
+        { en: "Multi-tenant", de: "Multi-Tenant" },
+        { en: "Compliance", de: "Compliance" },
+        { en: "AI Training", de: "KI-Training" },
+        { en: "RBAC", de: "RBAC" },
+        { en: "Postgres RLS", de: "Postgres RLS" },
+        { en: "Stripe", de: "Stripe" },
+        { en: "Next.js", de: "Next.js" },
+        { en: "TypeScript", de: "TypeScript" },
+        { en: "Tailwind", de: "Tailwind" },
+        { en: "Neon Postgres", de: "Neon Postgres" },
+        { en: "Vitest", de: "Vitest" },
+        { en: "Playwright", de: "Playwright" },
+      ],
+    },
+    {
+      title: {
         en: "Founding Member & Data Protection Officer",
         de: "Gründungsmitglied & Datenschutzbeauftragter",
       },
