@@ -1,26 +1,14 @@
 import type { ReactNode } from "react";
 import { cookies, headers } from "next/headers";
-import { Public_Sans, Space_Grotesk } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
+import { GeistPixelCircle } from "geist/font/pixel";
 import { cn } from "@/lib/utils";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { detectPreferredLanguage } from "@/lib/detect-language";
 import type { Language, Theme } from "@/contexts/settings-hook";
 import { isSupportedLanguage } from "@/lib/i18n";
-
-const publicSans = Public_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-  variable: "--font-sans",
-});
-
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-  variable: "--font-display",
-});
 
 const siteUrl = "https://uweschwarz.eu";
 
@@ -53,7 +41,7 @@ export default async function RootLayout({
     <html
       lang={initialLanguage}
       suppressHydrationWarning
-      className={cn(publicSans.variable, spaceGrotesk.variable, initialTheme === "dark" && "dark")}
+      className={cn(GeistSans.variable, GeistPixelCircle.variable, GeistMono.variable, initialTheme === "dark" && "dark")}
       data-scroll-behavior="smooth"
     >
       <head>
@@ -82,7 +70,7 @@ export default async function RootLayout({
       </head>
       <body className={cn("min-h-screen bg-background font-sans antialiased text-foreground")}>
         {children}
-        <Analytics />;
+        <Analytics />
       </body>
     </html>
   );

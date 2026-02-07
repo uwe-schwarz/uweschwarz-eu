@@ -19,7 +19,7 @@ const SkillsSection = () => {
   return (
     <section id="skills" className="section-padding">
       <div className="container mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
+        <h2 className="text-3xl md:text-4xl text-center mb-4">
           <span className="text-gradient">{t(skillsSection.title)}</span>
         </h2>
 

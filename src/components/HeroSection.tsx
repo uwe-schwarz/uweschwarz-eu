@@ -78,7 +78,7 @@ const HeroSection = () => {
         <div className="flex flex-col lg:flex-row lg:items-center">
           {/* Text Content */}
           <div className="lg:w-1/2 animate-fade-in">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-4">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display mb-4">
               {hero.name}
               <br />
               <span

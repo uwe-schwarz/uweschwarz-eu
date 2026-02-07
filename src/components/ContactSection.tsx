@@ -97,7 +97,7 @@ const ContactSection = () => {
   return (
     <section id="contact" className="section-padding bg-muted/30">
       <div className="container mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
+        <h2 className="text-3xl md:text-4xl text-center mb-4">
           <span className="text-gradient">{t(contact.title)}</span>
         </h2>
 
@@ -108,7 +108,7 @@ const ContactSection = () => {
           <div className="flex flex-col justify-center">
             <div className="bg-card rounded-xl p-8 border border-border shadow-sm">
               <div className="mb-8">
-                <h3 className="text-xl font-bold mb-4">{t(contact.infoTitle)}</h3>
+                <h3 className="text-xl mb-4">{t(contact.infoTitle)}</h3>
                 <p className="text-muted-foreground mb-6">{t(contact.infoText)}</p>
 
                 <div className="flex items-center mb-4">
