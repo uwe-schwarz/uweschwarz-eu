@@ -115,7 +115,7 @@ export default function CvPage() {
 
       <div className="flex grow flex-col bg-muted/80 px-4 py-4 md:px-8">
         <div className="mb-6">
-          <h1 className="mb-2 font-display text-4xl font-bold">
+          <h1 className="mb-2 font-display text-4xl">
             {t({
               en: "Curriculum Vitae",
               de: "Lebenslauf",

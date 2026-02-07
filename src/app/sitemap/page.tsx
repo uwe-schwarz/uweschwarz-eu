@@ -33,7 +33,7 @@ export default function SitemapPage() {
                 {t(siteContent.backToHome)}
               </Link>
             </Button>
-            <h1 className="mb-8 text-3xl font-bold">{t(sitemap.title)}</h1>
+            <h1 className="mb-8 text-3xl">{t(sitemap.title)}</h1>
             <div className="mb-8">
               <p className="mb-4">{t(sitemap.description)}</p>
               <ul className="list-disc space-y-2 pl-5">

@@ -30,7 +30,7 @@ export default function PrivacyPage() {
               </Link>
             </Button>
 
-            <h1 className="mb-2 text-3xl font-bold">{t(privacy.title)}</h1>
+            <h1 className="mb-2 text-3xl">{t(privacy.title)}</h1>
             <p className="mb-8 text-sm">{t(privacy.subtitle)}</p>
 
             <div className="prose prose-lg max-w-none dark:prose-invert">

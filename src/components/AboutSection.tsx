@@ -28,7 +28,7 @@ const AboutSection = () => {
   return (
     <section id="about" className="section-padding bg-muted/30">
       <div className="container mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">
+        <h2 className="text-3xl md:text-4xl text-center mb-16">
           <span className="text-gradient">{t(about.title)}</span>
         </h2>
 

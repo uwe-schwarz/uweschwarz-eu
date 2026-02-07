@@ -114,7 +114,7 @@ const ExperienceSection = () => {
                   <CardContent className="p-6">
                     {/* Title & Company */}
                     <div className="mb-4">
-                      <h3 className="text-2xl font-bold">{t(exp.title)}</h3>
+                      <h3 className="text-2xl">{t(exp.title)}</h3>
                       <p className="text-lg font-medium">{exp.company}</p>
                     </div>
 
@@ -208,7 +208,7 @@ const ExperienceSection = () => {
   return (
     <section id="experience" className="section-padding py-20 relative bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">
+        <h2 className="text-4xl md:text-5xl text-center mb-16">
           <span className="text-gradient">{t(siteContent.experienceSectionTitle)}</span>
         </h2>
 

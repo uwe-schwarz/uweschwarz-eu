@@ -30,7 +30,7 @@ export default function ImprintPage() {
               </Link>
             </Button>
 
-            <h1 className="mb-8 text-3xl font-bold">{t(imprint.title)}</h1>
+            <h1 className="mb-8 text-3xl">{t(imprint.title)}</h1>
 
             <div className="prose prose-lg max-w-none dark:prose-invert">
               <section className="mb-8">
