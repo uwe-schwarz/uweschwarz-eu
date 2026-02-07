@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { render } from "@react-email/render";
-import { Body, Container, Head, Heading, Html, Preview, Section, Text, Tailwind, Font } from "@react-email/components";
+import { Body, Container, Head, Heading, Html, Preview, Section, Text, Tailwind } from "@react-email/components";
 
 function escapeHtml(str: string) {
   return str
@@ -29,23 +29,12 @@ const EmailTemplate = ({ name, email, message }: { name: string; email: string; 
 
   return (
     <Html>
-      <Head>
-        <Font
-          fontFamily="Inter"
-          fallbackFontFamily="Arial"
-          webFont={{
-            url: "https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap",
-            format: "woff2",
-          }}
-          fontWeight={400}
-          fontStyle="normal"
-        />
-      </Head>
+      <Head />
       <Preview>New contact form submission</Preview>
       <Tailwind>
         <Body
           className="py-[40px] font-sans"
-          style={{ backgroundColor: colors.background, fontFamily: "Inter, Arial, sans-serif" }}
+          style={{ backgroundColor: colors.background, fontFamily: "Geist, Arial, sans-serif" }}
         >
           <Container className="mx-auto max-w-[600px] rounded-[8px] p-[20px]" style={{ backgroundColor: colors.card }}>
             <Section>
