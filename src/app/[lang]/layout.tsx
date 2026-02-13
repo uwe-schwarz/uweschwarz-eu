@@ -52,7 +52,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
       description,
       images: [
         {
-          alt: lang === "de" ? "Uwe Schwarz - Portfolio" : "Uwe Schwarz - Portfolio",
+          alt: "Uwe Schwarz - Portfolio",
           height: 630,
           url: ogImage,
           width: 1200,

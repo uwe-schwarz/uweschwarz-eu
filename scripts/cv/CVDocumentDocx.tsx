@@ -305,31 +305,32 @@ export async function generateCvDocx({
                       }),
                       ...Object.entries(skillsByCategory)
                         .filter(([cat]) => cat !== "languages")
-                        .flatMap(([cat, catSkills]) => [
-                          new Paragraph({
-                            children: [
-                              new TextRun({
-                                bold: true,
-                                size: 20,
-                                text: t(skillsSection.categories[cat as keyof typeof skillsSection.categories]),
-                              }),
-                            ],
-                          }),
-                          new Paragraph({
-                            children: catSkills
-                              .filter((s) => s.level >= 4)
-                              .slice(0, 10)
-                              .flatMap((s, idx) => {
+                        .flatMap(([cat, catSkills]) => {
+                          const topSkills = catSkills.filter((s) => s.level >= 4).slice(0, 10);
+
+                          return [
+                            new Paragraph({
+                              children: [
+                                new TextRun({
+                                  bold: true,
+                                  size: 20,
+                                  text: t(skillsSection.categories[cat as keyof typeof skillsSection.categories]),
+                                }),
+                              ],
+                            }),
+                            new Paragraph({
+                              children: topSkills.flatMap((s, idx) => {
                                 const runs: Array<TextRun> = [
                                   new TextRun({ color: theme.primary, size: 18, text: t(s.name) }),
                                 ];
-                                if (idx < catSkills.filter((s) => s.level >= 4).slice(0, 10).length - 1) {
+                                if (idx < topSkills.length - 1) {
                                   runs.push(new TextRun({ color: theme.primary, size: 18, text: ", " }));
                                 }
                                 return runs;
                               }),
-                          }),
-                        ]),
+                            }),
+                          ];
+                        }),
 
                       // Featured Projects
                       new Paragraph({
