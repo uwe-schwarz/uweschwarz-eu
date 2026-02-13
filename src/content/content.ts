@@ -486,6 +486,79 @@ export const siteContent: SiteContent = {
     },
     {
       title: {
+        en: "Program Lead IPv6 Migration",
+        de: "Programmleitung IPv6-Migration",
+      },
+      company: "Deutsche Rentenversicherung (RP, BW)",
+      logoUrl: "/logos/drv.svg",
+      period: { en: "Jan 2026 - Today", de: "Jan 2026 - Heute" },
+      location: { en: "Karlsruhe & Speyer, Germany", de: "Karlsruhe & Speyer, Deutschland" },
+      description: [
+        {
+          type: "text",
+          text: {
+            en: "Leading the IPv6 migration for DRV RP, and DRV BW, including governance, planning cadence, and execution tracking.",
+            de: "Leitung der IPv6-Migration für DRV RP und DRV BW inklusive Governance, Planungsrhythmus und Umsetzungssteuerung.",
+          },
+        },
+        {
+          type: "text",
+          text: {
+            en: "Built and operationalized a project control model with dashboard, action board, KPI portfolio, risk register, and decision index.",
+            de: "Aufbau und operative Einführung eines Projektsteuerungsmodells mit Dashboard, Action Board, KPI-Portfolio, Risikoregister und Entscheidungsindex.",
+          },
+        },
+        {
+          type: "text",
+          text: {
+            en: "Coordinating architecture, security, and rollout preparation across addressing, segmentation, dual-stack transition, test-lab planning, and cross-team dependencies.",
+            de: "Koordination der Architektur-, Sicherheits- und Rollout-Vorbereitung über Adressierung, Segmentierung, Dual-Stack-Übergang, Testlabor-Planung und teamübergreifende Abhängigkeiten hinweg.",
+          },
+        },
+        {
+          type: "text",
+          text: {
+            en: "Driving compliance-relevant alignment for BSI, NIS2, and critical infrastrcuture requirements, evidence obligations, and transparent reporting to management and stakeholder groups within the institution.",
+            de: "Steuerung der compliance-relevanten Abstimmung zu BSI-, NIS2- und KRITIS-Anforderungen, Evidence-Pflicht und transparentem Reporting an Management und Stakeholder beim Träger.",
+          },
+        },
+        {
+          type: "achievement",
+          text: {
+            en: "Established a reusable intake-to-governance workflow to create traceable actions, risks, questions, and evidence requests.",
+            de: "Etablierung eines wiederverwendbaren Intake-to-Governance-Workflows, um nachvollziehbare Actions, Risiken, offene Fragen und Nachweisanfragen zu erstellen.",
+          },
+        },
+        {
+          type: "achievement",
+          text: {
+            en: "Created the operational baseline for program execution with measurable KPIs, ownership clarity, and decision transparency.",
+            de: "Schaffung der operativen Baseline für die Programmausführung mit messbaren KPIs, klaren Verantwortlichkeiten und Entscheidungstransparenz.",
+          },
+        },
+      ],
+      tags: [
+        { en: "Program Management", de: "Programmmanagement" },
+        { en: "Project Governance", de: "Projektgovernance" },
+        { en: "IPv6", de: "IPv6" },
+        { en: "Network Architecture", de: "Netzwerkarchitektur" },
+        { en: "Dual Stack", de: "Dual Stack" },
+        { en: "Address Management", de: "Adressmanagement" },
+        { en: "BSI", de: "BSI" },
+        { en: "CI", de: "KRITIS" },
+        { en: "NIS2", de: "NIS2" },
+        { en: "Compliance", de: "Compliance" },
+        { en: "Risk Management", de: "Risikomanagement" },
+        { en: "KPI Management", de: "KPI-Management" },
+        { en: "Evidence Management", de: "Nachweismanagement" },
+        { en: "Atlassian Jira", de: "Atlassian Jira" },
+        { en: "Confluence", de: "Confluence" },
+        { en: "Microsoft PowerPoint", de: "Microsoft PowerPoint" },
+        { en: "Infoblox (IPAM)", de: "Infoblox (IPAM)" },
+      ],
+    },
+    {
+      title: {
         en: "SchlauFabrik \u2013 Multi-tenant Compliance & AI Training Platform",
         de: "SchlauFabrik \u2013 Multi-Tenant Compliance- & KI-Trainingsplattform",
       },
