@@ -11,8 +11,8 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     alternates: {
       languages: {
-        en: `${siteUrl}/en`,
         de: `${siteUrl}/de`,
+        en: `${siteUrl}/en`,
       },
     },
     description: "Portfolio of Uwe Schwarz - Project Manager, IT Security Specialist & AI Enthusiast",

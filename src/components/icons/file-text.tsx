@@ -63,7 +63,6 @@ const FILE_TEXT = forwardRef<FileTextIconHandle, FileTextIconProps>(
           strokeLinejoin="round"
           strokeWidth="2"
           variants={{
-            normal: { scale: 1 },
             animate: {
               scale: 1.05,
               transition: {
@@ -71,6 +70,7 @@ const FILE_TEXT = forwardRef<FileTextIconHandle, FileTextIconProps>(
                 ease: "easeOut",
               },
             },
+            normal: { scale: 1 },
           }}
           viewBox="0 0 24 24"
           width={size}
@@ -86,12 +86,12 @@ const FILE_TEXT = forwardRef<FileTextIconHandle, FileTextIconProps>(
             variants={{
               animate: {
                 pathLength: [1, 0, 1],
+                transition: {
+                  delay: 0.3,
+                  duration: 0.7,
+                },
                 x1: [8, 10, 8],
                 x2: [10, 10, 10],
-                transition: {
-                  duration: 0.7,
-                  delay: 0.3,
-                },
               },
               normal: {
                 pathLength: 1,
@@ -107,12 +107,12 @@ const FILE_TEXT = forwardRef<FileTextIconHandle, FileTextIconProps>(
             variants={{
               animate: {
                 pathLength: [1, 0, 1],
+                transition: {
+                  delay: 0.5,
+                  duration: 0.7,
+                },
                 x1: [8, 16, 8],
                 x2: [16, 16, 16],
-                transition: {
-                  duration: 0.7,
-                  delay: 0.5,
-                },
               },
               normal: {
                 pathLength: 1,
@@ -128,12 +128,12 @@ const FILE_TEXT = forwardRef<FileTextIconHandle, FileTextIconProps>(
             variants={{
               animate: {
                 pathLength: [1, 0, 1],
+                transition: {
+                  delay: 0.7,
+                  duration: 0.7,
+                },
                 x1: [8, 16, 8],
                 x2: [16, 16, 16],
-                transition: {
-                  duration: 0.7,
-                  delay: 0.7,
-                },
               },
               normal: {
                 pathLength: 1,

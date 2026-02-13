@@ -115,15 +115,15 @@ export async function generateCvDocx({
     }
     return [
       new Paragraph({
-        children: [new TextRun({ text: t(title), bold: true, size: 20 })],
-        spacing: { before: 150, after: 50 },
+        children: [new TextRun({ bold: true, size: 20, text: t(title) })],
+        spacing: { after: 50, before: 150 },
       }),
       new Paragraph({
-        children: [new TextRun({ text: t(subtitle), size: 18, color: theme.primary })],
+        children: [new TextRun({ color: theme.primary, size: 18, text: t(subtitle) })],
         spacing: { after: 50 },
       }),
       new Paragraph({
-        children: [new TextRun({ text: t(note), size: 16, color: theme.accent })],
+        children: [new TextRun({ color: theme.accent, size: 16, text: t(note) })],
         spacing: { after: 80 },
       }),
       ...entries.flatMap(createExperienceParagraphs),
@@ -155,7 +155,7 @@ export async function generateCvDocx({
   // Attach the image via ImageRun
   const profileImg = new ImageRun({
     data: profileImageBytes,
-    transformation: { width: 80, height: 80 },
+    transformation: { height: 80, width: 80 },
     type: "jpg",
   });
 
@@ -175,59 +175,18 @@ export async function generateCvDocx({
     description: (language === "en" ? "CV of " : "CV von ") + t(imprint.companyName),
     sections: [
       {
-        properties: { page: { margin: { top: 720, right: 720, bottom: 720, left: 720 } } },
-        footers: {
-          default: new Footer({
-            children: [
-              new Paragraph({
-                alignment: AlignmentType.CENTER,
-                children: [
-                  new TextRun({
-                    text: language === "en" ? "Page " : "Seite ",
-                    size: 16,
-                    color: theme.accent,
-                  }),
-                  new TextRun({ children: [PageNumber.CURRENT] }),
-                  new TextRun({
-                    text: language === "en" ? " of " : " von ",
-                    size: 16,
-                    color: theme.accent,
-                  }),
-                  new TextRun({ children: [PageNumber.TOTAL_PAGES] }),
-                  new TextRun({ text: " | ", size: 16, color: theme.accent }),
-                  new TextRun({
-                    text: language === "en" ? "Last updated: " : "Letztes Update: ",
-                    size: 16,
-                    color: theme.accent,
-                  }),
-                  new TextRun({
-                    text: new Date().toLocaleDateString(language === "en" ? "en-US" : "de-DE", {
-                      year: "numeric",
-                      month: "long",
-                    }),
-                    size: 16,
-                    color: theme.accent,
-                  }),
-                ],
-              }),
-            ],
-          }),
-        },
         children: [
           new Table({
-            width: { size: 100, type: "pct" },
             rows: [
               new TableRow({
                 children: [
                   // Sidebar-Spalte
                   new TableCell({
-                    width: { size: 1600, type: "dxa" },
-                    shading: { fill: theme.sidebarBg },
                     borders: {
-                      top: { style: BorderStyle.NONE },
                       bottom: { style: BorderStyle.NONE },
                       left: { style: BorderStyle.NONE },
                       right: { style: BorderStyle.NONE },
+                      top: { style: BorderStyle.NONE },
                     },
                     children: [
                       // Foto
@@ -237,16 +196,16 @@ export async function generateCvDocx({
                       }),
                       // Kontakt-Überschrift
                       new Paragraph({
-                        spacing: { after: 200 },
                         children: [
                           new TextRun({
-                            text: t({ en: "Reach me at", de: "Kontakt" }),
                             bold: true,
-                            size: 18,
-                            font: "Space Grotesk",
                             color: theme.sidebarText,
+                            font: "Space Grotesk",
+                            size: 18,
+                            text: t({ de: "Kontakt", en: "Reach me at" }),
                           }),
                         ],
+                        spacing: { after: 200 },
                       }),
                       // Kontaktzeilen
                       ...[
@@ -260,60 +219,61 @@ export async function generateCvDocx({
                       ].map(
                         ([label, value]) =>
                           new Paragraph({
-                            spacing: { after: 100 },
                             children: [
                               new TextRun({
-                                text: `${label}: `,
-                                size: 18,
                                 bold: true,
                                 color: theme.sidebarText,
+                                size: 18,
+                                text: `${label}: `,
                               }),
-                              new TextRun({ text: value, size: 18, color: theme.sidebarText }),
+                              new TextRun({ color: theme.sidebarText, size: 18, text: value }),
                             ],
+                            spacing: { after: 100 },
                           }),
                       ),
                       // Languages im Sidebar
                       new Paragraph({ text: "" }),
                       new Paragraph({
-                        spacing: { after: 100 },
                         children: [
                           new TextRun({
-                            text: t({ en: "Languages", de: "Sprachen" }),
                             bold: true,
-                            size: 18,
-                            font: "Space Grotesk",
                             color: theme.sidebarText,
+                            font: "Space Grotesk",
+                            size: 18,
+                            text: t({ de: "Sprachen", en: "Languages" }),
                           }),
                         ],
+                        spacing: { after: 100 },
                       }),
                       new Paragraph({
                         children: languagesChildren,
                       }),
                     ],
+                    shading: { fill: theme.sidebarBg },
+                    width: { size: 1600, type: "dxa" },
                   }),
 
                   // Hauptbereich
                   new TableCell({
-                    width: { size: 8400, type: "dxa" },
                     children: [
                       new Paragraph({
-                        spacing: { after: 100 },
                         children: [
                           new TextRun({
-                            text: hero.name,
                             bold: true,
-                            size: 44,
-                            font: "Space Grotesk",
                             color: theme.foreground,
+                            font: "Space Grotesk",
+                            size: 44,
+                            text: hero.name,
                           }),
                         ],
+                        spacing: { after: 100 },
                       }),
                       new Paragraph({
                         children: [
                           new TextRun({
-                            text: t(hero.description),
-                            size: 18,
                             color: theme.primary,
+                            size: 18,
+                            text: t(hero.description),
                           }),
                         ],
                         spacing: { after: 200 },
@@ -321,16 +281,16 @@ export async function generateCvDocx({
 
                       // Profil
                       new Paragraph({
-                        text: t({ en: "Profile", de: "Profil" }),
                         heading: HeadingLevel.HEADING_2,
+                        text: t({ de: "Profil", en: "Profile" }),
                         thematicBreak: true,
                       }),
                       new Paragraph({
-                        children: [new TextRun({ text: t(about.paragraphs[0]), size: 18 })],
+                        children: [new TextRun({ size: 18, text: t(about.paragraphs[0]) })],
                         spacing: { after: 100 },
                       }),
                       new Paragraph({
-                        children: [new TextRun({ text: t(about.paragraphs[1]), size: 18 })],
+                        children: [new TextRun({ size: 18, text: t(about.paragraphs[1]) })],
                         spacing: { after: 200 },
                       }),
 
@@ -339,8 +299,8 @@ export async function generateCvDocx({
 
                       // Skills
                       new Paragraph({
-                        text: t(skillsSection.title),
                         heading: HeadingLevel.HEADING_2,
+                        text: t(skillsSection.title),
                         thematicBreak: true,
                       }),
                       ...Object.entries(skillsByCategory)
@@ -349,9 +309,9 @@ export async function generateCvDocx({
                           new Paragraph({
                             children: [
                               new TextRun({
-                                text: t(skillsSection.categories[cat as keyof typeof skillsSection.categories]),
                                 bold: true,
                                 size: 20,
+                                text: t(skillsSection.categories[cat as keyof typeof skillsSection.categories]),
                               }),
                             ],
                           }),
@@ -361,10 +321,10 @@ export async function generateCvDocx({
                               .slice(0, 10)
                               .flatMap((s, idx) => {
                                 const runs: Array<TextRun> = [
-                                  new TextRun({ text: t(s.name), size: 18, color: theme.primary }),
+                                  new TextRun({ color: theme.primary, size: 18, text: t(s.name) }),
                                 ];
                                 if (idx < catSkills.filter((s) => s.level >= 4).slice(0, 10).length - 1) {
-                                  runs.push(new TextRun({ text: ", ", size: 18, color: theme.primary }));
+                                  runs.push(new TextRun({ color: theme.primary, size: 18, text: ", " }));
                                 }
                                 return runs;
                               }),
@@ -373,27 +333,67 @@ export async function generateCvDocx({
 
                       // Featured Projects
                       new Paragraph({
-                        text: t(content.projectsSectionTitle),
                         heading: HeadingLevel.HEADING_2,
+                        text: t(content.projectsSectionTitle),
                         thematicBreak: true,
                       }),
                       ...content.projects.flatMap((project) => [
                         new Paragraph({
-                          children: [new TextRun({ text: t(project.title), bold: true, size: 20 })],
+                          children: [new TextRun({ bold: true, size: 20, text: t(project.title) })],
                         }),
                         new Paragraph({
-                          children: [new TextRun({ text: t(project.description), size: 18 })],
+                          children: [new TextRun({ size: 18, text: t(project.description) })],
                           spacing: { after: 100 },
                         }),
                         new Paragraph({ text: "" }),
                       ]),
                     ],
+                    width: { size: 8400, type: "dxa" },
+                  }),
+                ],
+              }),
+            ],
+            width: { size: 100, type: "pct" },
+          }),
+        ],
+        footers: {
+          default: new Footer({
+            children: [
+              new Paragraph({
+                alignment: AlignmentType.CENTER,
+                children: [
+                  new TextRun({
+                    color: theme.accent,
+                    size: 16,
+                    text: language === "en" ? "Page " : "Seite ",
+                  }),
+                  new TextRun({ children: [PageNumber.CURRENT] }),
+                  new TextRun({
+                    color: theme.accent,
+                    size: 16,
+                    text: language === "en" ? " of " : " von ",
+                  }),
+                  new TextRun({ children: [PageNumber.TOTAL_PAGES] }),
+                  new TextRun({ color: theme.accent, size: 16, text: " | " }),
+                  new TextRun({
+                    color: theme.accent,
+                    size: 16,
+                    text: language === "en" ? "Last updated: " : "Letztes Update: ",
+                  }),
+                  new TextRun({
+                    color: theme.accent,
+                    size: 16,
+                    text: new Date().toLocaleDateString(language === "en" ? "en-US" : "de-DE", {
+                      month: "long",
+                      year: "numeric",
+                    }),
                   }),
                 ],
               }),
             ],
           }),
-        ],
+        },
+        properties: { page: { margin: { bottom: 720, left: 720, right: 720, top: 720 } } },
       },
     ],
     styles: {

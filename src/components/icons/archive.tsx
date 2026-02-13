@@ -18,22 +18,22 @@ interface ArchiveIconProps extends HTMLAttributes<HTMLDivElement> {
 
 const RECT_VARIANTS: Variants = {
   animate: {
-    translateY: -1.5,
     transition: {
-      duration: 0.2,
-      type: "spring",
-      stiffness: 200,
       damping: 25,
+      duration: 0.2,
+      stiffness: 200,
+      type: "spring",
     },
+    translateY: -1.5,
   },
   normal: {
-    translateY: 0,
     transition: {
-      duration: 0.2,
-      type: "spring",
-      stiffness: 200,
       damping: 25,
+      duration: 0.2,
+      stiffness: 200,
+      type: "spring",
     },
+    translateY: 0,
   },
 };
 
