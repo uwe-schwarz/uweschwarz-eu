@@ -3,6 +3,9 @@ import { Resend } from "resend";
 import { render } from "@react-email/render";
 import { Body, Container, Head, Heading, Html, Preview, Section, Text, Tailwind } from "@react-email/components";
 
+const resendApiKey = process.env.RESEND_API_KEY;
+const resend = resendApiKey ? new Resend(resendApiKey) : null;
+
 function escapeHtml(str: string) {
   return str
     .replaceAll("&", "&amp;")
@@ -10,6 +13,15 @@ function escapeHtml(str: string) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
+}
+
+function sanitizeEmailHeaderName(value: unknown) {
+  const normalized = String(value ?? "")
+    .replaceAll("\r", " ")
+    .replaceAll("\n", " ")
+    .trim();
+
+  return normalized || "Website Contact";
 }
 
 const EmailTemplate = ({ email, message, name }: { email: string; message: string; name: string }) => {
@@ -153,16 +165,14 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Error" }, { status: 400 });
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
+  if (!resend) {
     return NextResponse.json({ error: "Missing RESEND_API_KEY" }, { status: 500 });
   }
 
-  const resend = new Resend(apiKey);
-
-  const safeName = escapeHtml(body.name);
-  const safeEmail = escapeHtml(body.email);
-  const safeMessage = escapeHtml(body.message).replaceAll("\n", "<br>");
+  const headerSafeName = sanitizeEmailHeaderName(body.name);
+  const safeName = escapeHtml(String(body.name ?? ""));
+  const safeEmail = escapeHtml(String(body.email ?? ""));
+  const safeMessage = escapeHtml(String(body.message ?? "")).replaceAll("\n", "<br>");
 
   const html = await render(
     EmailTemplate({
@@ -174,10 +184,10 @@ export async function POST(request: Request) {
 
   try {
     const data = await resend.emails.send({
-      from: `${safeName} <uweschwarz-eu@oldman.cloud>`,
+      from: `${headerSafeName} <uweschwarz-eu@oldman.cloud>`,
       html,
       replyTo: [body.email],
-      subject: `Contact Form Submission from ${safeName} on ${new Date().toISOString()}`,
+      subject: `Contact Form Submission from ${headerSafeName} on ${new Date().toISOString()}`,
       to: ["mail@uweschwarz.eu"],
     });
     return NextResponse.json(data);

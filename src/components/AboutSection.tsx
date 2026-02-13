@@ -15,6 +15,13 @@ const iconMap: Record<string, IconComponent> = {
   technologies: FlaskIcon,
 };
 
+const gridColsMap: Record<number, string> = {
+  1: "sm:grid-cols-1",
+  2: "sm:grid-cols-2",
+  3: "sm:grid-cols-3",
+  4: "sm:grid-cols-4",
+};
+
 const AboutSection = () => {
   const { t } = useSettings();
   const { about } = siteContent;
@@ -69,7 +76,7 @@ const AboutSection = () => {
             ))}
 
             {/* Stats */}
-            <div className={`grid grid-cols-1 sm:grid-cols-${stats.length} gap-8 mt-10`}>
+            <div className={`mt-10 grid grid-cols-1 gap-8 ${gridColsMap[stats.length] || "sm:grid-cols-3"}`}>
               {stats.map((stat, index) => (
                 <div
                   className="p-4 bg-card rounded-lg shadow-sm border border-border hover-scale transition-all"

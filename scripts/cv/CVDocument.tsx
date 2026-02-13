@@ -375,11 +375,42 @@ interface CVDocumentProps {
   profileImageSrc?: string | Uint8Array | ArrayBuffer; // Override profile image source when available
 }
 
+const bytesToBase64 = (bytes: Uint8Array) => {
+  if (typeof Buffer !== "undefined") {
+    return Buffer.from(bytes).toString("base64");
+  }
+
+  let binary = "";
+  for (const byte of bytes) {
+    binary += String.fromCodePoint(byte);
+  }
+
+  return btoa(binary);
+};
+
+const resolveProfileImageSource = (profileImageSrc?: string | Uint8Array | ArrayBuffer) => {
+  const source = profileImageSrc ?? "/profile.jpg";
+
+  if (typeof source === "string") {
+    return source;
+  }
+
+  const bytes = ArrayBuffer.isView(source)
+    ? new Uint8Array(source.buffer, source.byteOffset, source.byteLength)
+    : new Uint8Array(source);
+
+  if (bytes.byteLength === 0) {
+    throw new TypeError("profileImageSrc binary data is empty.");
+  }
+
+  return `data:image/jpeg;base64,${bytesToBase64(bytes)}`;
+};
+
 const CVDocument: React.FC<CVDocumentProps> = ({ data, language, profileImageSrc }) => {
   // Use passed data or fallback to siteContent
   const content = data || defaultSiteContent;
   const { about, contact, experiences, footer, hero, imprint, skills, skillsSection } = content;
-  const profileImage = profileImageSrc ?? "/profile.jpg";
+  const profileImage = resolveProfileImageSource(profileImageSrc);
 
   // Helper function to get text in the current language
   const t = (text: { de: string; en: string }) => text[language];
@@ -456,7 +487,7 @@ const CVDocument: React.FC<CVDocumentProps> = ({ data, language, profileImageSrc
         <View fixed style={styles.sidebar} />
         <View style={styles.sidebar}>
           {/* Photo */}
-          <Image src={profileImage as string} style={styles.photo} />
+          <Image src={profileImage} style={styles.photo} />
           {/* Contact Info */}
           <View style={styles.sidebarSection}>
             <Text style={styles.sidebarTitle}>{language === "en" ? "Reach me at" : "Kontakt"}</Text>

@@ -36,7 +36,7 @@ type Action =
       type: ActionType["ADD_TOAST"];
     }
   | {
-      toast: Partial<ToasterToast>;
+      toast: { id: ToasterToast["id"] } & Partial<ToasterToast>;
       type: ActionType["UPDATE_TOAST"];
     }
   | {
@@ -144,7 +144,7 @@ type Toast = Omit<ToasterToast, "id">;
 function toast({ ...props }: Toast) {
   const id = genId();
 
-  const update = (props: ToasterToast) =>
+  const update = (props: Partial<ToasterToast>) =>
     dispatch({
       toast: { ...props, id },
       type: "UPDATE_TOAST",
