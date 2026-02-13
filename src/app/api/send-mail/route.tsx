@@ -2,29 +2,43 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { render } from "@react-email/render";
 import { Body, Container, Head, Heading, Html, Preview, Section, Text, Tailwind } from "@react-email/components";
+import { z } from "zod";
+
+const resendApiKey = process.env.RESEND_API_KEY;
+const resend = resendApiKey ? new Resend(resendApiKey) : null;
 
 function escapeHtml(str: string) {
   return str
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 }
 
-const EmailTemplate = ({ name, email, message }: { name: string; email: string; message: string }) => {
+function sanitizeEmailHeaderName(value: unknown) {
+  const normalized = String(value ?? "")
+    .replaceAll("\r", " ")
+    .replaceAll("\n", " ")
+    .replaceAll(/["<>\\,;:]/g, "")
+    .trim();
+
+  return normalized || "Website Contact";
+}
+
+const EmailTemplate = ({ email, message, name }: { email: string; message: string; name: string }) => {
   const colors = {
-    background: "hsl(210, 40%, 98%)",
-    foreground: "hsl(225, 25%, 12%)",
-    card: "hsl(220, 30%, 92%)",
-    cardForeground: "hsl(225, 25%, 12%)",
-    primary: "hsl(333, 65%, 35%)",
-    primaryForeground: "hsl(0, 0%, 70%)",
     accent: "hsl(82, 61%, 26%)",
     accentForeground: "hsl(225, 25%, 12%)",
+    background: "hsl(210, 40%, 98%)",
+    border: "hsl(215, 25%, 85%)",
+    card: "hsl(220, 30%, 92%)",
+    cardForeground: "hsl(225, 25%, 12%)",
+    foreground: "hsl(225, 25%, 12%)",
     muted: "hsl(215, 25%, 85%)",
     mutedForeground: "hsl(215, 20%, 35%)",
-    border: "hsl(215, 25%, 85%)",
+    primary: "hsl(333, 65%, 35%)",
+    primaryForeground: "hsl(0, 0%, 70%)",
   };
 
   return (
@@ -41,10 +55,10 @@ const EmailTemplate = ({ name, email, message }: { name: string; email: string; 
               <div
                 style={{
                   background: `linear-gradient(to right, ${colors.primary}, ${colors.accent})`,
-                  padding: "2px",
                   borderRadius: "12px",
                   marginBottom: "24px",
                   marginTop: "24px",
+                  padding: "2px",
                 }}
               >
                 <div
@@ -90,27 +104,27 @@ const EmailTemplate = ({ name, email, message }: { name: string; email: string; 
               <div
                 style={{
                   background: `linear-gradient(to right, ${colors.primary}, ${colors.accent})`,
-                  padding: "2px",
                   borderRadius: "8px",
-                  marginBottom: "16px",
-                  display: "inline-block",
-                  width: "100%",
                   boxSizing: "border-box",
+                  display: "inline-block",
+                  marginBottom: "16px",
+                  padding: "2px",
+                  width: "100%",
                 }}
               >
                 <a
                   href={`mailto:${email}`}
                   style={{
-                    display: "block",
-                    padding: "12px 20px",
-                    borderRadius: "6px",
-                    fontWeight: "600",
-                    textDecoration: "none",
-                    color: colors.foreground,
                     backgroundColor: colors.card,
-                    textAlign: "center",
+                    borderRadius: "6px",
                     boxSizing: "border-box",
+                    color: colors.foreground,
+                    display: "block",
                     fontSize: "16px",
+                    fontWeight: "600",
+                    padding: "12px 20px",
+                    textAlign: "center",
+                    textDecoration: "none",
                   }}
                 >
                   Reply to this message
@@ -124,7 +138,7 @@ const EmailTemplate = ({ name, email, message }: { name: string; email: string; 
 
             <Section
               className="mt-[32px] border-t pt-[32px]"
-              style={{ borderColor: colors.border, borderTopWidth: "1px", borderTopStyle: "solid" }}
+              style={{ borderColor: colors.border, borderTopStyle: "solid", borderTopWidth: "1px" }}
             >
               <Text className="m-0 text-[12px]" style={{ color: colors.mutedForeground }}>
                 © {new Date().getFullYear()} Uwe Schwarz. All rights reserved.
@@ -145,44 +159,53 @@ const EmailTemplate = ({ name, email, message }: { name: string; email: string; 
     </Html>
   );
 };
+EmailTemplate.displayName = "EmailTemplate";
 
 export async function POST(request: Request) {
-  const body = await request.json();
+  let body: Record<string, unknown>;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+  }
 
   if (body.verify !== "") {
     return NextResponse.json({ error: "Error" }, { status: 400 });
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
+  if (!resend) {
     return NextResponse.json({ error: "Missing RESEND_API_KEY" }, { status: 500 });
   }
 
-  const resend = new Resend(apiKey);
+  const emailResult = z.email().safeParse(body.email);
+  if (!emailResult.success) {
+    return NextResponse.json({ error: "Invalid email address" }, { status: 400 });
+  }
 
-  const safeName = escapeHtml(body.name);
-  const safeEmail = escapeHtml(body.email);
-  const safeMessage = escapeHtml(body.message).replace(/\n/g, "<br>");
+  const email = emailResult.data;
+  const headerSafeName = sanitizeEmailHeaderName(body.name);
+  const rawName = String(body.name ?? "");
+  const safeMessage = escapeHtml(String(body.message ?? "")).replaceAll("\n", "<br>");
 
   const html = await render(
     EmailTemplate({
-      name: safeName,
-      email: safeEmail,
+      email,
       message: safeMessage,
+      name: rawName,
     }),
   );
 
   try {
     const data = await resend.emails.send({
-      from: `${safeName} <uweschwarz-eu@oldman.cloud>`,
-      replyTo: [body.email],
-      to: ["mail@uweschwarz.eu"],
-      subject: `Contact Form Submission from ${safeName} on ${new Date().toISOString()}`,
+      from: `${headerSafeName} <uweschwarz-eu@oldman.cloud>`,
       html,
+      replyTo: [email],
+      subject: `Contact Form Submission from ${headerSafeName} on ${new Date().toISOString()}`,
+      to: ["mail@uweschwarz.eu"],
     });
     return NextResponse.json(data);
   } catch (error) {
     const err = error as Error;
-    return NextResponse.json({ error: "Failed to send email", details: err.message }, { status: 500 });
+    return NextResponse.json({ details: err.message, error: "Failed to send email" }, { status: 500 });
   }
 }

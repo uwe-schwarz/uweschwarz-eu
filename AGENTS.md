@@ -13,7 +13,7 @@ This repository contains a personal portfolio built with Next.js, React, TypeScr
 - `bun install` – install dependencies and keep `bun.lock` in sync.
 - `bun run dev` – start a Next.js development server (default port 3000).
 - `bun run build` – create a production build.
-- `bun run lint` – run ESLint over the codebase.
+- `bun run lint` – run Oxlint over the codebase.
 
 Always rely on Bun for package management or scripting; avoid npm/pnpm commands.
 

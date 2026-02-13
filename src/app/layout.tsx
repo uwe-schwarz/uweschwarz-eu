@@ -39,13 +39,18 @@ export default async function RootLayout({
 
   return (
     <html
+      className={cn(
+        GeistSans.variable,
+        GeistPixelCircle.variable,
+        GeistMono.variable,
+        initialTheme === "dark" && "dark",
+      )}
+      data-scroll-behavior="smooth"
       lang={initialLanguage}
       suppressHydrationWarning
-      className={cn(GeistSans.variable, GeistPixelCircle.variable, GeistMono.variable, initialTheme === "dark" && "dark")}
-      data-scroll-behavior="smooth"
     >
       <head>
-        <meta name="view-transition" content="same-origin" />
+        <meta content="same-origin" name="view-transition" />
 
         <script
           // Ensure the initial theme class matches user preference before React hydration.
@@ -64,9 +69,9 @@ export default async function RootLayout({
           }}
         />
 
-        <link rel="icon" type="image/svg+xml" href="/us.svg" />
+        <link href="/us.svg" rel="icon" type="image/svg+xml" />
 
-        <script defer src="https://cloud.umami.is/script.js" data-website-id="74cb157f-1973-4ade-a5f9-1202a8604bbb" />
+        <script data-website-id="74cb157f-1973-4ade-a5f9-1202a8604bbb" defer src="https://cloud.umami.is/script.js" />
       </head>
       <body className={cn("min-h-screen bg-background font-sans antialiased text-foreground")}>
         {children}

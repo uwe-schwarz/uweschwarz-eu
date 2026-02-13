@@ -7,6 +7,6 @@ export const useScrollToTop = () => {
   const pathname = usePathname();
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ behavior: "smooth", top: 0 });
   }, [pathname]);
 };

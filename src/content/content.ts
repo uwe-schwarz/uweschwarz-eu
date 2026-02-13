@@ -3,7 +3,6 @@ import {
   AlertTriangle,
   BookCheck,
   Bot,
-  Box,
   Bug,
   Database,
   FileCheck2,
@@ -56,77 +55,75 @@ import {
 } from "react-icons/si";
 
 export interface LocalizedString {
-  en: string;
   de: string;
+  en: string;
 }
 
 export interface NavItem {
-  label: LocalizedString;
   href: string;
+  label: LocalizedString;
 }
 
 export interface HeroSection {
-  name: string;
-  imageAlt: LocalizedString;
-  titleElements: LocalizedString[];
-  description: LocalizedString;
   ctaPrimary: LocalizedString;
   ctaSecondary: LocalizedString;
-  decorativeElements: {
+  decorativeElements: Array<{
     position: number;
     distance: number;
     code: string;
-  }[];
+  }>;
+  description: LocalizedString;
+  imageAlt: LocalizedString;
+  name: string;
+  titleElements: Array<LocalizedString>;
 }
 
 export interface AboutSection {
-  title: LocalizedString;
-  paragraphs: LocalizedString[];
   imageAlt: LocalizedString;
   labels: {
     experience: LocalizedString;
     projects: LocalizedString;
     technologies: LocalizedString;
   };
-  stats: { key: string; value: LocalizedString }[];
+  paragraphs: Array<LocalizedString>;
+  stats: Array<{ key: string; value: LocalizedString }>;
+  title: LocalizedString;
 }
 
 export interface ExperienceDescriptionItem {
-  type: "text" | "achievement";
   text: LocalizedString;
+  type: "text" | "achievement";
 }
 
 export interface Experience {
-  title: LocalizedString;
   company: string;
-  period: LocalizedString;
+  description: Array<ExperienceDescriptionItem>;
   location: LocalizedString;
-  description: ExperienceDescriptionItem[];
-  tags: LocalizedString[];
   logoUrl?: string;
+  period: LocalizedString;
   projectScale?: "major" | "small";
+  tags: Array<LocalizedString>;
+  title: LocalizedString;
 }
 
 export interface Project {
-  title: LocalizedString;
-  description: LocalizedString;
-  imageUrl: string;
-  imageAlt: LocalizedString;
-  tags: LocalizedString[];
   demoUrl?: string;
+  description: LocalizedString;
+  imageAlt: LocalizedString;
+  imageUrl: string;
   repoUrl?: string;
+  tags: Array<LocalizedString>;
+  title: LocalizedString;
 }
 
 export interface Skill {
-  name: LocalizedString;
-  icon: ComponentType<{ className?: string }>;
   category: "languages" | "management" | "security" | "infrastructure" | "tools" | "ai";
+  icon: ComponentType<{ className?: string }>;
   level: number;
+  name: LocalizedString;
 }
 
 export interface SkillsSection {
-  title: LocalizedString;
-  subtitle: LocalizedString;
   categories: {
     security: LocalizedString;
     infrastructure: LocalizedString;
@@ -135,31 +132,26 @@ export interface SkillsSection {
     management: LocalizedString;
     languages: LocalizedString;
   };
+  subtitle: LocalizedString;
+  title: LocalizedString;
 }
 
 export interface ContactSection {
-  title: LocalizedString;
-  subtitle: LocalizedString;
-  emailLabel: LocalizedString;
-  email: string;
-  cvemail: string;
-  phoneLabel: LocalizedString;
-  phone: string;
-  socialLinks: {
-    github?: string;
-    linkedin?: string;
-    xing?: string;
-    x?: string;
-    bluesky?: string;
-    freelancermap?: string;
-  };
   birthday?: string;
-  homepage?: string;
+  cvemail: string;
+  email: string;
+  emailLabel: LocalizedString;
+  findMeOn: LocalizedString;
   formLabels: {
     name: LocalizedString;
     email: LocalizedString;
     message: LocalizedString;
     send: LocalizedString;
+  };
+  formPlaceholders: {
+    name: LocalizedString;
+    email: LocalizedString;
+    message: LocalizedString;
   };
   formStatus: {
     sentTitle: LocalizedString;
@@ -182,14 +174,21 @@ export interface ContactSection {
       };
     };
   };
-  formPlaceholders: {
-    name: LocalizedString;
-    email: LocalizedString;
-    message: LocalizedString;
-  };
-  infoTitle: LocalizedString;
-  findMeOn: LocalizedString;
+  homepage?: string;
   infoText: LocalizedString;
+  infoTitle: LocalizedString;
+  phone: string;
+  phoneLabel: LocalizedString;
+  socialLinks: {
+    github?: string;
+    linkedin?: string;
+    xing?: string;
+    x?: string;
+    bluesky?: string;
+    freelancermap?: string;
+  };
+  subtitle: LocalizedString;
+  title: LocalizedString;
 }
 
 export interface CV {
@@ -197,39 +196,37 @@ export interface CV {
 }
 
 export interface Footer {
-  copyright: LocalizedString;
-  links: NavItem[];
   builtWith?: LocalizedString;
+  copyright: LocalizedString;
+  links: Array<NavItem>;
 }
 
 export interface ImprintSection {
-  title: LocalizedString;
-  contactTitle: LocalizedString;
-  companyName: LocalizedString;
-  representative?: LocalizedString;
   address: {
     street: LocalizedString;
     city: LocalizedString;
     country: LocalizedString;
   };
+  companyName: LocalizedString;
   contactInfoTitle: LocalizedString;
-  emailLabel: LocalizedString;
-  email: string;
-  phoneLabel: LocalizedString;
-  phone: string;
-  legalTitle?: LocalizedString;
-  vatId?: LocalizedString;
-  registrationInfo?: LocalizedString;
-  disclaimerTitle: LocalizedString;
+  contactTitle: LocalizedString;
   disclaimer: LocalizedString;
+  disclaimerTitle: LocalizedString;
+  email: string;
+  emailLabel: LocalizedString;
+  legalTitle?: LocalizedString;
+  phone: string;
+  phoneLabel: LocalizedString;
+  registrationInfo?: LocalizedString;
+  representative?: LocalizedString;
+  title: LocalizedString;
+  vatId?: LocalizedString;
 }
 
 export interface PrivacySection {
-  title: LocalizedString;
-  subtitle: LocalizedString;
   sections: Array<{
     title: LocalizedString;
-    paragraphs: LocalizedString[];
+    paragraphs: Array<LocalizedString>;
     list?: Array<
       | LocalizedString
       | {
@@ -239,11 +236,13 @@ export interface PrivacySection {
         }
     >;
   }>;
+  subtitle: LocalizedString;
+  title: LocalizedString;
 }
 
 export interface SitemapSection {
-  title: LocalizedString;
   description: LocalizedString;
+  title: LocalizedString;
 }
 
 export interface LLMSSection {
@@ -251,27 +250,38 @@ export interface LLMSSection {
 }
 
 export interface SiteContent {
+  about: AboutSection;
+  backToHome: LocalizedString;
+  contact: ContactSection;
+  cv: CV;
+  downloadResume: LocalizedString;
+  experienceAchievementPrefix: LocalizedString;
+  experienceBigProjectsNote: LocalizedString;
+  experienceBigProjectsSubtitle: LocalizedString;
+  experienceBigProjectsTitle: LocalizedString;
+  experiences: Array<Experience>;
+  experienceSectionTitle: LocalizedString;
+  experienceSmallProjectsNote: LocalizedString;
+  experienceSmallProjectsSubtitle: LocalizedString;
+  experienceSmallProjectsTitle: LocalizedString;
+  footer: Footer;
+  hero: HeroSection;
+  imprint: ImprintSection;
+  llms?: LLMSSection;
+  moreProjects: LocalizedString;
+  navigation: Array<NavItem>;
+  privacy: PrivacySection;
+  projects: Array<Project>;
+  projectsSectionMore?: LocalizedString;
+  projectsSectionTitle: LocalizedString;
+  sitemap?: SitemapSection;
   siteMetadata: {
     title: string;
     description: LocalizedString;
     author: string;
   };
-  projectsSectionTitle: LocalizedString;
-  projectsSectionMore?: LocalizedString;
-  navigation: NavItem[];
-  hero: HeroSection;
-  about: AboutSection;
-  experiences: Experience[];
-  projects: Project[];
-  skills: Skill[];
+  skills: Array<Skill>;
   skillsSection: SkillsSection;
-  contact: ContactSection;
-  cv: CV;
-  footer: Footer;
-  imprint: ImprintSection;
-  privacy: PrivacySection;
-  sitemap?: SitemapSection;
-  llms?: LLMSSection;
   translations: {
     languageSwitch: {
       en: string;
@@ -282,20 +292,10 @@ export interface SiteContent {
       dark: LocalizedString;
     };
   };
-  backToHome: LocalizedString;
-  experienceSectionTitle: LocalizedString;
-  experienceBigProjectsTitle: LocalizedString;
-  experienceBigProjectsSubtitle: LocalizedString;
-  experienceBigProjectsNote: LocalizedString;
-  experienceSmallProjectsTitle: LocalizedString;
-  experienceSmallProjectsSubtitle: LocalizedString;
-  experienceSmallProjectsNote: LocalizedString;
-  experienceAchievementPrefix: LocalizedString;
-  moreProjects: LocalizedString;
-  downloadResume: LocalizedString;
 }
 
 export const siteContent: SiteContent = {
+  projectsSectionTitle: { en: "Developed Solutions", de: "Entwickelte Lösungen" },
   siteMetadata: {
     title: "Uwe Schwarz Portfolio",
     description: {
@@ -304,85 +304,7 @@ export const siteContent: SiteContent = {
     },
     author: "Uwe Schwarz",
   },
-  projectsSectionTitle: { en: "Developed Solutions", de: "Entwickelte Lösungen" },
   /*  projectsSectionMore: { en: "View More Projects on GitHub", de: "Mehr Projekte auf GitHub ansehen" }, */
-  navigation: [
-    { label: { en: "Home", de: "Start" }, href: "#hero" },
-    { label: { en: "About", de: "Über mich" }, href: "#about" },
-    { label: { en: "Experience", de: "Erfahrung" }, href: "#experience" },
-    { label: { en: "Projects", de: "Projekte" }, href: "#projects" },
-    { label: { en: "Skills", de: "Fähigkeiten" }, href: "#skills" },
-    { label: { en: "Contact", de: "Kontakt" }, href: "#contact" },
-  ],
-  hero: {
-    name: "Uwe Schwarz",
-    imageAlt: {
-      en: "Portrait photo of Uwe Schwarz, Project Manager and IT Security Expert.",
-      de: "Portraitfoto von Uwe Schwarz, Projektmanager und IT-Sicherheitsexperte.",
-    },
-    titleElements: [
-      {
-        en: "Project Manager",
-        de: "Projektmanager",
-      },
-      {
-        en: "IT Security Expert",
-        de: "IT-Sicherheitsexperte",
-      },
-      {
-        en: "AI Enthusiast",
-        de: "KI-Enthusiast",
-      },
-      {
-        en: "Consultant",
-        de: "Berater",
-      },
-    ],
-    description: {
-      en: "I connect technology, people, and business goals – acting as the bridge between teams, stakeholders, and systems. Whether it's IT security, networking, high-availability infrastructure, or email solutions, I take ownership, lead complex projects, and ensure the results are not just technically sound, but strategically aligned and built to last.",
-      de: "Ich bringe Technik, Menschen und Geschäftsziele zusammen – als Brücke zwischen Teams, Stakeholdern und Systemen. Ob IT-Security, Netzwerke, hochverfügbare Systeme oder E-Mail-Infrastruktur: Ich übernehme Verantwortung, leite komplexe Projekte und stelle sicher, dass Lösungen nicht nur funktionieren, sondern auch strategisch passen und langfristig tragen.",
-    },
-    ctaPrimary: {
-      en: "See my work",
-      de: "Meine Arbeit ansehen",
-    },
-    ctaSecondary: {
-      en: "Download CV",
-      de: "Lebenslauf herunterladen",
-    },
-    decorativeElements: [
-      {
-        position: 9,
-        distance: 92,
-        code: "🛡️&nbsp;GDPR",
-      },
-      {
-        position: 35,
-        distance: 72,
-        code: "🤖&nbsp;AI",
-      },
-      {
-        position: 52,
-        distance: 85,
-        code: "🤝&nbsp;Human&nbsp;API",
-      },
-      {
-        position: 66,
-        distance: 122,
-        code: "📡&nbsp;networking",
-      },
-      {
-        position: 84,
-        distance: 134,
-        code: "💡&nbsp;strategy",
-      },
-      {
-        position: 95,
-        distance: 110,
-        code: "🔐&nbsp;security",
-      },
-    ],
-  },
   about: {
     title: {
       en: "About Me",
@@ -416,6 +338,98 @@ export const siteContent: SiteContent = {
       { key: "projects", value: { en: "30+", de: "30+" } },
       { key: "technologies", value: { en: "50+", de: "50+" } },
     ],
+  },
+  backToHome: { en: "Back to Home", de: "Zurück zur Startseite" },
+  contact: {
+    title: {
+      en: "Get In Touch",
+      de: "Kontakt aufnehmen",
+    },
+    subtitle: {
+      en: "Interested in working together? Feel free to reach out!",
+      de: "Interesse an einer Zusammenarbeit? Kontaktieren Sie mich gerne!",
+    },
+    emailLabel: {
+      en: "Email me at",
+      de: "E-Mail an",
+    },
+    email: "mail@uweschwarz.eu",
+    cvemail: "uwe.schwarz@degit.de",
+    phoneLabel: {
+      en: "Phone",
+      de: "Telefon",
+    },
+    phone: "+49 151 64403667",
+    socialLinks: {
+      github: "https://github.com/uwe-schwarz",
+      linkedin: "https://www.linkedin.com/in/uwe-schwarz-282531294",
+      xing: "https://www.xing.com/profile/Uwe_Schwarz72",
+      x: "https://x.com/e38383",
+      freelancermap: "https://www.freelancermap.de/profil/uwe-schwarz",
+    },
+    birthday: "1978-02-19",
+    homepage: "https://uweschwarz.eu",
+    formLabels: {
+      name: { en: "Name", de: "Name" },
+      email: { en: "Email", de: "E-Mail" },
+      message: { en: "Message", de: "Nachricht" },
+      send: { en: "Send Message", de: "Nachricht senden" },
+    },
+    formStatus: {
+      sentTitle: { en: "Message sent!", de: "Nachricht gesendet!" },
+      sentDescription: {
+        en: "Thanks for reaching out. I'll get back to you soon.",
+        de: "Danke für deine Nachricht. Ich werde mich bald bei dir melden.",
+      },
+      errorTitle: { en: "Error", de: "Fehler" },
+      errorDescription: {
+        en: "Failed to send message. Please try again later.",
+        de: "Nachricht konnte nicht gesendet werden. Bitte versuche es später noch einmal.",
+      },
+      sending: { en: "Sending...", de: "Senden..." },
+      validation: {
+        name: {
+          en: "Name must be at least 2 characters long.",
+          de: "Name muss mindestens 2 Zeichen lang sein.",
+        },
+        email: {
+          en: "Please enter a valid email address.",
+          de: "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+        },
+        message: {
+          en: "Message must be at least 10 characters long.",
+          de: "Nachricht muss mindestens 10 Zeichen lang sein.",
+        },
+      },
+    },
+    formPlaceholders: {
+      name: { en: "Your name", de: "Dein Name" },
+      email: { en: "Your email", de: "Deine E-Mail" },
+      message: { en: "Your message", de: "Deine Nachricht" },
+    },
+    infoTitle: { en: "Let's Connect", de: "Lass uns in Kontakt treten" },
+    findMeOn: { en: "Find me on", de: "Finde mich auf" },
+    infoText: {
+      en: "Feel free to reach out for collaborations or just a friendly hello.",
+      de: "Kontaktiere mich gerne für Zusammenarbeiten oder einfach nur für ein freundliches Hallo.",
+    },
+  },
+  cv: {
+    title: { en: "Resume / CV", de: "Lebenslauf / CV" },
+  },
+  downloadResume: { en: "Download CV", de: "Lebenslauf herunterladen" },
+  experienceAchievementPrefix: { en: "Achievement:", de: "Erfolg:" },
+  experienceBigProjectsNote: {
+    en: "A curated selection of multi-month and multi-year work; further details on request.",
+    de: "Eine kuratierte Auswahl mehrmonatiger und mehrjähriger Arbeiten; weitere Details auf Anfrage.",
+  },
+  experienceBigProjectsSubtitle: {
+    en: "Major technical and organizational engagements with high responsibility.",
+    de: "Wesentliche technische und organisatorische Engagements mit hoher Verantwortung.",
+  },
+  experienceBigProjectsTitle: {
+    en: "Key Projects",
+    de: "Schlüsselprojekte",
   },
   experiences: [
     {
@@ -518,7 +532,7 @@ export const siteContent: SiteContent = {
         {
           type: "text",
           text: {
-            en: "Driving compliance-relevant alignment for BSI, NIS2, and critical infrastrcuture requirements, evidence obligations, and transparent reporting to management and stakeholder groups within the institution.",
+            en: "Driving compliance-relevant alignment for BSI, NIS2, and critical infrastructure requirements, evidence obligations, and transparent reporting to management and stakeholder groups within the institution.",
             de: "Steuerung der compliance-relevanten Abstimmung zu BSI-, NIS2- und KRITIS-Anforderungen, Evidence-Pflicht und transparentem Reporting an Management und Stakeholder beim Träger.",
           },
         },
@@ -933,7 +947,7 @@ export const siteContent: SiteContent = {
           type: "text",
           text: {
             en: "Comprehensive code review of the existing PHP application with a structured assessment of critical, medium and low-severity issues.",
-            de: "Umfassendes Code-Review der bestehenden PHP-Anwendung mit mit mit strukturierter Bewertung von Findings hoher, mittlerer und niedriger Schwere.",
+            de: "Umfassendes Code-Review der bestehenden PHP-Anwendung mit strukturierter Bewertung von Findings hoher, mittlerer und niedriger Schwere.",
           },
         },
         {
@@ -1003,7 +1017,7 @@ export const siteContent: SiteContent = {
         {
           type: "text",
           text: {
-            en: "Automation vulnerability and inicident management.",
+            en: "Automation of vulnerability and incident management.",
             de: "Automatisierung des Schwachstellen- und Vorfallsmanagements.",
           },
         },
@@ -1120,7 +1134,7 @@ export const siteContent: SiteContent = {
         {
           type: "text",
           text: {
-            en: "Debugging und solving of problems mainly in the area mail (but not solely).",
+            en: "Debugging and solving of problems mainly in the area of mail (but not solely).",
             de: "Fehlerbehebung und Problemlösung hauptsächlich im Bereich E-Mail (aber nicht ausschließlich).",
           },
         },
@@ -1254,6 +1268,406 @@ export const siteContent: SiteContent = {
       ],
     },
   ],
+  experienceSectionTitle: { en: "Experience", de: "Berufserfahrung" },
+  experienceSmallProjectsNote: {
+    en: "Specialized, flexible, or focused initiatives that complement the broader work.",
+    de: "Spezialisierte, flexible oder fokussierte Initiativen, die die Gesamtarbeit ergänzen.",
+  },
+  experienceSmallProjectsSubtitle: {
+    en: "Complementary or specialized projects with flexible scope.",
+    de: "Ergänzende oder spezialisierte Projekte mit flexiblem Umfang.",
+  },
+  experienceSmallProjectsTitle: {
+    en: "Additional & Focused Projects",
+    de: "Zusatz- & Schwerpunktprojekte",
+  },
+  footer: {
+    copyright: {
+      en: "© year Uwe Schwarz. All rights reserved.",
+      de: "© year Uwe Schwarz. Alle Rechte vorbehalten.",
+    },
+    links: [
+      { label: { en: "Privacy Policy", de: "Datenschutz" }, href: "/privacy" },
+      { label: { en: "Imprint", de: "Impressum" }, href: "/imprint" },
+    ],
+    /*    builtWith: {
+      en: "Built with modern web technologies and a passion for clean code.",
+      de: "Erstellt mit modernen Web-Technologien und einer Leidenschaft für sauberen Code.",
+    },*/
+  },
+  hero: {
+    name: "Uwe Schwarz",
+    imageAlt: {
+      en: "Portrait photo of Uwe Schwarz, Project Manager and IT Security Expert.",
+      de: "Portraitfoto von Uwe Schwarz, Projektmanager und IT-Sicherheitsexperte.",
+    },
+    titleElements: [
+      {
+        en: "Project Manager",
+        de: "Projektmanager",
+      },
+      {
+        en: "IT Security Expert",
+        de: "IT-Sicherheitsexperte",
+      },
+      {
+        en: "AI Enthusiast",
+        de: "KI-Enthusiast",
+      },
+      {
+        en: "Consultant",
+        de: "Berater",
+      },
+    ],
+    description: {
+      en: "I connect technology, people, and business goals – acting as the bridge between teams, stakeholders, and systems. Whether it's IT security, networking, high-availability infrastructure, or email solutions, I take ownership, lead complex projects, and ensure the results are not just technically sound, but strategically aligned and built to last.",
+      de: "Ich bringe Technik, Menschen und Geschäftsziele zusammen – als Brücke zwischen Teams, Stakeholdern und Systemen. Ob IT-Security, Netzwerke, hochverfügbare Systeme oder E-Mail-Infrastruktur: Ich übernehme Verantwortung, leite komplexe Projekte und stelle sicher, dass Lösungen nicht nur funktionieren, sondern auch strategisch passen und langfristig tragen.",
+    },
+    ctaPrimary: {
+      en: "See my work",
+      de: "Meine Arbeit ansehen",
+    },
+    ctaSecondary: {
+      en: "Download CV",
+      de: "Lebenslauf herunterladen",
+    },
+    decorativeElements: [
+      {
+        position: 9,
+        distance: 92,
+        code: "🛡️&nbsp;GDPR",
+      },
+      {
+        position: 35,
+        distance: 72,
+        code: "🤖&nbsp;AI",
+      },
+      {
+        position: 52,
+        distance: 85,
+        code: "🤝&nbsp;Human&nbsp;API",
+      },
+      {
+        position: 66,
+        distance: 122,
+        code: "📡&nbsp;networking",
+      },
+      {
+        position: 84,
+        distance: 134,
+        code: "💡&nbsp;strategy",
+      },
+      {
+        position: 95,
+        distance: 110,
+        code: "🔐&nbsp;security",
+      },
+    ],
+  },
+  imprint: {
+    title: {
+      en: "Imprint",
+      de: "Impressum",
+    },
+    contactTitle: {
+      en: "Contact Information",
+      de: "Kontaktinformationen",
+    },
+    companyName: {
+      en: "Uwe Schwarz",
+      de: "Uwe Schwarz",
+    },
+    /*    representative: {
+      en: "Represented by: John Oldman",
+      de: "Vertreten durch: John Oldman",
+    },*/
+    address: {
+      street: {
+        en: "Uhlandstr. 20",
+        de: "Uhlandstr. 20",
+      },
+      city: {
+        en: "67069 Ludwigshafen",
+        de: "67069 Ludwigshafen",
+      },
+      country: {
+        en: "Germany",
+        de: "Deutschland",
+      },
+    },
+    contactInfoTitle: {
+      en: "Contact",
+      de: "Kontakt",
+    },
+    emailLabel: {
+      en: "Email",
+      de: "E-Mail",
+    },
+    email: "mail@uweschwarz.eu",
+    phoneLabel: {
+      en: "Phone",
+      de: "Telefon",
+    },
+    phone: "+49 151 64403667",
+    /*    legalTitle: {
+      en: "Legal Information",
+      de: "Rechtliche Informationen",
+    },
+    vatId: {
+      en: "VAT ID: DE123456789",
+      de: "USt-IdNr.: DE123456789",
+    },
+    registrationInfo: {
+      en: "Registered in the Commercial Register of the Local Court of Berlin, HRB 123456",
+      de: "Eingetragen im Handelsregister des Amtsgerichts Berlin, HRB 123456",
+    }, */
+    disclaimerTitle: {
+      en: "Disclaimer",
+      de: "Haftungsausschluss",
+    },
+    disclaimer: {
+      en: "The operators of linked websites are solely responsible for their content.",
+      de: "Für externe Links sind ausschließlich deren Betreiber verantwortlich.",
+    },
+  },
+  llms: {
+    title: {
+      en: "Overview for AI Agents",
+      de: "Übersicht für AI Agents",
+    },
+  },
+  moreProjects: {
+    en: "More previous projects or references available upon request.",
+    de: "Weitere frühere Projekte oder Referenzen sind auf Anfrage verfügbar.",
+  },
+  navigation: [
+    { label: { en: "Home", de: "Start" }, href: "#hero" },
+    { label: { en: "About", de: "Über mich" }, href: "#about" },
+    { label: { en: "Experience", de: "Erfahrung" }, href: "#experience" },
+    { label: { en: "Projects", de: "Projekte" }, href: "#projects" },
+    { label: { en: "Skills", de: "Fähigkeiten" }, href: "#skills" },
+    { label: { en: "Contact", de: "Kontakt" }, href: "#contact" },
+  ],
+  privacy: {
+    title: {
+      en: "Privacy Policy",
+      de: "Datenschutzerklärung",
+    },
+    subtitle: {
+      en: "Last updated: August 02, 2025",
+      de: "Letzte Aktualisierung: 02. August 2025",
+    },
+    sections: [
+      {
+        title: {
+          en: "Controller",
+          de: "Verantwortliche Stelle",
+        },
+        paragraphs: [
+          {
+            en: "Responsible for the processing of personal data:",
+            de: "Verantwortlich für die Verarbeitung personenbezogener Daten:",
+          },
+        ],
+        list: [
+          {
+            en: "Uwe Schwarz",
+            de: "Uwe Schwarz",
+          },
+          {
+            en: "Uhlandstr. 20",
+            de: "Uhlandstr. 20",
+          },
+          {
+            en: "67069 Ludwigshafen",
+            de: "67069 Ludwigshafen",
+          },
+          {
+            en: "Germany",
+            de: "Deutschland",
+          },
+          {
+            en: "Email: mail@uweschwarz.eu",
+            de: "E-Mail: mail@uweschwarz.eu",
+          },
+          {
+            en: "Phone: +49 151 64403667",
+            de: "Telefon: +49 151 64403667",
+          },
+        ],
+      },
+      {
+        title: {
+          en: "Data Protection Officer",
+          de: "Datenschutzbeauftragter",
+        },
+        paragraphs: [
+          {
+            en: "No Data Protection Officer has been appointed, as this is not required under Art. 37 GDPR.",
+            de: "Ein Datenschutzbeauftragter wurde nicht benannt, da dies gemäß Art. 37 DSGVO nicht erforderlich ist.",
+          },
+        ],
+      },
+      {
+        title: {
+          en: "Contact Form",
+          de: "Kontaktformular",
+        },
+        paragraphs: [
+          {
+            en: "This form processes data (name, e-mail, message) solely to reply to your request. Basis: consent / contract performance (Art. 6 GDPR lit. a & b).",
+            de: "Die hier eingegebenen Daten (Name, E-Mail, Nachricht) verwenden wir ausschließlich zur Beantwortung deiner Anfrage. Rechtsgrundlage: Einwilligung und Vertragserfüllung (Art. 6 Abs. 1 lit. a & b DSGVO).",
+          },
+        ],
+      },
+      {
+        title: {
+          en: "Use of Third-Party Services",
+          de: "Einsatz von Drittanbieter-Diensten",
+        },
+        paragraphs: [
+          {
+            en: "This site is hosted by Cloudflare; I do not have direct access to server logs or your IP address there. For the contact form, I use Resend to send emails. Only the data you enter into the form is forwarded – no other personal data is stored. Umami is used for analytics and stores only pseudonymous data.",
+            de: "Diese Seite wird bei Cloudflare gehostet; ich habe dort keinen direkten Zugriff auf Server-Logs oder Deine IP-Adresse. Für das Kontaktformular nutze ich Resend, um E-Mails zu versenden. Es werden nur die von Dir im Formular eingegebenen Daten weitergeleitet – weitere personenbezogene Daten werden nicht gespeichert. Umami wird für Analysen verwendet und speichert nur pseudonymisierte Daten.",
+          },
+          {
+            en: "Log retention: max. 30 days",
+            de: "Log-Aufbewahrung: max. 30 Tage",
+          },
+        ],
+        list: [
+          {
+            en: "Cloudflare: 101 Townsend St, San Francisco, CA 94107, USA<br />Cloudflare Germany GmbH: Rosental 7, c/o Mindspace, 80331 München, Germany",
+            de: "Cloudflare: 101 Townsend St, San Francisco, CA 94107, USA<br />Cloudflare Germany GmbH: Rosental 7, c/o Mindspace, 80331 München, Germany",
+            description: {
+              en: "Legal basis: legitimate interests (Art. 6(1)(f) GDPR) to ensure website performance and security.<br />Cloudflare is certified under the EU-U.S. Data Privacy Framework and processes data under its principles. See: https://www.cloudflare.com/privacypolicy/.",
+              de: "Rechtsgrundlage: berechtigte Interessen (Art. 6 Abs. 1 lit. f DSGVO) zur Gewährleistung der Performance und Sicherheit der Website.<br />Cloudflare ist nach dem EU-US Data Privacy Framework zertifiziert und verarbeitet Daten gemäß dessen Grundsätzen. Details: https://www.cloudflare.com/privacypolicy/.",
+            },
+          },
+          {
+            en: "Resend: 2261 Market Street #5039, San Francisco, CA 94114, USA",
+            de: "Resend: 2261 Market Street #5039, San Francisco, CA 94114, USA",
+            description: {
+              en: "Legal basis: performance of a contract (Art. 6(1)(b) GDPR), as Resend sends emails on your behalf.<br />Resend’s DPA includes Standard Contractual Clauses (SCC) for transfers to the US. See: https://resend.com/legal/dpa.",
+              de: "Rechtsgrundlage: Vertragserfüllung (Art. 6 Abs. 1 lit. b DSGVO), da Resend E-Mails in deinem Auftrag versendet.<br />Resend nutzt Standardvertragsklauseln (SCC) in ihrem DPA, um den Datentransfer in die USA zu legitimieren. DPA: https://resend.com/legal/dpa.",
+            },
+          },
+          {
+            en: "Umami Software, Inc.: 1362 42nd Ave., San Francisco, CA, 94122, USA",
+            de: "Umami Software, Inc.: 1362 42nd Ave., San Francisco, CA, 94122, USA",
+            description: {
+              en: "Legal basis: legitimate interests (Art. 6(1)(f) GDPR) to enable website-analytics in a privacy-respective way.<br />Umami is a privacy-aware web analytics tool that does not use cookies or collect personal identifiers in its standard configuration. See: https://umami.is/privacy.",
+              de: "Rechtsgrundlage: berechtigte Interessen (Art. 6 Abs. 1 lit. f DSGVO) zur Durchführung der Website-Analyse in datenschutzfreundlicher Weise.<br />Umami ist ein datenschutzbewusstes Web-Analytics-Tool, das in seiner Standardkonfiguration keine Cookies verwendet und keine personenbezogenen Kennungen erhebt. Details: https://umami.is/privacy.",
+            },
+          },
+        ],
+      },
+      {
+        title: {
+          en: "Legal Basis & International Transfers",
+          de: "Rechtsgrundlagen & Drittlandsübermittlung",
+        },
+        paragraphs: [
+          {
+            en: "Cloudflare processes data under legitimate interests (Art. 6(1)(f) GDPR) and is certified under the EU-US Data Privacy Framework (see https://www.cloudflare.com/privacypolicy).",
+            de: "Cloudflare verarbeitet Daten auf Basis berechtigter Interessen (Art. 6 Abs. 1 lit. f DSGVO) und ist nach dem EU-US Data Privacy Framework zertifiziert (siehe https://www.cloudflare.com/privacypolicy).",
+          },
+          {
+            en: "Resend acts on contract performance (Art. 6(1)(b) GDPR) and uses Standard Contractual Clauses for US transfers (see https://resend.com/legal/dpa).",
+            de: "Resend handelt zur Vertragserfüllung (Art. 6 Abs. 1 lit. b DSGVO) und nutzt Standardvertragsklauseln für Datenübermittlungen in die USA (siehe https://resend.com/legal/dpa).",
+          },
+        ],
+      },
+      {
+        title: {
+          en: "Cookies and Local Storage",
+          de: "Cookies und Local Storage",
+        },
+        paragraphs: [
+          {
+            en: "I do not use cookies. Only your language choice and theme preference are stored locally in your browser’s localStorage. The storage of theme preferences and language selection in localStorage is based on legitimate interests (Art. 6(1)(f) GDPR) to enhance user experience. You can clear this at any time in your browser settings.",
+            de: "Ich verwende keine Cookies. Lediglich Deine Sprachwahl und Theme-Einstellung werden lokal im localStorage Deines Browsers gespeichert. Die Speicherung von Theme-Einstellungen und Sprachwahl im localStorage beruht auf berechtigten Interessen (Art. 6 Abs. 1 lit. f DSGVO) zur Verbesserung der Benutzererfahrung. Du kannst diese Daten jederzeit über deine Browser-Einstellungen löschen.",
+          },
+        ],
+      },
+      {
+        title: {
+          en: "External Links",
+          de: "Externe Links",
+        },
+        paragraphs: [
+          {
+            en: "The site contains links to GitHub, LinkedIn, Xing, Freelancermap and X (formerly Twitter). Since I embed no external content, clicking these links may transfer you to the respective platforms, whose privacy policies then apply.",
+            de: "Die Seite enthält Links zu GitHub, LinkedIn, Xing, Freelancermap und X (ehemals Twitter). Da keine externen Inhalte eingebunden sind, wirst Du beim Anklicken dieser Links auf die jeweiligen Plattformen weitergeleitet, deren Datenschutzerklärungen dann gelten.",
+          },
+        ],
+      },
+      {
+        title: {
+          en: "Data Security",
+          de: "Datensicherheit",
+        },
+        paragraphs: [
+          {
+            en: "I take reasonable technical and organizational measures to protect your data against unauthorized access and loss. However, internet-based data transmission can never be 100% secure.",
+            de: "Ich ergreife angemessene technische und organisatorische Maßnahmen, um Deine Daten vor unbefugtem Zugriff und Verlust zu schützen. Eine 100%ige Sicherheit bei der Datenübertragung im Internet kann ich jedoch nicht garantieren.",
+          },
+          {
+            en: "Technical and Organisational Measures: this site uses TLS 1.3 (if supported by your browser), access controls with MFA, pseudonymisation/encryption at rest, and regular security audits.",
+            de: "Technisch-organisatorische Maßnahmen: diese Seite nutzt TLS 1.3 (falls vom Browser unterstützt), Zugangskontrollen mit MFA, Pseudonymisierung/Verschlüsselung ruhender Daten und regelmäßige Sicherheitsaudits.",
+          },
+        ],
+      },
+      {
+        title: {
+          en: "Data Subject Rights",
+          de: "Betroffenenrechte",
+        },
+        paragraphs: [
+          {
+            en: "Data subjects have the right to access (Art. 15), rectify (Art. 16), erase (Art. 17), restrict processing (Art. 18), data portability (Art. 20), object (Art. 21), and withdraw consent at any time (Art. 7(3)). These rights can be exercised by contacting mail@uweschwarz.eu.",
+            de: "Betroffene Personen haben das Recht auf Auskunft (Art. 15), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20), Widerspruch (Art. 21) sowie Widerruf erteilter Einwilligungen (Art. 7 Abs. 3). Diese Rechte können unter mail@uweschwarz.eu geltend gemacht werden.",
+          },
+        ],
+      },
+      {
+        title: {
+          en: "Supervisory Authority",
+          de: "Aufsichtsbehörde",
+        },
+        paragraphs: [
+          {
+            en: "You have the right to lodge a complaint with a supervisory authority, e.g.: Rhineland-Palatinate Commissioner for Data Protection, Hintere Bleiche 34, 55116 Mainz, Germany; Tel. +49 6131 8920-0; poststelle@datenschutz.rlp.de.",
+            de: "Du kannst dich bei einer Aufsichtsbehörde beschweren, z. B.: Landesbeauftragte für Datenschutz RLP, Hintere Bleiche 34, 55116 Mainz; Tel. 06131 8920-0; poststelle@datenschutz.rlp.de.",
+          },
+        ],
+      },
+      {
+        title: {
+          en: "Automated Decision-making",
+          de: "Automatisierte Entscheidungsfindung",
+        },
+        paragraphs: [
+          {
+            en: "No automated decision-making or profiling takes place in these processing operations (Art. 22 GDPR).",
+            de: "Es findet keine automatisierte Entscheidungsfindung oder Profiling statt (Art. 22 DSGVO).",
+          },
+        ],
+      },
+      {
+        title: {
+          en: "Changes to This Privacy Policy",
+          de: "Änderungen dieser Datenschutzerklärung",
+        },
+        paragraphs: [
+          {
+            en: "I may update this Privacy Policy at any time. The current version is published here with the date of last revision.",
+            de: "Ich kann diese Datenschutzerklärung jederzeit aktualisieren. Die jeweils aktuelle Version wird hier mit Datum der letzten Änderung veröffentlicht.",
+          },
+        ],
+      },
+    ],
+  },
   projects: [
     {
       title: {
@@ -1412,6 +1826,16 @@ export const siteContent: SiteContent = {
       ],
     },
   ],
+  sitemap: {
+    title: {
+      en: "Sitemap",
+      de: "Seitenübersicht",
+    },
+    description: {
+      en: "Here are all the pages on this website:",
+      de: "Hier sind alle Seiten dieser Website:",
+    },
+  },
   skills: [
     // Security & Compliance
     {
@@ -1782,399 +2206,6 @@ export const siteContent: SiteContent = {
       languages: { en: "Languages", de: "Sprachen" },
     },
   },
-  contact: {
-    title: {
-      en: "Get In Touch",
-      de: "Kontakt aufnehmen",
-    },
-    subtitle: {
-      en: "Interested in working together? Feel free to reach out!",
-      de: "Interesse an einer Zusammenarbeit? Kontaktieren Sie mich gerne!",
-    },
-    emailLabel: {
-      en: "Email me at",
-      de: "E-Mail an",
-    },
-    email: "mail@uweschwarz.eu",
-    cvemail: "uwe.schwarz@degit.de",
-    phoneLabel: {
-      en: "Phone",
-      de: "Telefon",
-    },
-    phone: "+49 151 64403667",
-    socialLinks: {
-      github: "https://github.com/uwe-schwarz",
-      linkedin: "https://www.linkedin.com/in/uwe-schwarz-282531294",
-      xing: "https://www.xing.com/profile/Uwe_Schwarz72",
-      x: "https://x.com/e38383",
-      freelancermap: "https://www.freelancermap.de/profil/uwe-schwarz",
-    },
-    birthday: "1978-02-19",
-    homepage: "https://uweschwarz.eu",
-    formLabels: {
-      name: { en: "Name", de: "Name" },
-      email: { en: "Email", de: "E-Mail" },
-      message: { en: "Message", de: "Nachricht" },
-      send: { en: "Send Message", de: "Nachricht senden" },
-    },
-    formStatus: {
-      sentTitle: { en: "Message sent!", de: "Nachricht gesendet!" },
-      sentDescription: {
-        en: "Thanks for reaching out. I'll get back to you soon.",
-        de: "Danke für deine Nachricht. Ich werde mich bald bei dir melden.",
-      },
-      errorTitle: { en: "Error", de: "Fehler" },
-      errorDescription: {
-        en: "Failed to send message. Please try again later.",
-        de: "Nachricht konnte nicht gesendet werden. Bitte versuche es später noch einmal.",
-      },
-      sending: { en: "Sending...", de: "Senden..." },
-      validation: {
-        name: {
-          en: "Name must be at least 2 characters long.",
-          de: "Name muss mindestens 2 Zeichen lang sein.",
-        },
-        email: {
-          en: "Please enter a valid email address.",
-          de: "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
-        },
-        message: {
-          en: "Message must be at least 10 characters long.",
-          de: "Nachricht muss mindestens 10 Zeichen lang sein.",
-        },
-      },
-    },
-    formPlaceholders: {
-      name: { en: "Your name", de: "Dein Name" },
-      email: { en: "Your email", de: "Deine E-Mail" },
-      message: { en: "Your message", de: "Deine Nachricht" },
-    },
-    infoTitle: { en: "Let's Connect", de: "Lass uns in Kontakt treten" },
-    findMeOn: { en: "Find me on", de: "Finde mich auf" },
-    infoText: {
-      en: "Feel free to reach out for collaborations or just a friendly hello.",
-      de: "Kontaktiere mich gerne für Zusammenarbeiten oder einfach nur für ein freundliches Hallo.",
-    },
-  },
-  cv: {
-    title: { en: "Resume / CV", de: "Lebenslauf / CV" },
-  },
-  footer: {
-    copyright: {
-      en: "© year Uwe Schwarz. All rights reserved.",
-      de: "© year Uwe Schwarz. Alle Rechte vorbehalten.",
-    },
-    links: [
-      { label: { en: "Privacy Policy", de: "Datenschutz" }, href: "/privacy" },
-      { label: { en: "Imprint", de: "Impressum" }, href: "/imprint" },
-    ],
-    /*    builtWith: {
-      en: "Built with modern web technologies and a passion for clean code.",
-      de: "Erstellt mit modernen Web-Technologien und einer Leidenschaft für sauberen Code.",
-    },*/
-  },
-  imprint: {
-    title: {
-      en: "Imprint",
-      de: "Impressum",
-    },
-    contactTitle: {
-      en: "Contact Information",
-      de: "Kontaktinformationen",
-    },
-    companyName: {
-      en: "Uwe Schwarz",
-      de: "Uwe Schwarz",
-    },
-    /*    representative: {
-      en: "Represented by: John Oldman",
-      de: "Vertreten durch: John Oldman",
-    },*/
-    address: {
-      street: {
-        en: "Uhlandstr. 20",
-        de: "Uhlandstr. 20",
-      },
-      city: {
-        en: "67069 Ludwigshafen",
-        de: "67069 Ludwigshafen",
-      },
-      country: {
-        en: "Germany",
-        de: "Deutschland",
-      },
-    },
-    contactInfoTitle: {
-      en: "Contact",
-      de: "Kontakt",
-    },
-    emailLabel: {
-      en: "Email",
-      de: "E-Mail",
-    },
-    email: "mail@uweschwarz.eu",
-    phoneLabel: {
-      en: "Phone",
-      de: "Telefon",
-    },
-    phone: "+49 151 64403667",
-    /*    legalTitle: {
-      en: "Legal Information",
-      de: "Rechtliche Informationen",
-    },
-    vatId: {
-      en: "VAT ID: DE123456789",
-      de: "USt-IdNr.: DE123456789",
-    },
-    registrationInfo: {
-      en: "Registered in the Commercial Register of the Local Court of Berlin, HRB 123456",
-      de: "Eingetragen im Handelsregister des Amtsgerichts Berlin, HRB 123456",
-    }, */
-    disclaimerTitle: {
-      en: "Disclaimer",
-      de: "Haftungsausschluss",
-    },
-    disclaimer: {
-      en: "The operators of linked websites are solely responsible for their content.",
-      de: "Für externe Links sind ausschließlich deren Betreiber verantwortlich.",
-    },
-  },
-  privacy: {
-    title: {
-      en: "Privacy Policy",
-      de: "Datenschutzerklärung",
-    },
-    subtitle: {
-      en: "Last updated: August 02, 2025",
-      de: "Letzte Aktualisierung: 02. August 2025",
-    },
-    sections: [
-      {
-        title: {
-          en: "Controller",
-          de: "Verantwortliche Stelle",
-        },
-        paragraphs: [
-          {
-            en: "Responsible for the processing of personal data:",
-            de: "Verantwortlich für die Verarbeitung personenbezogener Daten:",
-          },
-        ],
-        list: [
-          {
-            en: "Uwe Schwarz",
-            de: "Uwe Schwarz",
-          },
-          {
-            en: "Uhlandstr. 20",
-            de: "Uhlandstr. 20",
-          },
-          {
-            en: "67069 Ludwigshafen",
-            de: "67069 Ludwigshafen",
-          },
-          {
-            en: "Germany",
-            de: "Deutschland",
-          },
-          {
-            en: "Email: mail@uweschwarz.eu",
-            de: "E-Mail: mail@uweschwarz.eu",
-          },
-          {
-            en: "Phone: +49 151 64403667",
-            de: "Telefon: +49 151 64403667",
-          },
-        ],
-      },
-      {
-        title: {
-          en: "Data Protection Officer",
-          de: "Datenschutzbeauftragter",
-        },
-        paragraphs: [
-          {
-            en: "No Data Protection Officer has been appointed, as this is not required under Art. 37 GDPR.",
-            de: "Ein Datenschutzbeauftragter wurde nicht benannt, da dies gemäß Art. 37 DSGVO nicht erforderlich ist.",
-          },
-        ],
-      },
-      {
-        title: {
-          en: "Contact Form",
-          de: "Kontaktformular",
-        },
-        paragraphs: [
-          {
-            en: "This form processes data (name, e-mail, message) solely to reply to your request. Basis: consent / contract performance (Art. 6 GDPR lit. a & b).",
-            de: "Die hier eingegebenen Daten (Name, E-Mail, Nachricht) verwenden wir ausschließlich zur Beantwortung deiner Anfrage. Rechtsgrundlage: Einwilligung und Vertragserfüllung (Art. 6 Abs. 1 lit. a & b DSGVO).",
-          },
-        ],
-      },
-      {
-        title: {
-          en: "Use of Third-Party Services",
-          de: "Einsatz von Drittanbieter-Diensten",
-        },
-        paragraphs: [
-          {
-            en: "This site is hosted by Cloudflare; I do not have direct access to server logs or your IP address there. For the contact form, I use Resend to send emails. Only the data you enter into the form is forwarded – no other personal data is stored. Umami is used for analytics and stores only pseudonymous data.",
-            de: "Diese Seite wird bei Cloudflare gehostet; ich habe dort keinen direkten Zugriff auf Server-Logs oder Deine IP-Adresse. Für das Kontaktformular nutze ich Resend, um E-Mails zu versenden. Es werden nur die von Dir im Formular eingegebenen Daten weitergeleitet – weitere personenbezogene Daten werden nicht gespeichert. Umami wird für Analysen verwendet und speichert nur pseudonymisierte Daten.",
-          },
-          {
-            en: "Log retention: max. 30 days",
-            de: "Log-Aufbewahrung: max. 30 Tage",
-          },
-        ],
-        list: [
-          {
-            en: "Cloudflare: 101 Townsend St, San Francisco, CA 94107, USA<br />Cloudflare Germany GmbH: Rosental 7, c/o Mindspace, 80331 München, Germany",
-            de: "Cloudflare: 101 Townsend St, San Francisco, CA 94107, USA<br />Cloudflare Germany GmbH: Rosental 7, c/o Mindspace, 80331 München, Germany",
-            description: {
-              en: "Legal basis: legitimate interests (Art. 6(1)(f) GDPR) to ensure website performance and security.<br />Cloudflare is certified under the EU-U.S. Data Privacy Framework and processes data under its principles. See: https://www.cloudflare.com/privacypolicy/.",
-              de: "Rechtsgrundlage: berechtigte Interessen (Art. 6 Abs. 1 lit. f DSGVO) zur Gewährleistung der Performance und Sicherheit der Website.<br />Cloudflare ist nach dem EU-US Data Privacy Framework zertifiziert und verarbeitet Daten gemäß dessen Grundsätzen. Details: https://www.cloudflare.com/privacypolicy/.",
-            },
-          },
-          {
-            en: "Resend: 2261 Market Street #5039, San Francisco, CA 94114, USA",
-            de: "Resend: 2261 Market Street #5039, San Francisco, CA 94114, USA",
-            description: {
-              en: "Legal basis: performance of a contract (Art. 6(1)(b) GDPR), as Resend sends emails on your behalf.<br />Resend’s DPA includes Standard Contractual Clauses (SCC) for transfers to the US. See: https://resend.com/legal/dpa.",
-              de: "Rechtsgrundlage: Vertragserfüllung (Art. 6 Abs. 1 lit. b DSGVO), da Resend E-Mails in deinem Auftrag versendet.<br />Resend nutzt Standardvertragsklauseln (SCC) in ihrem DPA, um den Datentransfer in die USA zu legitimieren. DPA: https://resend.com/legal/dpa.",
-            },
-          },
-          {
-            en: "Umami Software, Inc.: 1362 42nd Ave., San Francisco, CA, 94122, USA",
-            de: "Umami Software, Inc.: 1362 42nd Ave., San Francisco, CA, 94122, USA",
-            description: {
-              en: "Legal basis: legitimate interests (Art. 6(1)(f) GDPR) to enable website-analytics in a privacy-respective way.<br />Umami is a privacy-aware web analytics tool that does not use cookies or collect personal identifiers in its standard configuration. See: https://umami.is/privacy.",
-              de: "Rechtsgrundlage: berechtigte Interessen (Art. 6 Abs. 1 lit. f DSGVO) zur Durchführung der Website-Analyse in datenschutzfreundlicher Weise.<br />Umami ist ein datenschutzbewusstes Web-Analytics-Tool, das in seiner Standardkonfiguration keine Cookies verwendet und keine personenbezogenen Kennungen erhebt. Details: https://umami.is/privacy.",
-            },
-          },
-        ],
-      },
-      {
-        title: {
-          en: "Legal Basis & International Transfers",
-          de: "Rechtsgrundlagen & Drittlandsübermittlung",
-        },
-        paragraphs: [
-          {
-            en: "Cloudflare processes data under legitimate interests (Art. 6(1)(f) GDPR) and is certified under the EU-US Data Privacy Framework (see https://www.cloudflare.com/privacypolicy).",
-            de: "Cloudflare verarbeitet Daten auf Basis berechtigter Interessen (Art. 6 Abs. 1 lit. f DSGVO) und ist nach dem EU-US Data Privacy Framework zertifiziert (siehe https://www.cloudflare.com/privacypolicy).",
-          },
-          {
-            en: "Resend acts on contract performance (Art. 6(1)(b) GDPR) and uses Standard Contractual Clauses for US transfers (see https://resend.com/legal/dpa).",
-            de: "Resend handelt zur Vertragserfüllung (Art. 6 Abs. 1 lit. b DSGVO) und nutzt Standardvertragsklauseln für Datenübermittlungen in die USA (siehe https://resend.com/legal/dpa).",
-          },
-        ],
-      },
-      {
-        title: {
-          en: "Cookies and Local Storage",
-          de: "Cookies und Local Storage",
-        },
-        paragraphs: [
-          {
-            en: "I do not use cookies. Only your language choice and theme preference are stored locally in your browser’s localStorage. The storage of theme preferences and language selection in localStorage is based on legitimate interests (Art. 6(1)(f) GDPR) to enhance user experience. You can clear this at any time in your browser settings.",
-            de: "Ich verwende keine Cookies. Lediglich Deine Sprachwahl und Theme-Einstellung werden lokal im localStorage Deines Browsers gespeichert. Die Speicherung von Theme-Einstellungen und Sprachwahl im localStorage beruht auf berechtigten Interessen (Art. 6 Abs. 1 lit. f DSGVO) zur Verbesserung der Benutzererfahrung. Du kannst diese Daten jederzeit über deine Browser-Einstellungen löschen.",
-          },
-        ],
-      },
-      {
-        title: {
-          en: "External Links",
-          de: "Externe Links",
-        },
-        paragraphs: [
-          {
-            en: "The site contains links to GitHub, LinkedIn, Xing, Freelancermap and X (formerly Twitter). Since I embed no external content, clicking these links may transfer you to the respective platforms, whose privacy policies then apply.",
-            de: "Die Seite enthält Links zu GitHub, LinkedIn, Xing, Freelancermap und X (ehemals Twitter). Da keine externen Inhalte eingebunden sind, wirst Du beim Anklicken dieser Links auf die jeweiligen Plattformen weitergeleitet, deren Datenschutzerklärungen dann gelten.",
-          },
-        ],
-      },
-      {
-        title: {
-          en: "Data Security",
-          de: "Datensicherheit",
-        },
-        paragraphs: [
-          {
-            en: "I take reasonable technical and organizational measures to protect your data against unauthorized access and loss. However, internet-based data transmission can never be 100% secure.",
-            de: "Ich ergreife angemessene technische und organisatorische Maßnahmen, um Deine Daten vor unbefugtem Zugriff und Verlust zu schützen. Eine 100%ige Sicherheit bei der Datenübertragung im Internet kann ich jedoch nicht garantieren.",
-          },
-          {
-            en: "Technical and Organisational Measures: this site uses TLS 1.3 (if supported by your browser), access controls with MFA, pseudonymisation/encryption at rest, and regular security audits.",
-            de: "Technisch-organisatorische Maßnahmen: diese Seite nutzt TLS 1.3 (falls vom Browser unterstützt), Zugangskontrollen mit MFA, Pseudonymisierung/Verschlüsselung ruhender Daten und regelmäßige Sicherheitsaudits.",
-          },
-        ],
-      },
-      {
-        title: {
-          en: "Data Subject Rights",
-          de: "Betroffenenrechte",
-        },
-        paragraphs: [
-          {
-            en: "Data subjects have the right to access (Art. 15), rectify (Art. 16), erase (Art. 17), restrict processing (Art. 18), data portability (Art. 20), object (Art. 21), and withdraw consent at any time (Art. 7(3)). These rights can be exercised by contacting mail@uweschwarz.eu.",
-            de: "Betroffene Personen haben das Recht auf Auskunft (Art. 15), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20), Widerspruch (Art. 21) sowie Widerruf erteilter Einwilligungen (Art. 7 Abs. 3). Diese Rechte können unter mail@uweschwarz.eu geltend gemacht werden.",
-          },
-        ],
-      },
-      {
-        title: {
-          en: "Supervisory Authority",
-          de: "Aufsichtsbehörde",
-        },
-        paragraphs: [
-          {
-            en: "You have the right to lodge a complaint with a supervisory authority, e.g.: Rhineland-Palatinate Commissioner for Data Protection, Hintere Bleiche 34, 55116 Mainz, Germany; Tel. +49 6131 8920-0; poststelle@datenschutz.rlp.de.",
-            de: "Du kannst dich bei einer Aufsichtsbehörde beschweren, z. B.: Landesbeauftragte für Datenschutz RLP, Hintere Bleiche 34, 55116 Mainz; Tel. 06131 8920-0; poststelle@datenschutz.rlp.de.",
-          },
-        ],
-      },
-      {
-        title: {
-          en: "Automated Decision-making",
-          de: "Automatisierte Entscheidungsfindung",
-        },
-        paragraphs: [
-          {
-            en: "No automated decision-making or profiling takes place in these processing operations (Art. 22 GDPR).",
-            de: "Es findet keine automatisierte Entscheidungsfindung oder Profiling statt (Art. 22 DSGVO).",
-          },
-        ],
-      },
-      {
-        title: {
-          en: "Changes to This Privacy Policy",
-          de: "Änderungen dieser Datenschutzerklärung",
-        },
-        paragraphs: [
-          {
-            en: "I may update this Privacy Policy at any time. The current version is published here with the date of last revision.",
-            de: "Ich kann diese Datenschutzerklärung jederzeit aktualisieren. Die jeweils aktuelle Version wird hier mit Datum der letzten Änderung veröffentlicht.",
-          },
-        ],
-      },
-    ],
-  },
-  sitemap: {
-    title: {
-      en: "Sitemap",
-      de: "Seitenübersicht",
-    },
-    description: {
-      en: "Here are all the pages on this website:",
-      de: "Hier sind alle Seiten dieser Website:",
-    },
-  },
-  llms: {
-    title: {
-      en: "Overview for AI Agents",
-      de: "Übersicht für AI Agents",
-    },
-  },
   translations: {
     languageSwitch: {
       en: "Switch to English",
@@ -2191,36 +2222,4 @@ export const siteContent: SiteContent = {
       },
     },
   },
-  backToHome: { en: "Back to Home", de: "Zurück zur Startseite" },
-  experienceSectionTitle: { en: "Experience", de: "Berufserfahrung" },
-  experienceBigProjectsTitle: {
-    en: "Key Projects",
-    de: "Schlüsselprojekte",
-  },
-  experienceBigProjectsSubtitle: {
-    en: "Major technical and organizational engagements with high responsibility.",
-    de: "Wesentliche technische und organisatorische Engagements mit hoher Verantwortung.",
-  },
-  experienceBigProjectsNote: {
-    en: "A curated selection of multi-month and multi-year work; further details on request.",
-    de: "Eine kuratierte Auswahl mehrmonatiger und mehrjähriger Arbeiten; weitere Details auf Anfrage.",
-  },
-  experienceSmallProjectsTitle: {
-    en: "Additional & Focused Projects",
-    de: "Zusatz- & Schwerpunktprojekte",
-  },
-  experienceSmallProjectsSubtitle: {
-    en: "Complementary or specialized projects with flexible scope.",
-    de: "Ergänzende oder spezialisierte Projekte mit flexiblem Umfang.",
-  },
-  experienceSmallProjectsNote: {
-    en: "Specialized, flexible, or focused initiatives that complement the broader work.",
-    de: "Spezialisierte, flexible oder fokussierte Initiativen, die die Gesamtarbeit ergänzen.",
-  },
-  experienceAchievementPrefix: { en: "Achievement:", de: "Erfolg:" },
-  moreProjects: {
-    en: "More previous projects or references available upon request.",
-    de: "Weitere frühere Projekte oder Referenzen sind auf Anfrage verfügbar.",
-  },
-  downloadResume: { en: "Download CV", de: "Lebenslauf herunterladen" },
 };

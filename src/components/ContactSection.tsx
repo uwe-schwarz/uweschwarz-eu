@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
 import { Mail, Send, Phone } from "lucide-react";
@@ -10,17 +10,9 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, FormProvider } from "react-hook-form"; // Import FormProvider
+import { useForm, FormProvider } from "react-hook-form";
 import * as z from "zod";
-import {
-  // Form, // Removed Form from here
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { useState } from "react";
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 
 const ContactSection = () => {
   const { t } = useSettings();
@@ -30,27 +22,27 @@ const ContactSection = () => {
 
   // Form Schema mit Zod für Validierung
   const formSchema = z.object({
-    verify: z.string(),
-    name: z.string().min(2, {
-      message: t(contact.formStatus.validation.name),
-    }),
     email: z.string().email({
       message: t(contact.formStatus.validation.email),
     }),
     message: z.string().min(10, {
       message: t(contact.formStatus.validation.message),
     }),
+    name: z.string().min(2, {
+      message: t(contact.formStatus.validation.name),
+    }),
+    verify: z.string(),
   });
 
   // React Hook Form initialisieren
   const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
     defaultValues: {
       verify: "",
       name: "",
       email: "",
       message: "",
     },
+    resolver: zodResolver(formSchema),
   });
 
   // Formular absenden
@@ -59,24 +51,24 @@ const ContactSection = () => {
 
     try {
       const response = await fetch("/api/send-mail", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
         body: JSON.stringify({
           verify: values.verify,
           name: values.name,
           email: values.email,
           message: values.message,
         }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
       });
 
       const data = await response.json();
 
       if (response.ok && data) {
         toast({
-          title: t(contact.formStatus.sentTitle),
           description: t(contact.formStatus.sentDescription),
+          title: t(contact.formStatus.sentTitle),
         });
         form.reset();
       } else {
@@ -85,9 +77,9 @@ const ContactSection = () => {
     } catch (error) {
       console.error("Error sending message:", error);
       toast({
-        variant: "destructive",
-        title: t(contact.formStatus.errorTitle),
         description: t(contact.formStatus.errorDescription),
+        title: t(contact.formStatus.errorTitle),
+        variant: "destructive",
       });
     } finally {
       setIsSubmitting(false);
@@ -95,7 +87,7 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="section-padding bg-muted/30">
+    <section className="section-padding bg-muted/30" id="contact">
       <div className="container mx-auto">
         <h2 className="text-3xl md:text-4xl text-center mb-4">
           <span className="text-gradient">{t(contact.title)}</span>
@@ -118,8 +110,8 @@ const ContactSection = () => {
                   <div>
                     <p className="text-sm text-muted-foreground">{t(contact.emailLabel)}</p>
                     <a
-                      href={`mailto:${contact.email}`}
                       className="text-foreground hover:text-primary transition-colors link-underline"
+                      href={`mailto:${contact.email}`}
                     >
                       {contact.email}
                     </a>
@@ -133,8 +125,8 @@ const ContactSection = () => {
                   <div>
                     <p className="text-sm text-muted-foreground">{t(contact.phoneLabel)}</p>
                     <a
-                      href={`tel:${contact.phone}`}
                       className="text-foreground hover:text-primary transition-colors link-underline"
+                      href={`tel:${contact.phone}`}
                     >
                       {contact.phone}
                     </a>
@@ -148,11 +140,11 @@ const ContactSection = () => {
                 <div className="flex space-x-4">
                   {contact.socialLinks.github && (
                     <a
-                      href={contact.socialLinks.github}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
                       aria-label="GitHub"
+                      className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
+                      href={contact.socialLinks.github}
+                      rel="noreferrer"
+                      target="_blank"
                     >
                       <SiGithub className="w-5 h-5" />
                     </a>
@@ -160,22 +152,22 @@ const ContactSection = () => {
 
                   {contact.socialLinks.linkedin && (
                     <a
-                      href={contact.socialLinks.linkedin}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
                       aria-label="LinkedIn"
+                      className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
+                      href={contact.socialLinks.linkedin}
+                      rel="noreferrer"
+                      target="_blank"
                     >
                       <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
+                        className="w-5 h-5"
                         fill="none"
                         stroke="currentColor"
                         strokeWidth="2"
-                        className="w-5 h-5"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                        <rect width="4" height="12" x="2" y="9"></rect>
+                        <rect height="12" width="4" x="2" y="9"></rect>
                         <circle cx="4" cy="4" r="2"></circle>
                       </svg>
                     </a>
@@ -183,11 +175,11 @@ const ContactSection = () => {
 
                   {contact.socialLinks.xing && (
                     <a
-                      href={contact.socialLinks.xing}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
                       aria-label="Xing"
+                      className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
+                      href={contact.socialLinks.xing}
+                      rel="noreferrer"
+                      target="_blank"
                     >
                       <SiXing className="w-5 h-5" />
                     </a>
@@ -195,11 +187,11 @@ const ContactSection = () => {
 
                   {contact.socialLinks.x && (
                     <a
-                      href={contact.socialLinks.x}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
                       aria-label="X"
+                      className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
+                      href={contact.socialLinks.x}
+                      rel="noreferrer"
+                      target="_blank"
                     >
                       <SiX className="w-5 h-5" />
                     </a>
@@ -207,11 +199,11 @@ const ContactSection = () => {
 
                   {contact.socialLinks.bluesky && (
                     <a
-                      href={contact.socialLinks.bluesky}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
                       aria-label="Bluesky"
+                      className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
+                      href={contact.socialLinks.bluesky}
+                      rel="noreferrer"
+                      target="_blank"
                     >
                       <SiBluesky className="w-5 h-5" />
                     </a>
@@ -219,11 +211,11 @@ const ContactSection = () => {
 
                   {contact.socialLinks.freelancermap && (
                     <a
-                      href={contact.socialLinks.freelancermap}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
                       aria-label="Freelancermap"
+                      className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
+                      href={contact.socialLinks.freelancermap}
+                      rel="noreferrer"
+                      target="_blank"
                     >
                       <SiFreelancermap className="w-5 h-5" />
                     </a>
@@ -236,11 +228,9 @@ const ContactSection = () => {
           {/* Contact Form */}
           <div>
             <FormProvider {...form}>
-              {" "}
-              {/* Use FormProvider here */}
               <form
-                onSubmit={form.handleSubmit(onSubmit)}
                 className="bg-card rounded-xl p-8 border border-border shadow-sm"
+                onSubmit={form.handleSubmit(onSubmit)}
               >
                 <div className="space-y-6">
                   {/* Hidden verify field */}
@@ -257,7 +247,7 @@ const ContactSection = () => {
                       <FormItem>
                         <FormLabel>{t(contact.formLabels.name)}</FormLabel>
                         <FormControl>
-                          <Input placeholder={t(contact.formPlaceholders.name)} autoComplete="name" {...field} />
+                          <Input autoComplete="name" placeholder={t(contact.formPlaceholders.name)} {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -272,9 +262,9 @@ const ContactSection = () => {
                         <FormLabel>{t(contact.formLabels.email)}</FormLabel>
                         <FormControl>
                           <Input
-                            type="email"
-                            placeholder={t(contact.formPlaceholders.email)}
                             autoComplete="email"
+                            placeholder={t(contact.formPlaceholders.email)}
+                            type="email"
                             {...field}
                           />
                         </FormControl>
@@ -290,14 +280,14 @@ const ContactSection = () => {
                       <FormItem>
                         <FormLabel>{t(contact.formLabels.message)}</FormLabel>
                         <FormControl>
-                          <Textarea rows={5} placeholder={t(contact.formPlaceholders.message)} {...field} />
+                          <Textarea placeholder={t(contact.formPlaceholders.message)} rows={5} {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
 
-                  <Button type="submit" className="w-full" disabled={isSubmitting}>
+                  <Button className="w-full" disabled={isSubmitting} type="submit">
                     {isSubmitting ? (
                       <div className="flex items-center justify-center">
                         <div className="w-4 h-4 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin mr-2"></div>
@@ -312,13 +302,14 @@ const ContactSection = () => {
                   </Button>
                 </div>
               </form>
-            </FormProvider>{" "}
-            {/* Corrected closing tag */}
+            </FormProvider>
           </div>
         </div>
       </div>
     </section>
   );
 };
+
+ContactSection.displayName = "ContactSection";
 
 export default ContactSection;

@@ -7,7 +7,9 @@ import { DEFAULT_LANGUAGE, isSupportedLanguage } from "@/lib/i18n";
  * Falls back to English when nothing usable is found.
  */
 export const detectPreferredLanguage = (acceptLanguage?: string | null): Language => {
-  if (!acceptLanguage) return DEFAULT_LANGUAGE;
+  if (!acceptLanguage) {
+    return DEFAULT_LANGUAGE;
+  }
 
   // Split on commas, keep the q value if present, and sort by highest quality
   const choices = acceptLanguage
@@ -15,7 +17,7 @@ export const detectPreferredLanguage = (acceptLanguage?: string | null): Languag
     .map((part) => {
       const [tag, qValue] = part.trim().split(";q=");
       const quality = qValue ? Number.parseFloat(qValue) || 0 : 1;
-      return { tag: tag.toLowerCase(), quality };
+      return { quality, tag: tag.toLowerCase() };
     })
     .sort((a, b) => b.quality - a.quality);
 

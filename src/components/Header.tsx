@@ -11,9 +11,10 @@ import { siteContent } from "@/content/content";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { replacePathLanguage, withLanguagePrefix } from "@/lib/i18n";
+import { getPersistedLanguage, getPersistedTheme } from "@/lib/persisted-preferences";
 
 const Header = () => {
-  const { language, setLanguage, theme, setTheme, t } = useSettings();
+  const { language, setLanguage, setTheme, t, theme } = useSettings();
   const router = useRouter();
   const [isScrolled, setIsScrolled] = useState(false);
   const isMobile = useIsMobile();
@@ -24,24 +25,6 @@ const Header = () => {
   const [activeSection, setActiveSection] = useState<string>("hero");
 
   const navigationItems = useMemo(() => siteContent.navigation, []);
-
-  const getPersistedLanguage = (): "en" | "de" | null => {
-    try {
-      const saved = localStorage.getItem("language");
-      return saved === "en" || saved === "de" ? saved : null;
-    } catch {
-      return null;
-    }
-  };
-
-  const getPersistedTheme = (): "light" | "dark" | null => {
-    try {
-      const saved = localStorage.getItem("theme");
-      return saved === "light" || saved === "dark" ? saved : null;
-    } catch {
-      return null;
-    }
-  };
 
   // Toggle for handling theme changes
   const toggleTheme = () => {
@@ -72,7 +55,9 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
-    if (!isHomePage) return;
+    if (!isHomePage) {
+      return;
+    }
     const handleScroll = () => {
       const sectionIds = navigationItems.map((item) => item.href.replace("#", ""));
       let current = sectionIds[0];
@@ -100,7 +85,7 @@ const Header = () => {
       }`}
     >
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        <Link href={homeHref as Route} className="text-2xl font-display font-bold text-foreground">
+        <Link className="text-2xl font-display font-bold text-foreground" href={homeHref as Route}>
           <span className="text-gradient text-4xl">Uwe Schwarz</span>
         </Link>
 
@@ -112,9 +97,9 @@ const Header = () => {
             if (isHomePage) {
               return (
                 <a
-                  key={item.href}
-                  href={item.href}
                   className={`text-lg font-medium text-foreground hover:text-primary transition-colors link-underline${activeSection === hash ? " link-underline-active" : ""}`}
+                  href={item.href}
+                  key={item.href}
                 >
                   {t(item.label)}
                 </a>
@@ -123,9 +108,9 @@ const Header = () => {
 
             return (
               <Link
-                key={item.href}
-                href={`${homeHref}${item.href}` as Route}
                 className="text-lg font-medium text-foreground hover:text-primary transition-colors link-underline"
+                href={`${homeHref}${item.href}` as Route}
+                key={item.href}
               >
                 {t(item.label)}
               </Link>
@@ -136,20 +121,20 @@ const Header = () => {
         {/* Control Buttons */}
         <div className="hidden md:flex items-center space-x-2">
           {/* Language Toggle */}
-          <Button variant="ghost" size="sm" onClick={toggleLanguage}>
+          <Button onClick={toggleLanguage} size="sm" variant="ghost">
             {language === "en" ? "DE" : "EN"}
           </Button>
 
           {/* Theme Toggle */}
           <Button
-            variant="ghost"
-            size="icon"
-            onClick={toggleTheme}
             aria-label={t(
               theme === "light"
                 ? siteContent.translations.themeSwitch.dark
                 : siteContent.translations.themeSwitch.light,
             )}
+            onClick={toggleTheme}
+            size="icon"
+            variant="ghost"
           >
             {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
           </Button>
@@ -159,14 +144,14 @@ const Header = () => {
         {isMobile && (
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden" aria-label="Open menu">
-                <Menu size={24} className="text-foreground" />
+              <Button aria-label="Open menu" className="md:hidden" size="icon" variant="ghost">
+                <Menu className="text-foreground" size={24} />
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="w-full bg-background dark:bg-gray-900 p-0">
+            <SheetContent className="w-full bg-background dark:bg-gray-900 p-0" side="left">
               <div className="flex flex-col h-full">
                 <div className="border-b border-gray-200 dark:border-gray-800 py-4 px-6">
-                  <Link href={homeHref as Route} className="text-2xl font-display font-bold">
+                  <Link className="text-2xl font-display font-bold" href={homeHref as Route}>
                     <span className="text-gradient">Uwe Schwarz</span>
                   </Link>
                 </div>
@@ -178,9 +163,9 @@ const Header = () => {
                     if (isHomePage) {
                       return (
                         <a
-                          key={item.href}
-                          href={item.href}
                           className={`text-xl font-medium text-foreground hover:text-primary transition-colors${activeSection === hash ? " link-underline link-underline-active" : ""}`}
+                          href={item.href}
+                          key={item.href}
                         >
                           {t(item.label)}
                         </a>
@@ -189,9 +174,9 @@ const Header = () => {
 
                     return (
                       <Link
-                        key={item.href}
-                        href={`${homeHref}${item.href}` as Route}
                         className="text-xl font-medium text-foreground hover:text-primary transition-colors"
+                        href={`${homeHref}${item.href}` as Route}
+                        key={item.href}
                       >
                         {t(item.label)}
                       </Link>
@@ -200,18 +185,18 @@ const Header = () => {
                 </div>
 
                 <div className="border-t border-gray-200 dark:border-gray-800 p-6 flex gap-4">
-                  <Button variant="outline" className="flex-1" onClick={toggleLanguage}>
+                  <Button className="flex-1" onClick={toggleLanguage} variant="outline">
                     {language === "en" ? "Deutsch" : "English"}
                   </Button>
 
-                  <Button variant="outline" className="flex-1" onClick={toggleTheme}>
+                  <Button className="flex-1" onClick={toggleTheme} variant="outline">
                     {theme === "light" ? (
                       <>
-                        <Moon size={16} className="mr-2" /> Dark
+                        <Moon className="mr-2" size={16} /> Dark
                       </>
                     ) : (
                       <>
-                        <Sun size={16} className="mr-2" /> Light
+                        <Sun className="mr-2" size={16} /> Light
                       </>
                     )}
                   </Button>

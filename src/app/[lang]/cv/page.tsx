@@ -15,11 +15,11 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
       : "Curriculum Vitae of Uwe Schwarz - Project Manager, IT Security Specialist & AI Enthusiast";
 
   return {
-    title,
-    description,
     alternates: {
       canonical: canonicalUrl,
     },
+    description,
+    title,
   };
 }
 

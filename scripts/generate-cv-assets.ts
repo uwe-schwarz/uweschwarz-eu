@@ -18,8 +18,8 @@ const languages: Array<"en" | "de"> = ["en", "de"];
 const formatMonthYear = (date: Date, locale: string) => date.toLocaleString(locale, { month: "long", year: "numeric" });
 
 const buildLastUpdatedLabel = (date: Date) => ({
-  en: `Last updated: ${formatMonthYear(date, "en-US")}`,
   de: `Letzte Aktualisierung: ${formatMonthYear(date, "de-DE")}`,
+  en: `Last updated: ${formatMonthYear(date, "en-US")}`,
 });
 
 const resolveOutputName = (language: "en" | "de", extension: "pdf" | "docx", contentModTime: Date) => {
@@ -64,15 +64,15 @@ async function getFileModTime(filePath: string): Promise<Date | null> {
 }
 
 async function shouldRegenerate(): Promise<{
-  shouldRegenerate: boolean;
   contentModTime: Date | null;
+  shouldRegenerate: boolean;
 }> {
   const contentPath = path.resolve(projectRoot, "src/content/content.ts");
   const contentModTime = await getFileModTime(contentPath);
 
   if (!contentModTime) {
     console.log("Content file not found, regenerating...");
-    return { shouldRegenerate: true, contentModTime: null };
+    return { contentModTime: null, shouldRegenerate: true };
   }
 
   for (const language of languages) {
@@ -84,21 +84,21 @@ async function shouldRegenerate(): Promise<{
 
     if (!pdfModTime || !docxModTime) {
       console.log(`CV files for ${language} not found, regenerating...`);
-      return { shouldRegenerate: true, contentModTime };
+      return { contentModTime, shouldRegenerate: true };
     }
 
     if (contentModTime > pdfModTime || contentModTime > docxModTime) {
       console.log(`Content is newer than existing CV files for ${language}, regenerating...`);
-      return { shouldRegenerate: true, contentModTime };
+      return { contentModTime, shouldRegenerate: true };
     }
   }
 
   console.log("CV files are up to date, skipping generation.");
-  return { shouldRegenerate: false, contentModTime };
+  return { contentModTime, shouldRegenerate: false };
 }
 
 async function main() {
-  const { shouldRegenerate: shouldRegen, contentModTime } = await shouldRegenerate();
+  const { contentModTime, shouldRegenerate: shouldRegen } = await shouldRegenerate();
 
   if (!shouldRegen) {
     return;
@@ -115,8 +115,8 @@ async function main() {
 
   for (const language of languages) {
     const pdfElement = React.createElement(CVDocument, {
-      language,
       data: siteContent,
+      language,
       profileImageSrc: profileImage,
     });
 
@@ -124,8 +124,8 @@ async function main() {
     await ReactPDF.render(pdfElement, pdfTarget);
 
     const docxData = await generateCvDocx({
-      language,
       data: siteContent,
+      language,
       profileImage,
     });
     const docxTarget = path.join(publicDir, resolveOutputName(language, "docx", contentModTime));
@@ -173,7 +173,9 @@ export const CV_LAST_UPDATED = {
   console.log(`Generated CV assets configuration at ${cvAssetsPath}`);
 }
 
-main().catch((error) => {
+try {
+  await main();
+} catch (error) {
   console.error("Failed to generate CV assets", error);
   process.exitCode = 1;
-});
+}

@@ -1,26 +1,63 @@
-const fs = require("fs");
-const path = require("path");
+import fs from "node:fs";
+import fsPromises from "node:fs/promises";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const baseUrl = "https://uweschwarz.eu"; // Change to your domain
 
+interface BunFile {
+  lastModified: number;
+}
+
+interface BunRuntime {
+  file: (path: string) => BunFile;
+  write: (path: string, data: string) => Promise<unknown>;
+}
+
+const bunRuntime = (globalThis as typeof globalThis & { Bun?: BunRuntime }).Bun;
+
+function getFileMtime(filePath: string) {
+  if (bunRuntime) {
+    return bunRuntime.file(filePath).lastModified;
+  }
+
+  try {
+    return fs.statSync(filePath).mtimeMs;
+  } catch {
+    return 0;
+  }
+}
+
 // Generate CV asset paths dynamically to match the generate-cv-assets.ts script
-function generateCvAssetPath(language, extension) {
+function generateCvAssetPath(language: "en" | "de", extension: "pdf" | "docx") {
   // Get the content modification time to match the CV asset generation
   const contentPath = path.join(__dirname, "..", "src/content/content.ts");
-  try {
-    const stats = fs.statSync(contentPath);
-    const date = stats.mtime.toISOString().split("T")[0]; // YYYY-MM-DD format
-    return `/uwe-schwarz-cv-${language}-${date}.${extension}`;
-  } catch (e) {
-    // Fallback to current date if content file not found
-    const date = new Date().toISOString().split("T")[0]; // YYYY-MM-DD format
-    return `/uwe-schwarz-cv-${language}-${date}.${extension}`;
-  }
+  const mtime = getFileMtime(contentPath);
+  const date = mtime ? new Date(mtime).toISOString().split("T")[0] : new Date().toISOString().split("T")[0];
+  return `/uwe-schwarz-cv-${language}-${date}.${extension}`;
 }
 
 const urls = [
   {
+    files: [
+      "src/content/content.ts",
+      "src/app/[lang]/page.tsx",
+      "src/components/Header.tsx",
+      "src/components/HeroSection.tsx",
+      "src/components/AboutSection.tsx",
+      "src/components/ExperienceSection.tsx",
+      "src/components/ProjectsSection.tsx",
+      "src/components/SkillsSection.tsx",
+      "src/components/ContactSection.tsx",
+      "src/components/Footer.tsx",
+    ],
+    priority: 1.0,
     url: "/en",
+  },
+  {
     files: [
       "src/content/content.ts",
       "src/app/[lang]/page.tsx",
@@ -34,67 +71,62 @@ const urls = [
       "src/components/Footer.tsx",
     ],
     priority: 1.0,
-  },
-  {
     url: "/de",
-    files: [
-      "src/content/content.ts",
-      "src/app/[lang]/page.tsx",
-      "src/components/Header.tsx",
-      "src/components/HeroSection.tsx",
-      "src/components/AboutSection.tsx",
-      "src/components/ExperienceSection.tsx",
-      "src/components/ProjectsSection.tsx",
-      "src/components/SkillsSection.tsx",
-      "src/components/ContactSection.tsx",
-      "src/components/Footer.tsx",
-    ],
-    priority: 1.0,
   },
   {
+    files: [
+      "src/content/content.ts",
+      "src/app/cv/page.tsx",
+      "src/app/[lang]/cv/page.tsx",
+      "scripts/cv/CVDocument.tsx",
+      "scripts/cv/CVDocumentDocx.tsx",
+    ],
+    priority: 0.8,
     url: "/en/cv",
+  },
+  {
     files: [
       "src/content/content.ts",
       "src/app/cv/page.tsx",
       "src/app/[lang]/cv/page.tsx",
-      "src/components/cv/CVDocument.tsx",
-      "src/components/cv/CVDocumentDocx.tsx",
+      "scripts/cv/CVDocument.tsx",
+      "scripts/cv/CVDocumentDocx.tsx",
     ],
     priority: 0.8,
-  },
-  {
     url: "/de/cv",
-    files: [
-      "src/content/content.ts",
-      "src/app/cv/page.tsx",
-      "src/app/[lang]/cv/page.tsx",
-      "src/components/cv/CVDocument.tsx",
-      "src/components/cv/CVDocumentDocx.tsx",
-    ],
-    priority: 0.8,
   },
   {
+    files: ["src/content/content.ts"],
+    priority: 0.7,
     url: generateCvAssetPath("de", "pdf"),
-    files: ["src/content/content.ts"],
-    priority: 0.7,
   },
   {
+    files: ["src/content/content.ts"],
+    priority: 0.7,
     url: generateCvAssetPath("en", "pdf"),
-    files: ["src/content/content.ts"],
-    priority: 0.7,
   },
   {
+    files: ["src/content/content.ts"],
+    priority: 0.7,
     url: generateCvAssetPath("de", "docx"),
-    files: ["src/content/content.ts"],
-    priority: 0.7,
   },
   {
+    files: ["src/content/content.ts"],
+    priority: 0.7,
     url: generateCvAssetPath("en", "docx"),
-    files: ["src/content/content.ts"],
-    priority: 0.7,
   },
   {
+    files: [
+      "src/content/content.ts",
+      "src/app/imprint/page.tsx",
+      "src/app/[lang]/imprint/page.tsx",
+      "src/components/Header.tsx",
+      "src/components/Footer.tsx",
+    ],
+    priority: 0.5,
     url: "/en/imprint",
+  },
+  {
     files: [
       "src/content/content.ts",
       "src/app/imprint/page.tsx",
@@ -103,20 +135,20 @@ const urls = [
       "src/components/Footer.tsx",
     ],
     priority: 0.5,
-  },
-  {
     url: "/de/imprint",
+  },
+  {
     files: [
       "src/content/content.ts",
-      "src/app/imprint/page.tsx",
-      "src/app/[lang]/imprint/page.tsx",
+      "src/app/privacy/page.tsx",
+      "src/app/[lang]/privacy/page.tsx",
       "src/components/Header.tsx",
       "src/components/Footer.tsx",
     ],
     priority: 0.5,
-  },
-  {
     url: "/en/privacy",
+  },
+  {
     files: [
       "src/content/content.ts",
       "src/app/privacy/page.tsx",
@@ -125,20 +157,9 @@ const urls = [
       "src/components/Footer.tsx",
     ],
     priority: 0.5,
-  },
-  {
     url: "/de/privacy",
-    files: [
-      "src/content/content.ts",
-      "src/app/privacy/page.tsx",
-      "src/app/[lang]/privacy/page.tsx",
-      "src/components/Header.tsx",
-      "src/components/Footer.tsx",
-    ],
-    priority: 0.5,
   },
   {
-    url: "/sitemap.xml",
     files: [
       "src/app/sitemap/page.tsx",
       "src/app/[lang]/sitemap/page.tsx",
@@ -148,9 +169,20 @@ const urls = [
       "src/content/content.ts",
     ],
     priority: 0.3,
+    url: "/sitemap.xml",
   },
   {
+    files: [
+      "src/app/sitemap/page.tsx",
+      "src/app/[lang]/sitemap/page.tsx",
+      "src/components/Header.tsx",
+      "src/components/Footer.tsx",
+      "src/content/content.ts",
+    ],
+    priority: 0.3,
     url: "/en/sitemap",
+  },
+  {
     files: [
       "src/app/sitemap/page.tsx",
       "src/app/[lang]/sitemap/page.tsx",
@@ -159,35 +191,21 @@ const urls = [
       "src/content/content.ts",
     ],
     priority: 0.3,
-  },
-  {
     url: "/de/sitemap",
-    files: [
-      "src/app/sitemap/page.tsx",
-      "src/app/[lang]/sitemap/page.tsx",
-      "src/components/Header.tsx",
-      "src/components/Footer.tsx",
-      "src/content/content.ts",
-    ],
-    priority: 0.3,
   },
   {
-    url: "/llms.txt",
     files: ["src/content/content.ts"],
     priority: 0.3,
+    url: "/llms.txt",
   },
 ];
 
-function getLatestMtime(files) {
+function getLatestMtime(files: Array<string>) {
   let latest = 0;
   for (const file of files) {
-    try {
-      const stats = fs.statSync(path.join(__dirname, "..", file));
-      if (stats.mtimeMs > latest) {
-        latest = stats.mtimeMs;
-      }
-    } catch (e) {
-      // File might not exist yet, skip
+    const mtime = getFileMtime(path.join(__dirname, "..", file));
+    if (mtime > latest) {
+      latest = mtime;
     }
   }
   return latest ? new Date(latest).toISOString().split("T")[0] : new Date().toISOString().split("T")[0];
@@ -197,7 +215,7 @@ const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls
   .map(
-    ({ url, files, priority }) => `
+    ({ files, priority, url }) => `
   <url>
     <loc>${baseUrl}${url}</loc>
     <lastmod>${getLatestMtime(files)}</lastmod>
@@ -208,5 +226,10 @@ ${urls
   .join("")}
 </urlset>`;
 
-fs.writeFileSync(path.join(__dirname, "../public/sitemap.xml"), xml);
+const outputPath = path.join(__dirname, "../public/sitemap.xml");
+if (bunRuntime) {
+  await bunRuntime.write(outputPath, xml);
+} else {
+  await fsPromises.writeFile(outputPath, xml);
+}
 console.log("sitemap.xml generated!");

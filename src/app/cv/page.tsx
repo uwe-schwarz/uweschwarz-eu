@@ -9,6 +9,7 @@ import { siteContent } from "@/content/content";
 import { useScrollToTop } from "@/hooks/use-scroll-to-top";
 import { CV_ASSETS } from "@/generated/cv-assets";
 import { replacePathLanguage, withLanguagePrefix } from "@/lib/i18n";
+import { getPersistedLanguage, getPersistedTheme } from "@/lib/persisted-preferences";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const CvDownloadButtons = ({ language }: { language: "en" | "de" }) => {
@@ -18,13 +19,13 @@ const CvDownloadButtons = ({ language }: { language: "en" | "de" }) => {
   return (
     <div className="flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-4">
       <Button asChild className="rounded-full shadow-lg hover-scale" variant="secondary">
-        <a href={pdfUrl} download>
+        <a download href={pdfUrl}>
           <Download className="mr-2 h-4 w-4" />
           {language === "en" ? "Download PDF" : "PDF herunterladen"}
         </a>
       </Button>
       <Button asChild className="rounded-full shadow-lg hover-scale" variant="secondary">
-        <a href={docxUrl} download>
+        <a download href={docxUrl}>
           <Download className="mr-2 h-4 w-4" />
           {language === "en" ? "Download DOCX" : "DOCX herunterladen"}
         </a>
@@ -34,31 +35,13 @@ const CvDownloadButtons = ({ language }: { language: "en" | "de" }) => {
 };
 
 export default function CvPage() {
-  const { language, setLanguage, theme, setTheme, t } = useSettings();
+  const { language, setLanguage, setTheme, t, theme } = useSettings();
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   useScrollToTop();
 
   const pdfUrl = CV_ASSETS[language].pdf;
-  const getPersistedLanguage = (): "en" | "de" | null => {
-    try {
-      const saved = localStorage.getItem("language");
-      return saved === "en" || saved === "de" ? saved : null;
-    } catch {
-      return null;
-    }
-  };
-
-  const getPersistedTheme = (): "light" | "dark" | null => {
-    try {
-      const saved = localStorage.getItem("theme");
-      return saved === "light" || saved === "dark" ? saved : null;
-    } catch {
-      return null;
-    }
-  };
-
   const homeHref = withLanguagePrefix(language, "/");
 
   return (
@@ -66,8 +49,8 @@ export default function CvPage() {
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
           <Link
-            href={homeHref as Route}
             className="flex items-center text-muted-foreground hover:text-primary/80 dark:text-primary"
+            href={homeHref as Route}
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
             <span>{t(siteContent.backToHome)}</span>
@@ -76,21 +59,20 @@ export default function CvPage() {
           <div className="flex flex-col space-y-2 md:flex-row md:items-center md:space-x-4 md:space-y-0">
             <div className="flex items-center space-x-2">
               <Button
-                variant="secondary"
-                size="sm"
+                aria-label={theme === "light" ? "Switch to dark theme" : "Switch to light theme"}
+                className="rounded-full shadow-lg hover-scale"
                 onClick={() => {
                   const current = getPersistedTheme() ?? theme;
                   setTheme(current === "light" ? "dark" : "light");
                 }}
-                className="rounded-full shadow-lg hover-scale"
-                aria-label={theme === "light" ? "Switch to dark theme" : "Switch to light theme"}
+                size="sm"
+                variant="secondary"
               >
                 {theme === "light" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
               </Button>
 
               <Button
-                variant="secondary"
-                size="sm"
+                className="rounded-full shadow-lg hover-scale"
                 onClick={() => {
                   const current = getPersistedLanguage() ?? language;
                   const nextLanguage = current === "en" ? "de" : "en";
@@ -101,7 +83,8 @@ export default function CvPage() {
                   const nextPath = replacePathLanguage(pathname, nextLanguage);
                   router.push(`${nextPath}${query ? `?${query}` : ""}${hash}` as Route);
                 }}
-                className="rounded-full shadow-lg hover-scale"
+                size="sm"
+                variant="secondary"
               >
                 <Globe className="mr-2 h-4 w-4" />
                 {language === "en" ? "Deutsch" : "English"}
@@ -117,8 +100,8 @@ export default function CvPage() {
         <div className="mb-6">
           <h1 className="mb-2 font-display text-4xl">
             {t({
-              en: "Curriculum Vitae",
               de: "Lebenslauf",
+              en: "Curriculum Vitae",
             })}
           </h1>
         </div>
@@ -129,11 +112,11 @@ export default function CvPage() {
               <div className="flex grow flex-col justify-center bg-linear-to-br from-primary/40 to-accent/40">
                 <div className="m-6 flex grow justify-center overflow-hidden">
                   <iframe
+                    className="min-h-[500px] h-full w-full max-w-[796px] rounded-lg border-0 bg-white shadow-inner"
                     key={language}
+                    scrolling="no"
                     src={`${pdfUrl}#zoom=100&view=FitH&pagemode=none&toolbar=0`}
                     title={language === "en" ? "Curriculum Vitae" : "Lebenslauf"}
-                    className="min-h-[500px] h-full w-full max-w-[796px] rounded-lg border-0 bg-white shadow-inner"
-                    scrolling="no"
                   />
                 </div>
               </div>

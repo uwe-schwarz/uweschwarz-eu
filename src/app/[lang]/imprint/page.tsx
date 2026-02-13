@@ -15,11 +15,11 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
       : "Imprint and legal information for Uwe Schwarz's website";
 
   return {
-    title,
-    description,
     alternates: {
       canonical: canonicalUrl,
     },
+    description,
+    title,
   };
 }
 

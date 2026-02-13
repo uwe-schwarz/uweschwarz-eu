@@ -14,7 +14,7 @@ const ProjectsSection = () => {
   const { projects } = siteContent;
 
   return (
-    <section id="projects" className="section-padding bg-muted/30">
+    <section className="section-padding bg-muted/30" id="projects">
       <div className="container mx-auto">
         <h2 className="text-3xl md:text-4xl text-center mb-16">
           <span className="text-gradient">{t(siteContent.projectsSectionTitle)}</span>
@@ -22,15 +22,15 @@ const ProjectsSection = () => {
 
         <div className="relative px-12">
           <Carousel
+            className="w-full"
             opts={{
               align: "start",
               loop: true,
             }}
-            className="w-full"
           >
             <CarouselContent className="-ml-2 md:-ml-4">
               {projects.map((project, index) => (
-                <CarouselItem key={index} className="pl-2 md:pl-4 basis-full sm:basis-1/2 lg:basis-1/3">
+                <CarouselItem className="pl-2 md:pl-4 basis-full sm:basis-1/2 lg:basis-1/3" key={index}>
                   <div className="bg-card rounded-xl overflow-hidden shadow-md border border-border hover-scale transition-all h-full">
                     {/* Project Image */}
                     <div className="aspect-video relative">
@@ -38,11 +38,11 @@ const ProjectsSection = () => {
                         {project.imageUrl && (
                           <div className="relative h-48 w-full max-w-[16rem]">
                             <Image
-                              src={project.imageUrl}
                               alt={`${t(project.imageAlt)}`}
+                              className="object-contain"
                               fill
                               sizes="(min-width: 1024px) 320px, (min-width: 768px) 256px, 192px"
-                              className="object-contain"
+                              src={project.imageUrl}
                             />
                           </div>
                         )}
@@ -58,7 +58,7 @@ const ProjectsSection = () => {
                       {/* Tags */}
                       <div className="flex flex-wrap gap-2 mb-6">
                         {project.tags.map((tag, tagIndex) => (
-                          <Badge key={tagIndex} variant="outline" className="font-normal">
+                          <Badge className="font-normal" key={tagIndex} variant="outline">
                             {t(tag)}
                           </Badge>
                         ))}
@@ -75,10 +75,10 @@ const ProjectsSection = () => {
 
         {siteContent.projectsSectionMore && (
           <div className="text-center mt-12">
-            <Button asChild variant="link" className="text-primary hover:text-primary/80">
-              <a href="https://github.com/uwe-schwarz" target="_blank" rel="noreferrer">
+            <Button asChild className="text-primary hover:text-primary/80" variant="link">
+              <a href="https://github.com/uwe-schwarz" rel="noreferrer" target="_blank">
                 {t(siteContent.projectsSectionMore)}
-                <ArrowRight size={16} className="ml-2" />
+                <ArrowRight className="ml-2" size={16} />
               </a>
             </Button>
           </div>

@@ -16,7 +16,7 @@ interface FileTextIconProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const FILE_TEXT = forwardRef<FileTextIconHandle, FileTextIconProps>(
-  ({ onMouseEnter, onMouseLeave, className, size = 28, ...props }, ref) => {
+  ({ className, onMouseEnter, onMouseLeave, size = 28, ...props }, ref) => {
     const controls = useAnimation();
     const isControlledRef = useRef(false);
 
@@ -54,17 +54,14 @@ const FILE_TEXT = forwardRef<FileTextIconHandle, FileTextIconProps>(
     return (
       <div className={cn(className)} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} {...props}>
         <motion.svg
-          xmlns="http://www.w3.org/2000/svg"
-          width={size}
-          height={size}
-          viewBox="0 0 24 24"
+          animate={controls}
           fill="none"
+          height={size}
+          initial="normal"
           stroke="currentColor"
-          strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          initial="normal"
-          animate={controls}
+          strokeWidth="2"
           variants={{
             normal: { scale: 1 },
             animate: {
@@ -75,6 +72,9 @@ const FILE_TEXT = forwardRef<FileTextIconHandle, FileTextIconProps>(
               },
             },
           }}
+          viewBox="0 0 24 24"
+          width={size}
+          xmlns="http://www.w3.org/2000/svg"
         >
           <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
           <path d="M14 2v4a2 2 0 0 0 2 2h4" />
@@ -84,11 +84,6 @@ const FILE_TEXT = forwardRef<FileTextIconHandle, FileTextIconProps>(
             stroke="currentColor"
             strokeWidth="2"
             variants={{
-              normal: {
-                pathLength: 1,
-                x1: 8,
-                x2: 10,
-              },
               animate: {
                 pathLength: [1, 0, 1],
                 x1: [8, 10, 8],
@@ -98,6 +93,11 @@ const FILE_TEXT = forwardRef<FileTextIconHandle, FileTextIconProps>(
                   delay: 0.3,
                 },
               },
+              normal: {
+                pathLength: 1,
+                x1: 8,
+                x2: 10,
+              },
             }}
           />
           <motion.path
@@ -105,11 +105,6 @@ const FILE_TEXT = forwardRef<FileTextIconHandle, FileTextIconProps>(
             stroke="currentColor"
             strokeWidth="2"
             variants={{
-              normal: {
-                pathLength: 1,
-                x1: 8,
-                x2: 16,
-              },
               animate: {
                 pathLength: [1, 0, 1],
                 x1: [8, 16, 8],
@@ -119,6 +114,11 @@ const FILE_TEXT = forwardRef<FileTextIconHandle, FileTextIconProps>(
                   delay: 0.5,
                 },
               },
+              normal: {
+                pathLength: 1,
+                x1: 8,
+                x2: 16,
+              },
             }}
           />
           <motion.path
@@ -126,11 +126,6 @@ const FILE_TEXT = forwardRef<FileTextIconHandle, FileTextIconProps>(
             stroke="currentColor"
             strokeWidth="2"
             variants={{
-              normal: {
-                pathLength: 1,
-                x1: 8,
-                x2: 16,
-              },
               animate: {
                 pathLength: [1, 0, 1],
                 x1: [8, 16, 8],
@@ -139,6 +134,11 @@ const FILE_TEXT = forwardRef<FileTextIconHandle, FileTextIconProps>(
                   duration: 0.7,
                   delay: 0.7,
                 },
+              },
+              normal: {
+                pathLength: 1,
+                x1: 8,
+                x2: 16,
               },
             }}
           />

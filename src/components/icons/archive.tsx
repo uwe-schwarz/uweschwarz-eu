@@ -17,8 +17,8 @@ interface ArchiveIconProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const RECT_VARIANTS: Variants = {
-  normal: {
-    translateY: 0,
+  animate: {
+    translateY: -1.5,
     transition: {
       duration: 0.2,
       type: "spring",
@@ -26,8 +26,8 @@ const RECT_VARIANTS: Variants = {
       damping: 25,
     },
   },
-  animate: {
-    translateY: -1.5,
+  normal: {
+    translateY: 0,
     transition: {
       duration: 0.2,
       type: "spring",
@@ -38,17 +38,17 @@ const RECT_VARIANTS: Variants = {
 };
 
 const PATH_VARIANTS: Variants = {
-  normal: { d: "M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8" },
   animate: { d: "M4 11v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V11" },
+  normal: { d: "M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8" },
 };
 
 const SECONDARY_PATH_VARIANTS: Variants = {
-  normal: { d: "M10 12h4" },
   animate: { d: "M10 15h4" },
+  normal: { d: "M10 12h4" },
 };
 
 const ArchiveIcon = forwardRef<ArchiveIconHandle, ArchiveIconProps>(
-  ({ onMouseEnter, onMouseLeave, className, size = 28, ...props }, ref) => {
+  ({ className, onMouseEnter, onMouseLeave, size = 28, ...props }, ref) => {
     const controls = useAnimation();
     const isControlledRef = useRef(false);
 
@@ -86,28 +86,28 @@ const ArchiveIcon = forwardRef<ArchiveIconHandle, ArchiveIconProps>(
     return (
       <div className={cn(className)} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} {...props}>
         <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width={size}
-          height={size}
-          viewBox="0 0 24 24"
           fill="none"
+          height={size}
           stroke="currentColor"
-          strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          width={size}
+          xmlns="http://www.w3.org/2000/svg"
         >
           <motion.rect
-            width="20"
+            animate={controls}
             height="5"
+            initial="normal"
+            rx="1"
+            variants={RECT_VARIANTS}
+            width="20"
             x="2"
             y="3"
-            rx="1"
-            initial="normal"
-            animate={controls}
-            variants={RECT_VARIANTS}
           />
-          <motion.path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8" variants={PATH_VARIANTS} animate={controls} />
-          <motion.path d="M10 12h4" variants={SECONDARY_PATH_VARIANTS} animate={controls} />
+          <motion.path animate={controls} d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8" variants={PATH_VARIANTS} />
+          <motion.path animate={controls} d="M10 12h4" variants={SECONDARY_PATH_VARIANTS} />
         </svg>
       </div>
     );

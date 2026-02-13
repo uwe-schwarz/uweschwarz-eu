@@ -1,16 +1,16 @@
 "use client";
 
-import React, { createContext, useContext } from "react";
+import { createContext, useContext } from "react";
 
 export type Language = "en" | "de";
 export type Theme = "light" | "dark";
 
 export interface SettingsContextType {
   language: Language;
-  theme: Theme;
   setLanguage: (lang: Language) => void;
   setTheme: (theme: Theme) => void;
   t: (text: { en: string; de: string }) => string;
+  theme: Theme;
 }
 
 export const SettingsContext = createContext<SettingsContextType | undefined>(undefined);

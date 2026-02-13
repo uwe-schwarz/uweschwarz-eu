@@ -23,9 +23,9 @@ export default function PrivacyPage() {
       <main className="grow pb-16 pt-24">
         <div className="container mx-auto px-4">
           <div className="mx-auto max-w-3xl">
-            <Button asChild variant="ghost" size="sm" className="mb-6">
+            <Button asChild className="mb-6" size="sm" variant="ghost">
               <Link href={homeHref as Route}>
-                <ArrowLeft size={16} className="mr-2" />
+                <ArrowLeft className="mr-2" size={16} />
                 {t(siteContent.backToHome)}
               </Link>
             </Button>
@@ -35,10 +35,10 @@ export default function PrivacyPage() {
 
             <div className="prose prose-lg max-w-none dark:prose-invert">
               {privacy.sections.map((section, index) => (
-                <section key={index} className="mb-8">
+                <section className="mb-8" key={index}>
                   <h2 className="mb-4 text-2xl font-semibold">{t(section.title)}</h2>
                   {section.paragraphs.map((paragraph, pIndex) => (
-                    <p key={pIndex} className="mb-4">
+                    <p className="mb-4" key={pIndex}>
                       {t(paragraph)}
                     </p>
                   ))}
@@ -54,15 +54,15 @@ export default function PrivacyPage() {
                         }
 
                         const localizedItem = item as {
-                          en: string;
                           de: string;
                           description?: { en: string; de: string };
+                          en: string;
                         };
                         const text = t(localizedItem);
                         const descriptionText = localizedItem.description ? t(localizedItem.description) : null;
 
                         return (
-                          <li key={i} className="flex flex-col">
+                          <li className="flex flex-col" key={i}>
                             <span dangerouslySetInnerHTML={{ __html: text }} />
                             {descriptionText && (
                               <span className="ml-4 mt-1 text-sm text-muted-foreground">

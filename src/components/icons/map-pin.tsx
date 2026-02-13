@@ -17,9 +17,6 @@ interface MapPinIconProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const SVG_VARIANTS: Variants = {
-  normal: {
-    y: 0,
-  },
   animate: {
     y: [0, -5, -3],
     transition: {
@@ -27,12 +24,12 @@ const SVG_VARIANTS: Variants = {
       times: [0, 0.6, 1],
     },
   },
+  normal: {
+    y: 0,
+  },
 };
 
 const CIRCLE_VARIANTS: Variants = {
-  normal: {
-    opacity: 1,
-  },
   animate: {
     opacity: [0, 1],
     pathLength: [0, 1],
@@ -43,10 +40,13 @@ const CIRCLE_VARIANTS: Variants = {
       opacity: { duration: 0.1, delay: 0.3 },
     },
   },
+  normal: {
+    opacity: 1,
+  },
 };
 
 const MapPinIcon = forwardRef<MapPinIconHandle, MapPinIconProps>(
-  ({ onMouseEnter, onMouseLeave, className, size = 28, ...props }, ref) => {
+  ({ className, onMouseEnter, onMouseLeave, size = 28, ...props }, ref) => {
     const controls = useAnimation();
     const isControlledRef = useRef(false);
 
@@ -84,21 +84,21 @@ const MapPinIcon = forwardRef<MapPinIconHandle, MapPinIconProps>(
     return (
       <div className={cn(className)} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} {...props}>
         <motion.svg
-          xmlns="http://www.w3.org/2000/svg"
-          width={size}
-          height={size}
-          viewBox="0 0 24 24"
+          animate={controls}
           fill="none"
+          height={size}
+          initial="normal"
           stroke="currentColor"
-          strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
+          strokeWidth="2"
           variants={SVG_VARIANTS}
-          initial="normal"
-          animate={controls}
+          viewBox="0 0 24 24"
+          width={size}
+          xmlns="http://www.w3.org/2000/svg"
         >
           <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
-          <motion.circle cx="12" cy="10" r="3" variants={CIRCLE_VARIANTS} initial="normal" animate={controls} />
+          <motion.circle animate={controls} cx="12" cy="10" initial="normal" r="3" variants={CIRCLE_VARIANTS} />
         </motion.svg>
       </div>
     );

@@ -31,18 +31,18 @@ export const useFormField = () => {
     throw new Error("useFormField should be used within <FormItem>");
   }
 
-  const { getFieldState, formState } = useFormContext();
+  const { formState, getFieldState } = useFormContext();
 
   const fieldState = getFieldState(fieldContext.name, formState);
 
   const { id } = itemContext;
 
   return {
+    formDescriptionId: `${id}-form-item-description`,
+    formItemId: `${id}-form-item`,
+    formMessageId: `${id}-form-item-message`,
     id,
     name: fieldContext.name,
-    formItemId: `${id}-form-item`,
-    formDescriptionId: `${id}-form-item-description`,
-    formMessageId: `${id}-form-item-message`,
     ...fieldState,
   };
 };
