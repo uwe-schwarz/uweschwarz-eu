@@ -13,7 +13,7 @@ const Footer = () => {
   const { footer } = siteContent;
   const sitemap = siteContent.sitemap;
   const year = new Date().getFullYear();
-  const sitemapLabel = sitemap ? t(sitemap.title) : t({ en: "Sitemap", de: "Sitemap" });
+  const sitemapLabel = sitemap ? t(sitemap.title) : t({ de: "Sitemap", en: "Sitemap" });
   const homeHref = withLanguagePrefix(language, "/");
 
   return (
@@ -23,8 +23,8 @@ const Footer = () => {
           {/* Logo and copyright */}
           <div className="mb-6 md:mb-0">
             <Link
-              href={`${homeHref}#hero` as Route}
               className="text-xl font-display font-bold text-foreground mb-2 inline-block"
+              href={`${homeHref}#hero` as Route}
             >
               <span className="text-gradient">Uwe Schwarz</span>
             </Link>
@@ -35,16 +35,16 @@ const Footer = () => {
           <nav className="flex flex-wrap gap-6">
             {footer.links.map((link, index) => (
               <Link
-                key={index}
-                href={withLanguagePrefix(language, link.href) as Route}
                 className="text-sm text-muted-foreground hover:text-primary transition-colors link-underline"
+                href={withLanguagePrefix(language, link.href) as Route}
+                key={index}
               >
                 {t(link.label)}
               </Link>
             ))}
             <Link
-              href={withLanguagePrefix(language, "/sitemap") as Route}
               className="text-sm text-muted-foreground hover:text-primary transition-colors link-underline"
+              href={withLanguagePrefix(language, "/sitemap") as Route}
             >
               {sitemapLabel}
             </Link>

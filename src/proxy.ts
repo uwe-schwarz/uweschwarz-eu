@@ -38,11 +38,11 @@ export function proxy(request: NextRequest) {
 
   const response = NextResponse.redirect(url);
   response.cookies.set({
-    name: "language",
-    value: language,
-    path: "/",
     maxAge: 60 * 60 * 24 * 365,
+    name: "language",
+    path: "/",
     sameSite: "lax",
+    value: language,
   });
 
   return response;

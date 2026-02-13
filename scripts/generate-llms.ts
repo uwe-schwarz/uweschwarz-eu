@@ -1,11 +1,15 @@
-import fs from "fs/promises";
-import path from "path";
+import fs from "node:fs/promises";
+import path from "node:path";
 import { siteContent, type LocalizedString } from "../src/content/content";
 
 // Helper function to format bilingual content
 const formatBilingual = (item: LocalizedString | string | undefined, indent = ""): string => {
-  if (!item) return "";
-  if (typeof item === "string") return `${indent}${item}\n`;
+  if (!item) {
+    return "";
+  }
+  if (typeof item === "string") {
+    return `${indent}${item}\n`;
+  }
   if (item.en && item.de) {
     return `${indent}[en] ${item.en}\n${indent}[de] ${item.de}\n`;
   }

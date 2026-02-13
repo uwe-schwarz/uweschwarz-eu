@@ -7,7 +7,7 @@ import { UsersIcon } from "@/components/icons/users";
 import { FolderCheckIcon } from "@/components/icons/folder-check";
 import { FlaskIcon } from "@/components/icons/flask";
 
-type IconComponent = React.ComponentType<{ size?: number; className?: string }>;
+type IconComponent = React.ComponentType<{ className?: string; size?: number }>;
 
 const iconMap: Record<string, IconComponent> = {
   experience: UsersIcon,
@@ -26,7 +26,7 @@ const AboutSection = () => {
   }));
 
   return (
-    <section id="about" className="section-padding bg-muted/30">
+    <section className="section-padding bg-muted/30" id="about">
       <div className="container mx-auto">
         <h2 className="text-3xl md:text-4xl text-center mb-16">
           <span className="text-gradient">{t(about.title)}</span>
@@ -40,12 +40,12 @@ const AboutSection = () => {
               <div className="rounded-lg overflow-hidden shadow-xl hover-scale border-4 border-white dark:border-gray-800">
                 <div className="bg-linear-to-br from-primary/40 to-accent/40 aspect-4/5 relative overflow-hidden">
                   <Image
-                    src="/about-me.webp"
                     alt={t(about.imageAlt)}
-                    sizes="(min-width:1280px) 500px, (min-width:1024px) 400px, (min-width:768px) 900px, 600px"
-                    fill
                     className="object-cover"
+                    fill
                     priority
+                    sizes="(min-width:1280px) 500px, (min-width:1024px) 400px, (min-width:768px) 900px, 600px"
+                    src="/about-me.webp"
                   />
                 </div>
               </div>
@@ -61,8 +61,8 @@ const AboutSection = () => {
             {/* About paragraphs */}
             {about.paragraphs.map((paragraph, index) => (
               <p
-                key={index}
                 className={`text-base md:text-lg leading-relaxed ${index !== about.paragraphs.length - 1 ? "mb-6" : ""}`}
+                key={index}
               >
                 {t(paragraph)}
               </p>
@@ -72,8 +72,8 @@ const AboutSection = () => {
             <div className={`grid grid-cols-1 sm:grid-cols-${stats.length} gap-8 mt-10`}>
               {stats.map((stat, index) => (
                 <div
-                  key={stat.key}
                   className="p-4 bg-card rounded-lg shadow-sm border border-border hover-scale transition-all"
+                  key={stat.key}
                 >
                   <div className="flex flex-col items-center text-center">
                     <div className="p-3 mb-4 rounded-full bg-primary/10 text-primary">

@@ -15,12 +15,12 @@ import { withLanguagePrefix } from "@/lib/i18n";
 const ProfilePicture = React.memo(({ alt }: { alt: string }) => (
   <div className="w-full h-full rounded-full bg-background flex items-center justify-center overflow-hidden relative">
     <Image
-      src="/profile.webp"
       alt={alt}
-      fill
-      sizes="(min-width:1200px) 360px, (min-width:1024px) 334px, (min-width:768px) 360px, 300px"
       className="object-cover"
+      fill
       priority
+      sizes="(min-width:1200px) 360px, (min-width:1024px) 334px, (min-width:768px) 360px, 300px"
+      src="/profile.webp"
     />
   </div>
 ));
@@ -45,10 +45,10 @@ const HeroSection = () => {
 
   // FitText Hook for dynamic title
   const currentTitle = t(hero.titleElements[titleIndex]);
-  const { ref: fitTextRef, fontSize } = useFitText({
-    minFontSize: 18,
-    maxFontSize: 48,
+  const { fontSize, ref: fitTextRef } = useFitText({
     depKey: currentTitle,
+    maxFontSize: 48,
+    minFontSize: 18,
   });
 
   // Function to calculate position for decorative elements
@@ -68,7 +68,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section id="hero" className="min-h-screen flex items-center pt-20 bg-grid relative overflow-hidden">
+    <section className="min-h-screen flex items-center pt-20 bg-grid relative overflow-hidden" id="hero">
       {/* Background Elements */}
       <div className="absolute w-64 h-64 bg-primary/50 rounded-full filter blur-3xl animate-[move-bg-1_25s_ease-in-out_infinite]"></div>
       <div className="absolute w-72 h-72 bg-accent/50 rounded-full filter blur-3xl animate-[move-bg-2_30s_ease-in-out_infinite]"></div>
@@ -82,15 +82,15 @@ const HeroSection = () => {
               {hero.name}
               <br />
               <span
-                ref={fitTextRef}
                 className="block text-gradient mt-2 h-[1.2em]"
                 key={titleIndex}
+                ref={fitTextRef}
                 style={{
+                  display: "inline-block",
                   fontSize,
                   lineHeight: 1.2,
-                  display: "inline-block",
-                  width: "100%",
                   whiteSpace: "nowrap",
+                  width: "100%",
                 }}
               >
                 {currentTitle}
@@ -100,13 +100,13 @@ const HeroSection = () => {
             <p className="text-lg md:text-xl text-muted-foreground max-w-lg mb-8">{t(hero.description)}</p>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button asChild size="lg" className="rounded-full shadow-lg hover-scale">
+              <Button asChild className="rounded-full shadow-lg hover-scale" size="lg">
                 <a href="#experience">{t(hero.ctaPrimary)}</a>
               </Button>
 
-              <Button asChild variant="outline" size="lg" className="rounded-full shadow-sm hover-scale">
+              <Button asChild className="rounded-full shadow-sm hover-scale" size="lg" variant="outline">
                 <Link href={withLanguagePrefix(language, "/cv") as Route}>
-                  <FileTextIcon size={16} className="mr-2" />
+                  <FileTextIcon className="mr-2" size={16} />
                   {t(hero.ctaSecondary)}
                 </Link>
               </Button>
@@ -134,8 +134,8 @@ const HeroSection = () => {
                 const posStyle = calculatePosition(element.position, element.distance);
                 return (
                   <div
-                    key={index}
                     className="absolute p-4 card-glass rounded-lg shadow-lg transform rotate-3 animate-float"
+                    key={index}
                     style={{
                       ...posStyle,
                       transform: `${posStyle.transform} rotate(${index * 9 - 6}deg)`,

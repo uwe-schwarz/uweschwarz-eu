@@ -13,11 +13,11 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     lang === "de" ? "Datenschutzerklärung für die Website von Uwe Schwarz" : "Privacy policy for Uwe Schwarz's website";
 
   return {
-    title,
-    description,
     alternates: {
       canonical: canonicalUrl,
     },
+    description,
+    title,
   };
 }
 

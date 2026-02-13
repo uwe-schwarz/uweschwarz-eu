@@ -5,26 +5,26 @@ import { Body, Container, Head, Heading, Html, Preview, Section, Text, Tailwind 
 
 function escapeHtml(str: string) {
   return str
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 }
 
-const EmailTemplate = ({ name, email, message }: { name: string; email: string; message: string }) => {
+const EmailTemplate = ({ email, message, name }: { email: string; message: string; name: string }) => {
   const colors = {
-    background: "hsl(210, 40%, 98%)",
-    foreground: "hsl(225, 25%, 12%)",
-    card: "hsl(220, 30%, 92%)",
-    cardForeground: "hsl(225, 25%, 12%)",
-    primary: "hsl(333, 65%, 35%)",
-    primaryForeground: "hsl(0, 0%, 70%)",
     accent: "hsl(82, 61%, 26%)",
     accentForeground: "hsl(225, 25%, 12%)",
+    background: "hsl(210, 40%, 98%)",
+    border: "hsl(215, 25%, 85%)",
+    card: "hsl(220, 30%, 92%)",
+    cardForeground: "hsl(225, 25%, 12%)",
+    foreground: "hsl(225, 25%, 12%)",
     muted: "hsl(215, 25%, 85%)",
     mutedForeground: "hsl(215, 20%, 35%)",
-    border: "hsl(215, 25%, 85%)",
+    primary: "hsl(333, 65%, 35%)",
+    primaryForeground: "hsl(0, 0%, 70%)",
   };
 
   return (
@@ -41,10 +41,10 @@ const EmailTemplate = ({ name, email, message }: { name: string; email: string; 
               <div
                 style={{
                   background: `linear-gradient(to right, ${colors.primary}, ${colors.accent})`,
-                  padding: "2px",
                   borderRadius: "12px",
                   marginBottom: "24px",
                   marginTop: "24px",
+                  padding: "2px",
                 }}
               >
                 <div
@@ -90,27 +90,27 @@ const EmailTemplate = ({ name, email, message }: { name: string; email: string; 
               <div
                 style={{
                   background: `linear-gradient(to right, ${colors.primary}, ${colors.accent})`,
-                  padding: "2px",
                   borderRadius: "8px",
-                  marginBottom: "16px",
-                  display: "inline-block",
-                  width: "100%",
                   boxSizing: "border-box",
+                  display: "inline-block",
+                  marginBottom: "16px",
+                  padding: "2px",
+                  width: "100%",
                 }}
               >
                 <a
                   href={`mailto:${email}`}
                   style={{
-                    display: "block",
-                    padding: "12px 20px",
-                    borderRadius: "6px",
-                    fontWeight: "600",
-                    textDecoration: "none",
-                    color: colors.foreground,
                     backgroundColor: colors.card,
-                    textAlign: "center",
+                    borderRadius: "6px",
                     boxSizing: "border-box",
+                    color: colors.foreground,
+                    display: "block",
                     fontSize: "16px",
+                    fontWeight: "600",
+                    padding: "12px 20px",
+                    textAlign: "center",
+                    textDecoration: "none",
                   }}
                 >
                   Reply to this message
@@ -124,7 +124,7 @@ const EmailTemplate = ({ name, email, message }: { name: string; email: string; 
 
             <Section
               className="mt-[32px] border-t pt-[32px]"
-              style={{ borderColor: colors.border, borderTopWidth: "1px", borderTopStyle: "solid" }}
+              style={{ borderColor: colors.border, borderTopStyle: "solid", borderTopWidth: "1px" }}
             >
               <Text className="m-0 text-[12px]" style={{ color: colors.mutedForeground }}>
                 © {new Date().getFullYear()} Uwe Schwarz. All rights reserved.
@@ -162,27 +162,27 @@ export async function POST(request: Request) {
 
   const safeName = escapeHtml(body.name);
   const safeEmail = escapeHtml(body.email);
-  const safeMessage = escapeHtml(body.message).replace(/\n/g, "<br>");
+  const safeMessage = escapeHtml(body.message).replaceAll("\n", "<br>");
 
   const html = await render(
     EmailTemplate({
-      name: safeName,
       email: safeEmail,
       message: safeMessage,
+      name: safeName,
     }),
   );
 
   try {
     const data = await resend.emails.send({
       from: `${safeName} <uweschwarz-eu@oldman.cloud>`,
-      replyTo: [body.email],
-      to: ["mail@uweschwarz.eu"],
-      subject: `Contact Form Submission from ${safeName} on ${new Date().toISOString()}`,
       html,
+      replyTo: [body.email],
+      subject: `Contact Form Submission from ${safeName} on ${new Date().toISOString()}`,
+      to: ["mail@uweschwarz.eu"],
     });
     return NextResponse.json(data);
   } catch (error) {
     const err = error as Error;
-    return NextResponse.json({ error: "Failed to send email", details: err.message }, { status: 500 });
+    return NextResponse.json({ details: err.message, error: "Failed to send email" }, { status: 500 });
   }
 }

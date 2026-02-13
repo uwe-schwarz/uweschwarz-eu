@@ -9,7 +9,7 @@ import { isSupportedLanguage, SUPPORTED_LANGUAGES } from "@/lib/i18n";
 
 export const dynamicParams = false;
 
-export function generateStaticParams(): { lang: Language }[] {
+export function generateStaticParams(): Array<{ lang: Language }> {
   return SUPPORTED_LANGUAGES.map((lang) => ({ lang }));
 }
 
@@ -45,10 +45,9 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   };
 
   return {
-    title,
+    alternates,
     description,
     metadataBase: new URL(baseUrl),
-    alternates,
     openGraph: {
       title,
       description,
@@ -65,13 +64,6 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
       locale: lang === "de" ? "de_DE" : "en_US",
       type: "website",
     },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: [ogImage],
-      creator: twitterHandle,
-    },
     robots: {
       index: true,
       follow: true,
@@ -82,6 +74,14 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
         "max-image-preview": "large",
         "max-snippet": -1,
       },
+    },
+    title,
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [ogImage],
+      creator: twitterHandle,
     },
   };
 }

@@ -3,21 +3,25 @@
 import { useRef, useLayoutEffect, useState, useCallback } from "react";
 
 interface UseFitTextOptions {
-  minFontSize?: number;
-  maxFontSize?: number;
-  resolution?: number; // px, how precise the fitting should be
   depKey?: unknown; // dependency to trigger recalculation (e.g. text)
+  maxFontSize?: number;
+  minFontSize?: number;
+  resolution?: number; // px, how precise the fitting should be
 }
 
-export function useFitText({ minFontSize = 18, maxFontSize = 48, resolution = 1, depKey }: UseFitTextOptions = {}) {
+export function useFitText({ depKey, maxFontSize = 48, minFontSize = 18, resolution = 1 }: UseFitTextOptions = {}) {
   const containerRef = useRef<HTMLSpanElement>(null);
   const [fontSize, setFontSize] = useState(maxFontSize);
 
   const fit = useCallback(() => {
     const el = containerRef.current;
-    if (!el) return;
+    if (!el) {
+      return;
+    }
     const parent = el.parentElement;
-    if (!parent) return;
+    if (!parent) {
+      return;
+    }
 
     // Reset font size to max before measuring
     el.style.fontSize = `${maxFontSize}px`;
@@ -51,7 +55,9 @@ export function useFitText({ minFontSize = 18, maxFontSize = 48, resolution = 1,
     fit();
     // Listen for container resize
     const parent = containerRef.current?.parentElement;
-    if (!parent) return;
+    if (!parent) {
+      return;
+    }
     const ro = new window.ResizeObserver(fit);
     ro.observe(parent);
     return () => {
@@ -65,5 +71,5 @@ export function useFitText({ minFontSize = 18, maxFontSize = 48, resolution = 1,
     return () => window.removeEventListener("resize", fit);
   }, [fit]);
 
-  return { ref: containerRef, fontSize };
+  return { fontSize, ref: containerRef };
 }

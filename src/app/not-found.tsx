@@ -20,7 +20,7 @@ export default function NotFound() {
       <div className="text-center">
         <h1 className="mb-4 text-4xl">404</h1>
         <p className="mb-4 text-xl text-muted-foreground">Oops! Page not found</p>
-        <Link href={homeHref as Route} className="text-primary underline underline-offset-4">
+        <Link className="text-primary underline underline-offset-4" href={homeHref as Route}>
           Return to Home
         </Link>
       </div>

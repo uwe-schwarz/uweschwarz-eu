@@ -51,13 +51,13 @@ const ExperienceSection = () => {
     };
   }, []);
 
-  const renderExperienceTimeline = (items: Experience[], sectionKey: string) => {
+  const renderExperienceTimeline = (items: Array<Experience>, sectionKey: string) => {
     if (!items.length) {
       return null;
     }
 
     return (
-      <div key={sectionKey} className="relative max-w-7xl mx-auto pb-12">
+      <div className="relative max-w-7xl mx-auto pb-12" key={sectionKey}>
         <div className="absolute md:block hidden left-0 transform -translate-x-1/2 h-full w-1 bg-linear-to-b from-primary/30 via-primary/70 to-secondary/30 rounded"></div>
         <div className="absolute md:block hidden left0 transform -translate-x-1/2 w-1 pointer-events-none h-full">
           <div className="relative h-full w-full">
@@ -68,13 +68,13 @@ const ExperienceSection = () => {
         <div className="mt-16">
           {items.map((exp, index) => (
             <div
-              key={`${sectionKey}-${index}`}
               className={cn(
                 "timeline-item grid grid-cols-1 md:grid-cols-12 gap-8 relative",
                 index !== 0 ? "-mt-20 md:mt-10" : "",
                 "mb-16 md:mb-0",
                 "transition-all duration-500 ease-out",
               )}
+              key={`${sectionKey}-${index}`}
             >
               {/* Timeline dot */}
               <div className="absolute top-8 transform -translate-x-1/2 z-10">
@@ -103,11 +103,11 @@ const ExperienceSection = () => {
                   {/* Logo (if exists) - positioned right, offset from the corner with flowing text */}
                   {exp.logoUrl && (
                     <Image
-                      src={exp.logoUrl}
                       alt={`${exp.company} logo`}
-                      width={96}
-                      height={48}
                       className="object-contain mx-auto mt-6 md:mx-0 md:float-right md:ml-2 md:mb-2 md:mr-6 w-24 h-auto"
+                      height={48}
+                      src={exp.logoUrl}
+                      width={96}
                     />
                   )}
 
@@ -126,11 +126,11 @@ const ExperienceSection = () => {
                       )}
                     >
                       <div className="flex items-center">
-                        <CalendarDaysIcon size={14} className="mr-1" />
+                        <CalendarDaysIcon className="mr-1" size={14} />
                         <span>{t(exp.period)}</span>
                       </div>
                       <div className="flex items-center">
-                        <MapPinIcon size={14} className="mr-1" />
+                        <MapPinIcon className="mr-1" size={14} />
                         <span>{t(exp.location)}</span>
                       </div>
                     </div>
@@ -138,7 +138,7 @@ const ExperienceSection = () => {
                     {/* Description */}
                     <ul className="mb-5 space-y-2 text-left list-none">
                       {exp.description.map((item, i) => (
-                        <li key={i} className="flex items-start gap-2">
+                        <li className="flex items-start gap-2" key={i}>
                           {/* Symbol */}
                           <span
                             className={`mt-1 text-xs ${
@@ -147,21 +147,21 @@ const ExperienceSection = () => {
                           >
                             {item.type === "achievement" ? (
                               <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
                                 fill="currentColor"
+                                height="16"
                                 viewBox="0 0 16 16"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
                                 <path d="M13.485 1.929a1 1 0 0 1 .086 1.408l-7.071 8a1 1 0 0 1-1.485.041l-3-3a1 1 0 1 1 1.414-1.414l2.293 2.293 6.364-7.192a1 1 0 0 1 1.408-.086z" />
                               </svg>
                             ) : (
                               <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
                                 fill="currentColor"
+                                height="16"
                                 viewBox="0 0 16 16"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
                                 <path d="M5 3.5L11 8L5 12.5V3.5Z" />
                               </svg>
@@ -187,9 +187,9 @@ const ExperienceSection = () => {
                     <div className="flex flex-wrap gap-2">
                       {exp.tags.map((tag, tagIndex) => (
                         <Badge
+                          className="font-normal bg-secondary hover:bg-secondary/80 text-foreground"
                           key={tagIndex}
                           variant="secondary"
-                          className="font-normal bg-secondary hover:bg-secondary/80 text-foreground"
                         >
                           {t(tag)}
                         </Badge>
@@ -206,7 +206,7 @@ const ExperienceSection = () => {
   };
 
   return (
-    <section id="experience" className="section-padding py-20 relative bg-background">
+    <section className="section-padding py-20 relative bg-background" id="experience">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-4xl md:text-5xl text-center mb-16">
           <span className="text-gradient">{t(siteContent.experienceSectionTitle)}</span>
@@ -241,16 +241,16 @@ const ExperienceSection = () => {
         <div className="text-center mt-8">
           {/* More Projects */}
           <div className="inline-flex items-center text-primary hover:text-primary/80 transition-colors">
-            <ArchiveIcon size={24} className="mr-2" />
+            <ArchiveIcon className="mr-2" size={24} />
             <span>{t(siteContent.moreProjects)}</span>
           </div>
           <div className="mt-4"></div>
           {/* Download Resume */}
           <Link
-            href={withLanguagePrefix(language, "/cv") as Route}
             className="inline-flex items-center text-primary hover:text-primary/80 transition-colors link-underline"
+            href={withLanguagePrefix(language, "/cv") as Route}
           >
-            <FileTextIcon size={24} className="mr-2" />
+            <FileTextIcon className="mr-2" size={24} />
             <span>{t(siteContent.downloadResume)}</span>
           </Link>
         </div>

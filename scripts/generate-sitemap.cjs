@@ -1,5 +1,5 @@
-const fs = require("fs");
-const path = require("path");
+const fs = require("node:fs");
+const path = require("node:path");
 
 const baseUrl = "https://uweschwarz.eu"; // Change to your domain
 
@@ -20,7 +20,22 @@ function generateCvAssetPath(language, extension) {
 
 const urls = [
   {
+    files: [
+      "src/content/content.ts",
+      "src/app/[lang]/page.tsx",
+      "src/components/Header.tsx",
+      "src/components/HeroSection.tsx",
+      "src/components/AboutSection.tsx",
+      "src/components/ExperienceSection.tsx",
+      "src/components/ProjectsSection.tsx",
+      "src/components/SkillsSection.tsx",
+      "src/components/ContactSection.tsx",
+      "src/components/Footer.tsx",
+    ],
+    priority: 1.0,
     url: "/en",
+  },
+  {
     files: [
       "src/content/content.ts",
       "src/app/[lang]/page.tsx",
@@ -34,25 +49,20 @@ const urls = [
       "src/components/Footer.tsx",
     ],
     priority: 1.0,
-  },
-  {
     url: "/de",
-    files: [
-      "src/content/content.ts",
-      "src/app/[lang]/page.tsx",
-      "src/components/Header.tsx",
-      "src/components/HeroSection.tsx",
-      "src/components/AboutSection.tsx",
-      "src/components/ExperienceSection.tsx",
-      "src/components/ProjectsSection.tsx",
-      "src/components/SkillsSection.tsx",
-      "src/components/ContactSection.tsx",
-      "src/components/Footer.tsx",
-    ],
-    priority: 1.0,
   },
   {
+    files: [
+      "src/content/content.ts",
+      "src/app/cv/page.tsx",
+      "src/app/[lang]/cv/page.tsx",
+      "src/components/cv/CVDocument.tsx",
+      "src/components/cv/CVDocumentDocx.tsx",
+    ],
+    priority: 0.8,
     url: "/en/cv",
+  },
+  {
     files: [
       "src/content/content.ts",
       "src/app/cv/page.tsx",
@@ -61,40 +71,40 @@ const urls = [
       "src/components/cv/CVDocumentDocx.tsx",
     ],
     priority: 0.8,
-  },
-  {
     url: "/de/cv",
-    files: [
-      "src/content/content.ts",
-      "src/app/cv/page.tsx",
-      "src/app/[lang]/cv/page.tsx",
-      "src/components/cv/CVDocument.tsx",
-      "src/components/cv/CVDocumentDocx.tsx",
-    ],
-    priority: 0.8,
   },
   {
+    files: ["src/content/content.ts"],
+    priority: 0.7,
     url: generateCvAssetPath("de", "pdf"),
-    files: ["src/content/content.ts"],
-    priority: 0.7,
   },
   {
+    files: ["src/content/content.ts"],
+    priority: 0.7,
     url: generateCvAssetPath("en", "pdf"),
-    files: ["src/content/content.ts"],
-    priority: 0.7,
   },
   {
+    files: ["src/content/content.ts"],
+    priority: 0.7,
     url: generateCvAssetPath("de", "docx"),
-    files: ["src/content/content.ts"],
-    priority: 0.7,
   },
   {
+    files: ["src/content/content.ts"],
+    priority: 0.7,
     url: generateCvAssetPath("en", "docx"),
-    files: ["src/content/content.ts"],
-    priority: 0.7,
   },
   {
+    files: [
+      "src/content/content.ts",
+      "src/app/imprint/page.tsx",
+      "src/app/[lang]/imprint/page.tsx",
+      "src/components/Header.tsx",
+      "src/components/Footer.tsx",
+    ],
+    priority: 0.5,
     url: "/en/imprint",
+  },
+  {
     files: [
       "src/content/content.ts",
       "src/app/imprint/page.tsx",
@@ -103,20 +113,20 @@ const urls = [
       "src/components/Footer.tsx",
     ],
     priority: 0.5,
-  },
-  {
     url: "/de/imprint",
+  },
+  {
     files: [
       "src/content/content.ts",
-      "src/app/imprint/page.tsx",
-      "src/app/[lang]/imprint/page.tsx",
+      "src/app/privacy/page.tsx",
+      "src/app/[lang]/privacy/page.tsx",
       "src/components/Header.tsx",
       "src/components/Footer.tsx",
     ],
     priority: 0.5,
-  },
-  {
     url: "/en/privacy",
+  },
+  {
     files: [
       "src/content/content.ts",
       "src/app/privacy/page.tsx",
@@ -125,20 +135,9 @@ const urls = [
       "src/components/Footer.tsx",
     ],
     priority: 0.5,
-  },
-  {
     url: "/de/privacy",
-    files: [
-      "src/content/content.ts",
-      "src/app/privacy/page.tsx",
-      "src/app/[lang]/privacy/page.tsx",
-      "src/components/Header.tsx",
-      "src/components/Footer.tsx",
-    ],
-    priority: 0.5,
   },
   {
-    url: "/sitemap.xml",
     files: [
       "src/app/sitemap/page.tsx",
       "src/app/[lang]/sitemap/page.tsx",
@@ -148,9 +147,20 @@ const urls = [
       "src/content/content.ts",
     ],
     priority: 0.3,
+    url: "/sitemap.xml",
   },
   {
+    files: [
+      "src/app/sitemap/page.tsx",
+      "src/app/[lang]/sitemap/page.tsx",
+      "src/components/Header.tsx",
+      "src/components/Footer.tsx",
+      "src/content/content.ts",
+    ],
+    priority: 0.3,
     url: "/en/sitemap",
+  },
+  {
     files: [
       "src/app/sitemap/page.tsx",
       "src/app/[lang]/sitemap/page.tsx",
@@ -159,22 +169,12 @@ const urls = [
       "src/content/content.ts",
     ],
     priority: 0.3,
-  },
-  {
     url: "/de/sitemap",
-    files: [
-      "src/app/sitemap/page.tsx",
-      "src/app/[lang]/sitemap/page.tsx",
-      "src/components/Header.tsx",
-      "src/components/Footer.tsx",
-      "src/content/content.ts",
-    ],
-    priority: 0.3,
   },
   {
-    url: "/llms.txt",
     files: ["src/content/content.ts"],
     priority: 0.3,
+    url: "/llms.txt",
   },
 ];
 
@@ -197,7 +197,7 @@ const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls
   .map(
-    ({ url, files, priority }) => `
+    ({ files, priority, url }) => `
   <url>
     <loc>${baseUrl}${url}</loc>
     <lastmod>${getLatestMtime(files)}</lastmod>

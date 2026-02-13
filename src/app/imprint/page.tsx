@@ -23,9 +23,9 @@ export default function ImprintPage() {
       <main className="grow pb-16 pt-24">
         <div className="container mx-auto px-4">
           <div className="mx-auto max-w-3xl">
-            <Button asChild variant="ghost" size="sm" className="mb-6">
+            <Button asChild className="mb-6" size="sm" variant="ghost">
               <Link href={homeHref as Route}>
-                <ArrowLeft size={16} className="mr-2" />
+                <ArrowLeft className="mr-2" size={16} />
                 {t(siteContent.backToHome)}
               </Link>
             </Button>
@@ -46,13 +46,13 @@ export default function ImprintPage() {
                 <h2 className="mb-4 text-2xl font-semibold">{t(imprint.contactInfoTitle)}</h2>
                 <p>
                   {t(imprint.emailLabel)}:{" "}
-                  <a href={`mailto:${imprint.email}`} className="text-primary">
+                  <a className="text-primary" href={`mailto:${imprint.email}`}>
                     {imprint.email}
                   </a>
                 </p>
                 <p>
                   {t(imprint.phoneLabel)}:{" "}
-                  <a href={`tel:${imprint.phone}`} className="text-primary">
+                  <a className="text-primary" href={`tel:${imprint.phone}`}>
                     {imprint.phone}
                   </a>
                 </p>

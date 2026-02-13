@@ -9,15 +9,15 @@ export async function generateMetadata(): Promise<Metadata> {
   const siteUrl = "https://uweschwarz.eu";
 
   return {
-    title: "Uwe Schwarz - Project Manager, IT Security Specialist & AI Enthusiast",
-    description: "Portfolio of Uwe Schwarz - Project Manager, IT Security Specialist & AI Enthusiast",
-    metadataBase: new URL(siteUrl),
     alternates: {
       languages: {
         en: `${siteUrl}/en`,
         de: `${siteUrl}/de`,
       },
     },
+    description: "Portfolio of Uwe Schwarz - Project Manager, IT Security Specialist & AI Enthusiast",
+    metadataBase: new URL(siteUrl),
+    title: "Uwe Schwarz - Project Manager, IT Security Specialist & AI Enthusiast",
   };
 }
 

@@ -12,7 +12,9 @@ interface SettingsProviderProps {
 const SETTINGS_CHANGED_EVENT = "settings-changed";
 
 const setClientCookie = (name: string, value: string) => {
-  if (typeof document === "undefined") return;
+  if (typeof document === "undefined") {
+    return;
+  }
   // 1 year, lax, site-wide. (No `secure` so this also works on localhost)
   document.cookie = `${name}=${encodeURIComponent(value)}; path=/; max-age=31536000; samesite=lax`;
 };
@@ -23,7 +25,9 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children, in
   // and then update to client preferences (localStorage / system) after hydration,
   // without causing hydration mismatches.
   const subscribe = (onStoreChange: () => void) => {
-    if (typeof window === "undefined") return () => undefined;
+    if (typeof window === "undefined") {
+      return () => undefined;
+    }
 
     const mql = window.matchMedia?.("(prefers-color-scheme: dark)");
     const onMqlChange = () => onStoreChange();
@@ -42,7 +46,9 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children, in
   const getLanguageSnapshot = (): Language => {
     try {
       const saved = localStorage.getItem("language") as Language | null;
-      if (saved === "en" || saved === "de") return saved;
+      if (saved === "en" || saved === "de") {
+        return saved;
+      }
     } catch {
       // ignore
     }
@@ -52,7 +58,9 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children, in
   const getThemeSnapshot = (): Theme => {
     try {
       const saved = localStorage.getItem("theme") as Theme | null;
-      if (saved === "light" || saved === "dark") return saved;
+      if (saved === "light" || saved === "dark") {
+        return saved;
+      }
     } catch {
       // ignore
     }
@@ -71,13 +79,17 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children, in
 
   // Keep <html lang> in sync with current language
   useEffect(() => {
-    if (typeof document === "undefined") return;
+    if (typeof document === "undefined") {
+      return;
+    }
     document.documentElement.setAttribute("lang", language);
   }, [language]);
 
   // Sync theme to DOM + localStorage
   useEffect(() => {
-    if (typeof document === "undefined") return;
+    if (typeof document === "undefined") {
+      return;
+    }
     const root = window.document.documentElement;
 
     if (theme === "dark") {
@@ -110,12 +122,12 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children, in
   };
 
   // Translation helper
-  const t = (text: { en: string; de: string }): string => {
+  const t = (text: { de: string; en: string }): string => {
     return text[language];
   };
 
   return (
-    <SettingsContext.Provider value={{ language, theme, setLanguage, setTheme, t }}>
+    <SettingsContext.Provider value={{ language, setLanguage, setTheme, t, theme }}>
       {children}
     </SettingsContext.Provider>
   );

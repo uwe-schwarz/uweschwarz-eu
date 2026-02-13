@@ -15,37 +15,39 @@ import {
 } from "docx";
 import type { SiteContent, Skill, Experience } from "@/content/content";
 
-type LocalizedString = { en: string; de: string };
+type LocalizedString = { de: string; en: string };
 
 // Define your theme colors (hex without #)
 const theme = {
+  accent: "3A2366",
   background: "E6E9F3",
+  foreground: "07090B",
+  primary: "1B6E5A",
+  sectionLine: "DBE3EF",
+  sectionTitle: "3A2366",
   sidebarBg: "1B6E5A",
   sidebarText: "FFFFFF",
-  accent: "3A2366",
-  primary: "1B6E5A",
-  sectionTitle: "3A2366",
-  sectionLine: "DBE3EF",
   tagBg: "F1F0FB",
   tagText: "3A2366",
-  foreground: "07090B",
 };
 
 /**
  * Generiert ein Word-Dokument als Buffer für Node- und Browser-Umgebungen.
  */
 export async function generateCvDocx({
-  language,
   data,
+  language,
   profileImage,
 }: {
-  language: "en" | "de";
   data: SiteContent;
+  language: "en" | "de";
   profileImage: Uint8Array | ArrayBuffer;
 }): Promise<Uint8Array> {
-  const profileImageBytes = profileImage instanceof Uint8Array ? profileImage : new Uint8Array(profileImage);
+  const profileImageBytes = ArrayBuffer.isView(profileImage)
+    ? new Uint8Array(profileImage.buffer, profileImage.byteOffset, profileImage.byteLength)
+    : new Uint8Array(profileImage);
   const content: SiteContent = data;
-  const { about, experiences, skills, skillsSection, contact, footer, hero, imprint } = content;
+  const { about, contact, experiences, footer, hero, imprint, skills, skillsSection } = content;
 
   // Übersetzungs-Helper
   const t = (obj: LocalizedString): string => obj[language] || "";
@@ -54,31 +56,37 @@ export async function generateCvDocx({
   const sortedExperiences = [...experiences].sort((a, b) => {
     const aPresent = t(a.period).match(/(?:Present|Heute)$/);
     const bPresent = t(b.period).match(/(?:Present|Heute)$/);
-    if (aPresent && !bPresent) return -1;
-    if (!aPresent && bPresent) return 1;
+    if (aPresent && !bPresent) {
+      return -1;
+    }
+    if (!aPresent && bPresent) {
+      return 1;
+    }
     return 0;
   });
 
   // Skills gruppieren
-  const skillsByCategory: Record<Skill["category"], Skill[]> = {} as Record<Skill["category"], Skill[]>;
+  const skillsByCategory: Record<Skill["category"], Array<Skill>> = {} as Record<Skill["category"], Array<Skill>>;
   skills.forEach((s) => {
-    if (!skillsByCategory[s.category]) skillsByCategory[s.category] = [];
+    if (!skillsByCategory[s.category]) {
+      skillsByCategory[s.category] = [];
+    }
     skillsByCategory[s.category].push(s);
   });
 
   const majorExperiences = sortedExperiences.filter((exp) => exp.projectScale !== "small");
   const smallExperiences = sortedExperiences.filter((exp) => exp.projectScale === "small");
 
-  const createExperienceParagraphs = (exp: Experience): Paragraph[] => [
-    new Paragraph({ children: [new TextRun({ text: t(exp.title), bold: true, size: 20 })] }),
+  const createExperienceParagraphs = (exp: Experience): Array<Paragraph> => [
+    new Paragraph({ children: [new TextRun({ bold: true, size: 20, text: t(exp.title) })] }),
     new Paragraph({
       children: [
-        new TextRun({ text: exp.company, size: 18, color: theme.primary }),
-        new TextRun({ text: ` — ${t(exp.period)}`, size: 18, color: theme.accent }),
+        new TextRun({ color: theme.primary, size: 18, text: exp.company }),
+        new TextRun({ color: theme.accent, size: 18, text: ` — ${t(exp.period)}` }),
       ],
     }),
     new Paragraph({
-      children: [new TextRun({ text: t(exp.location), size: 18, color: theme.accent })],
+      children: [new TextRun({ color: theme.accent, size: 18, text: t(exp.location) })],
       spacing: { after: 100 },
     }),
     ...exp.description.map(
@@ -87,10 +95,10 @@ export async function generateCvDocx({
           bullet: { level: 0 },
           children: [
             new TextRun({
-              text: item.type === "text" ? t(item.text) : `${t(content.experienceAchievementPrefix)} ${t(item.text)}`,
-              size: 18,
-              color: item.type === "achievement" ? theme.primary : theme.foreground,
               bold: item.type === "achievement",
+              color: item.type === "achievement" ? theme.primary : theme.foreground,
+              size: 18,
+              text: item.type === "text" ? t(item.text) : `${t(content.experienceAchievementPrefix)} ${t(item.text)}`,
             }),
           ],
         }),
@@ -102,35 +110,35 @@ export async function generateCvDocx({
     title: LocalizedString,
     subtitle: LocalizedString,
     note: LocalizedString,
-    entries: Experience[],
-  ): Paragraph[] => {
+    entries: Array<Experience>,
+  ): Array<Paragraph> => {
     if (!entries.length) {
       return [];
     }
     return [
       new Paragraph({
-        spacing: { before: 150, after: 50 },
         children: [new TextRun({ text: t(title), bold: true, size: 20 })],
+        spacing: { before: 150, after: 50 },
       }),
       new Paragraph({
-        spacing: { after: 50 },
         children: [new TextRun({ text: t(subtitle), size: 18, color: theme.primary })],
+        spacing: { after: 50 },
       }),
       new Paragraph({
-        spacing: { after: 80 },
         children: [new TextRun({ text: t(note), size: 16, color: theme.accent })],
+        spacing: { after: 80 },
       }),
       ...entries.flatMap(createExperienceParagraphs),
     ];
   };
 
-  const experienceSectionParagraphs: Paragraph[] = [
+  const experienceSectionParagraphs: Array<Paragraph> = [
     new Paragraph({
-      text: t(content.experienceSectionTitle),
       heading: HeadingLevel.HEADING_2,
-      thematicBreak: true,
       keepLines: true,
       spacing: { after: 100 },
+      text: t(content.experienceSectionTitle),
+      thematicBreak: true,
     }),
     ...createExperienceGroup(
       content.experienceBigProjectsTitle,
@@ -148,18 +156,18 @@ export async function generateCvDocx({
 
   // Attach the image via ImageRun
   const profileImg = new ImageRun({
-    type: "jpg",
     data: profileImageBytes,
     transformation: { width: 80, height: 80 },
+    type: "jpg",
   });
 
   // Build the languages paragraph children
-  const languagesChildren: TextRun[] = [];
+  const languagesChildren: Array<TextRun> = [];
   const languageSkills = skillsByCategory.languages || [];
   languageSkills.forEach((s, idx) => {
-    languagesChildren.push(new TextRun({ text: t(s.name), size: 16, color: theme.sidebarText }));
+    languagesChildren.push(new TextRun({ color: theme.sidebarText, size: 16, text: t(s.name) }));
     if (idx < languageSkills.length - 1) {
-      languagesChildren.push(new TextRun({ text: ", ", size: 16, color: theme.sidebarText }));
+      languagesChildren.push(new TextRun({ color: theme.sidebarText, size: 16, text: ", " }));
     }
   });
 
@@ -167,16 +175,6 @@ export async function generateCvDocx({
   const doc = new Document({
     creator: t(imprint.companyName),
     description: (language === "en" ? "CV of " : "CV von ") + t(imprint.companyName),
-    title: "CV " + t(imprint.companyName),
-    styles: {
-      paragraphStyles: [
-        {
-          id: "Normal",
-          name: "Normal",
-          run: { font: "Public Sans" },
-        },
-      ],
-    },
     sections: [
       {
         properties: { page: { margin: { top: 720, right: 720, bottom: 720, left: 720 } } },
@@ -364,7 +362,7 @@ export async function generateCvDocx({
                               .filter((s) => s.level >= 4)
                               .slice(0, 10)
                               .flatMap((s, idx) => {
-                                const runs: TextRun[] = [
+                                const runs: Array<TextRun> = [
                                   new TextRun({ text: t(s.name), size: 18, color: theme.primary }),
                                 ];
                                 if (idx < catSkills.filter((s) => s.level >= 4).slice(0, 10).length - 1) {
@@ -381,18 +379,16 @@ export async function generateCvDocx({
                         heading: HeadingLevel.HEADING_2,
                         thematicBreak: true,
                       }),
-                      ...content.projects
-                        .map((project) => [
-                          new Paragraph({
-                            children: [new TextRun({ text: t(project.title), bold: true, size: 20 })],
-                          }),
-                          new Paragraph({
-                            children: [new TextRun({ text: t(project.description), size: 18 })],
-                            spacing: { after: 100 },
-                          }),
-                          new Paragraph({ text: "" }),
-                        ])
-                        .flat(),
+                      ...content.projects.flatMap((project) => [
+                        new Paragraph({
+                          children: [new TextRun({ text: t(project.title), bold: true, size: 20 })],
+                        }),
+                        new Paragraph({
+                          children: [new TextRun({ text: t(project.description), size: 18 })],
+                          spacing: { after: 100 },
+                        }),
+                        new Paragraph({ text: "" }),
+                      ]),
                     ],
                   }),
                 ],
@@ -402,9 +398,21 @@ export async function generateCvDocx({
         ],
       },
     ],
+    styles: {
+      paragraphStyles: [
+        {
+          id: "Normal",
+          name: "Normal",
+          run: { font: "Public Sans" },
+        },
+      ],
+    },
+    title: "CV " + t(imprint.companyName),
   });
 
   // Erzeuge Browser-Blob direkt mit Packer.toBlob
   const buffer = await Packer.toBuffer(doc);
-  return buffer instanceof Uint8Array ? buffer : new Uint8Array(buffer);
+  return ArrayBuffer.isView(buffer)
+    ? new Uint8Array(buffer.buffer, buffer.byteOffset, buffer.byteLength)
+    : new Uint8Array(buffer);
 }
