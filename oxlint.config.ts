@@ -3,8 +3,15 @@ import { defineConfig } from "oxlint";
 
 export default defineConfig({
   extends: [nkzw],
+  overrides: [
+    {
+      files: ["scripts/**/*.ts"],
+      rules: {
+        "no-console": "off",
+      },
+    },
+  ],
   rules: {
-    "import/no-namespace": "error",
-    "no-console": "off",
+    "no-console": ["error", { allow: ["error", "warn"] }],
   },
 });
