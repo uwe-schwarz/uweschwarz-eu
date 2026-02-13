@@ -2,6 +2,12 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { siteContent, type LocalizedString } from "../src/content/content";
 
+interface BunRuntime {
+  write: (path: string, data: string) => Promise<unknown>;
+}
+
+const bunRuntime = (globalThis as typeof globalThis & { Bun?: BunRuntime }).Bun;
+
 // Helper function to format bilingual content
 const formatBilingual = (item: LocalizedString | string | undefined, indent = ""): string => {
   if (!item) {
@@ -60,7 +66,11 @@ async function generateLlmsTxt() {
     }
 
     const outputPath = path.resolve(process.cwd(), "public", "llms.txt");
-    await fs.writeFile(outputPath, llmsTxtContent.trim());
+    if (bunRuntime) {
+      await bunRuntime.write(outputPath, llmsTxtContent.trim());
+    } else {
+      await fs.writeFile(outputPath, llmsTxtContent.trim());
+    }
     console.log("Successfully generated llms.txt to public/llms.txt");
   } catch (error) {
     console.error("Error generating llms.txt:", error);

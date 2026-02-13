@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import fsPromises from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -7,19 +8,36 @@ const __dirname = path.dirname(__filename);
 
 const baseUrl = "https://uweschwarz.eu"; // Change to your domain
 
+interface BunFile {
+  lastModified: number;
+}
+
+interface BunRuntime {
+  file: (path: string) => BunFile;
+  write: (path: string, data: string) => Promise<unknown>;
+}
+
+const bunRuntime = (globalThis as typeof globalThis & { Bun?: BunRuntime }).Bun;
+
+function getFileMtime(filePath: string) {
+  if (bunRuntime) {
+    return bunRuntime.file(filePath).lastModified;
+  }
+
+  try {
+    return fs.statSync(filePath).mtimeMs;
+  } catch {
+    return 0;
+  }
+}
+
 // Generate CV asset paths dynamically to match the generate-cv-assets.ts script
 function generateCvAssetPath(language: "en" | "de", extension: "pdf" | "docx") {
   // Get the content modification time to match the CV asset generation
   const contentPath = path.join(__dirname, "..", "src/content/content.ts");
-  try {
-    const stats = fs.statSync(contentPath);
-    const date = stats.mtime.toISOString().split("T")[0]; // YYYY-MM-DD format
-    return `/uwe-schwarz-cv-${language}-${date}.${extension}`;
-  } catch {
-    // Fallback to current date if content file not found
-    const date = new Date().toISOString().split("T")[0]; // YYYY-MM-DD format
-    return `/uwe-schwarz-cv-${language}-${date}.${extension}`;
-  }
+  const mtime = getFileMtime(contentPath);
+  const date = mtime ? new Date(mtime).toISOString().split("T")[0] : new Date().toISOString().split("T")[0];
+  return `/uwe-schwarz-cv-${language}-${date}.${extension}`;
 }
 
 const urls = [
@@ -185,13 +203,9 @@ const urls = [
 function getLatestMtime(files: Array<string>) {
   let latest = 0;
   for (const file of files) {
-    try {
-      const stats = fs.statSync(path.join(__dirname, "..", file));
-      if (stats.mtimeMs > latest) {
-        latest = stats.mtimeMs;
-      }
-    } catch {
-      // File might not exist yet, skip
+    const mtime = getFileMtime(path.join(__dirname, "..", file));
+    if (mtime > latest) {
+      latest = mtime;
     }
   }
   return latest ? new Date(latest).toISOString().split("T")[0] : new Date().toISOString().split("T")[0];
@@ -212,5 +226,10 @@ ${urls
   .join("")}
 </urlset>`;
 
-fs.writeFileSync(path.join(__dirname, "../public/sitemap.xml"), xml);
+const outputPath = path.join(__dirname, "../public/sitemap.xml");
+if (bunRuntime) {
+  await bunRuntime.write(outputPath, xml);
+} else {
+  await fsPromises.writeFile(outputPath, xml);
+}
 console.log("sitemap.xml generated!");

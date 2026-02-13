@@ -159,6 +159,7 @@ const EmailTemplate = ({ email, message, name }: { email: string; message: strin
     </Html>
   );
 };
+EmailTemplate.displayName = "EmailTemplate";
 
 export async function POST(request: Request) {
   let body: Record<string, unknown>;

@@ -13,9 +13,7 @@ import {
   HeadingLevel,
   BorderStyle,
 } from "docx";
-import type { SiteContent, Skill, Experience } from "@/content/content";
-
-type LocalizedString = { de: string; en: string };
+import type { Experience, LocalizedString, SiteContent, Skill } from "@/content/content";
 
 // Define your theme colors (hex without #)
 const theme = {
