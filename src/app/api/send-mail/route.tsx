@@ -183,15 +183,14 @@ export async function POST(request: Request) {
 
   const email = emailResult.data;
   const headerSafeName = sanitizeEmailHeaderName(body.name);
-  const safeName = escapeHtml(String(body.name ?? ""));
-  const safeEmail = escapeHtml(email);
+  const rawName = String(body.name ?? "");
   const safeMessage = escapeHtml(String(body.message ?? "")).replaceAll("\n", "<br>");
 
   const html = await render(
     EmailTemplate({
-      email: safeEmail,
+      email,
       message: safeMessage,
-      name: safeName,
+      name: rawName,
     }),
   );
 

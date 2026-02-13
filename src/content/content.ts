@@ -1017,7 +1017,7 @@ export const siteContent: SiteContent = {
         {
           type: "text",
           text: {
-            en: "Automation vulnerability and incident management.",
+            en: "Automation of vulnerability and incident management.",
             de: "Automatisierung des Schwachstellen- und Vorfallsmanagements.",
           },
         },
