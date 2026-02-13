@@ -68,4 +68,4 @@ async function generateLlmsTxt() {
   }
 }
 
-generateLlmsTxt();
+await generateLlmsTxt();

@@ -11,6 +11,7 @@ import { siteContent } from "@/content/content";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { replacePathLanguage, withLanguagePrefix } from "@/lib/i18n";
+import { getPersistedLanguage, getPersistedTheme } from "@/lib/persisted-preferences";
 
 const Header = () => {
   const { language, setLanguage, setTheme, t, theme } = useSettings();
@@ -24,24 +25,6 @@ const Header = () => {
   const [activeSection, setActiveSection] = useState<string>("hero");
 
   const navigationItems = useMemo(() => siteContent.navigation, []);
-
-  const getPersistedLanguage = (): "en" | "de" | null => {
-    try {
-      const saved = localStorage.getItem("language");
-      return saved === "en" || saved === "de" ? saved : null;
-    } catch {
-      return null;
-    }
-  };
-
-  const getPersistedTheme = (): "light" | "dark" | null => {
-    try {
-      const saved = localStorage.getItem("theme");
-      return saved === "light" || saved === "dark" ? saved : null;
-    } catch {
-      return null;
-    }
-  };
 
   // Toggle for handling theme changes
   const toggleTheme = () => {

@@ -9,6 +9,7 @@ import { siteContent } from "@/content/content";
 import { useScrollToTop } from "@/hooks/use-scroll-to-top";
 import { CV_ASSETS } from "@/generated/cv-assets";
 import { replacePathLanguage, withLanguagePrefix } from "@/lib/i18n";
+import { getPersistedLanguage, getPersistedTheme } from "@/lib/persisted-preferences";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const CvDownloadButtons = ({ language }: { language: "en" | "de" }) => {
@@ -41,24 +42,6 @@ export default function CvPage() {
   useScrollToTop();
 
   const pdfUrl = CV_ASSETS[language].pdf;
-  const getPersistedLanguage = (): "en" | "de" | null => {
-    try {
-      const saved = localStorage.getItem("language");
-      return saved === "en" || saved === "de" ? saved : null;
-    } catch {
-      return null;
-    }
-  };
-
-  const getPersistedTheme = (): "light" | "dark" | null => {
-    try {
-      const saved = localStorage.getItem("theme");
-      return saved === "light" || saved === "dark" ? saved : null;
-    } catch {
-      return null;
-    }
-  };
-
   const homeHref = withLanguagePrefix(language, "/");
 
   return (

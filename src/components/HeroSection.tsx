@@ -27,6 +27,21 @@ const ProfilePicture = React.memo(({ alt }: { alt: string }) => (
 
 ProfilePicture.displayName = "ProfilePicture";
 
+const calculatePosition = (position: number, distance: number) => {
+  const angle = (position / 100) * 2 * Math.PI; // Convert percentage to radians
+  const radius = (distance / 100) * 50; // Scale distance percentage to fit container
+
+  // Calculate position around the circle
+  const x = 50 + radius * Math.sin(angle);
+  const y = 50 - radius * Math.cos(angle);
+
+  return {
+    left: `${x}%`,
+    top: `${y}%`,
+    transform: "translate(-50%, -50%)",
+  };
+};
+
 const HeroSection = () => {
   const { language, t } = useSettings();
   const { hero } = siteContent;
@@ -50,22 +65,6 @@ const HeroSection = () => {
     maxFontSize: 48,
     minFontSize: 18,
   });
-
-  // Function to calculate position for decorative elements
-  const calculatePosition = (position: number, distance: number) => {
-    const angle = (position / 100) * 2 * Math.PI; // Convert percentage to radians
-    const radius = (distance / 100) * 50; // Scale distance percentage to fit container
-
-    // Calculate position around the circle
-    const x = 50 + radius * Math.sin(angle);
-    const y = 50 - radius * Math.cos(angle);
-
-    return {
-      left: `${x}%`,
-      top: `${y}%`,
-      transform: "translate(-50%, -50%)",
-    };
-  };
 
   return (
     <section className="min-h-screen flex items-center pt-20 bg-grid relative overflow-hidden" id="hero">

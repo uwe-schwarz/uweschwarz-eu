@@ -173,7 +173,9 @@ export const CV_LAST_UPDATED = {
   console.log(`Generated CV assets configuration at ${cvAssetsPath}`);
 }
 
-main().catch((error) => {
+try {
+  await main();
+} catch (error) {
   console.error("Failed to generate CV assets", error);
   process.exitCode = 1;
-});
+}

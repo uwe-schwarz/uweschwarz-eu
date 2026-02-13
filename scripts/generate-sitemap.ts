@@ -1,17 +1,21 @@
-const fs = require("node:fs");
-const path = require("node:path");
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const baseUrl = "https://uweschwarz.eu"; // Change to your domain
 
 // Generate CV asset paths dynamically to match the generate-cv-assets.ts script
-function generateCvAssetPath(language, extension) {
+function generateCvAssetPath(language: "en" | "de", extension: "pdf" | "docx") {
   // Get the content modification time to match the CV asset generation
   const contentPath = path.join(__dirname, "..", "src/content/content.ts");
   try {
     const stats = fs.statSync(contentPath);
     const date = stats.mtime.toISOString().split("T")[0]; // YYYY-MM-DD format
     return `/uwe-schwarz-cv-${language}-${date}.${extension}`;
-  } catch (e) {
+  } catch {
     // Fallback to current date if content file not found
     const date = new Date().toISOString().split("T")[0]; // YYYY-MM-DD format
     return `/uwe-schwarz-cv-${language}-${date}.${extension}`;
@@ -178,7 +182,7 @@ const urls = [
   },
 ];
 
-function getLatestMtime(files) {
+function getLatestMtime(files: Array<string>) {
   let latest = 0;
   for (const file of files) {
     try {
@@ -186,7 +190,7 @@ function getLatestMtime(files) {
       if (stats.mtimeMs > latest) {
         latest = stats.mtimeMs;
       }
-    } catch (e) {
+    } catch {
       // File might not exist yet, skip
     }
   }
