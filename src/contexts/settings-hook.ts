@@ -9,7 +9,7 @@ export interface SettingsContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
   setTheme: (theme: Theme) => void;
-  t: (text: { en: string; de: string }) => string;
+  t: (text: { de: string; en: string }) => string;
   theme: Theme;
 }
 

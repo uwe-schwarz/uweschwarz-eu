@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import React from "react";
 
 import type { ToastActionElement, ToastProps } from "@/components/ui/toast";
 
@@ -155,12 +155,12 @@ function toast({ ...props }: Toast) {
     toast: {
       ...props,
       id,
-      open: true,
       onOpenChange: (open) => {
         if (!open) {
           dismiss();
         }
       },
+      open: true,
     },
     type: "ADD_TOAST",
   });

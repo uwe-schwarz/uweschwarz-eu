@@ -55,7 +55,7 @@ export default function PrivacyPage() {
 
                         const localizedItem = item as {
                           de: string;
-                          description?: { en: string; de: string };
+                          description?: { de: string; en: string };
                           en: string;
                         };
                         const text = t(localizedItem);

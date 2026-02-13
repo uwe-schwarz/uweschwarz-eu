@@ -18,21 +18,21 @@ interface UsersIconProps extends HTMLAttributes<HTMLDivElement> {
 
 const PATH_VARIANTS: Variants = {
   animate: {
-    translateX: [-6, 0],
     transition: {
-      delay: 0.1,
-      type: "spring",
-      stiffness: 200,
       damping: 13,
+      delay: 0.1,
+      stiffness: 200,
+      type: "spring",
     },
+    translateX: [-6, 0],
   },
   normal: {
-    translateX: 0,
     transition: {
-      type: "spring",
-      stiffness: 200,
       damping: 13,
+      stiffness: 200,
+      type: "spring",
     },
+    translateX: 0,
   },
 };
 

@@ -18,11 +18,11 @@ interface MapPinIconProps extends HTMLAttributes<HTMLDivElement> {
 
 const SVG_VARIANTS: Variants = {
   animate: {
-    y: [0, -5, -3],
     transition: {
       duration: 0.5,
       times: [0, 0.6, 1],
     },
+    y: [0, -5, -3],
   },
   normal: {
     y: 0,
@@ -37,7 +37,7 @@ const CIRCLE_VARIANTS: Variants = {
     transition: {
       delay: 0.3,
       duration: 0.5,
-      opacity: { duration: 0.1, delay: 0.3 },
+      opacity: { delay: 0.3, duration: 0.1 },
     },
   },
   normal: {

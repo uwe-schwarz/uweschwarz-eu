@@ -68,9 +68,9 @@ export interface HeroSection {
   ctaPrimary: LocalizedString;
   ctaSecondary: LocalizedString;
   decorativeElements: Array<{
-    position: number;
-    distance: number;
     code: string;
+    distance: number;
+    position: number;
   }>;
   description: LocalizedString;
   imageAlt: LocalizedString;
@@ -125,12 +125,12 @@ export interface Skill {
 
 export interface SkillsSection {
   categories: {
-    security: LocalizedString;
-    infrastructure: LocalizedString;
-    tools: LocalizedString;
     ai: LocalizedString;
-    management: LocalizedString;
+    infrastructure: LocalizedString;
     languages: LocalizedString;
+    management: LocalizedString;
+    security: LocalizedString;
+    tools: LocalizedString;
   };
   subtitle: LocalizedString;
   title: LocalizedString;
@@ -143,34 +143,34 @@ export interface ContactSection {
   emailLabel: LocalizedString;
   findMeOn: LocalizedString;
   formLabels: {
-    name: LocalizedString;
     email: LocalizedString;
     message: LocalizedString;
+    name: LocalizedString;
     send: LocalizedString;
   };
   formPlaceholders: {
-    name: LocalizedString;
     email: LocalizedString;
     message: LocalizedString;
+    name: LocalizedString;
   };
   formStatus: {
-    sentTitle: LocalizedString;
-    sentDescription: LocalizedString;
-    errorTitle: LocalizedString;
     errorDescription: LocalizedString;
+    errorTitle: LocalizedString;
     sending: LocalizedString;
+    sentDescription: LocalizedString;
+    sentTitle: LocalizedString;
     validation: {
-      name: {
-        en: string;
-        de: string;
-      };
       email: {
-        en: string;
         de: string;
+        en: string;
       };
       message: {
-        en: string;
         de: string;
+        en: string;
+      };
+      name: {
+        de: string;
+        en: string;
       };
     };
   };
@@ -180,12 +180,12 @@ export interface ContactSection {
   phone: string;
   phoneLabel: LocalizedString;
   socialLinks: {
-    github?: string;
-    linkedin?: string;
-    xing?: string;
-    x?: string;
     bluesky?: string;
     freelancermap?: string;
+    github?: string;
+    linkedin?: string;
+    x?: string;
+    xing?: string;
   };
   subtitle: LocalizedString;
   title: LocalizedString;
@@ -203,9 +203,9 @@ export interface Footer {
 
 export interface ImprintSection {
   address: {
-    street: LocalizedString;
     city: LocalizedString;
     country: LocalizedString;
+    street: LocalizedString;
   };
   companyName: LocalizedString;
   contactInfoTitle: LocalizedString;
@@ -225,16 +225,16 @@ export interface ImprintSection {
 
 export interface PrivacySection {
   sections: Array<{
-    title: LocalizedString;
-    paragraphs: Array<LocalizedString>;
     list?: Array<
       | LocalizedString
       | {
-          en: string;
           de: string;
           description?: LocalizedString;
+          en: string;
         }
     >;
+    paragraphs: Array<LocalizedString>;
+    title: LocalizedString;
   }>;
   subtitle: LocalizedString;
   title: LocalizedString;
@@ -276,1019 +276,1010 @@ export interface SiteContent {
   projectsSectionTitle: LocalizedString;
   sitemap?: SitemapSection;
   siteMetadata: {
-    title: string;
-    description: LocalizedString;
     author: string;
+    description: LocalizedString;
+    title: string;
   };
   skills: Array<Skill>;
   skillsSection: SkillsSection;
   translations: {
     languageSwitch: {
-      en: string;
       de: string;
+      en: string;
     };
     themeSwitch: {
-      light: LocalizedString;
       dark: LocalizedString;
+      light: LocalizedString;
     };
   };
 }
 
 export const siteContent: SiteContent = {
-  projectsSectionTitle: { en: "Developed Solutions", de: "Entwickelte Lösungen" },
-  siteMetadata: {
-    title: "Uwe Schwarz Portfolio",
-    description: {
-      en: "Portfolio of Uwe Schwarz: Project Manager, IT Security Expert & AI Enthusiast",
-      de: "Portfolio von Uwe Schwarz: Projektmanager, IT-Sicherheitsexperte und KI-Enthusiast",
-    },
-    author: "Uwe Schwarz",
-  },
   /*  projectsSectionMore: { en: "View More Projects on GitHub", de: "Mehr Projekte auf GitHub ansehen" }, */
   about: {
-    title: {
-      en: "About Me",
-      de: "Über Mich",
+    imageAlt: {
+      de: "Illustration von Uwe in drei Rollen: oben arbeitet er am Computer mit grünem Code auf dem Bildschirm, symbolisch unterstützt von einer KI. Unten links erklärt er ein Netzwerk-Diagramm auf einem Flipchart, und unten rechts hält er eine Präsentation mit einem Fortschrittsdiagramm. Die Szenen sind durch geschwungene Linien verbunden, was den fließenden Übergang zwischen Technik, Planung und Kommunikation darstellt.",
+      en: "Illustration of Uwe in three roles: at the top, he is working on a computer with green code on the screen, symbolically supported by an AI. At the bottom left, he explains a network diagram on a flipchart, and at the bottom right, he gives a presentation with a progress chart. The scenes are connected by flowing lines, representing the seamless transition between technology, planning, and communication.",
+    },
+    labels: {
+      experience: { de: "Jahre Erfahrung", en: "Years of Experience" },
+      projects: { de: "Abgeschlossene Projekte", en: "Completed Projects" },
+      technologies: { de: "Technologien", en: "Technologies" },
     },
     paragraphs: [
       {
-        en: "With over two decades of hands-on experience in IT and project leadership, I specialize in building secure, scalable, and future-ready systems. From high-stakes data center migrations to evolving security strategies for regulated industries, I’ve led diverse teams and initiatives that drive tangible business outcomes.",
         de: "Mit über zwei Jahrzehnten praktischer Erfahrung in der IT und Projektleitung spezialisiere ich mich auf den Aufbau sicherer, skalierbarer und zukunftsfähiger Systeme. Von kritischen Rechenzentrumsumzügen bis hin zur Weiterentwicklung von Sicherheitsstrategien für regulierte Branchen habe ich vielfältige Teams und Projekte geleitet, die messbare Ergebnisse liefern.",
+        en: "With over two decades of hands-on experience in IT and project leadership, I specialize in building secure, scalable, and future-ready systems. From high-stakes data center migrations to evolving security strategies for regulated industries, I’ve led diverse teams and initiatives that drive tangible business outcomes.",
       },
       {
-        en: "I act as the bridge between technical complexity and strategic clarity. Whether I’m aligning teams on a security roadmap, modernizing infrastructure, or translating compliance requirements into real-world action, I bring a clear head, calm hands, and a passion for connecting the dots between tech and people.",
         de: "Ich fungiere als Brücke zwischen technischer Komplexität und strategischer Klarheit. Ob es darum geht, Teams auf eine Sicherheits-Roadmap auszurichten, Infrastrukturen zu modernisieren oder Compliance-Anforderungen in greifbare Maßnahmen zu übersetzen – ich bringe einen kühlen Kopf, ruhige Hände und die Leidenschaft mit, Technik und Menschen zusammenzubringen.",
+        en: "I act as the bridge between technical complexity and strategic clarity. Whether I’m aligning teams on a security roadmap, modernizing infrastructure, or translating compliance requirements into real-world action, I bring a clear head, calm hands, and a passion for connecting the dots between tech and people.",
       },
       {
-        en: "Outside the day-to-day, I stay curious. I’m particularly fascinated by AI and its potential to enhance everything from cybersecurity to user experience. I enjoy experimenting with new tools, self-hosted solutions, and smart workflows – always with an eye on what’s practical, elegant, and secure.",
         de: "Abseits des Tagesgeschäfts bleibe ich neugierig. Besonders faszinieren mich KI-Technologien und ihr Potenzial, von Cybersicherheit bis Benutzererlebnis neue Maßstäbe zu setzen. Ich experimentiere gerne mit neuen Tools, self-hosted Lösungen und smarten Workflows – immer mit Blick auf das, was praktikabel, elegant und sicher ist.",
+        en: "Outside the day-to-day, I stay curious. I’m particularly fascinated by AI and its potential to enhance everything from cybersecurity to user experience. I enjoy experimenting with new tools, self-hosted solutions, and smart workflows – always with an eye on what’s practical, elegant, and secure.",
       },
     ],
-    imageAlt: {
-      en: "Illustration of Uwe in three roles: at the top, he is working on a computer with green code on the screen, symbolically supported by an AI. At the bottom left, he explains a network diagram on a flipchart, and at the bottom right, he gives a presentation with a progress chart. The scenes are connected by flowing lines, representing the seamless transition between technology, planning, and communication.",
-      de: "Illustration von Uwe in drei Rollen: oben arbeitet er am Computer mit grünem Code auf dem Bildschirm, symbolisch unterstützt von einer KI. Unten links erklärt er ein Netzwerk-Diagramm auf einem Flipchart, und unten rechts hält er eine Präsentation mit einem Fortschrittsdiagramm. Die Szenen sind durch geschwungene Linien verbunden, was den fließenden Übergang zwischen Technik, Planung und Kommunikation darstellt.",
-    },
-    labels: {
-      experience: { en: "Years of Experience", de: "Jahre Erfahrung" },
-      projects: { en: "Completed Projects", de: "Abgeschlossene Projekte" },
-      technologies: { en: "Technologies", de: "Technologien" },
-    },
     stats: [
-      { key: "experience", value: { en: "20+", de: "20+" } },
-      { key: "projects", value: { en: "30+", de: "30+" } },
-      { key: "technologies", value: { en: "50+", de: "50+" } },
+      { key: "experience", value: { de: "20+", en: "20+" } },
+      { key: "projects", value: { de: "30+", en: "30+" } },
+      { key: "technologies", value: { de: "50+", en: "50+" } },
     ],
-  },
-  backToHome: { en: "Back to Home", de: "Zurück zur Startseite" },
-  contact: {
     title: {
-      en: "Get In Touch",
-      de: "Kontakt aufnehmen",
+      de: "Über Mich",
+      en: "About Me",
     },
-    subtitle: {
-      en: "Interested in working together? Feel free to reach out!",
-      de: "Interesse an einer Zusammenarbeit? Kontaktieren Sie mich gerne!",
-    },
-    emailLabel: {
-      en: "Email me at",
-      de: "E-Mail an",
-    },
-    email: "mail@uweschwarz.eu",
-    cvemail: "uwe.schwarz@degit.de",
-    phoneLabel: {
-      en: "Phone",
-      de: "Telefon",
-    },
-    phone: "+49 151 64403667",
-    socialLinks: {
-      github: "https://github.com/uwe-schwarz",
-      linkedin: "https://www.linkedin.com/in/uwe-schwarz-282531294",
-      xing: "https://www.xing.com/profile/Uwe_Schwarz72",
-      x: "https://x.com/e38383",
-      freelancermap: "https://www.freelancermap.de/profil/uwe-schwarz",
-    },
+  },
+  backToHome: { de: "Zurück zur Startseite", en: "Back to Home" },
+  contact: {
     birthday: "1978-02-19",
-    homepage: "https://uweschwarz.eu",
-    formLabels: {
-      name: { en: "Name", de: "Name" },
-      email: { en: "Email", de: "E-Mail" },
-      message: { en: "Message", de: "Nachricht" },
-      send: { en: "Send Message", de: "Nachricht senden" },
+    cvemail: "uwe.schwarz@degit.de",
+    email: "mail@uweschwarz.eu",
+    emailLabel: {
+      de: "E-Mail an",
+      en: "Email me at",
     },
-    formStatus: {
-      sentTitle: { en: "Message sent!", de: "Nachricht gesendet!" },
-      sentDescription: {
-        en: "Thanks for reaching out. I'll get back to you soon.",
-        de: "Danke für deine Nachricht. Ich werde mich bald bei dir melden.",
-      },
-      errorTitle: { en: "Error", de: "Fehler" },
-      errorDescription: {
-        en: "Failed to send message. Please try again later.",
-        de: "Nachricht konnte nicht gesendet werden. Bitte versuche es später noch einmal.",
-      },
-      sending: { en: "Sending...", de: "Senden..." },
-      validation: {
-        name: {
-          en: "Name must be at least 2 characters long.",
-          de: "Name muss mindestens 2 Zeichen lang sein.",
-        },
-        email: {
-          en: "Please enter a valid email address.",
-          de: "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
-        },
-        message: {
-          en: "Message must be at least 10 characters long.",
-          de: "Nachricht muss mindestens 10 Zeichen lang sein.",
-        },
-      },
+    findMeOn: { de: "Finde mich auf", en: "Find me on" },
+    formLabels: {
+      email: { de: "E-Mail", en: "Email" },
+      message: { de: "Nachricht", en: "Message" },
+      name: { de: "Name", en: "Name" },
+      send: { de: "Nachricht senden", en: "Send Message" },
     },
     formPlaceholders: {
-      name: { en: "Your name", de: "Dein Name" },
-      email: { en: "Your email", de: "Deine E-Mail" },
-      message: { en: "Your message", de: "Deine Nachricht" },
+      email: { de: "Deine E-Mail", en: "Your email" },
+      message: { de: "Deine Nachricht", en: "Your message" },
+      name: { de: "Dein Name", en: "Your name" },
     },
-    infoTitle: { en: "Let's Connect", de: "Lass uns in Kontakt treten" },
-    findMeOn: { en: "Find me on", de: "Finde mich auf" },
+    formStatus: {
+      errorDescription: {
+        de: "Nachricht konnte nicht gesendet werden. Bitte versuche es später noch einmal.",
+        en: "Failed to send message. Please try again later.",
+      },
+      errorTitle: { de: "Fehler", en: "Error" },
+      sending: { de: "Senden...", en: "Sending..." },
+      sentDescription: {
+        de: "Danke für deine Nachricht. Ich werde mich bald bei dir melden.",
+        en: "Thanks for reaching out. I'll get back to you soon.",
+      },
+      sentTitle: { de: "Nachricht gesendet!", en: "Message sent!" },
+      validation: {
+        email: {
+          de: "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+          en: "Please enter a valid email address.",
+        },
+        message: {
+          de: "Nachricht muss mindestens 10 Zeichen lang sein.",
+          en: "Message must be at least 10 characters long.",
+        },
+        name: {
+          de: "Name muss mindestens 2 Zeichen lang sein.",
+          en: "Name must be at least 2 characters long.",
+        },
+      },
+    },
+    homepage: "https://uweschwarz.eu",
     infoText: {
-      en: "Feel free to reach out for collaborations or just a friendly hello.",
       de: "Kontaktiere mich gerne für Zusammenarbeiten oder einfach nur für ein freundliches Hallo.",
+      en: "Feel free to reach out for collaborations or just a friendly hello.",
+    },
+    infoTitle: { de: "Lass uns in Kontakt treten", en: "Let's Connect" },
+    phone: "+49 151 64403667",
+    phoneLabel: {
+      de: "Telefon",
+      en: "Phone",
+    },
+    socialLinks: {
+      freelancermap: "https://www.freelancermap.de/profil/uwe-schwarz",
+      github: "https://github.com/uwe-schwarz",
+      linkedin: "https://www.linkedin.com/in/uwe-schwarz-282531294",
+      x: "https://x.com/e38383",
+      xing: "https://www.xing.com/profile/Uwe_Schwarz72",
+    },
+    subtitle: {
+      de: "Interesse an einer Zusammenarbeit? Kontaktieren Sie mich gerne!",
+      en: "Interested in working together? Feel free to reach out!",
+    },
+    title: {
+      de: "Kontakt aufnehmen",
+      en: "Get In Touch",
     },
   },
   cv: {
-    title: { en: "Resume / CV", de: "Lebenslauf / CV" },
+    title: { de: "Lebenslauf / CV", en: "Resume / CV" },
   },
-  downloadResume: { en: "Download CV", de: "Lebenslauf herunterladen" },
-  experienceAchievementPrefix: { en: "Achievement:", de: "Erfolg:" },
+  downloadResume: { de: "Lebenslauf herunterladen", en: "Download CV" },
+  experienceAchievementPrefix: { de: "Erfolg:", en: "Achievement:" },
   experienceBigProjectsNote: {
-    en: "A curated selection of multi-month and multi-year work; further details on request.",
     de: "Eine kuratierte Auswahl mehrmonatiger und mehrjähriger Arbeiten; weitere Details auf Anfrage.",
+    en: "A curated selection of multi-month and multi-year work; further details on request.",
   },
   experienceBigProjectsSubtitle: {
-    en: "Major technical and organizational engagements with high responsibility.",
     de: "Wesentliche technische und organisatorische Engagements mit hoher Verantwortung.",
+    en: "Major technical and organizational engagements with high responsibility.",
   },
   experienceBigProjectsTitle: {
-    en: "Key Projects",
     de: "Schlüsselprojekte",
+    en: "Key Projects",
   },
   experiences: [
     {
-      title: {
-        en: "Member of the Board",
-        de: "Vorstandsmitglied",
-      },
       company: "DEGIT AG",
-      logoUrl: "/logos/degit.png",
-      projectScale: "small",
-      period: { en: "May 2018 - Present", de: "Mai 2018 - Heute" },
-      location: { en: "Hockenheim, Germany", de: "Hockenheim, Deutschland" },
       description: [
         {
-          type: "text",
           text: {
-            en: "Information Security Officer and Data Protection and Privacy Officer.",
             de: "Informationssicherheitsbeauftragter sowie Datenschutz- und Privatsphärebeauftragter.",
+            en: "Information Security Officer and Data Protection and Privacy Officer.",
           },
+          type: "text",
         },
         {
-          type: "text",
           text: {
-            en: "Access to experts from multiple fields.",
             de: "Zugang zu Experten aus verschiedenen Bereichen.",
+            en: "Access to experts from multiple fields.",
           },
+          type: "text",
         },
         {
-          type: "text",
           text: {
-            en: "Competent and focused partner for all consulting needs.",
             de: "Kompetenter und fokussierter Partner für alle Beratungsanforderungen.",
+            en: "Competent and focused partner for all consulting needs.",
           },
+          type: "text",
         },
         {
-          type: "text",
           text: {
-            en: "Building a secure and compliant IT infrastructure with a focus on modern technologies (IPv6, Zero Trust, Zero-Config VPN, etc.) and best practices.",
             de: "Aufbau einer sicheren und rechtskonformen IT-Infrastruktur mit Schwerpunkt auf modernen Technologien (IPv6, Zero Trust, Zero-Config VPN, etc.) und Best Practices.",
+            en: "Building a secure and compliant IT infrastructure with a focus on modern technologies (IPv6, Zero Trust, Zero-Config VPN, etc.) and best practices.",
           },
+          type: "text",
         },
         {
-          type: "text",
           text: {
-            en: "Responsible for corporate governance in IT security, privacy and compliance topics.",
             de: "Verantwortlich für Governance in den Bereichen IT-Sicherheit, Datenschutz und Compliance.",
+            en: "Responsible for corporate governance in IT security, privacy and compliance topics.",
           },
+          type: "text",
         },
       ],
-      tags: [
-        { en: "Security", de: "Sicherheit" },
-        { en: "Privacy", de: "Datenschutz" },
-        { en: "Microsoft 365", de: "Microsoft 365" },
-        { en: "Notion", de: "Notion" },
-        { en: "Cloudflare", de: "Cloudflare" },
-        { en: "Resend", de: "Resend" },
-        { en: "Supabase", de: "Supabase" },
-        { en: "IPv6", de: "IPv6" },
-        { en: "Zero Trust", de: "Zero Trust" },
-        { en: "Zero-Config VPN", de: "Zero-Config VPN" },
-        { en: "Governance", de: "Governance" },
-        { en: "Training", de: "Training" },
-        { en: "Security Awareness", de: "Sicherheitsbewusstsein" },
-        { en: "Risk Management", de: "Risikomanagement" },
-        { en: "Compliance", de: "Compliance" },
-        { en: "EU AI Act", de: "EU AI Act" },
-      ],
-    },
-    {
-      title: {
-        en: "Program Lead IPv6 Migration",
-        de: "Programmleitung IPv6-Migration",
-      },
-      company: "Deutsche Rentenversicherung (RP, BW)",
-      logoUrl: "/logos/drv.svg",
-      period: { en: "Jan 2026 - Today", de: "Jan 2026 - Heute" },
-      location: { en: "Karlsruhe & Speyer, Germany", de: "Karlsruhe & Speyer, Deutschland" },
-      description: [
-        {
-          type: "text",
-          text: {
-            en: "Leading the IPv6 migration for DRV RP, and DRV BW, including governance, planning cadence, and execution tracking.",
-            de: "Leitung der IPv6-Migration für DRV RP und DRV BW inklusive Governance, Planungsrhythmus und Umsetzungssteuerung.",
-          },
-        },
-        {
-          type: "text",
-          text: {
-            en: "Built and operationalized a project control model with dashboard, action board, KPI portfolio, risk register, and decision index.",
-            de: "Aufbau und operative Einführung eines Projektsteuerungsmodells mit Dashboard, Action Board, KPI-Portfolio, Risikoregister und Entscheidungsindex.",
-          },
-        },
-        {
-          type: "text",
-          text: {
-            en: "Coordinating architecture, security, and rollout preparation across addressing, segmentation, dual-stack transition, test-lab planning, and cross-team dependencies.",
-            de: "Koordination der Architektur-, Sicherheits- und Rollout-Vorbereitung über Adressierung, Segmentierung, Dual-Stack-Übergang, Testlabor-Planung und teamübergreifende Abhängigkeiten hinweg.",
-          },
-        },
-        {
-          type: "text",
-          text: {
-            en: "Driving compliance-relevant alignment for BSI, NIS2, and critical infrastructure requirements, evidence obligations, and transparent reporting to management and stakeholder groups within the institution.",
-            de: "Steuerung der compliance-relevanten Abstimmung zu BSI-, NIS2- und KRITIS-Anforderungen, Evidence-Pflicht und transparentem Reporting an Management und Stakeholder beim Träger.",
-          },
-        },
-        {
-          type: "achievement",
-          text: {
-            en: "Established a reusable intake-to-governance workflow to create traceable actions, risks, questions, and evidence requests.",
-            de: "Etablierung eines wiederverwendbaren Intake-to-Governance-Workflows, um nachvollziehbare Actions, Risiken, offene Fragen und Nachweisanfragen zu erstellen.",
-          },
-        },
-        {
-          type: "achievement",
-          text: {
-            en: "Created the operational baseline for program execution with measurable KPIs, ownership clarity, and decision transparency.",
-            de: "Schaffung der operativen Baseline für die Programmausführung mit messbaren KPIs, klaren Verantwortlichkeiten und Entscheidungstransparenz.",
-          },
-        },
-      ],
-      tags: [
-        { en: "Program Management", de: "Programmmanagement" },
-        { en: "Project Governance", de: "Projektgovernance" },
-        { en: "IPv6", de: "IPv6" },
-        { en: "Network Architecture", de: "Netzwerkarchitektur" },
-        { en: "Dual Stack", de: "Dual Stack" },
-        { en: "Address Management", de: "Adressmanagement" },
-        { en: "BSI", de: "BSI" },
-        { en: "CI", de: "KRITIS" },
-        { en: "NIS2", de: "NIS2" },
-        { en: "Compliance", de: "Compliance" },
-        { en: "Risk Management", de: "Risikomanagement" },
-        { en: "KPI Management", de: "KPI-Management" },
-        { en: "Evidence Management", de: "Nachweismanagement" },
-        { en: "Atlassian Jira", de: "Atlassian Jira" },
-        { en: "Confluence", de: "Confluence" },
-        { en: "Microsoft PowerPoint", de: "Microsoft PowerPoint" },
-        { en: "Infoblox (IPAM)", de: "Infoblox (IPAM)" },
-      ],
-    },
-    {
-      title: {
-        en: "SchlauFabrik \u2013 Multi-tenant Compliance & AI Training Platform",
-        de: "SchlauFabrik \u2013 Multi-Tenant Compliance- & KI-Trainingsplattform",
-      },
-      company: "xtensible UG (haftungsbeschränkt) & Co. KG",
-      logoUrl: "/logos/schlaufabrik.png",
-      projectScale: "small",
-      period: { en: "December 2025 - Present", de: "Dezember 2025 - Heute" },
-      location: { en: "Hockenheim, Germany", de: "Hockenheim, Deutschland" },
-      description: [
-        {
-          type: "text",
-          text: {
-            en: "Designed and built a modern, responsive training platform for compliance and AI topics with tenant isolation and role-based access.",
-            de: "Konzeption und Umsetzung einer modernen, responsiven Trainingsplattform f\u00fcr Compliance- und KI-Themen mit Mandantentrennung und RBAC.",
-          },
-        },
-        {
-          type: "text",
-          text: {
-            en: "Implemented security-by-design with Postgres Row-Level Security, audit logging, rate limiting, and hardened authentication flows (Passkey/Magic Link/2FA/SSO).",
-            de: "Umsetzung von Security-by-Design mit Postgres Row-Level Security, Audit-Logs, Rate Limiting sowie geh\u00e4rteten Auth-Flows (Passkey/Magic Link/2FA/SSO).",
-          },
-        },
-        {
-          type: "text",
-          text: {
-            en: "Built course delivery with progress tracking, quizzes, enrollments, and admin dashboards for tenant/user management.",
-            de: "Aufbau der Kursplattform inkl. Fortschritts-Tracking, Quiz, Zuweisungen sowie Admin-Dashboards f\u00fcr Tenant-/User-Management.",
-          },
-        },
-        {
-          type: "text",
-          text: {
-            en: "Delivered tamper-evident PDF certificates with QR verification and cryptographic hashing; enabled bulk export for audits.",
-            de: "Implementierung manipulationssicherer PDF-Zertifikate mit QR-Verifikation und kryptografischem Hashing inkl. Bulk-Export f\u00fcr Audits.",
-          },
-        },
-        {
-          type: "text",
-          text: {
-            en: "Integrated Stripe billing (subscriptions, portal, webhooks) with license models and soft-lock mechanisms for tenant limits.",
-            de: "Integration von Stripe-Abrechnung (Subscriptions, Portal, Webhooks) inkl. Lizenzmodellen und Soft-Lock-Mechanismen f\u00fcr Tenant-Limits.",
-          },
-        },
-        {
-          type: "text",
-          text: {
-            en: "Tech: Next.js (App Router), TypeScript, Bun, Tailwind, next-intl (DE/EN), Neon Postgres, Stripe, Resend, Vitest/Playwright.",
-            de: "Tech: Next.js (App Router), TypeScript, Bun, Tailwind, next-intl (DE/EN), Neon Postgres, Stripe, Resend, Vitest/Playwright.",
-          },
-        },
-      ],
-      tags: [
-        { en: "Multi-tenant", de: "Multi-Tenant" },
-        { en: "Compliance", de: "Compliance" },
-        { en: "AI Training", de: "KI-Training" },
-        { en: "RBAC", de: "RBAC" },
-        { en: "Postgres RLS", de: "Postgres RLS" },
-        { en: "Stripe", de: "Stripe" },
-        { en: "Next.js", de: "Next.js" },
-        { en: "TypeScript", de: "TypeScript" },
-        { en: "Tailwind", de: "Tailwind" },
-        { en: "Neon Postgres", de: "Neon Postgres" },
-        { en: "Vitest", de: "Vitest" },
-        { en: "Playwright", de: "Playwright" },
-      ],
-    },
-    {
-      title: {
-        en: "Founding Member & Data Protection Officer",
-        de: "Gründungsmitglied & Datenschutzbeauftragter",
-      },
-      company: "AKTion gegen Krebs gUG",
-      logoUrl: "/logos/aktion-gegen-krebs.png",
-      projectScale: "small",
-      period: { en: "May 2025 - Present", de: "Mai 2025 - Heute" },
-      location: { en: "Seevetal, Germany", de: "Seevetal, Deutschland" },
-      description: [
-        {
-          type: "text",
-          text: {
-            en: "Founding member responsible for data protection and GDPR compliance.",
-            de: "Gründungsmitglied mit Verantwortung für Datenschutz und DSGVO-Compliance.",
-          },
-        },
-        {
-          type: "text",
-          text: {
-            en: "Developed and maintain the organization's backend systems.",
-            de: "Entwicklung und Betreuung der Backend-Systeme.",
-          },
-        },
-        {
-          type: "text",
-          text: {
-            en: "Planning and implementing AI-supported workflows for case management.",
-            de: "Planung und Implementierung KI-gestützter Workflows für die Fallbearbeitung.",
-          },
-        },
-        {
-          type: "text",
-          text: {
-            en: "Responsible for IT security strategy and risk management.",
-            de: "Verantwortlich für IT-Sicherheitsstrategie und Risikomanagement.",
-          },
-        },
-        {
-          type: "text",
-          text: {
-            en: "Established GDPR-compliant data protection framework from the ground up.",
-            de: "Aufbau eines DSGVO-konformen Datenschutzrahmens von Grund auf.",
-          },
-        },
-      ],
-      tags: [
-        { en: "Data Protection", de: "Datenschutz" },
-        { en: "IT Security", de: "IT-Sicherheit" },
-        { en: "AI Workflows", de: "KI-Workflows" },
-        { en: "Agentic AI", de: "Agentische KI (Agentic AI)" },
-        { en: "Backend Systems", de: "Backend-Systeme" },
-        { en: "Backup-Strategies", de: "Backup-Strategien" },
-        { en: "IPv6", de: "IPv6" },
-        { en: "Zero Trust", de: "Zero Trust" },
-        { en: "Zero-Config VPN", de: "Zero-Config VPN" },
-        { en: "Risk Management", de: "Risikomanagement" },
-        { en: "Compliance", de: "Compliance" },
-        { en: "Notion", de: "Notion" },
-        { en: "Cloudflare", de: "Cloudflare" },
-        { en: "Resend", de: "Resend" },
-        { en: "Supabase", de: "Supabase" },
-      ],
-    },
-    {
-      title: {
-        en: "AI Training Platform & AI Tools Evaluation",
-        de: "KI-Trainingsplattform & Evaluierung von KI-Werkzeugen",
-      },
-      company: "DEGIT AG",
+      location: { de: "Hockenheim, Deutschland", en: "Hockenheim, Germany" },
       logoUrl: "/logos/degit.png",
+      period: { de: "Mai 2018 - Heute", en: "May 2018 - Present" },
       projectScale: "small",
-      period: { en: "Aug 2025 – Oct 2025", de: "Aug 2025 – Okt 2025" },
-      location: { en: "Hockenheim, Germany", de: "Hockenheim, Deutschland" },
+      tags: [
+        { de: "Sicherheit", en: "Security" },
+        { de: "Datenschutz", en: "Privacy" },
+        { de: "Microsoft 365", en: "Microsoft 365" },
+        { de: "Notion", en: "Notion" },
+        { de: "Cloudflare", en: "Cloudflare" },
+        { de: "Resend", en: "Resend" },
+        { de: "Supabase", en: "Supabase" },
+        { de: "IPv6", en: "IPv6" },
+        { de: "Zero Trust", en: "Zero Trust" },
+        { de: "Zero-Config VPN", en: "Zero-Config VPN" },
+        { de: "Governance", en: "Governance" },
+        { de: "Training", en: "Training" },
+        { de: "Sicherheitsbewusstsein", en: "Security Awareness" },
+        { de: "Risikomanagement", en: "Risk Management" },
+        { de: "Compliance", en: "Compliance" },
+        { de: "EU AI Act", en: "EU AI Act" },
+      ],
+      title: {
+        de: "Vorstandsmitglied",
+        en: "Member of the Board",
+      },
+    },
+    {
+      company: "Deutsche Rentenversicherung (RP, BW)",
       description: [
         {
-          type: "text",
           text: {
-            en: "Design and implementation of an internal AI training platform for corporate use, focusing on compliance with the EU AI Act and practical enablement of teams.",
+            de: "Leitung der IPv6-Migration für DRV RP und DRV BW inklusive Governance, Planungsrhythmus und Umsetzungssteuerung.",
+            en: "Leading the IPv6 migration for DRV RP, and DRV BW, including governance, planning cadence, and execution tracking.",
+          },
+          type: "text",
+        },
+        {
+          text: {
+            de: "Aufbau und operative Einführung eines Projektsteuerungsmodells mit Dashboard, Action Board, KPI-Portfolio, Risikoregister und Entscheidungsindex.",
+            en: "Built and operationalized a project control model with dashboard, action board, KPI portfolio, risk register, and decision index.",
+          },
+          type: "text",
+        },
+        {
+          text: {
+            de: "Koordination der Architektur-, Sicherheits- und Rollout-Vorbereitung über Adressierung, Segmentierung, Dual-Stack-Übergang, Testlabor-Planung und teamübergreifende Abhängigkeiten hinweg.",
+            en: "Coordinating architecture, security, and rollout preparation across addressing, segmentation, dual-stack transition, test-lab planning, and cross-team dependencies.",
+          },
+          type: "text",
+        },
+        {
+          text: {
+            de: "Steuerung der compliance-relevanten Abstimmung zu BSI-, NIS2- und KRITIS-Anforderungen, Evidence-Pflicht und transparentem Reporting an Management und Stakeholder beim Träger.",
+            en: "Driving compliance-relevant alignment for BSI, NIS2, and critical infrastructure requirements, evidence obligations, and transparent reporting to management and stakeholder groups within the institution.",
+          },
+          type: "text",
+        },
+        {
+          text: {
+            de: "Etablierung eines wiederverwendbaren Intake-to-Governance-Workflows, um nachvollziehbare Actions, Risiken, offene Fragen und Nachweisanfragen zu erstellen.",
+            en: "Established a reusable intake-to-governance workflow to create traceable actions, risks, questions, and evidence requests.",
+          },
+          type: "achievement",
+        },
+        {
+          text: {
+            de: "Schaffung der operativen Baseline für die Programmausführung mit messbaren KPIs, klaren Verantwortlichkeiten und Entscheidungstransparenz.",
+            en: "Created the operational baseline for program execution with measurable KPIs, ownership clarity, and decision transparency.",
+          },
+          type: "achievement",
+        },
+      ],
+      location: { de: "Karlsruhe & Speyer, Deutschland", en: "Karlsruhe & Speyer, Germany" },
+      logoUrl: "/logos/drv.svg",
+      period: { de: "Jan 2026 - Heute", en: "Jan 2026 - Today" },
+      tags: [
+        { de: "Programmmanagement", en: "Program Management" },
+        { de: "Projektgovernance", en: "Project Governance" },
+        { de: "IPv6", en: "IPv6" },
+        { de: "Netzwerkarchitektur", en: "Network Architecture" },
+        { de: "Dual Stack", en: "Dual Stack" },
+        { de: "Adressmanagement", en: "Address Management" },
+        { de: "BSI", en: "BSI" },
+        { de: "KRITIS", en: "CI" },
+        { de: "NIS2", en: "NIS2" },
+        { de: "Compliance", en: "Compliance" },
+        { de: "Risikomanagement", en: "Risk Management" },
+        { de: "KPI-Management", en: "KPI Management" },
+        { de: "Nachweismanagement", en: "Evidence Management" },
+        { de: "Atlassian Jira", en: "Atlassian Jira" },
+        { de: "Confluence", en: "Confluence" },
+        { de: "Microsoft PowerPoint", en: "Microsoft PowerPoint" },
+        { de: "Infoblox (IPAM)", en: "Infoblox (IPAM)" },
+      ],
+      title: {
+        de: "Programmleitung IPv6-Migration",
+        en: "Program Lead IPv6 Migration",
+      },
+    },
+    {
+      company: "xtensible UG (haftungsbeschränkt) & Co. KG",
+      description: [
+        {
+          text: {
+            de: "Konzeption und Umsetzung einer modernen, responsiven Trainingsplattform f\u00fcr Compliance- und KI-Themen mit Mandantentrennung und RBAC.",
+            en: "Designed and built a modern, responsive training platform for compliance and AI topics with tenant isolation and role-based access.",
+          },
+          type: "text",
+        },
+        {
+          text: {
+            de: "Umsetzung von Security-by-Design mit Postgres Row-Level Security, Audit-Logs, Rate Limiting sowie geh\u00e4rteten Auth-Flows (Passkey/Magic Link/2FA/SSO).",
+            en: "Implemented security-by-design with Postgres Row-Level Security, audit logging, rate limiting, and hardened authentication flows (Passkey/Magic Link/2FA/SSO).",
+          },
+          type: "text",
+        },
+        {
+          text: {
+            de: "Aufbau der Kursplattform inkl. Fortschritts-Tracking, Quiz, Zuweisungen sowie Admin-Dashboards f\u00fcr Tenant-/User-Management.",
+            en: "Built course delivery with progress tracking, quizzes, enrollments, and admin dashboards for tenant/user management.",
+          },
+          type: "text",
+        },
+        {
+          text: {
+            de: "Implementierung manipulationssicherer PDF-Zertifikate mit QR-Verifikation und kryptografischem Hashing inkl. Bulk-Export f\u00fcr Audits.",
+            en: "Delivered tamper-evident PDF certificates with QR verification and cryptographic hashing; enabled bulk export for audits.",
+          },
+          type: "text",
+        },
+        {
+          text: {
+            de: "Integration von Stripe-Abrechnung (Subscriptions, Portal, Webhooks) inkl. Lizenzmodellen und Soft-Lock-Mechanismen f\u00fcr Tenant-Limits.",
+            en: "Integrated Stripe billing (subscriptions, portal, webhooks) with license models and soft-lock mechanisms for tenant limits.",
+          },
+          type: "text",
+        },
+        {
+          text: {
+            de: "Tech: Next.js (App Router), TypeScript, Bun, Tailwind, next-intl (DE/EN), Neon Postgres, Stripe, Resend, Vitest/Playwright.",
+            en: "Tech: Next.js (App Router), TypeScript, Bun, Tailwind, next-intl (DE/EN), Neon Postgres, Stripe, Resend, Vitest/Playwright.",
+          },
+          type: "text",
+        },
+      ],
+      location: { de: "Hockenheim, Deutschland", en: "Hockenheim, Germany" },
+      logoUrl: "/logos/schlaufabrik.png",
+      period: { de: "Dezember 2025 - Heute", en: "December 2025 - Present" },
+      projectScale: "small",
+      tags: [
+        { de: "Multi-Tenant", en: "Multi-tenant" },
+        { de: "Compliance", en: "Compliance" },
+        { de: "KI-Training", en: "AI Training" },
+        { de: "RBAC", en: "RBAC" },
+        { de: "Postgres RLS", en: "Postgres RLS" },
+        { de: "Stripe", en: "Stripe" },
+        { de: "Next.js", en: "Next.js" },
+        { de: "TypeScript", en: "TypeScript" },
+        { de: "Tailwind", en: "Tailwind" },
+        { de: "Neon Postgres", en: "Neon Postgres" },
+        { de: "Vitest", en: "Vitest" },
+        { de: "Playwright", en: "Playwright" },
+      ],
+      title: {
+        de: "SchlauFabrik \u2013 Multi-Tenant Compliance- & KI-Trainingsplattform",
+        en: "SchlauFabrik \u2013 Multi-tenant Compliance & AI Training Platform",
+      },
+    },
+    {
+      company: "AKTion gegen Krebs gUG",
+      description: [
+        {
+          text: {
+            de: "Gründungsmitglied mit Verantwortung für Datenschutz und DSGVO-Compliance.",
+            en: "Founding member responsible for data protection and GDPR compliance.",
+          },
+          type: "text",
+        },
+        {
+          text: {
+            de: "Entwicklung und Betreuung der Backend-Systeme.",
+            en: "Developed and maintain the organization's backend systems.",
+          },
+          type: "text",
+        },
+        {
+          text: {
+            de: "Planung und Implementierung KI-gestützter Workflows für die Fallbearbeitung.",
+            en: "Planning and implementing AI-supported workflows for case management.",
+          },
+          type: "text",
+        },
+        {
+          text: {
+            de: "Verantwortlich für IT-Sicherheitsstrategie und Risikomanagement.",
+            en: "Responsible for IT security strategy and risk management.",
+          },
+          type: "text",
+        },
+        {
+          text: {
+            de: "Aufbau eines DSGVO-konformen Datenschutzrahmens von Grund auf.",
+            en: "Established GDPR-compliant data protection framework from the ground up.",
+          },
+          type: "text",
+        },
+      ],
+      location: { de: "Seevetal, Deutschland", en: "Seevetal, Germany" },
+      logoUrl: "/logos/aktion-gegen-krebs.png",
+      period: { de: "Mai 2025 - Heute", en: "May 2025 - Present" },
+      projectScale: "small",
+      tags: [
+        { de: "Datenschutz", en: "Data Protection" },
+        { de: "IT-Sicherheit", en: "IT Security" },
+        { de: "KI-Workflows", en: "AI Workflows" },
+        { de: "Agentische KI (Agentic AI)", en: "Agentic AI" },
+        { de: "Backend-Systeme", en: "Backend Systems" },
+        { de: "Backup-Strategien", en: "Backup-Strategies" },
+        { de: "IPv6", en: "IPv6" },
+        { de: "Zero Trust", en: "Zero Trust" },
+        { de: "Zero-Config VPN", en: "Zero-Config VPN" },
+        { de: "Risikomanagement", en: "Risk Management" },
+        { de: "Compliance", en: "Compliance" },
+        { de: "Notion", en: "Notion" },
+        { de: "Cloudflare", en: "Cloudflare" },
+        { de: "Resend", en: "Resend" },
+        { de: "Supabase", en: "Supabase" },
+      ],
+      title: {
+        de: "Gründungsmitglied & Datenschutzbeauftragter",
+        en: "Founding Member & Data Protection Officer",
+      },
+    },
+    {
+      company: "DEGIT AG",
+      description: [
+        {
+          text: {
             de: "Konzeption und Aufbau einer internen KI-Trainingsplattform für den Unternehmenseinsatz mit Fokus auf EU-AI-Act-Compliance und praxisnahe Befähigung der Teams.",
+            en: "Design and implementation of an internal AI training platform for corporate use, focusing on compliance with the EU AI Act and practical enablement of teams.",
           },
+          type: "text",
         },
         {
-          type: "text",
           text: {
-            en: "Evaluation and decision paper comparing leading AI and automation platforms with regard to data protection, reliability, API integration and governance readiness.",
             de: "Bewertung und Entscheidungsvorlage zum Vergleich führender KI- und Automatisierungsplattformen hinsichtlich Datenschutz, Zuverlässigkeit, API-Integration und Governance-Tauglichkeit.",
+            en: "Evaluation and decision paper comparing leading AI and automation platforms with regard to data protection, reliability, API integration and governance readiness.",
           },
+          type: "text",
         },
         {
-          type: "text",
           text: {
-            en: "Evaluation of emerging Agentic AI workflows for multi-step task orchestration and their integration into enterprise automation environments.",
             de: "Evaluierung aufkommender Agentic-AI-Workflows zur mehrstufigen Aufgabenorchestrierung und deren Integration in Unternehmensautomatisierungsumgebungen.",
+            en: "Evaluation of emerging Agentic AI workflows for multi-step task orchestration and their integration into enterprise automation environments.",
           },
+          type: "text",
         },
         {
-          type: "text",
           text: {
-            en: "Analyzed and benchmarked: OpenAI ChatGPT, OpenAI Open-Weight GPT-OSS, Microsoft Copilot, Perplexity, Anthropic Claude, Apple Foundation, z.AI GLM, n8n, make.com, Zapier.",
             de: "Analysiert und bewertet: OpenAI ChatGPT, OpenAI Open-Weight GPT-OSS, Microsoft Copilot, Perplexity, Anthropic Claude, Apple Foundation, z.AI GLM, n8n, make.com und Zapier.",
+            en: "Analyzed and benchmarked: OpenAI ChatGPT, OpenAI Open-Weight GPT-OSS, Microsoft Copilot, Perplexity, Anthropic Claude, Apple Foundation, z.AI GLM, n8n, make.com, Zapier.",
           },
+          type: "text",
         },
       ],
-      tags: [
-        { en: "AI Evaluation", de: "KI-Evaluierung" },
-        { en: "AI Training", de: "KI-Training" },
-        { en: "EU AI Act", de: "EU AI Act" },
-        { en: "Supabase", de: "Supabase" },
-        { en: "Cloudflare", de: "Cloudflare" },
-        { en: "Automation", de: "Automatisierung" },
-        { en: "n8n", de: "n8n" },
-        { en: "make.com", de: "make.com" },
-        { en: "Zapier", de: "Zapier" },
-        { en: "OpenAI", de: "OpenAI" },
-        { en: "Apple Foundation", de: "Apple Foundation" },
-        { en: "Anthropic Claude", de: "Anthropic Claude" },
-        { en: "Microsoft Copilot", de: "Microsoft Copilot" },
-        { en: "Perplexity", de: "Perplexity" },
-        { en: "z.AI GLM", de: "z.AI GLM" },
-        { en: "Agentic AI", de: "Agentische KI" },
-        { en: "Enterprise Automation", de: "Unternehmensautomatisierung" },
-        { en: "Cursor", de: "Cursor" },
-        { en: "Claude Code", de: "Claude Code" },
-        { en: "OpenAI Codex", de: "OpenAI Codex" },
-      ],
-    },
-    {
-      title: {
-        en: "Subproject Lead Data Center Migration & Backup Modernization",
-        de: "Teilprojektleiter RZ-Migration & Backup-Modernisierung",
-      },
-      company: "Joh. Berenberg, Gossler & Co. KG",
-      logoUrl: "/logos/berenberg.svg",
-      period: { en: "Jan 2024 - Sep 2025", de: "Jan 2024 - Sep 2025" },
-      location: { en: "Hamburg, Germany", de: "Hamburg, Deutschland" },
-      description: [
-        {
-          type: "text",
-          text: {
-            en: "Subproject lead within the data center migration project, focusing on Solaris, Linux, storage, and backup environments.",
-            de: "Teilprojektleitung im Rahmen des RZ-Migrationsprojekts mit Schwerpunkt auf Solaris-, Linux-, Storage- und Backup-Umgebungen.",
-          },
-        },
-        {
-          type: "text",
-          text: {
-            en: "Responsible for the modernization and full implementation of the new enterprise backup platform based on Rubrik Security Cloud.",
-            de: "Verantwortlich für die Modernisierung und Einführung der neuen unternehmensweiten Backup-Plattform auf Basis der Rubrik Security Cloud.",
-          },
-        },
-        {
-          type: "text",
-          text: {
-            en: "Supported the transition of Solaris infrastructure and legacy systems towards modern, cloud-ready architectures.",
-            de: "Mitverantwortung bei der Weiterentwicklung der Solaris-Infrastruktur und der schrittweisen Ablösung von Legacy-Systemen durch moderne, cloudfähige Architekturen.",
-          },
-        },
-        {
-          type: "text",
-          text: {
-            en: "Contributed to the redesign and renewal of the legacy network into a modern, segmented structure with improved security focus.",
-            de: "Mitwirkung bei der Neugestaltung und Erneuerung der Legacy-Netzwerkinfrastruktur hin zu einer modernen, segmentierten Architektur mit verbesserter Security-Fokussierung.",
-          },
-        },
-        {
-          type: "achievement",
-          text: {
-            en: "Successfully led the Rubrik Security Cloud modernization project, enhancing data protection, compliance, and recovery performance across all business units.",
-            de: "Erfolgreiche Leitung des Modernisierungsprojekts der Rubrik Security Cloud mit deutlichen Verbesserungen bei Datensicherheit, Compliance und Wiederherstellungszeiten in allen Fachbereichen.",
-          },
-        },
-        {
-          type: "achievement",
-          text: {
-            en: "Contributed to the successful relocation of two data centers with minimized downtime and coordinated dependencies across multiple infrastructure domains.",
-            de: "Beitrag zur erfolgreichen Verlagerung von zwei Rechenzentren mit minimalen Ausfallzeiten und abgestimmten Abhängigkeiten über mehrere Infrastrukturbereiche hinweg.",
-          },
-        },
-      ],
-      tags: [
-        { en: "Project Management", de: "Projektmanagement" },
-        { en: "Rubrik Security Cloud", de: "Rubrik Security Cloud" },
-        { en: "Atlassian Jira", de: "Atlassian Jira" },
-        { en: "Atlassian Confluence", de: "Atlassian Confluence" },
-        { en: "Microsoft Project", de: "Microsoft Project" },
-        { en: "ServiceNow", de: "ServiceNow" },
-        { en: "LeanIX", de: "LeanIX" },
-        { en: "Delinea", de: "Delinea" },
-        { en: "IPv6", de: "IPv6" },
-        { en: "Network", de: "Netzwerk" },
-        { en: "Compliance", de: "Compliance" },
-        { en: "Backup", de: "Backup" },
-        { en: "Solaris", de: "Solaris" },
-        { en: "Rubrik", de: "Rubrik" },
-        { en: "DORA", de: "DORA" },
-      ],
-    },
-    {
-      title: {
-        en: "Information Security Officer",
-        de: "Informationssicherheitsbeauftragter",
-      },
-      company: "Threedium Ltd.",
-      logoUrl: "/logos/threedium.svg",
-      period: { en: "Oct 2023 - Jun 2024", de: "Okt 2023 - Jun 2024" },
-      location: { en: "London, United Kingdom", de: "London, Vereinigtes Königreich" },
-      description: [
-        {
-          type: "text",
-          text: {
-            en: "Consulting in all questions about and around IT security.",
-            de: "Beratung in allen Fragen der IT-Sicherheit.",
-          },
-        },
-        {
-          type: "text",
-          text: {
-            en: "Support of the DevOps team.",
-            de: "Unterstützung des DevOps-Teams.",
-          },
-        },
-        {
-          type: "text",
-          text: {
-            en: "Integration of services in SSO infrastructure.",
-            de: "Integration von Diensten in SSO-Infrastruktur.",
-          },
-        },
-        {
-          type: "text",
-          text: {
-            en: "Certificate audit: SOC2 and ISO27001",
-            de: "Zertifizierungsaudit: SOC2 und ISO27001.",
-          },
-        },
-        {
-          type: "text",
-          text: {
-            en: "Advice on all aspects of GDPR. Introduction of retention policies and data protection guidelines.",
-            de: "Beratung zu allen Aspekten der DSGVO. Einführung von Aufbewahrungsfristen und Datenschutz-Richtlinien.",
-          },
-        },
-        {
-          type: "text",
-          text: {
-            en: "Introduction of security guidelines.",
-            de: "Einführung von Sicherheitsrichtlinien.",
-          },
-        },
-        {
-          type: "achievement",
-          text: {
-            en: "Implemented IT security measures that passed a SOC2 audit with zero non-conformities, securing key client contracts.",
-            de: "Implementierung von IT-Sicherheitsmaßnahmen, die bei einem SOC2-Audit ohne Beanstandungen bestanden.",
-          },
-        },
-        {
-          type: "achievement",
-          text: {
-            en: "Integrated SSO infrastructure across multiple platforms, improving security and user experience.",
-            de: "Integration der SSO-Infrastruktur über mehrere Plattformen hinweg, Verbesserung der Sicherheit und Benutzererfahrung.",
-          },
-        },
-        {
-          type: "achievement",
-          text: {
-            en: "Led the team in passing ISO27001 certification within a tight six-month deadline, which opened new markets for the company.",
-            de: "Führung des Teams zur erfolgreichen ISO27001-Zertifizierung innerhalb einer straffen sechsmonatigen Frist, wodurch neue Märkte für das Unternehmen erschlossen wurden.",
-          },
-        },
-      ],
-      tags: [
-        { en: "Security", de: "Sicherheit" },
-        { en: "Data Protection", de: "Datenschutz" },
-        { en: "SSO", de: "SSO" },
-        { en: "GDPR", de: "DSGVO" },
-        { en: "ISO 27001", de: "ISO 27001" },
-        { en: "SOC 2", de: "SOC 2" },
-        { en: "Atlassian Jira", de: "Atlassian Jira" },
-        { en: "Atlassian Confluence", de: "Atlassian Confluence" },
-        { en: "Palo Alto Firewall", de: "Palo Alto Firewall" },
-        { en: "Cisco", de: "Cisco" },
-        { en: "VMware", de: "VMware" },
-        { en: "Windows", de: "Windows" },
-        { en: "Linux", de: "Linux" },
-        { en: "Microsoft Azure", de: "Microsoft Azure" },
-        { en: "Incident Response", de: "Incident Response" },
-        { en: "Penetration Testing", de: "Penetration Testing" },
-      ],
-    },
-    {
-      title: {
-        en: "Code Review & Security Advisory",
-        de: "Code-Review & Security-Beratung",
-      },
-      company: "GEHR Datentechnik GmbH",
-      logoUrl: "/logos/gehr.png",
+      location: { de: "Hockenheim, Deutschland", en: "Hockenheim, Germany" },
+      logoUrl: "/logos/degit.png",
+      period: { de: "Aug 2025 – Okt 2025", en: "Aug 2025 – Oct 2025" },
       projectScale: "small",
-      period: { en: "Oct 2023", de: "Okt 2023" },
-      location: { en: "Mannheim, Germany", de: "Mannheim, Deutschland" },
+      tags: [
+        { de: "KI-Evaluierung", en: "AI Evaluation" },
+        { de: "KI-Training", en: "AI Training" },
+        { de: "EU AI Act", en: "EU AI Act" },
+        { de: "Supabase", en: "Supabase" },
+        { de: "Cloudflare", en: "Cloudflare" },
+        { de: "Automatisierung", en: "Automation" },
+        { de: "n8n", en: "n8n" },
+        { de: "make.com", en: "make.com" },
+        { de: "Zapier", en: "Zapier" },
+        { de: "OpenAI", en: "OpenAI" },
+        { de: "Apple Foundation", en: "Apple Foundation" },
+        { de: "Anthropic Claude", en: "Anthropic Claude" },
+        { de: "Microsoft Copilot", en: "Microsoft Copilot" },
+        { de: "Perplexity", en: "Perplexity" },
+        { de: "z.AI GLM", en: "z.AI GLM" },
+        { de: "Agentische KI", en: "Agentic AI" },
+        { de: "Unternehmensautomatisierung", en: "Enterprise Automation" },
+        { de: "Cursor", en: "Cursor" },
+        { de: "Claude Code", en: "Claude Code" },
+        { de: "OpenAI Codex", en: "OpenAI Codex" },
+      ],
+      title: {
+        de: "KI-Trainingsplattform & Evaluierung von KI-Werkzeugen",
+        en: "AI Training Platform & AI Tools Evaluation",
+      },
+    },
+    {
+      company: "Joh. Berenberg, Gossler & Co. KG",
       description: [
         {
-          type: "text",
           text: {
-            en: "Comprehensive code review of the existing PHP application with a structured assessment of critical, medium and low-severity issues.",
+            de: "Teilprojektleitung im Rahmen des RZ-Migrationsprojekts mit Schwerpunkt auf Solaris-, Linux-, Storage- und Backup-Umgebungen.",
+            en: "Subproject lead within the data center migration project, focusing on Solaris, Linux, storage, and backup environments.",
+          },
+          type: "text",
+        },
+        {
+          text: {
+            de: "Verantwortlich für die Modernisierung und Einführung der neuen unternehmensweiten Backup-Plattform auf Basis der Rubrik Security Cloud.",
+            en: "Responsible for the modernization and full implementation of the new enterprise backup platform based on Rubrik Security Cloud.",
+          },
+          type: "text",
+        },
+        {
+          text: {
+            de: "Mitverantwortung bei der Weiterentwicklung der Solaris-Infrastruktur und der schrittweisen Ablösung von Legacy-Systemen durch moderne, cloudfähige Architekturen.",
+            en: "Supported the transition of Solaris infrastructure and legacy systems towards modern, cloud-ready architectures.",
+          },
+          type: "text",
+        },
+        {
+          text: {
+            de: "Mitwirkung bei der Neugestaltung und Erneuerung der Legacy-Netzwerkinfrastruktur hin zu einer modernen, segmentierten Architektur mit verbesserter Security-Fokussierung.",
+            en: "Contributed to the redesign and renewal of the legacy network into a modern, segmented structure with improved security focus.",
+          },
+          type: "text",
+        },
+        {
+          text: {
+            de: "Erfolgreiche Leitung des Modernisierungsprojekts der Rubrik Security Cloud mit deutlichen Verbesserungen bei Datensicherheit, Compliance und Wiederherstellungszeiten in allen Fachbereichen.",
+            en: "Successfully led the Rubrik Security Cloud modernization project, enhancing data protection, compliance, and recovery performance across all business units.",
+          },
+          type: "achievement",
+        },
+        {
+          text: {
+            de: "Beitrag zur erfolgreichen Verlagerung von zwei Rechenzentren mit minimalen Ausfallzeiten und abgestimmten Abhängigkeiten über mehrere Infrastrukturbereiche hinweg.",
+            en: "Contributed to the successful relocation of two data centers with minimized downtime and coordinated dependencies across multiple infrastructure domains.",
+          },
+          type: "achievement",
+        },
+      ],
+      location: { de: "Hamburg, Deutschland", en: "Hamburg, Germany" },
+      logoUrl: "/logos/berenberg.svg",
+      period: { de: "Jan 2024 - Sep 2025", en: "Jan 2024 - Sep 2025" },
+      tags: [
+        { de: "Projektmanagement", en: "Project Management" },
+        { de: "Rubrik Security Cloud", en: "Rubrik Security Cloud" },
+        { de: "Atlassian Jira", en: "Atlassian Jira" },
+        { de: "Atlassian Confluence", en: "Atlassian Confluence" },
+        { de: "Microsoft Project", en: "Microsoft Project" },
+        { de: "ServiceNow", en: "ServiceNow" },
+        { de: "LeanIX", en: "LeanIX" },
+        { de: "Delinea", en: "Delinea" },
+        { de: "IPv6", en: "IPv6" },
+        { de: "Netzwerk", en: "Network" },
+        { de: "Compliance", en: "Compliance" },
+        { de: "Backup", en: "Backup" },
+        { de: "Solaris", en: "Solaris" },
+        { de: "Rubrik", en: "Rubrik" },
+        { de: "DORA", en: "DORA" },
+      ],
+      title: {
+        de: "Teilprojektleiter RZ-Migration & Backup-Modernisierung",
+        en: "Subproject Lead Data Center Migration & Backup Modernization",
+      },
+    },
+    {
+      company: "Threedium Ltd.",
+      description: [
+        {
+          text: {
+            de: "Beratung in allen Fragen der IT-Sicherheit.",
+            en: "Consulting in all questions about and around IT security.",
+          },
+          type: "text",
+        },
+        {
+          text: {
+            de: "Unterstützung des DevOps-Teams.",
+            en: "Support of the DevOps team.",
+          },
+          type: "text",
+        },
+        {
+          text: {
+            de: "Integration von Diensten in SSO-Infrastruktur.",
+            en: "Integration of services in SSO infrastructure.",
+          },
+          type: "text",
+        },
+        {
+          text: {
+            de: "Zertifizierungsaudit: SOC2 und ISO27001.",
+            en: "Certificate audit: SOC2 and ISO27001",
+          },
+          type: "text",
+        },
+        {
+          text: {
+            de: "Beratung zu allen Aspekten der DSGVO. Einführung von Aufbewahrungsfristen und Datenschutz-Richtlinien.",
+            en: "Advice on all aspects of GDPR. Introduction of retention policies and data protection guidelines.",
+          },
+          type: "text",
+        },
+        {
+          text: {
+            de: "Einführung von Sicherheitsrichtlinien.",
+            en: "Introduction of security guidelines.",
+          },
+          type: "text",
+        },
+        {
+          text: {
+            de: "Implementierung von IT-Sicherheitsmaßnahmen, die bei einem SOC2-Audit ohne Beanstandungen bestanden.",
+            en: "Implemented IT security measures that passed a SOC2 audit with zero non-conformities, securing key client contracts.",
+          },
+          type: "achievement",
+        },
+        {
+          text: {
+            de: "Integration der SSO-Infrastruktur über mehrere Plattformen hinweg, Verbesserung der Sicherheit und Benutzererfahrung.",
+            en: "Integrated SSO infrastructure across multiple platforms, improving security and user experience.",
+          },
+          type: "achievement",
+        },
+        {
+          text: {
+            de: "Führung des Teams zur erfolgreichen ISO27001-Zertifizierung innerhalb einer straffen sechsmonatigen Frist, wodurch neue Märkte für das Unternehmen erschlossen wurden.",
+            en: "Led the team in passing ISO27001 certification within a tight six-month deadline, which opened new markets for the company.",
+          },
+          type: "achievement",
+        },
+      ],
+      location: { de: "London, Vereinigtes Königreich", en: "London, United Kingdom" },
+      logoUrl: "/logos/threedium.svg",
+      period: { de: "Okt 2023 - Jun 2024", en: "Oct 2023 - Jun 2024" },
+      tags: [
+        { de: "Sicherheit", en: "Security" },
+        { de: "Datenschutz", en: "Data Protection" },
+        { de: "SSO", en: "SSO" },
+        { de: "DSGVO", en: "GDPR" },
+        { de: "ISO 27001", en: "ISO 27001" },
+        { de: "SOC 2", en: "SOC 2" },
+        { de: "Atlassian Jira", en: "Atlassian Jira" },
+        { de: "Atlassian Confluence", en: "Atlassian Confluence" },
+        { de: "Palo Alto Firewall", en: "Palo Alto Firewall" },
+        { de: "Cisco", en: "Cisco" },
+        { de: "VMware", en: "VMware" },
+        { de: "Windows", en: "Windows" },
+        { de: "Linux", en: "Linux" },
+        { de: "Microsoft Azure", en: "Microsoft Azure" },
+        { de: "Incident Response", en: "Incident Response" },
+        { de: "Penetration Testing", en: "Penetration Testing" },
+      ],
+      title: {
+        de: "Informationssicherheitsbeauftragter",
+        en: "Information Security Officer",
+      },
+    },
+    {
+      company: "GEHR Datentechnik GmbH",
+      description: [
+        {
+          text: {
             de: "Umfassendes Code-Review der bestehenden PHP-Anwendung mit strukturierter Bewertung von Findings hoher, mittlerer und niedriger Schwere.",
+            en: "Comprehensive code review of the existing PHP application with a structured assessment of critical, medium and low-severity issues.",
           },
+          type: "text",
         },
         {
-          type: "text",
           text: {
-            en: "Creation of a detailed review document including technical findings, recommended remediation steps, and prioritization for development teams.",
             de: "Erstellung eines ausführlichen Review-Papiers mit technischen Befunden, empfohlenen Maßnahmen und Priorisierung für die Entwicklungsteams.",
+            en: "Creation of a detailed review document including technical findings, recommended remediation steps, and prioritization for development teams.",
           },
+          type: "text",
         },
         {
-          type: "text",
           text: {
-            en: "Consulting on application and infrastructure security with a focus on practical improvements, secure coding patterns and operational hardening.",
             de: "Beratung zu Anwendungs- und Infrastruktursicherheit mit Fokus auf praxisnahe Verbesserungen, sichere Coding-Patterns und betriebliches Hardening.",
+            en: "Consulting on application and infrastructure security with a focus on practical improvements, secure coding patterns and operational hardening.",
           },
+          type: "text",
         },
         {
-          type: "text",
           text: {
-            en: "Support during the implementation phase to fix identified issues and improve overall application resilience.",
             de: "Unterstützung während der Umsetzung zur Behebung identifizierter Probleme und zur Verbesserung der Gesamtstabilität der Anwendung.",
+            en: "Support during the implementation phase to fix identified issues and improve overall application resilience.",
           },
+          type: "text",
         },
       ],
+      location: { de: "Mannheim, Deutschland", en: "Mannheim, Germany" },
+      logoUrl: "/logos/gehr.png",
+      period: { de: "Okt 2023", en: "Oct 2023" },
+      projectScale: "small",
       tags: [
-        { en: "Code Review", de: "Code-Review" },
-        { en: "Security Advisory", de: "Security-Beratung" },
-        { en: "Vulnerability Analysis", de: "Schwachstellenanalyse" },
-        { en: "GDPR", de: "DSGVO" },
-        { en: "OWASP", de: "OWASP" },
-        { en: "Web Security", de: "Web-Sicherheit" },
-        { en: "Data Protection", de: "Datenschutz" },
-        { en: "Risk Assessment", de: "Risikobewertung" },
-        { en: "Linux", de: "Linux" },
-        { en: "PHP", de: "PHP" },
-        { en: "MySQL", de: "MySQL" },
+        { de: "Code-Review", en: "Code Review" },
+        { de: "Security-Beratung", en: "Security Advisory" },
+        { de: "Schwachstellenanalyse", en: "Vulnerability Analysis" },
+        { de: "DSGVO", en: "GDPR" },
+        { de: "OWASP", en: "OWASP" },
+        { de: "Web-Sicherheit", en: "Web Security" },
+        { de: "Datenschutz", en: "Data Protection" },
+        { de: "Risikobewertung", en: "Risk Assessment" },
+        { de: "Linux", en: "Linux" },
+        { de: "PHP", en: "PHP" },
+        { de: "MySQL", en: "MySQL" },
       ],
+      title: {
+        de: "Code-Review & Security-Beratung",
+        en: "Code Review & Security Advisory",
+      },
     },
     {
-      title: { en: "IT Security Consultant", de: "IT-Sicherheitsexperte" },
       company: "Deutsche Vermögensberatung AG",
-      logoUrl: "/logos/dvag.svg",
-      period: { en: "Jan 2019 - Sep 2023", de: "Jan 2019 - Sep 2023" },
-      location: { en: "Frankfurt am Main, Germany", de: "Frankfurt am Main, Deutschland" },
       description: [
         {
-          type: "text",
           text: {
-            en: "Consulting regarding any security topics, focus on server and networks.",
             de: "Beratung zu allen Sicherheitsthemen, Schwerpunkt auf Server und Netzwerke.",
+            en: "Consulting regarding any security topics, focus on server and networks.",
           },
+          type: "text",
         },
         {
-          type: "text",
           text: {
-            en: "Support and strategy handling during a (large) security incident.",
             de: "Unterstützung und Strategieplanung während eines großen Sicherheitsvorfalls.",
+            en: "Support and strategy handling during a (large) security incident.",
           },
+          type: "text",
         },
         {
-          type: "text",
           text: {
-            en: "Writing (security) policies and technical concepts.",
             de: "Erstellung von (Sicherheits-)Richtlinien und technischen Konzepten.",
+            en: "Writing (security) policies and technical concepts.",
           },
+          type: "text",
         },
         {
-          type: "text",
           text: {
-            en: "Automation of vulnerability and incident management.",
             de: "Automatisierung des Schwachstellen- und Vorfallsmanagements.",
+            en: "Automation of vulnerability and incident management.",
           },
+          type: "text",
         },
         {
-          type: "text",
           text: {
-            en: "Support for building IT architecture and strategy (including network architecture, cloud infrastructure, firewall concepts, etc.).",
             de: "Unterstützung beim Aufbau von IT-Architektur und Strategie (einschließlich Netzwerkarchitektur, Cloud-Infrastruktur, Firewall-Konzepte, etc.).",
+            en: "Support for building IT architecture and strategy (including network architecture, cloud infrastructure, firewall concepts, etc.).",
           },
+          type: "text",
         },
         {
-          type: "text",
           text: {
-            en: "Preparation and accompanying of penetration tests (including network, cloud, applications, Active Directory, etc.).",
             de: "Vorbereitung und Begleitung von Penetrationstests (einschließlich Netzwerk, Cloud, Anwendungen, Active Directory, etc.).",
+            en: "Preparation and accompanying of penetration tests (including network, cloud, applications, Active Directory, etc.).",
           },
+          type: "text",
         },
         {
-          type: "text",
           text: {
-            en: "Led and managed the Security Operations Center (SOC) team, overseeing daily operations, incident response, and continuous improvement of security processes.",
             de: "Leitung und Management des Security Operations Center (SOC)-Teams, einschließlich der täglichen Betriebsüberwachung, Incident Response und kontinuierlichen Verbesserung der Sicherheitsprozesse.",
+            en: "Led and managed the Security Operations Center (SOC) team, overseeing daily operations, incident response, and continuous improvement of security processes.",
           },
+          type: "text",
         },
         {
-          type: "text",
           text: {
-            en: "Security audits.",
             de: "Sicherheits-Audits.",
+            en: "Security audits.",
           },
+          type: "text",
         },
         {
-          type: "text",
           text: {
-            en: "Specialization in the areas of Linux and networking.",
             de: "Spezialisierung in den Bereichen Linux und Netzwerke.",
+            en: "Specialization in the areas of Linux and networking.",
           },
+          type: "text",
         },
         {
-          type: "text",
           text: {
-            en: "IT security consulting also on Windows, Cloud (primarily Azure) and application development.",
             de: "IT-Sicherheitsberatung auch für Windows, Cloud (vor allem Azure) und Anwendungsentwicklung.",
+            en: "IT security consulting also on Windows, Cloud (primarily Azure) and application development.",
           },
+          type: "text",
         },
         {
-          type: "text",
           text: {
-            en: "Advice on data protection and certification issues (e.g. ISO27001, BSI Grundschutz, NIST framework, MITRE).",
             de: "Beratung zu Datenschutz- und Zertifizierungsfragen (z.B. ISO27001, BSI Grundschutz, NIST-Framework, MITRE).",
+            en: "Advice on data protection and certification issues (e.g. ISO27001, BSI Grundschutz, NIST framework, MITRE).",
           },
+          type: "text",
         },
         {
-          type: "achievement",
           text: {
-            en: "Managed the response to a major security incident, coordinating efforts that minimized data loss and restored operations.",
             de: "Leitung der Reaktion auf einen großen Sicherheitsvorfall, Koordination der Maßnahmen zur Minimierung von Datenverlusten und Wiederherstellung des Betriebs.",
+            en: "Managed the response to a major security incident, coordinating efforts that minimized data loss and restored operations.",
           },
+          type: "achievement",
         },
         {
-          type: "achievement",
           text: {
-            en: "Developed and automated a vulnerability management system, reducing incident response time and increasing system uptime.",
             de: "Entwicklung und Automatisierung eines Schwachstellenmanagementsystems, Reduzierung der Reaktionszeiten bei Vorfällen und Erhöhung der Systemverfügbarkeit.",
+            en: "Developed and automated a vulnerability management system, reducing incident response time and increasing system uptime.",
           },
+          type: "achievement",
         },
         {
-          type: "achievement",
           text: {
-            en: "Implemented security policies that were later adopted as best practices company-wide.",
             de: "Implementierung von Sicherheitsrichtlinien, die später als Best Practices im gesamten Unternehmen übernommen wurden.",
+            en: "Implemented security policies that were later adopted as best practices company-wide.",
           },
+          type: "achievement",
         },
       ],
+      location: { de: "Frankfurt am Main, Deutschland", en: "Frankfurt am Main, Germany" },
+      logoUrl: "/logos/dvag.svg",
+      period: { de: "Jan 2019 - Sep 2023", en: "Jan 2019 - Sep 2023" },
       tags: [
-        { en: "Security", de: "Sicherheit" },
-        { en: "GDPR", de: "DSGVO" },
-        { en: "ISO 27001", de: "ISO 27001" },
-        { en: "BSI / NIS2 / NIST / MITRE", de: "BSI / NIS2 / NIST / MITRE" },
-        { en: "ITIL", de: "ITIL" },
-        { en: "Guidelines", de: "Richtlinien" },
-        { en: "Atlassian Jira & Confluence", de: "Atlassian Jira & Confluence" },
-        { en: "Palo Alto / Cisco", de: "Palo Alto / Cisco" },
-        { en: "Microsoft Azure", de: "Microsoft Azure" },
-        { en: "Microsoft Sentinel", de: "Microsoft Sentinel" },
-        { en: "Microsoft Defender", de: "Microsoft Defender" },
-        { en: "Microsoft 365", de: "Microsoft 365" },
+        { de: "Sicherheit", en: "Security" },
+        { de: "DSGVO", en: "GDPR" },
+        { de: "ISO 27001", en: "ISO 27001" },
+        { de: "BSI / NIS2 / NIST / MITRE", en: "BSI / NIS2 / NIST / MITRE" },
+        { de: "ITIL", en: "ITIL" },
+        { de: "Richtlinien", en: "Guidelines" },
+        { de: "Atlassian Jira & Confluence", en: "Atlassian Jira & Confluence" },
+        { de: "Palo Alto / Cisco", en: "Palo Alto / Cisco" },
+        { de: "Microsoft Azure", en: "Microsoft Azure" },
+        { de: "Microsoft Sentinel", en: "Microsoft Sentinel" },
+        { de: "Microsoft Defender", en: "Microsoft Defender" },
+        { de: "Microsoft 365", en: "Microsoft 365" },
       ],
+      title: { de: "IT-Sicherheitsexperte", en: "IT Security Consultant" },
     },
     {
-      title: {
-        en: "Team Coordinator / System Architect",
-        de: "Teamkoordinator / Systemarchitekt",
-      },
       company: "Deutsche Vermögensberatung AG",
-      logoUrl: "/logos/dvag.svg",
-      period: { en: "Jul 2015 - Dec 2018", de: "Jul 2015 - Dez 2018" },
-      location: { en: "Frankfurt am Main, Germany", de: "Frankfurt am Main, Deutschland" },
       description: [
         {
-          type: "text",
           text: {
-            en: "Coordination and planning of resources of a small team.",
             de: "Koordination und Ressourcenplanung eines kleinen Teams.",
+            en: "Coordination and planning of resources of a small team.",
           },
+          type: "text",
         },
         {
-          type: "text",
           text: {
-            en: "Focus of the team: e-mail, cloud storage, load balancing, proxy and DNS (all linux based).",
             de: "Schwerpunkt des Teams: E-Mail, Cloud-Speicher, Lastverteilung, Proxy und DNS (alles Linux-basiert).",
+            en: "Focus of the team: e-mail, cloud storage, load balancing, proxy and DNS (all linux based).",
           },
+          type: "text",
         },
         {
-          type: "text",
           text: {
-            en: "Debugging and solving of problems mainly in the area of mail (but not solely).",
             de: "Fehlerbehebung und Problemlösung hauptsächlich im Bereich E-Mail (aber nicht ausschließlich).",
+            en: "Debugging and solving of problems mainly in the area of mail (but not solely).",
           },
+          type: "text",
         },
         {
-          type: "text",
           text: {
-            en: "Consulting and implementation of IPv6, security topics, high-availability systems and more topics.",
             de: "Beratung und Implementierung von IPv6, Sicherheitsthemen, Hochverfügbarkeitssystemen und weiteren Themen.",
+            en: "Consulting and implementation of IPv6, security topics, high-availability systems and more topics.",
           },
-        },
-        {
           type: "text",
+        },
+        {
           text: {
-            en: "Project part time management: data centre relocation, reconstruction of all servers.",
             de: "Teilprojektleitung: Rechenzentrumsumzug, Neuaufbau aller Server.",
+            en: "Project part time management: data centre relocation, reconstruction of all servers.",
           },
+          type: "text",
         },
         {
-          type: "achievement",
           text: {
-            en: "Coordinated a successful data center relocation project.",
             de: "Koordination eines erfolgreichen Rechenzentrumsumzugsprojekts.",
+            en: "Coordinated a successful data center relocation project.",
           },
+          type: "achievement",
         },
         {
-          type: "achievement",
           text: {
-            en: "Led the implementation of IPv6 across the organization, future-proofing the network.",
             de: "Leitung der Implementierung von IPv6 im gesamten Unternehmen, Zukunftssicherung des Netzwerks.",
+            en: "Led the implementation of IPv6 across the organization, future-proofing the network.",
           },
-        },
-        {
           type: "achievement",
-          text: {
-            en: "Improved team efficiency through the introduction of automated processes and resource management tools.",
-            de: "Verbesserung der Teameffizienz durch Einführung automatisierter Prozesse und Ressourcenmanagement-Tools.",
-          },
         },
-      ],
-      tags: [
-        { en: "Team Management", de: "Teamleitung" },
         {
-          en: "Atlassian Jira & Confluence",
-          de: "Atlassian Jira & Confluence",
+          text: {
+            de: "Verbesserung der Teameffizienz durch Einführung automatisierter Prozesse und Ressourcenmanagement-Tools.",
+            en: "Improved team efficiency through the introduction of automated processes and resource management tools.",
+          },
+          type: "achievement",
         },
-        { en: "dovecot & postfix", de: "dovecot & postfix" },
-        { en: "Microsoft Azure", de: "Microsoft Azure" },
-        { en: "IPv6", de: "IPv6" },
-        { en: "High-Availability", de: "Hochverfügbarkeit" },
-        { en: "Load Balancing", de: "Lastverteilung" },
-        { en: "Email", de: "E-Mail" },
-        { en: "Cloud Storage", de: "Cloud-Speicher" },
-        { en: "Proxy", de: "Proxy" },
-        { en: "DNS", de: "DNS" },
       ],
+      location: { de: "Frankfurt am Main, Deutschland", en: "Frankfurt am Main, Germany" },
+      logoUrl: "/logos/dvag.svg",
+      period: { de: "Jul 2015 - Dez 2018", en: "Jul 2015 - Dec 2018" },
+      tags: [
+        { de: "Teamleitung", en: "Team Management" },
+        {
+          de: "Atlassian Jira & Confluence",
+          en: "Atlassian Jira & Confluence",
+        },
+        { de: "dovecot & postfix", en: "dovecot & postfix" },
+        { de: "Microsoft Azure", en: "Microsoft Azure" },
+        { de: "IPv6", en: "IPv6" },
+        { de: "Hochverfügbarkeit", en: "High-Availability" },
+        { de: "Lastverteilung", en: "Load Balancing" },
+        { de: "E-Mail", en: "Email" },
+        { de: "Cloud-Speicher", en: "Cloud Storage" },
+        { de: "Proxy", en: "Proxy" },
+        { de: "DNS", en: "DNS" },
+      ],
+      title: {
+        de: "Teamkoordinator / Systemarchitekt",
+        en: "Team Coordinator / System Architect",
+      },
     },
     {
-      title: {
-        en: "Product Owner / System Architect",
-        de: "Product Owner / Systemarchitekt",
-      },
       company: "Deutsche Vermögensberatung AG",
-      logoUrl: "/logos/dvag.svg",
-      period: { en: "Jan 2013 - Jun 2015", de: "Jan 2013 - Jun 2015" },
-      location: { en: "Frankfurt am Main, Germany", de: "Frankfurt am Main, Deutschland" },
       description: [
         {
-          type: "text",
           text: {
-            en: "Product Owner and system architect for the enterprise-wide email archiving platform, including requirements management, technical roadmap, and long-term evolution.",
             de: "Product Owner und Systemarchitekt für die unternehmensweite E-Mail-Archivierungsplattform, einschließlich Anforderungsmanagement, technischer Roadmap und langfristiger Weiterentwicklung.",
+            en: "Product Owner and system architect for the enterprise-wide email archiving platform, including requirements management, technical roadmap, and long-term evolution.",
           },
+          type: "text",
         },
         {
-          type: "text",
           text: {
-            en: "Led the design and implementation of a legally compliant archive for more than 50,000 users, ensuring immutable retention, auditability, and long-term maintainability.",
             de: "Leitung der Design- und Implementierung eines rechtssicheren Archivs für über 50.000 Nutzer mit rechtssicherer Aufbewahrung, Prüfbarkeit und langfristiger Wartbarkeit.",
+            en: "Led the design and implementation of a legally compliant archive for more than 50,000 users, ensuring immutable retention, auditability, and long-term maintainability.",
           },
+          type: "text",
         },
         {
-          type: "text",
           text: {
-            en: "Introduced scalable storage, redundancy concepts, monitoring, indexing and full-text search to enable efficient retrieval of historical correspondence.",
             de: "Einführung skalierbarer Speicher- und Redundanzkonzepte sowie Monitoring, Indexierung und Volltextsuche zur effizienten Auffindbarkeit historischer Korrespondenz.",
+            en: "Introduced scalable storage, redundancy concepts, monitoring, indexing and full-text search to enable efficient retrieval of historical correspondence.",
           },
+          type: "text",
         },
         {
-          type: "text",
           text: {
-            en: "Close collaboration with legal, compliance, and auditing teams to meet regulatory requirements and ensure long-term evidentiary integrity.",
             de: "Enge Zusammenarbeit mit Legal-, Compliance- und Audit-Teams zur Erfüllung regulatorischer Anforderungen und langfristigen Beweissicherheit.",
+            en: "Close collaboration with legal, compliance, and auditing teams to meet regulatory requirements and ensure long-term evidentiary integrity.",
           },
-        },
-        {
           type: "text",
+        },
+        {
           text: {
-            en: "Secondary responsibilities in the surrounding mail infrastructure (dovecot, postfix), Linux-based services, DNS, proxy, load balancing and cloud storage.",
             de: "Nebenverantwortlichkeiten in der umliegenden Mail-Infrastruktur (dovecot, postfix), Linux-basierten Diensten, DNS, Proxy, Lastverteilung und Cloud-Speicher.",
+            en: "Secondary responsibilities in the surrounding mail infrastructure (dovecot, postfix), Linux-based services, DNS, proxy, load balancing and cloud storage.",
           },
+          type: "text",
         },
         {
-          type: "achievement",
           text: {
-            en: "Delivered a stable, compliant archive used daily across the entire organization.",
             de: "Bereitstellung eines stabilen, compliance-gerechten Archivsystems, das im gesamten Unternehmen täglich genutzt wurde.",
+            en: "Delivered a stable, compliant archive used daily across the entire organization.",
           },
+          type: "achievement",
         },
         {
-          type: "achievement",
           text: {
-            en: "Established future-proof data retention strategies aligned with strict regulatory expectations.",
             de: "Etablierung zukunftssicherer Aufbewahrungsstrategien im Einklang mit strengen regulatorischen Vorgaben.",
+            en: "Established future-proof data retention strategies aligned with strict regulatory expectations.",
           },
+          type: "achievement",
         },
       ],
+      location: { de: "Frankfurt am Main, Deutschland", en: "Frankfurt am Main, Germany" },
+      logoUrl: "/logos/dvag.svg",
+      period: { de: "Jan 2013 - Jun 2015", en: "Jan 2013 - Jun 2015" },
       tags: [
-        { en: "Email Archiving", de: "E-Mail-Archivierung" },
-        { en: "Compliance", de: "Compliance" },
-        { en: "Retention Policies", de: "Aufbewahrungspflichten" },
-        { en: "dovecot", de: "dovecot" },
-        { en: "postfix", de: "postfix" },
-        { en: "Linux", de: "Linux" },
-        { en: "High Availability", de: "Hochverfügbarkeit" },
-        { en: "Monitoring", de: "Monitoring" },
-        { en: "Full-Text Search", de: "Volltextsuche" },
-        { en: "Indexing", de: "Indexierung" },
-        { en: "Scalability", de: "Skalierbarkeit" },
-        { en: "Auditability", de: "Prüfbarkeit" },
-        { en: "IPv6", de: "IPv6" },
+        { de: "E-Mail-Archivierung", en: "Email Archiving" },
+        { de: "Compliance", en: "Compliance" },
+        { de: "Aufbewahrungspflichten", en: "Retention Policies" },
+        { de: "dovecot", en: "dovecot" },
+        { de: "postfix", en: "postfix" },
+        { de: "Linux", en: "Linux" },
+        { de: "Hochverfügbarkeit", en: "High Availability" },
+        { de: "Monitoring", en: "Monitoring" },
+        { de: "Volltextsuche", en: "Full-Text Search" },
+        { de: "Indexierung", en: "Indexing" },
+        { de: "Skalierbarkeit", en: "Scalability" },
+        { de: "Prüfbarkeit", en: "Auditability" },
+        { de: "IPv6", en: "IPv6" },
       ],
+      title: {
+        de: "Product Owner / Systemarchitekt",
+        en: "Product Owner / System Architect",
+      },
     },
   ],
-  experienceSectionTitle: { en: "Experience", de: "Berufserfahrung" },
+  experienceSectionTitle: { de: "Berufserfahrung", en: "Experience" },
   experienceSmallProjectsNote: {
-    en: "Specialized, flexible, or focused initiatives that complement the broader work.",
     de: "Spezialisierte, flexible oder fokussierte Initiativen, die die Gesamtarbeit ergänzen.",
+    en: "Specialized, flexible, or focused initiatives that complement the broader work.",
   },
   experienceSmallProjectsSubtitle: {
-    en: "Complementary or specialized projects with flexible scope.",
     de: "Ergänzende oder spezialisierte Projekte mit flexiblem Umfang.",
+    en: "Complementary or specialized projects with flexible scope.",
   },
   experienceSmallProjectsTitle: {
-    en: "Additional & Focused Projects",
     de: "Zusatz- & Schwerpunktprojekte",
+    en: "Additional & Focused Projects",
   },
   footer: {
     copyright: {
-      en: "© year Uwe Schwarz. All rights reserved.",
       de: "© year Uwe Schwarz. Alle Rechte vorbehalten.",
+      en: "© year Uwe Schwarz. All rights reserved.",
     },
     links: [
-      { label: { en: "Privacy Policy", de: "Datenschutz" }, href: "/privacy" },
-      { label: { en: "Imprint", de: "Impressum" }, href: "/imprint" },
+      { href: "/privacy", label: { de: "Datenschutz", en: "Privacy Policy" } },
+      { href: "/imprint", label: { de: "Impressum", en: "Imprint" } },
     ],
     /*    builtWith: {
       en: "Built with modern web technologies and a passion for clean code.",
@@ -1296,119 +1287,109 @@ export const siteContent: SiteContent = {
     },*/
   },
   hero: {
-    name: "Uwe Schwarz",
-    imageAlt: {
-      en: "Portrait photo of Uwe Schwarz, Project Manager and IT Security Expert.",
-      de: "Portraitfoto von Uwe Schwarz, Projektmanager und IT-Sicherheitsexperte.",
-    },
-    titleElements: [
-      {
-        en: "Project Manager",
-        de: "Projektmanager",
-      },
-      {
-        en: "IT Security Expert",
-        de: "IT-Sicherheitsexperte",
-      },
-      {
-        en: "AI Enthusiast",
-        de: "KI-Enthusiast",
-      },
-      {
-        en: "Consultant",
-        de: "Berater",
-      },
-    ],
-    description: {
-      en: "I connect technology, people, and business goals – acting as the bridge between teams, stakeholders, and systems. Whether it's IT security, networking, high-availability infrastructure, or email solutions, I take ownership, lead complex projects, and ensure the results are not just technically sound, but strategically aligned and built to last.",
-      de: "Ich bringe Technik, Menschen und Geschäftsziele zusammen – als Brücke zwischen Teams, Stakeholdern und Systemen. Ob IT-Security, Netzwerke, hochverfügbare Systeme oder E-Mail-Infrastruktur: Ich übernehme Verantwortung, leite komplexe Projekte und stelle sicher, dass Lösungen nicht nur funktionieren, sondern auch strategisch passen und langfristig tragen.",
-    },
     ctaPrimary: {
-      en: "See my work",
       de: "Meine Arbeit ansehen",
+      en: "See my work",
     },
     ctaSecondary: {
-      en: "Download CV",
       de: "Lebenslauf herunterladen",
+      en: "Download CV",
     },
     decorativeElements: [
       {
-        position: 9,
-        distance: 92,
         code: "🛡️&nbsp;GDPR",
+        distance: 92,
+        position: 9,
       },
       {
-        position: 35,
-        distance: 72,
         code: "🤖&nbsp;AI",
+        distance: 72,
+        position: 35,
       },
       {
-        position: 52,
-        distance: 85,
         code: "🤝&nbsp;Human&nbsp;API",
+        distance: 85,
+        position: 52,
       },
       {
-        position: 66,
-        distance: 122,
         code: "📡&nbsp;networking",
+        distance: 122,
+        position: 66,
       },
       {
-        position: 84,
-        distance: 134,
         code: "💡&nbsp;strategy",
+        distance: 134,
+        position: 84,
       },
       {
-        position: 95,
-        distance: 110,
         code: "🔐&nbsp;security",
+        distance: 110,
+        position: 95,
+      },
+    ],
+    description: {
+      de: "Ich bringe Technik, Menschen und Geschäftsziele zusammen – als Brücke zwischen Teams, Stakeholdern und Systemen. Ob IT-Security, Netzwerke, hochverfügbare Systeme oder E-Mail-Infrastruktur: Ich übernehme Verantwortung, leite komplexe Projekte und stelle sicher, dass Lösungen nicht nur funktionieren, sondern auch strategisch passen und langfristig tragen.",
+      en: "I connect technology, people, and business goals – acting as the bridge between teams, stakeholders, and systems. Whether it's IT security, networking, high-availability infrastructure, or email solutions, I take ownership, lead complex projects, and ensure the results are not just technically sound, but strategically aligned and built to last.",
+    },
+    imageAlt: {
+      de: "Portraitfoto von Uwe Schwarz, Projektmanager und IT-Sicherheitsexperte.",
+      en: "Portrait photo of Uwe Schwarz, Project Manager and IT Security Expert.",
+    },
+    name: "Uwe Schwarz",
+    titleElements: [
+      {
+        de: "Projektmanager",
+        en: "Project Manager",
+      },
+      {
+        de: "IT-Sicherheitsexperte",
+        en: "IT Security Expert",
+      },
+      {
+        de: "KI-Enthusiast",
+        en: "AI Enthusiast",
+      },
+      {
+        de: "Berater",
+        en: "Consultant",
       },
     ],
   },
   imprint: {
-    title: {
-      en: "Imprint",
-      de: "Impressum",
-    },
-    contactTitle: {
-      en: "Contact Information",
-      de: "Kontaktinformationen",
-    },
-    companyName: {
-      en: "Uwe Schwarz",
-      de: "Uwe Schwarz",
-    },
     /*    representative: {
       en: "Represented by: John Oldman",
       de: "Vertreten durch: John Oldman",
     },*/
     address: {
-      street: {
-        en: "Uhlandstr. 20",
-        de: "Uhlandstr. 20",
-      },
       city: {
-        en: "67069 Ludwigshafen",
         de: "67069 Ludwigshafen",
+        en: "67069 Ludwigshafen",
       },
       country: {
-        en: "Germany",
         de: "Deutschland",
+        en: "Germany",
+      },
+      street: {
+        de: "Uhlandstr. 20",
+        en: "Uhlandstr. 20",
       },
     },
+    companyName: {
+      de: "Uwe Schwarz",
+      en: "Uwe Schwarz",
+    },
     contactInfoTitle: {
-      en: "Contact",
       de: "Kontakt",
+      en: "Contact",
     },
-    emailLabel: {
-      en: "Email",
-      de: "E-Mail",
+    contactTitle: {
+      de: "Kontaktinformationen",
+      en: "Contact Information",
     },
-    email: "mail@uweschwarz.eu",
-    phoneLabel: {
-      en: "Phone",
-      de: "Telefon",
+    disclaimer: {
+      de: "Für externe Links sind ausschließlich deren Betreiber verantwortlich.",
+      en: "The operators of linked websites are solely responsible for their content.",
     },
-    phone: "+49 151 64403667",
     /*    legalTitle: {
       en: "Legal Information",
       de: "Rechtliche Informationen",
@@ -1422,803 +1403,822 @@ export const siteContent: SiteContent = {
       de: "Eingetragen im Handelsregister des Amtsgerichts Berlin, HRB 123456",
     }, */
     disclaimerTitle: {
-      en: "Disclaimer",
       de: "Haftungsausschluss",
+      en: "Disclaimer",
     },
-    disclaimer: {
-      en: "The operators of linked websites are solely responsible for their content.",
-      de: "Für externe Links sind ausschließlich deren Betreiber verantwortlich.",
+    email: "mail@uweschwarz.eu",
+    emailLabel: {
+      de: "E-Mail",
+      en: "Email",
+    },
+    phone: "+49 151 64403667",
+    phoneLabel: {
+      de: "Telefon",
+      en: "Phone",
+    },
+    title: {
+      de: "Impressum",
+      en: "Imprint",
     },
   },
   llms: {
     title: {
-      en: "Overview for AI Agents",
       de: "Übersicht für AI Agents",
+      en: "Overview for AI Agents",
     },
   },
   moreProjects: {
-    en: "More previous projects or references available upon request.",
     de: "Weitere frühere Projekte oder Referenzen sind auf Anfrage verfügbar.",
+    en: "More previous projects or references available upon request.",
   },
   navigation: [
-    { label: { en: "Home", de: "Start" }, href: "#hero" },
-    { label: { en: "About", de: "Über mich" }, href: "#about" },
-    { label: { en: "Experience", de: "Erfahrung" }, href: "#experience" },
-    { label: { en: "Projects", de: "Projekte" }, href: "#projects" },
-    { label: { en: "Skills", de: "Fähigkeiten" }, href: "#skills" },
-    { label: { en: "Contact", de: "Kontakt" }, href: "#contact" },
+    { href: "#hero", label: { de: "Start", en: "Home" } },
+    { href: "#about", label: { de: "Über mich", en: "About" } },
+    { href: "#experience", label: { de: "Erfahrung", en: "Experience" } },
+    { href: "#projects", label: { de: "Projekte", en: "Projects" } },
+    { href: "#skills", label: { de: "Fähigkeiten", en: "Skills" } },
+    { href: "#contact", label: { de: "Kontakt", en: "Contact" } },
   ],
   privacy: {
-    title: {
-      en: "Privacy Policy",
-      de: "Datenschutzerklärung",
-    },
-    subtitle: {
-      en: "Last updated: August 02, 2025",
-      de: "Letzte Aktualisierung: 02. August 2025",
-    },
     sections: [
       {
-        title: {
-          en: "Controller",
-          de: "Verantwortliche Stelle",
-        },
-        paragraphs: [
-          {
-            en: "Responsible for the processing of personal data:",
-            de: "Verantwortlich für die Verarbeitung personenbezogener Daten:",
-          },
-        ],
         list: [
           {
-            en: "Uwe Schwarz",
             de: "Uwe Schwarz",
+            en: "Uwe Schwarz",
           },
           {
-            en: "Uhlandstr. 20",
             de: "Uhlandstr. 20",
+            en: "Uhlandstr. 20",
           },
           {
-            en: "67069 Ludwigshafen",
             de: "67069 Ludwigshafen",
+            en: "67069 Ludwigshafen",
           },
           {
-            en: "Germany",
             de: "Deutschland",
+            en: "Germany",
           },
           {
-            en: "Email: mail@uweschwarz.eu",
             de: "E-Mail: mail@uweschwarz.eu",
+            en: "Email: mail@uweschwarz.eu",
           },
           {
-            en: "Phone: +49 151 64403667",
             de: "Telefon: +49 151 64403667",
+            en: "Phone: +49 151 64403667",
           },
         ],
-      },
-      {
-        title: {
-          en: "Data Protection Officer",
-          de: "Datenschutzbeauftragter",
-        },
         paragraphs: [
           {
-            en: "No Data Protection Officer has been appointed, as this is not required under Art. 37 GDPR.",
+            de: "Verantwortlich für die Verarbeitung personenbezogener Daten:",
+            en: "Responsible for the processing of personal data:",
+          },
+        ],
+        title: {
+          de: "Verantwortliche Stelle",
+          en: "Controller",
+        },
+      },
+      {
+        paragraphs: [
+          {
             de: "Ein Datenschutzbeauftragter wurde nicht benannt, da dies gemäß Art. 37 DSGVO nicht erforderlich ist.",
+            en: "No Data Protection Officer has been appointed, as this is not required under Art. 37 GDPR.",
           },
         ],
+        title: {
+          de: "Datenschutzbeauftragter",
+          en: "Data Protection Officer",
+        },
       },
       {
-        title: {
-          en: "Contact Form",
-          de: "Kontaktformular",
-        },
         paragraphs: [
           {
-            en: "This form processes data (name, e-mail, message) solely to reply to your request. Basis: consent / contract performance (Art. 6 GDPR lit. a & b).",
             de: "Die hier eingegebenen Daten (Name, E-Mail, Nachricht) verwenden wir ausschließlich zur Beantwortung deiner Anfrage. Rechtsgrundlage: Einwilligung und Vertragserfüllung (Art. 6 Abs. 1 lit. a & b DSGVO).",
+            en: "This form processes data (name, e-mail, message) solely to reply to your request. Basis: consent / contract performance (Art. 6 GDPR lit. a & b).",
           },
         ],
+        title: {
+          de: "Kontaktformular",
+          en: "Contact Form",
+        },
       },
       {
-        title: {
-          en: "Use of Third-Party Services",
-          de: "Einsatz von Drittanbieter-Diensten",
-        },
-        paragraphs: [
-          {
-            en: "This site is hosted by Cloudflare; I do not have direct access to server logs or your IP address there. For the contact form, I use Resend to send emails. Only the data you enter into the form is forwarded – no other personal data is stored. Umami is used for analytics and stores only pseudonymous data.",
-            de: "Diese Seite wird bei Cloudflare gehostet; ich habe dort keinen direkten Zugriff auf Server-Logs oder Deine IP-Adresse. Für das Kontaktformular nutze ich Resend, um E-Mails zu versenden. Es werden nur die von Dir im Formular eingegebenen Daten weitergeleitet – weitere personenbezogene Daten werden nicht gespeichert. Umami wird für Analysen verwendet und speichert nur pseudonymisierte Daten.",
-          },
-          {
-            en: "Log retention: max. 30 days",
-            de: "Log-Aufbewahrung: max. 30 Tage",
-          },
-        ],
         list: [
           {
-            en: "Cloudflare: 101 Townsend St, San Francisco, CA 94107, USA<br />Cloudflare Germany GmbH: Rosental 7, c/o Mindspace, 80331 München, Germany",
             de: "Cloudflare: 101 Townsend St, San Francisco, CA 94107, USA<br />Cloudflare Germany GmbH: Rosental 7, c/o Mindspace, 80331 München, Germany",
             description: {
-              en: "Legal basis: legitimate interests (Art. 6(1)(f) GDPR) to ensure website performance and security.<br />Cloudflare is certified under the EU-U.S. Data Privacy Framework and processes data under its principles. See: https://www.cloudflare.com/privacypolicy/.",
               de: "Rechtsgrundlage: berechtigte Interessen (Art. 6 Abs. 1 lit. f DSGVO) zur Gewährleistung der Performance und Sicherheit der Website.<br />Cloudflare ist nach dem EU-US Data Privacy Framework zertifiziert und verarbeitet Daten gemäß dessen Grundsätzen. Details: https://www.cloudflare.com/privacypolicy/.",
+              en: "Legal basis: legitimate interests (Art. 6(1)(f) GDPR) to ensure website performance and security.<br />Cloudflare is certified under the EU-U.S. Data Privacy Framework and processes data under its principles. See: https://www.cloudflare.com/privacypolicy/.",
             },
+            en: "Cloudflare: 101 Townsend St, San Francisco, CA 94107, USA<br />Cloudflare Germany GmbH: Rosental 7, c/o Mindspace, 80331 München, Germany",
           },
           {
-            en: "Resend: 2261 Market Street #5039, San Francisco, CA 94114, USA",
             de: "Resend: 2261 Market Street #5039, San Francisco, CA 94114, USA",
             description: {
-              en: "Legal basis: performance of a contract (Art. 6(1)(b) GDPR), as Resend sends emails on your behalf.<br />Resend’s DPA includes Standard Contractual Clauses (SCC) for transfers to the US. See: https://resend.com/legal/dpa.",
               de: "Rechtsgrundlage: Vertragserfüllung (Art. 6 Abs. 1 lit. b DSGVO), da Resend E-Mails in deinem Auftrag versendet.<br />Resend nutzt Standardvertragsklauseln (SCC) in ihrem DPA, um den Datentransfer in die USA zu legitimieren. DPA: https://resend.com/legal/dpa.",
+              en: "Legal basis: performance of a contract (Art. 6(1)(b) GDPR), as Resend sends emails on your behalf.<br />Resend’s DPA includes Standard Contractual Clauses (SCC) for transfers to the US. See: https://resend.com/legal/dpa.",
             },
+            en: "Resend: 2261 Market Street #5039, San Francisco, CA 94114, USA",
           },
           {
-            en: "Umami Software, Inc.: 1362 42nd Ave., San Francisco, CA, 94122, USA",
             de: "Umami Software, Inc.: 1362 42nd Ave., San Francisco, CA, 94122, USA",
             description: {
-              en: "Legal basis: legitimate interests (Art. 6(1)(f) GDPR) to enable website-analytics in a privacy-respective way.<br />Umami is a privacy-aware web analytics tool that does not use cookies or collect personal identifiers in its standard configuration. See: https://umami.is/privacy.",
               de: "Rechtsgrundlage: berechtigte Interessen (Art. 6 Abs. 1 lit. f DSGVO) zur Durchführung der Website-Analyse in datenschutzfreundlicher Weise.<br />Umami ist ein datenschutzbewusstes Web-Analytics-Tool, das in seiner Standardkonfiguration keine Cookies verwendet und keine personenbezogenen Kennungen erhebt. Details: https://umami.is/privacy.",
+              en: "Legal basis: legitimate interests (Art. 6(1)(f) GDPR) to enable website-analytics in a privacy-respective way.<br />Umami is a privacy-aware web analytics tool that does not use cookies or collect personal identifiers in its standard configuration. See: https://umami.is/privacy.",
             },
+            en: "Umami Software, Inc.: 1362 42nd Ave., San Francisco, CA, 94122, USA",
           },
         ],
-      },
-      {
-        title: {
-          en: "Legal Basis & International Transfers",
-          de: "Rechtsgrundlagen & Drittlandsübermittlung",
-        },
         paragraphs: [
           {
-            en: "Cloudflare processes data under legitimate interests (Art. 6(1)(f) GDPR) and is certified under the EU-US Data Privacy Framework (see https://www.cloudflare.com/privacypolicy).",
+            de: "Diese Seite wird bei Cloudflare gehostet; ich habe dort keinen direkten Zugriff auf Server-Logs oder Deine IP-Adresse. Für das Kontaktformular nutze ich Resend, um E-Mails zu versenden. Es werden nur die von Dir im Formular eingegebenen Daten weitergeleitet – weitere personenbezogene Daten werden nicht gespeichert. Umami wird für Analysen verwendet und speichert nur pseudonymisierte Daten.",
+            en: "This site is hosted by Cloudflare; I do not have direct access to server logs or your IP address there. For the contact form, I use Resend to send emails. Only the data you enter into the form is forwarded – no other personal data is stored. Umami is used for analytics and stores only pseudonymous data.",
+          },
+          {
+            de: "Log-Aufbewahrung: max. 30 Tage",
+            en: "Log retention: max. 30 days",
+          },
+        ],
+        title: {
+          de: "Einsatz von Drittanbieter-Diensten",
+          en: "Use of Third-Party Services",
+        },
+      },
+      {
+        paragraphs: [
+          {
             de: "Cloudflare verarbeitet Daten auf Basis berechtigter Interessen (Art. 6 Abs. 1 lit. f DSGVO) und ist nach dem EU-US Data Privacy Framework zertifiziert (siehe https://www.cloudflare.com/privacypolicy).",
+            en: "Cloudflare processes data under legitimate interests (Art. 6(1)(f) GDPR) and is certified under the EU-US Data Privacy Framework (see https://www.cloudflare.com/privacypolicy).",
           },
           {
-            en: "Resend acts on contract performance (Art. 6(1)(b) GDPR) and uses Standard Contractual Clauses for US transfers (see https://resend.com/legal/dpa).",
             de: "Resend handelt zur Vertragserfüllung (Art. 6 Abs. 1 lit. b DSGVO) und nutzt Standardvertragsklauseln für Datenübermittlungen in die USA (siehe https://resend.com/legal/dpa).",
+            en: "Resend acts on contract performance (Art. 6(1)(b) GDPR) and uses Standard Contractual Clauses for US transfers (see https://resend.com/legal/dpa).",
           },
         ],
+        title: {
+          de: "Rechtsgrundlagen & Drittlandsübermittlung",
+          en: "Legal Basis & International Transfers",
+        },
       },
       {
-        title: {
-          en: "Cookies and Local Storage",
-          de: "Cookies und Local Storage",
-        },
         paragraphs: [
           {
-            en: "I do not use cookies. Only your language choice and theme preference are stored locally in your browser’s localStorage. The storage of theme preferences and language selection in localStorage is based on legitimate interests (Art. 6(1)(f) GDPR) to enhance user experience. You can clear this at any time in your browser settings.",
             de: "Ich verwende keine Cookies. Lediglich Deine Sprachwahl und Theme-Einstellung werden lokal im localStorage Deines Browsers gespeichert. Die Speicherung von Theme-Einstellungen und Sprachwahl im localStorage beruht auf berechtigten Interessen (Art. 6 Abs. 1 lit. f DSGVO) zur Verbesserung der Benutzererfahrung. Du kannst diese Daten jederzeit über deine Browser-Einstellungen löschen.",
+            en: "I do not use cookies. Only your language choice and theme preference are stored locally in your browser’s localStorage. The storage of theme preferences and language selection in localStorage is based on legitimate interests (Art. 6(1)(f) GDPR) to enhance user experience. You can clear this at any time in your browser settings.",
           },
         ],
+        title: {
+          de: "Cookies und Local Storage",
+          en: "Cookies and Local Storage",
+        },
       },
       {
-        title: {
-          en: "External Links",
-          de: "Externe Links",
-        },
         paragraphs: [
           {
-            en: "The site contains links to GitHub, LinkedIn, Xing, Freelancermap and X (formerly Twitter). Since I embed no external content, clicking these links may transfer you to the respective platforms, whose privacy policies then apply.",
             de: "Die Seite enthält Links zu GitHub, LinkedIn, Xing, Freelancermap und X (ehemals Twitter). Da keine externen Inhalte eingebunden sind, wirst Du beim Anklicken dieser Links auf die jeweiligen Plattformen weitergeleitet, deren Datenschutzerklärungen dann gelten.",
+            en: "The site contains links to GitHub, LinkedIn, Xing, Freelancermap and X (formerly Twitter). Since I embed no external content, clicking these links may transfer you to the respective platforms, whose privacy policies then apply.",
           },
         ],
+        title: {
+          de: "Externe Links",
+          en: "External Links",
+        },
       },
       {
-        title: {
-          en: "Data Security",
-          de: "Datensicherheit",
-        },
         paragraphs: [
           {
-            en: "I take reasonable technical and organizational measures to protect your data against unauthorized access and loss. However, internet-based data transmission can never be 100% secure.",
             de: "Ich ergreife angemessene technische und organisatorische Maßnahmen, um Deine Daten vor unbefugtem Zugriff und Verlust zu schützen. Eine 100%ige Sicherheit bei der Datenübertragung im Internet kann ich jedoch nicht garantieren.",
+            en: "I take reasonable technical and organizational measures to protect your data against unauthorized access and loss. However, internet-based data transmission can never be 100% secure.",
           },
           {
-            en: "Technical and Organisational Measures: this site uses TLS 1.3 (if supported by your browser), access controls with MFA, pseudonymisation/encryption at rest, and regular security audits.",
             de: "Technisch-organisatorische Maßnahmen: diese Seite nutzt TLS 1.3 (falls vom Browser unterstützt), Zugangskontrollen mit MFA, Pseudonymisierung/Verschlüsselung ruhender Daten und regelmäßige Sicherheitsaudits.",
+            en: "Technical and Organisational Measures: this site uses TLS 1.3 (if supported by your browser), access controls with MFA, pseudonymisation/encryption at rest, and regular security audits.",
           },
         ],
+        title: {
+          de: "Datensicherheit",
+          en: "Data Security",
+        },
       },
       {
-        title: {
-          en: "Data Subject Rights",
-          de: "Betroffenenrechte",
-        },
         paragraphs: [
           {
-            en: "Data subjects have the right to access (Art. 15), rectify (Art. 16), erase (Art. 17), restrict processing (Art. 18), data portability (Art. 20), object (Art. 21), and withdraw consent at any time (Art. 7(3)). These rights can be exercised by contacting mail@uweschwarz.eu.",
             de: "Betroffene Personen haben das Recht auf Auskunft (Art. 15), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20), Widerspruch (Art. 21) sowie Widerruf erteilter Einwilligungen (Art. 7 Abs. 3). Diese Rechte können unter mail@uweschwarz.eu geltend gemacht werden.",
+            en: "Data subjects have the right to access (Art. 15), rectify (Art. 16), erase (Art. 17), restrict processing (Art. 18), data portability (Art. 20), object (Art. 21), and withdraw consent at any time (Art. 7(3)). These rights can be exercised by contacting mail@uweschwarz.eu.",
           },
         ],
+        title: {
+          de: "Betroffenenrechte",
+          en: "Data Subject Rights",
+        },
       },
       {
-        title: {
-          en: "Supervisory Authority",
-          de: "Aufsichtsbehörde",
-        },
         paragraphs: [
           {
-            en: "You have the right to lodge a complaint with a supervisory authority, e.g.: Rhineland-Palatinate Commissioner for Data Protection, Hintere Bleiche 34, 55116 Mainz, Germany; Tel. +49 6131 8920-0; poststelle@datenschutz.rlp.de.",
             de: "Du kannst dich bei einer Aufsichtsbehörde beschweren, z. B.: Landesbeauftragte für Datenschutz RLP, Hintere Bleiche 34, 55116 Mainz; Tel. 06131 8920-0; poststelle@datenschutz.rlp.de.",
+            en: "You have the right to lodge a complaint with a supervisory authority, e.g.: Rhineland-Palatinate Commissioner for Data Protection, Hintere Bleiche 34, 55116 Mainz, Germany; Tel. +49 6131 8920-0; poststelle@datenschutz.rlp.de.",
           },
         ],
+        title: {
+          de: "Aufsichtsbehörde",
+          en: "Supervisory Authority",
+        },
       },
       {
-        title: {
-          en: "Automated Decision-making",
-          de: "Automatisierte Entscheidungsfindung",
-        },
         paragraphs: [
           {
-            en: "No automated decision-making or profiling takes place in these processing operations (Art. 22 GDPR).",
             de: "Es findet keine automatisierte Entscheidungsfindung oder Profiling statt (Art. 22 DSGVO).",
+            en: "No automated decision-making or profiling takes place in these processing operations (Art. 22 GDPR).",
           },
         ],
+        title: {
+          de: "Automatisierte Entscheidungsfindung",
+          en: "Automated Decision-making",
+        },
       },
       {
-        title: {
-          en: "Changes to This Privacy Policy",
-          de: "Änderungen dieser Datenschutzerklärung",
-        },
         paragraphs: [
           {
-            en: "I may update this Privacy Policy at any time. The current version is published here with the date of last revision.",
             de: "Ich kann diese Datenschutzerklärung jederzeit aktualisieren. Die jeweils aktuelle Version wird hier mit Datum der letzten Änderung veröffentlicht.",
+            en: "I may update this Privacy Policy at any time. The current version is published here with the date of last revision.",
           },
         ],
+        title: {
+          de: "Änderungen dieser Datenschutzerklärung",
+          en: "Changes to This Privacy Policy",
+        },
       },
     ],
+    subtitle: {
+      de: "Letzte Aktualisierung: 02. August 2025",
+      en: "Last updated: August 02, 2025",
+    },
+    title: {
+      de: "Datenschutzerklärung",
+      en: "Privacy Policy",
+    },
   },
   projects: [
     {
-      title: {
-        en: "Secure Email Archive",
-        de: "Rechtssicheres E-Mail-Archiv",
-      },
       description: {
-        en: "Led the coordination, architecture, and implementation of a legally compliant enterprise-wide email archiving solution for more than 50,000 users. The system ensures immutable storage of all communication for over 10 years, meeting strict regulatory and auditing requirements. Based on open-source technologies, the archive was designed with scalability, redundancy, and long-term maintainability in mind. Integrated monitoring, indexing, and full-text search enable efficient retrieval of historical correspondence.",
         de: "Leitung der Koordination, Architektur und Implementierung einer rechtssicheren E-Mail-Archivierungslösung für mehr als 50.000 Nutzer. Das System gewährleistet die unveränderbare Speicherung sämtlicher Kommunikation über mehr als 10 Jahre und erfüllt strenge regulatorische sowie prüfungsrelevante Anforderungen. Basierend auf Open-Source-Technologien wurde das Archiv mit Blick auf Skalierbarkeit, Redundanz und langfristige Wartbarkeit konzipiert. Integriertes Monitoring, Indexierung und Volltextsuche ermöglichen ein effizientes Auffinden historischer Korrespondenz.",
+        en: "Led the coordination, architecture, and implementation of a legally compliant enterprise-wide email archiving solution for more than 50,000 users. The system ensures immutable storage of all communication for over 10 years, meeting strict regulatory and auditing requirements. Based on open-source technologies, the archive was designed with scalability, redundancy, and long-term maintainability in mind. Integrated monitoring, indexing, and full-text search enable efficient retrieval of historical correspondence.",
+      },
+      imageAlt: {
+        de: "Symbolgrafik zum rechtssicheren E-Mail-Archiv: Zu sehen sind ein E-Mail-Symbol, zwei Datenbankstapel, ein Aktenschrank, eine Uhr, ein Kalender mit der Aufschrift „10+“ sowie ein Schutzschild mit Haken. Die Illustration steht für langfristige, unveränderbare E-Mail-Aufbewahrung, Sicherheit und Compliance für über 50.000 Nutzer.",
+        en: "Illustration of a legally compliant email archiving system: Includes an envelope icon, two database stacks, a filing cabinet, a clock, a calendar labeled “10+”, and a shield with a checkmark. Represents long-term, immutable email retention, security, and compliance for over 50,000 users.",
       },
       imageUrl: "/projects/mailarchive.webp",
-      imageAlt: {
-        en: "Illustration of a legally compliant email archiving system: Includes an envelope icon, two database stacks, a filing cabinet, a clock, a calendar labeled “10+”, and a shield with a checkmark. Represents long-term, immutable email retention, security, and compliance for over 50,000 users.",
-        de: "Symbolgrafik zum rechtssicheren E-Mail-Archiv: Zu sehen sind ein E-Mail-Symbol, zwei Datenbankstapel, ein Aktenschrank, eine Uhr, ein Kalender mit der Aufschrift „10+“ sowie ein Schutzschild mit Haken. Die Illustration steht für langfristige, unveränderbare E-Mail-Aufbewahrung, Sicherheit und Compliance für über 50.000 Nutzer.",
-      },
       tags: [
-        { en: "dovecot", de: "dovecot" },
-        { en: "postfix", de: "postfix" },
-        { en: "Linux", de: "Linux" },
-        { en: "CentOS", de: "CentOS" },
-        { en: "Compliance", de: "Compliance" },
-        { en: "Archiving", de: "Archivierung" },
-        { en: "Email Security", de: "E-Mail-Sicherheit" },
+        { de: "dovecot", en: "dovecot" },
+        { de: "postfix", en: "postfix" },
+        { de: "Linux", en: "Linux" },
+        { de: "CentOS", en: "CentOS" },
+        { de: "Compliance", en: "Compliance" },
+        { de: "Archivierung", en: "Archiving" },
+        { de: "E-Mail-Sicherheit", en: "Email Security" },
       ],
+      title: {
+        de: "Rechtssicheres E-Mail-Archiv",
+        en: "Secure Email Archive",
+      },
     },
     {
-      title: {
-        en: "AI-Supported Case Management",
-        de: "KI-unterstützte Fallbearbeitung",
-      },
       description: {
-        en: "Designed and implemented a system to support the processing of cancer-related cases using AI. The platform integrates secure data handling, structured workflows, and AI-based assistance to prioritize, analyze, and streamline case management. This ensures faster response times and improved quality in handling sensitive medical and legal information.",
         de: "Konzeption und Implementierung eines Systems zur Unterstützung der Bearbeitung krebsbezogener Fälle mit KI. Die Plattform integriert sichere Datenverarbeitung, strukturierte Workflows und KI-basierte Assistenz, um Fälle zu priorisieren, zu analysieren und die Fallbearbeitung zu optimieren. Dadurch werden schnellere Reaktionszeiten und eine verbesserte Qualität im Umgang mit sensiblen medizinischen und juristischen Informationen gewährleistet.",
+        en: "Designed and implemented a system to support the processing of cancer-related cases using AI. The platform integrates secure data handling, structured workflows, and AI-based assistance to prioritize, analyze, and streamline case management. This ensures faster response times and improved quality in handling sensitive medical and legal information.",
+      },
+      imageAlt: {
+        de: "Illustration zu KI-gestützten Workflows in der Fallbearbeitung: sicherer Datenspeicher, KI-Entscheidungsknoten und Fallakten, die durch eine optimierte Prozesskette laufen.",
+        en: "Illustration showing AI-assisted workflows in case management: secure data vault, AI decision nodes, and case files moving through an optimized pipeline.",
       },
       imageUrl: "/projects/ai_case_management.webp",
-      imageAlt: {
-        en: "Illustration showing AI-assisted workflows in case management: secure data vault, AI decision nodes, and case files moving through an optimized pipeline.",
-        de: "Illustration zu KI-gestützten Workflows in der Fallbearbeitung: sicherer Datenspeicher, KI-Entscheidungsknoten und Fallakten, die durch eine optimierte Prozesskette laufen.",
-      },
       tags: [
-        { en: "Agentic AI Workflow", de: "Agentischer KI-Workflow" },
-        { en: "Case Management", de: "Fallbearbeitung" },
-        { en: "Data Protection", de: "Datenschutz" },
-        { en: "Automation", de: "Automatisierung" },
+        { de: "Agentischer KI-Workflow", en: "Agentic AI Workflow" },
+        { de: "Fallbearbeitung", en: "Case Management" },
+        { de: "Datenschutz", en: "Data Protection" },
+        { de: "Automatisierung", en: "Automation" },
       ],
+      title: {
+        de: "KI-unterstützte Fallbearbeitung",
+        en: "AI-Supported Case Management",
+      },
     },
     {
-      title: {
-        en: "SOC 2 & ISO 27001 Certification",
-        de: "SOC 2 & ISO 27001 Zertifizierung",
-      },
       description: {
-        en: "Led the successful implementation of SOC 2 and ISO 27001 compliance frameworks, establishing robust information security policies and controls to meet industry standards and ensure data protection.",
         de: "Leitung der erfolgreichen Implementierung der SOC 2- und ISO 27001-Compliance-Frameworks, Aufbau robuster Informationssicherheitsrichtlinien und -kontrollen zur Einhaltung von Industriestandards und Gewährleistung des Datenschutzes.",
+        en: "Led the successful implementation of SOC 2 and ISO 27001 compliance frameworks, establishing robust information security policies and controls to meet industry standards and ensure data protection.",
+      },
+      imageAlt: {
+        de: "Illustration zur Darstellung der SOC 2- und ISO 27001-Zertifizierung: Zu sehen sind ein Zertifizierungsdokument mit Häkchen bei „SOC 2“ und „ISO 27001“, ein Sicherheitsschild, ein Vorhängeschloss und ein gesichertes Datenbanksymbol. Die Grafik steht für Informationssicherheit, Compliance und revisionssichere Datenverarbeitung.",
+        en: "Illustration representing SOC 2 and ISO 27001 certification: Shows a certification document with checkmarks for “SOC 2” and “ISO 27001”, a security shield, a padlock, and a secured database icon. The graphic symbolizes information security, compliance, and audit-proof data processing.",
       },
       imageUrl: "/projects/soc2_cert.webp",
-      imageAlt: {
-        en: "Illustration representing SOC 2 and ISO 27001 certification: Shows a certification document with checkmarks for “SOC 2” and “ISO 27001”, a security shield, a padlock, and a secured database icon. The graphic symbolizes information security, compliance, and audit-proof data processing.",
-        de: "Illustration zur Darstellung der SOC 2- und ISO 27001-Zertifizierung: Zu sehen sind ein Zertifizierungsdokument mit Häkchen bei „SOC 2“ und „ISO 27001“, ein Sicherheitsschild, ein Vorhängeschloss und ein gesichertes Datenbanksymbol. Die Grafik steht für Informationssicherheit, Compliance und revisionssichere Datenverarbeitung.",
-      },
       tags: [
-        { en: "SOC 2", de: "SOC 2" },
-        { en: "ISO 27001", de: "ISO 27001" },
-        { en: "Information Security", de: "Informationssicherheit" },
-        { en: "Compliance", de: "Compliance" },
+        { de: "SOC 2", en: "SOC 2" },
+        { de: "ISO 27001", en: "ISO 27001" },
+        { de: "Informationssicherheit", en: "Information Security" },
+        { de: "Compliance", en: "Compliance" },
       ],
+      title: {
+        de: "SOC 2 & ISO 27001 Zertifizierung",
+        en: "SOC 2 & ISO 27001 Certification",
+      },
     },
     {
-      title: {
-        en: "EU AI Act Training Platform",
-        de: "Schulungsplattform zum EU AI Act",
-      },
       description: {
-        en: "Designed and developed a modular training platform covering the EU Artificial Intelligence Act (EU AI Act). The course provides a structured learning path with interactive slides, voice narration, and integrated quizzes to ensure a clear understanding of the regulation’s scope, risk-based framework, and compliance implications. The platform includes five sections — from fundamentals to governance, risk categories, and real-world applications — and was built with future expansion in mind to accommodate upcoming modules on data protection, ethical AI, and technical implementation guidelines.",
         de: "Konzeption und Aufbau einer modularen Schulungsplattform zum EU-Gesetz über Künstliche Intelligenz (EU AI Act). Der Kurs vermittelt in klar strukturierten Lerneinheiten mit interaktiven Folien, Audiokommentaren und integrierten Quizfragen ein fundiertes Verständnis zu Geltungsbereich, risikobasiertem Ansatz und Compliance-Auswirkungen. Die Plattform umfasst fünf Sektionen – von den Grundlagen über Governance und Risikokategorien bis hin zu Praxisanwendungen – und wurde so entwickelt, dass sie zukünftig um weitere Module zu Datenschutz, ethischer KI und technischen Umsetzungsvorgaben erweitert werden kann.",
+        en: "Designed and developed a modular training platform covering the EU Artificial Intelligence Act (EU AI Act). The course provides a structured learning path with interactive slides, voice narration, and integrated quizzes to ensure a clear understanding of the regulation’s scope, risk-based framework, and compliance implications. The platform includes five sections — from fundamentals to governance, risk categories, and real-world applications — and was built with future expansion in mind to accommodate upcoming modules on data protection, ethical AI, and technical implementation guidelines.",
+      },
+      imageAlt: {
+        de: "Screenshot der Schulungsplattform zum EU AI Act mit abgeschlossenen Modulen, Quizfragen und einer strukturierten Übersicht über Themen wie risikobasierter Ansatz, Governance und Compliance-Strategien.",
+        en: "Screenshot of the EU AI Act training platform showing completed modules, quizzes, and a structured overview of sections such as risk-based approach, governance, and compliance strategies.",
       },
       imageUrl: "/projects/ai_act_training.webp",
-      imageAlt: {
-        en: "Screenshot of the EU AI Act training platform showing completed modules, quizzes, and a structured overview of sections such as risk-based approach, governance, and compliance strategies.",
-        de: "Screenshot der Schulungsplattform zum EU AI Act mit abgeschlossenen Modulen, Quizfragen und einer strukturierten Übersicht über Themen wie risikobasierter Ansatz, Governance und Compliance-Strategien.",
-      },
       tags: [
-        { en: "EU AI Act", de: "EU AI Act" },
-        { en: "Compliance Training", de: "Compliance-Schulung" },
-        { en: "AI Governance", de: "KI-Governance" },
-        { en: "E-Learning", de: "E-Learning" },
-        { en: "Education Platform", de: "Schulungsplattform" },
-        { en: "Regulatory Framework", de: "Regulatorischer Rahmen" },
+        { de: "EU AI Act", en: "EU AI Act" },
+        { de: "Compliance-Schulung", en: "Compliance Training" },
+        { de: "KI-Governance", en: "AI Governance" },
+        { de: "E-Learning", en: "E-Learning" },
+        { de: "Schulungsplattform", en: "Education Platform" },
+        { de: "Regulatorischer Rahmen", en: "Regulatory Framework" },
       ],
+      title: {
+        de: "Schulungsplattform zum EU AI Act",
+        en: "EU AI Act Training Platform",
+      },
     },
     {
-      title: {
-        en: "Zero-Config IPv6 VPN Network",
-        de: "Zero-Config IPv6 VPN Netzwerk",
-      },
       description: {
-        en: "Designed and implemented a secure, zero-configuration VPN network leveraging IPv6 as the foundation for global connectivity. The solution enables seamless peer-to-peer communication without manual setup, NAT traversal, or complex provisioning, while ensuring strong encryption and modern authentication mechanisms. By combining simple rules with advanced security controls, the network architecture provides resilient, scalable, and privacy-preserving access across distributed environments.",
         de: "Konzeption und Aufbau eines sicheren Zero-Config-VPN-Netzes auf Basis von IPv6 als Fundament für weltweite Konnektivität. Die Lösung ermöglicht nahtlose Peer-to-Peer-Kommunikation ohne manuelle Einrichtung, NAT-Traversal oder komplexe Provisionierung, bei gleichzeitig starker Verschlüsselung und modernen Authentifizierungsmechanismen. Durch die Kombination von einfachen Regeln mit erweiterten Sicherheitskontrollen entsteht eine widerstandsfähige, skalierbare und datenschutzfreundliche Netzwerkarchitektur für verteilte Umgebungen.",
+        en: "Designed and implemented a secure, zero-configuration VPN network leveraging IPv6 as the foundation for global connectivity. The solution enables seamless peer-to-peer communication without manual setup, NAT traversal, or complex provisioning, while ensuring strong encryption and modern authentication mechanisms. By combining simple rules with advanced security controls, the network architecture provides resilient, scalable, and privacy-preserving access across distributed environments.",
+      },
+      imageAlt: {
+        de: "Symbolgrafik für ein Zero-Config-VPN: Vernetzte, geschützte Geräte, die über ein globales IPv6-Netzwerk verbunden sind, mit Schloss-Symbolen für Verschlüsselung und Auto-Config-Elementen für die nahtlose Einrichtung ohne manuelles Eingreifen.",
+        en: "Illustration of a zero-configuration VPN: interconnected shielded devices connected by a global IPv6 network grid, lock icons indicating encryption, and auto-config symbols representing seamless setup without manual intervention.",
       },
       imageUrl: "/projects/zeroconfigvpn.webp",
-      imageAlt: {
-        en: "Illustration of a zero-configuration VPN: interconnected shielded devices connected by a global IPv6 network grid, lock icons indicating encryption, and auto-config symbols representing seamless setup without manual intervention.",
-        de: "Symbolgrafik für ein Zero-Config-VPN: Vernetzte, geschützte Geräte, die über ein globales IPv6-Netzwerk verbunden sind, mit Schloss-Symbolen für Verschlüsselung und Auto-Config-Elementen für die nahtlose Einrichtung ohne manuelles Eingreifen.",
-      },
       tags: [
-        { en: "IPv6", de: "IPv6" },
-        { en: "Zero-Config", de: "Zero-Config" },
-        { en: "VPN", de: "VPN" },
-        { en: "Encryption", de: "Verschlüsselung" },
-        { en: "Authentication", de: "Authentifizierung" },
-        { en: "Compliance", de: "Compliance" },
-        { en: "Network Security", de: "Netzwerksicherheit" },
+        { de: "IPv6", en: "IPv6" },
+        { de: "Zero-Config", en: "Zero-Config" },
+        { de: "VPN", en: "VPN" },
+        { de: "Verschlüsselung", en: "Encryption" },
+        { de: "Authentifizierung", en: "Authentication" },
+        { de: "Compliance", en: "Compliance" },
+        { de: "Netzwerksicherheit", en: "Network Security" },
       ],
+      title: {
+        de: "Zero-Config IPv6 VPN Netzwerk",
+        en: "Zero-Config IPv6 VPN Network",
+      },
     },
     {
-      title: {
-        en: "Backup Infrastructure Modernization with Rubrik",
-        de: "Modernisierung der Backup-Infrastruktur mit Rubrik",
-      },
       description: {
-        en: "Modernized the existing backup infrastructure by implementing Rubrik's enterprise backup solution, enhancing data protection, reducing recovery times, and simplifying management across hybrid environments.",
         de: "Modernisierung der bestehenden Backup-Infrastruktur durch Implementierung von Rubriks Enterprise-Backup-Lösung, Verbesserung des Datenschutzes, Reduzierung der Wiederherstellungszeiten und Vereinfachung des Managements in hybriden Umgebungen.",
+        en: "Modernized the existing backup infrastructure by implementing Rubrik's enterprise backup solution, enhancing data protection, reducing recovery times, and simplifying management across hybrid environments.",
+      },
+      imageAlt: {
+        de: "Illustration zur Backup-Modernisierung mit Rubrik: Zu sehen sind Symbole für Cloud-Speicherung mit Sicherheitsschild, Datenbanken, ein Wiederherstellungspfeil, ein Laptop mit Integrationssymbol sowie das Rubrik-Logo. Die Grafik steht für moderne Datensicherung, schnelle Wiederherstellung und nahtlose Systemintegration.",
+        en: "Illustration depicting backup modernization with Rubrik: Features icons of secure cloud storage, data stacks, a recovery arrow, a laptop with an integration symbol, and the Rubrik logo. Represents modern data protection, fast recovery, and seamless system integration.",
       },
       imageUrl: "/projects/backup_rubrik.webp",
-      imageAlt: {
-        en: "Illustration depicting backup modernization with Rubrik: Features icons of secure cloud storage, data stacks, a recovery arrow, a laptop with an integration symbol, and the Rubrik logo. Represents modern data protection, fast recovery, and seamless system integration.",
-        de: "Illustration zur Backup-Modernisierung mit Rubrik: Zu sehen sind Symbole für Cloud-Speicherung mit Sicherheitsschild, Datenbanken, ein Wiederherstellungspfeil, ein Laptop mit Integrationssymbol sowie das Rubrik-Logo. Die Grafik steht für moderne Datensicherung, schnelle Wiederherstellung und nahtlose Systemintegration.",
-      },
       tags: [
-        { en: "Rubrik", de: "Rubrik" },
-        { en: "Backup", de: "Backup" },
-        { en: "Data Protection", de: "Datenschutz" },
-        { en: "Hybrid Cloud", de: "Hybrid Cloud" },
+        { de: "Rubrik", en: "Rubrik" },
+        { de: "Backup", en: "Backup" },
+        { de: "Datenschutz", en: "Data Protection" },
+        { de: "Hybrid Cloud", en: "Hybrid Cloud" },
       ],
+      title: {
+        de: "Modernisierung der Backup-Infrastruktur mit Rubrik",
+        en: "Backup Infrastructure Modernization with Rubrik",
+      },
     },
     {
-      title: {
-        en: "Automated Document Management with OCR and AI Categorization",
-        de: "Automatisierte Dokumentenverwaltung mit OCR und KI-Kategorisierung",
-      },
       description: {
-        en: "Developed a private system to digitize all personal documents and letters using OCR technology. Integrated AI-based classification to automatically sort documents into predefined categories, enabling efficient search, retrieval, and archival. Additionally, implemented automated analysis to detect tax-relevant documents for income tax purposes and tag them accordingly.",
         de: "Entwicklung eines privaten Systems zur Digitalisierung aller persönlichen Dokumente und Briefe mittels OCR-Technologie. Integration einer KI-gestützten Klassifizierung zur automatischen Sortierung der Dokumente in vordefinierte Kategorien für effizientes Suchen, Auffinden und Archivieren. Zusätzlich wurde eine automatisierte Auswertung implementiert, um steuerrelevante Dokumente für die Einkommensteuer zu erkennen und entsprechend zu taggen.",
+        en: "Developed a private system to digitize all personal documents and letters using OCR technology. Integrated AI-based classification to automatically sort documents into predefined categories, enabling efficient search, retrieval, and archival. Additionally, implemented automated analysis to detect tax-relevant documents for income tax purposes and tag them accordingly.",
+      },
+      imageAlt: {
+        de: "Illustration zur Dokumentenerfassung und KI-Kategorisierung: Ein Scanner, digitalisierte Dokumente, KI-Knoten, die mit Ordnersymbolen verbunden sind, sowie kategorisierte Labels wie 'Finanzen', 'Gesundheit' und 'Versicherung'. Die Grafik steht für automatisierte Dokumentenverarbeitung und intelligente Organisation.",
+        en: "Illustration showing document scanning and AI classification: A scanner, digitized documents, AI nodes connecting to folder icons, and categorized labels like 'Finance', 'Health', and 'Insurance'. Represents automated document processing and intelligent organization.",
       },
       imageUrl: "/projects/ocr_ai_documents.webp",
-      imageAlt: {
-        en: "Illustration showing document scanning and AI classification: A scanner, digitized documents, AI nodes connecting to folder icons, and categorized labels like 'Finance', 'Health', and 'Insurance'. Represents automated document processing and intelligent organization.",
-        de: "Illustration zur Dokumentenerfassung und KI-Kategorisierung: Ein Scanner, digitalisierte Dokumente, KI-Knoten, die mit Ordnersymbolen verbunden sind, sowie kategorisierte Labels wie 'Finanzen', 'Gesundheit' und 'Versicherung'. Die Grafik steht für automatisierte Dokumentenverarbeitung und intelligente Organisation.",
-      },
       tags: [
-        { en: "OCR", de: "OCR" },
-        { en: "AI Categorization", de: "KI-Kategorisierung" },
-        { en: "AI Agent", de: "KI-Agent" },
-        { en: "Document Management", de: "Dokumentenverwaltung" },
-        { en: "Automation", de: "Automatisierung" },
+        { de: "OCR", en: "OCR" },
+        { de: "KI-Kategorisierung", en: "AI Categorization" },
+        { de: "KI-Agent", en: "AI Agent" },
+        { de: "Dokumentenverwaltung", en: "Document Management" },
+        { de: "Automatisierung", en: "Automation" },
       ],
+      title: {
+        de: "Automatisierte Dokumentenverwaltung mit OCR und KI-Kategorisierung",
+        en: "Automated Document Management with OCR and AI Categorization",
+      },
     },
   ],
+  projectsSectionTitle: { de: "Entwickelte Lösungen", en: "Developed Solutions" },
   sitemap: {
-    title: {
-      en: "Sitemap",
-      de: "Seitenübersicht",
-    },
     description: {
-      en: "Here are all the pages on this website:",
       de: "Hier sind alle Seiten dieser Website:",
+      en: "Here are all the pages on this website:",
     },
+    title: {
+      de: "Seitenübersicht",
+      en: "Sitemap",
+    },
+  },
+  siteMetadata: {
+    author: "Uwe Schwarz",
+    description: {
+      de: "Portfolio von Uwe Schwarz: Projektmanager, IT-Sicherheitsexperte und KI-Enthusiast",
+      en: "Portfolio of Uwe Schwarz: Project Manager, IT Security Expert & AI Enthusiast",
+    },
+    title: "Uwe Schwarz Portfolio",
   },
   skills: [
     // Security & Compliance
     {
-      name: { en: "ISO27001", de: "ISO27001" },
+      category: "security",
       icon: ShieldCheck,
-      category: "security",
       level: 4,
+      name: { de: "ISO27001", en: "ISO27001" },
     },
     {
-      name: { en: "SOC2", de: "SOC2" },
+      category: "security",
       icon: ShieldPlus,
-      category: "security",
       level: 4,
+      name: { de: "SOC2", en: "SOC2" },
     },
     {
-      name: { en: "GDPR", de: "DSGVO" },
+      category: "security",
       icon: Landmark,
-      category: "security",
       level: 5,
+      name: { de: "DSGVO", en: "GDPR" },
     },
     {
-      name: { en: "NIST Framework", de: "NIST Framework" },
-      icon: BookCheck,
       category: "security",
+      icon: BookCheck,
       level: 4,
+      name: { de: "NIST Framework", en: "NIST Framework" },
     },
     {
-      name: { en: "MITRE ATT&CK", de: "MITRE ATT&CK" },
+      category: "security",
       icon: Swords,
-      category: "security",
       level: 4,
+      name: { de: "MITRE ATT&CK", en: "MITRE ATT&CK" },
     },
     {
-      name: { en: "BSI IT Baseline Protection", de: "BSI IT-Grundschutz" },
+      category: "security",
       icon: BookCheck,
-      category: "security",
       level: 5,
+      name: { de: "BSI IT-Grundschutz", en: "BSI IT Baseline Protection" },
     },
     {
-      name: { en: "Security Policies", de: "Sicherheitsrichtlinien" },
+      category: "security",
       icon: FileCheck2,
-      category: "security",
       level: 5,
+      name: { de: "Sicherheitsrichtlinien", en: "Security Policies" },
     },
     {
-      name: { en: "Risk Management", de: "Risikomanagement" },
+      category: "security",
       icon: AlertTriangle,
-      category: "security",
       level: 3,
+      name: { de: "Risikomanagement", en: "Risk Management" },
     },
     {
-      name: { en: "Vulnerability Mgmt.", de: "Vulnerabilitätsmanagement" },
+      category: "security",
       icon: ScanSearch,
-      category: "security",
       level: 5,
+      name: { de: "Vulnerabilitätsmanagement", en: "Vulnerability Mgmt." },
     },
     {
-      name: { en: "Incident Response", de: "Incident Response" },
+      category: "security",
       icon: Siren,
-      category: "security",
       level: 5,
+      name: { de: "Incident Response", en: "Incident Response" },
     },
     {
-      name: {
-        en: "Penetration Testing Mgmt.",
-        de: "Penetration Testing Mgmt.",
-      },
+      category: "security",
       icon: Bug,
-      category: "security",
       level: 5,
+      name: {
+        de: "Penetration Testing Mgmt.",
+        en: "Penetration Testing Mgmt.",
+      },
     },
     {
-      name: {
-        en: "Proxy & Secure Web Gateways",
-        de: "Proxy & Secure Web Gateways",
-      },
-      icon: Shield,
       category: "security",
+      icon: Shield,
       level: 4,
+      name: {
+        de: "Proxy & Secure Web Gateways",
+        en: "Proxy & Secure Web Gateways",
+      },
     },
 
     // Infrastructure & Operations
     {
-      name: {
-        en: "Linux: Debian, Ubuntu, RHEL",
-        de: "Linux: Debian, Ubuntu, RHEL",
-      },
+      category: "infrastructure",
       icon: SiLinux,
-      category: "infrastructure",
       level: 5,
+      name: {
+        de: "Linux: Debian, Ubuntu, RHEL",
+        en: "Linux: Debian, Ubuntu, RHEL",
+      },
     },
     {
-      name: {
-        en: "Unix: FreeBSD, OpenBSD, Solaris",
-        de: "Unix: FreeBSD, OpenBSD, Solaris",
-      },
+      category: "infrastructure",
       icon: SiFreebsd,
-      category: "infrastructure",
       level: 3,
-    },
-    {
-      name: { en: "macOS", de: "macOS" },
-      icon: SiApple,
-      category: "infrastructure",
-      level: 5,
-    },
-    {
-      name: { en: "Windows Server", de: "Windows Server" },
-      icon: Grid2X2,
-      category: "infrastructure",
-      level: 2,
-    },
-    {
-      name: { en: "Cloudflare", de: "Cloudflare" },
-      icon: SiCloudflare,
-      category: "infrastructure",
-      level: 4,
-    },
-    {
-      name: { en: "Resend", de: "Resend" },
-      icon: SiResend,
-      category: "infrastructure",
-      level: 5,
-    },
-    {
-      name: { en: "Supabase", de: "Supabase" },
-      icon: SiSupabase,
-      category: "infrastructure",
-      level: 4,
-    },
-    {
       name: {
-        en: "High Availability Systems",
-        de: "Hochverfügbarkeitssysteme",
+        de: "Unix: FreeBSD, OpenBSD, Solaris",
+        en: "Unix: FreeBSD, OpenBSD, Solaris",
       },
-      icon: ServerCrash,
-      category: "infrastructure",
-      level: 5,
     },
     {
-      name: { en: "Data Center Operations", de: "Rechenzentrumsbetrieb" },
-      icon: Database,
       category: "infrastructure",
+      icon: SiApple,
+      level: 5,
+      name: { de: "macOS", en: "macOS" },
+    },
+    {
+      category: "infrastructure",
+      icon: Grid2X2,
+      level: 2,
+      name: { de: "Windows Server", en: "Windows Server" },
+    },
+    {
+      category: "infrastructure",
+      icon: SiCloudflare,
       level: 4,
+      name: { de: "Cloudflare", en: "Cloudflare" },
     },
     {
-      name: { en: "TCP/IP, DNS, DHCP", de: "TCP/IP, DNS, DHCP" },
+      category: "infrastructure",
+      icon: SiResend,
+      level: 5,
+      name: { de: "Resend", en: "Resend" },
+    },
+    {
+      category: "infrastructure",
+      icon: SiSupabase,
+      level: 4,
+      name: { de: "Supabase", en: "Supabase" },
+    },
+    {
+      category: "infrastructure",
+      icon: ServerCrash,
+      level: 5,
+      name: {
+        de: "Hochverfügbarkeitssysteme",
+        en: "High Availability Systems",
+      },
+    },
+    {
+      category: "infrastructure",
+      icon: Database,
+      level: 4,
+      name: { de: "Rechenzentrumsbetrieb", en: "Data Center Operations" },
+    },
+    {
+      category: "infrastructure",
       icon: Network,
-      category: "infrastructure",
       level: 5,
+      name: { de: "TCP/IP, DNS, DHCP", en: "TCP/IP, DNS, DHCP" },
     },
     {
-      name: { en: "IPv6", de: "IPv6" },
-      icon: Cable,
       category: "infrastructure",
+      icon: Cable,
       level: 5,
+      name: { de: "IPv6", en: "IPv6" },
     },
 
     // Tools & Automation
     {
-      name: { en: "Bash / Shell Scripting", de: "Bash / Shell Skripte" },
+      category: "tools",
       icon: Terminal,
-      category: "tools",
       level: 5,
+      name: { de: "Bash / Shell Skripte", en: "Bash / Shell Scripting" },
     },
     {
-      name: { en: "Notion", de: "Notion" },
+      category: "tools",
       icon: SiNotion,
-      category: "tools",
       level: 4,
+      name: { de: "Notion", en: "Notion" },
     },
     {
-      name: { en: "Git", de: "Git" },
+      category: "tools",
       icon: SiGit,
-      category: "tools",
       level: 4,
+      name: { de: "Git", en: "Git" },
     },
     {
-      name: { en: "Cursor", de: "Cursor" },
+      category: "tools",
       icon: CodeXml,
-      category: "tools",
       level: 4,
+      name: { de: "Cursor", en: "Cursor" },
     },
     {
-      name: { en: "Python", de: "Python" },
+      category: "tools",
       icon: SiPython,
-      category: "tools",
       level: 3,
+      name: { de: "Python", en: "Python" },
     },
     {
-      name: { en: "Postfix / Dovecot", de: "Postfix / Dovecot" },
+      category: "tools",
       icon: Mail,
-      category: "tools",
       level: 4,
+      name: { de: "Postfix / Dovecot", en: "Postfix / Dovecot" },
     },
     {
-      name: { en: "Bind / Unbound", de: "Bind / Unbound" },
+      category: "tools",
       icon: Globe,
-      category: "tools",
       level: 5,
+      name: { de: "Bind / Unbound", en: "Bind / Unbound" },
     },
     {
-      name: { en: "Squid Proxy", de: "Squid Proxy" },
+      category: "tools",
       icon: Shield,
-      category: "tools",
       level: 4,
+      name: { de: "Squid Proxy", en: "Squid Proxy" },
     },
     {
-      name: { en: "HAProxy", de: "HAProxy" },
+      category: "tools",
       icon: GitCompareArrows,
-      category: "tools",
       level: 4,
+      name: { de: "HAProxy", en: "HAProxy" },
     },
     {
-      name: { en: "Caddy", de: "Caddy" },
+      category: "tools",
       icon: SiCaddy,
-      category: "tools",
       level: 4,
+      name: { de: "Caddy", en: "Caddy" },
     },
     {
-      name: { en: "Puppet", de: "Puppet" },
+      category: "tools",
       icon: SiPuppet,
-      category: "tools",
       level: 3,
+      name: { de: "Puppet", en: "Puppet" },
     },
     {
-      name: { en: "Docker", de: "Docker" },
-      icon: SiDocker,
       category: "tools",
+      icon: SiDocker,
       level: 4,
+      name: { de: "Docker", en: "Docker" },
     },
 
     // Management & Strategy
     {
-      name: { en: "Project Management", de: "Projektmanagement" },
+      category: "management",
       icon: ListChecks,
-      category: "management",
       level: 5,
+      name: { de: "Projektmanagement", en: "Project Management" },
     },
     {
-      name: { en: "Team Leadership", de: "Teamleitung" },
+      category: "management",
       icon: Users,
-      category: "management",
       level: 5,
+      name: { de: "Teamleitung", en: "Team Leadership" },
     },
     {
-      name: {
-        en: "Stakeholder Communication",
-        de: "Stakeholder-Kommunikation",
-      },
+      category: "management",
       icon: MessageCircle,
-      category: "management",
       level: 5,
+      name: {
+        de: "Stakeholder-Kommunikation",
+        en: "Stakeholder Communication",
+      },
     },
     {
-      name: { en: "IT Strategy", de: "IT-Strategie" },
+      category: "management",
       icon: Route,
-      category: "management",
       level: 4,
+      name: { de: "IT-Strategie", en: "IT Strategy" },
     },
     {
-      name: { en: "Technical Concepts", de: "Technische Konzepte" },
-      icon: FileText,
       category: "management",
+      icon: FileText,
       level: 5,
+      name: { de: "Technische Konzepte", en: "Technical Concepts" },
     },
 
     // Artificial Intelligence
     {
-      name: { en: "Agentic AI", de: "Agentische KI" },
+      category: "ai",
       icon: Bot,
-      category: "ai",
       level: 4,
+      name: { de: "Agentische KI", en: "Agentic AI" },
     },
     {
-      name: { en: "Multimodal AI", de: "Multimodale KI" },
+      category: "ai",
       icon: Image,
-      category: "ai",
       level: 5,
+      name: { de: "Multimodale KI", en: "Multimodal AI" },
     },
     {
-      name: { en: "Causal AI", de: "Kausale KI" },
+      category: "ai",
       icon: GitBranch,
-      category: "ai",
       level: 4,
+      name: { de: "Kausale KI", en: "Causal AI" },
     },
     {
-      name: { en: "Lovable", de: "Lovable" },
+      category: "ai",
       icon: Heart,
-      category: "ai",
       level: 5,
+      name: { de: "Lovable", en: "Lovable" },
     },
     {
-      name: { en: "OpenAI / ChatGPT", de: "OpenAI / ChatGPT" },
+      category: "ai",
       icon: SiOpenai,
-      category: "ai",
       level: 5,
+      name: { de: "OpenAI / ChatGPT", en: "OpenAI / ChatGPT" },
     },
     {
-      name: { en: "Anthropic / Claude", de: "Anthropic / Claude" },
+      category: "ai",
       icon: SiAnthropic,
-      category: "ai",
       level: 5,
+      name: { de: "Anthropic / Claude", en: "Anthropic / Claude" },
     },
     {
-      name: { en: "Google / Gemini", de: "Google / Gemini" },
+      category: "ai",
       icon: SiGooglegemini,
-      category: "ai",
       level: 5,
+      name: { de: "Google / Gemini", en: "Google / Gemini" },
     },
     {
-      name: { en: "xAI / Grok", de: "xAI / Grok" },
+      category: "ai",
       icon: SiX,
-      category: "ai",
       level: 5,
+      name: { de: "xAI / Grok", en: "xAI / Grok" },
     },
     {
-      name: {
-        en: "Generative Engine Optimization (GEO)",
-        de: "Generative Engine Optimization (GEO)",
-      },
+      category: "ai",
       icon: SearchCode,
-      category: "ai",
       level: 3,
+      name: {
+        de: "Generative Engine Optimization (GEO)",
+        en: "Generative Engine Optimization (GEO)",
+      },
     },
     {
-      name: { en: "AI Multimedia Generation", de: "KI-Multimediaerzeugung" },
+      category: "ai",
       icon: Video,
-      category: "ai",
       level: 3,
+      name: { de: "KI-Multimediaerzeugung", en: "AI Multimedia Generation" },
     },
     {
-      name: { en: "AI Ethics & Governance", de: "KI-Ethik & Governance" },
-      icon: Scale,
       category: "ai",
+      icon: Scale,
       level: 5,
+      name: { de: "KI-Ethik & Governance", en: "AI Ethics & Governance" },
     },
 
     // Languages
     {
-      name: { en: "German (Native)", de: "Deutsch (Muttersprache)" },
-      icon: Flag,
       category: "languages",
+      icon: Flag,
       level: 5,
+      name: { de: "Deutsch (Muttersprache)", en: "German (Native)" },
     },
     {
-      name: { en: "English (C2)", de: "Englisch (C2)" },
-      icon: Flag,
       category: "languages",
+      icon: Flag,
       level: 5,
+      name: { de: "Englisch (C2)", en: "English (C2)" },
     },
   ],
   skillsSection: {
-    title: {
-      en: "Skills & Technologies",
-      de: "Fähigkeiten & Technologien",
+    categories: {
+      ai: { de: "KI", en: "AI" },
+      infrastructure: { de: "Infrastruktur", en: "Infrastructure" },
+      languages: { de: "Sprachen", en: "Languages" },
+      management: { de: "Management", en: "Management" },
+      security: { de: "Sicherheit", en: "Security" },
+      tools: { de: "Tools & DevOps", en: "Tools & DevOps" },
     },
     subtitle: {
-      en: "The tools I rely on to build secure and scalable IT systems",
       de: "Die Werkzeuge, auf die ich für sichere und skalierbare IT-Systeme setze",
+      en: "The tools I rely on to build secure and scalable IT systems",
     },
-    categories: {
-      security: { en: "Security", de: "Sicherheit" },
-      infrastructure: { en: "Infrastructure", de: "Infrastruktur" },
-      tools: { en: "Tools & DevOps", de: "Tools & DevOps" },
-      ai: { en: "AI", de: "KI" },
-      management: { en: "Management", de: "Management" },
-      languages: { en: "Languages", de: "Sprachen" },
+    title: {
+      de: "Fähigkeiten & Technologien",
+      en: "Skills & Technologies",
     },
   },
   translations: {
     languageSwitch: {
-      en: "Switch to English",
       de: "Zu Deutsch wechseln",
+      en: "Switch to English",
     },
     themeSwitch: {
-      light: {
-        en: "Switch to light theme",
-        de: "Zum hellen Design wechseln",
-      },
       dark: {
-        en: "Switch to dark theme",
         de: "Zum dunklen Design wechseln",
+        en: "Switch to dark theme",
+      },
+      light: {
+        de: "Zum hellen Design wechseln",
+        en: "Switch to light theme",
       },
     },
   },

@@ -11,7 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FormProvider } from "react-hook-form";
-import * as z from "zod";
+import { z } from "zod";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 
 const ContactSection = () => {
@@ -37,10 +37,10 @@ const ContactSection = () => {
   // React Hook Form initialisieren
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
-      verify: "",
-      name: "",
       email: "",
       message: "",
+      name: "",
+      verify: "",
     },
     resolver: zodResolver(formSchema),
   });
@@ -52,10 +52,10 @@ const ContactSection = () => {
     try {
       const response = await fetch("/api/send-mail", {
         body: JSON.stringify({
-          verify: values.verify,
-          name: values.name,
           email: values.email,
           message: values.message,
+          name: values.name,
+          verify: values.verify,
         }),
         headers: {
           "Content-Type": "application/json",
