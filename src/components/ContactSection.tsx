@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
 import { Mail, Send, Phone } from "lucide-react";
@@ -10,17 +10,9 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, FormProvider } from "react-hook-form"; // Import FormProvider
+import { useForm, FormProvider } from "react-hook-form";
 import * as z from "zod";
-import {
-  // Form, // Removed Form from here
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { useState } from "react";
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 
 const ContactSection = () => {
   const { t } = useSettings();
@@ -236,8 +228,6 @@ const ContactSection = () => {
           {/* Contact Form */}
           <div>
             <FormProvider {...form}>
-              {" "}
-              {/* Use FormProvider here */}
               <form
                 className="bg-card rounded-xl p-8 border border-border shadow-sm"
                 onSubmit={form.handleSubmit(onSubmit)}
@@ -312,13 +302,14 @@ const ContactSection = () => {
                   </Button>
                 </div>
               </form>
-            </FormProvider>{" "}
-            {/* Corrected closing tag */}
+            </FormProvider>
           </div>
         </div>
       </div>
     </section>
   );
 };
+
+ContactSection.displayName = "ContactSection";
 
 export default ContactSection;

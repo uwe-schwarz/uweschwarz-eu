@@ -532,7 +532,7 @@ export const siteContent: SiteContent = {
         {
           type: "text",
           text: {
-            en: "Driving compliance-relevant alignment for BSI, NIS2, and critical infrastrcuture requirements, evidence obligations, and transparent reporting to management and stakeholder groups within the institution.",
+            en: "Driving compliance-relevant alignment for BSI, NIS2, and critical infrastructure requirements, evidence obligations, and transparent reporting to management and stakeholder groups within the institution.",
             de: "Steuerung der compliance-relevanten Abstimmung zu BSI-, NIS2- und KRITIS-Anforderungen, Evidence-Pflicht und transparentem Reporting an Management und Stakeholder beim Träger.",
           },
         },
@@ -947,7 +947,7 @@ export const siteContent: SiteContent = {
           type: "text",
           text: {
             en: "Comprehensive code review of the existing PHP application with a structured assessment of critical, medium and low-severity issues.",
-            de: "Umfassendes Code-Review der bestehenden PHP-Anwendung mit mit mit strukturierter Bewertung von Findings hoher, mittlerer und niedriger Schwere.",
+            de: "Umfassendes Code-Review der bestehenden PHP-Anwendung mit strukturierter Bewertung von Findings hoher, mittlerer und niedriger Schwere.",
           },
         },
         {
@@ -1017,7 +1017,7 @@ export const siteContent: SiteContent = {
         {
           type: "text",
           text: {
-            en: "Automation vulnerability and inicident management.",
+            en: "Automation vulnerability and incident management.",
             de: "Automatisierung des Schwachstellen- und Vorfallsmanagements.",
           },
         },
@@ -1134,7 +1134,7 @@ export const siteContent: SiteContent = {
         {
           type: "text",
           text: {
-            en: "Debugging und solving of problems mainly in the area mail (but not solely).",
+            en: "Debugging and solving of problems mainly in the area of mail (but not solely).",
             de: "Fehlerbehebung und Problemlösung hauptsächlich im Bereich E-Mail (aber nicht ausschließlich).",
           },
         },

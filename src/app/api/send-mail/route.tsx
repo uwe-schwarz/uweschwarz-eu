@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { render } from "@react-email/render";
 import { Body, Container, Head, Heading, Html, Preview, Section, Text, Tailwind } from "@react-email/components";
+import { z } from "zod";
 
 const resendApiKey = process.env.RESEND_API_KEY;
 const resend = resendApiKey ? new Resend(resendApiKey) : null;
@@ -19,6 +20,7 @@ function sanitizeEmailHeaderName(value: unknown) {
   const normalized = String(value ?? "")
     .replaceAll("\r", " ")
     .replaceAll("\n", " ")
+    .replaceAll(/["<>\\,;:]/g, "")
     .trim();
 
   return normalized || "Website Contact";
@@ -159,7 +161,12 @@ const EmailTemplate = ({ email, message, name }: { email: string; message: strin
 };
 
 export async function POST(request: Request) {
-  const body = await request.json();
+  let body: Record<string, unknown>;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+  }
 
   if (body.verify !== "") {
     return NextResponse.json({ error: "Error" }, { status: 400 });
@@ -169,9 +176,15 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Missing RESEND_API_KEY" }, { status: 500 });
   }
 
+  const emailResult = z.email().safeParse(body.email);
+  if (!emailResult.success) {
+    return NextResponse.json({ error: "Invalid email address" }, { status: 400 });
+  }
+
+  const email = emailResult.data;
   const headerSafeName = sanitizeEmailHeaderName(body.name);
   const safeName = escapeHtml(String(body.name ?? ""));
-  const safeEmail = escapeHtml(String(body.email ?? ""));
+  const safeEmail = escapeHtml(email);
   const safeMessage = escapeHtml(String(body.message ?? "")).replaceAll("\n", "<br>");
 
   const html = await render(
@@ -186,7 +199,7 @@ export async function POST(request: Request) {
     const data = await resend.emails.send({
       from: `${headerSafeName} <uweschwarz-eu@oldman.cloud>`,
       html,
-      replyTo: [body.email],
+      replyTo: [email],
       subject: `Contact Form Submission from ${headerSafeName} on ${new Date().toISOString()}`,
       to: ["mail@uweschwarz.eu"],
     });
