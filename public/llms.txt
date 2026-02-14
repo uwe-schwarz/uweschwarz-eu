@@ -1,7 +1,7 @@
 # llms.txt for uweschwarz.eu
 # This file provides structured information for AI language models.
 # For more information, see https://llmstxt.org/
-# Version 1.0, Generated on 2026-02-07
+# Version 1.0, Generated on 2026-02-14
 
 # --- PERMISSIONS ---
 User-Agent: *
@@ -21,8 +21,8 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
 [de] Uwe Schwarz
 
 [Published]:
-[en] 2026-02-07
-[de] 07.02.2026
+[en] 2026-02-14
+[de] 14.02.2026
 
 [Languages]:
 [en] English, German
@@ -93,6 +93,26 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
   - [de] Aufbau einer sicheren und rechtskonformen IT-Infrastruktur mit Schwerpunkt auf modernen Technologien (IPv6, Zero Trust, Zero-Config VPN, etc.) und Best Practices.
   - [en] Responsible for corporate governance in IT security, privacy and compliance topics.
   - [de] Verantwortlich für Governance in den Bereichen IT-Sicherheit, Datenschutz und Compliance.
+
+[Experience]:
+  [en] Program Lead IPv6 Migration
+  [de] Programmleitung IPv6-Migration
+  [en] Company: Deutsche Rentenversicherung (RP, BW)
+  [de] Firma: Deutsche Rentenversicherung (RP, BW)
+  [en] Jan 2026 - Today
+  [de] Jan 2026 - Heute
+  - [en] Leading the IPv6 migration for DRV RP, and DRV BW, including governance, planning cadence, and execution tracking.
+  - [de] Leitung der IPv6-Migration für DRV RP und DRV BW inklusive Governance, Planungsrhythmus und Umsetzungssteuerung.
+  - [en] Built and operationalized a project control model with dashboard, action board, KPI portfolio, risk register, and decision index.
+  - [de] Aufbau und operative Einführung eines Projektsteuerungsmodells mit Dashboard, Action Board, KPI-Portfolio, Risikoregister und Entscheidungsindex.
+  - [en] Coordinating architecture, security, and rollout preparation across addressing, segmentation, dual-stack transition, test-lab planning, and cross-team dependencies.
+  - [de] Koordination der Architektur-, Sicherheits- und Rollout-Vorbereitung über Adressierung, Segmentierung, Dual-Stack-Übergang, Testlabor-Planung und teamübergreifende Abhängigkeiten hinweg.
+  - [en] Driving compliance-relevant alignment for BSI, NIS2, and critical infrastructure requirements, evidence obligations, and transparent reporting to management and stakeholder groups within the institution.
+  - [de] Steuerung der compliance-relevanten Abstimmung zu BSI-, NIS2- und KRITIS-Anforderungen, Evidence-Pflicht und transparentem Reporting an Management und Stakeholder beim Träger.
+  - [en] Established a reusable intake-to-governance workflow to create traceable actions, risks, questions, and evidence requests.
+  - [de] Etablierung eines wiederverwendbaren Intake-to-Governance-Workflows, um nachvollziehbare Actions, Risiken, offene Fragen und Nachweisanfragen zu erstellen.
+  - [en] Created the operational baseline for program execution with measurable KPIs, ownership clarity, and decision transparency.
+  - [de] Schaffung der operativen Baseline für die Programmausführung mit messbaren KPIs, klaren Verantwortlichkeiten und Entscheidungstransparenz.
 
 [Experience]:
   [en] SchlauFabrik – Multi-tenant Compliance & AI Training Platform
@@ -202,7 +222,7 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
   [en] Oct 2023
   [de] Okt 2023
   - [en] Comprehensive code review of the existing PHP application with a structured assessment of critical, medium and low-severity issues.
-  - [de] Umfassendes Code-Review der bestehenden PHP-Anwendung mit mit mit strukturierter Bewertung von Findings hoher, mittlerer und niedriger Schwere.
+  - [de] Umfassendes Code-Review der bestehenden PHP-Anwendung mit strukturierter Bewertung von Findings hoher, mittlerer und niedriger Schwere.
   - [en] Creation of a detailed review document including technical findings, recommended remediation steps, and prioritization for development teams.
   - [de] Erstellung eines ausführlichen Review-Papiers mit technischen Befunden, empfohlenen Maßnahmen und Priorisierung für die Entwicklungsteams.
   - [en] Consulting on application and infrastructure security with a focus on practical improvements, secure coding patterns and operational hardening.
@@ -223,7 +243,7 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
   - [de] Unterstützung und Strategieplanung während eines großen Sicherheitsvorfalls.
   - [en] Writing (security) policies and technical concepts.
   - [de] Erstellung von (Sicherheits-)Richtlinien und technischen Konzepten.
-  - [en] Automation vulnerability and inicident management.
+  - [en] Automation of vulnerability and incident management.
   - [de] Automatisierung des Schwachstellen- und Vorfallsmanagements.
   - [en] Support for building IT architecture and strategy (including network architecture, cloud infrastructure, firewall concepts, etc.).
   - [de] Unterstützung beim Aufbau von IT-Architektur und Strategie (einschließlich Netzwerkarchitektur, Cloud-Infrastruktur, Firewall-Konzepte, etc.).
@@ -257,7 +277,7 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
   - [de] Koordination und Ressourcenplanung eines kleinen Teams.
   - [en] Focus of the team: e-mail, cloud storage, load balancing, proxy and DNS (all linux based).
   - [de] Schwerpunkt des Teams: E-Mail, Cloud-Speicher, Lastverteilung, Proxy und DNS (alles Linux-basiert).
-  - [en] Debugging und solving of problems mainly in the area mail (but not solely).
+  - [en] Debugging and solving of problems mainly in the area of mail (but not solely).
   - [de] Fehlerbehebung und Problemlösung hauptsächlich im Bereich E-Mail (aber nicht ausschließlich).
   - [en] Consulting and implementation of IPv6, security topics, high-availability systems and more topics.
   - [de] Beratung und Implementierung von IPv6, Sicherheitsthemen, Hochverfügbarkeitssystemen und weiteren Themen.
@@ -338,19 +358,18 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
 
 # --- SKILLS ---
 
-[Skill-Category: Security / Sicherheit]:
-  - ISO27001 / ISO27001
-  - SOC2 / SOC2
-  - GDPR / DSGVO
-  - NIST Framework / NIST Framework
-  - MITRE ATT&CK / MITRE ATT&CK
-  - BSI IT Baseline Protection / BSI IT-Grundschutz
-  - Security Policies / Sicherheitsrichtlinien
-  - Risk Management / Risikomanagement
-  - Vulnerability Mgmt. / Vulnerabilitätsmanagement
-  - Incident Response / Incident Response
-  - Penetration Testing Mgmt. / Penetration Testing Mgmt.
-  - Proxy & Secure Web Gateways / Proxy & Secure Web Gateways
+[Skill-Category: AI / KI]:
+  - Agentic AI / Agentische KI
+  - Multimodal AI / Multimodale KI
+  - Causal AI / Kausale KI
+  - Lovable / Lovable
+  - OpenAI / ChatGPT / OpenAI / ChatGPT
+  - Anthropic / Claude / Anthropic / Claude
+  - Google / Gemini / Google / Gemini
+  - xAI / Grok / xAI / Grok
+  - Generative Engine Optimization (GEO) / Generative Engine Optimization (GEO)
+  - AI Multimedia Generation / KI-Multimediaerzeugung
+  - AI Ethics & Governance / KI-Ethik & Governance
 
 [Skill-Category: Infrastructure / Infrastruktur]:
   - Linux: Debian, Ubuntu, RHEL / Linux: Debian, Ubuntu, RHEL
@@ -365,6 +384,31 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
   - TCP/IP, DNS, DHCP / TCP/IP, DNS, DHCP
   - IPv6 / IPv6
 
+[Skill-Category: Languages / Sprachen]:
+  - German (Native) / Deutsch (Muttersprache)
+  - English (C2) / Englisch (C2)
+
+[Skill-Category: Management / Management]:
+  - Project Management / Projektmanagement
+  - Team Leadership / Teamleitung
+  - Stakeholder Communication / Stakeholder-Kommunikation
+  - IT Strategy / IT-Strategie
+  - Technical Concepts / Technische Konzepte
+
+[Skill-Category: Security / Sicherheit]:
+  - ISO27001 / ISO27001
+  - SOC2 / SOC2
+  - GDPR / DSGVO
+  - NIST Framework / NIST Framework
+  - MITRE ATT&CK / MITRE ATT&CK
+  - BSI IT Baseline Protection / BSI IT-Grundschutz
+  - Security Policies / Sicherheitsrichtlinien
+  - Risk Management / Risikomanagement
+  - Vulnerability Mgmt. / Vulnerabilitätsmanagement
+  - Incident Response / Incident Response
+  - Penetration Testing Mgmt. / Penetration Testing Mgmt.
+  - Proxy & Secure Web Gateways / Proxy & Secure Web Gateways
+
 [Skill-Category: Tools & DevOps / Tools & DevOps]:
   - Bash / Shell Scripting / Bash / Shell Skripte
   - Notion / Notion
@@ -378,27 +422,3 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
   - Caddy / Caddy
   - Puppet / Puppet
   - Docker / Docker
-
-[Skill-Category: AI / KI]:
-  - Agentic AI / Agentische KI
-  - Multimodal AI / Multimodale KI
-  - Causal AI / Kausale KI
-  - Lovable / Lovable
-  - OpenAI / ChatGPT / OpenAI / ChatGPT
-  - Anthropic / Claude / Anthropic / Claude
-  - Google / Gemini / Google / Gemini
-  - xAI / Grok / xAI / Grok
-  - Generative Engine Optimization (GEO) / Generative Engine Optimization (GEO)
-  - AI Multimedia Generation / KI-Multimediaerzeugung
-  - AI Ethics & Governance / KI-Ethik & Governance
-
-[Skill-Category: Management / Management]:
-  - Project Management / Projektmanagement
-  - Team Leadership / Teamleitung
-  - Stakeholder Communication / Stakeholder-Kommunikation
-  - IT Strategy / IT-Strategie
-  - Technical Concepts / Technische Konzepte
-
-[Skill-Category: Languages / Sprachen]:
-  - German (Native) / Deutsch (Muttersprache)
-  - English (C2) / Englisch (C2)
