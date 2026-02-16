@@ -81,7 +81,6 @@ export interface HeroSection {
 }
 
 export interface HeroAvailability {
-  badge: LocalizedString;
   currentLine: LocalizedString;
   currentPercentAvailable: number;
   fullLine: LocalizedString;
@@ -1317,10 +1316,6 @@ export const siteContent: SiteContent = {
   },
   hero: {
     availability: {
-      badge: {
-        de: "{percent}% verfügbar",
-        en: "{percent}% available",
-      },
       currentLine: {
         de: "{percent}% verfügbar",
         en: "{percent}% available",
