@@ -1,7 +1,7 @@
 # llms.txt for uweschwarz.eu
 # This file provides structured information for AI language models.
 # For more information, see https://llmstxt.org/
-# Version 1.0, Generated on 2026-02-14
+# Version 1.0, Generated on 2026-02-16
 
 # --- PERMISSIONS ---
 User-Agent: *
@@ -21,8 +21,8 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
 [de] Uwe Schwarz
 
 [Published]:
-[en] 2026-02-14
-[de] 14.02.2026
+[en] 2026-02-16
+[de] 16.02.2026
 
 [Languages]:
 [en] English, German
@@ -251,8 +251,8 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
   - [de] Vorbereitung und Begleitung von Penetrationstests (einschließlich Netzwerk, Cloud, Anwendungen, Active Directory, etc.).
   - [en] Led and managed the Security Operations Center (SOC) team, overseeing daily operations, incident response, and continuous improvement of security processes.
   - [de] Leitung und Management des Security Operations Center (SOC)-Teams, einschließlich der täglichen Betriebsüberwachung, Incident Response und kontinuierlichen Verbesserung der Sicherheitsprozesse.
-  - [en] Security audits.
-  - [de] Sicherheits-Audits.
+  - [en] Security audits and security oversight for application and network migrations.
+  - [de] Sicherheits-Audits sowie sicherheitstechnische Begleitung von Applikations- und Netzwerk-Migrationen.
   - [en] Specialization in the areas of Linux and networking.
   - [de] Spezialisierung in den Bereichen Linux und Netzwerke.
   - [en] IT security consulting also on Windows, Cloud (primarily Azure) and application development.
@@ -277,12 +277,12 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
   - [de] Koordination und Ressourcenplanung eines kleinen Teams.
   - [en] Focus of the team: e-mail, cloud storage, load balancing, proxy and DNS (all linux based).
   - [de] Schwerpunkt des Teams: E-Mail, Cloud-Speicher, Lastverteilung, Proxy und DNS (alles Linux-basiert).
-  - [en] Debugging and solving of problems mainly in the area of mail (but not solely).
-  - [de] Fehlerbehebung und Problemlösung hauptsächlich im Bereich E-Mail (aber nicht ausschließlich).
+  - [en] Analysis, troubleshooting and sustainable remediation in email infrastructures.
+  - [de] Analyse, Fehlerbehebung und nachhaltige Problemlösung im Bereich E-Mail-Infrastrukturen.
   - [en] Consulting and implementation of IPv6, security topics, high-availability systems and more topics.
   - [de] Beratung und Implementierung von IPv6, Sicherheitsthemen, Hochverfügbarkeitssystemen und weiteren Themen.
-  - [en] Project part time management: data centre relocation, reconstruction of all servers.
-  - [de] Teilprojektleitung: Rechenzentrumsumzug, Neuaufbau aller Server.
+  - [en] Sub-project lead: data centre relocation including migration and rebuild of applications and server infrastructures into redundant, highly available environments.
+  - [de] Teilprojektleitung: Rechenzentrumsumzug sowie Migration und Neuaufbau von Applikationen und Serverinfrastrukturen in redundante, hochverfügbare Umgebungen.
   - [en] Coordinated a successful data center relocation project.
   - [de] Koordination eines erfolgreichen Rechenzentrumsumzugsprojekts.
   - [en] Led the implementation of IPv6 across the organization, future-proofing the network.

@@ -1031,8 +1031,8 @@ export const siteContent: SiteContent = {
         },
         {
           text: {
-            de: "Sicherheits-Audits.",
-            en: "Security audits.",
+            de: "Sicherheits-Audits sowie sicherheitstechnische Begleitung von Applikations- und Netzwerk-Migrationen.",
+            en: "Security audits and security oversight for application and network migrations.",
           },
           type: "text",
         },
@@ -1117,8 +1117,8 @@ export const siteContent: SiteContent = {
         },
         {
           text: {
-            de: "Fehlerbehebung und Problemlösung hauptsächlich im Bereich E-Mail (aber nicht ausschließlich).",
-            en: "Debugging and solving of problems mainly in the area of mail (but not solely).",
+            de: "Analyse, Fehlerbehebung und nachhaltige Problemlösung im Bereich E-Mail-Infrastrukturen.",
+            en: "Analysis, troubleshooting and sustainable remediation in email infrastructures.",
           },
           type: "text",
         },
@@ -1131,8 +1131,8 @@ export const siteContent: SiteContent = {
         },
         {
           text: {
-            de: "Teilprojektleitung: Rechenzentrumsumzug, Neuaufbau aller Server.",
-            en: "Project part time management: data centre relocation, reconstruction of all servers.",
+            de: "Teilprojektleitung: Rechenzentrumsumzug sowie Migration und Neuaufbau von Applikationen und Serverinfrastrukturen in redundante, hochverfügbare Umgebungen.",
+            en: "Sub-project lead: data centre relocation including migration and rebuild of applications and server infrastructures into redundant, highly available environments.",
           },
           type: "text",
         },
