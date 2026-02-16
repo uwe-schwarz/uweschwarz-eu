@@ -150,12 +150,12 @@ const HeroSection = () => {
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center">
-          <span className="text-sm text-muted-foreground mb-2">Scroll</span>
-          <ArrowDown className="w-5 h-5 text-primary animate-bounce" />
-        </div>
+      {/* Scroll Indicator */}
+      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 hidden lg:flex flex-col items-center z-20">
+        <span className="text-sm text-muted-foreground mb-2">{t(hero.scrollText)}</span>
+        <ArrowDown className="w-5 h-5 text-primary animate-bounce" />
       </div>
     </section>
   );

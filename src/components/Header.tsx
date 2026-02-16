@@ -5,7 +5,7 @@ import Link from "next/link";
 import type { Route } from "next";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Moon, Sun, Menu } from "lucide-react";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { useSettings } from "@/contexts/settings-hook";
 import { siteContent } from "@/content/content";
 import { Button } from "@/components/ui/button";
@@ -149,6 +149,7 @@ const Header = () => {
               </Button>
             </SheetTrigger>
             <SheetContent className="w-full bg-background dark:bg-gray-900 p-0" side="left">
+              <SheetTitle className="sr-only">{language === "de" ? "Navigationsmenü" : "Navigation menu"}</SheetTitle>
               <div className="flex flex-col h-full">
                 <div className="border-b border-gray-200 dark:border-gray-800 py-4 px-6">
                   <Link className="text-2xl font-display font-bold" href={homeHref as Route}>
