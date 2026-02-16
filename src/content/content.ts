@@ -65,6 +65,7 @@ export interface NavItem {
 }
 
 export interface HeroSection {
+  availability: HeroAvailability;
   ctaPrimary: LocalizedString;
   ctaSecondary: LocalizedString;
   decorativeElements: Array<{
@@ -77,6 +78,15 @@ export interface HeroSection {
   name: string;
   scrollText: LocalizedString;
   titleElements: Array<LocalizedString>;
+}
+
+export interface HeroAvailability {
+  badge: LocalizedString;
+  currentLine: LocalizedString;
+  currentPercentAvailable: number;
+  fullLine: LocalizedString;
+  fullyAvailableDate: string;
+  title: LocalizedString;
 }
 
 export interface AboutSection {
@@ -536,7 +546,10 @@ export const siteContent: SiteContent = {
           type: "achievement",
         },
       ],
-      location: { de: "Karlsruhe & Speyer, Deutschland", en: "Karlsruhe & Speyer, Germany" },
+      location: {
+        de: "Karlsruhe & Speyer, Deutschland",
+        en: "Karlsruhe & Speyer, Germany",
+      },
       logoUrl: "/logos/drv.svg",
       period: { de: "Jan 2026 - Heute", en: "Jan 2026 - Today" },
       tags: [
@@ -898,7 +911,10 @@ export const siteContent: SiteContent = {
           type: "achievement",
         },
       ],
-      location: { de: "London, Vereinigtes Königreich", en: "London, United Kingdom" },
+      location: {
+        de: "London, Vereinigtes Königreich",
+        en: "London, United Kingdom",
+      },
       logoUrl: "/logos/threedium.svg",
       period: { de: "Okt 2023 - Jun 2024", en: "Oct 2023 - Jun 2024" },
       tags: [
@@ -1080,7 +1096,10 @@ export const siteContent: SiteContent = {
           type: "achievement",
         },
       ],
-      location: { de: "Frankfurt am Main, Deutschland", en: "Frankfurt am Main, Germany" },
+      location: {
+        de: "Frankfurt am Main, Deutschland",
+        en: "Frankfurt am Main, Germany",
+      },
       logoUrl: "/logos/dvag.svg",
       period: { de: "Jan 2019 - Sep 2023", en: "Jan 2019 - Sep 2023" },
       tags: [
@@ -1090,7 +1109,10 @@ export const siteContent: SiteContent = {
         { de: "BSI / NIS2 / NIST / MITRE", en: "BSI / NIS2 / NIST / MITRE" },
         { de: "ITIL", en: "ITIL" },
         { de: "Richtlinien", en: "Guidelines" },
-        { de: "Atlassian Jira & Confluence", en: "Atlassian Jira & Confluence" },
+        {
+          de: "Atlassian Jira & Confluence",
+          en: "Atlassian Jira & Confluence",
+        },
         { de: "Palo Alto / Cisco", en: "Palo Alto / Cisco" },
         { de: "Microsoft Azure", en: "Microsoft Azure" },
         { de: "Microsoft Sentinel", en: "Microsoft Sentinel" },
@@ -1159,7 +1181,10 @@ export const siteContent: SiteContent = {
           type: "achievement",
         },
       ],
-      location: { de: "Frankfurt am Main, Deutschland", en: "Frankfurt am Main, Germany" },
+      location: {
+        de: "Frankfurt am Main, Deutschland",
+        en: "Frankfurt am Main, Germany",
+      },
       logoUrl: "/logos/dvag.svg",
       period: { de: "Jul 2015 - Dez 2018", en: "Jul 2015 - Dec 2018" },
       tags: [
@@ -1236,7 +1261,10 @@ export const siteContent: SiteContent = {
           type: "achievement",
         },
       ],
-      location: { de: "Frankfurt am Main, Deutschland", en: "Frankfurt am Main, Germany" },
+      location: {
+        de: "Frankfurt am Main, Deutschland",
+        en: "Frankfurt am Main, Germany",
+      },
       logoUrl: "/logos/dvag.svg",
       period: { de: "Jan 2013 - Jun 2015", en: "Jan 2013 - Jun 2015" },
       tags: [
@@ -1288,6 +1316,26 @@ export const siteContent: SiteContent = {
     },*/
   },
   hero: {
+    availability: {
+      badge: {
+        de: "{percent}% verfügbar",
+        en: "{percent}% available",
+      },
+      currentLine: {
+        de: "{percent}% verfügbar",
+        en: "{percent}% available",
+      },
+      currentPercentAvailable: 75,
+      fullLine: {
+        de: "100% ab {date}",
+        en: "100% from {date}",
+      },
+      fullyAvailableDate: "2027-01-01",
+      title: {
+        de: "Verfügbarkeit",
+        en: "Availability",
+      },
+    },
     ctaPrimary: {
       de: "Meine Arbeit ansehen",
       en: "See my work",
@@ -1822,7 +1870,10 @@ export const siteContent: SiteContent = {
       },
     },
   ],
-  projectsSectionTitle: { de: "Entwickelte Lösungen", en: "Developed Solutions" },
+  projectsSectionTitle: {
+    de: "Entwickelte Lösungen",
+    en: "Developed Solutions",
+  },
   sitemap: {
     description: {
       de: "Hier sind alle Seiten dieser Website:",
