@@ -14,6 +14,9 @@ This repository contains a personal portfolio built with Next.js, React, TypeScr
 - `bun run dev` – start a Next.js development server (default port 3000).
 - `bun run build` – create a production build.
 - `bun run lint` – run Oxlint over the codebase.
+- `bun run typecheck` – run TypeScript checks without emitting files.
+- `bun run format:check` – verify formatting with Oxfmt.
+- `bun run format` – apply formatting with Oxfmt.
 
 Always rely on Bun for package management or scripting; avoid npm/pnpm commands.
 
@@ -40,6 +43,15 @@ The application includes browser language detection that automatically detects t
 
 When modifying files in this repository:
 
-1. Run `bun run lint` before committing to confirm everything passes.
-2. Include a clear commit message summarising the change.
-3. Reference any modified files in PR summaries when applicable.
+1. Run the required checks in this exact order:
+   - `bun run lint`
+   - `bun run typecheck`
+   - `bun run format:check`
+2. If checks fail, possible fixes with:
+   - `bun run lint --fix`
+   - `bun run format`
+3. Fix all remaining errors.
+4. These checks are mandatory before every commit, push, and PR.
+5. Document the executed checks and their results in the PR description.
+6. Include a clear commit message summarising the change.
+7. Reference any modified files in PR summaries when applicable.

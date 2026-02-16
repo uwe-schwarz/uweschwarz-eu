@@ -42,6 +42,12 @@ const calculatePosition = (position: number, distance: number) => {
   };
 };
 
+const formatTemplate = (template: string, values: Record<string, number | string>) => {
+  return Object.entries(values).reduce((message, [key, value]) => {
+    return message.replaceAll(`{${key}}`, String(value));
+  }, template);
+};
+
 const HeroSection = () => {
   const { language, t } = useSettings();
   const { hero } = siteContent;
@@ -65,6 +71,12 @@ const HeroSection = () => {
     maxFontSize: 48,
     minFontSize: 18,
   });
+  const percentAvailable = Math.min(Math.max(hero.availability.currentPercentAvailable, 0), 100);
+  const availabilitySummary = `${formatTemplate(t(hero.availability.currentLine), {
+    percent: percentAvailable,
+  })} · ${formatTemplate(t(hero.availability.fullLine), {
+    date: hero.availability.fullyAvailableDate,
+  })}`;
 
   return (
     <section className="min-h-screen flex items-center pt-20 bg-grid relative overflow-hidden" id="hero">
@@ -74,9 +86,9 @@ const HeroSection = () => {
 
       {/* Content Container */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="flex flex-col lg:flex-row lg:items-center">
+        <div className="flex flex-col lg:flex-row lg:items-start">
           {/* Text Content */}
-          <div className="lg:w-1/2 animate-fade-in">
+          <div className="lg:w-1/2 max-w-xl animate-fade-in">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display mb-4">
               {hero.name}
               <br />
@@ -109,6 +121,27 @@ const HeroSection = () => {
                   {t(hero.ctaSecondary)}
                 </Link>
               </Button>
+            </div>
+
+            <div className="mt-8 border-t border-border/40 pt-6">
+              <div className="max-w-lg">
+                <p className="text-sm font-medium text-foreground">{t(hero.availability.title)}</p>
+                <div
+                  aria-label={t(hero.availability.title)}
+                  aria-valuemax={100}
+                  aria-valuemin={0}
+                  aria-valuenow={percentAvailable}
+                  className="mt-2 h-2.5 w-full overflow-hidden rounded-full bg-primary/15"
+                  role="progressbar"
+                >
+                  <div
+                    className="h-full rounded-full bg-linear-to-r from-primary to-accent transition-all duration-500 ease-out"
+                    style={{ width: `${percentAvailable}%` }}
+                  />
+                </div>
+
+                <p className="mt-2 text-sm md:text-base leading-relaxed text-muted-foreground">{availabilitySummary}</p>
+              </div>
             </div>
           </div>
 
