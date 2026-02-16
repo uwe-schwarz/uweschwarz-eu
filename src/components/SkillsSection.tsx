@@ -28,60 +28,60 @@ const SkillsSection = () => {
         <div className="max-w-4xl mx-auto">
           <Tabs className="w-full" defaultValue="management" onValueChange={(value) => setActiveTab(value as TabValue)}>
             <div className="flex justify-center mb-8">
-              <TabsList className="flex-nowrap h-12">
+              <TabsList className="flex-nowrap h-12 md:h-auto">
                 <TabsTrigger
                   aria-label={t(skillsSection.categories.management)}
-                  className="gap-2 text-lg"
+                  className="gap-2 text-lg md:flex-col md:gap-1 md:text-sm xl:flex-row xl:gap-2 xl:text-base"
                   name={t(skillsSection.categories.management)}
                   value="management"
                 >
                   <Briefcase className="w-5 h-5" />
-                  <span className="hidden sm:inline">{t(skillsSection.categories.management)}</span>
+                  <span className="hidden md:block">{t(skillsSection.categories.management)}</span>
                 </TabsTrigger>
                 <TabsTrigger
                   aria-label={t(skillsSection.categories.languages)}
-                  className="gap-2 text-lg"
+                  className="gap-2 text-lg md:flex-col md:gap-1 md:text-sm xl:flex-row xl:gap-2 xl:text-base"
                   name={t(skillsSection.categories.languages)}
                   value="languages"
                 >
                   <Flag className="w-5 h-5" />
-                  <span className="hidden sm:inline">{t(skillsSection.categories.languages)}</span>
+                  <span className="hidden md:block">{t(skillsSection.categories.languages)}</span>
                 </TabsTrigger>
                 <TabsTrigger
                   aria-label={t(skillsSection.categories.security)}
-                  className="gap-2 text-lg"
+                  className="gap-2 text-lg md:flex-col md:gap-1 md:text-sm xl:flex-row xl:gap-2 xl:text-base"
                   name={t(skillsSection.categories.security)}
                   value="security"
                 >
                   <ShieldCheck className="w-5 h-5" />
-                  <span className="hidden sm:inline">{t(skillsSection.categories.security)}</span>
+                  <span className="hidden md:block">{t(skillsSection.categories.security)}</span>
                 </TabsTrigger>
                 <TabsTrigger
                   aria-label={t(skillsSection.categories.ai)}
-                  className="gap-2 text-lg"
+                  className="gap-2 text-lg md:flex-col md:gap-1 md:text-sm xl:flex-row xl:gap-2 xl:text-base"
                   name={t(skillsSection.categories.ai)}
                   value="ai"
                 >
                   <Bot className="w-5 h-5" />
-                  <span className="hidden sm:inline">{t(skillsSection.categories.ai)}</span>
+                  <span className="hidden md:block">{t(skillsSection.categories.ai)}</span>
                 </TabsTrigger>
                 <TabsTrigger
                   aria-label={t(skillsSection.categories.infrastructure)}
-                  className="gap-2 text-lg"
+                  className="gap-2 text-lg md:flex-col md:gap-1 md:text-sm xl:flex-row xl:gap-2 xl:text-base"
                   name={t(skillsSection.categories.infrastructure)}
                   value="infrastructure"
                 >
                   <Network className="w-5 h-5" />
-                  <span className="hidden sm:inline">{t(skillsSection.categories.infrastructure)}</span>
+                  <span className="hidden md:block">{t(skillsSection.categories.infrastructure)}</span>
                 </TabsTrigger>
                 <TabsTrigger
                   aria-label={t(skillsSection.categories.tools)}
-                  className="gap-2 text-lg"
+                  className="gap-2 text-lg md:flex-col md:gap-1 md:text-sm xl:flex-row xl:gap-2 xl:text-base"
                   name={t(skillsSection.categories.tools)}
                   value="tools"
                 >
                   <Wrench className="w-5 h-5" />
-                  <span className="hidden sm:inline">{t(skillsSection.categories.tools)}</span>
+                  <span className="hidden md:block">{t(skillsSection.categories.tools)}</span>
                 </TabsTrigger>
               </TabsList>
             </div>

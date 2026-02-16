@@ -75,6 +75,7 @@ export interface HeroSection {
   description: LocalizedString;
   imageAlt: LocalizedString;
   name: string;
+  scrollText: LocalizedString;
   titleElements: Array<LocalizedString>;
 }
 
@@ -1336,6 +1337,10 @@ export const siteContent: SiteContent = {
       en: "Portrait photo of Uwe Schwarz, Project Manager and IT Security Expert.",
     },
     name: "Uwe Schwarz",
+    scrollText: {
+      de: "Nach unten",
+      en: "Scroll",
+    },
     titleElements: [
       {
         de: "Projektmanager",
