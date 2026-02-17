@@ -59,7 +59,7 @@ const ExperienceSection = () => {
     return (
       <div className="relative max-w-7xl mx-auto pb-12" key={sectionKey}>
         <div className="absolute md:block hidden left-0 transform -translate-x-1/2 h-full w-1 bg-linear-to-b from-primary/30 via-primary/70 to-secondary/30 rounded"></div>
-        <div className="absolute md:block hidden left0 transform -translate-x-1/2 w-1 pointer-events-none h-full">
+        <div className="absolute md:block hidden left-0 transform -translate-x-1/2 w-1 pointer-events-none h-full">
           <div className="relative h-full w-full">
             <div className="absolute top-0 left-0 w-full h-20 bg-linear-to-b from-transparent via-primary to-transparent animate-timeline-glow"></div>
           </div>
@@ -77,13 +77,15 @@ const ExperienceSection = () => {
               key={`${sectionKey}-${index}`}
             >
               {/* Timeline dot */}
-              <div className="absolute top-8 transform -translate-x-1/2 z-10">
+              <div className="timeline-decoration absolute top-8 transform -translate-x-1/2 z-10">
                 <div className="w-6 h-6 rounded-full bg-primary border-4 border-background shadow-lg"></div>
               </div>
 
               <div className={cn("md:col-span-11", "md:col-start-2")}>
                 <div
-                  className={cn("hidden md:block absolute top-11 border-t-2 border-dashed border-primary/60 z-5")}
+                  className={cn(
+                    "timeline-decoration hidden md:block absolute top-11 border-t-2 border-dashed border-primary/60 z-5",
+                  )}
                   style={{
                     left: "15px",
                     right: "calc(100% - (100%/12) - 0rem)",
@@ -93,25 +95,31 @@ const ExperienceSection = () => {
 
                 <Card
                   className={cn(
-                    "overflow-hidden border border-border transition-all duration-300 rounded-lg hover-scale",
+                    "relative overflow-hidden border border-border transition-all duration-300 rounded-lg hover-scale",
                     "shadow-xl border-4 border-white dark:border-gray-800",
                     // Add shadow like in the About section
                     "bg-linear-to-br from-primary/40 to-accent/40",
                     "backdrop-blur-sm",
                   )}
                 >
-                  {/* Logo (if exists) - positioned right, offset from the corner with flowing text */}
                   {exp.logoUrl && (
-                    <Image
-                      alt={`${exp.company} logo`}
-                      className="object-contain mx-auto mt-6 md:mx-0 md:float-right md:ml-2 md:mb-2 md:mr-6 w-24 h-auto"
-                      height={48}
-                      src={exp.logoUrl}
-                      width={96}
-                    />
+                    <div className="relative mx-auto mt-6 h-24 w-40 md:mx-0 md:float-right md:ml-4 md:mb-2 md:mr-6">
+                      <div className="relative h-full w-full overflow-hidden rounded-[9px] border border-stone-700/95 bg-stone-800 p-3 shadow-[0_18px_34px_rgba(0,0,0,0.5),0_4px_10px_rgba(0,0,0,0.35)]">
+                        <div className="pointer-events-none absolute inset-0 opacity-25 [background-image:radial-gradient(rgba(255,255,255,0.2)_0.9px,transparent_0.9px)] [background-size:4px_4px]" />
+                        <div className="pointer-events-none absolute inset-[5px] rounded-[7px] [background:radial-gradient(circle_at_50%_45%,rgba(255,250,240,0.26)_0%,rgba(255,250,240,0.12)_45%,rgba(255,250,240,0)_80%)]" />
+                        <Image
+                          alt={`${exp.company} logo`}
+                          className="relative z-10 h-full w-full object-contain [filter:brightness(1.04)_contrast(1.06)]"
+                          height={96}
+                          sizes="160px"
+                          src={exp.logoUrl}
+                          width={160}
+                        />
+                      </div>
+                    </div>
                   )}
 
-                  <CardContent className="p-6">
+                  <CardContent className="p-6 relative z-10">
                     {/* Title & Company */}
                     <div className="mb-4">
                       <h3 className="text-2xl">{t(exp.title)}</h3>
@@ -266,7 +274,7 @@ const ExperienceSection = () => {
             }
 
             /* Hide timeline on mobile */
-            .timeline-item .absolute {
+            .timeline-item .timeline-decoration {
               display: none;
             }
           }
