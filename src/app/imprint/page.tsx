@@ -3,17 +3,13 @@ import { cookies, headers } from "next/headers";
 import type { Language } from "@/contexts/settings-hook";
 import { detectPreferredLanguage } from "@/lib/detect-language";
 import { isSupportedLanguage } from "@/lib/i18n";
-import ImprintPageClient from "./ImprintPageClient";
+import ImprintPageClient from "@/app/imprint/ImprintPageClient";
 
 export async function generateMetadata(): Promise<Metadata> {
   const cookieStore = await cookies();
   const cookieLanguage = cookieStore.get("language")?.value as Language | undefined;
   const headerList = await headers();
-
-  const acceptLanguage =
-    typeof (headerList as Headers | undefined)?.get === "function"
-      ? (headerList as Headers).get("accept-language")
-      : null;
+  const acceptLanguage = headerList.get("accept-language");
 
   const language: Language = isSupportedLanguage(cookieLanguage)
     ? cookieLanguage
