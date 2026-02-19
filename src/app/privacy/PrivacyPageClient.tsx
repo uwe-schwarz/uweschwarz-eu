@@ -96,7 +96,9 @@ export default function PrivacyPageClient() {
                         const localizedItem = item as LocalizedPrivacyListItem;
                         const text = t(localizedItem);
                         const descriptionText = localizedItem.description ? t(localizedItem.description) : null;
-                        const itemKey = `${getLocalizedTextKey(localizedItem)}-${descriptionText ?? ""}`;
+                        const itemKey = localizedItem.description
+                          ? `${getLocalizedTextKey(localizedItem)}-${getLocalizedTextKey(localizedItem.description)}`
+                          : getLocalizedTextKey(localizedItem);
 
                         return (
                           <li className="flex flex-col" key={itemKey}>

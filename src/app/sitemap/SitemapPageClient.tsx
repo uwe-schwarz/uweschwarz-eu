@@ -8,11 +8,13 @@ import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
+import { useScrollToTop } from "@/hooks/use-scroll-to-top";
 import { withLanguagePrefix } from "@/lib/i18n";
 
 export default function SitemapPageClient() {
   const { language, t } = useSettings();
   const sitemap = siteContent.sitemap;
+  useScrollToTop();
 
   if (!sitemap) {
     return null;
