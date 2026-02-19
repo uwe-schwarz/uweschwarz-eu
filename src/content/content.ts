@@ -59,12 +59,12 @@ export interface LocalizedString {
   en: string;
 }
 
-export interface NavItem {
+interface NavItem {
   href: string;
   label: LocalizedString;
 }
 
-export interface HeroSection {
+interface HeroSection {
   availability: HeroAvailability;
   ctaPrimary: LocalizedString;
   ctaSecondary: LocalizedString;
@@ -80,7 +80,7 @@ export interface HeroSection {
   titleElements: Array<LocalizedString>;
 }
 
-export interface HeroAvailability {
+interface HeroAvailability {
   currentLine: LocalizedString;
   currentPercentAvailable: number;
   fullLine: LocalizedString;
@@ -88,7 +88,7 @@ export interface HeroAvailability {
   title: LocalizedString;
 }
 
-export interface AboutSection {
+interface AboutSection {
   imageAlt: LocalizedString;
   labels: {
     experience: LocalizedString;
@@ -100,7 +100,7 @@ export interface AboutSection {
   title: LocalizedString;
 }
 
-export interface ExperienceDescriptionItem {
+interface ExperienceDescriptionItem {
   text: LocalizedString;
   type: "text" | "achievement";
 }
@@ -116,7 +116,7 @@ export interface Experience {
   title: LocalizedString;
 }
 
-export interface Project {
+interface Project {
   demoUrl?: string;
   description: LocalizedString;
   imageAlt: LocalizedString;
@@ -133,7 +133,7 @@ export interface Skill {
   name: LocalizedString;
 }
 
-export interface SkillsSection {
+interface SkillsSection {
   categories: {
     ai: LocalizedString;
     infrastructure: LocalizedString;
@@ -146,7 +146,7 @@ export interface SkillsSection {
   title: LocalizedString;
 }
 
-export interface ContactSection {
+interface ContactSection {
   birthday?: string;
   cvemail: string;
   email: string;
@@ -201,17 +201,17 @@ export interface ContactSection {
   title: LocalizedString;
 }
 
-export interface CV {
+interface CV {
   title: LocalizedString;
 }
 
-export interface Footer {
+interface Footer {
   builtWith?: LocalizedString;
   copyright: LocalizedString;
   links: Array<NavItem>;
 }
 
-export interface ImprintSection {
+interface ImprintSection {
   address: {
     city: LocalizedString;
     country: LocalizedString;
@@ -233,7 +233,7 @@ export interface ImprintSection {
   vatId?: LocalizedString;
 }
 
-export interface PrivacySection {
+interface PrivacySection {
   sections: Array<{
     list?: Array<
       | LocalizedString
@@ -250,12 +250,12 @@ export interface PrivacySection {
   title: LocalizedString;
 }
 
-export interface SitemapSection {
+interface SitemapSection {
   description: LocalizedString;
   title: LocalizedString;
 }
 
-export interface LLMSSection {
+interface LLMSSection {
   title: LocalizedString;
 }
 

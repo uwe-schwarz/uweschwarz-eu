@@ -67,15 +67,6 @@ const FormControl = React.forwardRef<React.ElementRef<typeof Slot>, React.Compon
 );
 FormControl.displayName = "FormControl";
 
-const FormDescription = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(
-  ({ className, ...props }, ref) => {
-    const { formDescriptionId } = useFormField();
-
-    return <p className={cn("text-sm text-muted-foreground", className)} id={formDescriptionId} ref={ref} {...props} />;
-  },
-);
-FormDescription.displayName = "FormDescription";
-
 const FormMessage = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(
   ({ children, className, ...props }, ref) => {
     const { error, formMessageId } = useFormField();
@@ -100,7 +91,6 @@ export {
   FormItem,
   FormLabel,
   FormControl,
-  FormDescription,
   FormMessage,
   FormField,
 };

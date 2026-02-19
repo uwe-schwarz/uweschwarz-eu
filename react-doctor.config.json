@@ -1,6 +1,6 @@
 {
   "ignore": {
-    "files": ["scripts/**", "src/generated/**"]
+    "files": ["scripts/**", "src/generated/**", "**/oxlint.config.ts"]
   },
   "lint": true,
   "deadCode": true,

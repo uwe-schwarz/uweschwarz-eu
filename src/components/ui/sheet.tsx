@@ -4,7 +4,6 @@ import React from "react";
 import {
   Close as SheetPrimitiveClose,
   Content as SheetPrimitiveContent,
-  Description as SheetPrimitiveDescription,
   Overlay as SheetPrimitiveOverlay,
   Portal as SheetPrimitivePortal,
   Root as SheetPrimitiveRoot,
@@ -19,8 +18,6 @@ import { cn } from "@/lib/utils";
 const Sheet = SheetPrimitiveRoot;
 
 const SheetTrigger = SheetPrimitiveTrigger;
-
-const SheetClose = SheetPrimitiveClose;
 
 const SheetPortal = SheetPrimitivePortal;
 
@@ -77,16 +74,6 @@ const SheetContent = React.forwardRef<React.ElementRef<typeof SheetPrimitiveCont
 );
 SheetContent.displayName = SheetPrimitiveContent.displayName;
 
-const SheetHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div className={cn("flex flex-col space-y-2 text-center sm:text-left", className)} {...props} />
-);
-SheetHeader.displayName = "SheetHeader";
-
-const SheetFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div className={cn("flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2", className)} {...props} />
-);
-SheetFooter.displayName = "SheetFooter";
-
 const SheetTitle = React.forwardRef<
   React.ElementRef<typeof SheetPrimitiveTitle>,
   React.ComponentPropsWithoutRef<typeof SheetPrimitiveTitle>
@@ -95,23 +82,4 @@ const SheetTitle = React.forwardRef<
 ));
 SheetTitle.displayName = SheetPrimitiveTitle.displayName;
 
-const SheetDescription = React.forwardRef<
-  React.ElementRef<typeof SheetPrimitiveDescription>,
-  React.ComponentPropsWithoutRef<typeof SheetPrimitiveDescription>
->(({ className, ...props }, ref) => (
-  <SheetPrimitiveDescription className={cn("text-sm text-muted-foreground", className)} ref={ref} {...props} />
-));
-SheetDescription.displayName = SheetPrimitiveDescription.displayName;
-
-export {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetOverlay,
-  SheetPortal,
-  SheetTitle,
-  SheetTrigger,
-};
+export { Sheet, SheetContent, SheetTitle, SheetTrigger };
