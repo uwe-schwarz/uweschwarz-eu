@@ -5,7 +5,7 @@ import { createContext, useContext } from "react";
 export type Language = "en" | "de";
 export type Theme = "light" | "dark";
 
-export interface SettingsContextType {
+interface SettingsContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
   setTheme: (theme: Theme) => void;
