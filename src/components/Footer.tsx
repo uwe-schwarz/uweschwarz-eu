@@ -33,11 +33,11 @@ const Footer = () => {
 
           {/* Links */}
           <nav className="flex flex-wrap gap-6">
-            {footer.links.map((link, index) => (
+            {footer.links.map((link) => (
               <Link
                 className="text-sm text-muted-foreground hover:text-primary transition-colors link-underline"
                 href={withLanguagePrefix(language, link.href) as Route}
-                key={index}
+                key={link.href}
               >
                 {t(link.label)}
               </Link>

@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import type { Route } from "next";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Moon, Sun, Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { useSettings } from "@/contexts/settings-hook";
@@ -19,12 +19,11 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const isMobile = useIsMobile();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const homeHref = withLanguagePrefix(language, "/");
   const isHomePage = pathname === homeHref;
   const [activeSection, setActiveSection] = useState<string>("hero");
 
-  const navigationItems = useMemo(() => siteContent.navigation, []);
+  const navigationItems = siteContent.navigation;
 
   // Toggle for handling theme changes
   const toggleTheme = () => {
@@ -38,7 +37,7 @@ const Header = () => {
     const nextLanguage = current === "en" ? "de" : "en";
     setLanguage(nextLanguage);
 
-    const query = searchParams?.toString();
+    const query = typeof window !== "undefined" ? window.location.search.slice(1) : "";
     const hash = typeof window !== "undefined" ? window.location.hash : "";
     const nextPath = replacePathLanguage(pathname, nextLanguage);
     router.push(`${nextPath}${query ? `?${query}` : ""}${hash}` as Route);
@@ -50,7 +49,7 @@ const Header = () => {
       const scrollPosition = window.scrollY;
       setIsScrolled(scrollPosition > 10);
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -73,7 +72,7 @@ const Header = () => {
       }
       setActiveSection(current);
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isHomePage, navigationItems]);

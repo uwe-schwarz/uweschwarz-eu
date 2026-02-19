@@ -29,8 +29,11 @@ const ProjectsSection = () => {
             }}
           >
             <CarouselContent className="-ml-2 md:-ml-4">
-              {projects.map((project, index) => (
-                <CarouselItem className="pl-2 md:pl-4 basis-full sm:basis-1/2 lg:basis-1/3" key={index}>
+              {projects.map((project) => (
+                <CarouselItem
+                  className="pl-2 md:pl-4 basis-full sm:basis-1/2 lg:basis-1/3"
+                  key={`${project.title.en}-${project.title.de}`}
+                >
                   <div className="bg-card rounded-xl overflow-hidden shadow-md border border-border hover-scale transition-all h-full">
                     {/* Project Image */}
                     <div className="aspect-video relative">
@@ -57,8 +60,12 @@ const ProjectsSection = () => {
 
                       {/* Tags */}
                       <div className="flex flex-wrap gap-2 mb-6">
-                        {project.tags.map((tag, tagIndex) => (
-                          <Badge className="font-normal" key={tagIndex} variant="outline">
+                        {project.tags.map((tag) => (
+                          <Badge
+                            className="font-normal"
+                            key={typeof tag === "string" ? tag : `${tag.en}-${tag.de}`}
+                            variant="outline"
+                          >
                             {t(tag)}
                           </Badge>
                         ))}

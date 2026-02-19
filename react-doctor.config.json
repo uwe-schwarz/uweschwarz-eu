@@ -1,0 +1,9 @@
+{
+  "ignore": {
+    "files": ["scripts/**", "src/generated/**"]
+  },
+  "lint": true,
+  "deadCode": true,
+  "verbose": true,
+  "diff": "main"
+}
