@@ -1,11 +1,12 @@
-import type { ReactNode } from "react";
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
+import type { LangLayoutProps } from "@/app/layout-props";
 import Providers from "@/app/providers";
 import type { Language, Theme } from "@/contexts/settings-hook";
 import { isSupportedLanguage, SUPPORTED_LANGUAGES } from "@/lib/i18n";
+import { SITE_URL } from "@/lib/site-config";
 
 export const dynamicParams = false;
 
@@ -20,8 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     return {};
   }
 
-  const baseUrl = "https://uweschwarz.eu";
-  const canonicalUrl = `${baseUrl}/${lang}`;
+  const canonicalUrl = `${SITE_URL}/${lang}`;
 
   const title =
     lang === "de"
@@ -33,21 +33,21 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
       ? "Portfolio von Uwe Schwarz - Projektmanager, IT-Sicherheitsspezialist & AI-Enthusiast"
       : "Portfolio of Uwe Schwarz - Project Manager, IT Security Specialist & AI Enthusiast";
 
-  const ogImage = `${baseUrl}/profile.webp`;
+  const ogImage = `${SITE_URL}/profile.webp`;
   const twitterHandle = "@e38383";
 
   // Generate hreflang links for all supported languages
   const alternates = {
     canonical: canonicalUrl,
     languages: Object.fromEntries(
-      SUPPORTED_LANGUAGES.map((supportedLang) => [supportedLang, `${baseUrl}/${supportedLang}`]),
+      SUPPORTED_LANGUAGES.map((supportedLang) => [supportedLang, `${SITE_URL}/${supportedLang}`]),
     ),
   };
 
   return {
     alternates,
     description,
-    metadataBase: new URL(baseUrl),
+    metadataBase: new URL(SITE_URL),
     openGraph: {
       description,
       images: [
@@ -86,10 +86,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   };
 }
 
-export default async function LangLayout({
-  children,
-  params,
-}: Readonly<{ children: ReactNode; params: Promise<{ lang: string }> }>) {
+export default async function LangLayout({ children, params }: Readonly<LangLayoutProps>) {
   const { lang } = await params;
   if (!isSupportedLanguage(lang)) {
     notFound();
@@ -105,3 +102,5 @@ export default async function LangLayout({
     </Providers>
   );
 }
+
+LangLayout.displayName = "LangLayout";

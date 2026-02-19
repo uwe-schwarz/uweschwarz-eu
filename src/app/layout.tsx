@@ -1,4 +1,3 @@
-import type { ReactNode } from "react";
 import { cookies, headers } from "next/headers";
 import Script from "next/script";
 import { GeistSans } from "geist/font/sans";
@@ -7,6 +6,7 @@ import { GeistPixelCircle } from "geist/font/pixel";
 import { cn } from "@/lib/utils";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
+import type { RootLayoutProps } from "@/app/layout-props";
 import { detectPreferredLanguage } from "@/lib/detect-language";
 import type { Language, Theme } from "@/contexts/settings-hook";
 import { isSupportedLanguage } from "@/lib/i18n";
@@ -23,10 +23,7 @@ const themeInitScript = `
 })();
 `;
 
-export default async function RootLayout({
-  children,
-  params,
-}: Readonly<{ children: ReactNode; params: Promise<{ lang?: string }> }>) {
+export default async function RootLayout({ children, params }: Readonly<RootLayoutProps>) {
   const { lang: routeLang } = await params;
   const cookieStore = await cookies();
   const cookieLanguage = cookieStore.get("language")?.value as Language | undefined;
@@ -82,3 +79,5 @@ export default async function RootLayout({
     </html>
   );
 }
+
+RootLayout.displayName = "RootLayout";

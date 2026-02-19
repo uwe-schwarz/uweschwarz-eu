@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
+
 import CvPage from "@/app/cv/page";
+import { SITE_URL } from "@/lib/site-config";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
 
-  const baseUrl = "https://uweschwarz.eu";
-  const canonicalUrl = `${baseUrl}/${lang}/cv`;
+  const canonicalUrl = `${SITE_URL}/${lang}/cv`;
 
   const title = lang === "de" ? "Lebenslauf - Uwe Schwarz" : "Curriculum Vitae - Uwe Schwarz";
 

@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useEffect, useSyncExternalStore } from "react";
+import type { LocalizedString } from "@/lib/localization";
+import { translateLocalizedString } from "@/lib/localization";
 import { SettingsContext, type Language, type Theme } from "./settings-hook";
 
 interface SettingsProviderProps {
@@ -122,9 +124,7 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children, in
   };
 
   // Translation helper
-  const t = (text: { de: string; en: string }): string => {
-    return text[language];
-  };
+  const t = (text: LocalizedString): string => translateLocalizedString(text, language);
 
   return (
     <SettingsContext.Provider value={{ language, setLanguage, setTheme, t, theme }}>

@@ -1,16 +1,18 @@
 import type { Metadata } from "next";
-import type { ReactNode } from "react";
 
-const baseUrl = "https://uweschwarz.eu";
+import type { LayoutProps } from "@/app/layout-props";
+import { SITE_URL } from "@/lib/site-config";
 
 export const metadata: Metadata = {
   alternates: {
-    canonical: `${baseUrl}/cv`,
+    canonical: `${SITE_URL}/cv`,
   },
   description: "Curriculum Vitae of Uwe Schwarz - Project Manager, IT Security Specialist & AI Enthusiast",
   title: "Curriculum Vitae - Uwe Schwarz",
 };
 
-export default function CvLayout({ children }: Readonly<{ children: ReactNode }>) {
+export default function CvLayout({ children }: Readonly<LayoutProps>) {
   return children;
 }
+
+CvLayout.displayName = "CvLayout";

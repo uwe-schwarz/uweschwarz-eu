@@ -1,4 +1,6 @@
 import type { ComponentType } from "react";
+import type { LocalizedString } from "@/lib/localization";
+import { SITE_URL } from "@/lib/site-config";
 import {
   AlertTriangle,
   BookCheck,
@@ -54,10 +56,7 @@ import {
   SiX,
 } from "react-icons/si";
 
-export interface LocalizedString {
-  de: string;
-  en: string;
-}
+export type { LocalizedString } from "@/lib/localization";
 
 interface NavItem {
   href: string;
@@ -388,7 +387,7 @@ export const siteContent: SiteContent = {
         },
       },
     },
-    homepage: "https://uweschwarz.eu",
+    homepage: SITE_URL,
     infoText: {
       de: "Kontaktiere mich gerne für Zusammenarbeiten oder einfach nur für ein freundliches Hallo.",
       en: "Feel free to reach out for collaborations or just a friendly hello.",
