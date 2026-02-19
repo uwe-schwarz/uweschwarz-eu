@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 
+// Next.js layout props are server component contracts, not DOM element props.
 export interface LayoutProps {
   children: ReactNode;
 }
