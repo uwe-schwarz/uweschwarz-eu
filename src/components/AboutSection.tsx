@@ -69,7 +69,7 @@ const AboutSection = () => {
             {about.paragraphs.map((paragraph, index) => (
               <p
                 className={`text-base md:text-lg leading-relaxed ${index !== about.paragraphs.length - 1 ? "mb-6" : ""}`}
-                key={index}
+                key={`${paragraph.en}-${paragraph.de}`}
               >
                 {t(paragraph)}
               </p>
@@ -77,7 +77,7 @@ const AboutSection = () => {
 
             {/* Stats */}
             <div className={`mt-10 grid grid-cols-1 gap-8 ${gridColsMap[stats.length] || "sm:grid-cols-3"}`}>
-              {stats.map((stat, index) => (
+              {stats.map((stat) => (
                 <div
                   className="p-4 bg-card rounded-lg shadow-sm border border-border hover-scale transition-all"
                   key={stat.key}

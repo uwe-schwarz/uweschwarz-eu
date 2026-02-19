@@ -375,6 +375,11 @@ interface CVDocumentProps {
   profileImageSrc?: string | Uint8Array | ArrayBuffer; // Override profile image source when available
 }
 
+interface LocalizedText {
+  de: string;
+  en: string;
+}
+
 const bytesToBase64 = (bytes: Uint8Array) => {
   if (typeof Buffer !== "undefined") {
     return Buffer.from(bytes).toString("base64");
@@ -406,14 +411,92 @@ const resolveProfileImageSource = (profileImageSrc?: string | Uint8Array | Array
   return `data:image/jpeg;base64,${bytesToBase64(bytes)}`;
 };
 
+const getLocalizedTextKey = (value: LocalizedText | string) =>
+  typeof value === "string" ? value : `${value.en}-${value.de}`;
+
+const formatFooterText = (language: "en" | "de", pageNumber: number, totalPages: number) => {
+  const pageLabel = language === "en" ? "Page" : "Seite";
+  const pageNumberLabel = language === "en" ? "of" : "von";
+  const updateLabel = language === "en" ? "Last updated" : "Letztes Update";
+  const locale = language === "en" ? "en-US" : "de-DE";
+  const date = new Date().toLocaleDateString(locale, {
+    month: "long",
+    year: "numeric",
+  });
+
+  return `${pageLabel} ${pageNumber} ${pageNumberLabel} ${totalPages}\n${updateLabel}: ${date}`;
+};
+
+const createFooterRenderer =
+  (language: "en" | "de") =>
+  ({ pageNumber = 1, totalPages = 1 }: { pageNumber?: number; totalPages?: number }) =>
+    formatFooterText(language, pageNumber, totalPages);
+
+interface ExperienceEntriesProps {
+  achievementPrefix: LocalizedText;
+  items: SiteContent["experiences"];
+  t: (text: LocalizedText) => string;
+}
+
+const ExperienceEntries = ({ achievementPrefix, items, t }: ExperienceEntriesProps) => (
+  <>
+    {items.map((exp) => (
+      <View
+        key={`${exp.company}-${getLocalizedTextKey(exp.title)}-${getLocalizedTextKey(exp.period)}`}
+        style={styles.experienceItem}
+        wrap={false}
+      >
+        <Text style={styles.jobTitle}>{t(exp.title)}</Text>
+        <View style={styles.experienceHeader}>
+          <Text style={styles.companyName}>{exp.company}</Text>
+          <Text style={styles.period}>{t(exp.period)}</Text>
+        </View>
+        <Text style={styles.location}>{t(exp.location)}</Text>
+
+        <View style={styles.descriptionList}>
+          {exp.description.map((item) =>
+            item.type === "text" ? (
+              <Text
+                key={`${exp.company}-${getLocalizedTextKey(exp.title)}-${item.type}-${getLocalizedTextKey(item.text)}`}
+                style={styles.descriptionItem}
+              >
+                • {t(item.text)}
+              </Text>
+            ) : (
+              <Text
+                key={`${exp.company}-${getLocalizedTextKey(exp.title)}-${item.type}-${getLocalizedTextKey(item.text)}`}
+                style={styles.achievementItem}
+              >
+                • {t(achievementPrefix)} {t(item.text)}
+              </Text>
+            ),
+          )}
+        </View>
+
+        <View style={styles.tagContainer}>
+          {exp.tags.map((tag) => (
+            <Text
+              key={`${exp.company}-${getLocalizedTextKey(exp.title)}-${getLocalizedTextKey(tag)}`}
+              style={styles.tag}
+            >
+              {t(tag)}
+            </Text>
+          ))}
+        </View>
+      </View>
+    ))}
+  </>
+);
+
 const CVDocument: React.FC<CVDocumentProps> = ({ data, language, profileImageSrc }) => {
   // Use passed data or fallback to siteContent
   const content = data || defaultSiteContent;
-  const { about, contact, experiences, footer, hero, imprint, skills, skillsSection } = content;
+  const { about, contact, experiences, hero, imprint, skills, skillsSection } = content;
   const profileImage = resolveProfileImageSource(profileImageSrc);
 
   // Helper function to get text in the current language
   const t = (text: { de: string; en: string }) => text[language];
+  const footerRenderer = createFooterRenderer(language);
 
   // Sort experiences by date (most recent first)
   const sortedExperiences = [...experiences].sort((a, b) => {
@@ -445,40 +528,6 @@ const CVDocument: React.FC<CVDocumentProps> = ({ data, language, profileImageSrc
     },
     {} as Record<string, typeof skills>,
   );
-
-  const renderExperienceEntries = (items: SiteContent["experiences"]) =>
-    items.map((exp, index) => (
-      <View key={`${exp.company}-${index}`} style={styles.experienceItem} wrap={false}>
-        <Text style={styles.jobTitle}>{t(exp.title)}</Text>
-        <View style={styles.experienceHeader}>
-          <Text style={styles.companyName}>{exp.company}</Text>
-          <Text style={styles.period}>{t(exp.period)}</Text>
-        </View>
-        <Text style={styles.location}>{t(exp.location)}</Text>
-
-        <View style={styles.descriptionList}>
-          {exp.description.map((item, idx) =>
-            item.type === "text" ? (
-              <Text key={idx} style={styles.descriptionItem}>
-                • {t(item.text)}
-              </Text>
-            ) : (
-              <Text key={idx} style={styles.achievementItem}>
-                • {t(content.experienceAchievementPrefix)} {t(item.text)}
-              </Text>
-            ),
-          )}
-        </View>
-
-        <View style={styles.tagContainer}>
-          {exp.tags.map((tag, tagIndex) => (
-            <Text key={tagIndex} style={styles.tag}>
-              {t(tag)}
-            </Text>
-          ))}
-        </View>
-      </View>
-    ));
 
   return (
     <Document>
@@ -540,8 +589,8 @@ const CVDocument: React.FC<CVDocumentProps> = ({ data, language, profileImageSrc
             <Text style={styles.sidebarTitle}>{language === "en" ? "Languages" : "Sprachen"}</Text>
             {skillsByCategory.languages && (
               <View style={styles.skillContainer}>
-                {skillsByCategory.languages.map((skill, index) => (
-                  <View key={index} style={styles.skillContainer}>
+                {skillsByCategory.languages.map((skill) => (
+                  <View key={getLocalizedTextKey(skill.name)} style={styles.skillContainer}>
                     <SpeechIcon />
                     <Text style={styles.sidebarSkill}>{t(skill.name)}</Text>
                   </View>
@@ -570,7 +619,11 @@ const CVDocument: React.FC<CVDocumentProps> = ({ data, language, profileImageSrc
                 <Text style={styles.skillCategoryTitle}>{t(content.experienceBigProjectsTitle)}</Text>
                 <Text style={styles.groupSubtitle}>{t(content.experienceBigProjectsSubtitle)}</Text>
                 <Text style={styles.groupNote}>{t(content.experienceBigProjectsNote)}</Text>
-                {renderExperienceEntries(majorExperiences)}
+                <ExperienceEntries
+                  achievementPrefix={content.experienceAchievementPrefix}
+                  items={majorExperiences}
+                  t={t}
+                />
               </View>
             )}
             {smallExperiences.length > 0 && (
@@ -578,7 +631,11 @@ const CVDocument: React.FC<CVDocumentProps> = ({ data, language, profileImageSrc
                 <Text style={styles.skillCategoryTitle}>{t(content.experienceSmallProjectsTitle)}</Text>
                 <Text style={styles.groupSubtitle}>{t(content.experienceSmallProjectsSubtitle)}</Text>
                 <Text style={styles.groupNote}>{t(content.experienceSmallProjectsNote)}</Text>
-                {renderExperienceEntries(smallExperiences)}
+                <ExperienceEntries
+                  achievementPrefix={content.experienceAchievementPrefix}
+                  items={smallExperiences}
+                  t={t}
+                />
               </View>
             )}
           </View>
@@ -596,8 +653,8 @@ const CVDocument: React.FC<CVDocumentProps> = ({ data, language, profileImageSrc
                     {(categorySkills as typeof skills)
                       .filter((skill) => skill.level >= 4) // Only include high-level skills
                       .slice(0, 10) // Limit number of skills per category
-                      .map((skill, index) => (
-                        <Text key={index} style={styles.skill}>
+                      .map((skill) => (
+                        <Text key={`${category}-${getLocalizedTextKey(skill.name)}`} style={styles.skill}>
                           {t(skill.name)}
                         </Text>
                       ))}
@@ -608,13 +665,13 @@ const CVDocument: React.FC<CVDocumentProps> = ({ data, language, profileImageSrc
           {/* Projects */}
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>{t(content.projectsSectionTitle)}</Text>
-            {content.projects.map((project, index) => (
-              <View key={index} style={styles.experienceItem} wrap={false}>
+            {content.projects.map((project) => (
+              <View key={getLocalizedTextKey(project.title)} style={styles.experienceItem} wrap={false}>
                 <Text style={styles.jobTitle}>{t(project.title)}</Text>
                 <Text style={styles.description}>{t(project.description)}</Text>
                 <View style={styles.tagContainer}>
-                  {project.tags.slice(0, 5).map((tag, tagIndex) => (
-                    <Text key={tagIndex} style={styles.tag}>
+                  {project.tags.slice(0, 5).map((tag) => (
+                    <Text key={`${getLocalizedTextKey(project.title)}-${getLocalizedTextKey(tag)}`} style={styles.tag}>
                       {t(tag)}
                     </Text>
                   ))}
@@ -624,21 +681,7 @@ const CVDocument: React.FC<CVDocumentProps> = ({ data, language, profileImageSrc
           </View>
           {/* Footer */}
           <View fixed style={styles.footer}>
-            <Text
-              render={({ pageNumber, totalPages }) => {
-                const pageLabel = language === "en" ? "Page" : "Seite";
-                const pageNumberLabel = language === "en" ? "of" : "von";
-                const updateLabel = language === "en" ? "Last updated" : "Letztes Update";
-                const locale = language === "en" ? "en-US" : "de-DE";
-                const date = new Date().toLocaleDateString(locale, {
-                  month: "long",
-                  year: "numeric",
-                });
-
-                return `${pageLabel} ${pageNumber} ${pageNumberLabel} ${totalPages}\n${updateLabel}: ${date}`;
-              }}
-              style={styles.footer}
-            />
+            <Text render={footerRenderer} style={styles.footer} />
           </View>
         </View>
       </Page>

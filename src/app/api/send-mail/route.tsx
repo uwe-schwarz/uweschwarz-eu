@@ -7,14 +7,20 @@ import { z } from "zod";
 const resendApiKey = process.env.RESEND_API_KEY;
 const resend = resendApiKey ? new Resend(resendApiKey) : null;
 
-function escapeHtml(str: string) {
-  return str
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
-}
+const createLineRenderEntries = (message: string) => {
+  const lines = message.split(/\r?\n/);
+  const seen = new Map<string, number>();
+
+  return lines.map((line) => {
+    const currentCount = (seen.get(line) ?? 0) + 1;
+    seen.set(line, currentCount);
+
+    return {
+      key: `${line}-${currentCount}`,
+      line,
+    };
+  });
+};
 
 function sanitizeEmailHeaderName(value: unknown) {
   const normalized = String(value ?? "")
@@ -40,6 +46,9 @@ const EmailTemplate = ({ email, message, name }: { email: string; message: strin
     primary: "hsl(333, 65%, 35%)",
     primaryForeground: "hsl(0, 0%, 70%)",
   };
+
+  const messageLines = createLineRenderEntries(message);
+  const lastKey = messageLines.at(-1)?.key;
 
   return (
     <Html>
@@ -97,7 +106,12 @@ const EmailTemplate = ({ email, message, name }: { email: string; message: strin
                   Message:
                 </Text>
                 <Text className="text-[16px]" style={{ color: colors.foreground }}>
-                  <span dangerouslySetInnerHTML={{ __html: message }} />
+                  {messageLines.map((entry) => (
+                    <span key={entry.key}>
+                      {entry.line}
+                      {entry.key !== lastKey ? <br /> : null}
+                    </span>
+                  ))}
                 </Text>
               </Section>
 
@@ -147,7 +161,10 @@ const EmailTemplate = ({ email, message, name }: { email: string; message: strin
                 Berlin, Germany
               </Text>
               <Text className="mt-[8px] text-[12px]" style={{ color: colors.mutedForeground }}>
-                <a href="#" style={{ color: colors.accent, textDecoration: "none" }}>
+                <a
+                  href="mailto:mail@uweschwarz.eu?subject=Unsubscribe%20contact%20alerts"
+                  style={{ color: colors.accent, textDecoration: "none" }}
+                >
                   Unsubscribe
                 </a>{" "}
                 from these alerts.
@@ -184,13 +201,13 @@ export async function POST(request: Request) {
 
   const email = emailResult.data;
   const headerSafeName = sanitizeEmailHeaderName(body.name);
+  const rawMessage = String(body.message ?? "");
   const rawName = String(body.name ?? "");
-  const safeMessage = escapeHtml(String(body.message ?? "")).replaceAll("\n", "<br>");
 
   const html = await render(
     EmailTemplate({
       email,
-      message: safeMessage,
+      message: rawMessage,
       name: rawName,
     }),
   );

@@ -17,6 +17,7 @@ This repository contains a personal portfolio built with Next.js, React, TypeScr
 - `bun run typecheck` – run TypeScript checks without emitting files.
 - `bun run format:check` – verify formatting with Oxfmt.
 - `bun run format` – apply formatting with Oxfmt.
+- `bunx -y react-doctor@latest . --diff main --no-ami` – run React Doctor on branch changes (configured via `react-doctor.config.json`).
 
 Always rely on Bun for package management or scripting; avoid npm/pnpm commands.
 
@@ -47,6 +48,7 @@ When modifying files in this repository:
    - `bun run lint`
    - `bun run typecheck`
    - `bun run format:check`
+   - `bunx -y react-doctor@latest . --diff main --no-ami`
 2. If checks fail, possible fixes with:
    - `bun run lint --fix`
    - `bun run format`

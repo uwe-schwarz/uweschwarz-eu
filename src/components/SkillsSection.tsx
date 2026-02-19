@@ -120,12 +120,13 @@ const SkillsGrid = ({ skills }: SkillsGridProps) => {
   const { t } = useSettings();
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-6">
-      {skills.map((skill, index) => {
+      {skills.map((skill) => {
         const IconComponent = skill.icon;
+        const skillKey = `${skill.category}-${skill.name.en}-${skill.name.de}`;
         return (
           <div
             className="p-4 rounded-lg border border-border bg-card flex flex-col items-center hover-scale transition-all"
-            key={index}
+            key={skillKey}
           >
             <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mb-3 text-primary">
               <IconComponent className="w-5 h-5" />
@@ -134,8 +135,11 @@ const SkillsGrid = ({ skills }: SkillsGridProps) => {
             <h3 className="text-base font-medium mb-2">{t(skill.name)}</h3>
 
             <div className="flex gap-1">
-              {[...Array(5)].map((_, i) => (
-                <div className={cn("w-2 h-2 rounded-full", i < skill.level ? "bg-primary" : "bg-muted")} key={i} />
+              {Array.from({ length: 5 }, (_, level) => level + 1).map((level) => (
+                <div
+                  className={cn("w-2 h-2 rounded-full", level <= skill.level ? "bg-primary" : "bg-muted")}
+                  key={`${skillKey}-${level}`}
+                />
               ))}
             </div>
           </div>

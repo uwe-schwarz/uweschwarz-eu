@@ -48,6 +48,8 @@ const formatTemplate = (template: string, values: Record<string, number | string
   }, template);
 };
 
+const decodeDecorativeLabel = (label: string) => label.replaceAll("&nbsp;", "\u00a0");
+
 const HeroSection = () => {
   const { language, t } = useSettings();
   const { hero } = siteContent;
@@ -164,19 +166,17 @@ const HeroSection = () => {
               {/* Dynamically positioned decorative elements - now without animation-delay for immediate positioning */}
               {hero.decorativeElements.map((element, index) => {
                 const posStyle = calculatePosition(element.position, element.distance);
+                const key = `${element.code}-${element.position}-${element.distance}`;
                 return (
                   <div
                     className="absolute p-4 card-glass rounded-lg shadow-lg transform rotate-3 animate-float"
-                    key={index}
+                    key={key}
                     style={{
                       ...posStyle,
                       transform: `${posStyle.transform} rotate(${index * 9 - 6}deg)`,
                     }}
                   >
-                    <code
-                      className="text-xs sm:text-sm text-gradient"
-                      dangerouslySetInnerHTML={{ __html: element.code }}
-                    />
+                    <code className="text-xs sm:text-sm text-gradient">{decodeDecorativeLabel(element.code)}</code>
                   </div>
                 );
               })}
