@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useSyncExternalStore } from "react";
+import React, { useCallback, useEffect, useMemo, useSyncExternalStore } from "react";
 import type { LocalizedString } from "@/lib/localization";
 import { translateLocalizedString } from "@/lib/localization";
 import { SettingsContext, type Language, type Theme } from "./settings-hook";
@@ -26,7 +26,7 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children, in
   // `useSyncExternalStore` lets React use the server snapshot during hydration,
   // and then update to client preferences (localStorage / system) after hydration,
   // without causing hydration mismatches.
-  const subscribe = (onStoreChange: () => void) => {
+  const subscribe = useCallback((onStoreChange: () => void) => {
     if (typeof window === "undefined") {
       return () => undefined;
     }
@@ -43,9 +43,9 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children, in
       window.removeEventListener(SETTINGS_CHANGED_EVENT, onStoreChange);
       mql?.removeEventListener?.("change", onMqlChange);
     };
-  };
+  }, []);
 
-  const getLanguageSnapshot = (): Language => {
+  const getLanguageSnapshot = useCallback((): Language => {
     try {
       const saved = localStorage.getItem("language") as Language | null;
       if (saved === "en" || saved === "de") {
@@ -55,9 +55,9 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children, in
       // ignore
     }
     return initialLanguage;
-  };
+  }, [initialLanguage]);
 
-  const getThemeSnapshot = (): Theme => {
+  const getThemeSnapshot = useCallback((): Theme => {
     try {
       const saved = localStorage.getItem("theme") as Theme | null;
       if (saved === "light" || saved === "dark") {
@@ -74,7 +74,7 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children, in
     }
 
     return initialTheme;
-  };
+  }, [initialTheme]);
 
   const language = useSyncExternalStore(subscribe, getLanguageSnapshot, () => initialLanguage);
   const theme = useSyncExternalStore(subscribe, getThemeSnapshot, () => initialTheme);
@@ -102,7 +102,7 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children, in
   }, [theme]);
 
   // Language setting function
-  const setLanguage = (lang: Language) => {
+  const setLanguage = useCallback((lang: Language) => {
     if (typeof localStorage !== "undefined") {
       localStorage.setItem("language", lang);
     }
@@ -110,27 +110,28 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children, in
     if (typeof window !== "undefined") {
       window.dispatchEvent(new Event(SETTINGS_CHANGED_EVENT));
     }
-  };
+  }, []);
 
   // Theme setting function
-  const setTheme = (theme: Theme) => {
+  const setTheme = useCallback((nextTheme: Theme) => {
     if (typeof localStorage !== "undefined") {
-      localStorage.setItem("theme", theme);
+      localStorage.setItem("theme", nextTheme);
     }
-    setClientCookie("theme", theme);
+    setClientCookie("theme", nextTheme);
     if (typeof window !== "undefined") {
       window.dispatchEvent(new Event(SETTINGS_CHANGED_EVENT));
     }
-  };
+  }, []);
 
   // Translation helper
-  const t = (text: LocalizedString): string => translateLocalizedString(text, language);
+  const t = useCallback((text: LocalizedString): string => translateLocalizedString(text, language), [language]);
 
-  return (
-    <SettingsContext.Provider value={{ language, setLanguage, setTheme, t, theme }}>
-      {children}
-    </SettingsContext.Provider>
+  const contextValue = useMemo(
+    () => ({ language, setLanguage, setTheme, t, theme }),
+    [language, setLanguage, setTheme, t, theme],
   );
+
+  return <SettingsContext.Provider value={contextValue}>{children}</SettingsContext.Provider>;
 };
 // Ensure useSettings is NOT re-exported or defined here.
 // It should be imported directly from './settings-hook' by components that need it.

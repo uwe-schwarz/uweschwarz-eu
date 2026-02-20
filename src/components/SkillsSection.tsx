@@ -2,19 +2,34 @@
 
 import React, { useState } from "react";
 import { siteContent } from "@/content/content";
+import { skillsWithIcons, type SkillWithIcon } from "@/content/skills-with-icons";
 import { useSettings } from "@/contexts/settings-hook";
 import { Briefcase, ShieldCheck, Bot, Network, Wrench, Flag } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 
+type TabValue = "management" | "languages" | "security" | "ai" | "infrastructure" | "tools";
+
+const skillsByCategory = skillsWithIcons.reduce<Record<TabValue, Array<SkillWithIcon>>>(
+  (accumulator, skill) => {
+    accumulator[skill.category].push(skill);
+    return accumulator;
+  },
+  {
+    ai: [],
+    infrastructure: [],
+    languages: [],
+    management: [],
+    security: [],
+    tools: [],
+  },
+);
+
 const SkillsSection = () => {
   const { t } = useSettings();
-  const { skills, skillsSection } = siteContent;
-  type TabValue = "management" | "languages" | "security" | "ai" | "infrastructure" | "tools";
+  const { skillsSection } = siteContent;
   const [activeTab, setActiveTab] = useState<TabValue>("management");
-
-  // Filter skills by category
-  const filteredSkills = skills.filter((skill) => skill.category === activeTab);
+  const activeSkills = skillsByCategory[activeTab];
 
   return (
     <section className="section-padding" id="skills">
@@ -26,7 +41,7 @@ const SkillsSection = () => {
         <p className="text-center text-muted-foreground max-w-2xl mx-auto mb-16">{t(skillsSection.subtitle)}</p>
 
         <div className="max-w-4xl mx-auto">
-          <Tabs className="w-full" defaultValue="management" onValueChange={(value) => setActiveTab(value as TabValue)}>
+          <Tabs className="w-full" onValueChange={(value) => setActiveTab(value as TabValue)} value={activeTab}>
             <div className="flex justify-center mb-8">
               <TabsList className="flex-nowrap h-12 md:h-auto">
                 <TabsTrigger
@@ -86,24 +101,8 @@ const SkillsSection = () => {
               </TabsList>
             </div>
 
-            {/* Skill content panels */}
-            <TabsContent className="mt-0" value="security">
-              <SkillsGrid skills={filteredSkills} />
-            </TabsContent>
-            <TabsContent className="mt-0" value="infrastructure">
-              <SkillsGrid skills={filteredSkills} />
-            </TabsContent>
-            <TabsContent className="mt-0" value="tools">
-              <SkillsGrid skills={filteredSkills} />
-            </TabsContent>
-            <TabsContent className="mt-0" value="ai">
-              <SkillsGrid skills={filteredSkills} />
-            </TabsContent>
-            <TabsContent className="mt-0" value="management">
-              <SkillsGrid skills={filteredSkills} />
-            </TabsContent>
-            <TabsContent className="mt-0" value="languages">
-              <SkillsGrid skills={filteredSkills} />
+            <TabsContent className="mt-0" value={activeTab}>
+              <SkillsGrid skills={activeSkills} />
             </TabsContent>
           </Tabs>
         </div>
@@ -113,7 +112,7 @@ const SkillsSection = () => {
 };
 
 interface SkillsGridProps {
-  skills: typeof siteContent.skills;
+  skills: Array<SkillWithIcon>;
 }
 
 const SkillsGrid = ({ skills }: SkillsGridProps) => {
@@ -122,11 +121,10 @@ const SkillsGrid = ({ skills }: SkillsGridProps) => {
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-6">
       {skills.map((skill) => {
         const IconComponent = skill.icon;
-        const skillKey = `${skill.category}-${skill.name.en}-${skill.name.de}`;
         return (
           <div
             className="p-4 rounded-lg border border-border bg-card flex flex-col items-center hover-scale transition-all"
-            key={skillKey}
+            key={skill.id}
           >
             <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mb-3 text-primary">
               <IconComponent className="w-5 h-5" />
@@ -138,7 +136,7 @@ const SkillsGrid = ({ skills }: SkillsGridProps) => {
               {Array.from({ length: 5 }, (_, level) => level + 1).map((level) => (
                 <div
                   className={cn("w-2 h-2 rounded-full", level <= skill.level ? "bg-primary" : "bg-muted")}
-                  key={`${skillKey}-${level}`}
+                  key={`${skill.id}-${level}`}
                 />
               ))}
             </div>

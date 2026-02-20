@@ -1,60 +1,5 @@
-import type { ComponentType } from "react";
 import type { LocalizedString } from "@/lib/localization";
 import { SITE_URL } from "@/lib/site-config";
-import {
-  AlertTriangle,
-  BookCheck,
-  Bot,
-  Bug,
-  Database,
-  FileCheck2,
-  FileText,
-  Flag,
-  GitBranch,
-  GitCompareArrows,
-  Globe,
-  Heart,
-  Image,
-  Landmark,
-  ListChecks,
-  Mail,
-  MessageCircle,
-  Network,
-  Route,
-  Scale,
-  ScanSearch,
-  SearchCode,
-  Shield,
-  ShieldCheck,
-  Siren,
-  Swords,
-  Terminal,
-  Users,
-  Video,
-  Grid2X2,
-  ShieldPlus,
-  ServerCrash,
-  CodeXml,
-  Cable,
-} from "lucide-react";
-import {
-  SiAnthropic,
-  SiApple,
-  SiCaddy,
-  SiCloudflare,
-  SiDocker,
-  SiFreebsd,
-  SiGit,
-  SiGooglegemini,
-  SiLinux,
-  SiNotion,
-  SiOpenai,
-  SiPuppet,
-  SiPython,
-  SiResend,
-  SiSupabase,
-  SiX,
-} from "react-icons/si";
 
 export type { LocalizedString } from "@/lib/localization";
 
@@ -127,7 +72,6 @@ interface Project {
 
 export interface Skill {
   category: "languages" | "management" | "security" | "infrastructure" | "tools" | "ai";
-  icon: ComponentType<{ className?: string }>;
   level: number;
   name: LocalizedString;
 }
@@ -1890,67 +1834,56 @@ export const siteContent: SiteContent = {
     // Security & Compliance
     {
       category: "security",
-      icon: ShieldCheck,
       level: 4,
       name: { de: "ISO27001", en: "ISO27001" },
     },
     {
       category: "security",
-      icon: ShieldPlus,
       level: 4,
       name: { de: "SOC2", en: "SOC2" },
     },
     {
       category: "security",
-      icon: Landmark,
       level: 5,
       name: { de: "DSGVO", en: "GDPR" },
     },
     {
       category: "security",
-      icon: BookCheck,
       level: 4,
       name: { de: "NIST Framework", en: "NIST Framework" },
     },
     {
       category: "security",
-      icon: Swords,
       level: 4,
       name: { de: "MITRE ATT&CK", en: "MITRE ATT&CK" },
     },
     {
       category: "security",
-      icon: BookCheck,
       level: 5,
       name: { de: "BSI IT-Grundschutz", en: "BSI IT Baseline Protection" },
     },
     {
       category: "security",
-      icon: FileCheck2,
       level: 5,
       name: { de: "Sicherheitsrichtlinien", en: "Security Policies" },
     },
     {
       category: "security",
-      icon: AlertTriangle,
       level: 3,
       name: { de: "Risikomanagement", en: "Risk Management" },
     },
     {
       category: "security",
-      icon: ScanSearch,
       level: 5,
       name: { de: "Vulnerabilitätsmanagement", en: "Vulnerability Mgmt." },
     },
     {
       category: "security",
-      icon: Siren,
       level: 5,
       name: { de: "Incident Response", en: "Incident Response" },
     },
     {
       category: "security",
-      icon: Bug,
       level: 5,
       name: {
         de: "Penetration Testing Mgmt.",
@@ -1959,7 +1892,6 @@ export const siteContent: SiteContent = {
     },
     {
       category: "security",
-      icon: Shield,
       level: 4,
       name: {
         de: "Proxy & Secure Web Gateways",
@@ -1970,7 +1902,6 @@ export const siteContent: SiteContent = {
     // Infrastructure & Operations
     {
       category: "infrastructure",
-      icon: SiLinux,
       level: 5,
       name: {
         de: "Linux: Debian, Ubuntu, RHEL",
@@ -1979,7 +1910,6 @@ export const siteContent: SiteContent = {
     },
     {
       category: "infrastructure",
-      icon: SiFreebsd,
       level: 3,
       name: {
         de: "Unix: FreeBSD, OpenBSD, Solaris",
@@ -1988,37 +1918,31 @@ export const siteContent: SiteContent = {
     },
     {
       category: "infrastructure",
-      icon: SiApple,
       level: 5,
       name: { de: "macOS", en: "macOS" },
     },
     {
       category: "infrastructure",
-      icon: Grid2X2,
       level: 2,
       name: { de: "Windows Server", en: "Windows Server" },
     },
     {
       category: "infrastructure",
-      icon: SiCloudflare,
       level: 4,
       name: { de: "Cloudflare", en: "Cloudflare" },
     },
     {
       category: "infrastructure",
-      icon: SiResend,
       level: 5,
       name: { de: "Resend", en: "Resend" },
     },
     {
       category: "infrastructure",
-      icon: SiSupabase,
       level: 4,
       name: { de: "Supabase", en: "Supabase" },
     },
     {
       category: "infrastructure",
-      icon: ServerCrash,
       level: 5,
       name: {
         de: "Hochverfügbarkeitssysteme",
@@ -2027,19 +1951,16 @@ export const siteContent: SiteContent = {
     },
     {
       category: "infrastructure",
-      icon: Database,
       level: 4,
       name: { de: "Rechenzentrumsbetrieb", en: "Data Center Operations" },
     },
     {
       category: "infrastructure",
-      icon: Network,
       level: 5,
       name: { de: "TCP/IP, DNS, DHCP", en: "TCP/IP, DNS, DHCP" },
     },
     {
       category: "infrastructure",
-      icon: Cable,
       level: 5,
       name: { de: "IPv6", en: "IPv6" },
     },
@@ -2047,73 +1968,61 @@ export const siteContent: SiteContent = {
     // Tools & Automation
     {
       category: "tools",
-      icon: Terminal,
       level: 5,
       name: { de: "Bash / Shell Skripte", en: "Bash / Shell Scripting" },
     },
     {
       category: "tools",
-      icon: SiNotion,
       level: 4,
       name: { de: "Notion", en: "Notion" },
     },
     {
       category: "tools",
-      icon: SiGit,
       level: 4,
       name: { de: "Git", en: "Git" },
     },
     {
       category: "tools",
-      icon: CodeXml,
       level: 4,
       name: { de: "Cursor", en: "Cursor" },
     },
     {
       category: "tools",
-      icon: SiPython,
       level: 3,
       name: { de: "Python", en: "Python" },
     },
     {
       category: "tools",
-      icon: Mail,
       level: 4,
       name: { de: "Postfix / Dovecot", en: "Postfix / Dovecot" },
     },
     {
       category: "tools",
-      icon: Globe,
       level: 5,
       name: { de: "Bind / Unbound", en: "Bind / Unbound" },
     },
     {
       category: "tools",
-      icon: Shield,
       level: 4,
       name: { de: "Squid Proxy", en: "Squid Proxy" },
     },
     {
       category: "tools",
-      icon: GitCompareArrows,
       level: 4,
       name: { de: "HAProxy", en: "HAProxy" },
     },
     {
       category: "tools",
-      icon: SiCaddy,
       level: 4,
       name: { de: "Caddy", en: "Caddy" },
     },
     {
       category: "tools",
-      icon: SiPuppet,
       level: 3,
       name: { de: "Puppet", en: "Puppet" },
     },
     {
       category: "tools",
-      icon: SiDocker,
       level: 4,
       name: { de: "Docker", en: "Docker" },
     },
@@ -2121,19 +2030,16 @@ export const siteContent: SiteContent = {
     // Management & Strategy
     {
       category: "management",
-      icon: ListChecks,
       level: 5,
       name: { de: "Projektmanagement", en: "Project Management" },
     },
     {
       category: "management",
-      icon: Users,
       level: 5,
       name: { de: "Teamleitung", en: "Team Leadership" },
     },
     {
       category: "management",
-      icon: MessageCircle,
       level: 5,
       name: {
         de: "Stakeholder-Kommunikation",
@@ -2142,13 +2048,11 @@ export const siteContent: SiteContent = {
     },
     {
       category: "management",
-      icon: Route,
       level: 4,
       name: { de: "IT-Strategie", en: "IT Strategy" },
     },
     {
       category: "management",
-      icon: FileText,
       level: 5,
       name: { de: "Technische Konzepte", en: "Technical Concepts" },
     },
@@ -2156,55 +2060,46 @@ export const siteContent: SiteContent = {
     // Artificial Intelligence
     {
       category: "ai",
-      icon: Bot,
       level: 4,
       name: { de: "Agentische KI", en: "Agentic AI" },
     },
     {
       category: "ai",
-      icon: Image,
       level: 5,
       name: { de: "Multimodale KI", en: "Multimodal AI" },
     },
     {
       category: "ai",
-      icon: GitBranch,
       level: 4,
       name: { de: "Kausale KI", en: "Causal AI" },
     },
     {
       category: "ai",
-      icon: Heart,
       level: 5,
       name: { de: "Lovable", en: "Lovable" },
     },
     {
       category: "ai",
-      icon: SiOpenai,
       level: 5,
       name: { de: "OpenAI / ChatGPT", en: "OpenAI / ChatGPT" },
     },
     {
       category: "ai",
-      icon: SiAnthropic,
       level: 5,
       name: { de: "Anthropic / Claude", en: "Anthropic / Claude" },
     },
     {
       category: "ai",
-      icon: SiGooglegemini,
       level: 5,
       name: { de: "Google / Gemini", en: "Google / Gemini" },
     },
     {
       category: "ai",
-      icon: SiX,
       level: 5,
       name: { de: "xAI / Grok", en: "xAI / Grok" },
     },
     {
       category: "ai",
-      icon: SearchCode,
       level: 3,
       name: {
         de: "Generative Engine Optimization (GEO)",
@@ -2213,13 +2108,11 @@ export const siteContent: SiteContent = {
     },
     {
       category: "ai",
-      icon: Video,
       level: 3,
       name: { de: "KI-Multimediaerzeugung", en: "AI Multimedia Generation" },
     },
     {
       category: "ai",
-      icon: Scale,
       level: 5,
       name: { de: "KI-Ethik & Governance", en: "AI Ethics & Governance" },
     },
@@ -2227,13 +2120,11 @@ export const siteContent: SiteContent = {
     // Languages
     {
       category: "languages",
-      icon: Flag,
       level: 5,
       name: { de: "Deutsch (Muttersprache)", en: "German (Native)" },
     },
     {
       category: "languages",
-      icon: Flag,
       level: 5,
       name: { de: "Englisch (C2)", en: "English (C2)" },
     },

@@ -44,9 +44,11 @@ async function cleanupOldFiles(contentModTime: Date) {
         !file.includes(`-${currentDate}.`),
     );
 
-    for (const file of oldCvFiles) {
-      const filePath = path.join(publicDir, file);
-      await fs.unlink(filePath);
+    // Keep cleanup logging deterministic while removing files concurrently.
+    const filesToRemove = oldCvFiles.sort();
+    await Promise.all(filesToRemove.map((file) => fs.unlink(path.join(publicDir, file))));
+
+    for (const file of filesToRemove) {
       console.log(`Removed old CV file: ${file}`);
     }
   } catch (error) {
@@ -113,24 +115,27 @@ async function main() {
   const profileImagePath = path.join(publicDir, "profile.jpg");
   const profileImage = await fs.readFile(profileImagePath);
 
-  for (const language of languages) {
-    const pdfElement = React.createElement(CVDocument, {
-      data: siteContent,
-      language,
-      profileImageSrc: profileImage,
-    });
+  await Promise.all(
+    languages.map(async (language) => {
+      const pdfElement = React.createElement(CVDocument, {
+        data: siteContent,
+        language,
+        profileImageSrc: profileImage,
+      });
 
-    const pdfTarget = path.join(publicDir, resolveOutputName(language, "pdf", contentModTime));
-    await ReactPDF.render(pdfElement, pdfTarget);
+      const pdfTarget = path.join(publicDir, resolveOutputName(language, "pdf", contentModTime));
+      const docxTarget = path.join(publicDir, resolveOutputName(language, "docx", contentModTime));
 
-    const docxData = await generateCvDocx({
-      data: siteContent,
-      language,
-      profileImage,
-    });
-    const docxTarget = path.join(publicDir, resolveOutputName(language, "docx", contentModTime));
-    await fs.writeFile(docxTarget, Buffer.from(docxData));
-  }
+      const pdfPromise = ReactPDF.render(pdfElement, pdfTarget);
+      const docxPromise = generateCvDocx({
+        data: siteContent,
+        language,
+        profileImage,
+      }).then((docxData) => fs.writeFile(docxTarget, Buffer.from(docxData)));
+
+      await Promise.all([pdfPromise, docxPromise]);
+    }),
+  );
 
   console.log(
     `Generated CV assets: ${languages
