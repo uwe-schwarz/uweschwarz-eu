@@ -14,7 +14,8 @@ import {
   Rect,
   G,
 } from "@react-pdf/renderer";
-import { siteContent as defaultSiteContent, SiteContent } from "../../src/content/content";
+import { siteContent as defaultSiteContent, type SiteContent } from "../../src/content/content";
+import { getLocalizedTextKey, type LocalizedString, translateLocalizedString } from "../../src/lib/localization";
 
 const resolveFontSource = (relativePath: string) => {
   const url = new URL(relativePath, import.meta.url);
@@ -375,11 +376,6 @@ interface CVDocumentProps {
   profileImageSrc?: string | Uint8Array | ArrayBuffer; // Override profile image source when available
 }
 
-interface LocalizedText {
-  de: string;
-  en: string;
-}
-
 const bytesToBase64 = (bytes: Uint8Array) => {
   if (typeof Buffer !== "undefined") {
     return Buffer.from(bytes).toString("base64");
@@ -411,9 +407,6 @@ const resolveProfileImageSource = (profileImageSrc?: string | Uint8Array | Array
   return `data:image/jpeg;base64,${bytesToBase64(bytes)}`;
 };
 
-const getLocalizedTextKey = (value: LocalizedText | string) =>
-  typeof value === "string" ? value : `${value.en}-${value.de}`;
-
 const formatFooterText = (language: "en" | "de", pageNumber: number, totalPages: number) => {
   const pageLabel = language === "en" ? "Page" : "Seite";
   const pageNumberLabel = language === "en" ? "of" : "von";
@@ -433,9 +426,9 @@ const createFooterRenderer =
     formatFooterText(language, pageNumber, totalPages);
 
 interface ExperienceEntriesProps {
-  achievementPrefix: LocalizedText;
+  achievementPrefix: LocalizedString;
   items: SiteContent["experiences"];
-  t: (text: LocalizedText) => string;
+  t: (text: LocalizedString) => string;
 }
 
 const ExperienceEntries = ({ achievementPrefix, items, t }: ExperienceEntriesProps) => (
@@ -495,7 +488,7 @@ const CVDocument: React.FC<CVDocumentProps> = ({ data, language, profileImageSrc
   const profileImage = resolveProfileImageSource(profileImageSrc);
 
   // Helper function to get text in the current language
-  const t = (text: { de: string; en: string }) => text[language];
+  const t = (text: LocalizedString) => translateLocalizedString(text, language);
   const footerRenderer = createFooterRenderer(language);
 
   // Sort experiences by date (most recent first)

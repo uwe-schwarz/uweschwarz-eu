@@ -15,19 +15,12 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { withLanguagePrefix } from "@/lib/i18n";
+import { getLocalizedTextKey, type LocalizedString } from "@/lib/localization";
 
-interface LocalizedText {
-  de: string;
-  en: string;
-}
-
-type TranslateFn = (value: LocalizedText) => string;
-
-const getLocalizedTextKey = (value: LocalizedText | string) =>
-  typeof value === "string" ? value : `${value.en}-${value.de}`;
+type TranslateFn = (value: LocalizedString) => string;
 
 interface ExperienceTimelineProps {
-  achievementPrefix: LocalizedText;
+  achievementPrefix: LocalizedString;
   items: Array<Experience>;
   sectionKey: string;
   t: TranslateFn;

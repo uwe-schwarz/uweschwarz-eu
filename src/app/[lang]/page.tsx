@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/site-config";
 import ClientComponents from "./client-components";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
 
-  const baseUrl = "https://uweschwarz.eu";
-  const canonicalUrl = `${baseUrl}/${lang}`;
+  const canonicalUrl = `${SITE_URL}/${lang}`;
 
   const title =
     lang === "de"

@@ -3,20 +3,16 @@ import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 import { detectPreferredLanguage } from "@/lib/detect-language";
-import { DEFAULT_LANGUAGE, isSupportedLanguage } from "@/lib/i18n";
+import { DEFAULT_LANGUAGE, isSupportedLanguage, SUPPORTED_LANGUAGES } from "@/lib/i18n";
+import { SITE_URL } from "@/lib/site-config";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const siteUrl = "https://uweschwarz.eu";
-
   return {
     alternates: {
-      languages: {
-        de: `${siteUrl}/de`,
-        en: `${siteUrl}/en`,
-      },
+      languages: Object.fromEntries(SUPPORTED_LANGUAGES.map((lang) => [lang, `${SITE_URL}/${lang}`])),
     },
     description: "Portfolio of Uwe Schwarz - Project Manager, IT Security Specialist & AI Enthusiast",
-    metadataBase: new URL(siteUrl),
+    metadataBase: new URL(SITE_URL),
     title: "Uwe Schwarz - Project Manager, IT Security Specialist & AI Enthusiast",
   };
 }

@@ -11,18 +11,11 @@ import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
 import { useScrollToTop } from "@/hooks/use-scroll-to-top";
 import { withLanguagePrefix } from "@/lib/i18n";
+import { getLocalizedTextKey, type LocalizedString } from "@/lib/localization";
 
-interface LocalizedPrivacyText {
-  de: string;
-  en: string;
+interface LocalizedPrivacyListItem extends LocalizedString {
+  description?: LocalizedString;
 }
-
-interface LocalizedPrivacyListItem extends LocalizedPrivacyText {
-  description?: LocalizedPrivacyText;
-}
-
-const getLocalizedTextKey = (value: LocalizedPrivacyText | string) =>
-  typeof value === "string" ? value : `${value.en}-${value.de}`;
 
 const splitLinesWithKeys = (value: string) => {
   const lines = value.replaceAll("&nbsp;", "\u00a0").split(/<br\s*\/?>/i);

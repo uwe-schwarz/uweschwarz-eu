@@ -2,11 +2,10 @@ import fs from "node:fs";
 import fsPromises from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { SITE_URL } from "../src/lib/site-config";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-const baseUrl = "https://uweschwarz.eu"; // Change to your domain
 
 interface BunFile {
   lastModified: number;
@@ -217,7 +216,7 @@ ${urls
   .map(
     ({ files, priority, url }) => `
   <url>
-    <loc>${baseUrl}${url}</loc>
+    <loc>${SITE_URL}${url}</loc>
     <lastmod>${getLatestMtime(files)}</lastmod>
     <priority>${priority}</priority>
   </url>

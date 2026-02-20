@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext } from "react";
+import type { LocalizedString } from "@/lib/localization";
 
 export type Language = "en" | "de";
 export type Theme = "light" | "dark";
@@ -9,7 +10,7 @@ interface SettingsContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
   setTheme: (theme: Theme) => void;
-  t: (text: { de: string; en: string }) => string;
+  t: (text: LocalizedString) => string;
   theme: Theme;
 }
 
