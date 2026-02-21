@@ -42,15 +42,27 @@ const MobileMenuSheet = ({
     de: language === "en" ? "Sprache auf Deutsch umstellen" : "Sprache auf Englisch umstellen",
     en: language === "en" ? "Switch language to Deutsch" : "Switch language to English",
   });
+  const menuTriggerLabel = t({
+    de: "Menü öffnen",
+    en: "Open menu",
+  });
   const themeToggleLabel = t({
     de: theme === "light" ? "Design auf Dunkelmodus umstellen" : "Design auf Hellmodus umstellen",
     en: theme === "light" ? "Switch theme to Dark mode" : "Switch theme to Light mode",
+  });
+  const darkModeLabel = t({
+    de: "Dunkel",
+    en: "Dark",
+  });
+  const lightModeLabel = t({
+    de: "Hell",
+    en: "Light",
   });
 
   return (
     <Sheet onOpenChange={setOpen} open={open}>
       <SheetTrigger asChild>
-        <Button aria-label="Open menu" className="md:hidden" size="icon" variant="ghost">
+        <Button aria-label={menuTriggerLabel} className="md:hidden" size="icon" variant="ghost">
           <Menu className="text-foreground" size={24} />
         </Button>
       </SheetTrigger>
@@ -101,11 +113,11 @@ const MobileMenuSheet = ({
             <Button aria-label={themeToggleLabel} className="flex-1" onClick={onToggleTheme} variant="outline">
               {theme === "light" ? (
                 <>
-                  <Moon className="mr-2" size={16} /> Dark
+                  <Moon className="mr-2" size={16} /> {darkModeLabel}
                 </>
               ) : (
                 <>
-                  <Sun className="mr-2" size={16} /> Light
+                  <Sun className="mr-2" size={16} /> {lightModeLabel}
                 </>
               )}
             </Button>

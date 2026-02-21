@@ -53,7 +53,10 @@ const ContactSection = () => {
     }
 
     if (typeof IntersectionObserver === "undefined") {
-      return;
+      const timeoutId = window.setTimeout(() => {
+        setShouldLoadFormCard(true);
+      }, 0);
+      return () => window.clearTimeout(timeoutId);
     }
 
     const observer = new IntersectionObserver(

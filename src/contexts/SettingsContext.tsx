@@ -3,7 +3,7 @@
 import React, { useCallback, useEffect, useMemo, useSyncExternalStore } from "react";
 import type { LocalizedString } from "@/lib/localization";
 import { translateLocalizedString } from "@/lib/localization";
-import { SettingsContext, type Language, type Theme } from "./settings-hook";
+import { SettingsContext, type Language, type Theme } from "@/contexts/settings-hook";
 
 interface SettingsProviderProps {
   children: React.ReactNode;

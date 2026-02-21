@@ -1,6 +1,5 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { Buffer } from "node:buffer";
 import { fileURLToPath } from "node:url";
 import React from "react";
 import ReactPDF from "@react-pdf/renderer";
@@ -46,10 +45,15 @@ async function cleanupOldFiles(contentModTime: Date) {
 
     // Keep cleanup logging deterministic while removing files concurrently.
     const filesToRemove = oldCvFiles.sort();
-    await Promise.all(filesToRemove.map((file) => fs.unlink(path.join(publicDir, file))));
+    const removalResults = await Promise.allSettled(filesToRemove.map((file) => fs.unlink(path.join(publicDir, file))));
 
-    for (const file of filesToRemove) {
-      console.log(`Removed old CV file: ${file}`);
+    for (const [index, result] of removalResults.entries()) {
+      const file = filesToRemove[index];
+      if (result.status === "fulfilled") {
+        console.log(`Removed old CV file: ${file}`);
+      } else {
+        console.warn(`Failed to remove old CV file: ${file}`, result.reason);
+      }
     }
   } catch (error) {
     console.warn("Failed to cleanup old files:", error);
@@ -131,7 +135,7 @@ async function main() {
         data: siteContent,
         language,
         profileImage,
-      }).then((docxData) => fs.writeFile(docxTarget, Buffer.from(docxData)));
+      }).then((docxData) => fs.writeFile(docxTarget, docxData));
 
       await Promise.all([pdfPromise, docxPromise]);
     }),

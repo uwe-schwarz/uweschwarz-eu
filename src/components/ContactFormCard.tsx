@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Send } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
@@ -19,18 +19,23 @@ const ContactFormCard = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const formSchema = z.object({
-    email: z.string().email({
-      message: t(contact.formStatus.validation.email),
-    }),
-    message: z.string().min(10, {
-      message: t(contact.formStatus.validation.message),
-    }),
-    name: z.string().min(2, {
-      message: t(contact.formStatus.validation.name),
-    }),
-    verify: z.string(),
-  });
+  const formSchema = useMemo(
+    () =>
+      z.object({
+        email: z.string().email({
+          error: t(contact.formStatus.validation.email),
+        }),
+        message: z.string().min(10, {
+          error: t(contact.formStatus.validation.message),
+        }),
+        name: z.string().min(2, {
+          error: t(contact.formStatus.validation.name),
+        }),
+        verify: z.string(),
+      }),
+    [contact.formStatus.validation.email, contact.formStatus.validation.message, contact.formStatus.validation.name, t],
+  );
+  const formResolver = useMemo(() => zodResolver(formSchema), [formSchema]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
@@ -39,7 +44,7 @@ const ContactFormCard = () => {
       name: "",
       verify: "",
     },
-    resolver: zodResolver(formSchema),
+    resolver: formResolver,
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
@@ -151,7 +156,7 @@ const ContactFormCard = () => {
             )}
           />
 
-          <Button className="w-full" disabled={isSubmitting} type="submit">
+          <Button aria-busy={isSubmitting} className="w-full" disabled={isSubmitting} type="submit">
             {isSubmitting ? (
               <div className="flex items-center justify-center">
                 <div className="w-4 h-4 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin mr-2"></div>

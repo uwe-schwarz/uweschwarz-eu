@@ -63,7 +63,7 @@ export interface SkillWithIcon extends Skill {
   id: string;
 }
 
-export const getSkillIdentityKey = ({ category, name }: SkillIdentity): string => `${category}:${name.en}:${name.de}`;
+const getSkillIdentityKey = ({ category, name }: SkillIdentity): string => `${category}:${name.en}:${name.de}`;
 
 const skillIconMap = new Map<string, SkillIcon>([
   [getSkillIdentityKey({ category: "security", name: { de: "ISO27001", en: "ISO27001" } }), ShieldCheck],
