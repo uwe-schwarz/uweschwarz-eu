@@ -6,9 +6,8 @@ import { isSupportedLanguage } from "@/lib/i18n";
 import ImprintPageClient from "@/app/imprint/ImprintPageClient";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const cookieStore = await cookies();
+  const [cookieStore, headerList] = await Promise.all([cookies(), headers()]);
   const cookieLanguage = cookieStore.get("language")?.value as Language | undefined;
-  const headerList = await headers();
   const acceptLanguage = headerList.get("accept-language");
 
   const language: Language = isSupportedLanguage(cookieLanguage)

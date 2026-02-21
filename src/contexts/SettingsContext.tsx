@@ -4,6 +4,12 @@ import React, { useCallback, useEffect, useMemo, useSyncExternalStore } from "re
 import type { LocalizedString } from "@/lib/localization";
 import { translateLocalizedString } from "@/lib/localization";
 import { SettingsContext, type Language, type Theme } from "@/contexts/settings-hook";
+import {
+  getPersistedLanguage,
+  getPersistedTheme,
+  setPersistedLanguage,
+  setPersistedTheme,
+} from "@/lib/persisted-preferences";
 
 interface SettingsProviderProps {
   children: React.ReactNode;
@@ -46,25 +52,18 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children, in
   }, []);
 
   const getLanguageSnapshot = useCallback((): Language => {
-    try {
-      const saved = localStorage.getItem("language") as Language | null;
-      if (saved === "en" || saved === "de") {
-        return saved;
-      }
-    } catch {
-      // ignore
+    const saved = getPersistedLanguage();
+    if (saved !== null) {
+      return saved;
     }
+
     return initialLanguage;
   }, [initialLanguage]);
 
   const getThemeSnapshot = useCallback((): Theme => {
-    try {
-      const saved = localStorage.getItem("theme") as Theme | null;
-      if (saved === "light" || saved === "dark") {
-        return saved;
-      }
-    } catch {
-      // ignore
+    const saved = getPersistedTheme();
+    if (saved !== null) {
+      return saved;
     }
 
     try {
@@ -103,9 +102,7 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children, in
 
   // Language setting function
   const setLanguage = useCallback((lang: Language) => {
-    if (typeof localStorage !== "undefined") {
-      localStorage.setItem("language", lang);
-    }
+    setPersistedLanguage(lang);
     setClientCookie("language", lang);
     if (typeof window !== "undefined") {
       window.dispatchEvent(new Event(SETTINGS_CHANGED_EVENT));
@@ -114,9 +111,7 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children, in
 
   // Theme setting function
   const setTheme = useCallback((nextTheme: Theme) => {
-    if (typeof localStorage !== "undefined") {
-      localStorage.setItem("theme", nextTheme);
-    }
+    setPersistedTheme(nextTheme);
     setClientCookie("theme", nextTheme);
     if (typeof window !== "undefined") {
       window.dispatchEvent(new Event(SETTINGS_CHANGED_EVENT));
