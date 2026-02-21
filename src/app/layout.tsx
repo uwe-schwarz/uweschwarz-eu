@@ -4,17 +4,33 @@ import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { GeistPixelCircle } from "geist/font/pixel";
 import { cn } from "@/lib/utils";
-import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import type { RootLayoutProps } from "@/app/layout-props";
+import DeferredAnalytics from "@/components/DeferredAnalytics";
 import { detectPreferredLanguage } from "@/lib/detect-language";
 import type { Language, Theme } from "@/contexts/settings-hook";
 import { isSupportedLanguage } from "@/lib/i18n";
+import { LEGACY_STORAGE_KEYS, STORAGE_KEYS } from "@/lib/persisted-preferences";
 
+// NOTE: This beforeInteractive script runs before React and cannot import
+// persisted-preferences.ts. Keep migration behavior and key format in sync with
+// readStorageValue using STORAGE_KEYS.theme and LEGACY_STORAGE_KEYS.theme.
 const themeInitScript = `
 (() => {
   try {
-    const stored = localStorage.getItem('theme');
+    const storageKey = '${STORAGE_KEYS.theme}';
+    const legacyKey = '${LEGACY_STORAGE_KEYS.theme}';
+    const versionedValue = localStorage.getItem(storageKey);
+    const legacyValue = localStorage.getItem(legacyKey);
+    const stored = versionedValue ?? legacyValue;
+
+    if (!versionedValue && legacyValue) {
+      try {
+        localStorage.setItem(storageKey, legacyValue);
+        localStorage.removeItem(legacyKey);
+      } catch {}
+    }
+
     const explicit = stored === 'dark' || stored === 'light' ? stored : null;
     const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     const shouldDark = explicit ? explicit === 'dark' : !!prefersDark;
@@ -24,12 +40,9 @@ const themeInitScript = `
 `;
 
 export default async function RootLayout({ children, params }: Readonly<RootLayoutProps>) {
-  const { lang: routeLang } = await params;
-  const cookieStore = await cookies();
+  const [{ lang: routeLang }, cookieStore, headerList] = await Promise.all([params, cookies(), headers()]);
   const cookieLanguage = cookieStore.get("language")?.value as Language | undefined;
   const cookieTheme = cookieStore.get("theme")?.value as Theme | undefined;
-
-  const headerList = await headers();
 
   // Guard for any non-standard header implementations (e.g. Turbopack dev)
   const acceptLanguage =
@@ -74,7 +87,7 @@ export default async function RootLayout({ children, params }: Readonly<RootLayo
       </head>
       <body className={cn("min-h-screen bg-background font-sans antialiased text-foreground")}>
         {children}
-        <Analytics />
+        <DeferredAnalytics />
       </body>
     </html>
   );
