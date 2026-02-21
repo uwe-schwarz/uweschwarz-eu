@@ -9,6 +9,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 
 type TabValue = "management" | "languages" | "security" | "ai" | "infrastructure" | "tools";
+const getSkillsPanelId = (value: TabValue) => `skills-panel-${value}`;
+const getSkillsTriggerId = (value: TabValue) => `skills-trigger-${value}`;
 
 const skillsByCategory = skillsWithIcons.reduce<Record<TabValue, Array<SkillWithIcon>>>(
   (accumulator, skill) => {
@@ -29,7 +31,6 @@ const SkillsSection = () => {
   const { t } = useSettings();
   const { skillsSection } = siteContent;
   const [activeTab, setActiveTab] = useState<TabValue>("management");
-  const activeSkills = skillsByCategory[activeTab];
 
   return (
     <section className="section-padding" id="skills">
@@ -45,8 +46,10 @@ const SkillsSection = () => {
             <div className="flex justify-center mb-8">
               <TabsList className="flex-nowrap h-12 md:h-auto">
                 <TabsTrigger
+                  aria-controls={getSkillsPanelId("management")}
                   aria-label={t(skillsSection.categories.management)}
                   className="gap-2 text-lg md:flex-col md:gap-1 md:text-sm xl:flex-row xl:gap-2 xl:text-base"
+                  id={getSkillsTriggerId("management")}
                   name={t(skillsSection.categories.management)}
                   value="management"
                 >
@@ -54,8 +57,10 @@ const SkillsSection = () => {
                   <span className="hidden md:block">{t(skillsSection.categories.management)}</span>
                 </TabsTrigger>
                 <TabsTrigger
+                  aria-controls={getSkillsPanelId("languages")}
                   aria-label={t(skillsSection.categories.languages)}
                   className="gap-2 text-lg md:flex-col md:gap-1 md:text-sm xl:flex-row xl:gap-2 xl:text-base"
+                  id={getSkillsTriggerId("languages")}
                   name={t(skillsSection.categories.languages)}
                   value="languages"
                 >
@@ -63,8 +68,10 @@ const SkillsSection = () => {
                   <span className="hidden md:block">{t(skillsSection.categories.languages)}</span>
                 </TabsTrigger>
                 <TabsTrigger
+                  aria-controls={getSkillsPanelId("security")}
                   aria-label={t(skillsSection.categories.security)}
                   className="gap-2 text-lg md:flex-col md:gap-1 md:text-sm xl:flex-row xl:gap-2 xl:text-base"
+                  id={getSkillsTriggerId("security")}
                   name={t(skillsSection.categories.security)}
                   value="security"
                 >
@@ -72,8 +79,10 @@ const SkillsSection = () => {
                   <span className="hidden md:block">{t(skillsSection.categories.security)}</span>
                 </TabsTrigger>
                 <TabsTrigger
+                  aria-controls={getSkillsPanelId("ai")}
                   aria-label={t(skillsSection.categories.ai)}
                   className="gap-2 text-lg md:flex-col md:gap-1 md:text-sm xl:flex-row xl:gap-2 xl:text-base"
+                  id={getSkillsTriggerId("ai")}
                   name={t(skillsSection.categories.ai)}
                   value="ai"
                 >
@@ -81,8 +90,10 @@ const SkillsSection = () => {
                   <span className="hidden md:block">{t(skillsSection.categories.ai)}</span>
                 </TabsTrigger>
                 <TabsTrigger
+                  aria-controls={getSkillsPanelId("infrastructure")}
                   aria-label={t(skillsSection.categories.infrastructure)}
                   className="gap-2 text-lg md:flex-col md:gap-1 md:text-sm xl:flex-row xl:gap-2 xl:text-base"
+                  id={getSkillsTriggerId("infrastructure")}
                   name={t(skillsSection.categories.infrastructure)}
                   value="infrastructure"
                 >
@@ -90,8 +101,10 @@ const SkillsSection = () => {
                   <span className="hidden md:block">{t(skillsSection.categories.infrastructure)}</span>
                 </TabsTrigger>
                 <TabsTrigger
+                  aria-controls={getSkillsPanelId("tools")}
                   aria-label={t(skillsSection.categories.tools)}
                   className="gap-2 text-lg md:flex-col md:gap-1 md:text-sm xl:flex-row xl:gap-2 xl:text-base"
+                  id={getSkillsTriggerId("tools")}
                   name={t(skillsSection.categories.tools)}
                   value="tools"
                 >
@@ -101,8 +114,53 @@ const SkillsSection = () => {
               </TabsList>
             </div>
 
-            <TabsContent className="mt-0" value={activeTab}>
-              <SkillsGrid skills={activeSkills} />
+            <TabsContent
+              aria-labelledby={getSkillsTriggerId("management")}
+              className="mt-0"
+              id={getSkillsPanelId("management")}
+              value="management"
+            >
+              <SkillsGrid skills={skillsByCategory.management} />
+            </TabsContent>
+            <TabsContent
+              aria-labelledby={getSkillsTriggerId("languages")}
+              className="mt-0"
+              id={getSkillsPanelId("languages")}
+              value="languages"
+            >
+              <SkillsGrid skills={skillsByCategory.languages} />
+            </TabsContent>
+            <TabsContent
+              aria-labelledby={getSkillsTriggerId("security")}
+              className="mt-0"
+              id={getSkillsPanelId("security")}
+              value="security"
+            >
+              <SkillsGrid skills={skillsByCategory.security} />
+            </TabsContent>
+            <TabsContent
+              aria-labelledby={getSkillsTriggerId("ai")}
+              className="mt-0"
+              id={getSkillsPanelId("ai")}
+              value="ai"
+            >
+              <SkillsGrid skills={skillsByCategory.ai} />
+            </TabsContent>
+            <TabsContent
+              aria-labelledby={getSkillsTriggerId("infrastructure")}
+              className="mt-0"
+              id={getSkillsPanelId("infrastructure")}
+              value="infrastructure"
+            >
+              <SkillsGrid skills={skillsByCategory.infrastructure} />
+            </TabsContent>
+            <TabsContent
+              aria-labelledby={getSkillsTriggerId("tools")}
+              className="mt-0"
+              id={getSkillsPanelId("tools")}
+              value="tools"
+            >
+              <SkillsGrid skills={skillsByCategory.tools} />
             </TabsContent>
           </Tabs>
         </div>
