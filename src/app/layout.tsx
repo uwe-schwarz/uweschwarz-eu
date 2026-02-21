@@ -1,5 +1,4 @@
 import { cookies, headers } from "next/headers";
-import dynamic from "next/dynamic";
 import Script from "next/script";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
@@ -7,15 +6,15 @@ import { GeistPixelCircle } from "geist/font/pixel";
 import { cn } from "@/lib/utils";
 import "./globals.css";
 import type { RootLayoutProps } from "@/app/layout-props";
+import DeferredAnalytics from "@/components/DeferredAnalytics";
 import { detectPreferredLanguage } from "@/lib/detect-language";
 import type { Language, Theme } from "@/contexts/settings-hook";
 import { isSupportedLanguage } from "@/lib/i18n";
 import { LEGACY_STORAGE_KEYS, STORAGE_KEYS } from "@/lib/persisted-preferences";
 
-const DeferredAnalytics = dynamic(() => import("@/components/DeferredAnalytics"), {
-  ssr: false,
-});
-
+// NOTE: This beforeInteractive script runs before React and cannot import
+// persisted-preferences.ts. Keep migration behavior and key format in sync with
+// readStorageValue using STORAGE_KEYS.theme and LEGACY_STORAGE_KEYS.theme.
 const themeInitScript = `
 (() => {
   try {
@@ -26,8 +25,10 @@ const themeInitScript = `
     const stored = versionedValue ?? legacyValue;
 
     if (!versionedValue && legacyValue) {
-      localStorage.setItem(storageKey, legacyValue);
-      localStorage.removeItem(legacyKey);
+      try {
+        localStorage.setItem(storageKey, legacyValue);
+        localStorage.removeItem(legacyKey);
+      } catch {}
     }
 
     const explicit = stored === 'dark' || stored === 'light' ? stored : null;

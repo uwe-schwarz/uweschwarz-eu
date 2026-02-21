@@ -48,18 +48,17 @@ export const getPersistedTheme = (): Theme | null => {
 };
 
 export const setPersistedLanguage = (language: Language): void => {
-  try {
-    localStorage.setItem(STORAGE_KEYS.language, language);
-    localStorage.removeItem(LEGACY_STORAGE_KEYS.language);
-  } catch {
-    // ignore storage write errors
-  }
+  setPersistedValue(STORAGE_KEYS.language, LEGACY_STORAGE_KEYS.language, language);
 };
 
 export const setPersistedTheme = (theme: Theme): void => {
+  setPersistedValue(STORAGE_KEYS.theme, LEGACY_STORAGE_KEYS.theme, theme);
+};
+
+const setPersistedValue = (currentKey: string, legacyKey: string, value: string): void => {
   try {
-    localStorage.setItem(STORAGE_KEYS.theme, theme);
-    localStorage.removeItem(LEGACY_STORAGE_KEYS.theme);
+    localStorage.setItem(currentKey, value);
+    localStorage.removeItem(legacyKey);
   } catch {
     // ignore storage write errors
   }
