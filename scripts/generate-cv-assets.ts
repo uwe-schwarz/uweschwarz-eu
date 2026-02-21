@@ -44,7 +44,7 @@ async function cleanupOldFiles(contentModTime: Date) {
     );
 
     // Keep cleanup logging deterministic while removing files concurrently.
-    const filesToRemove = oldCvFiles.sort();
+    const filesToRemove = [...oldCvFiles].sort();
     const removalResults = await Promise.allSettled(filesToRemove.map((file) => fs.unlink(path.join(publicDir, file))));
 
     for (const [index, result] of removalResults.entries()) {
@@ -119,15 +119,18 @@ async function main() {
   const profileImagePath = path.join(publicDir, "profile.jpg");
   const profileImage = await fs.readFile(profileImagePath);
 
-  const docxWrites = languages.map(async (language) => {
-    const docxTarget = path.join(publicDir, resolveOutputName(language, "docx", contentModTime));
-    const docxData = await generateCvDocx({
-      data: siteContent,
-      language,
-      profileImage,
-    });
-    await fs.writeFile(docxTarget, docxData);
-  });
+  // Attach rejection handlers immediately so DOCX task failures are always observed.
+  const docxWritesPromise = Promise.all(
+    languages.map(async (language) => {
+      const docxTarget = path.join(publicDir, resolveOutputName(language, "docx", contentModTime));
+      const docxData = await generateCvDocx({
+        data: siteContent,
+        language,
+        profileImage,
+      });
+      await fs.writeFile(docxTarget, docxData);
+    }),
+  );
 
   // ReactPDF rendering is not reliably concurrency-safe; keep PDF generation sequential.
   for (const language of languages) {
@@ -140,7 +143,7 @@ async function main() {
     await ReactPDF.render(pdfElement, pdfTarget);
   }
 
-  await Promise.all(docxWrites);
+  await docxWritesPromise;
 
   console.log(
     `Generated CV assets: ${languages

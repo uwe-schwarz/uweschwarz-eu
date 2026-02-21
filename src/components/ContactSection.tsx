@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { Mail, Phone } from "lucide-react";
 import { SiXing, SiX, SiGithub, SiBluesky, SiFreelancermap } from "@icons-pack/react-simple-icons";
@@ -39,14 +39,21 @@ const ContactFormCardFallback = ({ loadingText = "Loading contact form..." }: Co
   );
 };
 
-const ContactFormCard = dynamic(() => import("@/components/ContactFormCard"), {
-  loading: () => <ContactFormCardFallback />,
-  ssr: false,
-});
-
 const ContactSection = () => {
   const { t } = useSettings();
   const { contact } = siteContent;
+  const contactFormLoadingText = t({
+    de: "Kontaktformular wird geladen...",
+    en: "Loading contact form...",
+  });
+  const ContactFormCard = useMemo(
+    () =>
+      dynamic(() => import("@/components/ContactFormCard"), {
+        loading: () => <ContactFormCardFallback loadingText={contactFormLoadingText} />,
+        ssr: false,
+      }),
+    [contactFormLoadingText],
+  );
   const formCardMountRef = useRef<HTMLDivElement>(null);
   const [shouldLoadFormCard, setShouldLoadFormCard] = useState(
     () => typeof window !== "undefined" && typeof IntersectionObserver === "undefined",
@@ -232,7 +239,7 @@ const ContactSection = () => {
             {shouldLoadFormCard ? (
               <ContactFormCard />
             ) : (
-              <ContactFormCardFallback loadingText={t(contact.formStatus.sending)} />
+              <ContactFormCardFallback loadingText={contactFormLoadingText} />
             )}
           </div>
         </div>
