@@ -69,15 +69,20 @@ const ContactFormCard = () => {
       }
 
       let errorMessage = t(contact.formStatus.errorDescription);
-      try {
-        const errorData = (await response.json()) as { error?: string };
-        if (typeof errorData?.error === "string" && errorData.error.trim()) {
-          errorMessage = errorData.error;
-        }
-      } catch {
-        const errorText = await response.text();
-        if (errorText.trim()) {
-          errorMessage = errorText;
+      const responseBody = await response.text();
+
+      if (responseBody.trim()) {
+        let errorData: { error?: string } | undefined;
+
+        try {
+          errorData = JSON.parse(responseBody) as { error?: string };
+          if (typeof errorData.error === "string" && errorData.error.trim()) {
+            errorMessage = errorData.error;
+          } else {
+            errorMessage = responseBody;
+          }
+        } catch {
+          errorMessage = responseBody;
         }
       }
 
