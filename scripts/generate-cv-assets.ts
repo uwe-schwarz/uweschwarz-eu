@@ -1,6 +1,5 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { Buffer } from "node:buffer";
 import { fileURLToPath } from "node:url";
 import React from "react";
 import ReactPDF from "@react-pdf/renderer";
@@ -44,10 +43,17 @@ async function cleanupOldFiles(contentModTime: Date) {
         !file.includes(`-${currentDate}.`),
     );
 
-    for (const file of oldCvFiles) {
-      const filePath = path.join(publicDir, file);
-      await fs.unlink(filePath);
-      console.log(`Removed old CV file: ${file}`);
+    // Keep cleanup logging deterministic while removing files concurrently.
+    const filesToRemove = [...oldCvFiles].sort();
+    const removalResults = await Promise.allSettled(filesToRemove.map((file) => fs.unlink(path.join(publicDir, file))));
+
+    for (const [index, result] of removalResults.entries()) {
+      const file = filesToRemove[index];
+      if (result.status === "fulfilled") {
+        console.log(`Removed old CV file: ${file}`);
+      } else {
+        console.warn(`Failed to remove old CV file: ${file}`, result.reason);
+      }
     }
   } catch (error) {
     console.warn("Failed to cleanup old files:", error);
@@ -113,24 +119,31 @@ async function main() {
   const profileImagePath = path.join(publicDir, "profile.jpg");
   const profileImage = await fs.readFile(profileImagePath);
 
+  // Attach rejection handlers immediately so DOCX task failures are always observed.
+  const docxWritesPromise = Promise.all(
+    languages.map(async (language) => {
+      const docxTarget = path.join(publicDir, resolveOutputName(language, "docx", contentModTime));
+      const docxData = await generateCvDocx({
+        data: siteContent,
+        language,
+        profileImage,
+      });
+      await fs.writeFile(docxTarget, docxData);
+    }),
+  );
+
+  // ReactPDF rendering is not reliably concurrency-safe; keep PDF generation sequential.
   for (const language of languages) {
     const pdfElement = React.createElement(CVDocument, {
       data: siteContent,
       language,
       profileImageSrc: profileImage,
     });
-
     const pdfTarget = path.join(publicDir, resolveOutputName(language, "pdf", contentModTime));
     await ReactPDF.render(pdfElement, pdfTarget);
-
-    const docxData = await generateCvDocx({
-      data: siteContent,
-      language,
-      profileImage,
-    });
-    const docxTarget = path.join(publicDir, resolveOutputName(language, "docx", contentModTime));
-    await fs.writeFile(docxTarget, Buffer.from(docxData));
   }
+
+  await docxWritesPromise;
 
   console.log(
     `Generated CV assets: ${languages
