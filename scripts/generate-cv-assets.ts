@@ -119,27 +119,28 @@ async function main() {
   const profileImagePath = path.join(publicDir, "profile.jpg");
   const profileImage = await fs.readFile(profileImagePath);
 
-  await Promise.all(
-    languages.map(async (language) => {
-      const pdfElement = React.createElement(CVDocument, {
-        data: siteContent,
-        language,
-        profileImageSrc: profileImage,
-      });
+  const docxWrites = languages.map(async (language) => {
+    const docxTarget = path.join(publicDir, resolveOutputName(language, "docx", contentModTime));
+    const docxData = await generateCvDocx({
+      data: siteContent,
+      language,
+      profileImage,
+    });
+    await fs.writeFile(docxTarget, docxData);
+  });
 
-      const pdfTarget = path.join(publicDir, resolveOutputName(language, "pdf", contentModTime));
-      const docxTarget = path.join(publicDir, resolveOutputName(language, "docx", contentModTime));
+  // ReactPDF rendering is not reliably concurrency-safe; keep PDF generation sequential.
+  for (const language of languages) {
+    const pdfElement = React.createElement(CVDocument, {
+      data: siteContent,
+      language,
+      profileImageSrc: profileImage,
+    });
+    const pdfTarget = path.join(publicDir, resolveOutputName(language, "pdf", contentModTime));
+    await ReactPDF.render(pdfElement, pdfTarget);
+  }
 
-      const pdfPromise = ReactPDF.render(pdfElement, pdfTarget);
-      const docxPromise = generateCvDocx({
-        data: siteContent,
-        language,
-        profileImage,
-      }).then((docxData) => fs.writeFile(docxTarget, docxData));
-
-      await Promise.all([pdfPromise, docxPromise]);
-    }),
-  );
+  await Promise.all(docxWrites);
 
   console.log(
     `Generated CV assets: ${languages

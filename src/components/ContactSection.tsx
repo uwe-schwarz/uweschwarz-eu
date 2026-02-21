@@ -7,9 +7,19 @@ import { SiXing, SiX, SiGithub, SiBluesky, SiFreelancermap } from "@icons-pack/r
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
 
-const ContactFormCardFallback = () => {
+interface ContactFormCardFallbackProps {
+  loadingText?: string;
+}
+
+const ContactFormCardFallback = ({ loadingText = "Loading contact form..." }: ContactFormCardFallbackProps) => {
   return (
-    <div className="bg-card rounded-xl p-8 border border-border shadow-sm">
+    <div
+      aria-busy="true"
+      aria-live="polite"
+      className="bg-card rounded-xl p-8 border border-border shadow-sm"
+      role="status"
+    >
+      <span className="sr-only">{loadingText}</span>
       <div className="space-y-6">
         <div className="space-y-3">
           <div className="h-4 w-24 rounded bg-muted/60 animate-pulse"></div>
@@ -218,7 +228,13 @@ const ContactSection = () => {
           </div>
 
           {/* Contact Form */}
-          <div ref={formCardMountRef}>{shouldLoadFormCard ? <ContactFormCard /> : <ContactFormCardFallback />}</div>
+          <div ref={formCardMountRef}>
+            {shouldLoadFormCard ? (
+              <ContactFormCard />
+            ) : (
+              <ContactFormCardFallback loadingText={t(contact.formStatus.sending)} />
+            )}
+          </div>
         </div>
       </div>
     </section>
