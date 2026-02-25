@@ -29,7 +29,7 @@ const Header = () => {
 
   const navigationItems = siteContent.navigation;
   const sectionIds = useMemo(() => navigationItems.map((item) => item.href.replace("#", "")), [navigationItems]);
-  const [activeSection, setActiveSection] = useState<string>(sectionIds[0] ?? "hero");
+  const [activeSection, setActiveSection] = useState<string>("");
 
   // Toggle for handling theme changes
   const toggleTheme = useCallback(() => {
@@ -49,7 +49,6 @@ const Header = () => {
     router.push(`${nextPath}${query ? `?${query}` : ""}${hash}` as Route);
   }, [language, pathname, router, setLanguage]);
 
-  // Detect scroll for header styling without per-frame polling.
   useEffect(() => {
     const sentinel = topSentinelRef.current;
     if (!sentinel) {
@@ -172,23 +171,12 @@ const Header = () => {
           <nav className="hidden md:flex items-center space-x-6">
             {navigationItems.map((item) => {
               const hash = item.href.replace("#", "");
-
-              if (isHomePage) {
-                return (
-                  <a
-                    className={`text-lg font-medium text-foreground hover:text-primary transition-colors link-underline${activeSection === hash ? " link-underline-active" : ""}`}
-                    href={item.href}
-                    key={item.href}
-                  >
-                    {t(item.label)}
-                  </a>
-                );
-              }
+              const href = `${homeHref}${item.href}` as Route;
 
               return (
                 <Link
-                  className="text-lg font-medium text-foreground hover:text-primary transition-colors link-underline"
-                  href={`${homeHref}${item.href}` as Route}
+                  className={`text-lg font-medium text-foreground hover:text-primary transition-colors link-underline${isHomePage && activeSection === hash ? " link-underline-active" : ""}`}
+                  href={href}
                   key={item.href}
                 >
                   {t(item.label)}

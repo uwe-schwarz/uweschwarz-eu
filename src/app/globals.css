@@ -9,6 +9,9 @@
   :root {
     hyphens: auto;
     --radius: 0.5rem;
+    --font-geist-sans: "Inter", "Segoe UI", "Helvetica Neue", "Arial", system-ui, -apple-system, sans-serif;
+    --font-geist-mono: "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Liberation Mono", "Courier New", monospace;
+    --font-geist-pixel-circle: var(--font-geist-sans);
 
     /* Light theme (L‑Werte = 100% − Dark‑L‑Werte) */
     --background: 225 25% 88%;

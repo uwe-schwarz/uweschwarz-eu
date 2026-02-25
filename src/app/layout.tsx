@@ -1,8 +1,5 @@
 import { cookies, headers } from "next/headers";
 import Script from "next/script";
-import { GeistSans } from "geist/font/sans";
-import { GeistMono } from "geist/font/mono";
-import { GeistPixelCircle } from "geist/font/pixel";
 import { cn } from "@/lib/utils";
 import "./globals.css";
 import type { RootLayoutProps } from "@/app/layout-props";
@@ -60,12 +57,7 @@ export default async function RootLayout({ children, params }: Readonly<RootLayo
 
   return (
     <html
-      className={cn(
-        GeistSans.variable,
-        GeistPixelCircle.variable,
-        GeistMono.variable,
-        initialTheme === "dark" && "dark",
-      )}
+      className={cn(initialTheme === "dark" && "dark")}
       data-scroll-behavior="smooth"
       lang={initialLanguage}
       suppressHydrationWarning

@@ -37,16 +37,18 @@ export function proxy(request: NextRequest) {
   url.pathname = replacePathLanguage(pathname, language);
 
   const response = NextResponse.redirect(url);
-  response.cookies.set({
+  response.cookies.set("language", language, {
     maxAge: 60 * 60 * 24 * 365,
-    name: "language",
     path: "/",
     sameSite: "lax",
-    value: language,
   });
 
   return response;
 }
+
+// vinext currently looks for middleware/default exports.
+export const middleware = proxy;
+export default proxy;
 
 export const config = {
   matcher: ["/((?!_next/static|_next/image).*)"],

@@ -78,24 +78,12 @@ const MobileMenuSheet = ({
           <div className="flex-1 flex flex-col justify-center items-center space-y-6 py-8">
             {navigationItems.map((item) => {
               const hash = item.href.replace("#", "");
-
-              if (isHomePage) {
-                return (
-                  <a
-                    className={`text-xl font-medium text-foreground hover:text-primary transition-colors${activeSection === hash ? " link-underline link-underline-active" : ""}`}
-                    href={item.href}
-                    key={item.href}
-                    onClick={() => setOpen(false)}
-                  >
-                    {t(item.label)}
-                  </a>
-                );
-              }
+              const href = `${homeHref}${item.href}` as Route;
 
               return (
                 <Link
-                  className="text-xl font-medium text-foreground hover:text-primary transition-colors"
-                  href={`${homeHref}${item.href}` as Route}
+                  className={`text-xl font-medium text-foreground hover:text-primary transition-colors${isHomePage && activeSection === hash ? " link-underline link-underline-active" : ""}`}
+                  href={href}
                   key={item.href}
                   onClick={() => setOpen(false)}
                 >

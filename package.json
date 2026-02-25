@@ -14,7 +14,10 @@
     "generate:sitemap": "bun scripts/generate-sitemap.ts",
     "generate:llms": "bun scripts/generate-llms.ts",
     "generate:cv": "bun scripts/generate-cv-assets.ts",
-    "prepare": "husky"
+    "prepare": "husky",
+    "dev:vinext": "vinext dev --port 3001",
+    "build:vinext": "vinext build",
+    "start:vinext": "vinext start"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -50,6 +53,7 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.25.5",
     "@nkzw/eslint-plugin": "^2.0.0",
     "@nkzw/oxlint-config": "^1.0.1",
     "@tailwindcss/postcss": "^4.2.0",
@@ -66,7 +70,10 @@
     "oxlint": "^1.49.0",
     "oxlint-tsgolint": "^0.14.2",
     "postcss": "^8.5.6",
-    "tailwindcss": "^4.2.0"
+    "tailwindcss": "^4.2.0",
+    "vinext": "^0.0.5",
+    "vite": "^7.3.1",
+    "wrangler": "^4.68.1"
   },
   "trustedDependencies": [
     "@swc/core",
