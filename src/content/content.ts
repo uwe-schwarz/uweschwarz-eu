@@ -71,13 +71,7 @@ interface Project {
 }
 
 export interface Skill {
-  category:
-    | "languages"
-    | "management"
-    | "security"
-    | "infrastructure"
-    | "tools"
-    | "ai";
+  category: "languages" | "management" | "security" | "infrastructure" | "tools" | "ai";
   level: number;
   name: LocalizedString;
 }
