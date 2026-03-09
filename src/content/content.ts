@@ -71,7 +71,13 @@ interface Project {
 }
 
 export interface Skill {
-  category: "languages" | "management" | "security" | "infrastructure" | "tools" | "ai";
+  category:
+    | "languages"
+    | "management"
+    | "security"
+    | "infrastructure"
+    | "tools"
+    | "ai";
   level: number;
   name: LocalizedString;
 }
@@ -447,43 +453,43 @@ export const siteContent: SiteContent = {
       description: [
         {
           text: {
-            de: "Leitung der IPv6-Migration für DRV RP und DRV BW inklusive Governance, Planungsrhythmus und Umsetzungssteuerung.",
-            en: "Leading the IPv6 migration for DRV RP, and DRV BW, including governance, planning cadence, and execution tracking.",
+            de: "Technische Programmverantwortung für die IPv6-Migration bei DRV RP und DRV BW mit Fokus auf Migrationsplanung, Umsetzungsstruktur und übergreifende technische Steuerung.",
+            en: "Technical program ownership for the IPv6 migration at DRV RP and DRV BW, with a focus on migration planning, execution structure, and cross-functional technical coordination.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Aufbau und operative Einführung eines Projektsteuerungsmodells mit Dashboard, Action Board, KPI-Portfolio, Risikoregister und Entscheidungsindex.",
-            en: "Built and operationalized a project control model with dashboard, action board, KPI portfolio, risk register, and decision index.",
+            de: "Konzeption und Einführung eines operativen Steuerungsmodells mit Dashboard, Action Board, KPI-Portfolio, Risikoregister und Entscheidungsindex zur strukturierten Übersetzung technischer Themen in belastbare Delivery-Artefakte.",
+            en: "Designed and implemented an operational control model with dashboard, action board, KPI portfolio, risk register, and decision index to translate technical topics into structured delivery artifacts.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Koordination der Architektur-, Sicherheits- und Rollout-Vorbereitung über Adressierung, Segmentierung, Dual-Stack-Übergang, Testlabor-Planung und teamübergreifende Abhängigkeiten hinweg.",
-            en: "Coordinating architecture, security, and rollout preparation across addressing, segmentation, dual-stack transition, test-lab planning, and cross-team dependencies.",
+            de: "Koordination der technischen Vorarbeiten für Architektur und Rollout über IPv6-Adressierung, Segmentierung, Dual-Stack-Zielbild, Testlabor-Planung und teamübergreifende Abhängigkeiten hinweg.",
+            en: "Coordinated technical groundwork for architecture and rollout across IPv6 addressing, segmentation, dual-stack target design, test-lab planning, and cross-team dependencies.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Steuerung der compliance-relevanten Abstimmung zu BSI-, NIS2- und KRITIS-Anforderungen, Evidence-Pflicht und transparentem Reporting an Management und Stakeholder beim Träger.",
-            en: "Driving compliance-relevant alignment for BSI, NIS2, and critical infrastructure requirements, evidence obligations, and transparent reporting to management and stakeholder groups within the institution.",
+            de: "Begleitung sicherheits- und compliance-relevanter Anforderungen mit Bezug auf BSI, NIS2 und KRITIS sowie deren Überführung in nachvollziehbare Nachweise, Risiken und Management-Reporting.",
+            en: "Supported security- and compliance-related requirements in the context of BSI, NIS2, and critical infrastructure, translating them into traceable evidence, risks, and management reporting.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Etablierung eines wiederverwendbaren Intake-to-Governance-Workflows, um nachvollziehbare Actions, Risiken, offene Fragen und Nachweisanfragen zu erstellen.",
-            en: "Established a reusable intake-to-governance workflow to create traceable actions, risks, questions, and evidence requests.",
+            de: "Etablierung eines wiederverwendbaren Intake-to-Governance-Workflows zur systematischen Erfassung technischer Actions, Risiken, offener Punkte und Nachweisanforderungen.",
+            en: "Established a reusable intake-to-governance workflow for systematically capturing technical actions, risks, open issues, and evidence requirements.",
           },
           type: "achievement",
         },
         {
           text: {
-            de: "Schaffung der operativen Baseline für die Programmausführung mit messbaren KPIs, klaren Verantwortlichkeiten und Entscheidungstransparenz.",
-            en: "Created the operational baseline for program execution with measurable KPIs, ownership clarity, and decision transparency.",
+            de: "Schaffung einer operativen Baseline für die technische Programmausführung mit messbaren KPIs, klaren Verantwortlichkeiten und transparenter Entscheidungsgrundlage.",
+            en: "Created an operational baseline for technical program execution with measurable KPIs, clear ownership, and transparent decision support.",
           },
           type: "achievement",
         },
@@ -495,14 +501,19 @@ export const siteContent: SiteContent = {
       logoUrl: "/logos/drv.svg",
       period: { de: "Jan 2026 - Heute", en: "Jan 2026 - Today" },
       tags: [
-        { de: "Programmmanagement", en: "Program Management" },
-        { de: "Projektgovernance", en: "Project Governance" },
+        {
+          de: "Technische Programmsteuerung",
+          en: "Technical Program Leadership",
+        },
         { de: "IPv6", en: "IPv6" },
         { de: "Netzwerkarchitektur", en: "Network Architecture" },
         { de: "Dual Stack", en: "Dual Stack" },
         { de: "Adressmanagement", en: "Address Management" },
+        { de: "Segmentierung", en: "Network Segmentation" },
+        { de: "Testlabor-Planung", en: "Test Lab Planning" },
+        { de: "Rollout-Vorbereitung", en: "Rollout Preparation" },
         { de: "BSI", en: "BSI" },
-        { de: "KRITIS", en: "CI" },
+        { de: "KRITIS", en: "Critical Infrastructure" },
         { de: "NIS2", en: "NIS2" },
         { de: "Compliance", en: "Compliance" },
         { de: "Risikomanagement", en: "Risk Management" },
@@ -514,8 +525,8 @@ export const siteContent: SiteContent = {
         { de: "Infoblox (IPAM)", en: "Infoblox (IPAM)" },
       ],
       title: {
-        de: "Programmleitung IPv6-Migration",
-        en: "Program Lead IPv6 Migration",
+        de: "Technische Programmleitung IPv6-Migration",
+        en: "Technical Program Lead IPv6 Migration",
       },
     },
     {
@@ -523,45 +534,59 @@ export const siteContent: SiteContent = {
       description: [
         {
           text: {
-            de: "Konzeption und Umsetzung einer modernen, responsiven Trainingsplattform f\u00fcr Compliance- und KI-Themen mit Mandantentrennung und RBAC.",
-            en: "Designed and built a modern, responsive training platform for compliance and AI topics with tenant isolation and role-based access.",
+            de: "Konzeption, Architektur und Entwicklung einer mandantenfähigen Trainingsplattform für Compliance- und KI-Themen mit rollenbasierter Zugriffskontrolle und klarer Tenant-Isolation.",
+            en: "Designed, architected, and developed a multi-tenant training platform for compliance and AI topics with role-based access control and clear tenant isolation.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Umsetzung von Security-by-Design mit Postgres Row-Level Security, Audit-Logs, Rate Limiting sowie geh\u00e4rteten Auth-Flows (Passkey/Magic Link/2FA/SSO).",
-            en: "Implemented security-by-design with Postgres Row-Level Security, audit logging, rate limiting, and hardened authentication flows (Passkey/Magic Link/2FA/SSO).",
+            de: "Umsetzung zentraler Plattformfunktionen wie Kursauslieferung, Fortschritts-Tracking, Quiz, Zuweisungen sowie Admin-Dashboards für Tenant- und User-Management.",
+            en: "Implemented core platform capabilities including course delivery, progress tracking, quizzes, assignments, and admin dashboards for tenant and user management.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Aufbau der Kursplattform inkl. Fortschritts-Tracking, Quiz, Zuweisungen sowie Admin-Dashboards f\u00fcr Tenant-/User-Management.",
-            en: "Built course delivery with progress tracking, quizzes, enrollments, and admin dashboards for tenant/user management.",
+            de: "Implementierung von Security-by-Design mit Postgres Row-Level Security, Audit-Logs, Rate Limiting sowie gehärteten Authentifizierungsflüssen auf Basis von Passkeys, Magic Links, 2FA und SSO.",
+            en: "Implemented security-by-design using Postgres Row-Level Security, audit logging, rate limiting, and hardened authentication flows based on passkeys, magic links, 2FA, and SSO.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Implementierung manipulationssicherer PDF-Zertifikate mit QR-Verifikation und kryptografischem Hashing inkl. Bulk-Export f\u00fcr Audits.",
-            en: "Delivered tamper-evident PDF certificates with QR verification and cryptographic hashing; enabled bulk export for audits.",
+            de: "Entwicklung manipulationserschwerter PDF-Zertifikate mit QR-Verifikation, kryptografischem Hashing und Bulk-Export-Funktionen für Audit- und Nachweisprozesse.",
+            en: "Developed tamper-evident PDF certificates with QR verification, cryptographic hashing, and bulk export capabilities for audit and evidence workflows.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Integration von Stripe-Abrechnung (Subscriptions, Portal, Webhooks) inkl. Lizenzmodellen und Soft-Lock-Mechanismen f\u00fcr Tenant-Limits.",
-            en: "Integrated Stripe billing (subscriptions, portal, webhooks) with license models and soft-lock mechanisms for tenant limits.",
+            de: "Integration von Stripe-Abrechnung inklusive Subscriptions, Customer Portal und Webhooks sowie Umsetzung tenantbasierter Lizenzmodelle und Soft-Lock-Mechanismen für Nutzungsgrenzen.",
+            en: "Integrated Stripe billing including subscriptions, customer portal, and webhooks, and implemented tenant-based licensing models and soft-lock mechanisms for usage limits.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Tech: Next.js (App Router), TypeScript, Bun, Tailwind, next-intl (DE/EN), Neon Postgres, Stripe, Resend, Vitest/Playwright.",
-            en: "Tech: Next.js (App Router), TypeScript, Bun, Tailwind, next-intl (DE/EN), Neon Postgres, Stripe, Resend, Vitest/Playwright.",
+            de: "Technische Umsetzung mit Next.js App Router, TypeScript, Bun, Tailwind, next-intl, Neon Postgres, Resend sowie automatisierten Tests mit Vitest und Playwright.",
+            en: "Built with Next.js App Router, TypeScript, Bun, Tailwind, next-intl, Neon Postgres, Resend, and automated testing with Vitest and Playwright.",
           },
           type: "text",
+        },
+        {
+          text: {
+            de: "Aufbau einer produktionsnahen SaaS-Plattform mit Fokus auf Sicherheit, Mandantenfähigkeit, Abrechenbarkeit und Auditierbarkeit.",
+            en: "Built a production-grade SaaS platform focused on security, multi-tenancy, billing readiness, and auditability.",
+          },
+          type: "achievement",
+        },
+        {
+          text: {
+            de: "Verknüpfung von Produktlogik, Compliance-Anforderungen und technischer Implementierung in einer konsistenten Plattformarchitektur.",
+            en: "Connected product logic, compliance requirements, and technical implementation in a consistent platform architecture.",
+          },
+          type: "achievement",
         },
       ],
       location: { de: "Hockenheim, Deutschland", en: "Hockenheim, Germany" },
@@ -569,22 +594,27 @@ export const siteContent: SiteContent = {
       period: { de: "Dezember 2025 - Heute", en: "December 2025 - Present" },
       projectScale: "small",
       tags: [
+        { de: "SaaS", en: "SaaS" },
         { de: "Multi-Tenant", en: "Multi-tenant" },
         { de: "Compliance", en: "Compliance" },
         { de: "KI-Training", en: "AI Training" },
         { de: "RBAC", en: "RBAC" },
         { de: "Postgres RLS", en: "Postgres RLS" },
+        { de: "Authentication", en: "Authentication" },
+        { de: "Audit-Logs", en: "Audit Logs" },
         { de: "Stripe", en: "Stripe" },
         { de: "Next.js", en: "Next.js" },
         { de: "TypeScript", en: "TypeScript" },
+        { de: "Bun", en: "Bun" },
         { de: "Tailwind", en: "Tailwind" },
+        { de: "next-intl", en: "next-intl" },
         { de: "Neon Postgres", en: "Neon Postgres" },
         { de: "Vitest", en: "Vitest" },
         { de: "Playwright", en: "Playwright" },
       ],
       title: {
-        de: "SchlauFabrik \u2013 Multi-Tenant Compliance- & KI-Trainingsplattform",
-        en: "SchlauFabrik \u2013 Multi-tenant Compliance & AI Training Platform",
+        de: "Lead Software Engineer – SchlauFabrik Trainingsplattform",
+        en: "Lead Software Engineer – SchlauFabrik Training Platform",
       },
     },
     {
@@ -720,43 +750,43 @@ export const siteContent: SiteContent = {
       description: [
         {
           text: {
-            de: "Teilprojektleitung im Rahmen des RZ-Migrationsprojekts mit Schwerpunkt auf Solaris-, Linux-, Storage- und Backup-Umgebungen.",
-            en: "Subproject lead within the data center migration project, focusing on Solaris, Linux, storage, and backup environments.",
+            de: "Technische Teilprojektverantwortung im Rahmen der Rechenzentrumsmigration mit Schwerpunkt auf Solaris-, Linux-, Storage- und Backup-Umgebungen.",
+            en: "Technical subproject ownership within the data center migration, focused on Solaris, Linux, storage, and backup environments.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Verantwortlich für die Modernisierung und Einführung der neuen unternehmensweiten Backup-Plattform auf Basis der Rubrik Security Cloud.",
-            en: "Responsible for the modernization and full implementation of the new enterprise backup platform based on Rubrik Security Cloud.",
+            de: "Konzeption, Modernisierung und Einführung der unternehmensweiten Backup-Plattform auf Basis der Rubrik Security Cloud inklusive technischer Abstimmung über Betriebs-, Security- und Wiederherstellungsanforderungen hinweg.",
+            en: "Designed, modernized, and implemented the enterprise backup platform based on Rubrik Security Cloud, coordinating across operations, security, and recovery requirements.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Mitverantwortung bei der Weiterentwicklung der Solaris-Infrastruktur und der schrittweisen Ablösung von Legacy-Systemen durch moderne, cloudfähige Architekturen.",
-            en: "Supported the transition of Solaris infrastructure and legacy systems towards modern, cloud-ready architectures.",
+            de: "Mitwirkung an der Weiterentwicklung der Solaris-Infrastruktur und an der schrittweisen Ablösung von Legacy-Systemen zugunsten moderner, cloudfähiger Zielarchitekturen.",
+            en: "Contributed to the evolution of the Solaris infrastructure and the phased replacement of legacy systems with modern, cloud-ready target architectures.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Mitwirkung bei der Neugestaltung und Erneuerung der Legacy-Netzwerkinfrastruktur hin zu einer modernen, segmentierten Architektur mit verbesserter Security-Fokussierung.",
-            en: "Contributed to the redesign and renewal of the legacy network into a modern, segmented structure with improved security focus.",
+            de: "Unterstützung bei der technischen Erneuerung der Netzwerkinfrastruktur hin zu einer segmentierten, sicherheitsorientierten Architektur mit klareren Betriebs- und Schutzgrenzen.",
+            en: "Supported the technical renewal of the network infrastructure toward a segmented, security-oriented architecture with clearer operational and protection boundaries.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Erfolgreiche Leitung des Modernisierungsprojekts der Rubrik Security Cloud mit deutlichen Verbesserungen bei Datensicherheit, Compliance und Wiederherstellungszeiten in allen Fachbereichen.",
-            en: "Successfully led the Rubrik Security Cloud modernization project, enhancing data protection, compliance, and recovery performance across all business units.",
+            de: "Etablierung einer modernisierten Backup-Baseline mit Verbesserungen bei Datensicherheit, Compliance und Wiederherstellbarkeit über mehrere Fachbereiche hinweg.",
+            en: "Established a modernized backup baseline with improved data protection, compliance, and recoverability across multiple business units.",
           },
           type: "achievement",
         },
         {
           text: {
-            de: "Beitrag zur erfolgreichen Verlagerung von zwei Rechenzentren mit minimalen Ausfallzeiten und abgestimmten Abhängigkeiten über mehrere Infrastrukturbereiche hinweg.",
-            en: "Contributed to the successful relocation of two data centers with minimized downtime and coordinated dependencies across multiple infrastructure domains.",
+            de: "Beitrag zur technischen Vorbereitung und koordinierten Umsetzung der Verlagerung von zwei Rechenzentren mit minimierten Ausfallzeiten und abgestimmten Infrastrukturabhängigkeiten.",
+            en: "Contributed to the technical preparation and coordinated execution of the relocation of two data centers, with minimized downtime and aligned infrastructure dependencies.",
           },
           type: "achievement",
         },
@@ -765,8 +795,21 @@ export const siteContent: SiteContent = {
       logoUrl: "/logos/berenberg.svg",
       period: { de: "Jan 2024 - Sep 2025", en: "Jan 2024 - Sep 2025" },
       tags: [
-        { de: "Projektmanagement", en: "Project Management" },
+        {
+          de: "Technische Teilprojektsteuerung",
+          en: "Technical Subproject Leadership",
+        },
+        { de: "Rechenzentrumsmigration", en: "Data Center Migration" },
         { de: "Rubrik Security Cloud", en: "Rubrik Security Cloud" },
+        { de: "Backup-Modernisierung", en: "Backup Modernization" },
+        { de: "Storage", en: "Storage" },
+        { de: "Solaris", en: "Solaris" },
+        { de: "Linux", en: "Linux" },
+        { de: "Legacy-Modernisierung", en: "Legacy Modernization" },
+        { de: "Netzwerksegmentierung", en: "Network Segmentation" },
+        { de: "Compliance", en: "Compliance" },
+        { de: "DORA", en: "DORA" },
+        { de: "Rubrik", en: "Rubrik" },
         { de: "Atlassian Jira", en: "Atlassian Jira" },
         { de: "Atlassian Confluence", en: "Atlassian Confluence" },
         { de: "Microsoft Project", en: "Microsoft Project" },
@@ -774,16 +817,10 @@ export const siteContent: SiteContent = {
         { de: "LeanIX", en: "LeanIX" },
         { de: "Delinea", en: "Delinea" },
         { de: "IPv6", en: "IPv6" },
-        { de: "Netzwerk", en: "Network" },
-        { de: "Compliance", en: "Compliance" },
-        { de: "Backup", en: "Backup" },
-        { de: "Solaris", en: "Solaris" },
-        { de: "Rubrik", en: "Rubrik" },
-        { de: "DORA", en: "DORA" },
       ],
       title: {
-        de: "Teilprojektleiter RZ-Migration & Backup-Modernisierung",
-        en: "Subproject Lead Data Center Migration & Backup Modernization",
+        de: "Technische Teilprojektleitung RZ-Migration & Backup-Modernisierung",
+        en: "Technical Subproject Lead Data Center Migration & Backup Modernization",
       },
     },
     {
@@ -791,64 +828,64 @@ export const siteContent: SiteContent = {
       description: [
         {
           text: {
-            de: "Beratung in allen Fragen der IT-Sicherheit.",
-            en: "Consulting in all questions about and around IT security.",
+            de: "Beratung und Umsetzung in den Bereichen Informationssicherheit, technische Security Controls und organisatorische Sicherheitsanforderungen.",
+            en: "Advised on and implemented information security measures across technical security controls and organizational security requirements.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Unterstützung des DevOps-Teams.",
-            en: "Support of the DevOps team.",
+            de: "Unterstützung des DevOps-Teams bei sicherheitsrelevanten Fragestellungen, betrieblichen Hardening-Maßnahmen und der Einbettung von Security-Anforderungen in bestehende Plattform- und Deployment-Prozesse.",
+            en: "Supported the DevOps team on security-related topics, operational hardening measures, and the integration of security requirements into existing platform and deployment processes.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Integration von Diensten in SSO-Infrastruktur.",
-            en: "Integration of services in SSO infrastructure.",
+            de: "Integration von Diensten in die bestehende SSO-Infrastruktur zur Vereinheitlichung von Authentifizierung, Zugriffssteuerung und Benutzerverwaltung über mehrere Plattformen hinweg.",
+            en: "Integrated services into the existing SSO infrastructure to standardize authentication, access control, and user management across multiple platforms.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Zertifizierungsaudit: SOC2 und ISO27001.",
-            en: "Certificate audit: SOC2 and ISO27001",
+            de: "Begleitung der Audit- und Zertifizierungsvorbereitung für SOC 2 und ISO 27001 inklusive Anforderungsabgleich, Nachweisführung und Abstimmung technischer sowie organisatorischer Maßnahmen.",
+            en: "Supported audit and certification readiness for SOC 2 and ISO 27001, including control mapping, evidence collection, and coordination of technical and organizational measures.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Beratung zu allen Aspekten der DSGVO. Einführung von Aufbewahrungsfristen und Datenschutz-Richtlinien.",
-            en: "Advice on all aspects of GDPR. Introduction of retention policies and data protection guidelines.",
+            de: "Beratung zu DSGVO-Anforderungen sowie Einführung von Aufbewahrungsfristen, Datenschutzrichtlinien und zugehörigen organisatorischen Vorgaben.",
+            en: "Advised on GDPR requirements and introduced retention rules, data protection policies, and related organizational controls.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Einführung von Sicherheitsrichtlinien.",
-            en: "Introduction of security guidelines.",
+            de: "Einführung und Weiterentwicklung von Sicherheitsrichtlinien und Basiskontrollen zur Stärkung des unternehmensweiten Sicherheitsniveaus.",
+            en: "Introduced and evolved security policies and baseline controls to strengthen the organization's overall security posture.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Implementierung von IT-Sicherheitsmaßnahmen, die bei einem SOC2-Audit ohne Beanstandungen bestanden.",
-            en: "Implemented IT security measures that passed a SOC2 audit with zero non-conformities, securing key client contracts.",
+            de: "Implementierung von IT-Sicherheitsmaßnahmen, die ein SOC-2-Audit ohne Beanstandungen unterstützten und damit zentrale Kundenanforderungen absicherten.",
+            en: "Implemented IT security measures that supported a SOC 2 audit with zero non-conformities and helped secure key client requirements.",
           },
           type: "achievement",
         },
         {
           text: {
-            de: "Integration der SSO-Infrastruktur über mehrere Plattformen hinweg, Verbesserung der Sicherheit und Benutzererfahrung.",
-            en: "Integrated SSO infrastructure across multiple platforms, improving security and user experience.",
+            de: "Integration der SSO-Infrastruktur über mehrere Plattformen hinweg mit Verbesserungen bei Sicherheit, Zugriffskonsistenz und Nutzererlebnis.",
+            en: "Integrated SSO infrastructure across multiple platforms, improving security, access consistency, and user experience.",
           },
           type: "achievement",
         },
         {
           text: {
-            de: "Führung des Teams zur erfolgreichen ISO27001-Zertifizierung innerhalb einer straffen sechsmonatigen Frist, wodurch neue Märkte für das Unternehmen erschlossen wurden.",
-            en: "Led the team in passing ISO27001 certification within a tight six-month deadline, which opened new markets for the company.",
+            de: "Beitrag zur erfolgreichen ISO-27001-Zertifizierung innerhalb eines engen Zeitrahmens durch die strukturierte Umsetzung von Anforderungen, Kontrollen und Nachweisen.",
+            en: "Contributed to successful ISO 27001 certification within a tight timeline through structured implementation of requirements, controls, and evidence.",
           },
           type: "achievement",
         },
@@ -860,9 +897,15 @@ export const siteContent: SiteContent = {
       logoUrl: "/logos/threedium.svg",
       period: { de: "Okt 2023 - Jun 2024", en: "Oct 2023 - Jun 2024" },
       tags: [
-        { de: "Sicherheit", en: "Security" },
-        { de: "Datenschutz", en: "Data Protection" },
+        { de: "Informationssicherheit", en: "Information Security" },
+        { de: "Security Controls", en: "Security Controls" },
+        { de: "Security Engineering", en: "Security Engineering" },
+        { de: "DevSecOps", en: "DevSecOps" },
         { de: "SSO", en: "SSO" },
+        {
+          de: "Identity & Access Management",
+          en: "Identity & Access Management",
+        },
         { de: "DSGVO", en: "GDPR" },
         { de: "ISO 27001", en: "ISO 27001" },
         { de: "SOC 2", en: "SOC 2" },
@@ -871,15 +914,14 @@ export const siteContent: SiteContent = {
         { de: "Palo Alto Firewall", en: "Palo Alto Firewall" },
         { de: "Cisco", en: "Cisco" },
         { de: "VMware", en: "VMware" },
-        { de: "Windows", en: "Windows" },
         { de: "Linux", en: "Linux" },
         { de: "Microsoft Azure", en: "Microsoft Azure" },
         { de: "Incident Response", en: "Incident Response" },
         { de: "Penetration Testing", en: "Penetration Testing" },
       ],
       title: {
-        de: "Informationssicherheitsbeauftragter",
-        en: "Information Security Officer",
+        de: "Information Security Engineer & Compliance",
+        en: "Information Security Engineer & Compliance",
       },
     },
     {
@@ -941,99 +983,92 @@ export const siteContent: SiteContent = {
       description: [
         {
           text: {
-            de: "Beratung zu allen Sicherheitsthemen, Schwerpunkt auf Server und Netzwerke.",
-            en: "Consulting regarding any security topics, focus on server and networks.",
+            de: "Beratung und technische Unterstützung in Informationssicherheit mit Schwerpunkt auf Server-, Netzwerk- und Infrastruktur-Security.",
+            en: "Provided security consulting and technical support across information security, with a focus on server, network, and infrastructure security.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Unterstützung und Strategieplanung während eines großen Sicherheitsvorfalls.",
-            en: "Support and strategy handling during a (large) security incident.",
+            de: "Unterstützung der strategischen und operativen Maßnahmen während eines größeren Sicherheitsvorfalls, einschließlich Koordination von Reaktion, Eindämmung und Wiederanlauf.",
+            en: "Supported strategic and operational activities during a major security incident, including coordination of response, containment, and recovery.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Erstellung von (Sicherheits-)Richtlinien und technischen Konzepten.",
-            en: "Writing (security) policies and technical concepts.",
+            de: "Erstellung und Weiterentwicklung von Sicherheitsrichtlinien, technischen Konzepten und umsetzungsnahen Sicherheitsvorgaben.",
+            en: "Developed and refined security policies, technical concepts, and implementation-oriented security standards.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Automatisierung des Schwachstellen- und Vorfallsmanagements.",
-            en: "Automation of vulnerability and incident management.",
+            de: "Automatisierung des Schwachstellen- und Vorfallsmanagements zur strukturierten Erfassung, Priorisierung und Bearbeitung sicherheitsrelevanter Ereignisse.",
+            en: "Automated vulnerability and incident management to improve structured intake, prioritization, and handling of security-relevant events.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Unterstützung beim Aufbau von IT-Architektur und Strategie (einschließlich Netzwerkarchitektur, Cloud-Infrastruktur, Firewall-Konzepte, etc.).",
-            en: "Support for building IT architecture and strategy (including network architecture, cloud infrastructure, firewall concepts, etc.).",
+            de: "Unterstützung bei Aufbau und Weiterentwicklung von IT-Architektur und Sicherheitsstrategie, insbesondere in den Bereichen Netzwerkarchitektur, Cloud-Infrastruktur und Firewall-Konzepte.",
+            en: "Supported the build-out and evolution of IT architecture and security strategy, particularly in network architecture, cloud infrastructure, and firewall design.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Vorbereitung und Begleitung von Penetrationstests (einschließlich Netzwerk, Cloud, Anwendungen, Active Directory, etc.).",
-            en: "Preparation and accompanying of penetration tests (including network, cloud, applications, Active Directory, etc.).",
+            de: "Vorbereitung und fachliche Begleitung von Penetrationstests in den Bereichen Netzwerk, Cloud, Anwendungen und Active Directory.",
+            en: "Prepared and supported penetration tests across network, cloud, application, and Active Directory environments.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Leitung und Management des Security Operations Center (SOC)-Teams, einschließlich der täglichen Betriebsüberwachung, Incident Response und kontinuierlichen Verbesserung der Sicherheitsprozesse.",
-            en: "Led and managed the Security Operations Center (SOC) team, overseeing daily operations, incident response, and continuous improvement of security processes.",
+            de: "Operative Verantwortung im SOC-Umfeld mit Fokus auf Sicherheitsmonitoring, Incident Response und kontinuierliche Verbesserung von Analyse- und Eskalationsprozessen.",
+            en: "Held operational responsibility in the SOC environment, focusing on security monitoring, incident response, and continuous improvement of analysis and escalation processes.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Sicherheits-Audits sowie sicherheitstechnische Begleitung von Applikations- und Netzwerk-Migrationen.",
-            en: "Security audits and security oversight for application and network migrations.",
+            de: "Durchführung von Sicherheits-Audits sowie sicherheitstechnische Begleitung von Applikations- und Netzwerk-Migrationen.",
+            en: "Performed security audits and provided security oversight for application and network migrations.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Spezialisierung in den Bereichen Linux und Netzwerke.",
-            en: "Specialization in the areas of Linux and networking.",
+            de: "Technischer Schwerpunkt auf Linux und Netzwerken sowie ergänzende Sicherheitsberatung für Windows-, Azure- und Entwicklungsumgebungen.",
+            en: "Technical focus on Linux and networking, complemented by security consulting for Windows, Azure, and application development environments.",
           },
           type: "text",
         },
         {
           text: {
-            de: "IT-Sicherheitsberatung auch für Windows, Cloud (vor allem Azure) und Anwendungsentwicklung.",
-            en: "IT security consulting also on Windows, Cloud (primarily Azure) and application development.",
+            de: "Beratung zu Datenschutz-, Audit- und Zertifizierungsanforderungen, unter anderem mit Bezug auf ISO 27001, BSI Grundschutz, NIST und MITRE.",
+            en: "Advised on data protection, audit, and certification requirements, including ISO 27001, BSI baseline protection, NIST, and MITRE.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Beratung zu Datenschutz- und Zertifizierungsfragen (z.B. ISO27001, BSI Grundschutz, NIST-Framework, MITRE).",
-            en: "Advice on data protection and certification issues (e.g. ISO27001, BSI Grundschutz, NIST framework, MITRE).",
-          },
-          type: "text",
-        },
-        {
-          text: {
-            de: "Leitung der Reaktion auf einen großen Sicherheitsvorfall, Koordination der Maßnahmen zur Minimierung von Datenverlusten und Wiederherstellung des Betriebs.",
-            en: "Managed the response to a major security incident, coordinating efforts that minimized data loss and restored operations.",
+            de: "Beitrag zur koordinierten Reaktion auf einen größeren Sicherheitsvorfall mit Fokus auf Schadensbegrenzung, Wiederherstellung und betriebliche Stabilisierung.",
+            en: "Contributed to the coordinated response to a major security incident, with a focus on damage containment, recovery, and operational stabilization.",
           },
           type: "achievement",
         },
         {
           text: {
-            de: "Entwicklung und Automatisierung eines Schwachstellenmanagementsystems, Reduzierung der Reaktionszeiten bei Vorfällen und Erhöhung der Systemverfügbarkeit.",
-            en: "Developed and automated a vulnerability management system, reducing incident response time and increasing system uptime.",
+            de: "Entwicklung und Automatisierung eines Schwachstellenmanagement-Ansatzes mit schnelleren Reaktionszeiten und verbesserter Transparenz im Incident Handling.",
+            en: "Developed and automated a vulnerability management approach, improving response times and transparency in incident handling.",
           },
           type: "achievement",
         },
         {
           text: {
-            de: "Implementierung von Sicherheitsrichtlinien, die später als Best Practices im gesamten Unternehmen übernommen wurden.",
-            en: "Implemented security policies that were later adopted as best practices company-wide.",
+            de: "Einführung von Sicherheitsrichtlinien und technischen Sicherheitsvorgaben, die als wiederverwendbare Best Practices im Unternehmen übernommen wurden.",
+            en: "Implemented security policies and technical security standards that were later adopted as reusable best practices across the organization.",
           },
           type: "achievement",
         },
@@ -1045,80 +1080,92 @@ export const siteContent: SiteContent = {
       logoUrl: "/logos/dvag.svg",
       period: { de: "Jan 2019 - Sep 2023", en: "Jan 2019 - Sep 2023" },
       tags: [
-        { de: "Sicherheit", en: "Security" },
+        { de: "Informationssicherheit", en: "Information Security" },
+        { de: "Security Engineering", en: "Security Engineering" },
+        { de: "Incident Response", en: "Incident Response" },
+        { de: "SOC", en: "SOC" },
+        { de: "Vulnerability Management", en: "Vulnerability Management" },
+        { de: "Netzwerksicherheit", en: "Network Security" },
+        { de: "Linux", en: "Linux" },
+        { de: "Cloud Security", en: "Cloud Security" },
+        { de: "Microsoft Azure", en: "Microsoft Azure" },
+        { de: "Microsoft Sentinel", en: "Microsoft Sentinel" },
+        { de: "Microsoft Defender", en: "Microsoft Defender" },
+        { de: "Microsoft 365", en: "Microsoft 365" },
         { de: "DSGVO", en: "GDPR" },
         { de: "ISO 27001", en: "ISO 27001" },
-        { de: "BSI / NIS2 / NIST / MITRE", en: "BSI / NIS2 / NIST / MITRE" },
+        { de: "BSI Grundschutz", en: "BSI Baseline Protection" },
+        { de: "NIST", en: "NIST" },
+        { de: "MITRE", en: "MITRE" },
         { de: "ITIL", en: "ITIL" },
-        { de: "Richtlinien", en: "Guidelines" },
+        { de: "Richtlinien & Standards", en: "Policies & Standards" },
         {
           de: "Atlassian Jira & Confluence",
           en: "Atlassian Jira & Confluence",
         },
         { de: "Palo Alto / Cisco", en: "Palo Alto / Cisco" },
-        { de: "Microsoft Azure", en: "Microsoft Azure" },
-        { de: "Microsoft Sentinel", en: "Microsoft Sentinel" },
-        { de: "Microsoft Defender", en: "Microsoft Defender" },
-        { de: "Microsoft 365", en: "Microsoft 365" },
       ],
-      title: { de: "IT-Sicherheitsexperte", en: "IT Security Consultant" },
+      title: {
+        de: "Security Engineer & Incident Response",
+        en: "Security Engineer & Incident Response",
+      },
     },
     {
       company: "Deutsche Vermögensberatung AG",
       description: [
         {
           text: {
-            de: "Koordination und Ressourcenplanung eines kleinen Teams.",
-            en: "Coordination and planning of resources of a small team.",
+            de: "Technische Koordination und Ressourcenplanung eines kleinen Infrastrukturteams.",
+            en: "Handled technical coordination and resource planning for a small infrastructure team.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Schwerpunkt des Teams: E-Mail, Cloud-Speicher, Lastverteilung, Proxy und DNS (alles Linux-basiert).",
-            en: "Focus of the team: e-mail, cloud storage, load balancing, proxy and DNS (all linux based).",
+            de: "Verantwortungsbereich des Teams: Linux-basierte Plattformen für E-Mail, Cloud-Speicher, Lastverteilung, Proxy und DNS.",
+            en: "The team’s scope covered Linux-based platforms for email, cloud storage, load balancing, proxy, and DNS.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Analyse, Fehlerbehebung und nachhaltige Problemlösung im Bereich E-Mail-Infrastrukturen.",
-            en: "Analysis, troubleshooting and sustainable remediation in email infrastructures.",
+            de: "Analyse, Fehlerbehebung und nachhaltige Stabilisierung komplexer E-Mail-Infrastrukturen.",
+            en: "Analyzed, troubleshot, and sustainably stabilized complex email infrastructures.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Beratung und Implementierung von IPv6, Sicherheitsthemen, Hochverfügbarkeitssystemen und weiteren Themen.",
-            en: "Consulting and implementation of IPv6, security topics, high-availability systems and more topics.",
+            de: "Beratung und technische Umsetzung in den Bereichen IPv6, Security und hochverfügbare Infrastruktursysteme.",
+            en: "Provided consulting and technical implementation across IPv6, security, and highly available infrastructure systems.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Teilprojektleitung: Rechenzentrumsumzug sowie Migration und Neuaufbau von Applikationen und Serverinfrastrukturen in redundante, hochverfügbare Umgebungen.",
-            en: "Sub-project lead: data centre relocation including migration and rebuild of applications and server infrastructures into redundant, highly available environments.",
+            de: "Technische Teilprojektverantwortung für Rechenzentrumsumzug sowie Migration und Neuaufbau von Applikationen und Serverinfrastrukturen in redundanten, hochverfügbaren Zielumgebungen.",
+            en: "Held technical subproject responsibility for a data center relocation, including migration and rebuild of applications and server infrastructure into redundant, highly available target environments.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Koordination eines erfolgreichen Rechenzentrumsumzugsprojekts.",
-            en: "Coordinated a successful data center relocation project.",
+            de: "Beitrag zur koordinierten Umsetzung eines erfolgreichen Rechenzentrumsumzugs mit abgestimmten Infrastrukturabhängigkeiten und stabiler Betriebsüberführung.",
+            en: "Contributed to the coordinated execution of a successful data center relocation with aligned infrastructure dependencies and stable operational transition.",
           },
           type: "achievement",
         },
         {
           text: {
-            de: "Leitung der Implementierung von IPv6 im gesamten Unternehmen, Zukunftssicherung des Netzwerks.",
-            en: "Led the implementation of IPv6 across the organization, future-proofing the network.",
+            de: "Einführung von IPv6 im Unternehmensumfeld als Beitrag zur langfristigen Modernisierung der Netzwerkinfrastruktur.",
+            en: "Introduced IPv6 in the enterprise environment as part of the long-term modernization of the network infrastructure.",
           },
           type: "achievement",
         },
         {
           text: {
-            de: "Verbesserung der Teameffizienz durch Einführung automatisierter Prozesse und Ressourcenmanagement-Tools.",
-            en: "Improved team efficiency through the introduction of automated processes and resource management tools.",
+            de: "Verbesserung von Teamdurchsatz und Betriebsstabilität durch automatisierte Abläufe und strukturiertere Ressourcensteuerung.",
+            en: "Improved team throughput and operational stability through automation and more structured resource coordination.",
           },
           type: "achievement",
         },
@@ -1130,24 +1177,26 @@ export const siteContent: SiteContent = {
       logoUrl: "/logos/dvag.svg",
       period: { de: "Jul 2015 - Dez 2018", en: "Jul 2015 - Dec 2018" },
       tags: [
-        { de: "Teamleitung", en: "Team Management" },
+        { de: "Infrastruktur", en: "Infrastructure" },
+        { de: "Linux", en: "Linux" },
+        { de: "E-Mail-Infrastruktur", en: "Email Infrastructure" },
+        { de: "Dovecot & Postfix", en: "Dovecot & Postfix" },
+        { de: "IPv6", en: "IPv6" },
+        { de: "Hochverfügbarkeit", en: "High Availability" },
+        { de: "Lastverteilung", en: "Load Balancing" },
+        { de: "Cloud-Speicher", en: "Cloud Storage" },
+        { de: "Proxy", en: "Proxy" },
+        { de: "DNS", en: "DNS" },
+        { de: "Rechenzentrumsmigration", en: "Data Center Migration" },
         {
           de: "Atlassian Jira & Confluence",
           en: "Atlassian Jira & Confluence",
         },
-        { de: "dovecot & postfix", en: "dovecot & postfix" },
         { de: "Microsoft Azure", en: "Microsoft Azure" },
-        { de: "IPv6", en: "IPv6" },
-        { de: "Hochverfügbarkeit", en: "High-Availability" },
-        { de: "Lastverteilung", en: "Load Balancing" },
-        { de: "E-Mail", en: "Email" },
-        { de: "Cloud-Speicher", en: "Cloud Storage" },
-        { de: "Proxy", en: "Proxy" },
-        { de: "DNS", en: "DNS" },
       ],
       title: {
-        de: "Teamkoordinator / Systemarchitekt",
-        en: "Team Coordinator / System Architect",
+        de: "Senior Engineer Infrastruktur",
+        en: "Lead Infrastructure Engineer",
       },
     },
     {
@@ -1225,8 +1274,8 @@ export const siteContent: SiteContent = {
         { de: "IPv6", en: "IPv6" },
       ],
       title: {
-        de: "Product Owner / Systemarchitekt",
-        en: "Product Owner / System Architect",
+        de: "Systemarchitekt E-Mail-Archivierung",
+        en: "System Architect Email Archiving",
       },
     },
   ],

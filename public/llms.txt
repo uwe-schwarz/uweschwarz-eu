@@ -1,7 +1,7 @@
 # llms.txt for uweschwarz.eu
 # This file provides structured information for AI language models.
 # For more information, see https://llmstxt.org/
-# Version 1.0, Generated on 2026-02-25
+# Version 1.0, Generated on 2026-03-09
 
 # --- PERMISSIONS ---
 User-Agent: *
@@ -21,8 +21,8 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
 [de] Uwe Schwarz
 
 [Published]:
-[en] 2026-02-25
-[de] 25.02.2026
+[en] 2026-03-09
+[de] 09.03.2026
 
 [Languages]:
 [en] English, German
@@ -95,44 +95,48 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
   - [de] Verantwortlich für Governance in den Bereichen IT-Sicherheit, Datenschutz und Compliance.
 
 [Experience]:
-  [en] Program Lead IPv6 Migration
-  [de] Programmleitung IPv6-Migration
+  [en] Technical Program Lead IPv6 Migration
+  [de] Technische Programmleitung IPv6-Migration
   [en] Company: Deutsche Rentenversicherung (RP, BW)
   [de] Firma: Deutsche Rentenversicherung (RP, BW)
   [en] Jan 2026 - Today
   [de] Jan 2026 - Heute
-  - [en] Leading the IPv6 migration for DRV RP, and DRV BW, including governance, planning cadence, and execution tracking.
-  - [de] Leitung der IPv6-Migration für DRV RP und DRV BW inklusive Governance, Planungsrhythmus und Umsetzungssteuerung.
-  - [en] Built and operationalized a project control model with dashboard, action board, KPI portfolio, risk register, and decision index.
-  - [de] Aufbau und operative Einführung eines Projektsteuerungsmodells mit Dashboard, Action Board, KPI-Portfolio, Risikoregister und Entscheidungsindex.
-  - [en] Coordinating architecture, security, and rollout preparation across addressing, segmentation, dual-stack transition, test-lab planning, and cross-team dependencies.
-  - [de] Koordination der Architektur-, Sicherheits- und Rollout-Vorbereitung über Adressierung, Segmentierung, Dual-Stack-Übergang, Testlabor-Planung und teamübergreifende Abhängigkeiten hinweg.
-  - [en] Driving compliance-relevant alignment for BSI, NIS2, and critical infrastructure requirements, evidence obligations, and transparent reporting to management and stakeholder groups within the institution.
-  - [de] Steuerung der compliance-relevanten Abstimmung zu BSI-, NIS2- und KRITIS-Anforderungen, Evidence-Pflicht und transparentem Reporting an Management und Stakeholder beim Träger.
-  - [en] Established a reusable intake-to-governance workflow to create traceable actions, risks, questions, and evidence requests.
-  - [de] Etablierung eines wiederverwendbaren Intake-to-Governance-Workflows, um nachvollziehbare Actions, Risiken, offene Fragen und Nachweisanfragen zu erstellen.
-  - [en] Created the operational baseline for program execution with measurable KPIs, ownership clarity, and decision transparency.
-  - [de] Schaffung der operativen Baseline für die Programmausführung mit messbaren KPIs, klaren Verantwortlichkeiten und Entscheidungstransparenz.
+  - [en] Technical program ownership for the IPv6 migration at DRV RP and DRV BW, with a focus on migration planning, execution structure, and cross-functional technical coordination.
+  - [de] Technische Programmverantwortung für die IPv6-Migration bei DRV RP und DRV BW mit Fokus auf Migrationsplanung, Umsetzungsstruktur und übergreifende technische Steuerung.
+  - [en] Designed and implemented an operational control model with dashboard, action board, KPI portfolio, risk register, and decision index to translate technical topics into structured delivery artifacts.
+  - [de] Konzeption und Einführung eines operativen Steuerungsmodells mit Dashboard, Action Board, KPI-Portfolio, Risikoregister und Entscheidungsindex zur strukturierten Übersetzung technischer Themen in belastbare Delivery-Artefakte.
+  - [en] Coordinated technical groundwork for architecture and rollout across IPv6 addressing, segmentation, dual-stack target design, test-lab planning, and cross-team dependencies.
+  - [de] Koordination der technischen Vorarbeiten für Architektur und Rollout über IPv6-Adressierung, Segmentierung, Dual-Stack-Zielbild, Testlabor-Planung und teamübergreifende Abhängigkeiten hinweg.
+  - [en] Supported security- and compliance-related requirements in the context of BSI, NIS2, and critical infrastructure, translating them into traceable evidence, risks, and management reporting.
+  - [de] Begleitung sicherheits- und compliance-relevanter Anforderungen mit Bezug auf BSI, NIS2 und KRITIS sowie deren Überführung in nachvollziehbare Nachweise, Risiken und Management-Reporting.
+  - [en] Established a reusable intake-to-governance workflow for systematically capturing technical actions, risks, open issues, and evidence requirements.
+  - [de] Etablierung eines wiederverwendbaren Intake-to-Governance-Workflows zur systematischen Erfassung technischer Actions, Risiken, offener Punkte und Nachweisanforderungen.
+  - [en] Created an operational baseline for technical program execution with measurable KPIs, clear ownership, and transparent decision support.
+  - [de] Schaffung einer operativen Baseline für die technische Programmausführung mit messbaren KPIs, klaren Verantwortlichkeiten und transparenter Entscheidungsgrundlage.
 
 [Experience]:
-  [en] SchlauFabrik – Multi-tenant Compliance & AI Training Platform
-  [de] SchlauFabrik – Multi-Tenant Compliance- & KI-Trainingsplattform
+  [en] Lead Software Engineer – SchlauFabrik Training Platform
+  [de] Lead Software Engineer – SchlauFabrik Trainingsplattform
   [en] Company: xtensible UG (haftungsbeschränkt) & Co. KG
   [de] Firma: xtensible UG (haftungsbeschränkt) & Co. KG
   [en] December 2025 - Present
   [de] Dezember 2025 - Heute
-  - [en] Designed and built a modern, responsive training platform for compliance and AI topics with tenant isolation and role-based access.
-  - [de] Konzeption und Umsetzung einer modernen, responsiven Trainingsplattform für Compliance- und KI-Themen mit Mandantentrennung und RBAC.
-  - [en] Implemented security-by-design with Postgres Row-Level Security, audit logging, rate limiting, and hardened authentication flows (Passkey/Magic Link/2FA/SSO).
-  - [de] Umsetzung von Security-by-Design mit Postgres Row-Level Security, Audit-Logs, Rate Limiting sowie gehärteten Auth-Flows (Passkey/Magic Link/2FA/SSO).
-  - [en] Built course delivery with progress tracking, quizzes, enrollments, and admin dashboards for tenant/user management.
-  - [de] Aufbau der Kursplattform inkl. Fortschritts-Tracking, Quiz, Zuweisungen sowie Admin-Dashboards für Tenant-/User-Management.
-  - [en] Delivered tamper-evident PDF certificates with QR verification and cryptographic hashing; enabled bulk export for audits.
-  - [de] Implementierung manipulationssicherer PDF-Zertifikate mit QR-Verifikation und kryptografischem Hashing inkl. Bulk-Export für Audits.
-  - [en] Integrated Stripe billing (subscriptions, portal, webhooks) with license models and soft-lock mechanisms for tenant limits.
-  - [de] Integration von Stripe-Abrechnung (Subscriptions, Portal, Webhooks) inkl. Lizenzmodellen und Soft-Lock-Mechanismen für Tenant-Limits.
-  - [en] Tech: Next.js (App Router), TypeScript, Bun, Tailwind, next-intl (DE/EN), Neon Postgres, Stripe, Resend, Vitest/Playwright.
-  - [de] Tech: Next.js (App Router), TypeScript, Bun, Tailwind, next-intl (DE/EN), Neon Postgres, Stripe, Resend, Vitest/Playwright.
+  - [en] Designed, architected, and developed a multi-tenant training platform for compliance and AI topics with role-based access control and clear tenant isolation.
+  - [de] Konzeption, Architektur und Entwicklung einer mandantenfähigen Trainingsplattform für Compliance- und KI-Themen mit rollenbasierter Zugriffskontrolle und klarer Tenant-Isolation.
+  - [en] Implemented core platform capabilities including course delivery, progress tracking, quizzes, assignments, and admin dashboards for tenant and user management.
+  - [de] Umsetzung zentraler Plattformfunktionen wie Kursauslieferung, Fortschritts-Tracking, Quiz, Zuweisungen sowie Admin-Dashboards für Tenant- und User-Management.
+  - [en] Implemented security-by-design using Postgres Row-Level Security, audit logging, rate limiting, and hardened authentication flows based on passkeys, magic links, 2FA, and SSO.
+  - [de] Implementierung von Security-by-Design mit Postgres Row-Level Security, Audit-Logs, Rate Limiting sowie gehärteten Authentifizierungsflüssen auf Basis von Passkeys, Magic Links, 2FA und SSO.
+  - [en] Developed tamper-evident PDF certificates with QR verification, cryptographic hashing, and bulk export capabilities for audit and evidence workflows.
+  - [de] Entwicklung manipulationserschwerter PDF-Zertifikate mit QR-Verifikation, kryptografischem Hashing und Bulk-Export-Funktionen für Audit- und Nachweisprozesse.
+  - [en] Integrated Stripe billing including subscriptions, customer portal, and webhooks, and implemented tenant-based licensing models and soft-lock mechanisms for usage limits.
+  - [de] Integration von Stripe-Abrechnung inklusive Subscriptions, Customer Portal und Webhooks sowie Umsetzung tenantbasierter Lizenzmodelle und Soft-Lock-Mechanismen für Nutzungsgrenzen.
+  - [en] Built with Next.js App Router, TypeScript, Bun, Tailwind, next-intl, Neon Postgres, Resend, and automated testing with Vitest and Playwright.
+  - [de] Technische Umsetzung mit Next.js App Router, TypeScript, Bun, Tailwind, next-intl, Neon Postgres, Resend sowie automatisierten Tests mit Vitest und Playwright.
+  - [en] Built a production-grade SaaS platform focused on security, multi-tenancy, billing readiness, and auditability.
+  - [de] Aufbau einer produktionsnahen SaaS-Plattform mit Fokus auf Sicherheit, Mandantenfähigkeit, Abrechenbarkeit und Auditierbarkeit.
+  - [en] Connected product logic, compliance requirements, and technical implementation in a consistent platform architecture.
+  - [de] Verknüpfung von Produktlogik, Compliance-Anforderungen und technischer Implementierung in einer konsistenten Plattformarchitektur.
 
 [Experience]:
   [en] Founding Member & Data Protection Officer
@@ -169,50 +173,50 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
   - [de] Analysiert und bewertet: OpenAI ChatGPT, OpenAI Open-Weight GPT-OSS, Microsoft Copilot, Perplexity, Anthropic Claude, Apple Foundation, z.AI GLM, n8n, make.com und Zapier.
 
 [Experience]:
-  [en] Subproject Lead Data Center Migration & Backup Modernization
-  [de] Teilprojektleiter RZ-Migration & Backup-Modernisierung
+  [en] Technical Subproject Lead Data Center Migration & Backup Modernization
+  [de] Technische Teilprojektleitung RZ-Migration & Backup-Modernisierung
   [en] Company: Joh. Berenberg, Gossler & Co. KG
   [de] Firma: Joh. Berenberg, Gossler & Co. KG
   [en] Jan 2024 - Sep 2025
   [de] Jan 2024 - Sep 2025
-  - [en] Subproject lead within the data center migration project, focusing on Solaris, Linux, storage, and backup environments.
-  - [de] Teilprojektleitung im Rahmen des RZ-Migrationsprojekts mit Schwerpunkt auf Solaris-, Linux-, Storage- und Backup-Umgebungen.
-  - [en] Responsible for the modernization and full implementation of the new enterprise backup platform based on Rubrik Security Cloud.
-  - [de] Verantwortlich für die Modernisierung und Einführung der neuen unternehmensweiten Backup-Plattform auf Basis der Rubrik Security Cloud.
-  - [en] Supported the transition of Solaris infrastructure and legacy systems towards modern, cloud-ready architectures.
-  - [de] Mitverantwortung bei der Weiterentwicklung der Solaris-Infrastruktur und der schrittweisen Ablösung von Legacy-Systemen durch moderne, cloudfähige Architekturen.
-  - [en] Contributed to the redesign and renewal of the legacy network into a modern, segmented structure with improved security focus.
-  - [de] Mitwirkung bei der Neugestaltung und Erneuerung der Legacy-Netzwerkinfrastruktur hin zu einer modernen, segmentierten Architektur mit verbesserter Security-Fokussierung.
-  - [en] Successfully led the Rubrik Security Cloud modernization project, enhancing data protection, compliance, and recovery performance across all business units.
-  - [de] Erfolgreiche Leitung des Modernisierungsprojekts der Rubrik Security Cloud mit deutlichen Verbesserungen bei Datensicherheit, Compliance und Wiederherstellungszeiten in allen Fachbereichen.
-  - [en] Contributed to the successful relocation of two data centers with minimized downtime and coordinated dependencies across multiple infrastructure domains.
-  - [de] Beitrag zur erfolgreichen Verlagerung von zwei Rechenzentren mit minimalen Ausfallzeiten und abgestimmten Abhängigkeiten über mehrere Infrastrukturbereiche hinweg.
+  - [en] Technical subproject ownership within the data center migration, focused on Solaris, Linux, storage, and backup environments.
+  - [de] Technische Teilprojektverantwortung im Rahmen der Rechenzentrumsmigration mit Schwerpunkt auf Solaris-, Linux-, Storage- und Backup-Umgebungen.
+  - [en] Designed, modernized, and implemented the enterprise backup platform based on Rubrik Security Cloud, coordinating across operations, security, and recovery requirements.
+  - [de] Konzeption, Modernisierung und Einführung der unternehmensweiten Backup-Plattform auf Basis der Rubrik Security Cloud inklusive technischer Abstimmung über Betriebs-, Security- und Wiederherstellungsanforderungen hinweg.
+  - [en] Contributed to the evolution of the Solaris infrastructure and the phased replacement of legacy systems with modern, cloud-ready target architectures.
+  - [de] Mitwirkung an der Weiterentwicklung der Solaris-Infrastruktur und an der schrittweisen Ablösung von Legacy-Systemen zugunsten moderner, cloudfähiger Zielarchitekturen.
+  - [en] Supported the technical renewal of the network infrastructure toward a segmented, security-oriented architecture with clearer operational and protection boundaries.
+  - [de] Unterstützung bei der technischen Erneuerung der Netzwerkinfrastruktur hin zu einer segmentierten, sicherheitsorientierten Architektur mit klareren Betriebs- und Schutzgrenzen.
+  - [en] Established a modernized backup baseline with improved data protection, compliance, and recoverability across multiple business units.
+  - [de] Etablierung einer modernisierten Backup-Baseline mit Verbesserungen bei Datensicherheit, Compliance und Wiederherstellbarkeit über mehrere Fachbereiche hinweg.
+  - [en] Contributed to the technical preparation and coordinated execution of the relocation of two data centers, with minimized downtime and aligned infrastructure dependencies.
+  - [de] Beitrag zur technischen Vorbereitung und koordinierten Umsetzung der Verlagerung von zwei Rechenzentren mit minimierten Ausfallzeiten und abgestimmten Infrastrukturabhängigkeiten.
 
 [Experience]:
-  [en] Information Security Officer
-  [de] Informationssicherheitsbeauftragter
+  [en] Information Security Engineer & Compliance
+  [de] Information Security Engineer & Compliance
   [en] Company: Threedium Ltd.
   [de] Firma: Threedium Ltd.
   [en] Oct 2023 - Jun 2024
   [de] Okt 2023 - Jun 2024
-  - [en] Consulting in all questions about and around IT security.
-  - [de] Beratung in allen Fragen der IT-Sicherheit.
-  - [en] Support of the DevOps team.
-  - [de] Unterstützung des DevOps-Teams.
-  - [en] Integration of services in SSO infrastructure.
-  - [de] Integration von Diensten in SSO-Infrastruktur.
-  - [en] Certificate audit: SOC2 and ISO27001
-  - [de] Zertifizierungsaudit: SOC2 und ISO27001.
-  - [en] Advice on all aspects of GDPR. Introduction of retention policies and data protection guidelines.
-  - [de] Beratung zu allen Aspekten der DSGVO. Einführung von Aufbewahrungsfristen und Datenschutz-Richtlinien.
-  - [en] Introduction of security guidelines.
-  - [de] Einführung von Sicherheitsrichtlinien.
-  - [en] Implemented IT security measures that passed a SOC2 audit with zero non-conformities, securing key client contracts.
-  - [de] Implementierung von IT-Sicherheitsmaßnahmen, die bei einem SOC2-Audit ohne Beanstandungen bestanden.
-  - [en] Integrated SSO infrastructure across multiple platforms, improving security and user experience.
-  - [de] Integration der SSO-Infrastruktur über mehrere Plattformen hinweg, Verbesserung der Sicherheit und Benutzererfahrung.
-  - [en] Led the team in passing ISO27001 certification within a tight six-month deadline, which opened new markets for the company.
-  - [de] Führung des Teams zur erfolgreichen ISO27001-Zertifizierung innerhalb einer straffen sechsmonatigen Frist, wodurch neue Märkte für das Unternehmen erschlossen wurden.
+  - [en] Advised on and implemented information security measures across technical security controls and organizational security requirements.
+  - [de] Beratung und Umsetzung in den Bereichen Informationssicherheit, technische Security Controls und organisatorische Sicherheitsanforderungen.
+  - [en] Supported the DevOps team on security-related topics, operational hardening measures, and the integration of security requirements into existing platform and deployment processes.
+  - [de] Unterstützung des DevOps-Teams bei sicherheitsrelevanten Fragestellungen, betrieblichen Hardening-Maßnahmen und der Einbettung von Security-Anforderungen in bestehende Plattform- und Deployment-Prozesse.
+  - [en] Integrated services into the existing SSO infrastructure to standardize authentication, access control, and user management across multiple platforms.
+  - [de] Integration von Diensten in die bestehende SSO-Infrastruktur zur Vereinheitlichung von Authentifizierung, Zugriffssteuerung und Benutzerverwaltung über mehrere Plattformen hinweg.
+  - [en] Supported audit and certification readiness for SOC 2 and ISO 27001, including control mapping, evidence collection, and coordination of technical and organizational measures.
+  - [de] Begleitung der Audit- und Zertifizierungsvorbereitung für SOC 2 und ISO 27001 inklusive Anforderungsabgleich, Nachweisführung und Abstimmung technischer sowie organisatorischer Maßnahmen.
+  - [en] Advised on GDPR requirements and introduced retention rules, data protection policies, and related organizational controls.
+  - [de] Beratung zu DSGVO-Anforderungen sowie Einführung von Aufbewahrungsfristen, Datenschutzrichtlinien und zugehörigen organisatorischen Vorgaben.
+  - [en] Introduced and evolved security policies and baseline controls to strengthen the organization's overall security posture.
+  - [de] Einführung und Weiterentwicklung von Sicherheitsrichtlinien und Basiskontrollen zur Stärkung des unternehmensweiten Sicherheitsniveaus.
+  - [en] Implemented IT security measures that supported a SOC 2 audit with zero non-conformities and helped secure key client requirements.
+  - [de] Implementierung von IT-Sicherheitsmaßnahmen, die ein SOC-2-Audit ohne Beanstandungen unterstützten und damit zentrale Kundenanforderungen absicherten.
+  - [en] Integrated SSO infrastructure across multiple platforms, improving security, access consistency, and user experience.
+  - [de] Integration der SSO-Infrastruktur über mehrere Plattformen hinweg mit Verbesserungen bei Sicherheit, Zugriffskonsistenz und Nutzererlebnis.
+  - [en] Contributed to successful ISO 27001 certification within a tight timeline through structured implementation of requirements, controls, and evidence.
+  - [de] Beitrag zur erfolgreichen ISO-27001-Zertifizierung innerhalb eines engen Zeitrahmens durch die strukturierte Umsetzung von Anforderungen, Kontrollen und Nachweisen.
 
 [Experience]:
   [en] Code Review & Security Advisory
@@ -231,68 +235,66 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
   - [de] Unterstützung während der Umsetzung zur Behebung identifizierter Probleme und zur Verbesserung der Gesamtstabilität der Anwendung.
 
 [Experience]:
-  [en] IT Security Consultant
-  [de] IT-Sicherheitsexperte
+  [en] Security Engineer & Incident Response
+  [de] Security Engineer & Incident Response
   [en] Company: Deutsche Vermögensberatung AG
   [de] Firma: Deutsche Vermögensberatung AG
   [en] Jan 2019 - Sep 2023
   [de] Jan 2019 - Sep 2023
-  - [en] Consulting regarding any security topics, focus on server and networks.
-  - [de] Beratung zu allen Sicherheitsthemen, Schwerpunkt auf Server und Netzwerke.
-  - [en] Support and strategy handling during a (large) security incident.
-  - [de] Unterstützung und Strategieplanung während eines großen Sicherheitsvorfalls.
-  - [en] Writing (security) policies and technical concepts.
-  - [de] Erstellung von (Sicherheits-)Richtlinien und technischen Konzepten.
-  - [en] Automation of vulnerability and incident management.
-  - [de] Automatisierung des Schwachstellen- und Vorfallsmanagements.
-  - [en] Support for building IT architecture and strategy (including network architecture, cloud infrastructure, firewall concepts, etc.).
-  - [de] Unterstützung beim Aufbau von IT-Architektur und Strategie (einschließlich Netzwerkarchitektur, Cloud-Infrastruktur, Firewall-Konzepte, etc.).
-  - [en] Preparation and accompanying of penetration tests (including network, cloud, applications, Active Directory, etc.).
-  - [de] Vorbereitung und Begleitung von Penetrationstests (einschließlich Netzwerk, Cloud, Anwendungen, Active Directory, etc.).
-  - [en] Led and managed the Security Operations Center (SOC) team, overseeing daily operations, incident response, and continuous improvement of security processes.
-  - [de] Leitung und Management des Security Operations Center (SOC)-Teams, einschließlich der täglichen Betriebsüberwachung, Incident Response und kontinuierlichen Verbesserung der Sicherheitsprozesse.
-  - [en] Security audits and security oversight for application and network migrations.
-  - [de] Sicherheits-Audits sowie sicherheitstechnische Begleitung von Applikations- und Netzwerk-Migrationen.
-  - [en] Specialization in the areas of Linux and networking.
-  - [de] Spezialisierung in den Bereichen Linux und Netzwerke.
-  - [en] IT security consulting also on Windows, Cloud (primarily Azure) and application development.
-  - [de] IT-Sicherheitsberatung auch für Windows, Cloud (vor allem Azure) und Anwendungsentwicklung.
-  - [en] Advice on data protection and certification issues (e.g. ISO27001, BSI Grundschutz, NIST framework, MITRE).
-  - [de] Beratung zu Datenschutz- und Zertifizierungsfragen (z.B. ISO27001, BSI Grundschutz, NIST-Framework, MITRE).
-  - [en] Managed the response to a major security incident, coordinating efforts that minimized data loss and restored operations.
-  - [de] Leitung der Reaktion auf einen großen Sicherheitsvorfall, Koordination der Maßnahmen zur Minimierung von Datenverlusten und Wiederherstellung des Betriebs.
-  - [en] Developed and automated a vulnerability management system, reducing incident response time and increasing system uptime.
-  - [de] Entwicklung und Automatisierung eines Schwachstellenmanagementsystems, Reduzierung der Reaktionszeiten bei Vorfällen und Erhöhung der Systemverfügbarkeit.
-  - [en] Implemented security policies that were later adopted as best practices company-wide.
-  - [de] Implementierung von Sicherheitsrichtlinien, die später als Best Practices im gesamten Unternehmen übernommen wurden.
+  - [en] Provided security consulting and technical support across information security, with a focus on server, network, and infrastructure security.
+  - [de] Beratung und technische Unterstützung in Informationssicherheit mit Schwerpunkt auf Server-, Netzwerk- und Infrastruktur-Security.
+  - [en] Supported strategic and operational activities during a major security incident, including coordination of response, containment, and recovery.
+  - [de] Unterstützung der strategischen und operativen Maßnahmen während eines größeren Sicherheitsvorfalls, einschließlich Koordination von Reaktion, Eindämmung und Wiederanlauf.
+  - [en] Developed and refined security policies, technical concepts, and implementation-oriented security standards.
+  - [de] Erstellung und Weiterentwicklung von Sicherheitsrichtlinien, technischen Konzepten und umsetzungsnahen Sicherheitsvorgaben.
+  - [en] Automated vulnerability and incident management to improve structured intake, prioritization, and handling of security-relevant events.
+  - [de] Automatisierung des Schwachstellen- und Vorfallsmanagements zur strukturierten Erfassung, Priorisierung und Bearbeitung sicherheitsrelevanter Ereignisse.
+  - [en] Supported the build-out and evolution of IT architecture and security strategy, particularly in network architecture, cloud infrastructure, and firewall design.
+  - [de] Unterstützung bei Aufbau und Weiterentwicklung von IT-Architektur und Sicherheitsstrategie, insbesondere in den Bereichen Netzwerkarchitektur, Cloud-Infrastruktur und Firewall-Konzepte.
+  - [en] Prepared and supported penetration tests across network, cloud, application, and Active Directory environments.
+  - [de] Vorbereitung und fachliche Begleitung von Penetrationstests in den Bereichen Netzwerk, Cloud, Anwendungen und Active Directory.
+  - [en] Held operational responsibility in the SOC environment, focusing on security monitoring, incident response, and continuous improvement of analysis and escalation processes.
+  - [de] Operative Verantwortung im SOC-Umfeld mit Fokus auf Sicherheitsmonitoring, Incident Response und kontinuierliche Verbesserung von Analyse- und Eskalationsprozessen.
+  - [en] Performed security audits and provided security oversight for application and network migrations.
+  - [de] Durchführung von Sicherheits-Audits sowie sicherheitstechnische Begleitung von Applikations- und Netzwerk-Migrationen.
+  - [en] Technical focus on Linux and networking, complemented by security consulting for Windows, Azure, and application development environments.
+  - [de] Technischer Schwerpunkt auf Linux und Netzwerken sowie ergänzende Sicherheitsberatung für Windows-, Azure- und Entwicklungsumgebungen.
+  - [en] Advised on data protection, audit, and certification requirements, including ISO 27001, BSI baseline protection, NIST, and MITRE.
+  - [de] Beratung zu Datenschutz-, Audit- und Zertifizierungsanforderungen, unter anderem mit Bezug auf ISO 27001, BSI Grundschutz, NIST und MITRE.
+  - [en] Contributed to the coordinated response to a major security incident, with a focus on damage containment, recovery, and operational stabilization.
+  - [de] Beitrag zur koordinierten Reaktion auf einen größeren Sicherheitsvorfall mit Fokus auf Schadensbegrenzung, Wiederherstellung und betriebliche Stabilisierung.
+  - [en] Developed and automated a vulnerability management approach, improving response times and transparency in incident handling.
+  - [de] Entwicklung und Automatisierung eines Schwachstellenmanagement-Ansatzes mit schnelleren Reaktionszeiten und verbesserter Transparenz im Incident Handling.
+  - [en] Implemented security policies and technical security standards that were later adopted as reusable best practices across the organization.
+  - [de] Einführung von Sicherheitsrichtlinien und technischen Sicherheitsvorgaben, die als wiederverwendbare Best Practices im Unternehmen übernommen wurden.
 
 [Experience]:
-  [en] Team Coordinator / System Architect
-  [de] Teamkoordinator / Systemarchitekt
+  [en] Lead Infrastructure Engineer
+  [de] Senior Engineer Infrastruktur
   [en] Company: Deutsche Vermögensberatung AG
   [de] Firma: Deutsche Vermögensberatung AG
   [en] Jul 2015 - Dec 2018
   [de] Jul 2015 - Dez 2018
-  - [en] Coordination and planning of resources of a small team.
-  - [de] Koordination und Ressourcenplanung eines kleinen Teams.
-  - [en] Focus of the team: e-mail, cloud storage, load balancing, proxy and DNS (all linux based).
-  - [de] Schwerpunkt des Teams: E-Mail, Cloud-Speicher, Lastverteilung, Proxy und DNS (alles Linux-basiert).
-  - [en] Analysis, troubleshooting and sustainable remediation in email infrastructures.
-  - [de] Analyse, Fehlerbehebung und nachhaltige Problemlösung im Bereich E-Mail-Infrastrukturen.
-  - [en] Consulting and implementation of IPv6, security topics, high-availability systems and more topics.
-  - [de] Beratung und Implementierung von IPv6, Sicherheitsthemen, Hochverfügbarkeitssystemen und weiteren Themen.
-  - [en] Sub-project lead: data centre relocation including migration and rebuild of applications and server infrastructures into redundant, highly available environments.
-  - [de] Teilprojektleitung: Rechenzentrumsumzug sowie Migration und Neuaufbau von Applikationen und Serverinfrastrukturen in redundante, hochverfügbare Umgebungen.
-  - [en] Coordinated a successful data center relocation project.
-  - [de] Koordination eines erfolgreichen Rechenzentrumsumzugsprojekts.
-  - [en] Led the implementation of IPv6 across the organization, future-proofing the network.
-  - [de] Leitung der Implementierung von IPv6 im gesamten Unternehmen, Zukunftssicherung des Netzwerks.
-  - [en] Improved team efficiency through the introduction of automated processes and resource management tools.
-  - [de] Verbesserung der Teameffizienz durch Einführung automatisierter Prozesse und Ressourcenmanagement-Tools.
+  - [en] Handled technical coordination and resource planning for a small infrastructure team.
+  - [de] Technische Koordination und Ressourcenplanung eines kleinen Infrastrukturteams.
+  - [en] The team’s scope covered Linux-based platforms for email, cloud storage, load balancing, proxy, and DNS.
+  - [de] Verantwortungsbereich des Teams: Linux-basierte Plattformen für E-Mail, Cloud-Speicher, Lastverteilung, Proxy und DNS.
+  - [en] Analyzed, troubleshot, and sustainably stabilized complex email infrastructures.
+  - [de] Analyse, Fehlerbehebung und nachhaltige Stabilisierung komplexer E-Mail-Infrastrukturen.
+  - [en] Provided consulting and technical implementation across IPv6, security, and highly available infrastructure systems.
+  - [de] Beratung und technische Umsetzung in den Bereichen IPv6, Security und hochverfügbare Infrastruktursysteme.
+  - [en] Held technical subproject responsibility for a data center relocation, including migration and rebuild of applications and server infrastructure into redundant, highly available target environments.
+  - [de] Technische Teilprojektverantwortung für Rechenzentrumsumzug sowie Migration und Neuaufbau von Applikationen und Serverinfrastrukturen in redundanten, hochverfügbaren Zielumgebungen.
+  - [en] Contributed to the coordinated execution of a successful data center relocation with aligned infrastructure dependencies and stable operational transition.
+  - [de] Beitrag zur koordinierten Umsetzung eines erfolgreichen Rechenzentrumsumzugs mit abgestimmten Infrastrukturabhängigkeiten und stabiler Betriebsüberführung.
+  - [en] Introduced IPv6 in the enterprise environment as part of the long-term modernization of the network infrastructure.
+  - [de] Einführung von IPv6 im Unternehmensumfeld als Beitrag zur langfristigen Modernisierung der Netzwerkinfrastruktur.
+  - [en] Improved team throughput and operational stability through automation and more structured resource coordination.
+  - [de] Verbesserung von Teamdurchsatz und Betriebsstabilität durch automatisierte Abläufe und strukturiertere Ressourcensteuerung.
 
 [Experience]:
-  [en] Product Owner / System Architect
-  [de] Product Owner / Systemarchitekt
+  [en] System Architect Email Archiving
+  [de] Systemarchitekt E-Mail-Archivierung
   [en] Company: Deutsche Vermögensberatung AG
   [de] Firma: Deutsche Vermögensberatung AG
   [en] Jan 2013 - Jun 2015
