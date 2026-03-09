@@ -431,52 +431,60 @@ interface ExperienceEntriesProps {
   t: (text: LocalizedString) => string;
 }
 
+interface ExperienceEntryProps {
+  achievementPrefix: LocalizedString;
+  exp: SiteContent["experiences"][number];
+  t: (text: LocalizedString) => string;
+}
+
+const ExperienceEntry = ({ achievementPrefix, exp, t }: ExperienceEntryProps) => (
+  <View style={styles.experienceItem} wrap={false}>
+    <Text style={styles.jobTitle}>{t(exp.title)}</Text>
+    <View style={styles.experienceHeader}>
+      <Text style={styles.companyName}>{exp.company}</Text>
+      <Text style={styles.period}>{t(exp.period)}</Text>
+    </View>
+    <Text style={styles.location}>{t(exp.location)}</Text>
+
+    <View style={styles.descriptionList}>
+      {exp.description.map((item) =>
+        item.type === "text" ? (
+          <Text
+            key={`${exp.company}-${getLocalizedTextKey(exp.title)}-${item.type}-${getLocalizedTextKey(item.text)}`}
+            style={styles.descriptionItem}
+          >
+            • {t(item.text)}
+          </Text>
+        ) : (
+          <Text
+            key={`${exp.company}-${getLocalizedTextKey(exp.title)}-${item.type}-${getLocalizedTextKey(item.text)}`}
+            style={styles.achievementItem}
+          >
+            • {t(achievementPrefix)} {t(item.text)}
+          </Text>
+        ),
+      )}
+    </View>
+
+    <View style={styles.tagContainer}>
+      {exp.tags.map((tag) => (
+        <Text key={`${exp.company}-${getLocalizedTextKey(exp.title)}-${getLocalizedTextKey(tag)}`} style={styles.tag}>
+          {t(tag)}
+        </Text>
+      ))}
+    </View>
+  </View>
+);
+
 const ExperienceEntries = ({ achievementPrefix, items, t }: ExperienceEntriesProps) => (
   <>
     {items.map((exp) => (
-      <View
+      <ExperienceEntry
+        achievementPrefix={achievementPrefix}
+        exp={exp}
         key={`${exp.company}-${getLocalizedTextKey(exp.title)}-${getLocalizedTextKey(exp.period)}`}
-        style={styles.experienceItem}
-        wrap={false}
-      >
-        <Text style={styles.jobTitle}>{t(exp.title)}</Text>
-        <View style={styles.experienceHeader}>
-          <Text style={styles.companyName}>{exp.company}</Text>
-          <Text style={styles.period}>{t(exp.period)}</Text>
-        </View>
-        <Text style={styles.location}>{t(exp.location)}</Text>
-
-        <View style={styles.descriptionList}>
-          {exp.description.map((item) =>
-            item.type === "text" ? (
-              <Text
-                key={`${exp.company}-${getLocalizedTextKey(exp.title)}-${item.type}-${getLocalizedTextKey(item.text)}`}
-                style={styles.descriptionItem}
-              >
-                • {t(item.text)}
-              </Text>
-            ) : (
-              <Text
-                key={`${exp.company}-${getLocalizedTextKey(exp.title)}-${item.type}-${getLocalizedTextKey(item.text)}`}
-                style={styles.achievementItem}
-              >
-                • {t(achievementPrefix)} {t(item.text)}
-              </Text>
-            ),
-          )}
-        </View>
-
-        <View style={styles.tagContainer}>
-          {exp.tags.map((tag) => (
-            <Text
-              key={`${exp.company}-${getLocalizedTextKey(exp.title)}-${getLocalizedTextKey(tag)}`}
-              style={styles.tag}
-            >
-              {t(tag)}
-            </Text>
-          ))}
-        </View>
-      </View>
+        t={t}
+      />
     ))}
   </>
 );
@@ -621,19 +629,28 @@ const CVDocument: React.FC<CVDocumentProps> = ({ data, language, profileImageSrc
             )}
             {smallExperiences.length > 0 && (
               <View style={{ marginTop: 12 }}>
-                <Text style={styles.skillCategoryTitle}>{t(content.experienceSmallProjectsTitle)}</Text>
-                <Text style={styles.groupSubtitle}>{t(content.experienceSmallProjectsSubtitle)}</Text>
-                <Text style={styles.groupNote}>{t(content.experienceSmallProjectsNote)}</Text>
-                <ExperienceEntries
-                  achievementPrefix={content.experienceAchievementPrefix}
-                  items={smallExperiences}
-                  t={t}
-                />
+                <View wrap={false}>
+                  <Text style={styles.skillCategoryTitle}>{t(content.experienceSmallProjectsTitle)}</Text>
+                  <Text style={styles.groupSubtitle}>{t(content.experienceSmallProjectsSubtitle)}</Text>
+                  <Text style={styles.groupNote}>{t(content.experienceSmallProjectsNote)}</Text>
+                  <ExperienceEntry
+                    achievementPrefix={content.experienceAchievementPrefix}
+                    exp={smallExperiences[0]}
+                    t={t}
+                  />
+                </View>
+                {smallExperiences.length > 1 && (
+                  <ExperienceEntries
+                    achievementPrefix={content.experienceAchievementPrefix}
+                    items={smallExperiences.slice(1)}
+                    t={t}
+                  />
+                )}
               </View>
             )}
           </View>
           {/* Skills */}
-          <View style={styles.section} wrap={false}>
+          <View break style={styles.section} wrap={false}>
             <Text style={styles.sectionTitle}>{t(skillsSection.title)}</Text>
             {Object.entries(skillsByCategory)
               .filter(([category]) => category !== "languages")
