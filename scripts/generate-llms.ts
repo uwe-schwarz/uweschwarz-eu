@@ -1,4 +1,3 @@
-import { execFileSync } from "node:child_process";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { siteContent } from "../src/content/content";
@@ -25,29 +24,12 @@ const formatBilingual = (item: LocalizedString | string | undefined, indent = ""
   return "";
 };
 
-const getLlmsTxtVersion = (today: string): string => {
-  try {
-    const gitCommitDate = execFileSync("git", ["show", "-s", "--format=%cs", "HEAD"], {
-      cwd: process.cwd(),
-      encoding: "utf8",
-    }).trim();
-    const gitShortHash = execFileSync("git", ["rev-parse", "--short", "HEAD"], {
-      cwd: process.cwd(),
-      encoding: "utf8",
-    }).trim();
-
-    return `${gitCommitDate}+${gitShortHash}`;
-  } catch {
-    return today;
-  }
-};
-
 async function generateLlmsTxt() {
   try {
     const content = siteContent;
     const today = new Date().toISOString().split("T")[0];
     const outputPath = path.resolve(process.cwd(), "public", "llms.txt");
-    const llmsTxtVersion = getLlmsTxtVersion(today);
+    const llmsTxtVersion = today;
 
     const llmsKeywords = content.llms?.keywords;
     if (!llmsKeywords) {
