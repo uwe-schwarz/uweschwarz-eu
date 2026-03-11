@@ -25,13 +25,13 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
 
   const title =
     lang === "de"
-      ? "Uwe Schwarz - Projektmanager, IT-Sicherheitsspezialist & AI-Enthusiast"
-      : "Uwe Schwarz - Project Manager, IT Security Specialist & AI Enthusiast";
+      ? "Uwe Schwarz - Software-Architekt, Security-Engineer & AI-Enthusiast"
+      : "Uwe Schwarz - Software Architect, Security Engineer & AI Enthusiast";
 
   const description =
     lang === "de"
-      ? "Portfolio von Uwe Schwarz - Projektmanager, IT-Sicherheitsspezialist & AI-Enthusiast"
-      : "Portfolio of Uwe Schwarz - Project Manager, IT Security Specialist & AI Enthusiast";
+      ? "Portfolio von Uwe Schwarz - Software-Architekt, Security-Engineer & AI-Enthusiast"
+      : "Portfolio of Uwe Schwarz - Software Architect, Security Engineer & AI Enthusiast";
 
   const ogImage = `${SITE_URL}/profile.webp`;
   const twitterHandle = "@e38383";

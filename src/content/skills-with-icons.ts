@@ -173,7 +173,7 @@ const skillIconMap = new Map<string, SkillIcon>([
   [
     getSkillIdentityKey({
       category: "management",
-      name: { de: "Projektmanagement", en: "Project Management" },
+      name: { de: "Software-Architektur", en: "Software Architecture" },
     }),
     ListChecks,
   ],

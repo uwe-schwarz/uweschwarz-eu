@@ -11,9 +11,9 @@ export async function generateMetadata(): Promise<Metadata> {
     alternates: {
       languages: Object.fromEntries(SUPPORTED_LANGUAGES.map((lang) => [lang, `${SITE_URL}/${lang}`])),
     },
-    description: "Portfolio of Uwe Schwarz - Project Manager, IT Security Specialist & AI Enthusiast",
+    description: "Portfolio of Uwe Schwarz - Software Architect, Security Engineer & AI Enthusiast",
     metadataBase: new URL(SITE_URL),
-    title: "Uwe Schwarz - Project Manager, IT Security Specialist & AI Enthusiast",
+    title: "Uwe Schwarz - Software Architect, Security Engineer & AI Enthusiast",
   };
 }
 

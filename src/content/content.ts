@@ -261,16 +261,16 @@ export const siteContent: SiteContent = {
     },
     paragraphs: [
       {
-        de: "Mit über zwei Jahrzehnten praktischer Erfahrung in der IT und Projektleitung spezialisiere ich mich auf den Aufbau sicherer, skalierbarer und zukunftsfähiger Systeme. Von kritischen Rechenzentrumsumzügen bis hin zur Weiterentwicklung von Sicherheitsstrategien für regulierte Branchen habe ich vielfältige Teams und Projekte geleitet, die messbare Ergebnisse liefern.",
-        en: "With over two decades of hands-on experience in IT and project leadership, I specialize in building secure, scalable, and future-ready systems. From high-stakes data center migrations to evolving security strategies for regulated industries, I’ve led diverse teams and initiatives that drive tangible business outcomes.",
+        de: "Mit über zwei Jahrzehnten praktischer Erfahrung in IT, Infrastruktur und Security entwickle ich sichere, skalierbare und langfristig tragfähige Systeme. Mein Fokus liegt auf der Architektur und Umsetzung technischer Lösungen – von Linux- und Netzwerk-Infrastrukturen über Security- und Compliance-nahe Plattformen bis hin zu moderner Software für mandantenfähige SaaS-Produkte.",
+        en: "With more than two decades of hands-on experience across IT, infrastructure, and security, I build secure, scalable, and durable systems. My focus is on the architecture and implementation of technical solutions — from Linux and network infrastructure to security- and compliance-oriented platforms, as well as modern software for multi-tenant SaaS products.",
       },
       {
-        de: "Ich fungiere als Brücke zwischen technischer Komplexität und strategischer Klarheit. Ob es darum geht, Teams auf eine Sicherheits-Roadmap auszurichten, Infrastrukturen zu modernisieren oder Compliance-Anforderungen in greifbare Maßnahmen zu übersetzen – ich bringe einen kühlen Kopf, ruhige Hände und die Leidenschaft mit, Technik und Menschen zusammenzubringen.",
-        en: "I act as the bridge between technical complexity and strategic clarity. Whether I’m aligning teams on a security roadmap, modernizing infrastructure, or translating compliance requirements into real-world action, I bring a clear head, calm hands, and a passion for connecting the dots between tech and people.",
+        de: "Ich arbeite an der Schnittstelle von technischer Tiefe und klarer Umsetzung. Ob Plattformarchitektur, Security-by-Design, Infrastrukturmodernisierung oder die Übersetzung regulatorischer Anforderungen in belastbare technische Systeme: Ich verbinde Architektur, Engineering und Pragmatismus, damit aus Komplexität funktionierende Lösungen werden.",
+        en: "I work at the intersection of technical depth and clear execution. Whether it is platform architecture, security by design, infrastructure modernization, or translating regulatory requirements into robust technical systems, I combine architecture, engineering, and pragmatism to turn complexity into working solutions.",
       },
       {
-        de: "Abseits des Tagesgeschäfts bleibe ich neugierig. Besonders faszinieren mich KI-Technologien und ihr Potenzial, von Cybersicherheit bis Benutzererlebnis neue Maßstäbe zu setzen. Ich experimentiere gerne mit neuen Tools, self-hosted Lösungen und smarten Workflows – immer mit Blick auf das, was praktikabel, elegant und sicher ist.",
-        en: "Outside the day-to-day, I stay curious. I’m particularly fascinated by AI and its potential to enhance everything from cybersecurity to user experience. I enjoy experimenting with new tools, self-hosted solutions, and smart workflows – always with an eye on what’s practical, elegant, and secure.",
+        de: "Besonders spannend finde ich alles rund um KI. Ich beobachte das Feld nicht nur, sondern probiere neue Modelle, Tools und Workflows auch praktisch aus – von Entwicklungs- und Automatisierungsprozessen bis zu produktnahen Anwendungsfällen. Mich interessieren Lösungen, die nicht nur clever wirken, sondern in der Praxis tatsächlich nützlich, sauber gebaut und sicher betreibbar sind.",
+        en: "I am especially interested in AI. I do not just follow the field — I actively experiment with new models, tools, and workflows, from development and automation processes to product-facing use cases. I am most interested in solutions that are not just clever on paper, but genuinely useful in practice, well engineered, and secure to operate.",
       },
     ],
     stats: [
@@ -1358,12 +1358,12 @@ export const siteContent: SiteContent = {
       },
     ],
     description: {
-      de: "Ich bringe Technik, Menschen und Geschäftsziele zusammen – als Brücke zwischen Teams, Stakeholdern und Systemen. Ob IT-Security, Netzwerke, hochverfügbare Systeme oder E-Mail-Infrastruktur: Ich übernehme Verantwortung, leite komplexe Projekte und stelle sicher, dass Lösungen nicht nur funktionieren, sondern auch strategisch passen und langfristig tragen.",
-      en: "I connect technology, people, and business goals – acting as the bridge between teams, stakeholders, and systems. Whether it's IT security, networking, high-availability infrastructure, or email solutions, I take ownership, lead complex projects, and ensure the results are not just technically sound, but strategically aligned and built to last.",
+      de: "Ich übersetze komplexe Anforderungen in robuste, skalierbare und langfristig tragfähige Systeme. Dabei arbeite ich an der Schnittstelle von moderner Software, Plattformen, Infrastruktur und KI-nahen Workflows – mit einem klaren Fokus auf Lösungen, die technisch sauber, sicher betreibbar und in der Praxis wirklich brauchbar sind.",
+      en: "I turn complex requirements into robust, scalable, and durable systems. I work at the intersection of modern software, platforms, infrastructure, and AI-adjacent workflows, with a clear focus on solutions that are technically sound, secure to operate, and genuinely useful in practice.",
     },
     imageAlt: {
-      de: "Portraitfoto von Uwe Schwarz, Projektmanager und IT-Sicherheitsexperte.",
-      en: "Portrait photo of Uwe Schwarz, Project Manager and IT Security Expert.",
+      de: "Portraitfoto von Uwe Schwarz, Software-Architekt und Security-Engineer.",
+      en: "Portrait photo of Uwe Schwarz, Software Architect and Security Engineer.",
     },
     name: "Uwe Schwarz",
     scrollText: {
@@ -1372,20 +1372,20 @@ export const siteContent: SiteContent = {
     },
     titleElements: [
       {
-        de: "Projektmanager",
-        en: "Project Manager",
+        de: "Software-Architekt",
+        en: "Software Architect",
       },
       {
-        de: "IT-Sicherheitsexperte",
-        en: "IT Security Expert",
+        de: "Security-Engineer",
+        en: "Security Engineer",
       },
       {
         de: "KI-Enthusiast",
         en: "AI Enthusiast",
       },
       {
-        de: "Berater",
-        en: "Consultant",
+        de: "Senior Berater",
+        en: "Senior Consultant",
       },
     ],
   },
@@ -1868,8 +1868,8 @@ export const siteContent: SiteContent = {
   siteMetadata: {
     author: "Uwe Schwarz",
     description: {
-      de: "Portfolio von Uwe Schwarz: Projektmanager, IT-Sicherheitsexperte und KI-Enthusiast",
-      en: "Portfolio of Uwe Schwarz: Project Manager, IT Security Expert & AI Enthusiast",
+      de: "Portfolio von Uwe Schwarz: Software-Architekt, Security-Engineer und KI-Enthusiast",
+      en: "Portfolio of Uwe Schwarz: Software Architect, Security Engineer & AI Enthusiast",
     },
     title: "Uwe Schwarz Portfolio",
   },
@@ -2074,7 +2074,7 @@ export const siteContent: SiteContent = {
     {
       category: "management",
       level: 5,
-      name: { de: "Projektmanagement", en: "Project Management" },
+      name: { de: "Software-Architektur", en: "Software Architecture" },
     },
     {
       category: "management",
