@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: `${SITE_URL}/cv`,
   },
-  description: "Curriculum Vitae of Uwe Schwarz - Project Manager, IT Security Specialist & AI Enthusiast",
+  description: "Curriculum Vitae of Uwe Schwarz - Software Architect, Security Engineer & AI Enthusiast",
   title: "Curriculum Vitae - Uwe Schwarz",
 };
 

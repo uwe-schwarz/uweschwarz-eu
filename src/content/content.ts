@@ -199,6 +199,7 @@ interface SitemapSection {
 }
 
 interface LLMSSection {
+  keywords: LocalizedString;
   title: LocalizedString;
 }
 
@@ -261,16 +262,16 @@ export const siteContent: SiteContent = {
     },
     paragraphs: [
       {
-        de: "Mit über zwei Jahrzehnten praktischer Erfahrung in der IT und Projektleitung spezialisiere ich mich auf den Aufbau sicherer, skalierbarer und zukunftsfähiger Systeme. Von kritischen Rechenzentrumsumzügen bis hin zur Weiterentwicklung von Sicherheitsstrategien für regulierte Branchen habe ich vielfältige Teams und Projekte geleitet, die messbare Ergebnisse liefern.",
-        en: "With over two decades of hands-on experience in IT and project leadership, I specialize in building secure, scalable, and future-ready systems. From high-stakes data center migrations to evolving security strategies for regulated industries, I’ve led diverse teams and initiatives that drive tangible business outcomes.",
+        de: "Mit über zwei Jahrzehnten praktischer Erfahrung in IT, Infrastruktur und Security entwickle ich sichere, skalierbare und langfristig tragfähige Systeme. Mein Fokus liegt auf der Architektur und Umsetzung technischer Lösungen – von Linux- und Netzwerk-Infrastrukturen über Security- und Compliance-nahe Plattformen bis hin zu moderner Software für mandantenfähige SaaS-Produkte.",
+        en: "With more than two decades of hands-on experience across IT, infrastructure, and security, I build secure, scalable, and durable systems. My focus is on the architecture and implementation of technical solutions — from Linux and network infrastructure to security- and compliance-oriented platforms, as well as modern software for multi-tenant SaaS products.",
       },
       {
-        de: "Ich fungiere als Brücke zwischen technischer Komplexität und strategischer Klarheit. Ob es darum geht, Teams auf eine Sicherheits-Roadmap auszurichten, Infrastrukturen zu modernisieren oder Compliance-Anforderungen in greifbare Maßnahmen zu übersetzen – ich bringe einen kühlen Kopf, ruhige Hände und die Leidenschaft mit, Technik und Menschen zusammenzubringen.",
-        en: "I act as the bridge between technical complexity and strategic clarity. Whether I’m aligning teams on a security roadmap, modernizing infrastructure, or translating compliance requirements into real-world action, I bring a clear head, calm hands, and a passion for connecting the dots between tech and people.",
+        de: "Ich arbeite an der Schnittstelle von technischer Tiefe und klarer Umsetzung. Ob Plattformarchitektur, Security-by-Design, Infrastrukturmodernisierung oder die Übersetzung regulatorischer Anforderungen in belastbare technische Systeme: Ich verbinde Architektur, Engineering und Pragmatismus, damit aus Komplexität funktionierende Lösungen werden.",
+        en: "I work at the intersection of technical depth and clear execution. Whether it is platform architecture, security-by-design, infrastructure modernization, or translating regulatory requirements into robust technical systems, I combine architecture, engineering, and pragmatism to turn complexity into working solutions.",
       },
       {
-        de: "Abseits des Tagesgeschäfts bleibe ich neugierig. Besonders faszinieren mich KI-Technologien und ihr Potenzial, von Cybersicherheit bis Benutzererlebnis neue Maßstäbe zu setzen. Ich experimentiere gerne mit neuen Tools, self-hosted Lösungen und smarten Workflows – immer mit Blick auf das, was praktikabel, elegant und sicher ist.",
-        en: "Outside the day-to-day, I stay curious. I’m particularly fascinated by AI and its potential to enhance everything from cybersecurity to user experience. I enjoy experimenting with new tools, self-hosted solutions, and smart workflows – always with an eye on what’s practical, elegant, and secure.",
+        de: "Besonders spannend finde ich alles rund um KI. Ich beobachte das Feld nicht nur, sondern probiere neue Modelle, Tools und Workflows auch praktisch aus – von Entwicklungs- und Automatisierungsprozessen bis zu produktnahen Anwendungsfällen. Mich interessieren Lösungen, die nicht nur clever wirken, sondern in der Praxis tatsächlich nützlich, sauber gebaut und sicher betreibbar sind.",
+        en: "I am especially interested in AI. I do not just follow the field — I actively experiment with new models, tools, and workflows, from development and automation processes to product-facing use cases. I am most interested in solutions that are not just clever on paper, but genuinely useful in practice, well engineered, and secure to operate.",
       },
     ],
     stats: [
@@ -381,36 +382,29 @@ export const siteContent: SiteContent = {
       description: [
         {
           text: {
-            de: "Informationssicherheitsbeauftragter sowie Datenschutz- und Privatsphärebeauftragter.",
-            en: "Information Security Officer and Data Protection and Privacy Officer.",
+            de: "Verantwortung auf Vorstandsebene für Informationssicherheit, Datenschutz und Compliance-Themen.",
+            en: "Board-level responsibility for information security, privacy, and compliance topics.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Zugang zu Experten aus verschiedenen Bereichen.",
-            en: "Access to experts from multiple fields.",
+            de: "Vertrauenswürdiger Ansprechpartner für Security-, Infrastruktur- und regulatorische Anforderungen in Kundenprojekten.",
+            en: "Trusted advisor for security, infrastructure, and regulatory requirements across client engagements.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Kompetenter und fokussierter Partner für alle Beratungsanforderungen.",
-            en: "Competent and focused partner for all consulting needs.",
+            de: "Beitrag zu sicheren und rechtskonformen IT-Architekturen mit Fokus auf moderne Technologien wie IPv6, Zero Trust und Zero-Config-VPN-Ansätze.",
+            en: "Contributed to secure and compliant IT architectures with a focus on modern technologies such as IPv6, Zero Trust, and Zero-Config VPN approaches.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Aufbau einer sicheren und rechtskonformen IT-Infrastruktur mit Schwerpunkt auf modernen Technologien (IPv6, Zero Trust, Zero-Config VPN, etc.) und Best Practices.",
-            en: "Building a secure and compliant IT infrastructure with a focus on modern technologies (IPv6, Zero Trust, Zero-Config VPN, etc.) and best practices.",
-          },
-          type: "text",
-        },
-        {
-          text: {
-            de: "Verantwortlich für Governance in den Bereichen IT-Sicherheit, Datenschutz und Compliance.",
-            en: "Responsible for corporate governance in IT security, privacy and compliance topics.",
+            de: "Verbindung von Governance-Anforderungen mit praktischer technischer Umsetzung in Security- und Infrastrukturinitiativen.",
+            en: "Connected governance requirements with practical technical implementation across security and infrastructure initiatives.",
           },
           type: "text",
         },
@@ -528,7 +522,7 @@ export const siteContent: SiteContent = {
       description: [
         {
           text: {
-            de: "Konzeption, Architektur und Entwicklung einer mandantenfähigen Trainingsplattform für Compliance- und KI-Themen mit rollenbasierter Zugriffskontrolle und klarer Tenant-Isolation.",
+            de: "Konzeption, Architektur und Entwicklung einer mandantenfähigen Trainingsplattform für Compliance- und KI-Themen mit rollenbasierter Zugriffskontrolle und klarer Mandantenisolation.",
             en: "Designed, architected, and developed a multi-tenant training platform for compliance and AI topics with role-based access control and clear tenant isolation.",
           },
           type: "text",
@@ -571,7 +565,7 @@ export const siteContent: SiteContent = {
         {
           text: {
             de: "Aufbau einer produktionsnahen SaaS-Plattform mit Fokus auf Sicherheit, Mandantenfähigkeit, Abrechenbarkeit und Auditierbarkeit.",
-            en: "Built a production-grade SaaS platform focused on security, multi-tenancy, billing readiness, and auditability.",
+            en: "Built a production-grade SaaS platform focused on security, multi-tenant operation, billing readiness, and auditability.",
           },
           type: "achievement",
         },
@@ -617,21 +611,21 @@ export const siteContent: SiteContent = {
         {
           text: {
             de: "Gründungsmitglied mit Verantwortung für Datenschutz und DSGVO-Compliance.",
-            en: "Founding member responsible for data protection and GDPR compliance.",
+            en: "Founding member with responsibility for data protection and GDPR compliance.",
           },
           type: "text",
         },
         {
           text: {
             de: "Entwicklung und Betreuung der Backend-Systeme.",
-            en: "Developed and maintain the organization's backend systems.",
+            en: "Develop and maintain the organization's backend systems.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Planung und Implementierung KI-gestützter Workflows für die Fallbearbeitung.",
-            en: "Planning and implementing AI-supported workflows for case management.",
+            de: "Konzeption und Implementierung KI-gestützter Workflows für die Fallbearbeitung.",
+            en: "Design and implement AI-supported workflows for case management.",
           },
           type: "text",
         },
@@ -658,7 +652,7 @@ export const siteContent: SiteContent = {
         { de: "Datenschutz", en: "Data Protection" },
         { de: "IT-Sicherheit", en: "IT Security" },
         { de: "KI-Workflows", en: "AI Workflows" },
-        { de: "Agentische KI (Agentic AI)", en: "Agentic AI" },
+        { de: "Agentische KI", en: "Agentic AI" },
         { de: "Backend-Systeme", en: "Backend Systems" },
         { de: "Backup-Strategien", en: "Backup-Strategies" },
         { de: "IPv6", en: "IPv6" },
@@ -695,7 +689,7 @@ export const siteContent: SiteContent = {
         },
         {
           text: {
-            de: "Evaluierung aufkommender Agentic-AI-Workflows zur mehrstufigen Aufgabenorchestrierung und deren Integration in Unternehmensautomatisierungsumgebungen.",
+            de: "Evaluierung aufkommender agentischer KI-Workflows zur mehrstufigen Aufgabenorchestrierung und deren Integration in Unternehmensautomatisierungsumgebungen.",
             en: "Evaluation of emerging Agentic AI workflows for multi-step task orchestration and their integration into enterprise automation environments.",
           },
           type: "text",
@@ -1198,50 +1192,50 @@ export const siteContent: SiteContent = {
       description: [
         {
           text: {
-            de: "Product Owner und Systemarchitekt für die unternehmensweite E-Mail-Archivierungsplattform, einschließlich Anforderungsmanagement, technischer Roadmap und langfristiger Weiterentwicklung.",
-            en: "Product Owner and system architect for the enterprise-wide email archiving platform, including requirements management, technical roadmap, and long-term evolution.",
+            de: "Systemarchitekt für die unternehmensweite E-Mail-Archivierungsplattform mit Verantwortung für Architektur, technische Weiterentwicklung und langfristige Wartbarkeit.",
+            en: "System architect for the enterprise-wide email archiving platform, responsible for architecture, technical evolution, and long-term maintainability.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Leitung der Design- und Implementierung eines rechtssicheren Archivs für über 50.000 Nutzer mit rechtssicherer Aufbewahrung, Prüfbarkeit und langfristiger Wartbarkeit.",
-            en: "Led the design and implementation of a legally compliant archive for more than 50,000 users, ensuring immutable retention, auditability, and long-term maintainability.",
+            de: "Architektur, Design und Implementierung eines rechtssicheren Archivs für mehr als 50.000 Nutzer mit unveränderbarer Aufbewahrung, Prüfbarkeit und dauerhaft tragfähigem Betrieb.",
+            en: "Designed and implemented a legally compliant archive for more than 50,000 users, ensuring immutable retention, auditability, and durable operation.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Einführung skalierbarer Speicher- und Redundanzkonzepte sowie Monitoring, Indexierung und Volltextsuche zur effizienten Auffindbarkeit historischer Korrespondenz.",
-            en: "Introduced scalable storage, redundancy concepts, monitoring, indexing and full-text search to enable efficient retrieval of historical correspondence.",
+            de: "Einführung skalierbarer Speicher- und Redundanzkonzepte sowie Monitoring, Indexierung und Volltextsuche für die effiziente Auffindbarkeit historischer Korrespondenz.",
+            en: "Introduced scalable storage and redundancy concepts as well as monitoring, indexing, and full-text search for efficient retrieval of historical correspondence.",
           },
           type: "text",
         },
         {
           text: {
             de: "Enge Zusammenarbeit mit Legal-, Compliance- und Audit-Teams zur Erfüllung regulatorischer Anforderungen und langfristigen Beweissicherheit.",
-            en: "Close collaboration with legal, compliance, and auditing teams to meet regulatory requirements and ensure long-term evidentiary integrity.",
+            en: "Worked closely with legal, compliance, and audit teams to meet regulatory requirements and preserve long-term evidentiary integrity.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Nebenverantwortlichkeiten in der umliegenden Mail-Infrastruktur (dovecot, postfix), Linux-basierten Diensten, DNS, Proxy, Lastverteilung und Cloud-Speicher.",
-            en: "Secondary responsibilities in the surrounding mail infrastructure (dovecot, postfix), Linux-based services, DNS, proxy, load balancing and cloud storage.",
+            de: "Zusätzliche Verantwortung in der umliegenden Mail-Infrastruktur, darunter dovecot, postfix, Linux-basierte Dienste, DNS, Proxy, Lastverteilung und Cloud-Speicher.",
+            en: "Held additional responsibilities in the surrounding mail infrastructure, including dovecot, postfix, Linux-based services, DNS, proxy, load balancing, and cloud storage.",
           },
           type: "text",
         },
         {
           text: {
             de: "Bereitstellung eines stabilen, compliance-gerechten Archivsystems, das im gesamten Unternehmen täglich genutzt wurde.",
-            en: "Delivered a stable, compliant archive used daily across the entire organization.",
+            en: "Delivered a stable, compliant archive used daily across the organization.",
           },
           type: "achievement",
         },
         {
           text: {
-            de: "Etablierung zukunftssicherer Aufbewahrungsstrategien im Einklang mit strengen regulatorischen Vorgaben.",
-            en: "Established future-proof data retention strategies aligned with strict regulatory expectations.",
+            de: "Etablierung zukunftssicherer Aufbewahrungsstrategien im Einklang mit strengen regulatorischen Anforderungen.",
+            en: "Established future-proof retention strategies aligned with strict regulatory requirements.",
           },
           type: "achievement",
         },
@@ -1358,12 +1352,12 @@ export const siteContent: SiteContent = {
       },
     ],
     description: {
-      de: "Ich bringe Technik, Menschen und Geschäftsziele zusammen – als Brücke zwischen Teams, Stakeholdern und Systemen. Ob IT-Security, Netzwerke, hochverfügbare Systeme oder E-Mail-Infrastruktur: Ich übernehme Verantwortung, leite komplexe Projekte und stelle sicher, dass Lösungen nicht nur funktionieren, sondern auch strategisch passen und langfristig tragen.",
-      en: "I connect technology, people, and business goals – acting as the bridge between teams, stakeholders, and systems. Whether it's IT security, networking, high-availability infrastructure, or email solutions, I take ownership, lead complex projects, and ensure the results are not just technically sound, but strategically aligned and built to last.",
+      de: "Ich übersetze komplexe Anforderungen in robuste, skalierbare und langfristig tragfähige Systeme. Dabei arbeite ich an der Schnittstelle von moderner Software, Plattformen, Infrastruktur und KI-nahen Workflows – mit einem klaren Fokus auf Lösungen, die technisch sauber, sicher betreibbar und in der Praxis wirklich brauchbar sind.",
+      en: "I turn complex requirements into robust, scalable, and durable systems. I work at the intersection of modern software, platforms, infrastructure, and AI-adjacent workflows, with a clear focus on solutions that are technically sound, secure to operate, and genuinely useful in practice.",
     },
     imageAlt: {
-      de: "Portraitfoto von Uwe Schwarz, Projektmanager und IT-Sicherheitsexperte.",
-      en: "Portrait photo of Uwe Schwarz, Project Manager and IT Security Expert.",
+      de: "Portraitfoto von Uwe Schwarz, Software-Architekt und Security-Engineer.",
+      en: "Portrait photo of Uwe Schwarz, Software Architect and Security Engineer.",
     },
     name: "Uwe Schwarz",
     scrollText: {
@@ -1372,20 +1366,20 @@ export const siteContent: SiteContent = {
     },
     titleElements: [
       {
-        de: "Projektmanager",
-        en: "Project Manager",
+        de: "Software-Architekt",
+        en: "Software Architect",
       },
       {
-        de: "IT-Sicherheitsexperte",
-        en: "IT Security Expert",
+        de: "Security-Engineer",
+        en: "Security Engineer",
       },
       {
         de: "KI-Enthusiast",
         en: "AI Enthusiast",
       },
       {
-        de: "Berater",
-        en: "Consultant",
+        de: "Senior Berater",
+        en: "Senior Consultant",
       },
     ],
   },
@@ -1456,6 +1450,10 @@ export const siteContent: SiteContent = {
     },
   },
   llms: {
+    keywords: {
+      de: "Uwe Schwarz, Software-Architekt, Security-Engineer, KI-Enthusiast, Senior Berater, Plattformarchitektur, Infrastrukturarchitektur, SaaS, Mandantenfähige Systeme, KI-Workflows, Agentische KI, Compliance-Plattformen, ISO27001, SOC2, DSGVO, NIST Framework, MITRE ATT&CK, BSI IT-Grundschutz, Security Engineering, Risikomanagement, Vulnerabilitätsmanagement, Incident Response",
+      en: "Uwe Schwarz, Software Architect, Security Engineer, AI Enthusiast, Senior Consultant, Platform Architecture, Infrastructure Architecture, SaaS, Multi-tenant Systems, AI Workflows, Agentic AI, Compliance Platforms, ISO27001, SOC2, GDPR, NIST Framework, MITRE ATT&CK, BSI IT Baseline Protection, Security Engineering, Risk Management, Vulnerability Management, Incident Response",
+    },
     title: {
       de: "Übersicht für AI Agents",
       en: "Overview for AI Agents",
@@ -1696,8 +1694,31 @@ export const siteContent: SiteContent = {
   projects: [
     {
       description: {
-        de: "Leitung der Koordination, Architektur und Implementierung einer rechtssicheren E-Mail-Archivierungslösung für mehr als 50.000 Nutzer. Das System gewährleistet die unveränderbare Speicherung sämtlicher Kommunikation über mehr als 10 Jahre und erfüllt strenge regulatorische sowie prüfungsrelevante Anforderungen. Basierend auf Open-Source-Technologien wurde das Archiv mit Blick auf Skalierbarkeit, Redundanz und langfristige Wartbarkeit konzipiert. Integriertes Monitoring, Indexierung und Volltextsuche ermöglichen ein effizientes Auffinden historischer Korrespondenz.",
-        en: "Led the coordination, architecture, and implementation of a legally compliant enterprise-wide email archiving solution for more than 50,000 users. The system ensures immutable storage of all communication for over 10 years, meeting strict regulatory and auditing requirements. Based on open-source technologies, the archive was designed with scalability, redundancy, and long-term maintainability in mind. Integrated monitoring, indexing, and full-text search enable efficient retrieval of historical correspondence.",
+        de: "Konzeption und Aufbau einer modularen Schulungsplattform zum EU-Gesetz über Künstliche Intelligenz (EU AI Act). Der Kurs vermittelt in klar strukturierten Lerneinheiten mit interaktiven Folien, Audiokommentaren und integrierten Quizfragen ein fundiertes Verständnis zu Geltungsbereich, risikobasiertem Ansatz und Compliance-Auswirkungen. Die Plattform umfasst fünf Sektionen – von den Grundlagen über Governance und Risikokategorien bis hin zu Praxisanwendungen – und wurde so entwickelt, dass sie zukünftig um weitere Module zu Datenschutz, ethischer KI und technischen Umsetzungsvorgaben erweitert werden kann.",
+        en: "Designed and developed a modular training platform covering the EU Artificial Intelligence Act (EU AI Act). The course provides a structured learning path with interactive slides, voice narration, and integrated quizzes to ensure a clear understanding of the regulation’s scope, risk-based framework, and compliance implications. The platform includes five sections — from fundamentals to governance, risk categories, and real-world applications — and was built with future expansion in mind to accommodate upcoming modules on data protection, ethical AI, and technical implementation guidelines.",
+      },
+      imageAlt: {
+        de: "Screenshot der Schulungsplattform zum EU AI Act mit abgeschlossenen Modulen, Quizfragen und einer strukturierten Übersicht über Themen wie risikobasierter Ansatz, Governance und Compliance-Strategien.",
+        en: "Screenshot of the EU AI Act training platform showing completed modules, quizzes, and a structured overview of sections such as risk-based approach, governance, and compliance strategies.",
+      },
+      imageUrl: "/projects/ai_act_training.webp",
+      tags: [
+        { de: "EU AI Act", en: "EU AI Act" },
+        { de: "Compliance-Schulung", en: "Compliance Training" },
+        { de: "KI-Governance", en: "AI Governance" },
+        { de: "E-Learning", en: "E-Learning" },
+        { de: "Schulungsplattform", en: "Education Platform" },
+        { de: "Regulatorischer Rahmen", en: "Regulatory Framework" },
+      ],
+      title: {
+        de: "Schulungsplattform zum EU AI Act",
+        en: "EU AI Act Training Platform",
+      },
+    },
+    {
+      description: {
+        de: "Architektur, Design und Implementierung einer rechtssicheren unternehmensweiten E-Mail-Archivierungslösung für mehr als 50.000 Nutzer. Das System gewährleistet die unveränderbare Aufbewahrung sämtlicher Kommunikation über mehr als 10 Jahre und erfüllt strenge regulatorische sowie prüfungsrelevante Anforderungen. Basierend auf Open-Source-Technologien wurde das Archiv auf Skalierbarkeit, Redundanz und langfristige Wartbarkeit ausgelegt. Integriertes Monitoring, Indexierung und Volltextsuche ermöglichen ein effizientes Auffinden historischer Korrespondenz.",
+        en: "Designed and implemented a legally compliant enterprise-wide email archiving solution for more than 50,000 users. The system ensures immutable retention of all communication for over 10 years and meets strict regulatory and audit requirements. Based on open-source technologies, the archive was built for scalability, redundancy, and long-term maintainability. Integrated monitoring, indexing, and full-text search enable efficient retrieval of historical correspondence.",
       },
       imageAlt: {
         de: "Symbolgrafik zum rechtssicheren E-Mail-Archiv: Zu sehen sind ein E-Mail-Symbol, zwei Datenbankstapel, ein Aktenschrank, eine Uhr, ein Kalender mit der Aufschrift „10+“ sowie ein Schutzschild mit Haken. Die Illustration steht für langfristige, unveränderbare E-Mail-Aufbewahrung, Sicherheit und Compliance für über 50.000 Nutzer.",
@@ -1741,8 +1762,8 @@ export const siteContent: SiteContent = {
     },
     {
       description: {
-        de: "Leitung der erfolgreichen Implementierung der SOC 2- und ISO 27001-Compliance-Frameworks, Aufbau robuster Informationssicherheitsrichtlinien und -kontrollen zur Einhaltung von Industriestandards und Gewährleistung des Datenschutzes.",
-        en: "Led the successful implementation of SOC 2 and ISO 27001 compliance frameworks, establishing robust information security policies and controls to meet industry standards and ensure data protection.",
+        de: "Umsetzung der Anforderungen aus SOC 2 und ISO 27001 durch Einführung von Informationssicherheitsrichtlinien, Kontrollen und Nachweisstrukturen im Einklang mit Audit- und Zertifizierungsanforderungen.",
+        en: "Implemented SOC 2 and ISO 27001 compliance requirements by introducing information security policies, controls, and evidence structures aligned with audit and certification needs.",
       },
       imageAlt: {
         de: "Illustration zur Darstellung der SOC 2- und ISO 27001-Zertifizierung: Zu sehen sind ein Zertifizierungsdokument mit Häkchen bei „SOC 2“ und „ISO 27001“, ein Sicherheitsschild, ein Vorhängeschloss und ein gesichertes Datenbanksymbol. Die Grafik steht für Informationssicherheit, Compliance und revisionssichere Datenverarbeitung.",
@@ -1758,29 +1779,6 @@ export const siteContent: SiteContent = {
       title: {
         de: "SOC 2 & ISO 27001 Zertifizierung",
         en: "SOC 2 & ISO 27001 Certification",
-      },
-    },
-    {
-      description: {
-        de: "Konzeption und Aufbau einer modularen Schulungsplattform zum EU-Gesetz über Künstliche Intelligenz (EU AI Act). Der Kurs vermittelt in klar strukturierten Lerneinheiten mit interaktiven Folien, Audiokommentaren und integrierten Quizfragen ein fundiertes Verständnis zu Geltungsbereich, risikobasiertem Ansatz und Compliance-Auswirkungen. Die Plattform umfasst fünf Sektionen – von den Grundlagen über Governance und Risikokategorien bis hin zu Praxisanwendungen – und wurde so entwickelt, dass sie zukünftig um weitere Module zu Datenschutz, ethischer KI und technischen Umsetzungsvorgaben erweitert werden kann.",
-        en: "Designed and developed a modular training platform covering the EU Artificial Intelligence Act (EU AI Act). The course provides a structured learning path with interactive slides, voice narration, and integrated quizzes to ensure a clear understanding of the regulation’s scope, risk-based framework, and compliance implications. The platform includes five sections — from fundamentals to governance, risk categories, and real-world applications — and was built with future expansion in mind to accommodate upcoming modules on data protection, ethical AI, and technical implementation guidelines.",
-      },
-      imageAlt: {
-        de: "Screenshot der Schulungsplattform zum EU AI Act mit abgeschlossenen Modulen, Quizfragen und einer strukturierten Übersicht über Themen wie risikobasierter Ansatz, Governance und Compliance-Strategien.",
-        en: "Screenshot of the EU AI Act training platform showing completed modules, quizzes, and a structured overview of sections such as risk-based approach, governance, and compliance strategies.",
-      },
-      imageUrl: "/projects/ai_act_training.webp",
-      tags: [
-        { de: "EU AI Act", en: "EU AI Act" },
-        { de: "Compliance-Schulung", en: "Compliance Training" },
-        { de: "KI-Governance", en: "AI Governance" },
-        { de: "E-Learning", en: "E-Learning" },
-        { de: "Schulungsplattform", en: "Education Platform" },
-        { de: "Regulatorischer Rahmen", en: "Regulatory Framework" },
-      ],
-      title: {
-        de: "Schulungsplattform zum EU AI Act",
-        en: "EU AI Act Training Platform",
       },
     },
     {
@@ -1868,8 +1866,8 @@ export const siteContent: SiteContent = {
   siteMetadata: {
     author: "Uwe Schwarz",
     description: {
-      de: "Portfolio von Uwe Schwarz: Projektmanager, IT-Sicherheitsexperte und KI-Enthusiast",
-      en: "Portfolio of Uwe Schwarz: Project Manager, IT Security Expert & AI Enthusiast",
+      de: "Portfolio von Uwe Schwarz: Software-Architekt, Security-Engineer und KI-Enthusiast",
+      en: "Portfolio of Uwe Schwarz: Software Architect, Security Engineer & AI Enthusiast",
     },
     title: "Uwe Schwarz Portfolio",
   },
@@ -1892,7 +1890,7 @@ export const siteContent: SiteContent = {
     },
     {
       category: "security",
-      level: 4,
+      level: 3,
       name: { de: "NIST Framework", en: "NIST Framework" },
     },
     {
@@ -1927,22 +1925,22 @@ export const siteContent: SiteContent = {
     },
     {
       category: "security",
-      level: 5,
+      level: 4,
       name: {
-        de: "Penetration Testing Mgmt.",
-        en: "Penetration Testing Mgmt.",
+        de: "Penetrationstest-Koordination",
+        en: "Penetration Test Coordination",
       },
     },
     {
       category: "security",
-      level: 4,
+      level: 3,
       name: {
         de: "Proxy & Secure Web Gateways",
         en: "Proxy & Secure Web Gateways",
       },
     },
 
-    // Infrastructure & Operations
+    // Infrastructure & Platforms
     {
       category: "infrastructure",
       level: 5,
@@ -1977,7 +1975,12 @@ export const siteContent: SiteContent = {
     {
       category: "infrastructure",
       level: 5,
-      name: { de: "Resend", en: "Resend" },
+      name: { de: "E-Mail", en: "Mail" },
+    },
+    {
+      category: "infrastructure",
+      level: 4,
+      name: { de: "Vercel", en: "Vercel" },
     },
     {
       category: "infrastructure",
@@ -1986,16 +1989,16 @@ export const siteContent: SiteContent = {
     },
     {
       category: "infrastructure",
+      level: 4,
+      name: { de: "Neon PostgreSQL", en: "Neon PostgreSQL" },
+    },
+    {
+      category: "infrastructure",
       level: 5,
       name: {
         de: "Hochverfügbarkeitssysteme",
         en: "High Availability Systems",
       },
-    },
-    {
-      category: "infrastructure",
-      level: 4,
-      name: { de: "Rechenzentrumsbetrieb", en: "Data Center Operations" },
     },
     {
       category: "infrastructure",
@@ -2017,21 +2020,21 @@ export const siteContent: SiteContent = {
     {
       category: "tools",
       level: 4,
-      name: { de: "Notion", en: "Notion" },
-    },
-    {
-      category: "tools",
-      level: 4,
       name: { de: "Git", en: "Git" },
     },
     {
       category: "tools",
       level: 4,
-      name: { de: "Cursor", en: "Cursor" },
+      name: { de: "Codex", en: "Codex" },
     },
     {
       category: "tools",
-      level: 3,
+      level: 4,
+      name: { de: "Claude Code", en: "Claude Code" },
+    },
+    {
+      category: "tools",
+      level: 4,
       name: { de: "Python", en: "Python" },
     },
     {
@@ -2070,20 +2073,38 @@ export const siteContent: SiteContent = {
       name: { de: "Docker", en: "Docker" },
     },
 
-    // Management & Strategy
+    // Architecture & Leadership
     {
       category: "management",
       level: 5,
-      name: { de: "Projektmanagement", en: "Project Management" },
+      name: { de: "Software-Architektur", en: "Software Architecture" },
     },
     {
       category: "management",
       level: 5,
+      name: { de: "Plattformarchitektur", en: "Platform Architecture" },
+    },
+    {
+      category: "management",
+      level: 5,
+      name: {
+        de: "Infrastrukturarchitektur",
+        en: "Infrastructure Architecture",
+      },
+    },
+    {
+      category: "management",
+      level: 4,
+      name: { de: "Technische Führung", en: "Technical Leadership" },
+    },
+    {
+      category: "management",
+      level: 4,
       name: { de: "Teamleitung", en: "Team Leadership" },
     },
     {
       category: "management",
-      level: 5,
+      level: 3,
       name: {
         de: "Stakeholder-Kommunikation",
         en: "Stakeholder Communication",
@@ -2091,20 +2112,40 @@ export const siteContent: SiteContent = {
     },
     {
       category: "management",
-      level: 4,
-      name: { de: "IT-Strategie", en: "IT Strategy" },
+      level: 5,
+      name: { de: "Technische Konzepte", en: "Technical Concepts" },
     },
     {
       category: "management",
-      level: 5,
-      name: { de: "Technische Konzepte", en: "Technical Concepts" },
+      level: 4,
+      name: { de: "Delivery-Struktur", en: "Delivery Structure" },
     },
 
     // Artificial Intelligence
     {
       category: "ai",
+      level: 5,
+      name: { de: "KI-Workflows", en: "AI Workflows" },
+    },
+    {
+      category: "ai",
       level: 4,
       name: { de: "Agentische KI", en: "Agentic AI" },
+    },
+    {
+      category: "ai",
+      level: 5,
+      name: { de: "Evaluierung von KI-Werkzeugen", en: "AI Tool Evaluation" },
+    },
+    {
+      category: "ai",
+      level: 5,
+      name: { de: "KI-Trainingsplattformen", en: "AI Training Platforms" },
+    },
+    {
+      category: "ai",
+      level: 5,
+      name: { de: "Prompt Engineering", en: "Prompt Engineering" },
     },
     {
       category: "ai",
@@ -2115,11 +2156,6 @@ export const siteContent: SiteContent = {
       category: "ai",
       level: 4,
       name: { de: "Kausale KI", en: "Causal AI" },
-    },
-    {
-      category: "ai",
-      level: 5,
-      name: { de: "Lovable", en: "Lovable" },
     },
     {
       category: "ai",
@@ -2138,21 +2174,8 @@ export const siteContent: SiteContent = {
     },
     {
       category: "ai",
-      level: 5,
-      name: { de: "xAI / Grok", en: "xAI / Grok" },
-    },
-    {
-      category: "ai",
       level: 3,
-      name: {
-        de: "Generative Engine Optimization (GEO)",
-        en: "Generative Engine Optimization (GEO)",
-      },
-    },
-    {
-      category: "ai",
-      level: 3,
-      name: { de: "KI-Multimediaerzeugung", en: "AI Multimedia Generation" },
+      name: { de: "KI-Medienerzeugung", en: "AI Media Generation" },
     },
     {
       category: "ai",
@@ -2175,9 +2198,12 @@ export const siteContent: SiteContent = {
   skillsSection: {
     categories: {
       ai: { de: "KI", en: "AI" },
-      infrastructure: { de: "Infrastruktur", en: "Infrastructure" },
+      infrastructure: { de: "Infrastruktur & Plattformen", en: "Infrastructure & Platforms" },
       languages: { de: "Sprachen", en: "Languages" },
-      management: { de: "Management", en: "Management" },
+      management: {
+        de: "Architektur & Führung",
+        en: "Architecture & Leadership",
+      },
       security: { de: "Sicherheit", en: "Security" },
       tools: { de: "Tools & DevOps", en: "Tools & DevOps" },
     },

@@ -12,8 +12,8 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
 
   const description =
     lang === "de"
-      ? "Lebenslauf von Uwe Schwarz - Projektmanager, IT-Sicherheitsspezialist & AI-Enthusiast"
-      : "Curriculum Vitae of Uwe Schwarz - Project Manager, IT Security Specialist & AI Enthusiast";
+      ? "Lebenslauf von Uwe Schwarz - Software-Architekt, Security-Engineer & AI-Enthusiast"
+      : "Curriculum Vitae of Uwe Schwarz - Software Architect, Security Engineer & AI Enthusiast";
 
   return {
     alternates: {

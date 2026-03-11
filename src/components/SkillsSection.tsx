@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
+import { Bot, Briefcase, Languages, Network, ShieldCheck, Wrench } from "lucide-react";
 import { siteContent } from "@/content/content";
 import { skillsWithIcons, type SkillWithIcon } from "@/content/skills-with-icons";
 import { useSettings } from "@/contexts/settings-hook";
-import { Briefcase, ShieldCheck, Bot, Network, Wrench, Flag } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 
@@ -80,7 +80,7 @@ const SkillsSection = () => {
                   name={t(skillsSection.categories.languages)}
                   value="languages"
                 >
-                  <Flag className="w-5 h-5" />
+                  <Languages className="w-5 h-5" />
                   <span className="hidden md:block">{t(skillsSection.categories.languages)}</span>
                 </TabsTrigger>
                 <TabsTrigger

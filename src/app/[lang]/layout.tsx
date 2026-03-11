@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 
 import type { LangLayoutProps } from "@/app/layout-props";
 import Providers from "@/app/providers";
+import { siteContent } from "@/content/content";
 import type { Language, Theme } from "@/contexts/settings-hook";
 import { isSupportedLanguage, SUPPORTED_LANGUAGES } from "@/lib/i18n";
 import { SITE_URL } from "@/lib/site-config";
@@ -14,6 +15,22 @@ export function generateStaticParams(): Array<{ lang: Language }> {
   return SUPPORTED_LANGUAGES.map((lang) => ({ lang }));
 }
 
+const heroTitleSeparators = {
+  de: { final: " & ", separator: ", " },
+  en: { final: " & ", separator: ", " },
+} satisfies Record<Language, { final: string; separator: string }>;
+
+function buildLocalizedHeroTitle(lang: Language): string {
+  const titleElements = siteContent.hero.titleElements.slice(0, 3).map((element) => element[lang]);
+  const { final, separator } = heroTitleSeparators[lang];
+
+  if (titleElements.length <= 1) {
+    return titleElements.join("");
+  }
+
+  return `${titleElements.slice(0, -1).join(separator)}${final}${titleElements.at(-1) ?? ""}`;
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
 
@@ -22,16 +39,8 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   }
 
   const canonicalUrl = `${SITE_URL}/${lang}`;
-
-  const title =
-    lang === "de"
-      ? "Uwe Schwarz - Projektmanager, IT-Sicherheitsspezialist & AI-Enthusiast"
-      : "Uwe Schwarz - Project Manager, IT Security Specialist & AI Enthusiast";
-
-  const description =
-    lang === "de"
-      ? "Portfolio von Uwe Schwarz - Projektmanager, IT-Sicherheitsspezialist & AI-Enthusiast"
-      : "Portfolio of Uwe Schwarz - Project Manager, IT Security Specialist & AI Enthusiast";
+  const title = `${siteContent.siteMetadata.author} - ${buildLocalizedHeroTitle(lang)}`;
+  const description = siteContent.siteMetadata.description[lang];
 
   const ogImage = `${SITE_URL}/profile.webp`;
   const twitterHandle = "@e38383";
