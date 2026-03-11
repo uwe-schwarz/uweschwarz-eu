@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
+import { Bot, Briefcase, Languages, Network, ShieldCheck, Wrench } from "lucide-react";
 import { siteContent } from "@/content/content";
 import { skillsWithIcons, type SkillWithIcon } from "@/content/skills-with-icons";
 import { useSettings } from "@/contexts/settings-hook";
-import { Bot, Briefcase, Languages, Network, ShieldCheck, Wrench } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 

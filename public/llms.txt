@@ -412,7 +412,7 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
   - Risk Management / Risikomanagement
   - Vulnerability Mgmt. / Vulnerabilitätsmanagement
   - Incident Response / Incident Response
-  - Penetration Test Coordination / Koordination
+  - Penetration Test Coordination / Penetrationstest-Koordination
   - Proxy & Secure Web Gateways / Proxy & Secure Web Gateways
 
 [Skill-Category: Tools & DevOps / Tools & DevOps]:

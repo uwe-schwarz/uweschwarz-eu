@@ -199,7 +199,7 @@ interface SitemapSection {
 }
 
 interface LLMSSection {
-  keywords?: LocalizedString;
+  keywords: LocalizedString;
   title: LocalizedString;
 }
 
@@ -1927,7 +1927,7 @@ export const siteContent: SiteContent = {
       category: "security",
       level: 4,
       name: {
-        de: "Koordination",
+        de: "Penetrationstest-Koordination",
         en: "Penetration Test Coordination",
       },
     },

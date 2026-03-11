@@ -102,7 +102,7 @@ const skillIconMap = new Map<string, SkillIcon>([
   [
     getSkillIdentityKey({
       category: "security",
-      name: { de: "Koordination", en: "Penetration Test Coordination" },
+      name: { de: "Penetrationstest-Koordination", en: "Penetration Test Coordination" },
     }),
     Bug,
   ],
