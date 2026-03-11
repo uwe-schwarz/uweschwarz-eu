@@ -2,17 +2,19 @@ import type { ComponentType } from "react";
 import {
   AlertTriangle,
   BookCheck,
+  BookText,
   Bot,
   Bug,
   Cable,
+  ClipboardList,
   CodeXml,
   Database,
   FileCheck2,
   FileText,
-  Flag,
   GitBranch,
   GitCompareArrows,
   Globe,
+  GlobeLock,
   Heart,
   Image,
   Landmark,
@@ -23,15 +25,17 @@ import {
   Route,
   Scale,
   ScanSearch,
+  ScrollText,
   SearchCode,
-  Shield,
   ShieldCheck,
   ShieldPlus,
   Siren,
   Swords,
+  Settings2,
   Terminal,
   Users,
   Video,
+  Waypoints,
   Grid2X2,
   ServerCrash,
 } from "lucide-react";
@@ -45,12 +49,10 @@ import {
   SiGit,
   SiGooglegemini,
   SiLinux,
-  SiNotion,
   SiOpenai,
-  SiPuppet,
   SiPython,
-  SiResend,
   SiSupabase,
+  SiVercel,
   SiX,
 } from "react-icons/si";
 import { siteContent, type Skill } from "@/content/content";
@@ -69,7 +71,7 @@ const skillIconMap = new Map<string, SkillIcon>([
   [getSkillIdentityKey({ category: "security", name: { de: "ISO27001", en: "ISO27001" } }), ShieldCheck],
   [getSkillIdentityKey({ category: "security", name: { de: "SOC2", en: "SOC2" } }), ShieldPlus],
   [getSkillIdentityKey({ category: "security", name: { de: "DSGVO", en: "GDPR" } }), Landmark],
-  [getSkillIdentityKey({ category: "security", name: { de: "NIST Framework", en: "NIST Framework" } }), BookCheck],
+  [getSkillIdentityKey({ category: "security", name: { de: "NIST Framework", en: "NIST Framework" } }), ClipboardList],
   [getSkillIdentityKey({ category: "security", name: { de: "MITRE ATT&CK", en: "MITRE ATT&CK" } }), Swords],
   [
     getSkillIdentityKey({
@@ -100,7 +102,7 @@ const skillIconMap = new Map<string, SkillIcon>([
   [
     getSkillIdentityKey({
       category: "security",
-      name: { de: "Penetration Testing Mgmt.", en: "Penetration Testing Mgmt." },
+      name: { de: "Koordination", en: "Penetration Test Coordination" },
     }),
     Bug,
   ],
@@ -109,7 +111,7 @@ const skillIconMap = new Map<string, SkillIcon>([
       category: "security",
       name: { de: "Proxy & Secure Web Gateways", en: "Proxy & Secure Web Gateways" },
     }),
-    Shield,
+    GlobeLock,
   ],
   [
     getSkillIdentityKey({
@@ -128,21 +130,22 @@ const skillIconMap = new Map<string, SkillIcon>([
   [getSkillIdentityKey({ category: "infrastructure", name: { de: "macOS", en: "macOS" } }), SiApple],
   [getSkillIdentityKey({ category: "infrastructure", name: { de: "Windows Server", en: "Windows Server" } }), Grid2X2],
   [getSkillIdentityKey({ category: "infrastructure", name: { de: "Cloudflare", en: "Cloudflare" } }), SiCloudflare],
-  [getSkillIdentityKey({ category: "infrastructure", name: { de: "Resend", en: "Resend" } }), SiResend],
+  [getSkillIdentityKey({ category: "infrastructure", name: { de: "E-Mail", en: "Mail" } }), Mail],
+  [getSkillIdentityKey({ category: "infrastructure", name: { de: "Vercel", en: "Vercel" } }), SiVercel],
   [getSkillIdentityKey({ category: "infrastructure", name: { de: "Supabase", en: "Supabase" } }), SiSupabase],
+  [
+    getSkillIdentityKey({
+      category: "infrastructure",
+      name: { de: "Neon PostgreSQL", en: "Neon PostgreSQL" },
+    }),
+    Database,
+  ],
   [
     getSkillIdentityKey({
       category: "infrastructure",
       name: { de: "Hochverfügbarkeitssysteme", en: "High Availability Systems" },
     }),
     ServerCrash,
-  ],
-  [
-    getSkillIdentityKey({
-      category: "infrastructure",
-      name: { de: "Rechenzentrumsbetrieb", en: "Data Center Operations" },
-    }),
-    Database,
   ],
   [
     getSkillIdentityKey({
@@ -159,16 +162,16 @@ const skillIconMap = new Map<string, SkillIcon>([
     }),
     Terminal,
   ],
-  [getSkillIdentityKey({ category: "tools", name: { de: "Notion", en: "Notion" } }), SiNotion],
   [getSkillIdentityKey({ category: "tools", name: { de: "Git", en: "Git" } }), SiGit],
-  [getSkillIdentityKey({ category: "tools", name: { de: "Cursor", en: "Cursor" } }), CodeXml],
+  [getSkillIdentityKey({ category: "tools", name: { de: "Codex", en: "Codex" } }), CodeXml],
+  [getSkillIdentityKey({ category: "tools", name: { de: "Claude Code", en: "Claude Code" } }), Terminal],
   [getSkillIdentityKey({ category: "tools", name: { de: "Python", en: "Python" } }), SiPython],
   [getSkillIdentityKey({ category: "tools", name: { de: "Postfix / Dovecot", en: "Postfix / Dovecot" } }), Mail],
   [getSkillIdentityKey({ category: "tools", name: { de: "Bind / Unbound", en: "Bind / Unbound" } }), Globe],
-  [getSkillIdentityKey({ category: "tools", name: { de: "Squid Proxy", en: "Squid Proxy" } }), Shield],
+  [getSkillIdentityKey({ category: "tools", name: { de: "Squid Proxy", en: "Squid Proxy" } }), Route],
   [getSkillIdentityKey({ category: "tools", name: { de: "HAProxy", en: "HAProxy" } }), GitCompareArrows],
   [getSkillIdentityKey({ category: "tools", name: { de: "Caddy", en: "Caddy" } }), SiCaddy],
-  [getSkillIdentityKey({ category: "tools", name: { de: "Puppet", en: "Puppet" } }), SiPuppet],
+  [getSkillIdentityKey({ category: "tools", name: { de: "Puppet", en: "Puppet" } }), Settings2],
   [getSkillIdentityKey({ category: "tools", name: { de: "Docker", en: "Docker" } }), SiDocker],
   [
     getSkillIdentityKey({
@@ -176,6 +179,27 @@ const skillIconMap = new Map<string, SkillIcon>([
       name: { de: "Software-Architektur", en: "Software Architecture" },
     }),
     ListChecks,
+  ],
+  [
+    getSkillIdentityKey({
+      category: "management",
+      name: { de: "Plattformarchitektur", en: "Platform Architecture" },
+    }),
+    Grid2X2,
+  ],
+  [
+    getSkillIdentityKey({
+      category: "management",
+      name: { de: "Infrastrukturarchitektur", en: "Infrastructure Architecture" },
+    }),
+    Network,
+  ],
+  [
+    getSkillIdentityKey({
+      category: "management",
+      name: { de: "Technische Führung", en: "Technical Leadership" },
+    }),
+    Waypoints,
   ],
   [getSkillIdentityKey({ category: "management", name: { de: "Teamleitung", en: "Team Leadership" } }), Users],
   [
@@ -185,7 +209,6 @@ const skillIconMap = new Map<string, SkillIcon>([
     }),
     MessageCircle,
   ],
-  [getSkillIdentityKey({ category: "management", name: { de: "IT-Strategie", en: "IT Strategy" } }), Route],
   [
     getSkillIdentityKey({
       category: "management",
@@ -193,7 +216,33 @@ const skillIconMap = new Map<string, SkillIcon>([
     }),
     FileText,
   ],
+  [
+    getSkillIdentityKey({
+      category: "management",
+      name: { de: "Delivery-Struktur", en: "Delivery Structure" },
+    }),
+    Route,
+  ],
+  [getSkillIdentityKey({ category: "ai", name: { de: "KI-Workflows", en: "AI Workflows" } }), GitBranch],
   [getSkillIdentityKey({ category: "ai", name: { de: "Agentische KI", en: "Agentic AI" } }), Bot],
+  [
+    getSkillIdentityKey({
+      category: "ai",
+      name: { de: "Evaluierung von KI-Werkzeugen", en: "AI Tool Evaluation" },
+    }),
+    ScanSearch,
+  ],
+  [
+    getSkillIdentityKey({
+      category: "ai",
+      name: { de: "KI-Trainingsplattformen", en: "AI Training Platforms" },
+    }),
+    BookCheck,
+  ],
+  [
+    getSkillIdentityKey({ category: "ai", name: { de: "Prompt Engineering", en: "Prompt Engineering" } }),
+    MessageCircle,
+  ],
   [getSkillIdentityKey({ category: "ai", name: { de: "Multimodale KI", en: "Multimodal AI" } }), Image],
   [getSkillIdentityKey({ category: "ai", name: { de: "Kausale KI", en: "Causal AI" } }), GitBranch],
   [getSkillIdentityKey({ category: "ai", name: { de: "Lovable", en: "Lovable" } }), Heart],
@@ -220,16 +269,16 @@ const skillIconMap = new Map<string, SkillIcon>([
   [
     getSkillIdentityKey({
       category: "ai",
-      name: { de: "KI-Multimediaerzeugung", en: "AI Multimedia Generation" },
+      name: { de: "KI-Medienerzeugung", en: "AI Media Generation" },
     }),
     Video,
   ],
   [getSkillIdentityKey({ category: "ai", name: { de: "KI-Ethik & Governance", en: "AI Ethics & Governance" } }), Scale],
   [
     getSkillIdentityKey({ category: "languages", name: { de: "Deutsch (Muttersprache)", en: "German (Native)" } }),
-    Flag,
+    ScrollText,
   ],
-  [getSkillIdentityKey({ category: "languages", name: { de: "Englisch (C2)", en: "English (C2)" } }), Flag],
+  [getSkillIdentityKey({ category: "languages", name: { de: "Englisch (C2)", en: "English (C2)" } }), BookText],
 ]);
 
 export const skillsWithIcons: Array<SkillWithIcon> = siteContent.skills.map((skill) => {
