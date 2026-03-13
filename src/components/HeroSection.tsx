@@ -123,8 +123,8 @@ const getMagicRingColors = (theme: "light" | "dark"): { color: string; colorTwo:
   }
 
   return {
-    color: hslTripletToHex(primary) ?? "#1d6948",
-    colorTwo: hslTripletToHex(accent) ?? "#d1d9f5",
+    color: hslTripletToHex(accent) ?? "#d1d9f5",
+    colorTwo: hslTripletToHex(primary) ?? "#1d6948",
   };
 };
 
@@ -247,7 +247,7 @@ const HeroSection = () => {
         >
           <MagicRings
             attenuation={25}
-            baseRadius={0.1}
+            baseRadius={0.075}
             blur={0.2}
             clickBurst={false}
             color={magicRingColors.color}
@@ -335,7 +335,7 @@ const HeroSection = () => {
           <div className="lg:w-1/2 mt-10 lg:mt-0 flex justify-center lg:justify-end">
             <div className="relative w-full max-w-lg aspect-square" ref={portraitRef}>
               {/* Profile picture container */}
-              <div className="w-[95%] h-[95%] rounded-full bg-background absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center overflow-hidden">
+              <div className="w-[95%] h-[95%] rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center overflow-hidden">
                 <div className="w-[75%] h-[75%] rounded-full bg-linear-to-br from-primary/20 to-accent/20 p-1">
                   <div className="w-full h-full rounded-full flex items-center justify-center overflow-hidden">
                     {/* Profile image */}
