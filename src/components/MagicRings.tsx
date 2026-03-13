@@ -1,5 +1,5 @@
+import React, { forwardRef, useCallback, useEffect, useRef } from "react";
 import { Color, Mesh, OrthographicCamera, PlaneGeometry, Scene, ShaderMaterial, Vector2, WebGLRenderer } from "three";
-import { useEffect, useRef } from "react";
 
 const fragmentShader = `
 precision highp float;
@@ -85,30 +85,47 @@ interface MagicRingsProps {
   speed?: number;
 }
 
-export default function MagicRings({
-  attenuation = 10,
-  baseRadius = 0.35,
-  blur = 0,
-  clickBurst = false,
-  color = "#fc42ff",
-  colorTwo = "#42fcff",
-  fadeIn = 0.7,
-  fadeOut = 0.5,
-  followMouse = false,
-  hoverScale = 1.2,
-  lineThickness = 2,
-  mouseInfluence = 0.2,
-  noiseAmount = 0.1,
-  opacity = 1,
-  parallax = 0.05,
-  radiusStep = 0.1,
-  ringCount = 6,
-  ringGap = 1.5,
-  rotation = 0,
-  scaleRate = 0.1,
-  speed = 1,
-}: MagicRingsProps) {
+const MAX_RING_COUNT = 10;
+
+const assignRef = <T,>(ref: React.ForwardedRef<T>, value: T) => {
+  if (typeof ref === "function") {
+    ref(value);
+    return;
+  }
+
+  if (ref) {
+    ref.current = value;
+  }
+};
+
+const MagicRings = forwardRef<HTMLDivElement, MagicRingsProps>(function MagicRings(
+  {
+    attenuation = 10,
+    baseRadius = 0.35,
+    blur = 0,
+    clickBurst = false,
+    color = "#fc42ff",
+    colorTwo = "#42fcff",
+    fadeIn = 0.7,
+    fadeOut = 0.5,
+    followMouse = false,
+    hoverScale = 1.2,
+    lineThickness = 2,
+    mouseInfluence = 0.2,
+    noiseAmount = 0.1,
+    opacity = 1,
+    parallax = 0.05,
+    radiusStep = 0.1,
+    ringCount = 6,
+    ringGap = 1.5,
+    rotation = 0,
+    scaleRate = 0.1,
+    speed = 1,
+  }: MagicRingsProps,
+  forwardedRef,
+) {
   const mountRef = useRef<HTMLDivElement | null>(null);
+  const safeRingCount = Math.max(0, Math.min(ringCount, MAX_RING_COUNT));
   const propsRef = useRef<Required<MagicRingsProps>>({
     attenuation,
     baseRadius,
@@ -126,7 +143,7 @@ export default function MagicRings({
     opacity,
     parallax,
     radiusStep,
-    ringCount,
+    ringCount: safeRingCount,
     ringGap,
     rotation,
     scaleRate,
@@ -137,6 +154,19 @@ export default function MagicRings({
   const isHoveredRef = useRef(false);
   const mouseRef = useRef([0, 0]);
   const smoothMouseRef = useRef([0, 0]);
+  const setMountNodeRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      mountRef.current = node;
+      assignRef(forwardedRef, node);
+    },
+    [forwardedRef],
+  );
+
+  useEffect(() => {
+    if (ringCount > MAX_RING_COUNT) {
+      console.warn(`MagicRings: ringCount exceeds shader limit (${MAX_RING_COUNT}) and will be clamped.`);
+    }
+  }, [ringCount]);
 
   useEffect(() => {
     propsRef.current = {
@@ -156,7 +186,7 @@ export default function MagicRings({
       opacity,
       parallax,
       radiusStep,
-      ringCount,
+      ringCount: safeRingCount,
       ringGap,
       rotation,
       scaleRate,
@@ -179,9 +209,9 @@ export default function MagicRings({
     opacity,
     parallax,
     radiusStep,
-    ringCount,
     ringGap,
     rotation,
+    safeRingCount,
     scaleRate,
     speed,
   ]);
@@ -336,5 +366,11 @@ export default function MagicRings({
     };
   }, []);
 
-  return <div className="h-full w-full" ref={mountRef} style={blur > 0 ? { filter: `blur(${blur}px)` } : undefined} />;
-}
+  return (
+    <div className="h-full w-full" ref={setMountNodeRef} style={blur > 0 ? { filter: `blur(${blur}px)` } : undefined} />
+  );
+});
+
+MagicRings.displayName = "MagicRings";
+
+export default MagicRings;

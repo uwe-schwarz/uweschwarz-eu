@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Route } from "next";
@@ -97,23 +97,33 @@ const hslTripletToHex = (triplet: string): string | null => {
   return `#${toHexChannel((red + match) * 255)}${toHexChannel((green + match) * 255)}${toHexChannel((blue + match) * 255)}`;
 };
 
-const getMagicRingColors = (): { color: string; colorTwo: string } => {
+const getMagicRingColors = (theme: "light" | "dark"): { color: string; colorTwo: string } => {
   if (typeof window === "undefined") {
-    return {
-      color: "#1d6948",
-      colorTwo: "#d1d9f5",
-    };
+    return theme === "dark"
+      ? {
+          color: "#8fe8c1",
+          colorTwo: "#b49cff",
+        }
+      : {
+          color: "#1d6948",
+          colorTwo: "#5741aa",
+        };
   }
 
   const styles = window.getComputedStyle(window.document.documentElement);
-  const primary = styles.getPropertyValue("--accent").trim();
-  const accent = styles.getPropertyValue("--primary").trim();
+  const primary = styles.getPropertyValue("--primary").trim();
+  const accent = styles.getPropertyValue("--accent").trim();
 
   if (!primary || !accent) {
-    return {
-      color: "#1d6948",
-      colorTwo: "#d1d9f5",
-    };
+    return theme === "dark"
+      ? {
+          color: "#8fe8c1",
+          colorTwo: "#b49cff",
+        }
+      : {
+          color: "#1d6948",
+          colorTwo: "#5741aa",
+        };
   }
 
   return {
@@ -123,7 +133,7 @@ const getMagicRingColors = (): { color: string; colorTwo: string } => {
 };
 
 const HeroSection = () => {
-  const { language, t } = useSettings();
+  const { language, t, theme } = useSettings();
   const { hero } = siteContent;
   const sectionRef = useRef<HTMLElement | null>(null);
   const portraitRef = useRef<HTMLDivElement | null>(null);
@@ -188,7 +198,7 @@ const HeroSection = () => {
   })} · ${formatTemplate(t(hero.availability.fullLine), {
     date: hero.availability.fullyAvailableDate,
   })}`;
-  const magicRingColors = getMagicRingColors();
+  const magicRingColors = useMemo(() => getMagicRingColors(theme), [theme]);
 
   return (
     <section
