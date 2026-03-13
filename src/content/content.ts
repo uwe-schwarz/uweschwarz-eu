@@ -12,11 +12,6 @@ interface HeroSection {
   availability: HeroAvailability;
   ctaPrimary: LocalizedString;
   ctaSecondary: LocalizedString;
-  decorativeElements: Array<{
-    code: string;
-    distance: number;
-    position: number;
-  }>;
   description: LocalizedString;
   imageAlt: LocalizedString;
   name: string;
@@ -1319,38 +1314,6 @@ export const siteContent: SiteContent = {
       de: "Lebenslauf herunterladen",
       en: "Download CV",
     },
-    decorativeElements: [
-      {
-        code: "🛡️&nbsp;GDPR",
-        distance: 92,
-        position: 9,
-      },
-      {
-        code: "🤖&nbsp;AI",
-        distance: 72,
-        position: 35,
-      },
-      {
-        code: "🤝&nbsp;Human&nbsp;API",
-        distance: 85,
-        position: 52,
-      },
-      {
-        code: "📡&nbsp;networking",
-        distance: 122,
-        position: 66,
-      },
-      {
-        code: "💡&nbsp;strategy",
-        distance: 134,
-        position: 84,
-      },
-      {
-        code: "🔐&nbsp;security",
-        distance: 110,
-        position: 95,
-      },
-    ],
     description: {
       de: "Ich übersetze komplexe Anforderungen in robuste, skalierbare und langfristig tragfähige Systeme. Dabei arbeite ich an der Schnittstelle von moderner Software, Plattformen, Infrastruktur und KI-nahen Workflows – mit einem klaren Fokus auf Lösungen, die technisch sauber, sicher betreibbar und in der Praxis wirklich brauchbar sind.",
       en: "I turn complex requirements into robust, scalable, and durable systems. I work at the intersection of modern software, platforms, infrastructure, and AI-adjacent workflows, with a clear focus on solutions that are technically sound, secure to operate, and genuinely useful in practice.",
