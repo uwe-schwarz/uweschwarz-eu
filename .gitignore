@@ -37,3 +37,6 @@ next-env.d.ts
 
 # Crush agent directory
 .crush
+
+# Codex agent directory
+.codex

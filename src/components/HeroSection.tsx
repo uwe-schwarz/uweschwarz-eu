@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Route } from "next";
 import { ArrowDown } from "lucide-react";
 import { FileTextIcon } from "@/components/icons/file-text";
+import MagicRings from "@/components/MagicRings";
 import { Button } from "@/components/ui/button";
 import { useSettings } from "@/contexts/settings-hook";
 import { siteContent } from "@/content/content";
@@ -27,35 +28,135 @@ const ProfilePicture = React.memo(({ alt }: { alt: string }) => (
 
 ProfilePicture.displayName = "ProfilePicture";
 
-const calculatePosition = (position: number, distance: number) => {
-  const angle = (position / 100) * 2 * Math.PI; // Convert percentage to radians
-  const radius = (distance / 100) * 50; // Scale distance percentage to fit container
-
-  // Calculate position around the circle
-  const x = 50 + radius * Math.sin(angle);
-  const y = 50 - radius * Math.cos(angle);
-
-  return {
-    left: `${x}%`,
-    top: `${y}%`,
-    transform: "translate(-50%, -50%)",
-  };
-};
-
 const formatTemplate = (template: string, values: Record<string, number | string>) => {
   return Object.entries(values).reduce((message, [key, value]) => {
     return message.replaceAll(`{${key}}`, String(value));
   }, template);
 };
 
-const decodeDecorativeLabel = (label: string) => label.replaceAll("&nbsp;", "\u00a0");
+interface MagicRingPosition {
+  height: number;
+  left: number;
+  top: number;
+  width: number;
+}
+
+const clampColorChannel = (value: number) => {
+  return Math.max(0, Math.min(255, Math.round(value)));
+};
+
+const toHexChannel = (value: number) => {
+  return clampColorChannel(value).toString(16).padStart(2, "0");
+};
+
+const hslTripletToHex = (triplet: string): string | null => {
+  const [hueRaw, saturationRaw, lightnessRaw] = triplet.split(/\s+/);
+
+  if (!hueRaw || !saturationRaw || !lightnessRaw) {
+    return null;
+  }
+
+  const hue = Number.parseFloat(hueRaw);
+  const saturation = Number.parseFloat(saturationRaw) / 100;
+  const lightness = Number.parseFloat(lightnessRaw) / 100;
+
+  if (Number.isNaN(hue) || Number.isNaN(saturation) || Number.isNaN(lightness)) {
+    return null;
+  }
+
+  const chroma = (1 - Math.abs(2 * lightness - 1)) * saturation;
+  const normalizedHue = ((hue % 360) + 360) % 360;
+  const segment = normalizedHue / 60;
+  const secondComponent = chroma * (1 - Math.abs((segment % 2) - 1));
+  const match = lightness - chroma / 2;
+
+  let red = 0;
+  let green = 0;
+  let blue = 0;
+
+  if (segment >= 0 && segment < 1) {
+    red = chroma;
+    green = secondComponent;
+  } else if (segment < 2) {
+    red = secondComponent;
+    green = chroma;
+  } else if (segment < 3) {
+    green = chroma;
+    blue = secondComponent;
+  } else if (segment < 4) {
+    green = secondComponent;
+    blue = chroma;
+  } else if (segment < 5) {
+    red = secondComponent;
+    blue = chroma;
+  } else {
+    red = chroma;
+    blue = secondComponent;
+  }
+
+  return `#${toHexChannel((red + match) * 255)}${toHexChannel((green + match) * 255)}${toHexChannel((blue + match) * 255)}`;
+};
+
+const getMagicRingFallbackColors = (theme: "light" | "dark"): { color: string; colorTwo: string } => {
+  return theme === "dark"
+    ? {
+        color: "#8fe8c1",
+        colorTwo: "#b49cff",
+      }
+    : {
+        color: "#1d6948",
+        colorTwo: "#5741aa",
+      };
+};
+
+const getMagicRingColors = (theme: "light" | "dark"): { color: string; colorTwo: string } => {
+  if (typeof window === "undefined") {
+    return getMagicRingFallbackColors(theme);
+  }
+
+  const styles = window.getComputedStyle(window.document.documentElement);
+  const primary = styles.getPropertyValue("--primary").trim();
+  const accent = styles.getPropertyValue("--accent").trim();
+
+  if (!primary || !accent) {
+    return getMagicRingFallbackColors(theme);
+  }
+
+  return {
+    color: hslTripletToHex(primary) ?? "#1d6948",
+    colorTwo: hslTripletToHex(accent) ?? "#d1d9f5",
+  };
+};
 
 const HeroSection = () => {
-  const { language, t } = useSettings();
+  const { language, t, theme } = useSettings();
   const { hero } = siteContent;
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const portraitRef = useRef<HTMLDivElement | null>(null);
 
   // State for the rotating title
   const [titleIndex, setTitleIndex] = useState(0);
+  const [magicRingColors, setMagicRingColors] = useState(() => getMagicRingFallbackColors(theme));
+  const [magicRingPosition, setMagicRingPosition] = useState<MagicRingPosition | null>(null);
+  const updateMagicRingPosition = useCallback(() => {
+    const section = sectionRef.current;
+    const portrait = portraitRef.current;
+
+    if (!section || !portrait) {
+      return;
+    }
+
+    const portraitRect = portrait.getBoundingClientRect();
+    const sectionRect = section.getBoundingClientRect();
+    const size = Math.max(sectionRect.width, sectionRect.height) * 1.35;
+
+    setMagicRingPosition({
+      height: size,
+      left: portraitRect.left - sectionRect.left + portraitRect.width / 2,
+      top: portraitRect.top - sectionRect.top + portraitRect.height / 2,
+      width: size,
+    });
+  }, []);
 
   // Set up title rotation effect
   useEffect(() => {
@@ -65,6 +166,37 @@ const HeroSection = () => {
 
     return () => clearInterval(interval);
   }, [hero.titleElements.length]);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    const portrait = portraitRef.current;
+
+    if (!section || !portrait) {
+      return;
+    }
+
+    updateMagicRingPosition();
+
+    const resizeObserver = new ResizeObserver(updateMagicRingPosition);
+    resizeObserver.observe(section);
+    resizeObserver.observe(portrait);
+    window.addEventListener("resize", updateMagicRingPosition);
+
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener("resize", updateMagicRingPosition);
+    };
+  }, [updateMagicRingPosition]);
+
+  useEffect(() => {
+    const frameId = window.requestAnimationFrame(() => {
+      setMagicRingColors(getMagicRingColors(theme));
+    });
+
+    return () => {
+      window.cancelAnimationFrame(frameId);
+    };
+  }, [theme]);
 
   // FitText Hook for dynamic title
   const currentTitle = t(hero.titleElements[titleIndex]);
@@ -80,11 +212,63 @@ const HeroSection = () => {
     date: hero.availability.fullyAvailableDate,
   })}`;
 
+  useEffect(() => {
+    const frameId = window.requestAnimationFrame(() => {
+      updateMagicRingPosition();
+    });
+
+    return () => {
+      window.cancelAnimationFrame(frameId);
+    };
+  }, [availabilitySummary, currentTitle, language, updateMagicRingPosition]);
+
   return (
-    <section className="min-h-screen flex items-center pt-20 bg-grid relative overflow-hidden" id="hero">
-      {/* Background Elements */}
-      <div className="absolute w-64 h-64 bg-primary/50 rounded-full filter blur-3xl animate-[move-bg-1_25s_ease-in-out_infinite]"></div>
-      <div className="absolute w-72 h-72 bg-accent/50 rounded-full filter blur-3xl animate-[move-bg-2_30s_ease-in-out_infinite]"></div>
+    <section
+      className="min-h-screen flex items-center pt-20 bg-grid relative overflow-hidden isolate"
+      id="hero"
+      ref={sectionRef}
+    >
+      <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
+        <div
+          className="absolute opacity-80"
+          style={
+            magicRingPosition
+              ? {
+                  height: `${magicRingPosition.height}px`,
+                  left: `${magicRingPosition.left}px`,
+                  top: `${magicRingPosition.top}px`,
+                  transform: "translate(-50%, -50%)",
+                  width: `${magicRingPosition.width}px`,
+                }
+              : {
+                  inset: 0,
+                }
+          }
+        >
+          <MagicRings
+            attenuation={25}
+            baseRadius={0.1}
+            blur={0.2}
+            clickBurst={false}
+            color={magicRingColors.color}
+            colorTwo={magicRingColors.colorTwo}
+            fadeIn={0.45}
+            fadeOut={0.2}
+            followMouse={false}
+            lineThickness={2}
+            noiseAmount={0.3}
+            opacity={1}
+            parallax={0.02}
+            radiusStep={0.08}
+            ringCount={9}
+            ringGap={1.35}
+            rotation={-18}
+            scaleRate={0.11}
+            speed={0.7}
+          />
+        </div>
+        <div className="absolute inset-0 bg-linear-to-b from-background/5 via-background/25 to-background/70" />
+      </div>
 
       {/* Content Container */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -149,37 +333,16 @@ const HeroSection = () => {
 
           {/* Hero Image/Profile Picture */}
           <div className="lg:w-1/2 mt-10 lg:mt-0 flex justify-center lg:justify-end">
-            <div className="relative w-full max-w-lg aspect-square">
-              {/* Background glow effect */}
-              <div className="w-full h-full rounded-full bg-linear-to-br from-primary to-accent/70 shadow-xl filter blur-sm absolute"></div>
-
+            <div className="relative w-full max-w-lg aspect-square" ref={portraitRef}>
               {/* Profile picture container */}
               <div className="w-[95%] h-[95%] rounded-full bg-background absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center overflow-hidden">
                 <div className="w-[75%] h-[75%] rounded-full bg-linear-to-br from-primary/20 to-accent/20 p-1">
-                  <div className="w-full h-full rounded-full bg-background flex items-center justify-center overflow-hidden">
+                  <div className="w-full h-full rounded-full flex items-center justify-center overflow-hidden">
                     {/* Profile image */}
                     <ProfilePicture alt={t(hero.imageAlt)} />
                   </div>
                 </div>
               </div>
-
-              {/* Dynamically positioned decorative elements - now without animation-delay for immediate positioning */}
-              {hero.decorativeElements.map((element, index) => {
-                const posStyle = calculatePosition(element.position, element.distance);
-                const key = `${element.code}-${element.position}-${element.distance}`;
-                return (
-                  <div
-                    className="absolute p-4 card-glass rounded-lg shadow-lg transform rotate-3 animate-float"
-                    key={key}
-                    style={{
-                      ...posStyle,
-                      transform: `${posStyle.transform} rotate(${index * 9 - 6}deg)`,
-                    }}
-                  >
-                    <code className="text-xs sm:text-sm text-gradient">{decodeDecorativeLabel(element.code)}</code>
-                  </div>
-                );
-              })}
             </div>
           </div>
         </div>
