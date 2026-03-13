@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Route } from "next";
@@ -97,17 +97,21 @@ const hslTripletToHex = (triplet: string): string | null => {
   return `#${toHexChannel((red + match) * 255)}${toHexChannel((green + match) * 255)}${toHexChannel((blue + match) * 255)}`;
 };
 
+const getMagicRingFallbackColors = (theme: "light" | "dark"): { color: string; colorTwo: string } => {
+  return theme === "dark"
+    ? {
+        color: "#8fe8c1",
+        colorTwo: "#b49cff",
+      }
+    : {
+        color: "#1d6948",
+        colorTwo: "#5741aa",
+      };
+};
+
 const getMagicRingColors = (theme: "light" | "dark"): { color: string; colorTwo: string } => {
   if (typeof window === "undefined") {
-    return theme === "dark"
-      ? {
-          color: "#8fe8c1",
-          colorTwo: "#b49cff",
-        }
-      : {
-          color: "#1d6948",
-          colorTwo: "#5741aa",
-        };
+    return getMagicRingFallbackColors(theme);
   }
 
   const styles = window.getComputedStyle(window.document.documentElement);
@@ -115,15 +119,7 @@ const getMagicRingColors = (theme: "light" | "dark"): { color: string; colorTwo:
   const accent = styles.getPropertyValue("--accent").trim();
 
   if (!primary || !accent) {
-    return theme === "dark"
-      ? {
-          color: "#8fe8c1",
-          colorTwo: "#b49cff",
-        }
-      : {
-          color: "#1d6948",
-          colorTwo: "#5741aa",
-        };
+    return getMagicRingFallbackColors(theme);
   }
 
   return {
@@ -140,6 +136,7 @@ const HeroSection = () => {
 
   // State for the rotating title
   const [titleIndex, setTitleIndex] = useState(0);
+  const [magicRingColors, setMagicRingColors] = useState(() => getMagicRingFallbackColors(theme));
   const [magicRingPosition, setMagicRingPosition] = useState<MagicRingPosition | null>(null);
 
   // Set up title rotation effect
@@ -185,6 +182,16 @@ const HeroSection = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const frameId = window.requestAnimationFrame(() => {
+      setMagicRingColors(getMagicRingColors(theme));
+    });
+
+    return () => {
+      window.cancelAnimationFrame(frameId);
+    };
+  }, [theme]);
+
   // FitText Hook for dynamic title
   const currentTitle = t(hero.titleElements[titleIndex]);
   const { fontSize, ref: fitTextRef } = useFitText({
@@ -198,7 +205,6 @@ const HeroSection = () => {
   })} · ${formatTemplate(t(hero.availability.fullLine), {
     date: hero.availability.fullyAvailableDate,
   })}`;
-  const magicRingColors = useMemo(() => getMagicRingColors(theme), [theme]);
 
   return (
     <section
