@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Route } from "next";
@@ -138,6 +138,25 @@ const HeroSection = () => {
   const [titleIndex, setTitleIndex] = useState(0);
   const [magicRingColors, setMagicRingColors] = useState(() => getMagicRingFallbackColors(theme));
   const [magicRingPosition, setMagicRingPosition] = useState<MagicRingPosition | null>(null);
+  const updateMagicRingPosition = useCallback(() => {
+    const section = sectionRef.current;
+    const portrait = portraitRef.current;
+
+    if (!section || !portrait) {
+      return;
+    }
+
+    const portraitRect = portrait.getBoundingClientRect();
+    const sectionRect = section.getBoundingClientRect();
+    const size = Math.max(sectionRect.width, sectionRect.height) * 1.35;
+
+    setMagicRingPosition({
+      height: size,
+      left: portraitRect.left - sectionRect.left + portraitRect.width / 2,
+      top: portraitRect.top - sectionRect.top + portraitRect.height / 2,
+      width: size,
+    });
+  }, []);
 
   // Set up title rotation effect
   useEffect(() => {
@@ -156,19 +175,6 @@ const HeroSection = () => {
       return;
     }
 
-    const updateMagicRingPosition = () => {
-      const portraitRect = portrait.getBoundingClientRect();
-      const sectionRect = section.getBoundingClientRect();
-      const size = Math.max(sectionRect.width, sectionRect.height) * 1.35;
-
-      setMagicRingPosition({
-        height: size,
-        left: portraitRect.left - sectionRect.left + portraitRect.width / 2,
-        top: portraitRect.top - sectionRect.top + portraitRect.height / 2,
-        width: size,
-      });
-    };
-
     updateMagicRingPosition();
 
     const resizeObserver = new ResizeObserver(updateMagicRingPosition);
@@ -180,7 +186,7 @@ const HeroSection = () => {
       resizeObserver.disconnect();
       window.removeEventListener("resize", updateMagicRingPosition);
     };
-  }, []);
+  }, [updateMagicRingPosition]);
 
   useEffect(() => {
     const frameId = window.requestAnimationFrame(() => {
@@ -205,6 +211,16 @@ const HeroSection = () => {
   })} · ${formatTemplate(t(hero.availability.fullLine), {
     date: hero.availability.fullyAvailableDate,
   })}`;
+
+  useEffect(() => {
+    const frameId = window.requestAnimationFrame(() => {
+      updateMagicRingPosition();
+    });
+
+    return () => {
+      window.cancelAnimationFrame(frameId);
+    };
+  }, [availabilitySummary, currentTitle, language, updateMagicRingPosition]);
 
   return (
     <section
