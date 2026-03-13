@@ -148,12 +148,14 @@ const HeroSection = () => {
 
     const portraitRect = portrait.getBoundingClientRect();
     const sectionRect = section.getBoundingClientRect();
-    const size = Math.max(sectionRect.width, sectionRect.height) * 1.35;
+    const centerX = portraitRect.left - sectionRect.left + portraitRect.width / 2;
+    const centerY = portraitRect.top - sectionRect.top + portraitRect.height / 2;
+    const size = Math.min(Math.max(sectionRect.height * 1.9, portraitRect.width * 4.8), 2200);
 
     setMagicRingPosition({
       height: size,
-      left: portraitRect.left - sectionRect.left + portraitRect.width / 2,
-      top: portraitRect.top - sectionRect.top + portraitRect.height / 2,
+      left: centerX,
+      top: centerY,
       width: size,
     });
   }, []);
@@ -166,6 +168,16 @@ const HeroSection = () => {
 
     return () => clearInterval(interval);
   }, [hero.titleElements.length]);
+
+  useEffect(() => {
+    const frameId = window.requestAnimationFrame(() => {
+      setMagicRingColors(getMagicRingColors(theme));
+    });
+
+    return () => {
+      window.cancelAnimationFrame(frameId);
+    };
+  }, [theme]);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -187,16 +199,6 @@ const HeroSection = () => {
       window.removeEventListener("resize", updateMagicRingPosition);
     };
   }, [updateMagicRingPosition]);
-
-  useEffect(() => {
-    const frameId = window.requestAnimationFrame(() => {
-      setMagicRingColors(getMagicRingColors(theme));
-    });
-
-    return () => {
-      window.cancelAnimationFrame(frameId);
-    };
-  }, [theme]);
 
   // FitText Hook for dynamic title
   const currentTitle = t(hero.titleElements[titleIndex]);
@@ -229,43 +231,45 @@ const HeroSection = () => {
       ref={sectionRef}
     >
       <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
-        <div
-          className="absolute opacity-80"
-          style={
-            magicRingPosition
-              ? {
-                  height: `${magicRingPosition.height}px`,
-                  left: `${magicRingPosition.left}px`,
-                  top: `${magicRingPosition.top}px`,
-                  transform: "translate(-50%, -50%)",
-                  width: `${magicRingPosition.width}px`,
-                }
-              : {
-                  inset: 0,
-                }
-          }
-        >
-          <MagicRings
-            attenuation={25}
-            baseRadius={0.075}
-            blur={0.2}
-            clickBurst={false}
-            color={magicRingColors.color}
-            colorTwo={magicRingColors.colorTwo}
-            fadeIn={0.45}
-            fadeOut={0.2}
-            followMouse={false}
-            lineThickness={2}
-            noiseAmount={0.3}
-            opacity={1}
-            parallax={0.02}
-            radiusStep={0.08}
-            ringCount={9}
-            ringGap={1.35}
-            rotation={-18}
-            scaleRate={0.11}
-            speed={0.7}
-          />
+        <div className="absolute inset-0 overflow-visible opacity-80">
+          <div
+            className="absolute"
+            style={
+              magicRingPosition
+                ? {
+                    height: `${magicRingPosition.height}px`,
+                    left: `${magicRingPosition.left}px`,
+                    top: `${magicRingPosition.top}px`,
+                    transform: "translate(-50%, -50%)",
+                    width: `${magicRingPosition.width}px`,
+                  }
+                : {
+                    inset: 0,
+                  }
+            }
+          >
+            <MagicRings
+              attenuation={25}
+              baseRadius={0.075}
+              blur={0.2}
+              clickBurst={false}
+              color={magicRingColors.color}
+              colorTwo={magicRingColors.colorTwo}
+              fadeIn={0.45}
+              fadeOut={0.2}
+              followMouse={false}
+              lineThickness={2}
+              noiseAmount={0.3}
+              opacity={1}
+              parallax={0.02}
+              radiusStep={0.08}
+              ringCount={5}
+              ringGap={1.35}
+              rotation={-18}
+              scaleRate={0.11}
+              speed={0.7}
+            />
+          </div>
         </div>
         <div className="absolute inset-0 bg-linear-to-b from-background/5 via-background/25 to-background/70" />
       </div>
@@ -333,12 +337,17 @@ const HeroSection = () => {
 
           {/* Hero Image/Profile Picture */}
           <div className="lg:w-1/2 mt-10 lg:mt-0 flex justify-center lg:justify-end">
-            <div className="relative w-full max-w-lg aspect-square" ref={portraitRef}>
-              {/* Profile picture container */}
-              <div className="w-[95%] h-[95%] rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center overflow-hidden">
-                <div className="w-[75%] h-[75%] rounded-full bg-linear-to-br from-primary/20 to-accent/20 p-1">
-                  <div className="w-full h-full rounded-full flex items-center justify-center overflow-hidden">
-                    {/* Profile image */}
+            <div
+              className="relative shrink-0"
+              style={{
+                height: "clamp(18rem, 36vw, 30rem)",
+                width: "clamp(18rem, 36vw, 30rem)",
+              }}
+            >
+              <div className="absolute inset-0 rounded-full bg-linear-to-br from-primary/8 via-transparent to-accent/10" />
+              <div className="absolute inset-[8%] flex items-center justify-center rounded-full" ref={portraitRef}>
+                <div className="h-full w-full rounded-full bg-linear-to-br from-primary/20 to-accent/20 p-1.5">
+                  <div className="h-full w-full rounded-full flex items-center justify-center overflow-hidden">
                     <ProfilePicture alt={t(hero.imageAlt)} />
                   </div>
                 </div>
