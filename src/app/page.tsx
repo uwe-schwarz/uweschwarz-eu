@@ -17,17 +17,23 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function RootPage() {
-  const cookieStore = await cookies();
-  const cookieLanguage = cookieStore.get("language")?.value;
+export default async function RootPage(): Promise<never> {
+  let destination: `/${string}` = `/${DEFAULT_LANGUAGE}`;
 
-  if (isSupportedLanguage(cookieLanguage)) {
-    redirect(`/${cookieLanguage}`);
-  }
+  try {
+    const cookieStore = await cookies();
+    const cookieLanguage = cookieStore.get("language")?.value;
 
-  const headerList = await headers();
-  const acceptLanguage = headerList.get("accept-language");
-  const detected = detectPreferredLanguage(acceptLanguage) ?? DEFAULT_LANGUAGE;
+    if (isSupportedLanguage(cookieLanguage)) {
+      destination = `/${cookieLanguage}`;
+    } else {
+      const headerList = await headers();
+      const acceptLanguage = headerList.get("accept-language");
+      const detected = detectPreferredLanguage(acceptLanguage) ?? DEFAULT_LANGUAGE;
 
-  redirect(`/${detected}`);
+      destination = `/${detected}`;
+    }
+  } catch {}
+
+  redirect(destination);
 }
