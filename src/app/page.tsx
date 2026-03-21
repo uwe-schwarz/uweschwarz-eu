@@ -17,7 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function RootPage() {
+export default async function RootPage(): Promise<never> {
   const cookieStore = await cookies();
   const cookieLanguage = cookieStore.get("language")?.value;
 
