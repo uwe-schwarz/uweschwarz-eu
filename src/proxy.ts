@@ -6,6 +6,7 @@ import { DEFAULT_LANGUAGE, isSupportedLanguage, replacePathLanguage } from "@/li
 import { buildContentSecurityPolicy, createCspNonce, NONCE_HEADER, normalizeSecurityHeader } from "@/lib/security/csp";
 
 const PUBLIC_FILE = /\.(.*)$/;
+const isProduction = process.env.NODE_ENV === "production";
 
 function applySecurityHeaders(response: NextResponse, nonce: string) {
   response.headers.set("Content-Security-Policy", normalizeSecurityHeader(buildContentSecurityPolicy(nonce)));
@@ -29,11 +30,13 @@ export function proxy(request: NextRequest) {
   }
 
   const requestHeaders = new Headers(request.headers);
-  const nonce = createCspNonce();
-  const csp = normalizeSecurityHeader(buildContentSecurityPolicy(nonce));
+  const nonce = isProduction ? createCspNonce() : null;
+  const csp = nonce ? normalizeSecurityHeader(buildContentSecurityPolicy(nonce)) : null;
 
-  requestHeaders.set("Content-Security-Policy", csp);
-  requestHeaders.set(NONCE_HEADER, nonce);
+  if (nonce && csp) {
+    requestHeaders.set("Content-Security-Policy", csp);
+    requestHeaders.set(NONCE_HEADER, nonce);
+  }
 
   const firstSegment = pathname.split("/")[1];
   if (isSupportedLanguage(firstSegment)) {
@@ -43,7 +46,9 @@ export function proxy(request: NextRequest) {
       },
     });
 
-    applySecurityHeaders(response, nonce);
+    if (nonce) {
+      applySecurityHeaders(response, nonce);
+    }
 
     return response;
   }
@@ -60,7 +65,9 @@ export function proxy(request: NextRequest) {
 
   const response = NextResponse.redirect(url);
 
-  applySecurityHeaders(response, nonce);
+  if (nonce) {
+    applySecurityHeaders(response, nonce);
+  }
 
   response.cookies.set({
     maxAge: 60 * 60 * 24 * 365,
