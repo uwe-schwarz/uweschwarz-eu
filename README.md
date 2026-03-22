@@ -68,6 +68,7 @@ This project is optimised for deployment on [Vercel](https://vercel.com/).
 - `bun run generate:cv` – regenerate downloadable CV assets based on content changes.
 - `bun run generate:sitemap` – refresh the static sitemap XML.
 - `bun run generate:llms` – produce the `llms.txt` description for AI crawlers.
+- `bun run update:umami` – refresh the vendored Umami tracker script and checksum used by `/api/umami/script`.
 
 ## Environment Variables
 
