@@ -14,6 +14,7 @@
     "generate:sitemap": "bun scripts/generate-sitemap.ts",
     "generate:llms": "bun scripts/generate-llms.ts",
     "generate:cv": "bun scripts/generate-cv-assets.ts",
+    "update:umami": "bun scripts/update-umami-tracker.ts",
     "prepare": "husky"
   },
   "dependencies": {

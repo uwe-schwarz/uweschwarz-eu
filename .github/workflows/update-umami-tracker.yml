@@ -1,0 +1,52 @@
+name: Update Umami Tracker
+
+on:
+  schedule:
+    - cron: "0 7 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: update-umami-tracker
+  cancel-in-progress: true
+
+jobs:
+  update-umami-tracker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Refresh vendored Umami tracker
+        run: bun run update:umami
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: codex/update-umami-tracker
+          commit-message: "chore: update vendored Umami tracker"
+          title: "[codex] Update vendored Umami tracker"
+          body: |
+            This automated update refreshes the vendored Umami tracker from the upstream Cloud endpoint and records the matching SHA-256 hash.
+
+            The site intentionally serves a reviewed first-party copy of the tracker to avoid executing a mutable third-party script directly. When upstream changes, this PR updates:
+
+            - `src/app/api/umami/script/umami.js.txt`
+            - `src/app/api/umami/script/umami.sha256`
+
+            Validation run in CI:
+
+            - `bun run update:umami`
+          delete-branch: true

@@ -33,7 +33,9 @@ export default async function RootPage(): Promise<never> {
 
       destination = `/${detected}`;
     }
-  } catch {}
+  } catch {
+    // Fall back to the default redirect when request state is unavailable.
+  }
 
   redirect(destination);
 }
