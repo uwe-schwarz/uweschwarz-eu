@@ -11,6 +11,7 @@ import { detectPreferredLanguage } from "@/lib/detect-language";
 import type { Language, Theme } from "@/contexts/settings-hook";
 import { isSupportedLanguage } from "@/lib/i18n";
 import { LEGACY_STORAGE_KEYS, STORAGE_KEYS } from "@/lib/persisted-preferences";
+import { NONCE_HEADER, UMAMI_API_HOST, UMAMI_SCRIPT_PATH } from "@/lib/security/csp";
 
 // NOTE: This beforeInteractive script runs before React and cannot import
 // persisted-preferences.ts. Keep migration behavior and key format in sync with
@@ -49,6 +50,10 @@ export default async function RootLayout({ children, params }: Readonly<RootLayo
     typeof (headerList as Headers | undefined)?.get === "function"
       ? (headerList as Headers).get("accept-language")
       : null;
+  const cspNonce =
+    typeof (headerList as Headers | undefined)?.get === "function"
+      ? ((headerList as Headers).get(NONCE_HEADER) ?? undefined)
+      : undefined;
 
   const initialLanguage: Language = isSupportedLanguage(routeLang)
     ? routeLang
@@ -73,15 +78,17 @@ export default async function RootLayout({ children, params }: Readonly<RootLayo
       <head>
         <meta content="same-origin" name="view-transition" />
 
-        <Script id="theme-init" strategy="beforeInteractive">
+        <Script id="theme-init" nonce={cspNonce} strategy="beforeInteractive">
           {themeInitScript}
         </Script>
 
         <link href="/us.svg" rel="icon" type="image/svg+xml" />
 
         <Script
+          data-host-url={UMAMI_API_HOST}
           data-website-id="74cb157f-1973-4ade-a5f9-1202a8604bbb"
-          src="https://cloud.umami.is/script.js"
+          nonce={cspNonce}
+          src={UMAMI_SCRIPT_PATH}
           strategy="afterInteractive"
         />
       </head>

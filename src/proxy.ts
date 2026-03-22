@@ -3,8 +3,16 @@ import type { NextRequest } from "next/server";
 
 import { detectPreferredLanguage } from "@/lib/detect-language";
 import { DEFAULT_LANGUAGE, isSupportedLanguage, replacePathLanguage } from "@/lib/i18n";
+import { buildContentSecurityPolicy, createCspNonce, NONCE_HEADER, normalizeSecurityHeader } from "@/lib/security/csp";
 
 const PUBLIC_FILE = /\.(.*)$/;
+const isProduction = process.env.NODE_ENV === "production";
+
+function applySecurityHeaders(response: NextResponse, nonce: string) {
+  response.headers.set("Content-Security-Policy", normalizeSecurityHeader(buildContentSecurityPolicy(nonce)));
+  response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+  response.headers.set("X-Content-Type-Options", "nosniff");
+}
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -21,9 +29,28 @@ export function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
+  const requestHeaders = new Headers(request.headers);
+  const nonce = isProduction ? createCspNonce() : null;
+  const csp = nonce ? normalizeSecurityHeader(buildContentSecurityPolicy(nonce)) : null;
+
+  if (nonce && csp) {
+    requestHeaders.set("Content-Security-Policy", csp);
+    requestHeaders.set(NONCE_HEADER, nonce);
+  }
+
   const firstSegment = pathname.split("/")[1];
   if (isSupportedLanguage(firstSegment)) {
-    return NextResponse.next();
+    const response = NextResponse.next({
+      request: {
+        headers: requestHeaders,
+      },
+    });
+
+    if (nonce) {
+      applySecurityHeaders(response, nonce);
+    }
+
+    return response;
   }
 
   const cookieLanguage = request.cookies.get("language")?.value;
@@ -37,6 +64,11 @@ export function proxy(request: NextRequest) {
   url.pathname = replacePathLanguage(pathname, language);
 
   const response = NextResponse.redirect(url);
+
+  if (nonce) {
+    applySecurityHeaders(response, nonce);
+  }
+
   response.cookies.set({
     maxAge: 60 * 60 * 24 * 365,
     name: "language",
