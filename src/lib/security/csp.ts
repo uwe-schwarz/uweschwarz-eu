@@ -22,7 +22,7 @@ export function buildContentSecurityPolicy(nonce: string) {
     "base-uri 'self'",
     "form-action 'self'",
     "frame-ancestors 'none'",
-    "frame-src 'none'",
+    "frame-src 'self'",
     "manifest-src 'self'",
   ];
 
