@@ -7,6 +7,7 @@ This repository contains a personal portfolio built with Next.js, React, TypeScr
 - `src/` – application source code (pages, components, hooks).
 - `public/` – static assets such as the generated `sitemap.xml`.
 - `scripts/` – utility scripts executed by the build or git hooks.
+- Repo-local skill: `.agents/skills/deps-upgrade-autopilot/SKILL.md` for one-shot dependency upgrade PRs with before/after screenshot comparison.
 
 ## Useful commands
 
