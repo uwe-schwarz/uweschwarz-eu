@@ -133,6 +133,8 @@ const HeroSection = () => {
   const { hero } = siteContent;
   const sectionRef = useRef<HTMLElement | null>(null);
   const portraitRef = useRef<HTMLDivElement | null>(null);
+  const isVisualRegression =
+    typeof document !== "undefined" && window.document.documentElement.dataset.visualRegression === "true";
 
   // State for the rotating title
   const [titleIndex, setTitleIndex] = useState(0);
@@ -162,12 +164,16 @@ const HeroSection = () => {
 
   // Set up title rotation effect
   useEffect(() => {
+    if (isVisualRegression) {
+      return;
+    }
+
     const interval = setInterval(() => {
       setTitleIndex((prevIndex) => (prevIndex + 1) % hero.titleElements.length);
     }, 3000); // Change every 3 seconds
 
     return () => clearInterval(interval);
-  }, [hero.titleElements.length]);
+  }, [hero.titleElements.length, isVisualRegression]);
 
   useEffect(() => {
     const frameId = window.requestAnimationFrame(() => {
@@ -231,7 +237,7 @@ const HeroSection = () => {
       ref={sectionRef}
     >
       <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
-        <div className="absolute inset-0 overflow-visible opacity-80">
+        <div className="absolute inset-0 overflow-visible opacity-80" data-visual-regression="hero-rings">
           <div
             className="absolute"
             style={

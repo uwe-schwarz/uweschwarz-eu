@@ -3,6 +3,7 @@ import { defineConfig } from "oxlint";
 
 export default defineConfig({
   extends: [nkzw],
+  ignorePatterns: [".agents/**"],
   overrides: [
     {
       files: ["scripts/**/*.ts"],
