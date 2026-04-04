@@ -71,7 +71,15 @@ Use this repo-local skill when the user wants the full dependency-upgrade flow e
 ## GitHub Babysitting
 
 - After the PR is created, use the [@github](plugin://github@openai-curated) plugin for PR metadata and comment inspection.
+- Do not stop after opening the PR just because checks are still pending. The autopilot is responsible for staying with the PR until it is either merged or blocked by a listed stop condition.
+- Record the PR number, URL, branch name, and artifact root immediately after creation so follow-up triage and final reporting stay grounded in one thread.
 - Wait about 5 to 8 minutes before the first triage pass so bot reviews can land.
+- Use an explicit babysitting loop instead of a single follow-up check:
+  1. Wait for the initial review window.
+  2. Inspect PR status, checks, formal reviews, review threads, and top-level conversation.
+  3. If checks are still pending and there is no actionable feedback yet, wait a few more minutes and check again.
+  4. If checks fail or feedback appears, fix the issue locally, rerun the required validation subset, push, and return to the same loop.
+  5. Exit the loop only when the PR is merged or a stop condition makes further progress impossible.
 - Inspect both:
   - formal reviews / review threads
   - top-level PR conversation, including emoji/reaction-based bot signals from tools such as Codex or Gemini Code Assist
@@ -83,6 +91,7 @@ Use this repo-local skill when the user wants the full dependency-upgrade flow e
   5. Reply or react on GitHub when appropriate so the thread shows the feedback was handled.
   6. Resolve the review comments when they got resolved.
 - If review-thread state matters, follow the thread-aware approach from the GitHub plugin skill at `$HOME/.codex/plugins/cache/openai-curated/github/*/skills/gh-address-comments/SKILL.md` (use globbing).
+- If there is no actionable feedback but checks are still running, keep waiting and polling instead of reporting partial completion.
 - Repeat the babysitting loop until:
   - there is no unresolved actionable feedback,
   - required checks are green,
@@ -91,6 +100,7 @@ Use this repo-local skill when the user wants the full dependency-upgrade flow e
 ## Merge And Cleanup
 
 - Merge the PR once it is green and unblocked. Prefer `gh pr merge --squash --delete-branch` unless the repo convention clearly prefers another merge strategy.
+- Treat a green, unblocked PR as work that should be completed immediately in the same run. Do not leave it open for a later pass unless a stop condition prevents merging.
 - After merge:
   - `git checkout main`
   - `git pull --ff-only`
