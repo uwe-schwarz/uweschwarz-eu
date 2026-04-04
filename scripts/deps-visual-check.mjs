@@ -27,13 +27,44 @@ const STORAGE_KEYS = {
 
 const TARGETS = [
   {
-    id: "home",
-    kind: "page",
-    label: "Home",
+    capture: "element",
+    captureSelector: "#hero",
+    id: "home-hero",
+    kind: "section",
+    label: "Home Hero",
     path: (language) => `/${language}`,
     readySelector: "#hero",
   },
   {
+    capture: "element",
+    captureSelector: "#about",
+    id: "home-about",
+    kind: "section",
+    label: "Home About",
+    path: (language) => `/${language}`,
+    readySelector: "main",
+  },
+  {
+    capture: "element",
+    captureSelector: "#experience",
+    id: "home-experience",
+    kind: "section",
+    label: "Home Experience",
+    path: (language) => `/${language}`,
+    readySelector: "main",
+  },
+  {
+    capture: "element",
+    captureSelector: "#projects",
+    id: "home-projects",
+    kind: "section",
+    label: "Home Projects",
+    path: (language) => `/${language}`,
+    readySelector: "main",
+  },
+  {
+    capture: "element",
+    captureSelector: "main",
     id: "imprint",
     kind: "page",
     label: "Imprint",
@@ -41,6 +72,8 @@ const TARGETS = [
     readySelector: "main",
   },
   {
+    capture: "element",
+    captureSelector: "main",
     id: "privacy",
     kind: "page",
     label: "Privacy",
@@ -48,11 +81,13 @@ const TARGETS = [
     readySelector: "main",
   },
   {
+    capture: "element",
+    captureSelector: "body",
     id: "cv",
     kind: "page",
     label: "CV",
     path: (language) => `/${language}/cv`,
-    readySelector: 'iframe[title="Curriculum Vitae"]',
+    readySelector: "body",
   },
 ];
 
@@ -133,6 +168,26 @@ async function writeJson(filePath, value) {
   await fs.writeFile(filePath, `${JSON.stringify(value, null, 2)}\n`, "utf8");
 }
 
+async function withRetries(fn, retries = 2) {
+  let lastError;
+
+  for (let attempt = 0; attempt <= retries; attempt += 1) {
+    try {
+      return await fn();
+    } catch (error) {
+      lastError = error;
+
+      if (attempt === retries) {
+        break;
+      }
+
+      await new Promise((resolve) => globalThis.setTimeout(resolve, 400));
+    }
+  }
+
+  throw lastError;
+}
+
 function writeStdout(message) {
   process.stdout.write(`${message}\n`);
 }
@@ -190,9 +245,17 @@ async function applyVisualRegressionStyles(page) {
   });
 }
 
-async function stabilizePage(page, settleMs) {
+async function stabilizePage(page, settleMs, timeoutMs) {
   await page.waitForLoadState("domcontentloaded");
-  await page.waitForLoadState("networkidle");
+
+  try {
+    await page.waitForLoadState("networkidle", {
+      timeout: Math.min(timeoutMs, 5000),
+    });
+  } catch {
+    // Some pages keep background requests open longer than needed for a stable screenshot.
+  }
+
   await page.evaluate(async () => {
     const documentRef = globalThis.document;
 
@@ -202,6 +265,24 @@ async function stabilizePage(page, settleMs) {
   });
   await page.mouse.move(0, 0);
   await page.waitForTimeout(settleMs);
+}
+
+async function primePageForCapture(page) {
+  await page.evaluate(async () => {
+    const windowRef = globalThis.window;
+    const documentRef = globalThis.document;
+    const step = Math.max(Math.floor(windowRef.innerHeight * 0.8), 400);
+    const maxY = documentRef.documentElement.scrollHeight - windowRef.innerHeight;
+
+    for (let y = 0; y <= maxY; y += step) {
+      windowRef.scrollTo(0, y);
+      await new Promise((resolve) => globalThis.setTimeout(resolve, 120));
+    }
+
+    windowRef.scrollTo(0, maxY);
+    await new Promise((resolve) => globalThis.setTimeout(resolve, 200));
+    windowRef.scrollTo(0, 0);
+  });
 }
 
 async function createBrowserContext(browser, options) {
@@ -238,62 +319,118 @@ async function createBrowserContext(browser, options) {
     },
   ]);
 
-  const page = await context.newPage();
-  await installVisualRegressionMode(page, { language, theme });
-
-  return { context, language, page, theme };
+  return { context, language, theme };
 }
 
-async function captureTargets(page, baseUrl, outputDir, options, manifestTargets, language) {
+async function createCapturePage(context, { language, theme }) {
+  const page = await context.newPage();
+  await installVisualRegressionMode(page, { language, theme });
+  return page;
+}
+
+function groupTargetsByPath(language) {
+  const groups = new Map();
+
+  for (const target of TARGETS) {
+    const targetPath = target.path(language);
+    const group = groups.get(targetPath);
+
+    if (group) {
+      group.push({ ...target, targetPath });
+      continue;
+    }
+
+    groups.set(targetPath, [{ ...target, targetPath }]);
+  }
+
+  return [...groups.values()];
+}
+
+async function captureTargets(browser, baseUrl, outputDir, options, manifestTargets, language, theme) {
   const samples = toInt(options.samples, DEFAULT_SAMPLES);
   const settleMs = toInt(options["settle-ms"], DEFAULT_SETTLE_MS);
   const sampleDelayMs = toInt(options["sample-delay-ms"], DEFAULT_SAMPLE_DELAY_MS);
   const timeoutMs = toInt(options["timeout-ms"], DEFAULT_TIMEOUT_MS);
 
-  for (const target of TARGETS) {
-    const targetDir = path.join(outputDir, target.id);
-    const targetPath = target.path(language);
-    await ensureDir(targetDir);
+  for (const targetGroup of groupTargetsByPath(language)) {
+    const { context } = await createBrowserContext(browser, {
+      ...options,
+      lang: language,
+      theme,
+    });
+    const page = await createCapturePage(context, { language, theme });
+    const targetUrl = joinUrl(baseUrl, targetGroup[0].targetPath);
 
-    const files = [];
-
-    for (let sample = 1; sample <= samples; sample += 1) {
-      await page.goto(joinUrl(baseUrl, targetPath), {
+    try {
+      await page.goto(targetUrl, {
         timeout: timeoutMs,
-        waitUntil: "networkidle",
+        waitUntil: "domcontentloaded",
       });
       await applyVisualRegressionStyles(page);
 
-      if (target.readySelector) {
-        await page.locator(target.readySelector).waitFor({
-          state: "visible",
-          timeout: timeoutMs,
+      await stabilizePage(page, settleMs, timeoutMs);
+      await primePageForCapture(page);
+      await stabilizePage(page, settleMs, timeoutMs);
+
+      for (const target of targetGroup) {
+        writeStdout(`Capturing ${target.id}...`);
+        const targetDir = path.join(outputDir, target.id);
+        await ensureDir(targetDir);
+        const files = [];
+
+        if (target.readySelector) {
+          await page.locator(target.readySelector).waitFor({
+            state: "visible",
+            timeout: timeoutMs,
+          });
+        }
+
+        for (let sample = 1; sample <= samples; sample += 1) {
+          const relativePath = path.join(target.id, `sample-${sample}.png`);
+
+          if (target.capture === "element" && target.captureSelector) {
+            await page.locator(target.captureSelector).scrollIntoViewIfNeeded();
+            await page.locator(target.captureSelector).waitFor({
+              state: "visible",
+              timeout: timeoutMs,
+            });
+            await withRetries(async () => {
+              await page.locator(target.captureSelector).screenshot({
+                animations: "disabled",
+                path: path.join(outputDir, relativePath),
+                type: "png",
+              });
+            });
+          } else {
+            await withRetries(async () => {
+              await page.screenshot({
+                animations: "disabled",
+                fullPage: true,
+                path: path.join(outputDir, relativePath),
+                type: "png",
+              });
+            });
+          }
+          files.push(relativePath);
+
+          if (sample < samples) {
+            await page.waitForTimeout(sampleDelayMs);
+          }
+        }
+
+        manifestTargets.push({
+          files,
+          id: target.id,
+          kind: target.kind,
+          label: target.label,
+          url: target.targetPath,
         });
+        writeStdout(`Captured ${target.id}`);
       }
-
-      await stabilizePage(page, settleMs);
-
-      const relativePath = path.join(target.id, `sample-${sample}.png`);
-      await page.screenshot({
-        animations: "disabled",
-        fullPage: true,
-        path: path.join(outputDir, relativePath),
-        type: "png",
-      });
-      files.push(relativePath);
-
-      if (sample < samples) {
-        await page.waitForTimeout(sampleDelayMs);
-      }
+    } finally {
+      await page.close().catch(() => {});
+      await context.close().catch(() => {});
     }
-
-    manifestTargets.push({
-      files,
-      id: target.id,
-      kind: target.kind,
-      label: target.label,
-      url: targetPath,
-    });
   }
 }
 
@@ -309,12 +446,11 @@ async function runCapture(options) {
   const browser = await chromium.launch({ headless: true });
 
   try {
-    const { context, language, page, theme } = await createBrowserContext(browser, options);
+    const language = normalizeLanguage(options.lang);
+    const theme = normalizeTheme(options.theme);
     const manifestTargets = [];
 
-    await captureTargets(page, baseUrl, outputDir, options, manifestTargets, language);
-
-    await context.close();
+    await captureTargets(browser, baseUrl, outputDir, options, manifestTargets, language, theme);
 
     const manifest = {
       baseUrl,

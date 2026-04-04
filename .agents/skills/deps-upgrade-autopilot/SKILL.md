@@ -29,11 +29,14 @@ Use this repo-local skill when the user wants the full dependency-upgrade flow e
 - Never commit screenshots or diff images.
 - Always create one temp artifact root, for example `ARTIFACT_ROOT="$(mktemp -d -t uwe-deps-visual-XXXXXX)"`.
 - Capture these German-language states before and after the dependency changes:
-  - `/de`
+  - hero section on `/de`
+  - about section on `/de`
+  - experience section on `/de`
+  - `#projects` section on `/de`
   - `/de/imprint`
   - `/de/privacy`
   - `/de/cv`
-- The capture script forces stable light-theme German rendering, disables CSS animation and transition noise, hides the animated hero rings, and freezes the rotating hero title while visual regression mode is active. It still calibrates a small tolerated diff per target from repeated same-state screenshots.
+- The capture script forces stable light-theme German rendering, disables CSS animation and transition noise, hides the animated hero rings, and freezes the rotating hero title while visual regression mode is active. It also walks the page once before each screenshot so observer-based and below-the-fold content, including the experience timeline and projects carousel, are visible before capture. It still calibrates a small tolerated diff per target from repeated same-state screenshots.
 - Before screenshots:
   1. Ensure the tree is clean enough to branch safely.
   2. Build the current branch.
