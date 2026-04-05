@@ -389,7 +389,13 @@ async function captureTargets(browser, baseUrl, outputDir, options, manifestTarg
           const relativePath = path.join(target.id, `sample-${sample}.png`);
 
           if (target.capture === "element" && target.captureSelector) {
-            await page.locator(target.captureSelector).scrollIntoViewIfNeeded();
+            const shouldScrollIntoView = !["body", "html", "main"].includes(
+              target.captureSelector.trim().toLowerCase(),
+            );
+
+            if (shouldScrollIntoView) {
+              await page.locator(target.captureSelector).scrollIntoViewIfNeeded();
+            }
             await page.locator(target.captureSelector).waitFor({
               state: "visible",
               timeout: timeoutMs,
