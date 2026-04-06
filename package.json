@@ -13,7 +13,7 @@
     "lint": "oxlint --deny-warnings --type-aware",
     "format": "oxfmt",
     "format:check": "oxfmt --check",
-    "typecheck": "tsgo --noEmit",
+    "typecheck": "tsc --noEmit",
     "generate:sitemap": "bun scripts/generate-sitemap.ts",
     "generate:llms": "bun scripts/generate-llms.ts",
     "generate:cv": "bun scripts/generate-cv-assets.ts",
@@ -61,7 +61,6 @@
     "@types/node": "^25.5.2",
     "@types/react": "^19.2.14",
     "@types/three": "^0.183.1",
-    "@typescript/native-preview": "^7.0.0-dev.20260405.1",
     "autoprefixer": "^10.4.27",
     "eslint-plugin-no-only-tests": "^3.3.0",
     "eslint-plugin-perfectionist": "^5.8.0",
@@ -75,7 +74,8 @@
     "playwright": "^1.59.1",
     "pngjs": "^7.0.0",
     "postcss": "^8.5.8",
-    "tailwindcss": "^4.2.2"
+    "tailwindcss": "^4.2.2",
+    "typescript": "^6.0.2"
   },
   "trustedDependencies": [
     "@swc/core",
