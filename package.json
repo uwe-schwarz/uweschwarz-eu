@@ -61,7 +61,7 @@
     "@types/node": "^25.5.2",
     "@types/react": "^19.2.14",
     "@types/three": "^0.183.1",
-    "@typescript/native-preview": "^7.0.0-dev.20260404.1",
+    "@typescript/native-preview": "^7.0.0-dev.20260405.1",
     "autoprefixer": "^10.4.27",
     "eslint-plugin-no-only-tests": "^3.3.0",
     "eslint-plugin-perfectionist": "^5.8.0",
