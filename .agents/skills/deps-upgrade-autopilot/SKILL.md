@@ -55,11 +55,12 @@ Use this repo-local skill when the user wants the full dependency-upgrade flow e
 2. Create a fresh branch before editing. Prefer `codex/deps-uweschwarz-eu-<yyyymmdd>`.
 3. Capture the pre-upgrade screenshots into the temp dir.
 4. Upgrade dependencies with `bun` and regenerate `bun.lock`.
-5. Run the base skill’s release-note triage and apply required fallout fixes.
-6. Run the repo validation set in the required order from `AGENTS.md`.
-7. Capture post-upgrade screenshots and run the compare step.
-8. Stage only the dependency upgrade work and directly related fixes.
-9. Commit, push, and open a ready PR unless there is a clear reason to keep it draft.
+5. Check every GitHub Actions workflow reference under `.github/workflows/*.yml` and bump action versions to the latest available release. For this repo, do the workflow updates pragmatically and let CI surface any incompatibilities.
+6. Run the base skill’s release-note triage and apply required fallout fixes.
+7. Run the repo validation set in the required order from `AGENTS.md`.
+8. Capture post-upgrade screenshots and run the compare step.
+9. Stage only the dependency upgrade work and directly related fixes.
+10. Commit, push, and open a ready PR unless there is a clear reason to keep it draft.
 
 ## PR Body
 
