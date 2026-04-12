@@ -207,7 +207,7 @@ const HeroSection = () => {
   }, [updateMagicRingPosition]);
 
   // FitText Hook for dynamic title
-  const currentTitle = t(hero.titleElements[titleIndex]);
+  const currentTitle = isVisualRegression ? t(hero.titleElements[0]) : t(hero.titleElements[titleIndex]);
   const { fontSize, ref: fitTextRef } = useFitText({
     depKey: currentTitle,
     maxFontSize: 48,
