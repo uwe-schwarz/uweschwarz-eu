@@ -3,7 +3,6 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ["lucide-react"],
-    strictRouteTypes: true,
   },
   transpilePackages: ["@tanstack/query-core", "@tanstack/react-query"],
   turbopack: {
