@@ -45,6 +45,9 @@ describe("CV PDF text rendering", () => {
       expect(stdout).toContain("Deutsche Vermögensberatung AG");
       expect(stdout).toContain("Gründungsmitglied");
 
+      // The paired assertions intentionally cover both NFC and NFD spellings:
+      // the first group uses composed umlauts, while the second uses decomposed
+      // base-letter-plus-combining-mark variants that should not appear.
       expect(stdout).not.toContain("Schlüsselprojekte");
       expect(stdout).not.toContain("Deutsche Vermögensberatung AG");
       expect(stdout).not.toContain("Gründungsmitglied");
