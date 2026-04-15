@@ -157,7 +157,17 @@ const styles = StyleSheet.create({
     fontSize: 9,
     fontWeight: 700,
     lineHeight: 1.5,
+  },
+  achievementListItem: {
+    flexDirection: "row",
     marginBottom: 2,
+  },
+  achievementMarker: {
+    color: theme.primary,
+    fontSize: 9,
+    lineHeight: 1.5,
+    paddingRight: 4,
+    width: 8,
   },
   companyName: {
     color: theme.primary,
@@ -174,10 +184,20 @@ const styles = StyleSheet.create({
     color: theme.foreground,
     fontSize: 9,
     lineHeight: 1.5,
-    marginBottom: 2,
   },
   descriptionList: {
     marginLeft: 8,
+  },
+  descriptionListItem: {
+    flexDirection: "row",
+    marginBottom: 2,
+  },
+  descriptionMarker: {
+    color: theme.foreground,
+    fontSize: 9,
+    lineHeight: 1.5,
+    paddingRight: 4,
+    width: 8,
   },
   experienceHeader: {
     flexDirection: "row",
@@ -374,6 +394,7 @@ interface CVDocumentProps {
   data?: SiteContent; // Allow custom data to be passed in
   language: "en" | "de";
   profileImageSrc?: string | Uint8Array | ArrayBuffer; // Override profile image source when available
+  updatedAt?: Date;
 }
 
 const bytesToBase64 = (bytes: Uint8Array) => {
@@ -407,12 +428,17 @@ const resolveProfileImageSource = (profileImageSrc?: string | Uint8Array | Array
   return `data:image/jpeg;base64,${bytesToBase64(bytes)}`;
 };
 
-const formatFooterText = (language: "en" | "de", pageNumber: number, totalPages: number) => {
+export const formatFooterText = (
+  language: "en" | "de",
+  pageNumber: number,
+  totalPages: number,
+  updatedAt = new Date(),
+) => {
   const pageLabel = language === "en" ? "Page" : "Seite";
   const pageNumberLabel = language === "en" ? "of" : "von";
   const updateLabel = language === "en" ? "Last updated" : "Letztes Update";
   const locale = language === "en" ? "en-US" : "de-DE";
-  const date = new Date().toLocaleDateString(locale, {
+  const date = updatedAt.toLocaleDateString(locale, {
     month: "long",
     year: "numeric",
   });
@@ -421,9 +447,9 @@ const formatFooterText = (language: "en" | "de", pageNumber: number, totalPages:
 };
 
 const createFooterRenderer =
-  (language: "en" | "de") =>
+  (language: "en" | "de", updatedAt?: Date) =>
   ({ pageNumber = 1, totalPages = 1 }: { pageNumber?: number; totalPages?: number }) =>
-    formatFooterText(language, pageNumber, totalPages);
+    formatFooterText(language, pageNumber, totalPages, updatedAt);
 
 interface ExperienceEntriesProps {
   achievementPrefix: LocalizedString;
@@ -449,19 +475,23 @@ const ExperienceEntry = ({ achievementPrefix, exp, t }: ExperienceEntryProps) =>
     <View style={styles.descriptionList}>
       {exp.description.map((item) =>
         item.type === "text" ? (
-          <Text
+          <View
             key={`${exp.company}-${getLocalizedTextKey(exp.title)}-${item.type}-${getLocalizedTextKey(item.text)}`}
-            style={styles.descriptionItem}
+            style={styles.descriptionListItem}
           >
-            • {t(item.text)}
-          </Text>
+            <Text style={styles.descriptionMarker}>•</Text>
+            <Text style={styles.descriptionItem}>{t(item.text)}</Text>
+          </View>
         ) : (
-          <Text
+          <View
             key={`${exp.company}-${getLocalizedTextKey(exp.title)}-${item.type}-${getLocalizedTextKey(item.text)}`}
-            style={styles.achievementItem}
+            style={styles.achievementListItem}
           >
-            • {t(achievementPrefix)} {t(item.text)}
-          </Text>
+            <Text style={styles.achievementMarker}>•</Text>
+            <Text style={styles.achievementItem}>
+              {t(achievementPrefix)} {t(item.text)}
+            </Text>
+          </View>
         ),
       )}
     </View>
@@ -489,7 +519,7 @@ const ExperienceEntries = ({ achievementPrefix, items, t }: ExperienceEntriesPro
   </>
 );
 
-const CVDocument: React.FC<CVDocumentProps> = ({ data, language, profileImageSrc }) => {
+const CVDocument: React.FC<CVDocumentProps> = ({ data, language, profileImageSrc, updatedAt }) => {
   // Use passed data or fallback to siteContent
   const content = data || defaultSiteContent;
   const { about, contact, experiences, hero, imprint, skills, skillsSection } = content;
@@ -497,7 +527,7 @@ const CVDocument: React.FC<CVDocumentProps> = ({ data, language, profileImageSrc
 
   // Helper function to get text in the current language
   const t = (text: LocalizedString) => translateLocalizedString(text, language);
-  const footerRenderer = createFooterRenderer(language);
+  const footerRenderer = createFooterRenderer(language, updatedAt);
 
   // Sort experiences by date (most recent first)
   const sortedExperiences = [...experiences].sort((a, b) => {
