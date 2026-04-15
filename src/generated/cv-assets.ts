@@ -3,16 +3,16 @@
 
 export const CV_ASSETS = {
   de: {
-    docx: "/uwe-schwarz-cv-de-2026-03-13.docx",
-    pdf: "/uwe-schwarz-cv-de-2026-03-13.pdf",
+    docx: "/uwe-schwarz-cv-de-2026-04-15.docx",
+    pdf: "/uwe-schwarz-cv-de-2026-04-15.pdf",
   },
   en: {
-    docx: "/uwe-schwarz-cv-en-2026-03-13.docx",
-    pdf: "/uwe-schwarz-cv-en-2026-03-13.pdf",
+    docx: "/uwe-schwarz-cv-en-2026-04-15.docx",
+    pdf: "/uwe-schwarz-cv-en-2026-04-15.pdf",
   },
 } as const;
 
 export const CV_LAST_UPDATED = {
-  de: "Letzte Aktualisierung: März 2026",
-  en: "Last updated: March 2026",
+  de: "Letzte Aktualisierung: April 2026",
+  en: "Last updated: April 2026",
 } as const;

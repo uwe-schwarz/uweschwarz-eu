@@ -2,10 +2,10 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import React from "react";
-import ReactPDF from "@react-pdf/renderer";
 import CVDocument from "./cv/CVDocument";
 import { siteContent } from "../src/content/content";
 import { generateCvDocx } from "./cv/CVDocumentDocx";
+import { renderPdf } from "./cv/renderPdf";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -138,9 +138,10 @@ async function main() {
       data: siteContent,
       language,
       profileImageSrc: profileImage,
+      updatedAt: contentModTime,
     });
     const pdfTarget = path.join(publicDir, resolveOutputName(language, "pdf", contentModTime));
-    await ReactPDF.render(pdfElement, pdfTarget);
+    await renderPdf(pdfElement, pdfTarget);
   }
 
   await docxWritesPromise;
