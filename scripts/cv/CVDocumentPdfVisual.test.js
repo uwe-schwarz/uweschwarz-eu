@@ -1,9 +1,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { execFile } from "node:child_process";
 import process from "node:process";
-import { promisify } from "node:util";
 
 import pixelmatch from "pixelmatch";
 import { PNG } from "pngjs";
@@ -13,9 +11,8 @@ import { describe, expect, test } from "bun:test";
 import { siteContent } from "../../src/content/content";
 import { CV_ASSETS } from "../../src/generated/cv-assets";
 import CVDocument from "./CVDocument";
+import { getBaselineUpdatedAt, listPagePngs, renderPdfToPngPages } from "./pdfVisual";
 import { renderPdf } from "./renderPdf";
-
-const execFileAsync = promisify(execFile);
 
 describe("CV PDF visual rendering", () => {
   test(
@@ -26,14 +23,12 @@ describe("CV PDF visual rendering", () => {
     async () => {
       const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "cv-pdf-visual-"));
       const pdfPath = path.join(tempDir, "cv-de.pdf");
-      const contentPath = path.join(process.cwd(), "src/content/content.ts");
-      const contentStats = await fs.stat(contentPath);
       const profileImage = await fs.readFile(new globalThis.URL("../../public/profile.jpg", import.meta.url));
       const pdfElement = React.createElement(CVDocument, {
         data: siteContent,
         language: "de",
         profileImageSrc: profileImage,
-        updatedAt: contentStats.mtime,
+        updatedAt: getBaselineUpdatedAt(CV_ASSETS.de.pdf),
       });
 
       try {
@@ -63,23 +58,6 @@ describe("CV PDF visual rendering", () => {
     },
   );
 });
-
-async function renderPdfToPngPages(pdfPath, outputPrefix) {
-  await execFileAsync("pdftoppm", ["-png", "-r", "144", pdfPath, outputPrefix], {
-    encoding: "utf8",
-  });
-}
-
-async function listPagePngs(prefixDirPrefix) {
-  const dir = path.dirname(prefixDirPrefix);
-  const prefix = path.basename(prefixDirPrefix);
-  const files = await fs.readdir(dir);
-
-  return files
-    .filter((file) => file.startsWith(`${prefix}-`) && file.endsWith(".png"))
-    .sort((left, right) => left.localeCompare(right))
-    .map((file) => path.join(dir, file));
-}
 
 async function comparePngs(expectedPath, actualPath) {
   const expectedImage = PNG.sync.read(await fs.readFile(expectedPath));
