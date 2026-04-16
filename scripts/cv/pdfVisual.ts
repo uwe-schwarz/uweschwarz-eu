@@ -12,7 +12,8 @@ export function getBaselineUpdatedAt(pdfAssetPath: string) {
     throw new Error(`Could not extract baseline date from asset path: ${pdfAssetPath}`);
   }
 
-  return new Date(`${baselineDate}T00:00:00Z`);
+  const [year, month, day] = baselineDate.split("-").map((value) => Number.parseInt(value, 10));
+  return new Date(year, month - 1, day);
 }
 
 export async function renderPdfToPngPages(

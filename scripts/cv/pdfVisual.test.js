@@ -10,8 +10,16 @@ const failingRasterizeCommand = async () => {
 };
 
 describe("pdfVisual helpers", () => {
-  test("derives a deterministic baseline date from the committed asset path", () => {
-    expect(getBaselineUpdatedAt("/uwe-schwarz-cv-de-2026-04-15.pdf").toISOString()).toBe("2026-04-15T00:00:00.000Z");
+  test("derives a deterministic baseline date in local time from the committed asset path", () => {
+    const baselineDate = getBaselineUpdatedAt("/uwe-schwarz-cv-de-2026-04-15.pdf");
+
+    expect(baselineDate.getFullYear()).toBe(2026);
+    expect(baselineDate.getMonth()).toBe(3);
+    expect(baselineDate.getDate()).toBe(15);
+    expect(baselineDate.getHours()).toBe(0);
+    expect(baselineDate.getMinutes()).toBe(0);
+    expect(baselineDate.getSeconds()).toBe(0);
+    expect(baselineDate.getMilliseconds()).toBe(0);
   });
 
   test("throws when the baseline asset path does not contain a date", () => {
