@@ -15,48 +15,42 @@ import { getBaselineUpdatedAt, listPagePngs, renderPdfToPngPages } from "./pdfVi
 import { renderPdf } from "./renderPdf";
 
 describe("CV PDF visual rendering", () => {
-  test(
-    "matches the committed German CV PDF visually",
-    {
-      timeout: 20_000,
-    },
-    async () => {
-      const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "cv-pdf-visual-"));
-      const pdfPath = path.join(tempDir, "cv-de.pdf");
-      const profileImage = await fs.readFile(new globalThis.URL("../../public/profile.jpg", import.meta.url));
-      const pdfElement = React.createElement(CVDocument, {
-        data: siteContent,
-        language: "de",
-        profileImageSrc: profileImage,
-        updatedAt: getBaselineUpdatedAt(CV_ASSETS.de.pdf),
-      });
+  test("matches the committed German CV PDF visually", async () => {
+    const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "cv-pdf-visual-"));
+    const pdfPath = path.join(tempDir, "cv-de.pdf");
+    const profileImage = await fs.readFile(new globalThis.URL("../../public/profile.jpg", import.meta.url));
+    const pdfElement = React.createElement(CVDocument, {
+      data: siteContent,
+      language: "de",
+      profileImageSrc: profileImage,
+      updatedAt: getBaselineUpdatedAt(CV_ASSETS.de.pdf),
+    });
 
-      try {
-        await renderPdf(pdfElement, pdfPath);
-        const baselinePdfPath = path.join(process.cwd(), "public", CV_ASSETS.de.pdf.slice(1));
+    try {
+      await renderPdf(pdfElement, pdfPath);
+      const baselinePdfPath = path.join(process.cwd(), "public", CV_ASSETS.de.pdf.slice(1));
 
-        await renderPdfToPngPages(pdfPath, path.join(tempDir, "actual"));
-        await renderPdfToPngPages(baselinePdfPath, path.join(tempDir, "baseline"));
+      await renderPdfToPngPages(pdfPath, path.join(tempDir, "actual"));
+      await renderPdfToPngPages(baselinePdfPath, path.join(tempDir, "baseline"));
 
-        const actualPages = await listPagePngs(path.join(tempDir, "actual"));
-        const baselinePages = await listPagePngs(path.join(tempDir, "baseline"));
+      const actualPages = await listPagePngs(path.join(tempDir, "actual"));
+      const baselinePages = await listPagePngs(path.join(tempDir, "baseline"));
 
-        expect(actualPages).toHaveLength(baselinePages.length);
+      expect(actualPages).toHaveLength(baselinePages.length);
 
-        for (const [index, actualPage] of actualPages.entries()) {
-          const baselinePage = baselinePages[index];
-          expect(baselinePage).toBeDefined();
+      for (const [index, actualPage] of actualPages.entries()) {
+        const baselinePage = baselinePages[index];
+        expect(baselinePage).toBeDefined();
 
-          const comparison = await comparePngs(baselinePage, actualPage);
+        const comparison = await comparePngs(baselinePage, actualPage);
 
-          expect(comparison.compatible).toBe(true);
-          expect(comparison.changedPixels).toBe(0);
-        }
-      } finally {
-        await fs.rm(tempDir, { force: true, recursive: true });
+        expect(comparison.compatible).toBe(true);
+        expect(comparison.changedPixels).toBe(0);
       }
-    },
-  );
+    } finally {
+      await fs.rm(tempDir, { force: true, recursive: true });
+    }
+  }, 20_000);
 });
 
 async function comparePngs(expectedPath, actualPath) {
