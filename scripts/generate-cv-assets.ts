@@ -3,6 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import React from "react";
 import CVDocument from "./cv/CVDocument";
+import { formatLocalDateStamp } from "./cvAssetDates";
 import { siteContent } from "../src/content/content";
 import { generateCvDocx } from "./cv/CVDocumentDocx";
 import { renderPdf } from "./cv/renderPdf";
@@ -22,7 +23,7 @@ const buildLastUpdatedLabel = (date: Date) => ({
 });
 
 const resolveOutputName = (language: "en" | "de", extension: "pdf" | "docx", contentModTime: Date) => {
-  const date = contentModTime.toISOString().split("T")[0]; // YYYY-MM-DD format
+  const date = formatLocalDateStamp(contentModTime);
   return `uwe-schwarz-cv-${language}-${date}.${extension}`;
 };
 
@@ -35,7 +36,7 @@ async function cleanupOldFiles(contentModTime: Date) {
     const files = await fs.readdir(publicDir);
 
     // Remove old CV files that don't match the current date
-    const currentDate = contentModTime.toISOString().split("T")[0];
+    const currentDate = formatLocalDateStamp(contentModTime);
     const oldCvFiles = files.filter(
       (file) =>
         file.startsWith("uwe-schwarz-cv-") &&
