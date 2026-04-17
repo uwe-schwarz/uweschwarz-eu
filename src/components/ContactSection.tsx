@@ -11,14 +11,14 @@ interface ContactFormCardFallbackProps {
   loadingText?: string;
 }
 
-const ContactFormCardFallback = ({ loadingText = "Loading contact form..." }: ContactFormCardFallbackProps) => {
+const ContactFormCardFallback = ({ loadingText }: ContactFormCardFallbackProps) => {
   const { t } = useSettings();
-  const resolvedLoadingText = loadingText
-    ? loadingText
-    : t({
-        de: "Kontaktformular wird geladen...",
-        en: "Loading contact form...",
-      });
+  const resolvedLoadingText =
+    loadingText ??
+    t({
+      de: "Kontaktformular wird geladen...",
+      en: "Loading contact form...",
+    });
 
   return (
     <div
