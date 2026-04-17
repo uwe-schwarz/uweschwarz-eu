@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { Mail, Phone } from "lucide-react";
 import { SiXing, SiX, SiGithub, SiBluesky, SiFreelancermap } from "@icons-pack/react-simple-icons";
@@ -12,6 +12,14 @@ interface ContactFormCardFallbackProps {
 }
 
 const ContactFormCardFallback = ({ loadingText = "Loading contact form..." }: ContactFormCardFallbackProps) => {
+  const { t } = useSettings();
+  const resolvedLoadingText = loadingText
+    ? loadingText
+    : t({
+        de: "Kontaktformular wird geladen...",
+        en: "Loading contact form...",
+      });
+
   return (
     <div
       aria-busy="true"
@@ -19,7 +27,7 @@ const ContactFormCardFallback = ({ loadingText = "Loading contact form..." }: Co
       className="bg-card rounded-xl p-8 border border-border shadow-sm"
       role="status"
     >
-      <span className="sr-only">{loadingText}</span>
+      <span className="sr-only">{resolvedLoadingText}</span>
       <div className="space-y-6">
         <div className="space-y-3">
           <div className="h-4 w-24 rounded bg-muted/60 animate-pulse"></div>
@@ -39,21 +47,14 @@ const ContactFormCardFallback = ({ loadingText = "Loading contact form..." }: Co
   );
 };
 
+const ContactFormCard = dynamic(() => import("@/components/ContactFormCard"), {
+  loading: () => <ContactFormCardFallback />,
+  ssr: false,
+});
+
 const ContactSection = () => {
   const { t } = useSettings();
   const { contact } = siteContent;
-  const contactFormLoadingText = t({
-    de: "Kontaktformular wird geladen...",
-    en: "Loading contact form...",
-  });
-  const ContactFormCard = useMemo(
-    () =>
-      dynamic(() => import("@/components/ContactFormCard"), {
-        loading: () => <ContactFormCardFallback loadingText={contactFormLoadingText} />,
-        ssr: false,
-      }),
-    [contactFormLoadingText],
-  );
   const formCardMountRef = useRef<HTMLDivElement>(null);
   const [shouldLoadFormCard, setShouldLoadFormCard] = useState(
     () => typeof window !== "undefined" && typeof IntersectionObserver === "undefined",
@@ -235,13 +236,7 @@ const ContactSection = () => {
           </div>
 
           {/* Contact Form */}
-          <div ref={formCardMountRef}>
-            {shouldLoadFormCard ? (
-              <ContactFormCard />
-            ) : (
-              <ContactFormCardFallback loadingText={contactFormLoadingText} />
-            )}
-          </div>
+          <div ref={formCardMountRef}>{shouldLoadFormCard ? <ContactFormCard /> : <ContactFormCardFallback />}</div>
         </div>
       </div>
     </section>
