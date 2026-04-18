@@ -119,18 +119,30 @@ export function hasMarkdownAcceptHeader(acceptHeader: string | null) {
     return false;
   }
 
-  return acceptHeader.split(",").some((part) => {
+  const acceptedTypes = acceptHeader.split(",").map((part) => {
     const [typePart, ...parameterParts] = part.split(";").map((value) => value.trim().toLowerCase());
-
-    if (typePart !== "text/markdown") {
-      return false;
-    }
-
     const qValue = parameterParts.find((parameter) => parameter.startsWith("q="));
-    return qValue ? Number(qValue.slice(2)) > 0 : true;
+    const q = qValue ? Number(qValue.slice(2)) : 1;
+
+    return {
+      q: Number.isFinite(q) ? q : 0,
+      type: typePart,
+    };
   });
+
+  const markdownQ = Math.max(0, ...acceptedTypes.filter(({ type }) => type === "text/markdown").map(({ q }) => q));
+  const htmlCompatibleQ = Math.max(
+    0,
+    ...acceptedTypes
+      .filter(({ type }) => type === "text/html" || type === "text/*" || type === "*/*")
+      .map(({ q }) => q),
+  );
+
+  return markdownQ > 0 && markdownQ >= htmlCompatibleQ;
 }
 
 export function isHomepagePath(pathname: string) {
-  return HOMEPAGE_PATHS.has(pathname);
+  const normalizedPathname = pathname === "/" ? pathname : pathname.replace(/\/+$/, "");
+
+  return HOMEPAGE_PATHS.has(normalizedPathname || "/");
 }

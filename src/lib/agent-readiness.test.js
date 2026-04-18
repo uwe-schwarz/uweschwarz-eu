@@ -7,21 +7,27 @@ import {
   buildMarkdownResponseHeaders,
   hasMarkdownAcceptHeader,
   isHomepagePath,
-} from "./agent-readiness.ts";
+} from "@/lib/agent-readiness";
 
 describe("agent readiness helpers", () => {
   test("marks only homepage routes as eligible for agent negotiation", () => {
     expect(isHomepagePath("/")).toBe(true);
     expect(isHomepagePath("/en")).toBe(true);
     expect(isHomepagePath("/de")).toBe(true);
+    expect(isHomepagePath("/en/")).toBe(true);
+    expect(isHomepagePath("/de///")).toBe(true);
 
     expect(isHomepagePath("/en/cv")).toBe(false);
     expect(isHomepagePath("/privacy")).toBe(false);
   });
 
-  test("recognizes markdown accept negotiation without treating q=0 as acceptable", () => {
+  test("recognizes markdown accept negotiation only when markdown is not lower priority", () => {
     expect(hasMarkdownAcceptHeader("text/markdown")).toBe(true);
-    expect(hasMarkdownAcceptHeader("text/html, text/markdown;q=0.8")).toBe(true);
+    expect(hasMarkdownAcceptHeader("text/html, text/markdown;q=0.8")).toBe(false);
+    expect(hasMarkdownAcceptHeader("text/html;q=0.5, text/markdown;q=0.8")).toBe(true);
+    expect(hasMarkdownAcceptHeader("text/html;q=0.8, text/markdown;q=0.8")).toBe(true);
+    expect(hasMarkdownAcceptHeader("text/html;q=1, text/markdown;q=0.1")).toBe(false);
+    expect(hasMarkdownAcceptHeader("*/*;q=1, text/markdown;q=0.8")).toBe(false);
     expect(hasMarkdownAcceptHeader("text/markdown;q=0")).toBe(false);
     expect(hasMarkdownAcceptHeader("text/html")).toBe(false);
     expect(hasMarkdownAcceptHeader(null)).toBe(false);
@@ -37,7 +43,7 @@ describe("agent readiness helpers", () => {
     expect(AGENT_DISCOVERY_LINKS.join(",")).toContain("</llms.txt>");
     expect(AGENT_DISCOVERY_LINKS.join(",")).toContain("</sitemap>");
 
-    const headers = new Headers();
+    const headers = new globalThis.Headers();
     appendAgentDiscoveryHeaders(headers);
 
     expect(headers.get("link")).toContain('rel="describedby"');
