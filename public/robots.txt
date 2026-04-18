@@ -1,17 +1,4 @@
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
 User-agent: *
 Allow: /
-Content-Signal: ai-train=no, search=yes, ai-input=no
 
 Sitemap: https://uweschwarz.eu/sitemap.xml
