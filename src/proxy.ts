@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 import { detectPreferredLanguage } from "@/lib/detect-language";
+import { appendAgentDiscoveryHeaders, hasMarkdownAcceptHeader, isHomepagePath } from "@/lib/agent-readiness";
 import { DEFAULT_LANGUAGE, isSupportedLanguage, replacePathLanguage } from "@/lib/i18n";
 import { buildContentSecurityPolicy, createCspNonce, NONCE_HEADER, normalizeSecurityHeader } from "@/lib/security/csp";
 
@@ -32,6 +33,7 @@ export function proxy(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);
   const nonce = isProduction ? createCspNonce() : null;
   const csp = nonce ? normalizeSecurityHeader(buildContentSecurityPolicy(nonce)) : null;
+  const wantsMarkdown = isHomepagePath(pathname) && hasMarkdownAcceptHeader(request.headers.get("accept"));
 
   if (nonce && csp) {
     requestHeaders.set("Content-Security-Policy", csp);
@@ -40,6 +42,26 @@ export function proxy(request: NextRequest) {
 
   const firstSegment = pathname.split("/")[1];
   if (isSupportedLanguage(firstSegment)) {
+    if (wantsMarkdown) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/api/agent-markdown";
+      url.searchParams.set("lang", firstSegment);
+
+      const response = NextResponse.rewrite(url, {
+        request: {
+          headers: requestHeaders,
+        },
+      });
+
+      if (nonce) {
+        applySecurityHeaders(response, nonce);
+      }
+
+      appendAgentDiscoveryHeaders(response.headers);
+
+      return response;
+    }
+
     const response = NextResponse.next({
       request: {
         headers: requestHeaders,
@@ -48,6 +70,10 @@ export function proxy(request: NextRequest) {
 
     if (nonce) {
       applySecurityHeaders(response, nonce);
+    }
+
+    if (isHomepagePath(pathname)) {
+      appendAgentDiscoveryHeaders(response.headers);
     }
 
     return response;
@@ -63,6 +89,32 @@ export function proxy(request: NextRequest) {
   const url = request.nextUrl.clone();
   url.pathname = replacePathLanguage(pathname, language);
 
+  if (wantsMarkdown) {
+    url.pathname = "/api/agent-markdown";
+    url.searchParams.set("lang", language);
+
+    const response = NextResponse.rewrite(url, {
+      request: {
+        headers: requestHeaders,
+      },
+    });
+
+    if (nonce) {
+      applySecurityHeaders(response, nonce);
+    }
+
+    appendAgentDiscoveryHeaders(response.headers);
+    response.cookies.set({
+      maxAge: 60 * 60 * 24 * 365,
+      name: "language",
+      path: "/",
+      sameSite: "lax",
+      value: language,
+    });
+
+    return response;
+  }
+
   const response = NextResponse.redirect(url);
 
   if (nonce) {
@@ -76,6 +128,10 @@ export function proxy(request: NextRequest) {
     sameSite: "lax",
     value: language,
   });
+
+  if (isHomepagePath(pathname)) {
+    appendAgentDiscoveryHeaders(response.headers);
+  }
 
   return response;
 }
