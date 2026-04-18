@@ -64,7 +64,7 @@
     "autoprefixer": "^10.5.0",
     "eslint-plugin-no-only-tests": "^3.3.0",
     "eslint-plugin-perfectionist": "^5.8.0",
-    "eslint-plugin-react-hooks": "^7.1.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-unused-imports": "^4.4.1",
     "husky": "^9.1.7",
     "oxfmt": "^0.45.0",
