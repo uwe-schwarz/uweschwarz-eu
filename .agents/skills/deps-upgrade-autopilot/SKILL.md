@@ -94,7 +94,7 @@ Use this repo-local skill when the user wants the full dependency-upgrade flow e
   4. Push the follow-up commit(s).
   5. Reply or react on GitHub when appropriate so the thread shows the feedback was handled.
   6. Resolve the review comments when they got resolved.
-- If review-thread state matters, follow the thread-aware approach from the GitHub plugin skill at `$HOME/.codex/plugins/cache/openai-curated/github/*/skills/gh-address-comments/SKILL.md` (use globbing).
+- If review-thread state matters, follow the thread-aware approach from the GitHub plugin skill at `$github:gh-address-comments`.
 - If there is no actionable feedback but checks are still running, keep waiting and polling instead of reporting partial completion.
 - Repeat the babysitting loop until:
   - there is no unresolved actionable feedback,
