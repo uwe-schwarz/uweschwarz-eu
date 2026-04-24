@@ -1,100 +1,14 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
-import dynamic from "next/dynamic";
 import { Mail, Phone } from "lucide-react";
 import { SiXing, SiX, SiGithub, SiBluesky, SiFreelancermap } from "@icons-pack/react-simple-icons";
+import ContactFormCard from "@/components/ContactFormCard";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
-
-interface ContactFormCardFallbackProps {
-  loadingText?: string;
-}
-
-const ContactFormCardFallback = ({ loadingText }: ContactFormCardFallbackProps) => {
-  const { t } = useSettings();
-  const resolvedLoadingText =
-    loadingText ??
-    t({
-      de: "Kontaktformular wird geladen...",
-      en: "Loading contact form...",
-    });
-
-  return (
-    <div
-      aria-busy="true"
-      aria-live="polite"
-      className="bg-card rounded-xl p-8 border border-border shadow-sm"
-      role="status"
-    >
-      <span className="sr-only">{resolvedLoadingText}</span>
-      <div className="space-y-6">
-        <div className="space-y-3">
-          <div className="h-4 w-24 rounded bg-muted/60 animate-pulse"></div>
-          <div className="h-10 w-full rounded bg-muted/60 animate-pulse"></div>
-        </div>
-        <div className="space-y-3">
-          <div className="h-4 w-20 rounded bg-muted/60 animate-pulse"></div>
-          <div className="h-10 w-full rounded bg-muted/60 animate-pulse"></div>
-        </div>
-        <div className="space-y-3">
-          <div className="h-4 w-24 rounded bg-muted/60 animate-pulse"></div>
-          <div className="h-28 w-full rounded bg-muted/60 animate-pulse"></div>
-        </div>
-        <div className="h-10 w-full rounded bg-muted/60 animate-pulse"></div>
-      </div>
-    </div>
-  );
-};
-
-const ContactFormCard = dynamic(() => import("@/components/ContactFormCard"), {
-  loading: () => <ContactFormCardFallback />,
-  ssr: false,
-});
 
 const ContactSection = () => {
   const { t } = useSettings();
   const { contact } = siteContent;
-  const formCardMountRef = useRef<HTMLDivElement>(null);
-  const [shouldLoadFormCard, setShouldLoadFormCard] = useState(
-    () => typeof window !== "undefined" && typeof IntersectionObserver === "undefined",
-  );
-
-  useEffect(() => {
-    if (shouldLoadFormCard) {
-      return;
-    }
-
-    const target = formCardMountRef.current;
-    if (!target) {
-      return;
-    }
-
-    if (typeof IntersectionObserver === "undefined") {
-      const timeoutId = window.setTimeout(() => {
-        setShouldLoadFormCard(true);
-      }, 0);
-      return () => window.clearTimeout(timeoutId);
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            setShouldLoadFormCard(true);
-            observer.disconnect();
-            break;
-          }
-        }
-      },
-      {
-        rootMargin: "300px 0px",
-      },
-    );
-
-    observer.observe(target);
-    return () => observer.disconnect();
-  }, [shouldLoadFormCard]);
 
   return (
     <section className="section-padding bg-muted/30" id="contact">
@@ -236,7 +150,7 @@ const ContactSection = () => {
           </div>
 
           {/* Contact Form */}
-          <div ref={formCardMountRef}>{shouldLoadFormCard ? <ContactFormCard /> : <ContactFormCardFallback />}</div>
+          <ContactFormCard />
         </div>
       </div>
     </section>
