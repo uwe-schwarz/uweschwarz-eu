@@ -260,7 +260,7 @@ async function stabilizePage(page, settleMs, timeoutMs) {
     const documentRef = globalThis.document;
 
     if ("fonts" in documentRef) {
-      await documentRef.fonts.ready;
+      await Promise.race([documentRef.fonts.ready, new Promise((resolve) => globalThis.setTimeout(resolve, 2000))]);
     }
   });
   await page.mouse.move(0, 0);
@@ -353,7 +353,8 @@ async function captureTargets(browser, baseUrl, outputDir, options, manifestTarg
   const timeoutMs = toInt(options["timeout-ms"], DEFAULT_TIMEOUT_MS);
 
   for (const targetGroup of groupTargetsByPath(language)) {
-    const { context } = await createBrowserContext(browser, {
+    const groupBrowser = await chromium.launch({ headless: true });
+    const { context } = await createBrowserContext(groupBrowser, {
       ...options,
       lang: language,
       theme,
@@ -396,6 +397,7 @@ async function captureTargets(browser, baseUrl, outputDir, options, manifestTarg
             if (shouldScrollIntoView) {
               await page.locator(target.captureSelector).scrollIntoViewIfNeeded();
             }
+
             await page.locator(target.captureSelector).waitFor({
               state: "visible",
               timeout: timeoutMs,
@@ -404,6 +406,7 @@ async function captureTargets(browser, baseUrl, outputDir, options, manifestTarg
               await page.locator(target.captureSelector).screenshot({
                 animations: "disabled",
                 path: path.join(outputDir, relativePath),
+                timeout: timeoutMs,
                 type: "png",
               });
             });
@@ -413,6 +416,7 @@ async function captureTargets(browser, baseUrl, outputDir, options, manifestTarg
                 animations: "disabled",
                 fullPage: true,
                 path: path.join(outputDir, relativePath),
+                timeout: timeoutMs,
                 type: "png",
               });
             });
@@ -436,6 +440,7 @@ async function captureTargets(browser, baseUrl, outputDir, options, manifestTarg
     } finally {
       await page.close().catch(() => {});
       await context.close().catch(() => {});
+      await groupBrowser.close().catch(() => {});
     }
   }
 }
