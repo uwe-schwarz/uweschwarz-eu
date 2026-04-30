@@ -260,7 +260,7 @@ async function stabilizePage(page, settleMs, timeoutMs) {
     const documentRef = globalThis.document;
 
     if ("fonts" in documentRef) {
-      await documentRef.fonts.ready;
+      await Promise.race([documentRef.fonts.ready, new Promise((resolve) => globalThis.setTimeout(resolve, 2000))]);
     }
   });
   await page.mouse.move(0, 0);
@@ -346,22 +346,27 @@ function groupTargetsByPath(language) {
   return [...groups.values()];
 }
 
-async function captureTargets(browser, baseUrl, outputDir, options, manifestTargets, language, theme) {
+async function captureTargets(baseUrl, outputDir, options, manifestTargets, language, theme) {
   const samples = toInt(options.samples, DEFAULT_SAMPLES);
   const settleMs = toInt(options["settle-ms"], DEFAULT_SETTLE_MS);
   const sampleDelayMs = toInt(options["sample-delay-ms"], DEFAULT_SAMPLE_DELAY_MS);
   const timeoutMs = toInt(options["timeout-ms"], DEFAULT_TIMEOUT_MS);
 
   for (const targetGroup of groupTargetsByPath(language)) {
-    const { context } = await createBrowserContext(browser, {
-      ...options,
-      lang: language,
-      theme,
-    });
-    const page = await createCapturePage(context, { language, theme });
-    const targetUrl = joinUrl(baseUrl, targetGroup[0].targetPath);
+    let context;
+    let groupBrowser;
+    let page;
 
     try {
+      groupBrowser = await chromium.launch({ headless: true });
+      ({ context } = await createBrowserContext(groupBrowser, {
+        ...options,
+        lang: language,
+        theme,
+      }));
+      page = await createCapturePage(context, { language, theme });
+      const targetUrl = joinUrl(baseUrl, targetGroup[0].targetPath);
+
       await page.goto(targetUrl, {
         timeout: timeoutMs,
         waitUntil: "domcontentloaded",
@@ -396,6 +401,7 @@ async function captureTargets(browser, baseUrl, outputDir, options, manifestTarg
             if (shouldScrollIntoView) {
               await page.locator(target.captureSelector).scrollIntoViewIfNeeded();
             }
+
             await page.locator(target.captureSelector).waitFor({
               state: "visible",
               timeout: timeoutMs,
@@ -404,6 +410,7 @@ async function captureTargets(browser, baseUrl, outputDir, options, manifestTarg
               await page.locator(target.captureSelector).screenshot({
                 animations: "disabled",
                 path: path.join(outputDir, relativePath),
+                timeout: timeoutMs,
                 type: "png",
               });
             });
@@ -413,6 +420,7 @@ async function captureTargets(browser, baseUrl, outputDir, options, manifestTarg
                 animations: "disabled",
                 fullPage: true,
                 path: path.join(outputDir, relativePath),
+                timeout: timeoutMs,
                 type: "png",
               });
             });
@@ -434,8 +442,9 @@ async function captureTargets(browser, baseUrl, outputDir, options, manifestTarg
         writeStdout(`Captured ${target.id}`);
       }
     } finally {
-      await page.close().catch(() => {});
-      await context.close().catch(() => {});
+      await page?.close().catch(() => {});
+      await context?.close().catch(() => {});
+      await groupBrowser?.close().catch(() => {});
     }
   }
 }
@@ -449,31 +458,25 @@ async function runCapture(options) {
   const outputDir = resolveOutputDir(options["output-dir"], "deps-visual-capture");
   await ensureDir(outputDir);
 
-  const browser = await chromium.launch({ headless: true });
+  const language = normalizeLanguage(options.lang);
+  const theme = normalizeTheme(options.theme);
+  const manifestTargets = [];
 
-  try {
-    const language = normalizeLanguage(options.lang);
-    const theme = normalizeTheme(options.theme);
-    const manifestTargets = [];
+  await captureTargets(baseUrl, outputDir, options, manifestTargets, language, theme);
 
-    await captureTargets(browser, baseUrl, outputDir, options, manifestTargets, language, theme);
+  const manifest = {
+    baseUrl,
+    capturedAt: new Date().toISOString(),
+    language,
+    outputDir,
+    sampleCount: toInt(options.samples, DEFAULT_SAMPLES),
+    targets: manifestTargets.sort((left, right) => left.id.localeCompare(right.id)),
+    theme,
+  };
 
-    const manifest = {
-      baseUrl,
-      capturedAt: new Date().toISOString(),
-      language,
-      outputDir,
-      sampleCount: toInt(options.samples, DEFAULT_SAMPLES),
-      targets: manifestTargets.sort((left, right) => left.id.localeCompare(right.id)),
-      theme,
-    };
+  await writeJson(path.join(outputDir, "manifest.json"), manifest);
 
-    await writeJson(path.join(outputDir, "manifest.json"), manifest);
-
-    writeStdout(`Captured ${manifest.targets.length} targets into ${outputDir}`);
-  } finally {
-    await browser.close();
-  }
+  writeStdout(`Captured ${manifest.targets.length} targets into ${outputDir}`);
 }
 
 async function readManifest(manifestDir) {
