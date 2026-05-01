@@ -17,6 +17,7 @@ const DEFAULT_SAMPLES = 2;
 const DEFAULT_SETTLE_MS = 350;
 const DEFAULT_SAMPLE_DELAY_MS = 250;
 const DEFAULT_TIMEOUT_MS = 30_000;
+const CLEANUP_TIMEOUT_MS = 2000;
 const MIN_ALLOWED_PIXEL_RATIO = 0.000_02;
 const MIN_ALLOWED_PIXELS = 100;
 const NOISE_MULTIPLIER = 3;
@@ -25,7 +26,7 @@ const STORAGE_KEYS = {
   theme: "user-settings:theme:v1",
 };
 
-const TARGETS = [
+export const TARGETS = [
   {
     capture: "element",
     captureSelector: "#hero",
@@ -81,7 +82,7 @@ const TARGETS = [
     readySelector: "main",
   },
   {
-    capture: "element",
+    capture: "page",
     captureSelector: "body",
     id: "cv",
     kind: "page",
@@ -186,6 +187,27 @@ async function withRetries(fn, retries = 2) {
   }
 
   throw lastError;
+}
+
+export async function closeWithTimeout(resource) {
+  if (!resource) {
+    return;
+  }
+
+  let timeoutId;
+
+  try {
+    await Promise.race([
+      resource.close().catch(() => {}),
+      new Promise((resolve) => {
+        timeoutId = globalThis.setTimeout(resolve, CLEANUP_TIMEOUT_MS);
+      }),
+    ]);
+  } finally {
+    if (timeoutId) {
+      globalThis.clearTimeout(timeoutId);
+    }
+  }
 }
 
 function writeStdout(message) {
@@ -346,25 +368,22 @@ function groupTargetsByPath(language) {
   return [...groups.values()];
 }
 
-async function captureTargets(baseUrl, outputDir, options, manifestTargets, language, theme) {
+async function captureTargets(browser, baseUrl, outputDir, options, manifestTargets, language, theme) {
   const samples = toInt(options.samples, DEFAULT_SAMPLES);
   const settleMs = toInt(options["settle-ms"], DEFAULT_SETTLE_MS);
   const sampleDelayMs = toInt(options["sample-delay-ms"], DEFAULT_SAMPLE_DELAY_MS);
   const timeoutMs = toInt(options["timeout-ms"], DEFAULT_TIMEOUT_MS);
+  const { context } = await createBrowserContext(browser, {
+    ...options,
+    lang: language,
+    theme,
+  });
+  const pages = [];
 
-  for (const targetGroup of groupTargetsByPath(language)) {
-    let context;
-    let groupBrowser;
-    let page;
-
-    try {
-      groupBrowser = await chromium.launch({ headless: true });
-      ({ context } = await createBrowserContext(groupBrowser, {
-        ...options,
-        lang: language,
-        theme,
-      }));
-      page = await createCapturePage(context, { language, theme });
+  try {
+    for (const targetGroup of groupTargetsByPath(language)) {
+      const page = await createCapturePage(context, { language, theme });
+      pages.push(page);
       const targetUrl = joinUrl(baseUrl, targetGroup[0].targetPath);
 
       await page.goto(targetUrl, {
@@ -441,11 +460,12 @@ async function captureTargets(baseUrl, outputDir, options, manifestTargets, lang
         });
         writeStdout(`Captured ${target.id}`);
       }
-    } finally {
-      await page?.close().catch(() => {});
-      await context?.close().catch(() => {});
-      await groupBrowser?.close().catch(() => {});
     }
+  } finally {
+    for (const page of pages) {
+      await closeWithTimeout(page);
+    }
+    await closeWithTimeout(context);
   }
 }
 
@@ -461,8 +481,13 @@ async function runCapture(options) {
   const language = normalizeLanguage(options.lang);
   const theme = normalizeTheme(options.theme);
   const manifestTargets = [];
+  const browser = await chromium.launch({ headless: true });
 
-  await captureTargets(baseUrl, outputDir, options, manifestTargets, language, theme);
+  try {
+    await captureTargets(browser, baseUrl, outputDir, options, manifestTargets, language, theme);
+  } finally {
+    await closeWithTimeout(browser);
+  }
 
   const manifest = {
     baseUrl,
@@ -722,9 +747,11 @@ async function main() {
   throw new Error(`Unsupported command: ${command}`);
 }
 
-try {
-  await main();
-} catch (error) {
-  writeStderr(error instanceof Error ? error.message : String(error));
-  process.exitCode = 1;
+if (import.meta.main) {
+  try {
+    await main();
+  } catch (error) {
+    writeStderr(error instanceof Error ? error.message : String(error));
+    process.exitCode = 1;
+  }
 }
