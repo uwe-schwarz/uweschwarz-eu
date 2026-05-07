@@ -247,6 +247,16 @@ async function installVisualRegressionMode(page, { language, theme }) {
   );
 }
 
+export function markVisualRegressionDocument(documentRef = globalThis.document) {
+  documentRef.documentElement.dataset.visualRegression = "true";
+}
+
+async function ensureVisualRegressionMode(page) {
+  await page.evaluate(() => {
+    globalThis.document.documentElement.dataset.visualRegression = "true";
+  });
+}
+
 async function applyVisualRegressionStyles(page) {
   await page.addStyleTag({
     content: `
@@ -269,6 +279,7 @@ async function applyVisualRegressionStyles(page) {
 
 async function stabilizePage(page, settleMs, timeoutMs) {
   await page.waitForLoadState("domcontentloaded");
+  await ensureVisualRegressionMode(page);
 
   try {
     await page.waitForLoadState("networkidle", {

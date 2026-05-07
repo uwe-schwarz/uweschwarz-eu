@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
 
-import { closeWithTimeout, TARGETS } from "./deps-visual-check.mjs";
+import { closeWithTimeout, markVisualRegressionDocument, TARGETS } from "./deps-visual-check.mjs";
 
 describe("deps visual capture targets", () => {
   test("captures the CV page with a page screenshot instead of a body locator", () => {
@@ -37,5 +37,19 @@ describe("closeWithTimeout", () => {
     }
 
     expect(clearedTimers).toEqual([timer]);
+  });
+});
+
+describe("markVisualRegressionDocument", () => {
+  test("sets the document marker used by stable visual captures", () => {
+    const documentRef = {
+      documentElement: {
+        dataset: {},
+      },
+    };
+
+    markVisualRegressionDocument(documentRef);
+
+    expect(documentRef.documentElement.dataset.visualRegression).toBe("true");
   });
 });
