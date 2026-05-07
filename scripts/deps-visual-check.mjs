@@ -251,10 +251,21 @@ export function markVisualRegressionDocument(documentRef = globalThis.document) 
   documentRef.documentElement.dataset.visualRegression = "true";
 }
 
-async function ensureVisualRegressionMode(page) {
-  await page.evaluate(() => {
-    globalThis.document.documentElement.dataset.visualRegression = "true";
-  });
+export async function ensureVisualRegressionMode(page) {
+  try {
+    await page.evaluate(() => {
+      globalThis.document.documentElement.dataset.visualRegression = "true";
+    });
+  } catch (error) {
+    throw new Error(
+      `Failed to enable visual regression mode through page.evaluate: ${
+        error instanceof Error ? error.message : String(error)
+      }`,
+      {
+        cause: error,
+      },
+    );
+  }
 }
 
 async function applyVisualRegressionStyles(page) {

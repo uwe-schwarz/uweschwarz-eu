@@ -1,6 +1,11 @@
 import { describe, expect, test } from "bun:test";
 
-import { closeWithTimeout, markVisualRegressionDocument, TARGETS } from "./deps-visual-check.mjs";
+import {
+  closeWithTimeout,
+  ensureVisualRegressionMode,
+  markVisualRegressionDocument,
+  TARGETS,
+} from "./deps-visual-check.mjs";
 
 describe("deps visual capture targets", () => {
   test("captures the CV page with a page screenshot instead of a body locator", () => {
@@ -51,5 +56,20 @@ describe("markVisualRegressionDocument", () => {
     markVisualRegressionDocument(documentRef);
 
     expect(documentRef.documentElement.dataset.visualRegression).toBe("true");
+  });
+});
+
+describe("ensureVisualRegressionMode", () => {
+  test("adds context when page evaluation fails", async () => {
+    const originalError = new Error("browser context closed");
+    const page = {
+      evaluate: async () => {
+        throw originalError;
+      },
+    };
+
+    await expect(ensureVisualRegressionMode(page)).rejects.toThrow(
+      "Failed to enable visual regression mode through page.evaluate: browser context closed",
+    );
   });
 });
