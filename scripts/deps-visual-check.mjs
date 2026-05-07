@@ -247,6 +247,27 @@ async function installVisualRegressionMode(page, { language, theme }) {
   );
 }
 
+export function markVisualRegressionDocument(documentRef = globalThis.document) {
+  documentRef.documentElement.dataset.visualRegression = "true";
+}
+
+export async function ensureVisualRegressionMode(page) {
+  try {
+    await page.evaluate(() => {
+      globalThis.document.documentElement.dataset.visualRegression = "true";
+    });
+  } catch (error) {
+    throw new Error(
+      `Failed to enable visual regression mode through page.evaluate: ${
+        error instanceof Error ? error.message : String(error)
+      }`,
+      {
+        cause: error,
+      },
+    );
+  }
+}
+
 async function applyVisualRegressionStyles(page) {
   await page.addStyleTag({
     content: `
@@ -269,6 +290,7 @@ async function applyVisualRegressionStyles(page) {
 
 async function stabilizePage(page, settleMs, timeoutMs) {
   await page.waitForLoadState("domcontentloaded");
+  await ensureVisualRegressionMode(page);
 
   try {
     await page.waitForLoadState("networkidle", {

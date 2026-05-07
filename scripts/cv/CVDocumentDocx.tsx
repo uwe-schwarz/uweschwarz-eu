@@ -45,7 +45,7 @@ export async function generateCvDocx({
     ? new Uint8Array(profileImage.buffer, profileImage.byteOffset, profileImage.byteLength)
     : new Uint8Array(profileImage);
   const content: SiteContent = data;
-  const { about, contact, experiences, footer, hero, imprint, skills, skillsSection } = content;
+  const { about, contact, experiences, hero, imprint, skills, skillsSection } = content;
 
   // Übersetzungs-Helper
   const t = (obj: LocalizedString): string => obj[language] || "";
