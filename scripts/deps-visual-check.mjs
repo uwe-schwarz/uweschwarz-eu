@@ -284,6 +284,11 @@ async function applyVisualRegressionStyles(page) {
       [data-visual-regression="hero-rings"] {
         visibility: hidden !important;
       }
+
+      .timeline-item {
+        opacity: 1 !important;
+        transform: none !important;
+      }
     `,
   });
 }
