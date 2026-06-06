@@ -117,7 +117,7 @@ export default function CvPageClient() {
                   <iframe
                     className="min-h-[500px] h-full w-full max-w-[796px] overflow-hidden rounded-lg border-0 bg-white shadow-inner"
                     key={language}
-                    sandbox=""
+                    sandbox="allow-downloads allow-same-origin"
                     src={`${pdfUrl}#zoom=100&view=FitH&pagemode=none&toolbar=0`}
                     title="Curriculum Vitae"
                   />
