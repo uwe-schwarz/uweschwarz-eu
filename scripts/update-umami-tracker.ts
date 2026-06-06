@@ -2,10 +2,9 @@ import { createHash } from "node:crypto";
 import { readFile, writeFile } from "node:fs/promises";
 import process from "node:process";
 
-import { UMAMI_UPSTREAM_SCRIPT_URL } from "@/lib/security/csp";
-
 const scriptFile = new URL("../src/app/api/umami/script/umami.js.txt", import.meta.url);
 const hashFile = new URL("../src/app/api/umami/script/umami.sha256", import.meta.url);
+const UMAMI_UPSTREAM_SCRIPT_URL = "https://cloud.umami.is/script.js";
 
 function getSha256(value: string) {
   return createHash("sha256").update(value).digest("hex");

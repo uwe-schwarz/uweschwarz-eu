@@ -1,4 +1,5 @@
-import React, { forwardRef, useCallback, useEffect, useRef } from "react";
+import type { KeyboardEvent as ReactKeyboardEvent, MouseEvent as ReactMouseEvent, Ref } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { Color, Mesh, OrthographicCamera, PlaneGeometry, Scene, ShaderMaterial, Vector2, WebGLRenderer } from "three";
 
 const fragmentShader = `
@@ -78,6 +79,7 @@ interface MagicRingsProps {
   opacity?: number;
   parallax?: number;
   radiusStep?: number;
+  ref?: Ref<HTMLButtonElement>;
   ringCount?: number;
   ringGap?: number;
   rotation?: number;
@@ -86,8 +88,9 @@ interface MagicRingsProps {
 }
 
 const MAX_RING_COUNT = 10;
+type MagicRingsRuntimeProps = Required<Omit<MagicRingsProps, "ref">>;
 
-const assignRef = <T,>(ref: React.ForwardedRef<T>, value: T) => {
+const assignRef = <T,>(ref: Ref<T> | undefined, value: T) => {
   if (typeof ref === "function") {
     ref(value);
     return;
@@ -98,35 +101,33 @@ const assignRef = <T,>(ref: React.ForwardedRef<T>, value: T) => {
   }
 };
 
-const MagicRings = forwardRef<HTMLDivElement, MagicRingsProps>(function MagicRings(
-  {
-    attenuation = 10,
-    baseRadius = 0.35,
-    blur = 0,
-    clickBurst = false,
-    color = "#fc42ff",
-    colorTwo = "#42fcff",
-    fadeIn = 0.7,
-    fadeOut = 0.5,
-    followMouse = false,
-    hoverScale = 1.2,
-    lineThickness = 2,
-    mouseInfluence = 0.2,
-    noiseAmount = 0.1,
-    opacity = 1,
-    parallax = 0.05,
-    radiusStep = 0.1,
-    ringCount = 6,
-    ringGap = 1.5,
-    rotation = 0,
-    scaleRate = 0.1,
-    speed = 1,
-  }: MagicRingsProps,
-  forwardedRef,
-) {
-  const mountRef = useRef<HTMLDivElement | null>(null);
+function MagicRings({
+  attenuation = 10,
+  baseRadius = 0.35,
+  blur = 0,
+  clickBurst = false,
+  color = "#fc42ff",
+  colorTwo = "#42fcff",
+  fadeIn = 0.7,
+  fadeOut = 0.5,
+  followMouse = false,
+  hoverScale = 1.2,
+  lineThickness = 2,
+  mouseInfluence = 0.2,
+  noiseAmount = 0.1,
+  opacity = 1,
+  parallax = 0.05,
+  radiusStep = 0.1,
+  ref,
+  ringCount = 6,
+  ringGap = 1.5,
+  rotation = 0,
+  scaleRate = 0.1,
+  speed = 1,
+}: MagicRingsProps) {
+  const mountRef = useRef<HTMLButtonElement | null>(null);
   const safeRingCount = Math.max(0, Math.min(ringCount, MAX_RING_COUNT));
-  const propsRef = useRef<Required<MagicRingsProps>>({
+  const propsRef = useRef<MagicRingsRuntimeProps>({
     attenuation,
     baseRadius,
     blur,
@@ -155,18 +156,39 @@ const MagicRings = forwardRef<HTMLDivElement, MagicRingsProps>(function MagicRin
   const mouseRef = useRef([0, 0]);
   const smoothMouseRef = useRef([0, 0]);
   const setMountNodeRef = useCallback(
-    (node: HTMLDivElement | null) => {
+    (node: HTMLButtonElement | null) => {
       mountRef.current = node;
-      assignRef(forwardedRef, node);
+      assignRef(ref, node);
     },
-    [forwardedRef],
+    [ref],
   );
-
-  useEffect(() => {
-    if (ringCount > MAX_RING_COUNT) {
-      console.warn(`MagicRings: ringCount exceeds shader limit (${MAX_RING_COUNT}) and will be clamped.`);
+  const handleMouseEnter = useCallback(() => {
+    isHoveredRef.current = true;
+  }, []);
+  const handleMouseLeave = useCallback(() => {
+    isHoveredRef.current = false;
+    mouseRef.current[0] = 0;
+    mouseRef.current[1] = 0;
+  }, []);
+  const handleMouseMove = useCallback((event: ReactMouseEvent<HTMLButtonElement>) => {
+    const mount = mountRef.current;
+    if (!mount) {
+      return;
     }
-  }, [ringCount]);
+
+    const rect = mount.getBoundingClientRect();
+    mouseRef.current[0] = (event.clientX - rect.left) / rect.width - 0.5;
+    mouseRef.current[1] = -((event.clientY - rect.top) / rect.height - 0.5);
+  }, []);
+  const handleClick = useCallback(() => {
+    burstRef.current = 1;
+  }, []);
+  const handleKeyDown = useCallback((event: ReactKeyboardEvent<HTMLButtonElement>) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      burstRef.current = 1;
+    }
+  }, []);
 
   useEffect(() => {
     propsRef.current = {
@@ -289,28 +311,6 @@ const MagicRings = forwardRef<HTMLDivElement, MagicRingsProps>(function MagicRin
     const resizeObserver = new ResizeObserver(resize);
     resizeObserver.observe(mount);
 
-    const onMouseEnter = () => {
-      isHoveredRef.current = true;
-    };
-    const onMouseLeave = () => {
-      isHoveredRef.current = false;
-      mouseRef.current[0] = 0;
-      mouseRef.current[1] = 0;
-    };
-    const onMouseMove = (event: MouseEvent) => {
-      const rect = mount.getBoundingClientRect();
-      mouseRef.current[0] = (event.clientX - rect.left) / rect.width - 0.5;
-      mouseRef.current[1] = -((event.clientY - rect.top) / rect.height - 0.5);
-    };
-    const onClick = () => {
-      burstRef.current = 1;
-    };
-
-    mount.addEventListener("click", onClick);
-    mount.addEventListener("mouseenter", onMouseEnter);
-    mount.addEventListener("mouseleave", onMouseLeave);
-    mount.addEventListener("mousemove", onMouseMove);
-
     let frameId = 0;
     const animate = (time: number) => {
       frameId = requestAnimationFrame(animate);
@@ -355,10 +355,6 @@ const MagicRings = forwardRef<HTMLDivElement, MagicRingsProps>(function MagicRin
       cancelAnimationFrame(frameId);
       window.removeEventListener("resize", resize);
       resizeObserver.disconnect();
-      mount.removeEventListener("click", onClick);
-      mount.removeEventListener("mouseenter", onMouseEnter);
-      mount.removeEventListener("mouseleave", onMouseLeave);
-      mount.removeEventListener("mousemove", onMouseMove);
       mount.removeChild(renderer.domElement);
       renderer.dispose();
       material.dispose();
@@ -367,10 +363,20 @@ const MagicRings = forwardRef<HTMLDivElement, MagicRingsProps>(function MagicRin
   }, []);
 
   return (
-    <div className="h-full w-full" ref={setMountNodeRef} style={blur > 0 ? { filter: `blur(${blur}px)` } : undefined} />
+    <button
+      aria-label="Activate ring animation"
+      className="h-full w-full appearance-none border-0 bg-transparent p-0"
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onMouseMove={handleMouseMove}
+      ref={setMountNodeRef}
+      style={blur > 0 ? { filter: `blur(${blur}px)` } : undefined}
+      tabIndex={clickBurst ? 0 : -1}
+      type="button"
+    />
   );
-});
-
-MagicRings.displayName = "MagicRings";
+}
 
 export default MagicRings;

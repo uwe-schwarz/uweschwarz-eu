@@ -1,7 +1,6 @@
 export const NONCE_HEADER = "x-nonce";
 export const UMAMI_SCRIPT_PATH = "/api/umami/script";
 export const UMAMI_API_HOST = "https://api-gateway.umami.dev";
-export const UMAMI_UPSTREAM_SCRIPT_URL = "https://cloud.umami.is/script.js";
 
 export function createCspNonce() {
   const randomBytes = crypto.getRandomValues(new Uint8Array(16));

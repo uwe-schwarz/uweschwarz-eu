@@ -22,7 +22,7 @@ const ContactFormCard = () => {
   const formSchema = useMemo(
     () =>
       z.object({
-        email: z.string().email({
+        email: z.email({
           error: t(contact.formStatus.validation.email),
         }),
         message: z.string().min(10, {

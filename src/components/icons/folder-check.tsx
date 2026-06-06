@@ -1,8 +1,8 @@
 "use client";
 
 import type { Variants } from "motion/react";
-import type { HTMLAttributes } from "react";
-import { forwardRef, useCallback, useImperativeHandle, useRef } from "react";
+import type { HTMLAttributes, Ref } from "react";
+import { useCallback, useImperativeHandle, useRef } from "react";
 import { LazyMotion, domAnimation, m, useAnimation } from "motion/react";
 
 import { cn } from "@/lib/utils";
@@ -13,6 +13,7 @@ interface FolderCheckIconHandle {
 }
 
 interface FolderCheckIconProps extends HTMLAttributes<HTMLDivElement> {
+  ref?: Ref<FolderCheckIconHandle>;
   size?: number;
 }
 
@@ -34,70 +35,66 @@ const CHECK_VARIANTS: Variants = {
   },
 };
 
-const FolderCheckIcon = forwardRef<FolderCheckIconHandle, FolderCheckIconProps>(
-  ({ className, onMouseEnter, onMouseLeave, size = 28, ...props }, ref) => {
-    const controls = useAnimation();
-    const isControlledRef = useRef(false);
+function FolderCheckIcon({ className, onMouseEnter, onMouseLeave, ref, size = 28, ...props }: FolderCheckIconProps) {
+  const controls = useAnimation();
+  const isControlledRef = useRef(false);
 
-    useImperativeHandle(ref, () => {
-      isControlledRef.current = true;
-      return {
-        startAnimation: () => controls.start("animate"),
-        stopAnimation: () => controls.start("normal"),
-      };
-    });
+  useImperativeHandle(ref, () => {
+    isControlledRef.current = true;
+    return {
+      startAnimation: () => controls.start("animate"),
+      stopAnimation: () => controls.start("normal"),
+    };
+  });
 
-    const handleMouseEnter = useCallback(
-      (e: React.MouseEvent<HTMLDivElement>) => {
-        if (!isControlledRef.current) {
-          controls.start("animate");
-        } else {
-          onMouseEnter?.(e);
-        }
-      },
-      [controls, onMouseEnter],
-    );
+  const handleMouseEnter = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      if (!isControlledRef.current) {
+        controls.start("animate");
+      } else {
+        onMouseEnter?.(e);
+      }
+    },
+    [controls, onMouseEnter],
+  );
 
-    const handleMouseLeave = useCallback(
-      (e: React.MouseEvent<HTMLDivElement>) => {
-        if (!isControlledRef.current) {
-          controls.start("normal");
-        } else {
-          onMouseLeave?.(e);
-        }
-      },
-      [controls, onMouseLeave],
-    );
+  const handleMouseLeave = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      if (!isControlledRef.current) {
+        controls.start("normal");
+      } else {
+        onMouseLeave?.(e);
+      }
+    },
+    [controls, onMouseLeave],
+  );
 
-    return (
-      <div className={cn(className)} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} {...props}>
-        <LazyMotion features={domAnimation}>
-          <svg
-            fill="none"
-            height={size}
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-            width={size}
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z" />
-            <m.path
-              animate={controls}
-              d="m9 13 2 2 4-4"
-              initial="normal"
-              style={{ transformOrigin: "center" }}
-              variants={CHECK_VARIANTS}
-            />
-          </svg>
-        </LazyMotion>
-      </div>
-    );
-  },
-);
-
-FolderCheckIcon.displayName = "FolderCheckIcon";
+  return (
+    <div className={cn(className)} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} {...props}>
+      <LazyMotion features={domAnimation}>
+        <svg
+          fill="none"
+          height={size}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          width={size}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z" />
+          <m.path
+            animate={controls}
+            d="m9 13 2 2 4-4"
+            initial="normal"
+            style={{ transformOrigin: "center" }}
+            variants={CHECK_VARIANTS}
+          />
+        </svg>
+      </LazyMotion>
+    </div>
+  );
+}
 
 export { FolderCheckIcon };

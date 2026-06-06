@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import type { Route } from "next";
@@ -17,15 +17,26 @@ const MobileMenuSheet = dynamic(() => import("@/components/MobileMenuSheet"), {
   ssr: false,
 });
 
+const getScrolledSnapshot = () => (typeof window !== "undefined" ? window.scrollY > 10 : false);
+const getServerScrolledSnapshot = () => false;
+
+const subscribeToScroll = (onStoreChange: () => void) => {
+  if (typeof window === "undefined") {
+    return () => {};
+  }
+
+  window.addEventListener("scroll", onStoreChange, { passive: true });
+  return () => window.removeEventListener("scroll", onStoreChange);
+};
+
 const Header = () => {
   const { language, setLanguage, setTheme, t, theme } = useSettings();
   const router = useRouter();
-  const [isScrolled, setIsScrolled] = useState(false);
+  const isScrolled = useSyncExternalStore(subscribeToScroll, getScrolledSnapshot, getServerScrolledSnapshot);
   const isMobile = useIsMobile();
   const pathname = usePathname();
   const homeHref = withLanguagePrefix(language, "/");
   const isHomePage = pathname === homeHref;
-  const topSentinelRef = useRef<HTMLDivElement>(null);
 
   const navigationItems = siteContent.navigation;
   const sectionIds = useMemo(() => navigationItems.map((item) => item.href.replace("#", "")), [navigationItems]);
@@ -48,39 +59,6 @@ const Header = () => {
     const nextPath = replacePathLanguage(pathname, nextLanguage);
     router.push(`${nextPath}${query ? `?${query}` : ""}${hash}` as Route);
   }, [language, pathname, router, setLanguage]);
-
-  // Detect scroll for header styling without per-frame polling.
-  useEffect(() => {
-    const sentinel = topSentinelRef.current;
-    if (!sentinel) {
-      return;
-    }
-
-    if (typeof IntersectionObserver === "undefined") {
-      const updateScrolledState = () => {
-        const nextScrolled = window.scrollY > 10;
-        setIsScrolled((previous) => (previous === nextScrolled ? previous : nextScrolled));
-      };
-
-      updateScrolledState();
-      window.addEventListener("scroll", updateScrolledState, { passive: true });
-      return () => window.removeEventListener("scroll", updateScrolledState);
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        const nextScrolled = !entry.isIntersecting;
-        setIsScrolled((previous) => (previous === nextScrolled ? previous : nextScrolled));
-      },
-      {
-        rootMargin: "-10px 0px 0px 0px",
-        threshold: [0, 1],
-      },
-    );
-
-    observer.observe(sentinel);
-    return () => observer.disconnect();
-  }, []);
 
   useEffect(() => {
     if (!isHomePage || sectionIds.length === 0) {
@@ -107,7 +85,6 @@ const Header = () => {
         setActiveSection((previous) => (previous === nextActive ? previous : nextActive));
       };
 
-      updateActiveSectionFromScroll();
       window.addEventListener("scroll", updateActiveSectionFromScroll, { passive: true });
       return () => window.removeEventListener("scroll", updateActiveSectionFromScroll);
     }
@@ -157,7 +134,6 @@ const Header = () => {
 
   return (
     <>
-      <div aria-hidden className="absolute left-0 top-0 h-px w-px pointer-events-none" ref={topSentinelRef} />
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled ? "bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm" : "bg-transparent"

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useLayoutEffect, useState, useCallback } from "react";
+import { useCallback, useLayoutEffect, useRef, useState } from "react";
 
 interface UseFitTextOptions {
   depKey?: unknown; // dependency to trigger recalculation (e.g. text)
@@ -48,28 +48,45 @@ export function useFitText({ depKey, maxFontSize = 48, minFontSize = 18, resolut
       }
     }
     setFontSize(best);
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- depKey is intentionally a dependency to allow external trigger
-  }, [minFontSize, maxFontSize, resolution, depKey]);
+  }, [minFontSize, maxFontSize, resolution]);
+
+  const fitRef = useRef(fit);
 
   useLayoutEffect(() => {
-    fit();
+    fitRef.current = fit;
+  }, [fit]);
+
+  const runLatestFit = useCallback(() => {
+    fitRef.current();
+  }, []);
+
+  useLayoutEffect(() => {
+    runLatestFit();
+  }, [depKey, runLatestFit]);
+
+  useLayoutEffect(() => {
+    runLatestFit();
     // Listen for container resize
     const parent = containerRef.current?.parentElement;
     if (!parent) {
       return;
     }
-    const ro = new window.ResizeObserver(fit);
+    const ro = new window.ResizeObserver(runLatestFit);
     ro.observe(parent);
     return () => {
       ro.disconnect();
     };
-  }, [fit]);
+  }, [runLatestFit]);
 
   // Also refit on window resize (for safety)
   useLayoutEffect(() => {
-    window.addEventListener("resize", fit);
-    return () => window.removeEventListener("resize", fit);
-  }, [fit]);
+    const handleResize = () => {
+      fitRef.current();
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return { fontSize, ref: containerRef };
 }
