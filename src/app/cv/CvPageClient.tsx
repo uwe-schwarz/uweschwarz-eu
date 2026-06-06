@@ -2,7 +2,7 @@
 
 import type { Route } from "next";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { ArrowLeft, Download, Globe, Moon, Sun } from "lucide-react";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
@@ -37,7 +37,6 @@ const CvDownloadButtons = ({ language }: { language: "en" | "de" }) => {
 export default function CvPageClient() {
   const { language, setLanguage, setTheme, t, theme } = useSettings();
   const router = useRouter();
-  const pathname = usePathname();
   useScrollToTop();
 
   const pdfUrl = CV_ASSETS[language].pdf;
@@ -83,6 +82,7 @@ export default function CvPageClient() {
 
                   const query = typeof window !== "undefined" ? window.location.search.slice(1) : "";
                   const hash = typeof window !== "undefined" ? window.location.hash : "";
+                  const pathname = typeof window !== "undefined" ? window.location.pathname : "/";
                   const nextPath = replacePathLanguage(pathname, nextLanguage);
                   router.push(`${nextPath}${query ? `?${query}` : ""}${hash}` as Route);
                 }}
@@ -117,6 +117,7 @@ export default function CvPageClient() {
                   <iframe
                     className="min-h-[500px] h-full w-full max-w-[796px] overflow-hidden rounded-lg border-0 bg-white shadow-inner"
                     key={language}
+                    sandbox=""
                     src={`${pdfUrl}#zoom=100&view=FitH&pagemode=none&toolbar=0`}
                     title="Curriculum Vitae"
                   />

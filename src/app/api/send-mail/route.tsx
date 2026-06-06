@@ -6,6 +6,31 @@ import { z } from "zod";
 
 const resendApiKey = process.env.RESEND_API_KEY;
 const resend = resendApiKey ? new Resend(resendApiKey) : null;
+const EMAIL_COLORS = {
+  accent: "hsl(82, 61%, 26%)",
+  accentForeground: "hsl(225, 25%, 12%)",
+  background: "hsl(210, 40%, 98%)",
+  border: "hsl(215, 25%, 85%)",
+  card: "hsl(220, 30%, 92%)",
+  cardForeground: "hsl(225, 25%, 12%)",
+  foreground: "hsl(225, 25%, 12%)",
+  muted: "hsl(215, 25%, 85%)",
+  mutedForeground: "hsl(215, 20%, 35%)",
+  primary: "hsl(333, 65%, 35%)",
+  primaryForeground: "hsl(0, 0%, 70%)",
+} as const;
+const REPLY_LINK_STYLE = {
+  backgroundColor: EMAIL_COLORS.card,
+  borderRadius: "6px",
+  boxSizing: "border-box",
+  color: EMAIL_COLORS.foreground,
+  display: "block",
+  fontSize: "16px",
+  fontWeight: "600",
+  padding: "12px 20px",
+  textAlign: "center",
+  textDecoration: "none",
+} as const;
 
 const createLineRenderEntries = (message: string) => {
   const lines = message.split(/\r?\n/);
@@ -32,23 +57,20 @@ function sanitizeEmailHeaderName(value: unknown) {
   return normalized || "Website Contact";
 }
 
-const EmailTemplate = ({ email, message, name }: { email: string; message: string; name: string }) => {
-  const colors = {
-    accent: "hsl(82, 61%, 26%)",
-    accentForeground: "hsl(225, 25%, 12%)",
-    background: "hsl(210, 40%, 98%)",
-    border: "hsl(215, 25%, 85%)",
-    card: "hsl(220, 30%, 92%)",
-    cardForeground: "hsl(225, 25%, 12%)",
-    foreground: "hsl(225, 25%, 12%)",
-    muted: "hsl(215, 25%, 85%)",
-    mutedForeground: "hsl(215, 20%, 35%)",
-    primary: "hsl(333, 65%, 35%)",
-    primaryForeground: "hsl(0, 0%, 70%)",
-  };
-
+const EmailTemplate = ({
+  currentYear,
+  email,
+  message,
+  name,
+}: {
+  currentYear: number;
+  email: string;
+  message: string;
+  name: string;
+}) => {
   const messageLines = createLineRenderEntries(message);
   const lastKey = messageLines.at(-1)?.key;
+  const colors = EMAIL_COLORS;
 
   return (
     <Html>
@@ -126,21 +148,7 @@ const EmailTemplate = ({ email, message, name }: { email: string; message: strin
                   width: "100%",
                 }}
               >
-                <a
-                  href={`mailto:${email}`}
-                  style={{
-                    backgroundColor: colors.card,
-                    borderRadius: "6px",
-                    boxSizing: "border-box",
-                    color: colors.foreground,
-                    display: "block",
-                    fontSize: "16px",
-                    fontWeight: "600",
-                    padding: "12px 20px",
-                    textAlign: "center",
-                    textDecoration: "none",
-                  }}
-                >
+                <a href={`mailto:${email}`} style={REPLY_LINK_STYLE}>
                   Reply to this message
                 </a>
               </div>
@@ -155,7 +163,7 @@ const EmailTemplate = ({ email, message, name }: { email: string; message: strin
               style={{ borderColor: colors.border, borderTopStyle: "solid", borderTopWidth: "1px" }}
             >
               <Text className="m-0 text-[12px]" style={{ color: colors.mutedForeground }}>
-                © {new Date().getFullYear()} Uwe Schwarz. All rights reserved.
+                © {currentYear} Uwe Schwarz. All rights reserved.
               </Text>
               <Text className="m-0 text-[12px]" style={{ color: colors.mutedForeground }}>
                 Berlin, Germany
@@ -206,6 +214,7 @@ export async function POST(request: Request) {
 
   const html = await render(
     EmailTemplate({
+      currentYear: new Date().getFullYear(),
       email,
       message: rawMessage,
       name: rawName,

@@ -161,6 +161,11 @@ const HeroSection = () => {
       width: size,
     });
   }, []);
+  const updateMagicRingPositionRef = useRef(updateMagicRingPosition);
+
+  useEffect(() => {
+    updateMagicRingPositionRef.current = updateMagicRingPosition;
+  }, [updateMagicRingPosition]);
 
   // Set up title rotation effect
   useEffect(() => {
@@ -193,18 +198,22 @@ const HeroSection = () => {
       return;
     }
 
-    updateMagicRingPosition();
+    updateMagicRingPositionRef.current();
 
-    const resizeObserver = new ResizeObserver(updateMagicRingPosition);
+    const handleResize = () => {
+      updateMagicRingPositionRef.current();
+    };
+
+    const resizeObserver = new ResizeObserver(handleResize);
     resizeObserver.observe(section);
     resizeObserver.observe(portrait);
-    window.addEventListener("resize", updateMagicRingPosition);
+    window.addEventListener("resize", handleResize);
 
     return () => {
       resizeObserver.disconnect();
-      window.removeEventListener("resize", updateMagicRingPosition);
+      window.removeEventListener("resize", handleResize);
     };
-  }, [updateMagicRingPosition]);
+  }, []);
 
   // FitText Hook for dynamic title
   const currentTitle = isVisualRegression ? t(hero.titleElements[0]) : t(hero.titleElements[titleIndex]);
@@ -322,19 +331,12 @@ const HeroSection = () => {
             <div className="mt-8 border-t border-border/40 pt-6">
               <div className="max-w-lg">
                 <p className="text-sm font-medium text-foreground">{t(hero.availability.title)}</p>
-                <div
+                <progress
                   aria-label={t(hero.availability.title)}
-                  aria-valuemax={100}
-                  aria-valuemin={0}
-                  aria-valuenow={percentAvailable}
-                  className="mt-2 h-2.5 w-full overflow-hidden rounded-full bg-primary/15"
-                  role="progressbar"
-                >
-                  <div
-                    className="h-full rounded-full bg-linear-to-r from-primary to-accent transition-all duration-500 ease-out"
-                    style={{ width: `${percentAvailable}%` }}
-                  />
-                </div>
+                  className="mt-2 h-2.5 w-full overflow-hidden rounded-full bg-primary/15 accent-primary [&::-moz-progress-bar]:rounded-full [&::-moz-progress-bar]:bg-primary [&::-webkit-progress-bar]:rounded-full [&::-webkit-progress-bar]:bg-primary/15 [&::-webkit-progress-value]:rounded-full [&::-webkit-progress-value]:bg-primary"
+                  max={100}
+                  value={percentAvailable}
+                />
 
                 <p className="mt-2 text-sm md:text-base leading-relaxed text-muted-foreground">{availabilitySummary}</p>
               </div>
@@ -366,7 +368,7 @@ const HeroSection = () => {
       {/* Scroll Indicator */}
       <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 hidden lg:flex flex-col items-center z-20">
         <span className="text-sm text-muted-foreground mb-2">{t(hero.scrollText)}</span>
-        <ArrowDown className="w-5 h-5 text-primary animate-bounce" />
+        <ArrowDown className="w-5 h-5 text-primary transition-transform duration-500 ease-out" />
       </div>
     </section>
   );

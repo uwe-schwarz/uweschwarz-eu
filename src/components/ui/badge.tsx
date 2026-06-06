@@ -1,15 +1,15 @@
 "use client";
 
-import { forwardRef } from "react";
-import type { HTMLAttributes } from "react";
+import type { HTMLAttributes, Ref } from "react";
 import { cn } from "@/lib/utils";
 import { badgeVariants, type BadgeVariantProps } from "./badge-variants";
 
-interface BadgeProps extends BadgeVariantProps, HTMLAttributes<HTMLDivElement> {}
+interface BadgeProps extends BadgeVariantProps, HTMLAttributes<HTMLDivElement> {
+  ref?: Ref<HTMLDivElement>;
+}
 
-const Badge = forwardRef<HTMLDivElement, BadgeProps>(({ className, variant, ...props }, ref) => {
+function Badge({ className, ref, variant, ...props }: BadgeProps) {
   return <div className={cn(badgeVariants({ variant }), className)} ref={ref} {...props} />;
-});
-Badge.displayName = "Badge";
+}
 
 export { Badge };

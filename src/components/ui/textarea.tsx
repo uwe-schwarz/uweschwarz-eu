@@ -1,12 +1,14 @@
 "use client";
 
-import React from "react";
+import type { Ref, TextareaHTMLAttributes } from "react";
 
 import { cn } from "@/lib/utils";
 
-type TextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement>;
+interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+  ref?: Ref<HTMLTextAreaElement>;
+}
 
-const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(({ className, ...props }, ref) => {
+function Textarea({ className, ref, ...props }: TextareaProps) {
   return (
     <textarea
       className={cn(
@@ -17,7 +19,6 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(({ classNa
       {...props}
     />
   );
-});
-Textarea.displayName = "Textarea";
+}
 
 export { Textarea };

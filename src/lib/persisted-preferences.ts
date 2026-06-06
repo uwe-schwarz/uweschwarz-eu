@@ -1,6 +1,6 @@
 import type { Language, Theme } from "@/contexts/settings-hook";
 
-export const PERSISTED_PREFERENCE_SCHEMA_VERSION = "v1";
+const PERSISTED_PREFERENCE_SCHEMA_VERSION = "v1";
 
 export const STORAGE_KEYS = {
   language: `user-settings:language:${PERSISTED_PREFERENCE_SCHEMA_VERSION}`,

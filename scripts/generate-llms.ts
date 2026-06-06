@@ -2,13 +2,14 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { siteContent } from "../src/content/content";
 import type { LocalizedString } from "../src/lib/localization";
-import { SITE_DOMAIN } from "../src/lib/site-config";
+import { SITE_URL } from "../src/lib/site-config";
 
 interface BunRuntime {
   write: (path: string, data: string) => Promise<unknown>;
 }
 
 const bunRuntime = (globalThis as typeof globalThis & { Bun?: BunRuntime }).Bun;
+const SITE_DOMAIN = new URL(SITE_URL).hostname;
 
 // Helper function to format bilingual content
 const formatBilingual = (item: LocalizedString | string | undefined, indent = ""): string => {
