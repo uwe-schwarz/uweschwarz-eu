@@ -28,7 +28,7 @@
         "next": "^16.2.7",
         "react": "^19.2.7",
         "react-dom": "^19.2.7",
-        "react-hook-form": "^7.77.0",
+        "react-hook-form": "^7.78.0",
         "react-icons": "^5.6.0",
         "resend": "^6.12.4",
         "sonner": "^2.0.7",
@@ -56,7 +56,7 @@
         "playwright": "^1.60.0",
         "pngjs": "^7.0.0",
         "postcss": "^8.5.15",
-        "react-doctor": "^0.4.0",
+        "react-doctor": "^0.4.2",
         "tailwindcss": "^4.3.0",
         "typescript": "^6.0.3",
       },
@@ -739,7 +739,7 @@
 
     "deepmerge": ["deepmerge@4.3.1", "", {}, "sha512-3sUqbMEc77XqpdNO7FRyRog+eW3ph+GYCbj+rK+uYyRMuwsVy0rMiVtPn+QJlKFvWP/1PYpapqYn0Me2knFn+A=="],
 
-    "deslop-js": ["deslop-js@0.0.19", "", { "dependencies": { "@oxc-project/types": "^0.132.0", "fast-glob": "^3.3.3", "minimatch": "^10.2.5", "oxc-parser": "^0.132.0", "oxc-resolver": "^11.19.1", "typescript": "^6.0.3" } }, "sha512-gLEwJ26XSRNN5r7x/AI8Zi0Fs6uJe/junYM+jQaaVRjfagUUAerPD90fZlwjRnK0Lpb9jRzqaM9BvmHXUHkGxA=="],
+    "deslop-js": ["deslop-js@0.0.21", "", { "dependencies": { "@oxc-project/types": "^0.132.0", "fast-glob": "^3.3.3", "minimatch": "^10.2.5", "oxc-parser": "^0.132.0", "oxc-resolver": "^11.19.1", "typescript": "^6.0.3" } }, "sha512-1fYusMl4tDaQ/xdHFtLfDe8kFrEeU0Vu0Pfiy2k/Gd4HSqYlQj1Z7iRqldNneRyuCzNMhwNBvhaL07Urbh5VOA=="],
 
     "detect-libc": ["detect-libc@2.1.2", "", {}, "sha512-Btj2BOOO83o3WyH59e8MgXsxEQVcarkUOpEYrubB0urwnN10yQ364rsiByU11nZlqWYZm05i/of7io4mzihBtQ=="],
 
@@ -1031,7 +1031,7 @@
 
     "oxlint": ["oxlint@1.68.0", "", { "optionalDependencies": { "@oxlint/binding-android-arm-eabi": "1.68.0", "@oxlint/binding-android-arm64": "1.68.0", "@oxlint/binding-darwin-arm64": "1.68.0", "@oxlint/binding-darwin-x64": "1.68.0", "@oxlint/binding-freebsd-x64": "1.68.0", "@oxlint/binding-linux-arm-gnueabihf": "1.68.0", "@oxlint/binding-linux-arm-musleabihf": "1.68.0", "@oxlint/binding-linux-arm64-gnu": "1.68.0", "@oxlint/binding-linux-arm64-musl": "1.68.0", "@oxlint/binding-linux-ppc64-gnu": "1.68.0", "@oxlint/binding-linux-riscv64-gnu": "1.68.0", "@oxlint/binding-linux-riscv64-musl": "1.68.0", "@oxlint/binding-linux-s390x-gnu": "1.68.0", "@oxlint/binding-linux-x64-gnu": "1.68.0", "@oxlint/binding-linux-x64-musl": "1.68.0", "@oxlint/binding-openharmony-arm64": "1.68.0", "@oxlint/binding-win32-arm64-msvc": "1.68.0", "@oxlint/binding-win32-ia32-msvc": "1.68.0", "@oxlint/binding-win32-x64-msvc": "1.68.0" }, "peerDependencies": { "oxlint-tsgolint": ">=0.22.1", "vite-plus": "*" }, "optionalPeers": ["oxlint-tsgolint", "vite-plus"], "bin": { "oxlint": "bin/oxlint" } }, "sha512-dXcbq+xsmLrMy6T8d0euf3IYUfLmjHIE11pOxiUSi5LHkFZaYPv568R6sEjcavVpUxoaQe66UBuK4HEi74NxpA=="],
 
-    "oxlint-plugin-react-doctor": ["oxlint-plugin-react-doctor@0.4.0", "", { "dependencies": { "@typescript-eslint/types": "^8.59.3", "eslint-scope": "^9.1.2", "eslint-visitor-keys": "^5.0.1", "oxc-parser": "^0.132.0" } }, "sha512-iC+iV296B41pghbPEmR1oklwjTo8v9LlTVG1LTHed3ZkeuljH3Kq+SKeHB1YXvLuq9MARr+n4WDmN5r7bHtJfg=="],
+    "oxlint-plugin-react-doctor": ["oxlint-plugin-react-doctor@0.4.2", "", { "dependencies": { "@typescript-eslint/types": "^8.59.3", "eslint-scope": "^9.1.2", "eslint-visitor-keys": "^5.0.1", "oxc-parser": "^0.132.0" } }, "sha512-pH5TCM+FqvbiK7I6PVdUD6AY0013okJ4DCee4eQbce2FjU2X+TXw+gkBxw7GT8S3I6jqvFLGkabekmISKcSJnw=="],
 
     "oxlint-tsgolint": ["oxlint-tsgolint@0.23.0", "", { "optionalDependencies": { "@oxlint-tsgolint/darwin-arm64": "0.23.0", "@oxlint-tsgolint/darwin-x64": "0.23.0", "@oxlint-tsgolint/linux-arm64": "0.23.0", "@oxlint-tsgolint/linux-x64": "0.23.0", "@oxlint-tsgolint/win32-arm64": "0.23.0", "@oxlint-tsgolint/win32-x64": "0.23.0" }, "bin": { "tsgolint": "bin/tsgolint.js" } }, "sha512-3mBv3CoPbh8dFbzfDGIWa2ytZjn2v+3EX4aKRXjIhsoGFzG8GCjfRirz3rwZf1wYbZzsNLTSgpw8VjQuWdp/jA=="],
 
@@ -1093,11 +1093,11 @@
 
     "react": ["react@19.2.7", "", {}, "sha512-HNe9WslTbXmFK8o8cmwgAeJFSBvt1bPdHCVKtaaV+WlAN36mpT4hcRpwbf3fY56ar2oIXzsBpOAiIRHAdY0OlQ=="],
 
-    "react-doctor": ["react-doctor@0.4.0", "", { "dependencies": { "@babel/code-frame": "^7.29.0", "@effect/platform-node-shared": "4.0.0-beta.70", "@sentry/node": "^10.54.0", "agent-install": "0.0.5", "conf": "^15.1.0", "confbox": "^0.2.4", "deslop-js": "^0.0.19", "effect": "4.0.0-beta.70", "eslint-plugin-react-hooks": "^7.1.1", "jiti": "^2.7.0", "magicast": "^0.5.3", "oxlint": "^1.66.0", "oxlint-plugin-react-doctor": "0.4.0", "prompts": "^2.4.2", "typescript": ">=5.0.4 <7", "vscode-languageserver": "^9.0.1", "vscode-languageserver-textdocument": "^1.0.12", "vscode-uri": "^3.1.0" }, "bin": { "react-doctor": "bin/react-doctor.js" } }, "sha512-BWum4WfKZ9Sdv4zTlzRoog4fYEIBEWZXHnq8GaCL42XMLmoldATdix/i3xZSHD3+SqpMrUVGcuzerOL9R9P+bw=="],
+    "react-doctor": ["react-doctor@0.4.2", "", { "dependencies": { "@babel/code-frame": "^7.29.0", "@effect/platform-node-shared": "4.0.0-beta.70", "@sentry/node": "^10.54.0", "agent-install": "0.0.5", "conf": "^15.1.0", "confbox": "^0.2.4", "deslop-js": "^0.0.21", "effect": "4.0.0-beta.70", "eslint-plugin-react-hooks": "^7.1.1", "jiti": "^2.7.0", "magicast": "^0.5.3", "oxlint": "^1.66.0", "oxlint-plugin-react-doctor": "0.4.2", "prompts": "^2.4.2", "typescript": ">=5.0.4 <7", "vscode-languageserver": "^9.0.1", "vscode-languageserver-textdocument": "^1.0.12", "vscode-uri": "^3.1.0" }, "bin": { "react-doctor": "bin/react-doctor.js" } }, "sha512-h4wykdqF93jBd4RD4AlKjyaukfizqcrwAMdZGLM0UsCw7ipOqJXFPvfPRK+GbHVh8KKoYWq1nU7K1M3uGTY/Ag=="],
 
     "react-dom": ["react-dom@19.2.7", "", { "dependencies": { "scheduler": "^0.27.0" }, "peerDependencies": { "react": "^19.2.7" } }, "sha512-t0BRVXvbiE/o20Hfw669rLbMCDWtYZLvmJigy2f0MxsXF+71pxhR3xOkspmsO8h3ZlNzyibAmtCa3l4lYKk6gQ=="],
 
-    "react-hook-form": ["react-hook-form@7.77.0", "", { "peerDependencies": { "react": "^16.8.0 || ^17 || ^18 || ^19" } }, "sha512-Sslh9YDYc0GDlWT/lxasnIduNo4v3yyvqRGvmGKUre5AFjDs/HV9/OafHGD8d+sB2yoL4UIL9L8X9i0WlZZebg=="],
+    "react-hook-form": ["react-hook-form@7.78.0", "", { "peerDependencies": { "react": "^16.8.0 || ^17 || ^18 || ^19" } }, "sha512-EEZqc+N23moyzTlz61Pj+JvcXo76ICkpfOZo8JZw+sM4+wLQGh6nI2Ms+PdMOYNluFu0ghlM7B8mCzhRYtJCnA=="],
 
     "react-icons": ["react-icons@5.6.0", "", { "peerDependencies": { "react": "*" } }, "sha512-RH93p5ki6LfOiIt0UtDyNg/cee+HLVR6cHHtW3wALfo+eOHTp8RnU2kRkI6E+H19zMIs03DyxUG/GfZMOGvmiA=="],
 
