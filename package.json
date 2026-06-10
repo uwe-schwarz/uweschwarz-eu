@@ -24,7 +24,6 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",
-    "@icons-pack/react-simple-icons": "^13.13.0",
     "@radix-ui/react-dialog": "^1.1.16",
     "@radix-ui/react-label": "^2.1.9",
     "@radix-ui/react-slot": "^1.2.5",
@@ -43,7 +42,7 @@
     "geist": "^1.7.2",
     "lucide-react": "^1.17.0",
     "motion": "^12.40.0",
-    "next": "^16.2.7",
+    "next": "^16.2.9",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-hook-form": "^7.78.0",
@@ -74,7 +73,7 @@
     "playwright": "^1.60.0",
     "pngjs": "^7.0.0",
     "postcss": "^8.5.15",
-    "react-doctor": "^0.4.2",
+    "react-doctor": "^0.5.1",
     "tailwindcss": "^4.3.0",
     "typescript": "^6.0.3"
   },
