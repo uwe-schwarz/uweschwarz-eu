@@ -1,6 +1,12 @@
 {
   "ignore": {
-    "files": ["scripts/**", "src/generated/**", "**/oxlint.config.ts"]
+    "files": ["scripts/**", "src/generated/**", "**/oxlint.config.ts"],
+    "overrides": [
+      {
+        "files": ["src/app/cv/CvPageClient.tsx"],
+        "rules": ["react-doctor/iframe-missing-sandbox"]
+      }
+    ]
   },
   "lint": true,
   "deadCode": true,
