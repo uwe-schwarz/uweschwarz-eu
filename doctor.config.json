@@ -11,5 +11,6 @@
   "lint": true,
   "deadCode": true,
   "verbose": true,
-  "diff": "main"
+  "scope": "changed",
+  "base": "main"
 }
