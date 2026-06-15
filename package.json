@@ -73,7 +73,7 @@
     "playwright": "^1.60.0",
     "pngjs": "^7.0.0",
     "postcss": "^8.5.15",
-    "react-doctor": "^0.5.4",
+    "react-doctor": "^0.5.5",
     "tailwindcss": "^4.3.1",
     "typescript": "^6.0.3"
   },
