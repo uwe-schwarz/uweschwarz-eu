@@ -212,13 +212,9 @@ export async function POST(request: Request) {
   const rawMessage = String(body.message ?? "");
   const rawName = String(body.name ?? "");
 
+  const currentYear = new Date().getFullYear();
   const html = await render(
-    EmailTemplate({
-      currentYear: new Date().getFullYear(),
-      email,
-      message: rawMessage,
-      name: rawName,
-    }),
+    <EmailTemplate currentYear={currentYear} email={email} message={rawMessage} name={rawName} />,
   );
 
   try {
