@@ -54,6 +54,7 @@ import {
   SiVercel,
   SiX,
 } from "react-icons/si";
+import { OpenAiIcon } from "@/components/icons/openai";
 import { siteContent, type Skill } from "@/content/content";
 
 type SkillIcon = ComponentType<{ className?: string }>;
@@ -245,7 +246,7 @@ const skillIconMap = new Map<string, SkillIcon>([
   [getSkillIdentityKey({ category: "ai", name: { de: "Multimodale KI", en: "Multimodal AI" } }), Image],
   [getSkillIdentityKey({ category: "ai", name: { de: "Kausale KI", en: "Causal AI" } }), GitBranch],
   [getSkillIdentityKey({ category: "ai", name: { de: "Lovable", en: "Lovable" } }), Heart],
-  [getSkillIdentityKey({ category: "ai", name: { de: "OpenAI / ChatGPT", en: "OpenAI / ChatGPT" } }), Bot],
+  [getSkillIdentityKey({ category: "ai", name: { de: "OpenAI / ChatGPT", en: "OpenAI / ChatGPT" } }), OpenAiIcon],
   [
     getSkillIdentityKey({
       category: "ai",
