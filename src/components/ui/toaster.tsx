@@ -10,7 +10,7 @@ export function Toaster() {
     <ToastProvider>
       {toasts.map(function ({ action, description, id, title, ...props }) {
         return (
-          <Toast key={id} {...props}>
+          <Toast {...props} key={id}>
             <div className="grid gap-1">
               {title && <ToastTitle>{title}</ToastTitle>}
               {description && <ToastDescription>{description}</ToastDescription>}
