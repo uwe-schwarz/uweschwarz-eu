@@ -10,6 +10,7 @@ const SECTION_TITLES = {
   projects: { de: "Projekte", en: "Projects" },
   resources: { de: "Ressourcen", en: "Resources" },
   skills: { de: "Faehigkeiten", en: "Skills" },
+  trainings: { de: "Trainings", en: "Trainings" },
 } as const;
 
 export const AGENT_DISCOVERY_LINKS = [
@@ -62,6 +63,13 @@ export function buildHomepageMarkdown(language: Language) {
     `## ${localize(SECTION_TITLES.about, language)}`,
     "",
     ...siteContent.about.paragraphs.map((paragraph) => localize(paragraph, language)),
+    "",
+    `## ${localize(SECTION_TITLES.trainings, language)}`,
+    "",
+    ...siteContent.trainings.items.flatMap((training) => [
+      `- **${localize(training.title, language)}** (${localize(training.duration, language)}, ${localize(siteContent.trainings.deliveredLabel, language)}: ${localize(training.date, language)})`,
+      `  ${localize(training.description, language)}`,
+    ]),
     "",
     `## ${localize(SECTION_TITLES.skills, language)}`,
     "",

@@ -1,7 +1,7 @@
 # llms.txt for uweschwarz.eu
 # This file provides structured information for AI language models.
 # For more information, see https://llmstxt.org/
-# Version 2026-04-27, Generated on 2026-04-27
+# Version 2026-07-07, Generated on 2026-07-07
 
 # --- PERMISSIONS ---
 User-Agent: *
@@ -21,8 +21,8 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
 [de] Uwe Schwarz
 
 [Published]:
-[en] 2026-04-27
-[de] 27.04.2026
+[en] 2026-07-07
+[de] 07.07.2026
 
 [Languages]:
 [en] English, German
@@ -47,6 +47,7 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
 [Main-Topics]:
 - Home / Start
 - About / Über mich
+- Trainings / Trainings
 - Experience / Erfahrung
 - Projects / Projekte
 - Skills / Fähigkeiten
@@ -59,13 +60,13 @@ Sitemap: https://uweschwarz.eu/sitemap.xml
 
 [Site-Structure]:
 [en]
-- /: Homepage with main sections (Hero, About, Skills, Experience, Projects, Contact).
+- /: Homepage with main sections (Hero, About, Trainings, Experience, Projects, Skills, Contact).
 - /cv: Interactive page for viewing and downloading the CV.
 - /imprint: Legal notice.
 - /privacy: Privacy policy.
 - /sitemap: Human-readable sitemap.
 [de]
-- /: Startseite mit den Hauptbereichen (Hero, Über Mich, Fähigkeiten, Erfahrung, Projekte, Kontakt).
+- /: Startseite mit den Hauptbereichen (Hero, Über Mich, Trainings, Erfahrung, Projekte, Fähigkeiten, Kontakt).
 - /cv: Interaktive Seite zum Ansehen und Herunterladen des Lebenslaufs.
 - /imprint: Impressum.
 - /privacy: Datenschutzerklärung.
