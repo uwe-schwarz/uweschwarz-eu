@@ -134,39 +134,37 @@ const Header = () => {
 
   return (
     <>
-      <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? "bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm" : "bg-transparent"
-        }`}
-      >
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Link className="text-2xl font-display font-bold text-foreground" href={homeHref as Route}>
-            <span className="text-gradient text-4xl">Uwe Schwarz</span>
+      <header className="fixed top-0 left-0 right-0 z-50 px-3 pt-3 sm:px-4 sm:pt-4">
+        <div
+          className={`container mx-auto flex items-center justify-between gap-4 rounded-full border px-4 py-2.5 transition-all duration-300 sm:px-6 ${
+            isScrolled
+              ? "border-border/70 bg-background/70 shadow-lg shadow-black/[0.06] backdrop-blur-xl dark:shadow-black/25"
+              : "border-transparent bg-transparent"
+          }`}
+        >
+          <Link className="font-display font-bold text-foreground" href={homeHref as Route}>
+            <span className="text-gradient text-2xl sm:text-3xl">Uwe Schwarz</span>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-6">
+          <nav className="hidden md:flex items-center gap-1">
             {navigationItems.map((item) => {
               const hash = item.href.replace("#", "");
+              const isActive = isHomePage && activeSection === hash;
+              const itemClassName = `rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors lg:px-4 lg:text-base ${
+                isActive ? "bg-primary/15 text-primary" : "text-foreground/80 hover:bg-muted/80 hover:text-foreground"
+              }`;
 
               if (isHomePage) {
                 return (
-                  <a
-                    className={`text-lg font-medium text-foreground hover:text-primary transition-colors link-underline${activeSection === hash ? " link-underline-active" : ""}`}
-                    href={item.href}
-                    key={item.href}
-                  >
+                  <a className={itemClassName} href={item.href} key={item.href}>
                     {t(item.label)}
                   </a>
                 );
               }
 
               return (
-                <Link
-                  className="text-lg font-medium text-foreground hover:text-primary transition-colors link-underline"
-                  href={`${homeHref}${item.href}` as Route}
-                  key={item.href}
-                >
+                <Link className={itemClassName} href={`${homeHref}${item.href}` as Route} key={item.href}>
                   {t(item.label)}
                 </Link>
               );
@@ -174,9 +172,9 @@ const Header = () => {
           </nav>
 
           {/* Control Buttons */}
-          <div className="hidden md:flex items-center space-x-2">
+          <div className="hidden md:flex items-center gap-1">
             {/* Language Toggle */}
-            <Button onClick={toggleLanguage} size="sm" variant="ghost">
+            <Button className="rounded-full" onClick={toggleLanguage} size="sm" variant="ghost">
               {language === "en" ? "DE" : "EN"}
             </Button>
 
@@ -187,6 +185,7 @@ const Header = () => {
                   ? siteContent.translations.themeSwitch.dark
                   : siteContent.translations.themeSwitch.light,
               )}
+              className="rounded-full"
               onClick={toggleTheme}
               size="icon"
               variant="ghost"

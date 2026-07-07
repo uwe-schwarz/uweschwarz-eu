@@ -15,13 +15,6 @@ const iconMap: Record<string, IconComponent> = {
   technologies: FlaskIcon,
 };
 
-const gridColsMap: Record<number, string> = {
-  1: "sm:grid-cols-1",
-  2: "sm:grid-cols-2",
-  3: "sm:grid-cols-3",
-  4: "sm:grid-cols-4",
-};
-
 const AboutSection = () => {
   const { t } = useSettings();
   const { about } = siteContent;
@@ -33,67 +26,58 @@ const AboutSection = () => {
   }));
 
   return (
-    <section className="section-padding bg-muted/30" id="about">
+    <section className="section-padding relative overflow-hidden" id="about">
+      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-aurora opacity-70" />
       <div className="container mx-auto">
-        <h2 className="text-3xl md:text-4xl text-center mb-16">
-          <span className="text-gradient">{t(about.title)}</span>
-        </h2>
+        <div className="mb-14 flex flex-col items-center gap-4 text-center reveal-up">
+          <h2 className="text-4xl md:text-5xl">
+            <span className="text-gradient">{t(about.title)}</span>
+          </h2>
+        </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
-          {/* Image Column */}
-          <div className="lg:col-span-2">
-            <div className="relative">
-              {/* Main image */}
-              <div className="rounded-lg overflow-hidden shadow-xl hover-scale border-4 border-white dark:border-gray-800">
-                <div className="bg-linear-to-br from-primary/40 to-accent/40 aspect-4/5 relative overflow-hidden">
-                  <Image
-                    alt={t(about.imageAlt)}
-                    className="object-cover"
-                    fill
-                    priority
-                    sizes="(min-width:1280px) 500px, (min-width:1024px) 400px, (min-width:768px) 900px, 600px"
-                    src="/about-me.webp"
-                  />
-                </div>
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-5">
+          {/* Image Card */}
+          <div className="lg:col-span-2 reveal-up">
+            <div className="glass-panel h-full overflow-hidden p-2">
+              <div className="relative h-full min-h-72 overflow-hidden rounded-xl bg-linear-to-br from-primary/30 to-accent/30">
+                <Image
+                  alt={t(about.imageAlt)}
+                  className="object-cover"
+                  fill
+                  priority
+                  sizes="(min-width:1280px) 500px, (min-width:1024px) 400px, (min-width:768px) 900px, 600px"
+                  src="/about-me.webp"
+                />
               </div>
-
-              {/* Decorative elements */}
-              <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-primary rounded-lg transform rotate-6 -z-10"></div>
-              <div className="absolute -top-4 -right-4 w-20 h-20 bg-accent rounded-lg transform -rotate-6 -z-10"></div>
             </div>
           </div>
 
-          {/* Text Column */}
-          <div className="lg:col-span-3">
-            {/* About paragraphs */}
-            {about.paragraphs.map((paragraph, index) => (
-              <p
-                className={`text-base md:text-lg leading-relaxed ${index !== about.paragraphs.length - 1 ? "mb-6" : ""}`}
-                key={`${paragraph.en}-${paragraph.de}`}
-              >
-                {t(paragraph)}
-              </p>
-            ))}
-
-            {/* Stats */}
-            <div className={`mt-10 grid grid-cols-1 gap-8 ${gridColsMap[stats.length] || "sm:grid-cols-3"}`}>
-              {stats.map((stat) => (
-                <div
-                  className="p-4 bg-card rounded-lg shadow-sm border border-border hover-scale transition-all"
-                  key={stat.key}
-                >
-                  <div className="flex flex-col items-center text-center">
-                    <div className="p-3 mb-4 rounded-full bg-primary/10 text-primary">
-                      <stat.icon size={24} />
-                    </div>
-                    <span className="text-3xl font-bold mb-1">{t(stat.value)}</span>
-                    <span className="text-sm text-muted-foreground">
-                      {t(about.labels[stat.key as keyof typeof about.labels])}
-                    </span>
-                  </div>
-                </div>
+          {/* Text Card */}
+          <div className="lg:col-span-3 reveal-up">
+            <div className="glass-panel h-full space-y-6 p-7 md:p-9">
+              {about.paragraphs.map((paragraph) => (
+                <p className="text-base md:text-lg leading-relaxed" key={`${paragraph.en}-${paragraph.de}`}>
+                  {t(paragraph)}
+                </p>
               ))}
             </div>
+          </div>
+
+          {/* Stats */}
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 lg:col-span-5 reveal-up">
+            {stats.map((stat) => (
+              <div className="glass-panel hover-lift flex items-center gap-4 p-6" key={stat.key}>
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                  <stat.icon size={24} />
+                </div>
+                <div>
+                  <span className="block text-3xl font-bold tracking-tight">{t(stat.value)}</span>
+                  <span className="text-sm text-muted-foreground">
+                    {t(about.labels[stat.key as keyof typeof about.labels])}
+                  </span>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
