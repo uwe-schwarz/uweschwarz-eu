@@ -41,6 +41,7 @@ export default function CvPageClient() {
 
   const pdfUrl = CV_ASSETS[language].pdf;
   const homeHref = withLanguagePrefix(language, "/");
+  const cvTitle = t({ de: "Lebenslauf", en: "Curriculum Vitae" });
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
@@ -103,12 +104,7 @@ export default function CvPageClient() {
         <div aria-hidden="true" className="absolute inset-0 -z-10 bg-aurora opacity-70" />
         <div className="mb-8">
           <h1 className="font-display text-4xl md:text-5xl">
-            <span className="text-gradient">
-              {t({
-                de: "Lebenslauf",
-                en: "Curriculum Vitae",
-              })}
-            </span>
+            <span className="text-gradient">{cvTitle}</span>
           </h1>
         </div>
 
@@ -123,7 +119,7 @@ export default function CvPageClient() {
                 className="mx-auto h-full min-h-[500px] w-full max-w-[796px] grow border-0 bg-white shadow-lg"
                 key={language}
                 src={`${pdfUrl}#zoom=100&view=FitH&pagemode=none&toolbar=0`}
-                title="Curriculum Vitae"
+                title={cvTitle}
               />
             </div>
           </div>

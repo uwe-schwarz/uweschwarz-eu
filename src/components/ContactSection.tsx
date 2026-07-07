@@ -6,6 +6,9 @@ import ContactFormCard from "@/components/ContactFormCard";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
 
+const socialLinkClassName =
+  "flex h-11 w-11 items-center justify-center rounded-xl border border-border/70 bg-background/60 transition-colors hover:border-primary/50 hover:bg-primary hover:text-primary-foreground";
+
 const ContactSection = () => {
   const { t } = useSettings();
   const { contact } = siteContent;
@@ -66,7 +69,7 @@ const ContactSection = () => {
                   {contact.socialLinks.github && (
                     <a
                       aria-label="GitHub"
-                      className="flex h-11 w-11 items-center justify-center rounded-xl border border-border/70 bg-background/60 transition-colors hover:border-primary/50 hover:bg-primary hover:text-primary-foreground"
+                      className={socialLinkClassName}
                       href={contact.socialLinks.github}
                       rel="noreferrer"
                       target="_blank"
@@ -78,7 +81,7 @@ const ContactSection = () => {
                   {contact.socialLinks.linkedin && (
                     <a
                       aria-label="LinkedIn"
-                      className="flex h-11 w-11 items-center justify-center rounded-xl border border-border/70 bg-background/60 transition-colors hover:border-primary/50 hover:bg-primary hover:text-primary-foreground"
+                      className={socialLinkClassName}
                       href={contact.socialLinks.linkedin}
                       rel="noreferrer"
                       target="_blank"
@@ -101,7 +104,7 @@ const ContactSection = () => {
                   {contact.socialLinks.xing && (
                     <a
                       aria-label="Xing"
-                      className="flex h-11 w-11 items-center justify-center rounded-xl border border-border/70 bg-background/60 transition-colors hover:border-primary/50 hover:bg-primary hover:text-primary-foreground"
+                      className={socialLinkClassName}
                       href={contact.socialLinks.xing}
                       rel="noreferrer"
                       target="_blank"
@@ -113,7 +116,7 @@ const ContactSection = () => {
                   {contact.socialLinks.x && (
                     <a
                       aria-label="X"
-                      className="flex h-11 w-11 items-center justify-center rounded-xl border border-border/70 bg-background/60 transition-colors hover:border-primary/50 hover:bg-primary hover:text-primary-foreground"
+                      className={socialLinkClassName}
                       href={contact.socialLinks.x}
                       rel="noreferrer"
                       target="_blank"
@@ -125,7 +128,7 @@ const ContactSection = () => {
                   {contact.socialLinks.bluesky && (
                     <a
                       aria-label="Bluesky"
-                      className="flex h-11 w-11 items-center justify-center rounded-xl border border-border/70 bg-background/60 transition-colors hover:border-primary/50 hover:bg-primary hover:text-primary-foreground"
+                      className={socialLinkClassName}
                       href={contact.socialLinks.bluesky}
                       rel="noreferrer"
                       target="_blank"
@@ -137,7 +140,7 @@ const ContactSection = () => {
                   {contact.socialLinks.freelancermap && (
                     <a
                       aria-label="Freelancermap"
-                      className="flex h-11 w-11 items-center justify-center rounded-xl border border-border/70 bg-background/60 transition-colors hover:border-primary/50 hover:bg-primary hover:text-primary-foreground"
+                      className={socialLinkClassName}
                       href={contact.socialLinks.freelancermap}
                       rel="noreferrer"
                       target="_blank"

@@ -1,5 +1,6 @@
 "use client";
 
+import type { Ref } from "react";
 import { GraduationCap } from "lucide-react";
 import { CalendarDaysIcon } from "@/components/icons/calendar-days";
 import { Badge } from "@/components/ui/badge";
@@ -7,12 +8,16 @@ import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
 import { getLocalizedTextKey } from "@/lib/localization";
 
-const TrainingsSection = () => {
+interface TrainingsSectionProps {
+  ref?: Ref<HTMLElement>;
+}
+
+const TrainingsSection = ({ ref }: TrainingsSectionProps) => {
   const { t } = useSettings();
   const { trainings } = siteContent;
 
   return (
-    <section className="section-padding bg-muted/40" id="trainings">
+    <section className="section-padding bg-muted/40" id="trainings" ref={ref}>
       <div className="container mx-auto">
         <div className="mb-14 flex flex-col items-center gap-4 text-center reveal-up">
           <h2 className="text-4xl md:text-5xl">
@@ -34,7 +39,7 @@ const TrainingsSection = () => {
 
               <div className="mb-5 flex items-center justify-between gap-3">
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                  <GraduationCap className="h-6 w-6" />
+                  <GraduationCap aria-hidden="true" className="h-6 w-6" />
                 </div>
                 <Badge
                   className="rounded-full border-transparent bg-accent/15 font-medium text-accent"
@@ -48,7 +53,7 @@ const TrainingsSection = () => {
               <h3 className="text-2xl md:min-h-16">{t(training.title)}</h3>
 
               <div className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground">
-                <CalendarDaysIcon size={14} />
+                <CalendarDaysIcon aria-hidden="true" size={14} />
                 <span>
                   {t(trainings.deliveredLabel)}: {t(training.date)}
                 </span>

@@ -10,4 +10,11 @@ describe("CvPageClient PDF embed", () => {
 
     expect(source).not.toContain("sandbox=");
   });
+
+  test("uses the localized CV heading as the iframe title", () => {
+    const source = readFileSync(sourcePath, "utf8");
+
+    expect(source).toContain('const cvTitle = t({ de: "Lebenslauf", en: "Curriculum Vitae" });');
+    expect(source).toContain("title={cvTitle}");
+  });
 });

@@ -84,7 +84,7 @@ const useNavGlassMap = (navRef: RefObject<HTMLDivElement | null>, glassMapRef: R
 const NavLiquidGlassFilter = ({ glassMapRef }: { glassMapRef: RefObject<SVGFEImageElement | null> }) => (
   <svg aria-hidden="true" className="nav-glass-defs" focusable="false" height="0" width="0">
     <defs>
-      <filter colorInterpolationFilters="sRGB" id="nav-liquid-glass">
+      <filter colorInterpolationFilters="sRGB" height="160%" id="nav-liquid-glass" width="160%" x="-30%" y="-30%">
         <feImage
           data-nav-glass-map="true"
           height="100%"
@@ -261,14 +261,24 @@ const Header = () => {
 
               if (isHomePage) {
                 return (
-                  <a className={itemClassName} href={item.href} key={item.href}>
+                  <a
+                    aria-current={isActive ? "page" : undefined}
+                    className={itemClassName}
+                    href={item.href}
+                    key={item.href}
+                  >
                     {t(item.label)}
                   </a>
                 );
               }
 
               return (
-                <Link className={itemClassName} href={`${homeHref}${item.href}` as Route} key={item.href}>
+                <Link
+                  aria-current={isActive ? "page" : undefined}
+                  className={itemClassName}
+                  href={`${homeHref}${item.href}` as Route}
+                  key={item.href}
+                >
                   {t(item.label)}
                 </Link>
               );
