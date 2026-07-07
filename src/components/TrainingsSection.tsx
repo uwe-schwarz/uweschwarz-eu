@@ -44,7 +44,8 @@ const TrainingsSection = () => {
                 </Badge>
               </div>
 
-              <h3 className="text-2xl">{t(training.title)}</h3>
+              {/* Reserve two title lines so the date rows align across cards */}
+              <h3 className="text-2xl md:min-h-16">{t(training.title)}</h3>
 
               <div className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground">
                 <CalendarDaysIcon size={14} />
