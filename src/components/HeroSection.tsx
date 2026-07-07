@@ -324,7 +324,7 @@ const HeroSection = () => {
 
               <Button
                 asChild
-                className="rounded-full border-border/70 bg-background/50 backdrop-blur hover-scale"
+                className="rounded-full border-border/70 bg-background/50 hover-scale"
                 size="lg"
                 variant="outline"
               >

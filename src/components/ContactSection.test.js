@@ -11,4 +11,9 @@ describe("ContactSection", () => {
     expect(contactSectionSource).not.toContain("IntersectionObserver");
     expect(contactSectionSource).not.toContain("ContactFormCardFallback");
   });
+
+  test("shares one social link class across all social anchors", () => {
+    expect(contactSectionSource).toContain("const socialLinkClassName =");
+    expect(contactSectionSource.match(/className=\{socialLinkClassName\}/g)).toHaveLength(6);
+  });
 });

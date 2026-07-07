@@ -141,6 +141,7 @@
    browsers without SVG backdrop-filter support. */
 .liquid-glass-nav {
   @apply relative overflow-hidden rounded-full border border-transparent bg-transparent shadow-none;
+
   transition:
     background 0.26s ease,
     border-color 0.26s ease,
