@@ -109,7 +109,7 @@ const ContactFormCard = () => {
 
   return (
     <FormProvider {...form}>
-      <form className="bg-card rounded-xl p-8 border border-border shadow-sm" onSubmit={form.handleSubmit(onSubmit)}>
+      <form className="glass-panel p-8" onSubmit={form.handleSubmit(onSubmit)}>
         <div className="space-y-6">
           {/* Hidden verify field */}
           <FormField control={form.control} name="verify" render={({ field }) => <Input type="hidden" {...field} />} />
@@ -156,7 +156,12 @@ const ContactFormCard = () => {
             )}
           />
 
-          <Button aria-busy={isSubmitting} className="w-full" disabled={isSubmitting} type="submit">
+          <Button
+            aria-busy={isSubmitting}
+            className="w-full rounded-full shadow-lg shadow-primary/25"
+            disabled={isSubmitting}
+            type="submit"
+          >
             {isSubmitting ? (
               <div className="flex items-center justify-center">
                 <div className="w-4 h-4 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin mr-2"></div>

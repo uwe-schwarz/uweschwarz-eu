@@ -241,7 +241,7 @@ const HeroSection = () => {
 
   return (
     <section
-      className="min-h-screen flex items-center pt-20 bg-grid relative overflow-hidden isolate"
+      className="min-h-screen flex items-center pt-24 bg-grid bg-aurora relative overflow-hidden isolate"
       id="hero"
       ref={sectionRef}
     >
@@ -294,11 +294,11 @@ const HeroSection = () => {
         <div className="flex flex-col lg:flex-row lg:items-start">
           {/* Text Content */}
           <div className="lg:w-1/2 max-w-xl animate-fade-in">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display mb-4">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-display tracking-tight mb-5">
               {hero.name}
               <br />
               <span
-                className="block text-gradient mt-2 h-[1.2em]"
+                className="block text-gradient mt-3 h-[1.2em]"
                 key={titleIndex}
                 ref={fitTextRef}
                 style={{
@@ -313,14 +313,21 @@ const HeroSection = () => {
               </span>
             </h1>
 
-            <p className="text-lg md:text-xl text-muted-foreground max-w-lg mb-8">{t(hero.description)}</p>
+            <p className="text-lg md:text-xl leading-relaxed text-muted-foreground max-w-lg mb-8">
+              {t(hero.description)}
+            </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button asChild className="rounded-full shadow-lg hover-scale" size="lg">
+              <Button asChild className="rounded-full shadow-lg shadow-primary/25 hover-scale" size="lg">
                 <a href="#experience">{t(hero.ctaPrimary)}</a>
               </Button>
 
-              <Button asChild className="rounded-full shadow-sm hover-scale" size="lg" variant="outline">
+              <Button
+                asChild
+                className="rounded-full border-border/70 bg-background/50 backdrop-blur hover-scale"
+                size="lg"
+                variant="outline"
+              >
                 <Link href={withLanguagePrefix(language, "/cv") as Route}>
                   <FileTextIcon className="mr-2" size={16} />
                   {t(hero.ctaSecondary)}
@@ -328,18 +335,24 @@ const HeroSection = () => {
               </Button>
             </div>
 
-            <div className="mt-8 border-t border-border/40 pt-6">
-              <div className="max-w-lg">
-                <p className="text-sm font-medium text-foreground">{t(hero.availability.title)}</p>
-                <progress
-                  aria-label={t(hero.availability.title)}
-                  className="mt-2 h-2.5 w-full overflow-hidden rounded-full bg-primary/15 accent-primary [&::-moz-progress-bar]:rounded-full [&::-moz-progress-bar]:bg-primary [&::-webkit-progress-bar]:rounded-full [&::-webkit-progress-bar]:bg-primary/15 [&::-webkit-progress-value]:rounded-full [&::-webkit-progress-value]:bg-primary"
-                  max={100}
-                  value={percentAvailable}
-                />
-
-                <p className="mt-2 text-sm md:text-base leading-relaxed text-muted-foreground">{availabilitySummary}</p>
+            <div className="glass-panel mt-10 max-w-lg p-5">
+              <div className="flex items-center gap-2">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-60" />
+                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-primary" />
+                </span>
+                <p className="text-sm font-semibold uppercase tracking-[0.14em] text-foreground/80">
+                  {t(hero.availability.title)}
+                </p>
               </div>
+              <progress
+                aria-label={t(hero.availability.title)}
+                className="mt-3 h-2.5 w-full overflow-hidden rounded-full bg-primary/15 accent-primary [&::-moz-progress-bar]:rounded-full [&::-moz-progress-bar]:bg-primary [&::-webkit-progress-bar]:rounded-full [&::-webkit-progress-bar]:bg-primary/15 [&::-webkit-progress-value]:rounded-full [&::-webkit-progress-value]:bg-primary"
+                max={100}
+                value={percentAvailable}
+              />
+
+              <p className="mt-2.5 text-sm md:text-base leading-relaxed text-muted-foreground">{availabilitySummary}</p>
             </div>
           </div>
 

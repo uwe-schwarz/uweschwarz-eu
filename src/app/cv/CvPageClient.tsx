@@ -99,33 +99,33 @@ export default function CvPageClient() {
         </div>
       </div>
 
-      <div className="flex grow flex-col bg-muted/80 px-4 py-4 md:px-8">
-        <div className="mb-6">
-          <h1 className="mb-2 font-display text-4xl">
-            {t({
-              de: "Lebenslauf",
-              en: "Curriculum Vitae",
-            })}
+      <div className="relative flex grow flex-col overflow-hidden bg-muted/40 px-4 py-8 md:px-8">
+        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-aurora opacity-70" />
+        <div className="mb-8">
+          <h1 className="font-display text-4xl md:text-5xl">
+            <span className="text-gradient">
+              {t({
+                de: "Lebenslauf",
+                en: "Curriculum Vitae",
+              })}
+            </span>
           </h1>
         </div>
 
         <div className="grid grow grid-cols-1 gap-12 lg:grid-cols-8">
-          <div className="relative z-0 flex min-h-[500px] flex-col lg:col-span-6 lg:col-start-2">
-            <div className="flex grow flex-col rounded-lg border-4 border-white shadow-xl dark:border-gray-800">
-              <div className="flex grow flex-col justify-center bg-linear-to-br from-primary/40 to-accent/40">
-                <div className="m-6 flex grow justify-center overflow-hidden">
-                  <iframe
-                    className="min-h-[500px] h-full w-full max-w-[796px] overflow-hidden rounded-lg border-0 bg-white shadow-inner"
-                    key={language}
-                    src={`${pdfUrl}#zoom=100&view=FitH&pagemode=none&toolbar=0`}
-                    title="Curriculum Vitae"
-                  />
-                </div>
-              </div>
+          <div className="flex min-h-[500px] flex-col lg:col-span-6 lg:col-start-2">
+            <div className="glass-panel relative flex grow flex-col overflow-hidden p-3 sm:p-5">
+              <div
+                aria-hidden="true"
+                className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-primary/60 to-accent/60"
+              />
+              <iframe
+                className="mx-auto h-full min-h-[500px] w-full max-w-[796px] grow border-0 bg-white shadow-lg"
+                key={language}
+                src={`${pdfUrl}#zoom=100&view=FitH&pagemode=none&toolbar=0`}
+                title="Curriculum Vitae"
+              />
             </div>
-
-            <div className="absolute -bottom-4 -left-4 -z-10 h-24 w-24 -rotate-6 rounded-lg bg-primary" />
-            <div className="absolute -top-4 -right-4 -z-10 h-20 w-20 rotate-6 rounded-lg bg-accent" />
           </div>
         </div>
       </div>

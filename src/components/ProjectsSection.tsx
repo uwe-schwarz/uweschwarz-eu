@@ -14,13 +14,15 @@ const ProjectsSection = () => {
   const { projects } = siteContent;
 
   return (
-    <section className="section-padding bg-muted/30" id="projects">
+    <section className="section-padding bg-muted/40" id="projects">
       <div className="container mx-auto">
-        <h2 className="text-3xl md:text-4xl text-center mb-16">
-          <span className="text-gradient">{t(siteContent.projectsSectionTitle)}</span>
-        </h2>
+        <div className="mb-14 text-center reveal-up">
+          <h2 className="text-4xl md:text-5xl">
+            <span className="text-gradient">{t(siteContent.projectsSectionTitle)}</span>
+          </h2>
+        </div>
 
-        <div className="relative px-12">
+        <div className="relative px-12 reveal-up">
           <Carousel
             className="w-full"
             opts={{
@@ -34,10 +36,10 @@ const ProjectsSection = () => {
                   className="pl-2 md:pl-4 basis-full sm:basis-1/2 lg:basis-1/3"
                   key={`${project.title.en}-${project.title.de}`}
                 >
-                  <div className="bg-card rounded-xl overflow-hidden shadow-md border border-border hover-scale transition-all h-full">
+                  <div className="glass-panel hover-lift h-full overflow-hidden">
                     {/* Project Image */}
                     <div className="aspect-video relative">
-                      <div className="absolute inset-0 bg-linear-to-br from-primary/40 to-accent/40 flex items-center justify-center">
+                      <div className="absolute inset-0 bg-linear-to-br from-primary/25 via-transparent to-accent/25 flex items-center justify-center">
                         {project.imageUrl && (
                           <div className="relative h-48 w-full max-w-[16rem]">
                             <Image
@@ -62,7 +64,7 @@ const ProjectsSection = () => {
                       <div className="flex flex-wrap gap-2 mb-6">
                         {project.tags.map((tag) => (
                           <Badge
-                            className="font-normal"
+                            className="rounded-full border-border/70 bg-muted/50 font-normal text-foreground/80"
                             key={typeof tag === "string" ? tag : `${tag.en}-${tag.de}`}
                             variant="outline"
                           >

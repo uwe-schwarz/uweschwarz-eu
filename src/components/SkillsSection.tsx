@@ -49,15 +49,17 @@ const SkillsSection = () => {
   const [activeTab, setActiveTab] = useState<TabValue>("management");
 
   return (
-    <section className="section-padding" id="skills">
+    <section className="section-padding relative overflow-hidden" id="skills">
+      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-aurora opacity-70" />
       <div className="container mx-auto">
-        <h2 className="text-3xl md:text-4xl text-center mb-4">
-          <span className="text-gradient">{t(skillsSection.title)}</span>
-        </h2>
+        <div className="mb-14 flex flex-col items-center gap-4 text-center reveal-up">
+          <h2 className="text-4xl md:text-5xl">
+            <span className="text-gradient">{t(skillsSection.title)}</span>
+          </h2>
+          <p className="max-w-2xl text-lg text-muted-foreground">{t(skillsSection.subtitle)}</p>
+        </div>
 
-        <p className="text-center text-muted-foreground max-w-2xl mx-auto mb-16">{t(skillsSection.subtitle)}</p>
-
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto reveal-up">
           <Tabs className="w-full" onValueChange={(value) => setActiveTab(value as TabValue)} value={activeTab}>
             <div className="flex justify-center mb-8">
               <TabsList className="flex-nowrap h-12 md:h-auto">
@@ -192,27 +194,31 @@ interface SkillsGridProps {
 const SkillsGrid = ({ skills }: SkillsGridProps) => {
   const { t } = useSettings();
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
       {skills.map((skill) => {
         const IconComponent = skill.icon;
         return (
-          <div
-            className="p-4 rounded-lg border border-border bg-card flex flex-col items-center hover-scale transition-all"
-            key={skill.id}
-          >
-            <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mb-3 text-primary">
+          <div className="glass-panel hover-lift flex items-center gap-3.5 p-4" key={skill.id}>
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
               <IconComponent className="w-5 h-5" />
             </div>
 
-            <h3 className="text-base font-medium mb-2">{t(skill.name)}</h3>
+            <div className="min-w-0 flex-1">
+              <h3 className="truncate text-sm font-medium" title={t(skill.name)}>
+                {t(skill.name)}
+              </h3>
 
-            <div className="flex gap-1">
-              {Array.from({ length: 5 }, (_, level) => level + 1).map((level) => (
-                <div
-                  className={cn("w-2 h-2 rounded-full", level <= skill.level ? "bg-primary" : "bg-muted")}
-                  key={`${skill.id}-${level}`}
-                />
-              ))}
+              <div className="mt-2 flex gap-1">
+                {Array.from({ length: 5 }, (_, level) => level + 1).map((level) => (
+                  <div
+                    className={cn(
+                      "h-1.5 flex-1 rounded-full",
+                      level <= skill.level ? "bg-linear-to-r from-primary to-primary/80" : "bg-muted",
+                    )}
+                    key={`${skill.id}-${level}`}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         );

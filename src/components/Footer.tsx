@@ -17,7 +17,11 @@ const Footer = () => {
   const homeHref = withLanguagePrefix(language, "/");
 
   return (
-    <footer className="bg-muted py-12">
+    <footer className="relative border-t border-border/60 bg-muted/60 py-12">
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-primary/50 to-transparent"
+      />
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center">
           {/* Logo and copyright */}

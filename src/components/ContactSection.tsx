@@ -11,18 +11,19 @@ const ContactSection = () => {
   const { contact } = siteContent;
 
   return (
-    <section className="section-padding bg-muted/30" id="contact">
+    <section className="section-padding bg-muted/40" id="contact">
       <div className="container mx-auto">
-        <h2 className="text-3xl md:text-4xl text-center mb-4">
-          <span className="text-gradient">{t(contact.title)}</span>
-        </h2>
+        <div className="mb-14 flex flex-col items-center gap-4 text-center reveal-up">
+          <h2 className="text-4xl md:text-5xl">
+            <span className="text-gradient">{t(contact.title)}</span>
+          </h2>
+          <p className="max-w-2xl text-lg text-muted-foreground">{t(contact.subtitle)}</p>
+        </div>
 
-        <p className="text-center text-muted-foreground max-w-2xl mx-auto mb-16">{t(contact.subtitle)}</p>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto reveal-up">
           {/* Contact Info */}
           <div className="flex flex-col justify-center">
-            <div className="bg-card rounded-xl p-8 border border-border shadow-sm">
+            <div className="glass-panel p-8">
               <div className="mb-8">
                 <h3 className="text-xl mb-4">{t(contact.infoTitle)}</h3>
                 <p className="text-muted-foreground mb-6">{t(contact.infoText)}</p>
@@ -65,7 +66,7 @@ const ContactSection = () => {
                   {contact.socialLinks.github && (
                     <a
                       aria-label="GitHub"
-                      className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
+                      className="flex h-11 w-11 items-center justify-center rounded-xl border border-border/70 bg-background/60 transition-colors hover:border-primary/50 hover:bg-primary hover:text-primary-foreground"
                       href={contact.socialLinks.github}
                       rel="noreferrer"
                       target="_blank"
@@ -77,7 +78,7 @@ const ContactSection = () => {
                   {contact.socialLinks.linkedin && (
                     <a
                       aria-label="LinkedIn"
-                      className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
+                      className="flex h-11 w-11 items-center justify-center rounded-xl border border-border/70 bg-background/60 transition-colors hover:border-primary/50 hover:bg-primary hover:text-primary-foreground"
                       href={contact.socialLinks.linkedin}
                       rel="noreferrer"
                       target="_blank"
@@ -100,7 +101,7 @@ const ContactSection = () => {
                   {contact.socialLinks.xing && (
                     <a
                       aria-label="Xing"
-                      className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
+                      className="flex h-11 w-11 items-center justify-center rounded-xl border border-border/70 bg-background/60 transition-colors hover:border-primary/50 hover:bg-primary hover:text-primary-foreground"
                       href={contact.socialLinks.xing}
                       rel="noreferrer"
                       target="_blank"
@@ -112,7 +113,7 @@ const ContactSection = () => {
                   {contact.socialLinks.x && (
                     <a
                       aria-label="X"
-                      className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
+                      className="flex h-11 w-11 items-center justify-center rounded-xl border border-border/70 bg-background/60 transition-colors hover:border-primary/50 hover:bg-primary hover:text-primary-foreground"
                       href={contact.socialLinks.x}
                       rel="noreferrer"
                       target="_blank"
@@ -124,7 +125,7 @@ const ContactSection = () => {
                   {contact.socialLinks.bluesky && (
                     <a
                       aria-label="Bluesky"
-                      className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
+                      className="flex h-11 w-11 items-center justify-center rounded-xl border border-border/70 bg-background/60 transition-colors hover:border-primary/50 hover:bg-primary hover:text-primary-foreground"
                       href={contact.socialLinks.bluesky}
                       rel="noreferrer"
                       target="_blank"
@@ -136,7 +137,7 @@ const ContactSection = () => {
                   {contact.socialLinks.freelancermap && (
                     <a
                       aria-label="Freelancermap"
-                      className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
+                      className="flex h-11 w-11 items-center justify-center rounded-xl border border-border/70 bg-background/60 transition-colors hover:border-primary/50 hover:bg-primary hover:text-primary-foreground"
                       href={contact.socialLinks.freelancermap}
                       rel="noreferrer"
                       target="_blank"
