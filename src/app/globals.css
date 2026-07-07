@@ -136,6 +136,48 @@
   }
 }
 
+/* Liquid-glass top navigation pill. The SVG filter (#nav-liquid-glass)
+   refracts the backdrop at the pill's rim; plain blur is the fallback for
+   browsers without SVG backdrop-filter support. */
+.liquid-glass-nav {
+  @apply relative overflow-hidden rounded-full border border-transparent bg-transparent shadow-none;
+  transition:
+    background 0.26s ease,
+    border-color 0.26s ease,
+    box-shadow 0.26s ease;
+}
+
+.liquid-glass-nav > * {
+  @apply relative z-10;
+}
+
+.nav-glass-defs {
+  @apply pointer-events-none absolute h-0 w-0 overflow-hidden;
+}
+
+.nav-glass-on .liquid-glass-nav {
+  border-color: rgb(21 20 15 / 0.08);
+  background: rgb(255 255 255 / 0.42);
+  -webkit-backdrop-filter: blur(12px) saturate(1.4);
+  backdrop-filter: blur(12px) saturate(1.4);
+  backdrop-filter: url(#nav-liquid-glass) blur(7px) saturate(1.4);
+  box-shadow:
+    inset 0 0 2px 1px rgb(255 255 255 / 0.55),
+    inset 0 0 10px 4px rgb(255 255 255 / 0.22),
+    0 6px 24px rgb(17 17 26 / 0.06),
+    0 12px 40px rgb(17 17 26 / 0.05);
+}
+
+.dark .nav-glass-on .liquid-glass-nav {
+  border-color: rgb(255 255 255 / 0.1);
+  background: rgb(20 20 20 / 0.42);
+  box-shadow:
+    inset 0 0 2px 1px rgb(255 255 255 / 0.12),
+    inset 0 0 10px 4px rgb(255 255 255 / 0.05),
+    0 6px 24px rgb(0 0 0 / 0.28),
+    0 12px 40px rgb(0 0 0 / 0.22);
+}
+
 /* Grid pattern background, faded out towards the bottom */
 .bg-grid {
   background-size: 44px 44px;

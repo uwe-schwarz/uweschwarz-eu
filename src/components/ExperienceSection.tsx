@@ -144,7 +144,8 @@ const ExperienceSection = () => {
   const smallExperiences = experiences.filter((exp) => exp.projectScale === "small");
 
   return (
-    <section className="section-padding relative bg-muted/40" id="experience">
+    <section className="section-padding relative overflow-hidden" id="experience">
+      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-aurora opacity-70" />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-14 text-center reveal-up">
           <h2 className="text-4xl md:text-5xl">

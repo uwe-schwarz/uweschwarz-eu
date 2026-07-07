@@ -1,6 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
+import type { RefObject } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import type { Route } from "next";
@@ -29,14 +30,118 @@ const subscribeToScroll = (onStoreChange: () => void) => {
   return () => window.removeEventListener("scroll", onStoreChange);
 };
 
+// Displacement map for the liquid-glass refraction: red/blue gradients encode
+// the displacement vectors, the blurred inner rect flattens the center so only
+// the pill's rim refracts.
+const buildGlassMap = (width: number, height: number) => {
+  const radius = Math.round(Math.min(width, height) / 2);
+  const borderRatio = 0.07;
+  const lightness = 50;
+  const alpha = 0.93;
+  const blur = 11;
+  const inset = Math.min(width, height) * (borderRatio * 0.5);
+  const svg = `<svg viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="red" x1="100%" y1="0%" x2="0%" y2="0%"><stop offset="0%" stop-color="#000"/><stop offset="100%" stop-color="red"/></linearGradient><linearGradient id="blue" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#000"/><stop offset="100%" stop-color="blue"/></linearGradient></defs><rect x="0" y="0" width="${width}" height="${height}" fill="black"/><rect x="0" y="0" width="${width}" height="${height}" rx="${radius}" fill="url(#red)"/><rect x="0" y="0" width="${width}" height="${height}" rx="${radius}" fill="url(#blue)" style="mix-blend-mode:difference"/><rect x="${inset}" y="${inset}" width="${width - inset * 2}" height="${height - inset * 2}" rx="${radius}" fill="hsl(0 0% ${lightness}% / ${alpha})" style="filter:blur(${blur}px)"/></svg>`;
+
+  return `data:image/svg+xml,${encodeURIComponent(svg)}`;
+};
+
+const useNavGlassMap = (navRef: RefObject<HTMLDivElement | null>, glassMapRef: RefObject<SVGFEImageElement | null>) => {
+  useEffect(() => {
+    const navBar = navRef.current;
+    const glassMap = glassMapRef.current;
+    if (!navBar || !glassMap) {
+      return;
+    }
+
+    const syncGlassMap = () => {
+      const rect = navBar.getBoundingClientRect();
+      const width = Math.max(1, Math.round(rect.width));
+      const height = Math.max(1, Math.round(rect.height));
+      const uri = buildGlassMap(width, height);
+      glassMap.setAttribute("href", uri);
+      glassMap.setAttributeNS("http://www.w3.org/1999/xlink", "href", uri);
+    };
+
+    let mapTimer = 0;
+    const scheduleGlassMap = () => {
+      window.clearTimeout(mapTimer);
+      mapTimer = window.setTimeout(syncGlassMap, 140);
+    };
+
+    syncGlassMap();
+    const resizeObserver = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(scheduleGlassMap);
+    resizeObserver?.observe(navBar);
+    window.addEventListener("resize", scheduleGlassMap, { passive: true });
+
+    return () => {
+      window.clearTimeout(mapTimer);
+      resizeObserver?.disconnect();
+      window.removeEventListener("resize", scheduleGlassMap);
+    };
+  }, [glassMapRef, navRef]);
+};
+
+const NavLiquidGlassFilter = ({ glassMapRef }: { glassMapRef: RefObject<SVGFEImageElement | null> }) => (
+  <svg aria-hidden="true" className="nav-glass-defs" focusable="false" height="0" width="0">
+    <defs>
+      <filter colorInterpolationFilters="sRGB" id="nav-liquid-glass">
+        <feImage
+          data-nav-glass-map="true"
+          height="100%"
+          preserveAspectRatio="none"
+          ref={glassMapRef}
+          result="map"
+          width="100%"
+          x="0"
+          y="0"
+        />
+        <feDisplacementMap
+          in="SourceGraphic"
+          in2="map"
+          result="dispRed"
+          scale="-50"
+          xChannelSelector="R"
+          yChannelSelector="B"
+        />
+        <feColorMatrix in="dispRed" result="red" type="matrix" values="1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0" />
+        <feDisplacementMap
+          in="SourceGraphic"
+          in2="map"
+          result="dispGreen"
+          scale="-47"
+          xChannelSelector="R"
+          yChannelSelector="B"
+        />
+        <feColorMatrix in="dispGreen" result="green" type="matrix" values="0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0" />
+        <feDisplacementMap
+          in="SourceGraphic"
+          in2="map"
+          result="dispBlue"
+          scale="-44"
+          xChannelSelector="R"
+          yChannelSelector="B"
+        />
+        <feColorMatrix in="dispBlue" result="blue" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0" />
+        <feBlend in="red" in2="green" mode="screen" result="rg" />
+        <feBlend in="rg" in2="blue" mode="screen" result="output" />
+        <feGaussianBlur in="output" stdDeviation="0.7" />
+      </filter>
+    </defs>
+  </svg>
+);
+
 const Header = () => {
   const { language, setLanguage, setTheme, t, theme } = useSettings();
   const router = useRouter();
   const isScrolled = useSyncExternalStore(subscribeToScroll, getScrolledSnapshot, getServerScrolledSnapshot);
   const isMobile = useIsMobile();
   const pathname = usePathname();
+  const navRef = useRef<HTMLDivElement | null>(null);
+  const glassMapRef = useRef<SVGFEImageElement | null>(null);
   const homeHref = withLanguagePrefix(language, "/");
   const isHomePage = pathname === homeHref;
+
+  useNavGlassMap(navRef, glassMapRef);
 
   const navigationItems = siteContent.navigation;
   const sectionIds = useMemo(() => navigationItems.map((item) => item.href.replace("#", "")), [navigationItems]);
@@ -134,13 +239,12 @@ const Header = () => {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 px-3 pt-3 sm:px-4 sm:pt-4">
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 px-3 pt-3 sm:px-4 sm:pt-4${isScrolled ? " nav-glass-on" : ""}`}
+      >
         <div
-          className={`container mx-auto flex items-center justify-between gap-4 rounded-full border px-4 py-2.5 transition-all duration-300 sm:px-6 ${
-            isScrolled
-              ? "border-border/70 bg-background/70 shadow-lg shadow-black/[0.06] backdrop-blur-xl dark:shadow-black/25"
-              : "border-transparent bg-transparent"
-          }`}
+          className="liquid-glass-nav container mx-auto flex items-center justify-between gap-4 px-4 py-2.5 sm:px-6"
+          ref={navRef}
         >
           <Link className="font-display font-bold text-foreground" href={homeHref as Route}>
             <span className="text-gradient text-2xl sm:text-3xl">Uwe Schwarz</span>
@@ -208,6 +312,7 @@ const Header = () => {
               theme={theme}
             />
           )}
+          <NavLiquidGlassFilter glassMapRef={glassMapRef} />
         </div>
       </header>
     </>

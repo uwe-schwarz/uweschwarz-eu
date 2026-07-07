@@ -1,9 +1,8 @@
 "use client";
 
-import { GraduationCap, Languages } from "lucide-react";
+import { GraduationCap } from "lucide-react";
 import { CalendarDaysIcon } from "@/components/icons/calendar-days";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
 import { getLocalizedTextKey } from "@/lib/localization";
@@ -13,8 +12,7 @@ const TrainingsSection = () => {
   const { trainings } = siteContent;
 
   return (
-    <section className="section-padding relative overflow-hidden" id="trainings">
-      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-aurora opacity-70" />
+    <section className="section-padding bg-muted/40" id="trainings">
       <div className="container mx-auto">
         <div className="mb-14 flex flex-col items-center gap-4 text-center reveal-up">
           <h2 className="text-4xl md:text-5xl">
@@ -70,16 +68,6 @@ const TrainingsSection = () => {
               </div>
             </article>
           ))}
-        </div>
-
-        <div className="mx-auto mt-10 flex max-w-3xl flex-col items-center gap-5 text-center reveal-up">
-          <p className="inline-flex items-start gap-2 text-muted-foreground">
-            <Languages aria-hidden="true" className="mt-1 h-4 w-4 shrink-0" />
-            <span>{t(trainings.note)}</span>
-          </p>
-          <Button asChild className="rounded-full shadow-lg shadow-primary/25 hover-scale" size="lg">
-            <a href="#contact">{t(trainings.cta)}</a>
-          </Button>
         </div>
       </div>
     </section>

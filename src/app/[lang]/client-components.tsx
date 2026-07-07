@@ -17,8 +17,8 @@ export default function ClientComponents() {
       <main className="grow">
         <HeroSection />
         <AboutSection />
-        <ExperienceSection />
         <TrainingsSection />
+        <ExperienceSection />
         <ProjectsSection />
         <SkillsSection />
         <ContactSection />

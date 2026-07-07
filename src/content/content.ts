@@ -202,10 +202,8 @@ export interface TrainingOffering {
 }
 
 interface TrainingsSection {
-  cta: LocalizedString;
   deliveredLabel: LocalizedString;
   items: Array<TrainingOffering>;
-  note: LocalizedString;
   subtitle: LocalizedString;
   title: LocalizedString;
 }
@@ -1447,8 +1445,8 @@ export const siteContent: SiteContent = {
   navigation: [
     { href: "#hero", label: { de: "Start", en: "Home" } },
     { href: "#about", label: { de: "Über mich", en: "About" } },
-    { href: "#experience", label: { de: "Erfahrung", en: "Experience" } },
     { href: "#trainings", label: { de: "Trainings", en: "Trainings" } },
+    { href: "#experience", label: { de: "Erfahrung", en: "Experience" } },
     { href: "#projects", label: { de: "Projekte", en: "Projects" } },
     { href: "#skills", label: { de: "Fähigkeiten", en: "Skills" } },
     { href: "#contact", label: { de: "Kontakt", en: "Contact" } },
@@ -2199,10 +2197,6 @@ export const siteContent: SiteContent = {
     },
   },
   trainings: {
-    cta: {
-      de: "Training anfragen",
-      en: "Request a training",
-    },
     deliveredLabel: {
       de: "Durchgeführt",
       en: "Delivered",
@@ -2247,13 +2241,9 @@ export const siteContent: SiteContent = {
         },
       },
     ],
-    note: {
-      de: "Beide Trainings gibt es auf Deutsch oder Englisch, vor Ort oder remote – Inhalte und Tiefe passe ich gerne an dein Team an.",
-      en: "Both trainings are available in German or English, on-site or remote — content and depth can be tailored to your team.",
-    },
     subtitle: {
-      de: "Praxisnahe Trainings, direkt aus dem Projektalltag – mit Live-Demos und Hands-on-Übungen.",
-      en: "Hands-on trainings built from real project work — with live demos and practical labs.",
+      de: "Trainings, die ich gehalten habe – praxisnah, direkt aus dem Projektalltag, mit Live-Demos und Hands-on-Übungen.",
+      en: "Trainings I have delivered — hands-on, built from real project work, with live demos and practical labs.",
     },
     title: {
       de: "Trainings & Workshops",
