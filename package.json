@@ -40,7 +40,7 @@
     "docx": "^9.7.1",
     "embla-carousel-react": "^8.6.0",
     "geist": "^1.7.2",
-    "lucide-react": "^1.23.0",
+    "lucide-react": "^1.24.0",
     "motion": "^12.42.2",
     "next": "^16.2.10",
     "react": "^19.2.7",
@@ -73,7 +73,7 @@
     "playwright": "^1.61.1",
     "pngjs": "^7.0.0",
     "postcss": "^8.5.16",
-    "react-doctor": "^0.7.2",
+    "react-doctor": "^0.7.3",
     "tailwindcss": "^4.3.2",
     "typescript": "^6.0.3"
   },
