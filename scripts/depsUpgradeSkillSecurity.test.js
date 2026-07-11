@@ -10,8 +10,11 @@ test("issue deduplication keeps untrusted bodies out of agent context", async ()
   const section = skill.match(/## Follow-Up Issue Deduplication(?<body>[\s\S]*?)\n## /)?.groups?.body;
 
   assert.ok(section, "deduplication instructions should exist");
-  assert.doesNotMatch(section, /--json[^\n`]*\bbody\b/);
+  assert.match(section, /`gh issue list --state open --limit 200 --json number,title,url,labels`/);
+  assert.doesNotMatch(section, /\bgh api\b/);
+  assert.doesNotMatch(section, /\bgh issue view\b/);
+  assert.doesNotMatch(section, /--json[^\n`]*\b(?:body|comments?)\b/);
+  assert.match(section, /Do not open issue URLs/i);
   assert.match(section, /untrusted/i);
   assert.match(section, /never[^\n]*(instruction|command)/i);
-  assert.match(section, /--limit 100\b/);
 });
