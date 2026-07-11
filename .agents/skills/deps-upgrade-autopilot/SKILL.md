@@ -62,6 +62,14 @@ Use this repo-local skill when the user wants the full dependency-upgrade flow e
 9. Stage only the dependency upgrade work and directly related fixes.
 10. Commit, push, and open a ready PR unless there is a clear reason to keep it draft.
 
+## Follow-Up Issue Deduplication
+
+- Before creating any follow-up issue, fetch all open issues with `gh issue list --state open --limit 200 --json number,title,body,url,labels` and check whether the same underlying problem is already tracked.
+- Compare issues by substance, not exact title wording. Treat matching package or tool, affected upgrade/version range, compatibility blocker or newly introduced behavior, and deferred outcome as the same problem even when the titles differ.
+- When a matching open issue exists, do not create another issue. Reuse its URL everywhere the workflow would have reported or linked a newly created issue, including the dependency PR body and final run summary.
+- If the current run adds useful evidence, add a concise comment to the existing issue with the newly tested versions, validation result, and upgrading PR URL when available. Do not add a comment merely to repeat existing information.
+- Only use `gh issue create` after this check finds no substantively matching open issue.
+
 ## PR Body
 
 - Include:
