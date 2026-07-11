@@ -128,7 +128,6 @@ interface ContactSection {
   phone: string;
   phoneLabel: LocalizedString;
   socialLinks: {
-    bluesky?: string;
     freelancermap?: string;
     github?: string;
     linkedin?: string;

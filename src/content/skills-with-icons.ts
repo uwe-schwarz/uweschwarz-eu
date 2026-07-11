@@ -40,20 +40,20 @@ import {
   ServerCrash,
 } from "lucide-react";
 import {
-  SiAnthropic,
-  SiApple,
-  SiCaddy,
-  SiCloudflare,
-  SiDocker,
-  SiFreebsd,
-  SiGit,
-  SiGooglegemini,
-  SiLinux,
-  SiPython,
-  SiSupabase,
-  SiVercel,
-  SiX,
-} from "react-icons/si";
+  AnthropicIcon,
+  AppleIcon,
+  CaddyIcon,
+  CloudflareIcon,
+  DockerIcon,
+  FreeBsdIcon,
+  GitIcon,
+  GoogleGeminiIcon,
+  LinuxIcon,
+  PythonIcon,
+  SupabaseIcon,
+  VercelIcon,
+  XIcon,
+} from "@/components/icons/brand-icons";
 import { OpenAiIcon } from "@/components/icons/openai";
 import { siteContent, type Skill } from "@/content/content";
 
@@ -118,21 +118,21 @@ const skillIconMap = new Map<string, SkillIcon>([
       category: "infrastructure",
       name: { de: "Linux: Debian, Ubuntu, RHEL", en: "Linux: Debian, Ubuntu, RHEL" },
     }),
-    SiLinux,
+    LinuxIcon,
   ],
   [
     getSkillIdentityKey({
       category: "infrastructure",
       name: { de: "Unix: FreeBSD, OpenBSD, Solaris", en: "Unix: FreeBSD, OpenBSD, Solaris" },
     }),
-    SiFreebsd,
+    FreeBsdIcon,
   ],
-  [getSkillIdentityKey({ category: "infrastructure", name: { de: "macOS", en: "macOS" } }), SiApple],
+  [getSkillIdentityKey({ category: "infrastructure", name: { de: "macOS", en: "macOS" } }), AppleIcon],
   [getSkillIdentityKey({ category: "infrastructure", name: { de: "Windows Server", en: "Windows Server" } }), Grid2X2],
-  [getSkillIdentityKey({ category: "infrastructure", name: { de: "Cloudflare", en: "Cloudflare" } }), SiCloudflare],
+  [getSkillIdentityKey({ category: "infrastructure", name: { de: "Cloudflare", en: "Cloudflare" } }), CloudflareIcon],
   [getSkillIdentityKey({ category: "infrastructure", name: { de: "E-Mail", en: "Mail" } }), Mail],
-  [getSkillIdentityKey({ category: "infrastructure", name: { de: "Vercel", en: "Vercel" } }), SiVercel],
-  [getSkillIdentityKey({ category: "infrastructure", name: { de: "Supabase", en: "Supabase" } }), SiSupabase],
+  [getSkillIdentityKey({ category: "infrastructure", name: { de: "Vercel", en: "Vercel" } }), VercelIcon],
+  [getSkillIdentityKey({ category: "infrastructure", name: { de: "Supabase", en: "Supabase" } }), SupabaseIcon],
   [
     getSkillIdentityKey({
       category: "infrastructure",
@@ -162,17 +162,17 @@ const skillIconMap = new Map<string, SkillIcon>([
     }),
     Terminal,
   ],
-  [getSkillIdentityKey({ category: "tools", name: { de: "Git", en: "Git" } }), SiGit],
+  [getSkillIdentityKey({ category: "tools", name: { de: "Git", en: "Git" } }), GitIcon],
   [getSkillIdentityKey({ category: "tools", name: { de: "Codex", en: "Codex" } }), CodeXml],
   [getSkillIdentityKey({ category: "tools", name: { de: "Claude Code", en: "Claude Code" } }), Terminal],
-  [getSkillIdentityKey({ category: "tools", name: { de: "Python", en: "Python" } }), SiPython],
+  [getSkillIdentityKey({ category: "tools", name: { de: "Python", en: "Python" } }), PythonIcon],
   [getSkillIdentityKey({ category: "tools", name: { de: "Postfix / Dovecot", en: "Postfix / Dovecot" } }), Mail],
   [getSkillIdentityKey({ category: "tools", name: { de: "Bind / Unbound", en: "Bind / Unbound" } }), Globe],
   [getSkillIdentityKey({ category: "tools", name: { de: "Squid Proxy", en: "Squid Proxy" } }), Route],
   [getSkillIdentityKey({ category: "tools", name: { de: "HAProxy", en: "HAProxy" } }), GitCompareArrows],
-  [getSkillIdentityKey({ category: "tools", name: { de: "Caddy", en: "Caddy" } }), SiCaddy],
+  [getSkillIdentityKey({ category: "tools", name: { de: "Caddy", en: "Caddy" } }), CaddyIcon],
   [getSkillIdentityKey({ category: "tools", name: { de: "Puppet", en: "Puppet" } }), Settings2],
-  [getSkillIdentityKey({ category: "tools", name: { de: "Docker", en: "Docker" } }), SiDocker],
+  [getSkillIdentityKey({ category: "tools", name: { de: "Docker", en: "Docker" } }), DockerIcon],
   [
     getSkillIdentityKey({
       category: "management",
@@ -252,10 +252,10 @@ const skillIconMap = new Map<string, SkillIcon>([
       category: "ai",
       name: { de: "Anthropic / Claude", en: "Anthropic / Claude" },
     }),
-    SiAnthropic,
+    AnthropicIcon,
   ],
-  [getSkillIdentityKey({ category: "ai", name: { de: "Google / Gemini", en: "Google / Gemini" } }), SiGooglegemini],
-  [getSkillIdentityKey({ category: "ai", name: { de: "xAI / Grok", en: "xAI / Grok" } }), SiX],
+  [getSkillIdentityKey({ category: "ai", name: { de: "Google / Gemini", en: "Google / Gemini" } }), GoogleGeminiIcon],
+  [getSkillIdentityKey({ category: "ai", name: { de: "xAI / Grok", en: "xAI / Grok" } }), XIcon],
   [
     getSkillIdentityKey({
       category: "ai",

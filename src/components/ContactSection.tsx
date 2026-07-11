@@ -1,8 +1,8 @@
 "use client";
 
 import { Mail, Phone } from "lucide-react";
-import { SiBluesky, SiFreelancermap, SiGithub, SiX, SiXing } from "react-icons/si";
 import ContactFormCard from "@/components/ContactFormCard";
+import { FreelancermapIcon, GitHubIcon, XIcon, XingIcon } from "@/components/icons/brand-icons";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
 
@@ -74,7 +74,7 @@ const ContactSection = () => {
                       rel="noreferrer"
                       target="_blank"
                     >
-                      <SiGithub className="w-5 h-5" />
+                      <GitHubIcon className="w-5 h-5" />
                     </a>
                   )}
 
@@ -109,7 +109,7 @@ const ContactSection = () => {
                       rel="noreferrer"
                       target="_blank"
                     >
-                      <SiXing className="w-5 h-5" />
+                      <XingIcon className="w-5 h-5" />
                     </a>
                   )}
 
@@ -121,19 +121,7 @@ const ContactSection = () => {
                       rel="noreferrer"
                       target="_blank"
                     >
-                      <SiX className="w-5 h-5" />
-                    </a>
-                  )}
-
-                  {contact.socialLinks.bluesky && (
-                    <a
-                      aria-label="Bluesky"
-                      className={socialLinkClassName}
-                      href={contact.socialLinks.bluesky}
-                      rel="noreferrer"
-                      target="_blank"
-                    >
-                      <SiBluesky className="w-5 h-5" />
+                      <XIcon className="w-5 h-5" />
                     </a>
                   )}
 
@@ -145,7 +133,7 @@ const ContactSection = () => {
                       rel="noreferrer"
                       target="_blank"
                     >
-                      <SiFreelancermap className="w-5 h-5" />
+                      <FreelancermapIcon className="w-5 h-5" />
                     </a>
                   )}
                 </div>
