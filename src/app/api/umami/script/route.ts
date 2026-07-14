@@ -2,13 +2,11 @@ import { readFile } from "node:fs/promises";
 
 const umamiScriptFile = new URL("./umami.js.txt", import.meta.url);
 const umamiHashFile = new URL("./umami.sha256", import.meta.url);
+const umamiScriptResponse = Promise.all([readFile(umamiScriptFile, "utf8"), readFile(umamiHashFile, "utf8")]);
 
 export async function GET() {
   try {
-    const [script, upstreamSha256] = await Promise.all([
-      readFile(umamiScriptFile, "utf8"),
-      readFile(umamiHashFile, "utf8"),
-    ]);
+    const [script, upstreamSha256] = await umamiScriptResponse;
     const trimmedHash = upstreamSha256.trim();
 
     return new Response(script, {

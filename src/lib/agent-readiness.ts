@@ -127,23 +127,24 @@ export function hasMarkdownAcceptHeader(acceptHeader: string | null) {
     return false;
   }
 
-  const acceptedTypes = acceptHeader.split(",").map((part) => {
-    const [typePart, ...parameterParts] = part.split(";").map((value) => value.trim().toLowerCase());
-    const qValue = parameterParts.find((parameter) => parameter.startsWith("q="));
-    const q = qValue ? Number(qValue.slice(2)) : 1;
+  const { htmlCompatibleQ, markdownQ } = acceptHeader.split(",").reduce(
+    (quality, part) => {
+      const [type, ...parameterParts] = part.split(";").map((value) => value.trim().toLowerCase());
+      const qValue = parameterParts.find((parameter) => parameter.startsWith("q="));
+      const q = qValue ? Number(qValue.slice(2)) : 1;
+      const normalizedQ = Number.isFinite(q) ? q : 0;
 
-    return {
-      q: Number.isFinite(q) ? q : 0,
-      type: typePart,
-    };
-  });
+      if (type === "text/markdown") {
+        quality.markdownQ = Math.max(quality.markdownQ, normalizedQ);
+      }
 
-  const markdownQ = Math.max(0, ...acceptedTypes.filter(({ type }) => type === "text/markdown").map(({ q }) => q));
-  const htmlCompatibleQ = Math.max(
-    0,
-    ...acceptedTypes
-      .filter(({ type }) => type === "text/html" || type === "text/*" || type === "*/*")
-      .map(({ q }) => q),
+      if (type === "text/html" || type === "text/*" || type === "*/*") {
+        quality.htmlCompatibleQ = Math.max(quality.htmlCompatibleQ, normalizedQ);
+      }
+
+      return quality;
+    },
+    { htmlCompatibleQ: 0, markdownQ: 0 },
   );
 
   return markdownQ > 0 && markdownQ >= htmlCompatibleQ;
