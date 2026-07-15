@@ -24,4 +24,9 @@ describe("ContactSection", () => {
     expect(contactSectionSource).not.toMatch(/bluesky/i);
     expect(brandIconsSource).not.toMatch(/bluesky/i);
   });
+
+  test("exports brand icons as named component declarations", () => {
+    expect(brandIconsSource).not.toContain("createBrandIcon");
+    expect(brandIconsSource.match(/^export function \w+Icon\(/gm)).toHaveLength(16);
+  });
 });
