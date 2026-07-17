@@ -45,7 +45,7 @@
         "pixelmatch": "^7.2.0",
         "playwright": "^1.61.1",
         "pngjs": "^7.0.0",
-        "postcss": "^8.5.16",
+        "postcss": "^8.5.19",
         "react-doctor": "^0.7.8",
         "tailwindcss": "^4.3.3",
         "typescript": "^6.0.3",
@@ -56,7 +56,7 @@
     "sharp",
   ],
   "overrides": {
-    "postcss": "8.5.19",
+    "postcss": "^8.5.19",
   },
   "packages": {
     "@alloc/quick-lru": ["@alloc/quick-lru@5.2.0", "", {}, "sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw=="],
