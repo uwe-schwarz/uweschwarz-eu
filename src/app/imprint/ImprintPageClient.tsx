@@ -18,7 +18,7 @@ export default function ImprintPageClient() {
   const homeHref = withLanguagePrefix(language, "/");
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-dvh flex-col">
       <Header />
       <main className="grow pb-16 pt-24">
         <div className="container mx-auto px-4">

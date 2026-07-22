@@ -13,6 +13,10 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 
+interface ErrorResponse {
+  error?: string;
+}
+
 const ContactFormCard = () => {
   const { t } = useSettings();
   const { contact } = siteContent;
@@ -64,34 +68,33 @@ const ContactFormCard = () => {
         method: "POST",
       });
 
-      if (response.ok) {
-        toast({
-          description: t(contact.formStatus.sentDescription),
-          title: t(contact.formStatus.sentTitle),
-        });
-        form.reset();
-        return;
-      }
+      if (!response.ok) {
+        let errorMessage = t(contact.formStatus.errorDescription);
+        const responseBody = await response.text();
 
-      let errorMessage = t(contact.formStatus.errorDescription);
-      const responseBody = await response.text();
+        if (responseBody.trim()) {
+          let errorData: ErrorResponse | undefined;
 
-      if (responseBody.trim()) {
-        let errorData: { error?: string } | undefined;
-
-        try {
-          errorData = JSON.parse(responseBody) as { error?: string };
-          if (typeof errorData.error === "string" && errorData.error.trim()) {
-            errorMessage = errorData.error;
-          } else {
+          try {
+            errorData = JSON.parse(responseBody) as ErrorResponse;
+            if (typeof errorData.error === "string" && errorData.error.trim()) {
+              errorMessage = errorData.error;
+            } else {
+              errorMessage = responseBody;
+            }
+          } catch {
             errorMessage = responseBody;
           }
-        } catch {
-          errorMessage = responseBody;
         }
+
+        throw new Error(errorMessage);
       }
 
-      throw new Error(errorMessage);
+      toast({
+        description: t(contact.formStatus.sentDescription),
+        title: t(contact.formStatus.sentTitle),
+      });
+      form.reset();
     } catch (error) {
       const fallbackErrorDescription = t(contact.formStatus.errorDescription);
       const toastDescription =
