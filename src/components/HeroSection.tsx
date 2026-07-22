@@ -241,7 +241,7 @@ const HeroSection = () => {
 
   return (
     <section
-      className="min-h-screen flex items-center pt-24 bg-grid bg-aurora relative overflow-hidden isolate"
+      className="min-h-dvh flex items-center pt-24 bg-grid bg-aurora relative overflow-hidden isolate"
       id="hero"
       ref={sectionRef}
     >

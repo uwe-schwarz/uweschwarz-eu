@@ -44,7 +44,7 @@ export default function CvPageClient() {
   const cvTitle = t({ de: "Lebenslauf", en: "Curriculum Vitae" });
 
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div className="flex min-h-dvh flex-col bg-background">
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
           <Link
