@@ -13,6 +13,10 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 
+interface ErrorResponse {
+  error?: string;
+}
+
 const ContactFormCard = () => {
   const { t } = useSettings();
   const { contact } = siteContent;
@@ -69,10 +73,10 @@ const ContactFormCard = () => {
         const responseBody = await response.text();
 
         if (responseBody.trim()) {
-          let errorData: { error?: string } | undefined;
+          let errorData: ErrorResponse | undefined;
 
           try {
-            errorData = JSON.parse(responseBody) as { error?: string };
+            errorData = JSON.parse(responseBody) as ErrorResponse;
             if (typeof errorData.error === "string" && errorData.error.trim()) {
               errorMessage = errorData.error;
             } else {
