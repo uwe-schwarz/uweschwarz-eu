@@ -193,7 +193,6 @@ interface SitemapSection {
 }
 
 export interface TrainingOffering {
-  date: LocalizedString;
   description: LocalizedString;
   duration: LocalizedString;
   tags: Array<LocalizedString>;
@@ -201,7 +200,6 @@ export interface TrainingOffering {
 }
 
 interface TrainingsSection {
-  deliveredLabel: LocalizedString;
   items: Array<TrainingOffering>;
   subtitle: LocalizedString;
   title: LocalizedString;
@@ -2196,13 +2194,8 @@ export const siteContent: SiteContent = {
     },
   },
   trainings: {
-    deliveredLabel: {
-      de: "Durchgeführt",
-      en: "Delivered",
-    },
     items: [
       {
-        date: { de: "2.–3. Juni 2026", en: "June 2–3, 2026" },
         description: {
           de: "Von den Grundlagen moderner Lastverteilung bis zum produktionsreifen Setup: Architektur, Konfiguration, TLS-Terminierung, Health Checks, Hochverfügbarkeit und Observability – mit vielen Hands-on-Übungen entlang realer Szenarien.",
           en: "From the fundamentals of modern load balancing to production-ready setups: architecture, configuration, TLS termination, health checks, high availability, and observability — with extensive hands-on labs built around real-world scenarios.",
@@ -2221,7 +2214,6 @@ export const siteContent: SiteContent = {
         },
       },
       {
-        date: { de: "2.–3. Juli 2026", en: "July 2–3, 2026" },
         description: {
           de: "Wie aus Sprachmodellen verlässliche Automatisierung wird: Agenten-Architekturen, Tool-Nutzung, Orchestrierung mehrstufiger Workflows, Guardrails, Evaluierung und Sicherheit – inklusive Hands-on-Sessions mit aktuellen Frameworks.",
           en: "How language models become reliable automation: agent architectures, tool use, orchestration of multi-step workflows, guardrails, evaluation, and security — including hands-on sessions with current frameworks.",
@@ -2237,6 +2229,24 @@ export const siteContent: SiteContent = {
         title: {
           de: "Agentic-AI-Workflows",
           en: "Agentic AI Workflows",
+        },
+      },
+      {
+        description: {
+          de: "Wie KI-Systeme nach dem Deployment zuverlässig, transparent und wirtschaftlich betrieben werden: MLOps-Pipelines, Modell- und Datenmonitoring, Observability, Qualitätsmetriken, Drift-Erkennung und wirksame Kostenkontrolle – praxisnah mit messbaren Betriebszielen und Hands-on-Übungen.",
+          en: "How to operate AI systems reliably, transparently, and cost-effectively after deployment: MLOps pipelines, model and data monitoring, observability, quality metrics, drift detection, and effective cost control — with hands-on exercises built around measurable operational goals.",
+        },
+        duration: { de: "2-tägiges Training", en: "2-day training" },
+        tags: [
+          { de: "MLOps", en: "MLOps" },
+          { de: "Monitoring", en: "Monitoring" },
+          { de: "Observability", en: "Observability" },
+          { de: "Drift-Erkennung", en: "Drift Detection" },
+          { de: "Kostenkontrolle", en: "Cost Control" },
+        ],
+        title: {
+          de: "MLOps, Monitoring, Kostenkontrolle",
+          en: "MLOps, Monitoring & Cost Control",
         },
       },
     ],

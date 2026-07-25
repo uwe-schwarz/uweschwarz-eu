@@ -14,7 +14,7 @@ const ProjectsSection = () => {
   const { projects } = siteContent;
 
   return (
-    <section className="section-padding bg-muted/40" id="projects">
+    <section className="section-padding section-muted-blend" id="projects">
       <div className="container mx-auto">
         <div className="mb-14 text-center reveal-up">
           <h2 className="text-4xl md:text-5xl">

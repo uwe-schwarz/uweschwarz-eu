@@ -194,11 +194,44 @@
     linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
 }
 
-/* Soft aurora glow behind sections */
+/* Reusable aurora glow for standalone surfaces such as the hero and CV */
 .bg-aurora {
   background-image:
     radial-gradient(38rem 24rem at 12% 0%, hsl(var(--primary) / 0.14), transparent 65%),
     radial-gradient(34rem 22rem at 88% 18%, hsl(var(--accent) / 0.12), transparent 65%);
+}
+
+/* Continuous aurora field behind the complete homepage */
+.site-aurora-background {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-image:
+    radial-gradient(52rem 36rem at 10% 8%, hsl(var(--primary) / 0.17), transparent 68%),
+    radial-gradient(46rem 32rem at 90% 18%, hsl(var(--accent) / 0.15), transparent 68%),
+    radial-gradient(48rem 34rem at 14% 34%, hsl(var(--accent) / 0.13), transparent 68%),
+    radial-gradient(54rem 38rem at 88% 48%, hsl(var(--primary) / 0.16), transparent 68%),
+    radial-gradient(50rem 34rem at 12% 64%, hsl(var(--primary) / 0.15), transparent 68%),
+    radial-gradient(48rem 36rem at 90% 78%, hsl(var(--accent) / 0.14), transparent 68%),
+    radial-gradient(54rem 38rem at 16% 94%, hsl(var(--primary) / 0.15), transparent 68%);
+}
+
+.site-aurora-veil {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: hsl(var(--background) / 0.12);
+}
+
+/* Muted section surface that blends into adjacent aurora sections */
+.section-muted-blend {
+  background-image: linear-gradient(
+    to bottom,
+    transparent,
+    hsl(var(--muted) / 0.4) 12%,
+    hsl(var(--muted) / 0.4) 88%,
+    transparent
+  );
 }
 
 /* Scroll-driven reveal (progressive enhancement, no JS) */

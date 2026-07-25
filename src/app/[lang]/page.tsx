@@ -39,7 +39,9 @@ export default function HomePage() {
   return (
     <div className="flex min-h-dvh flex-col">
       <Header />
-      <main className="grow">
+      <main className="relative isolate grow overflow-hidden">
+        <div aria-hidden="true" className="site-aurora-background" />
+        <div aria-hidden="true" className="site-aurora-veil" />
         <HeroSection />
         <AboutSection />
         <TrainingsSection />
