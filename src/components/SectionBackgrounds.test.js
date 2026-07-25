@@ -12,6 +12,7 @@ const trainingsSource = readFileSync(new URL("./TrainingsSection.tsx", import.me
 
 describe("section backgrounds", () => {
   test("uses one continuous aurora behind softly separated sections", () => {
+    expect(globalsSource).toContain(".bg-aurora");
     expect(globalsSource).toContain(".site-aurora-background");
     expect(globalsSource).toContain(".site-aurora-veil");
     expect(globalsSource).toContain(".section-muted-blend");
