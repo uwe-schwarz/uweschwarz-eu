@@ -49,8 +49,7 @@ const SkillsSection = () => {
   const [activeTab, setActiveTab] = useState<TabValue>("management");
 
   return (
-    <section className="section-padding relative overflow-hidden" id="skills">
-      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-aurora opacity-70" />
+    <section className="section-padding relative" id="skills">
       <div className="container mx-auto">
         <div className="mb-14 flex flex-col items-center gap-4 text-center reveal-up">
           <h2 className="text-4xl md:text-5xl">

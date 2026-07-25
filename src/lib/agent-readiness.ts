@@ -67,7 +67,7 @@ export function buildHomepageMarkdown(language: Language) {
     `## ${localize(SECTION_TITLES.trainings, language)}`,
     "",
     ...siteContent.trainings.items.flatMap((training) => [
-      `- **${localize(training.title, language)}** (${localize(training.duration, language)}, ${localize(siteContent.trainings.deliveredLabel, language)}: ${localize(training.date, language)})`,
+      `- **${localize(training.title, language)}** (${localize(training.duration, language)})`,
       `  ${localize(training.description, language)}`,
     ]),
     "",

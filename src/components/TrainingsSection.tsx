@@ -2,7 +2,6 @@
 
 import type { Ref } from "react";
 import { GraduationCap } from "lucide-react";
-import { CalendarDaysIcon } from "@/components/icons/calendar-days";
 import { Badge } from "@/components/ui/badge";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
@@ -17,7 +16,7 @@ const TrainingsSection = ({ ref }: TrainingsSectionProps) => {
   const { trainings } = siteContent;
 
   return (
-    <section className="section-padding bg-muted/40" id="trainings" ref={ref}>
+    <section className="section-padding section-muted-blend" id="trainings" ref={ref}>
       <div className="container mx-auto">
         <div className="mb-14 flex flex-col items-center gap-4 text-center reveal-up">
           <h2 className="text-4xl md:text-5xl">
@@ -26,7 +25,7 @@ const TrainingsSection = ({ ref }: TrainingsSectionProps) => {
           <p className="max-w-2xl text-lg text-muted-foreground">{t(trainings.subtitle)}</p>
         </div>
 
-        <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-2">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {trainings.items.map((training) => (
             <article
               className="glass-panel hover-lift relative flex flex-col overflow-hidden p-7 md:p-8 reveal-up"
@@ -49,15 +48,7 @@ const TrainingsSection = ({ ref }: TrainingsSectionProps) => {
                 </Badge>
               </div>
 
-              {/* Reserve two title lines so the date rows align across cards */}
               <h3 className="text-2xl md:min-h-16">{t(training.title)}</h3>
-
-              <div className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground">
-                <CalendarDaysIcon aria-hidden="true" size={14} />
-                <span>
-                  {t(trainings.deliveredLabel)}: {t(training.date)}
-                </span>
-              </div>
 
               <p className="mt-4 grow leading-relaxed text-muted-foreground">{t(training.description)}</p>
 
