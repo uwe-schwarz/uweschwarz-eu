@@ -1308,12 +1308,12 @@ export const siteContent: SiteContent = {
         de: "{percent}% verfügbar",
         en: "{percent}% available",
       },
-      currentPercentAvailable: 75,
+      currentPercentAvailable: 10,
       fullLine: {
         de: "100% ab {date}",
         en: "100% from {date}",
       },
-      fullyAvailableDate: "2027-01-01",
+      fullyAvailableDate: "2027",
       title: {
         de: "Verfügbarkeit",
         en: "Availability",
