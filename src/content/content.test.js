@@ -36,4 +36,8 @@ describe("site content", () => {
 
     expect(formalStrings).toEqual([]);
   });
+
+  test("does not describe the retired Umami analytics service", () => {
+    expect(JSON.stringify(siteContent.privacy)).not.toContain("Umami");
+  });
 });
