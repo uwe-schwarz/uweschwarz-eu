@@ -6,6 +6,8 @@ import { describe, expect, test } from "bun:test";
 const root = join(import.meta.dir, "../..");
 const packageJson = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
 const providersSource = readFileSync(join(import.meta.dir, "providers.client.tsx"), "utf8");
+const rootLayoutSource = readFileSync(join(import.meta.dir, "layout.tsx"), "utf8");
+const cspSource = readFileSync(join(root, "src/lib/security/csp.ts"), "utf8");
 
 describe("runtime dependency cleanup", () => {
   test("keeps only providers that have consumers", () => {
@@ -37,5 +39,17 @@ describe("runtime dependency cleanup", () => {
   test("deletes wrappers for removed UI providers", () => {
     expect(existsSync(join(root, "src/components/ui/sonner.tsx"))).toBe(false);
     expect(existsSync(join(root, "src/components/ui/tooltip.tsx"))).toBe(false);
+  });
+
+  test("removes the retired Umami integration", () => {
+    expect(rootLayoutSource).not.toContain("data-website-id");
+    expect(rootLayoutSource).not.toContain("UMAMI_");
+    expect(rootLayoutSource).not.toMatch(/umami/i);
+    expect(cspSource).not.toContain("UMAMI_");
+    expect(cspSource).not.toMatch(/umami/i);
+    expect(packageJson.scripts).not.toHaveProperty("update:umami");
+    expect(existsSync(join(root, ".github/workflows/update-umami-tracker.yml"))).toBe(false);
+    expect(existsSync(join(root, "scripts/update-umami-tracker.ts"))).toBe(false);
+    expect(existsSync(join(root, "src/app/api/umami"))).toBe(false);
   });
 });

@@ -1,6 +1,4 @@
 export const NONCE_HEADER = "x-nonce";
-export const UMAMI_SCRIPT_PATH = "/api/umami/script";
-export const UMAMI_API_HOST = "https://api-gateway.umami.dev";
 
 export function createCspNonce() {
   const randomBytes = crypto.getRandomValues(new Uint8Array(16));
@@ -16,7 +14,7 @@ export function buildContentSecurityPolicy(nonce: string) {
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data: blob:",
     "font-src 'self' data:",
-    `connect-src 'self' ${UMAMI_API_HOST}`,
+    "connect-src 'self'",
     "object-src 'none'",
     "base-uri 'self'",
     "form-action 'self'",

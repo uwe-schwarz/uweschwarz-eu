@@ -1530,19 +1530,11 @@ export const siteContent: SiteContent = {
             },
             en: "Resend: 2261 Market Street #5039, San Francisco, CA 94114, USA",
           },
-          {
-            de: "Umami Software, Inc.: 1362 42nd Ave., San Francisco, CA, 94122, USA",
-            description: {
-              de: "Rechtsgrundlage: berechtigte Interessen (Art. 6 Abs. 1 lit. f DSGVO) zur Durchführung der Website-Analyse in datenschutzfreundlicher Weise.<br />Umami ist ein datenschutzbewusstes Web-Analytics-Tool, das in seiner Standardkonfiguration keine Cookies verwendet und keine personenbezogenen Kennungen erhebt. Details: https://umami.is/privacy.",
-              en: "Legal basis: legitimate interests (Art. 6(1)(f) GDPR) to enable website-analytics in a privacy-respective way.<br />Umami is a privacy-aware web analytics tool that does not use cookies or collect personal identifiers in its standard configuration. See: https://umami.is/privacy.",
-            },
-            en: "Umami Software, Inc.: 1362 42nd Ave., San Francisco, CA, 94122, USA",
-          },
         ],
         paragraphs: [
           {
-            de: "Diese Seite wird bei Cloudflare gehostet; ich habe dort keinen direkten Zugriff auf Server-Logs oder Deine IP-Adresse. Für das Kontaktformular nutze ich Resend, um E-Mails zu versenden. Es werden nur die von Dir im Formular eingegebenen Daten weitergeleitet – weitere personenbezogene Daten werden nicht gespeichert. Umami wird für Analysen verwendet und speichert nur pseudonymisierte Daten.",
-            en: "This site is hosted by Cloudflare; I do not have direct access to server logs or your IP address there. For the contact form, I use Resend to send emails. Only the data you enter into the form is forwarded – no other personal data is stored. Umami is used for analytics and stores only pseudonymous data.",
+            de: "Diese Seite wird bei Cloudflare gehostet; ich habe dort keinen direkten Zugriff auf Server-Logs oder Deine IP-Adresse. Für das Kontaktformular nutze ich Resend, um E-Mails zu versenden. Es werden nur die von Dir im Formular eingegebenen Daten weitergeleitet – weitere personenbezogene Daten werden nicht gespeichert.",
+            en: "This site is hosted by Cloudflare; I do not have direct access to server logs or your IP address there. For the contact form, I use Resend to send emails. Only the data you enter into the form is forwarded – no other personal data is stored.",
           },
           {
             de: "Log-Aufbewahrung: max. 30 Tage",

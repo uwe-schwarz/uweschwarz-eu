@@ -19,7 +19,6 @@
     "generate:cv": "bun scripts/generate-cv-assets.ts && bun scripts/generate-sitemap.ts",
     "doctor": "react-doctor --scope changed --base main --no-score --blocking warning",
     "doctor:full": "react-doctor --scope full --blocking warning",
-    "update:umami": "bun scripts/update-umami-tracker.ts",
     "prepare": "husky"
   },
   "dependencies": {

@@ -11,7 +11,7 @@ import { detectPreferredLanguage } from "@/lib/detect-language";
 import type { Language, Theme } from "@/contexts/settings-hook";
 import { isSupportedLanguage } from "@/lib/i18n";
 import { LEGACY_STORAGE_KEYS, STORAGE_KEYS } from "@/lib/persisted-preferences";
-import { NONCE_HEADER, UMAMI_API_HOST, UMAMI_SCRIPT_PATH } from "@/lib/security/csp";
+import { NONCE_HEADER } from "@/lib/security/csp";
 
 // NOTE: This beforeInteractive script runs before React and cannot import
 // persisted-preferences.ts. Keep migration behavior and key format in sync with
@@ -83,14 +83,6 @@ export default async function RootLayout({ children, params }: Readonly<RootLayo
         </Script>
 
         <link href="/us.svg" rel="icon" type="image/svg+xml" />
-
-        <Script
-          data-host-url={UMAMI_API_HOST}
-          data-website-id="74cb157f-1973-4ade-a5f9-1202a8604bbb"
-          nonce={cspNonce}
-          src={UMAMI_SCRIPT_PATH}
-          strategy="afterInteractive"
-        />
       </head>
       <body className={cn("min-h-screen bg-background font-sans antialiased text-foreground")}>
         {children}
