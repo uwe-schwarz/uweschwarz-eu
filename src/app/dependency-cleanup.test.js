@@ -44,7 +44,9 @@ describe("runtime dependency cleanup", () => {
   test("removes the retired Umami integration", () => {
     expect(rootLayoutSource).not.toContain("data-website-id");
     expect(rootLayoutSource).not.toContain("UMAMI_");
+    expect(rootLayoutSource).not.toMatch(/umami/i);
     expect(cspSource).not.toContain("UMAMI_");
+    expect(cspSource).not.toMatch(/umami/i);
     expect(packageJson.scripts).not.toHaveProperty("update:umami");
     expect(existsSync(join(root, ".github/workflows/update-umami-tracker.yml"))).toBe(false);
     expect(existsSync(join(root, "scripts/update-umami-tracker.ts"))).toBe(false);

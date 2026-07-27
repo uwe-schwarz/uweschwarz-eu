@@ -38,6 +38,6 @@ describe("site content", () => {
   });
 
   test("does not describe the retired Umami analytics service", () => {
-    expect(JSON.stringify(siteContent.privacy)).not.toContain("Umami");
+    expect(JSON.stringify(siteContent.privacy)).not.toMatch(/umami/i);
   });
 });
