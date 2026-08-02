@@ -33,13 +33,23 @@ test("Bun upgrades normalize lockfile specifiers before validation", async () =>
   const bunSection = packageManagerPlaybook.match(/## Bun(?<body>[\s\S]*?)\n## uv/)?.groups?.body;
 
   assert.ok(bunSection, "Bun package-manager instructions should exist");
-  const normalizedUpdateSequences = bunSection.match(/bun update --latest\nbun install/g) ?? [];
+  const bunCommandBlocks = [...bunSection.matchAll(/```bash\r?\n([\s\S]*?)```/g)].map(([, commands]) => commands);
+  const bunUpgradeBlocks = bunCommandBlocks.filter((commands) => /bun update --latest/.test(commands));
 
-  assert.equal(normalizedUpdateSequences.length, 2, "both Bun workflows should normalize the lockfile");
+  assert.equal(bunUpgradeBlocks.length, 2, "both Bun upgrade workflows should be documented");
+  assert.ok(
+    bunUpgradeBlocks.every((commands) => /bun update --latest\r?\nbun install(?:\r?\n|$)/.test(commands)),
+    "every Bun upgrade workflow should normalize the lockfile immediately",
+  );
   assert.match(bunSection, /`bun install` step is mandatory/i);
   assert.match(bunSection, /Do not stage, validate, or commit[^\n]*between the update and install/i);
   assert.match(baseSkill, /always run `bun install` immediately after `bun update --latest`/i);
   assert.match(baseSkill, /before any diff is staged or validated/i);
+  assert.match(baseSkill, /node <skill-dir>\/scripts\/check-no-latest-specifiers\.mjs <repo-root>/);
+  assert.match(
+    baseSkill,
+    /Do not proceed until it reports that no tracked `package\.json` or lockfile still contains `latest`/i,
+  );
   assert.match(autopilotSkill, /immediately run `bun install` before inspecting or staging the diff/i);
   assert.match(autopilotSkill, /no-`latest` checker afterward and stop if it fails/i);
 });
