@@ -33,7 +33,9 @@ test("Bun upgrades normalize lockfile specifiers before validation", async () =>
   const bunSection = packageManagerPlaybook.match(/## Bun(?<body>[\s\S]*?)\n## uv/)?.groups?.body;
 
   assert.ok(bunSection, "Bun package-manager instructions should exist");
-  assert.match(bunSection, /bun update --latest\nbun install/g);
+  const normalizedUpdateSequences = bunSection.match(/bun update --latest\nbun install/g) ?? [];
+
+  assert.equal(normalizedUpdateSequences.length, 2, "both Bun workflows should normalize the lockfile");
   assert.match(bunSection, /`bun install` step is mandatory/i);
   assert.match(bunSection, /Do not stage, validate, or commit[^\n]*between the update and install/i);
   assert.match(baseSkill, /always run `bun install` immediately after `bun update --latest`/i);
