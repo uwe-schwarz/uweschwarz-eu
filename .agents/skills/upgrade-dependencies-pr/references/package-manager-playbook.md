@@ -79,19 +79,18 @@ yarn install
 
 ```bash
 bun update --latest
+bun install
 ```
 
 - For workspace repos, start at the root. If Bun does not update nested workspace manifests non-interactively, enumerate the workspace directories and run the same command inside each affected package directory.
 
 ```bash
 bun update --latest
-```
-
-- Re-run install if lockfile regeneration or lifecycle execution is needed:
-
-```bash
 bun install
 ```
+
+- The `bun install` step is mandatory, even when `bun update --latest` succeeds. Bun can write `"latest"` into the root workspace specifiers in `bun.lock`; the install pass normalizes those entries back to the bounded ranges from the updated `package.json`.
+- Do not stage, validate, or commit the result between the update and install commands. Run the skill's no-`latest` checker after the install pass.
 
 ## uv project workflow
 

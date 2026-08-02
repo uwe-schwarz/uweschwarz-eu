@@ -54,7 +54,7 @@ Use this repo-local skill when the user wants the full dependency-upgrade flow e
 1. Inventory the repo exactly as the base skill requires.
 2. Create a fresh branch before editing. Prefer `codex/deps-uweschwarz-eu-<yyyymmdd>`.
 3. Capture the pre-upgrade screenshots into the temp dir.
-4. Upgrade dependencies with `bun` and regenerate `bun.lock`.
+4. Upgrade dependencies with `bun update --latest`, then immediately run `bun install` before inspecting or staging the diff. The install pass must normalize any `"latest"` root specifiers written to `bun.lock`; run the base skill's no-`latest` checker afterward and stop if it fails.
 5. Check every GitHub Actions workflow reference under `.github/workflows/*.yml` and bump action versions to the latest available release. For this repo, do the workflow updates pragmatically and let CI surface any incompatibilities.
 6. Run the base skill’s release-note triage and apply required fallout fixes.
 7. Run the repo validation set in the required order from `AGENTS.md`.
