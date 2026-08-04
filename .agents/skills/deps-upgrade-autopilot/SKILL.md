@@ -116,9 +116,18 @@ Use this repo-local skill when the user wants the full dependency-upgrade flow e
 - Follow this exact order when the required Vercel check fails:
   1. `vercel whoami`
   2. `failedDeploymentUrl="$(gh pr view --json statusCheckRollup | node .agents/skills/deps-upgrade-autopilot/scripts/select-vercel-deployment-url.mjs)"`
-  3. `vercel inspect "$failedDeploymentUrl" --logs`
+  3. Capture the old build log outside agent context, then print only a bounded diagnostic subset:
+     - `failedLogPath="$(mktemp -t uwe-vercel-failed-XXXXXX.log)"`
+     - `vercel inspect "$failedDeploymentUrl" --logs --wait --timeout 1m >"$failedLogPath" 2>&1`
+     - `node .agents/skills/deps-upgrade-autopilot/scripts/summarize-vercel-build-log.mjs "$failedLogPath"`
+     - `rm -f "$failedLogPath"`
   4. If the evidence suggests a stale managed runtime or transient platform rollout, run exactly one fresh preview: `newDeploymentUrl="$(vercel redeploy "$failedDeploymentUrl" --target preview --no-color)"`
-  5. `vercel inspect "$newDeploymentUrl" --logs --wait --timeout 5m`
+  5. Validate the fresh URL before using it: `newDeploymentUrl="$(node .agents/skills/deps-upgrade-autopilot/scripts/select-vercel-deployment-url.mjs --url "$newDeploymentUrl")"`
+  6. Capture the fresh build log outside agent context, then print only a bounded diagnostic subset:
+     - `newLogPath="$(mktemp -t uwe-vercel-new-XXXXXX.log)"`
+     - `vercel inspect "$newDeploymentUrl" --logs --wait --timeout 5m >"$newLogPath" 2>&1`
+     - `node .agents/skills/deps-upgrade-autopilot/scripts/summarize-vercel-build-log.mjs "$newLogPath"`
+     - `rm -f "$newLogPath"`
 - Stop if authentication fails, the selector does not find exactly one failed Vercel check, or a returned URL is not an HTTPS `vercel.com` deployment-inspector URL. Do not guess a deployment URL or ID.
 - Compare the deployment's package-manager/runtime versions with the locally validated versions before changing application code. Never retry redeployments in a loop or reuse the original failed URL to inspect the fresh deployment.
 - Reproduce a suspected runtime mismatch against the exact PR commit and the deployment's logged runtime version when an official temporary runtime or container is available.

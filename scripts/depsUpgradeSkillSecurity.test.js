@@ -1,9 +1,15 @@
-import { readFile } from "node:fs/promises";
+import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import test from "node:test";
 import { URL } from "node:url";
 import assert from "node:assert/strict";
 
-import { selectFailedVercelDeploymentUrl } from "../.agents/skills/deps-upgrade-autopilot/scripts/select-vercel-deployment-url.mjs";
+import {
+  selectFailedVercelDeploymentUrl,
+  validateVercelDeploymentInspectorUrl,
+} from "../.agents/skills/deps-upgrade-autopilot/scripts/select-vercel-deployment-url.mjs";
+import { summarizeVercelBuildLog } from "../.agents/skills/deps-upgrade-autopilot/scripts/summarize-vercel-build-log.mjs";
 
 const autopilotSkillUrl = new URL("../.agents/skills/deps-upgrade-autopilot/SKILL.md", import.meta.url);
 const baseSkillUrl = new URL("../.agents/skills/upgrade-dependencies-pr/SKILL.md", import.meta.url);
@@ -69,13 +75,16 @@ test("failed Vercel previews follow one authenticated diagnostic redeploy", asyn
 
   const authenticateAt = section.indexOf("1. `vercel whoami`");
   const selectAt = section.indexOf('2. `failedDeploymentUrl="$(gh pr view --json statusCheckRollup');
-  const inspectFailedAt = section.indexOf('3. `vercel inspect "$failedDeploymentUrl" --logs`');
+  const inspectFailedAt = section.indexOf('vercel inspect "$failedDeploymentUrl" --logs --wait --timeout 1m');
   const redeployAt = section.indexOf('newDeploymentUrl="$(vercel redeploy "$failedDeploymentUrl"');
-  const inspectFreshAt = section.indexOf('5. `vercel inspect "$newDeploymentUrl" --logs --wait --timeout 5m`');
+  const validateFreshAt = section.indexOf("select-vercel-deployment-url.mjs --url");
+  const inspectFreshAt = section.indexOf('vercel inspect "$newDeploymentUrl" --logs --wait --timeout 5m');
 
   assert.ok(authenticateAt < selectAt && selectAt < inspectFailedAt);
-  assert.ok(inspectFailedAt < redeployAt && redeployAt < inspectFreshAt);
+  assert.ok(inspectFailedAt < redeployAt && redeployAt < validateFreshAt && validateFreshAt < inspectFreshAt);
   assert.match(section, /exactly one fresh preview/i);
+  assert.equal((section.match(/summarize-vercel-build-log\.mjs/g) ?? []).length, 2);
+  assert.match(section, /bounded diagnostic subset/i);
   assert.match(section, /Never retry redeployments in a loop/i);
   assert.match(section, /Never[^\n]*reuse the original failed URL/i);
   assert.match(section, /exact PR commit/i);
@@ -116,6 +125,46 @@ test("Vercel check URL selector handles status and check-run fixtures", () => {
       selectFailedVercelDeploymentUrl({
         statusCheckRollup: [{ ...statusFixture.statusCheckRollup[0], targetUrl: "https://example.com/injected" }],
       }),
-    /https:\/\/vercel\.com/,
+    /deployment-inspector URL/,
   );
+  assert.throws(
+    () =>
+      selectFailedVercelDeploymentUrl({
+        statusCheckRollup: [
+          {
+            __typename: "UnexpectedCheckType",
+            context: "Vercel",
+            state: "FAILURE",
+            targetUrl: "https://vercel.com/team/project/unexpected",
+          },
+        ],
+      }),
+    /found 0/,
+  );
+  assert.throws(() => validateVercelDeploymentInspectorUrl("https://vercel.com/"), /deployment-inspector URL/);
+  assert.equal(
+    validateVercelDeploymentInspectorUrl("https://vercel.com/team/project/fresh-deployment"),
+    "https://vercel.com/team/project/fresh-deployment",
+  );
+});
+
+test("Vercel log summaries are allowlisted and bounded", async () => {
+  const tempDirectory = await mkdtemp(join(tmpdir(), "vercel-log-summary-"));
+  const logPath = join(tempDirectory, "build.log");
+
+  try {
+    const diagnosticLines = Array.from({ length: 140 }, (_, index) => `Build error ${index}: ${"x".repeat(600)}`);
+    await writeFile(logPath, ["ignore this unrelated line", ...diagnosticLines].join("\n"));
+
+    const summary = await summarizeVercelBuildLog(logPath);
+    const lines = summary.split("\n");
+
+    assert.equal(lines.length, 120);
+    assert.ok(lines.every((line) => line.length <= 500));
+    assert.doesNotMatch(summary, /unrelated line/);
+    assert.match(summary, /Build error 0/);
+    assert.doesNotMatch(summary, /Build error 120/);
+  } finally {
+    await rm(tempDirectory, { force: true, recursive: true });
+  }
 });
