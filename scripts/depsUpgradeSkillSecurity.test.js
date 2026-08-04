@@ -53,3 +53,19 @@ test("Bun upgrades normalize lockfile specifiers before validation", async () =>
   assert.match(autopilotSkill, /immediately run `bun install` before inspecting or staging the diff/i);
   assert.match(autopilotSkill, /no-`latest` checker afterward and stop if it fails/i);
 });
+
+test("failed Vercel previews get one authenticated diagnostic redeploy", async () => {
+  const skill = await readFile(autopilotSkillUrl, "utf8");
+  const section = skill.match(/## Vercel Preview Failure Triage(?<body>[\s\S]*?)\n## /)?.groups?.body;
+
+  assert.ok(section, "Vercel failure-triage instructions should exist");
+  assert.match(section, /`vercel whoami`/);
+  assert.match(section, /`gh pr view --json statusCheckRollup`/);
+  assert.match(section, /`vercel inspect <targetUrl> --logs`/);
+  assert.match(section, /`vercel redeploy <targetUrl> --target preview`/);
+  assert.match(section, /exactly one fresh preview/i);
+  assert.match(section, /Never retry redeployments in a loop/i);
+  assert.match(section, /exact PR commit/i);
+  assert.match(section, /highest locally and previously deployed compatible version/i);
+  assert.match(section, /Do not merge while the required Vercel check is red/i);
+});

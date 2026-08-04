@@ -110,6 +110,20 @@ Use this repo-local skill when the user wants the full dependency-upgrade flow e
   - required checks are green,
   - and the PR is mergeable.
 
+## Vercel Preview Failure Triage
+
+- Before relying on Vercel diagnostics, run `vercel whoami` and stop if the CLI is missing or unauthenticated.
+- When the Vercel status check fails, read its exact `targetUrl` with `gh pr view --json statusCheckRollup`; do not guess a deployment URL or ID.
+- Run `vercel inspect <targetUrl> --logs` and compare the deployment's package-manager/runtime versions with the locally validated versions before changing application code.
+- If the logs suggest a stale managed runtime or transient platform rollout, run exactly one fresh preview with `vercel redeploy <targetUrl> --target preview`, then inspect the new deployment logs. Never retry redeployments in a loop.
+- Reproduce a suspected runtime mismatch against the exact PR commit and the deployment's logged runtime version when an official temporary runtime or container is available.
+- If the upgraded package is incompatible with Vercel's currently managed runtime:
+  1. Restore only that package to the highest locally and previously deployed compatible version.
+  2. Regenerate the lockfile and rerun the complete required validation set.
+  3. Apply the follow-up issue deduplication rules, then create or update one issue with the affected versions, exact Vercel evidence, upstream tracker, temporary holdback, and retry criterion.
+  4. Link the issue in the PR body and state that the daily automation will retry the latest version on a later run.
+- Treat missing Vercel credentials, inconclusive deployment logs, or a still-failing required preview after the scoped holdback as a blocker. Do not merge while the required Vercel check is red.
+
 ## Merge And Cleanup
 
 - Merge the PR once it is green and unblocked. Prefer `gh pr merge --squash --delete-branch` unless the repo convention clearly prefers another merge strategy.
