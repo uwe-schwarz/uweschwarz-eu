@@ -214,6 +214,24 @@ test("Vercel structured diagnostic categories remain bounded", async () => {
   }
 });
 
+test("Vercel structured diagnostics recognize minute-long completed builds", async () => {
+  const tempDirectory = await mkdtemp(join(tmpdir(), "vercel-log-duration-"));
+  const logPath = join(tempDirectory, "build.log");
+
+  try {
+    await writeFile(
+      logPath,
+      ["Build Completed in /vercel/output [1m]", "Build Completed in /vercel/output [1m 23s]"].join("\n"),
+    );
+
+    const diagnostics = JSON.parse(await summarizeVercelBuildLog(logPath));
+
+    assert.deepEqual(diagnostics.outcomes, ["build_completed"]);
+  } finally {
+    await rm(tempDirectory, { force: true, recursive: true });
+  }
+});
+
 test("Vercel log summarizer CLI failures do not expose free-form errors", async () => {
   const source = await readFile(vercelLogSummarizerUrl, "utf8");
 

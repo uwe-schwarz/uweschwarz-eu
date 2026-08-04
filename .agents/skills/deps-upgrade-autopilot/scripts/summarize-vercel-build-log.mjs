@@ -37,7 +37,11 @@ export async function summarizeVercelBuildLog(path) {
       if (line.includes("Collecting page data")) addUnique(phases, "page_data");
       if (line.includes("Generating static pages")) addUnique(phases, "static_generation");
 
-      if (/Build Completed in \/vercel\/output \[\d+(?:\.\d+)?(?:ms|s)\]/.test(line)) {
+      if (
+        /Build Completed in \/vercel\/output \[(?:\d+m(?: \d+(?:\.\d+)?s)?|\d+(?:\.\d+)?(?:ms|s))\]/.test(
+          line,
+        )
+      ) {
         addUnique(outcomes, "build_completed");
       }
       if (/Error: Command "[^"]+" exited with \d+/.test(line)) addUnique(outcomes, "command_failed");
