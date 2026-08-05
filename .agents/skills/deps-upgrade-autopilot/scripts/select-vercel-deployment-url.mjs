@@ -17,12 +17,42 @@ export function validateVercelDeploymentInspectorUrl(value) {
     url.port ||
     url.username ||
     url.password ||
-    pathSegments.length < 3
+    pathSegments.length !== 3 ||
+    !/^[A-Za-z0-9]+$/.test(pathSegments[2])
   ) {
     throw new Error("Vercel deployment URL must be an HTTPS vercel.com deployment-inspector URL");
   }
 
   return url.href;
+}
+
+export function deploymentIdFromInspectorUrl(value) {
+  const url = new URL(validateVercelDeploymentInspectorUrl(value));
+  const deploymentSuffix = url.pathname.split("/").filter(Boolean).at(-1);
+  return `dpl_${deploymentSuffix}`;
+}
+
+export function deploymentHostFromUrl(value) {
+  if (typeof value !== "string") {
+    throw new Error("Vercel deployment URL must be a string");
+  }
+
+  const url = new URL(value);
+  if (
+    url.protocol !== "https:" ||
+    !url.hostname.endsWith(".vercel.app") ||
+    url.hostname === "vercel.app" ||
+    url.port ||
+    url.username ||
+    url.password ||
+    url.pathname !== "/" ||
+    url.search ||
+    url.hash
+  ) {
+    throw new Error("Vercel deployment URL must be an HTTPS vercel.app deployment URL");
+  }
+
+  return url.hostname;
 }
 
 export function selectFailedVercelDeploymentUrl(payload) {
@@ -48,7 +78,7 @@ export function selectFailedVercelDeploymentUrl(payload) {
 
   const [match] = matches;
   const value = match.__typename === "CheckRun" ? match.detailsUrl : match.targetUrl;
-  return validateVercelDeploymentInspectorUrl(value);
+  return deploymentIdFromInspectorUrl(value);
 }
 
 async function readPayload() {
@@ -65,7 +95,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   try {
     const result =
       process.argv[2] === "--url"
-        ? validateVercelDeploymentInspectorUrl(process.argv[3])
+        ? deploymentHostFromUrl(process.argv[3])
         : selectFailedVercelDeploymentUrl(await readPayload());
     console.log(result);
   } catch (error) {
