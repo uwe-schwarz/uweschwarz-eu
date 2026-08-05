@@ -1,14 +1,12 @@
-import type { Language, Theme } from "@/contexts/settings-hook";
+import type { Theme } from "@/contexts/settings-hook";
 
 const PERSISTED_PREFERENCE_SCHEMA_VERSION = "v1";
 
 export const STORAGE_KEYS = {
-  language: `user-settings:language:${PERSISTED_PREFERENCE_SCHEMA_VERSION}`,
   theme: `user-settings:theme:${PERSISTED_PREFERENCE_SCHEMA_VERSION}`,
 } as const;
 
 export const LEGACY_STORAGE_KEYS = {
-  language: "language",
   theme: "theme",
 } as const;
 
@@ -37,18 +35,9 @@ const readStorageValue = (currentKey: string, legacyKey: string): string | null 
   }
 };
 
-export const getPersistedLanguage = (): Language | null => {
-  const saved = readStorageValue(STORAGE_KEYS.language, LEGACY_STORAGE_KEYS.language);
-  return saved === "en" || saved === "de" ? saved : null;
-};
-
 export const getPersistedTheme = (): Theme | null => {
   const saved = readStorageValue(STORAGE_KEYS.theme, LEGACY_STORAGE_KEYS.theme);
   return saved === "light" || saved === "dark" ? saved : null;
-};
-
-export const setPersistedLanguage = (language: Language): void => {
-  setPersistedValue(STORAGE_KEYS.language, LEGACY_STORAGE_KEYS.language, language);
 };
 
 export const setPersistedTheme = (theme: Theme): void => {

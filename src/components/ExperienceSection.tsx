@@ -1,8 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import type { Route } from "next";
 import { siteContent } from "@/content/content";
 import type { Experience } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
@@ -11,7 +9,7 @@ import { MapPinIcon } from "@/components/icons/map-pin";
 import { CalendarDaysIcon } from "@/components/icons/calendar-days";
 import { ArchiveIcon } from "@/components/icons/archive";
 import { Badge } from "@/components/ui/badge";
-import { withLanguagePrefix } from "@/lib/i18n";
+import { Link } from "@/i18n/navigation";
 import { getLocalizedTextKey, type LocalizedString } from "@/lib/localization";
 
 type TranslateFn = (value: LocalizedString) => string;
@@ -138,7 +136,7 @@ const ExperienceTimeline = ({ achievementPrefix, items, sectionKey, t }: Experie
 };
 
 const ExperienceSection = () => {
-  const { language, t } = useSettings();
+  const { t } = useSettings();
   const { experiences } = siteContent;
   const majorExperiences = experiences.filter((exp) => exp.projectScale !== "small");
   const smallExperiences = experiences.filter((exp) => exp.projectScale === "small");
@@ -197,7 +195,7 @@ const ExperienceSection = () => {
           {/* Download Resume */}
           <Link
             className="inline-flex items-center gap-2 text-primary transition-colors hover:text-primary/80 link-underline"
-            href={withLanguagePrefix(language, "/cv") as Route}
+            href="/cv"
           >
             <FileTextIcon size={20} />
             <span>{t(siteContent.downloadResume)}</span>

@@ -2,6 +2,7 @@ import fs from "node:fs";
 import fsPromises from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { CV_ASSETS } from "../src/generated/cv-assets";
 import { SITE_URL } from "../src/lib/site-config";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -28,15 +29,6 @@ function getFileMtime(filePath: string) {
   } catch {
     return 0;
   }
-}
-
-// Generate CV asset paths dynamically to match the generate-cv-assets.ts script
-function generateCvAssetPath(language: "en" | "de", extension: "pdf" | "docx") {
-  // Get the content modification time to match the CV asset generation
-  const contentPath = path.join(__dirname, "..", "src/content/content.ts");
-  const mtime = getFileMtime(contentPath);
-  const date = mtime ? new Date(mtime).toISOString().split("T")[0] : new Date().toISOString().split("T")[0];
-  return `/uwe-schwarz-cv-${language}-${date}.${extension}`;
 }
 
 const urls = [
@@ -75,8 +67,8 @@ const urls = [
   {
     files: [
       "src/content/content.ts",
-      "src/app/cv/page.tsx",
       "src/app/[lang]/cv/page.tsx",
+      "src/app/cv/CvPageClient.tsx",
       "scripts/cv/CVDocument.tsx",
       "scripts/cv/CVDocumentDocx.tsx",
     ],
@@ -86,8 +78,8 @@ const urls = [
   {
     files: [
       "src/content/content.ts",
-      "src/app/cv/page.tsx",
       "src/app/[lang]/cv/page.tsx",
+      "src/app/cv/CvPageClient.tsx",
       "scripts/cv/CVDocument.tsx",
       "scripts/cv/CVDocumentDocx.tsx",
     ],
@@ -95,30 +87,30 @@ const urls = [
     url: "/de/cv",
   },
   {
-    files: ["src/content/content.ts"],
+    files: [`public${CV_ASSETS.de.pdf}`],
     priority: 0.7,
-    url: generateCvAssetPath("de", "pdf"),
+    url: CV_ASSETS.de.pdf,
   },
   {
-    files: ["src/content/content.ts"],
+    files: [`public${CV_ASSETS.en.pdf}`],
     priority: 0.7,
-    url: generateCvAssetPath("en", "pdf"),
+    url: CV_ASSETS.en.pdf,
   },
   {
-    files: ["src/content/content.ts"],
+    files: [`public${CV_ASSETS.de.docx}`],
     priority: 0.7,
-    url: generateCvAssetPath("de", "docx"),
+    url: CV_ASSETS.de.docx,
   },
   {
-    files: ["src/content/content.ts"],
+    files: [`public${CV_ASSETS.en.docx}`],
     priority: 0.7,
-    url: generateCvAssetPath("en", "docx"),
+    url: CV_ASSETS.en.docx,
   },
   {
     files: [
       "src/content/content.ts",
-      "src/app/imprint/page.tsx",
       "src/app/[lang]/imprint/page.tsx",
+      "src/app/imprint/ImprintPageClient.tsx",
       "src/components/Header.tsx",
       "src/components/Footer.tsx",
     ],
@@ -128,8 +120,8 @@ const urls = [
   {
     files: [
       "src/content/content.ts",
-      "src/app/imprint/page.tsx",
       "src/app/[lang]/imprint/page.tsx",
+      "src/app/imprint/ImprintPageClient.tsx",
       "src/components/Header.tsx",
       "src/components/Footer.tsx",
     ],
@@ -139,8 +131,8 @@ const urls = [
   {
     files: [
       "src/content/content.ts",
-      "src/app/privacy/page.tsx",
       "src/app/[lang]/privacy/page.tsx",
+      "src/app/privacy/PrivacyPageClient.tsx",
       "src/components/Header.tsx",
       "src/components/Footer.tsx",
     ],
@@ -150,8 +142,8 @@ const urls = [
   {
     files: [
       "src/content/content.ts",
-      "src/app/privacy/page.tsx",
       "src/app/[lang]/privacy/page.tsx",
+      "src/app/privacy/PrivacyPageClient.tsx",
       "src/components/Header.tsx",
       "src/components/Footer.tsx",
     ],
@@ -160,8 +152,8 @@ const urls = [
   },
   {
     files: [
-      "src/app/sitemap/page.tsx",
       "src/app/[lang]/sitemap/page.tsx",
+      "src/app/sitemap/SitemapPageClient.tsx",
       "src/app/[lang]/page.tsx",
       "src/components/Header.tsx",
       "src/components/Footer.tsx",
@@ -172,8 +164,8 @@ const urls = [
   },
   {
     files: [
-      "src/app/sitemap/page.tsx",
       "src/app/[lang]/sitemap/page.tsx",
+      "src/app/sitemap/SitemapPageClient.tsx",
       "src/components/Header.tsx",
       "src/components/Footer.tsx",
       "src/content/content.ts",
@@ -183,8 +175,8 @@ const urls = [
   },
   {
     files: [
-      "src/app/sitemap/page.tsx",
       "src/app/[lang]/sitemap/page.tsx",
+      "src/app/sitemap/SitemapPageClient.tsx",
       "src/components/Header.tsx",
       "src/components/Footer.tsx",
       "src/content/content.ts",

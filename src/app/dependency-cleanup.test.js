@@ -6,7 +6,7 @@ import { describe, expect, test } from "bun:test";
 const root = join(import.meta.dir, "../..");
 const packageJson = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
 const providersSource = readFileSync(join(import.meta.dir, "providers.client.tsx"), "utf8");
-const rootLayoutSource = readFileSync(join(import.meta.dir, "layout.tsx"), "utf8");
+const rootLayoutSource = readFileSync(join(import.meta.dir, "[lang]/layout.tsx"), "utf8");
 const cspSource = readFileSync(join(root, "src/lib/security/csp.ts"), "utf8");
 
 describe("runtime dependency cleanup", () => {

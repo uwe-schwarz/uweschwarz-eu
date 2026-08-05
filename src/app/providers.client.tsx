@@ -3,19 +3,11 @@
 import type { ReactNode } from "react";
 import { SettingsProvider } from "@/contexts/SettingsContext";
 import { Toaster } from "@/components/ui/toaster";
-import type { Language, Theme } from "@/contexts/settings-hook";
+import type { Theme } from "@/contexts/settings-hook";
 
-export default function ProvidersClient({
-  children,
-  initialLanguage,
-  initialTheme,
-}: {
-  children: ReactNode;
-  initialLanguage: Language;
-  initialTheme: Theme;
-}) {
+export default function ProvidersClient({ children, initialTheme }: { children: ReactNode; initialTheme: Theme }) {
   return (
-    <SettingsProvider initialLanguage={initialLanguage} initialTheme={initialTheme}>
+    <SettingsProvider initialTheme={initialTheme}>
       {children}
       <Toaster />
     </SettingsProvider>

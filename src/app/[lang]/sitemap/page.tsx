@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
+import { getLocale } from "next-intl/server";
 
-import SitemapPage from "@/app/sitemap/page";
+import SitemapPageClient from "@/app/sitemap/SitemapPageClient";
 import { SITE_URL } from "@/lib/site-config";
 
-export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
-  const { lang } = await params;
+export async function generateMetadata(): Promise<Metadata> {
+  const language = await getLocale();
+  const canonicalUrl = `${SITE_URL}/${language}/sitemap`;
 
-  const canonicalUrl = `${SITE_URL}/${lang}/sitemap`;
-
-  const title = lang === "de" ? "Seitenübersicht - Uwe Schwarz" : "Sitemap - Uwe Schwarz";
+  const title = language === "de" ? "Seitenübersicht - Uwe Schwarz" : "Sitemap - Uwe Schwarz";
 
   const description =
-    lang === "de"
+    language === "de"
       ? "Übersicht aller Seiten auf der Website von Uwe Schwarz"
       : "Overview of all pages on Uwe Schwarz's website";
 
@@ -24,4 +24,6 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   };
 }
 
-export default SitemapPage;
+export default function SitemapPage() {
+  return <SitemapPageClient />;
+}

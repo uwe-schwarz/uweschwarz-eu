@@ -3,16 +3,13 @@
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import type { RefObject } from "react";
 import dynamic from "next/dynamic";
-import Link from "next/link";
-import type { Route } from "next";
-import { usePathname, useRouter } from "next/navigation";
 import { Moon, Sun } from "lucide-react";
 import { useSettings } from "@/contexts/settings-hook";
 import { siteContent } from "@/content/content";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { replacePathLanguage, withLanguagePrefix } from "@/lib/i18n";
-import { getPersistedLanguage, getPersistedTheme } from "@/lib/persisted-preferences";
+import { getPathname, Link, usePathname } from "@/i18n/navigation";
+import { getPersistedTheme } from "@/lib/persisted-preferences";
 
 const MobileMenuSheet = dynamic(() => import("@/components/MobileMenuSheet"), {
   ssr: false,
@@ -131,14 +128,13 @@ const NavLiquidGlassFilter = ({ glassMapRef }: { glassMapRef: RefObject<SVGFEIma
 );
 
 const Header = () => {
-  const { language, setLanguage, setTheme, t, theme } = useSettings();
-  const router = useRouter();
+  const { language, setTheme, t, theme } = useSettings();
   const isScrolled = useSyncExternalStore(subscribeToScroll, getScrolledSnapshot, getServerScrolledSnapshot);
   const isMobile = useIsMobile();
   const pathname = usePathname();
   const navRef = useRef<HTMLDivElement | null>(null);
   const glassMapRef = useRef<SVGFEImageElement | null>(null);
-  const homeHref = withLanguagePrefix(language, "/");
+  const homeHref = "/";
   const isHomePage = pathname === homeHref;
 
   useNavGlassMap(navRef, glassMapRef);
@@ -155,15 +151,11 @@ const Header = () => {
 
   // Toggle for handling language changes
   const toggleLanguage = useCallback(() => {
-    const current = getPersistedLanguage() ?? language;
-    const nextLanguage = current === "en" ? "de" : "en";
-    setLanguage(nextLanguage);
+    const nextLanguage = language === "en" ? "de" : "en";
+    const localizedPathname = getPathname({ href: pathname, locale: nextLanguage });
 
-    const query = typeof window !== "undefined" ? window.location.search.slice(1) : "";
-    const hash = typeof window !== "undefined" ? window.location.hash : "";
-    const nextPath = replacePathLanguage(pathname, nextLanguage);
-    router.push(`${nextPath}${query ? `?${query}` : ""}${hash}` as Route);
-  }, [language, pathname, router, setLanguage]);
+    window.location.assign(`${localizedPathname}${window.location.search}${window.location.hash}`);
+  }, [language, pathname]);
 
   useEffect(() => {
     if (!isHomePage || sectionIds.length === 0) {
@@ -246,7 +238,7 @@ const Header = () => {
           className="liquid-glass-nav container mx-auto flex items-center justify-between gap-4 px-4 py-2.5 sm:px-6"
           ref={navRef}
         >
-          <Link className="font-display font-bold text-foreground" href={homeHref as Route}>
+          <Link className="font-display font-bold text-foreground" href={homeHref}>
             <span className="text-gradient text-2xl sm:text-3xl">Uwe Schwarz</span>
           </Link>
 
@@ -276,7 +268,7 @@ const Header = () => {
                 <Link
                   aria-current={isActive ? "page" : undefined}
                   className={itemClassName}
-                  href={`${homeHref}${item.href}` as Route}
+                  href={`${homeHref}${item.href}`}
                   key={item.href}
                 >
                   {t(item.label)}

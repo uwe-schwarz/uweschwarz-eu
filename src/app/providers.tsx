@@ -1,4 +1,6 @@
 import type { ReactNode } from "react";
+import { NextIntlClientProvider } from "next-intl";
+
 import ProvidersClient from "./providers.client";
 import type { Language, Theme } from "@/contexts/settings-hook";
 
@@ -12,8 +14,8 @@ export default function Providers({
   initialTheme: Theme;
 }) {
   return (
-    <ProvidersClient initialLanguage={initialLanguage} initialTheme={initialTheme}>
-      {children}
-    </ProvidersClient>
+    <NextIntlClientProvider locale={initialLanguage} messages={{}}>
+      <ProvidersClient initialTheme={initialTheme}>{children}</ProvidersClient>
+    </NextIntlClientProvider>
   );
 }

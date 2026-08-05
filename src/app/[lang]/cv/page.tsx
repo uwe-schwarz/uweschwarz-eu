@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
+import { getLocale } from "next-intl/server";
 
-import CvPage from "@/app/cv/page";
+import CvPageClient from "@/app/cv/CvPageClient";
 import { SITE_URL } from "@/lib/site-config";
 
-export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
-  const { lang } = await params;
+export async function generateMetadata(): Promise<Metadata> {
+  const language = await getLocale();
+  const canonicalUrl = `${SITE_URL}/${language}/cv`;
 
-  const canonicalUrl = `${SITE_URL}/${lang}/cv`;
-
-  const title = lang === "de" ? "Lebenslauf - Uwe Schwarz" : "Curriculum Vitae - Uwe Schwarz";
+  const title = language === "de" ? "Lebenslauf - Uwe Schwarz" : "Curriculum Vitae - Uwe Schwarz";
 
   const description =
-    lang === "de"
+    language === "de"
       ? "Lebenslauf von Uwe Schwarz - Software-Architekt, Security-Engineer & AI-Enthusiast"
       : "Curriculum Vitae of Uwe Schwarz - Software Architect, Security Engineer & AI Enthusiast";
 
@@ -24,4 +24,6 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   };
 }
 
-export default CvPage;
+export default function CvPage() {
+  return <CvPageClient />;
+}

@@ -4,6 +4,17 @@ import { NextRequest } from "next/server";
 import { proxy } from "@/proxy";
 
 describe("proxy agent readiness behavior", () => {
+  test("persists an explicitly prefixed locale as the authoritative preference", () => {
+    const request = new NextRequest("https://uweschwarz.eu/de/cv", {
+      headers: {
+        cookie: "language=en",
+      },
+    });
+    const response = proxy(request);
+
+    expect(response.cookies.get("language")?.value).toBe("de");
+  });
+
   test("adds agent discovery link headers to homepage responses", () => {
     const request = new NextRequest("https://uweschwarz.eu/en");
     const response = proxy(request);
