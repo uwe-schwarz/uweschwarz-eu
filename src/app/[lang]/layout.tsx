@@ -1,13 +1,21 @@
-import { cookies } from "next/headers";
-import { notFound } from "next/navigation";
+import { cookies, headers } from "next/headers";
+import Script from "next/script";
 import type { Metadata } from "next";
+import { getLocale } from "next-intl/server";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
+import { GeistPixelCircle } from "geist/font/pixel";
 
-import type { LangLayoutProps } from "@/app/layout-props";
+import { resolveInitialTheme, themeInitScript } from "@/app/document-preferences";
 import Providers from "@/app/providers";
+import DeferredAnalytics from "@/components/DeferredAnalytics";
 import { siteContent } from "@/content/content";
-import type { Language, Theme } from "@/contexts/settings-hook";
-import { isSupportedLanguage, SUPPORTED_LANGUAGES } from "@/lib/i18n";
+import type { Language } from "@/contexts/settings-hook";
+import { SUPPORTED_LANGUAGES } from "@/lib/i18n";
+import { NONCE_HEADER } from "@/lib/security/csp";
 import { SITE_URL } from "@/lib/site-config";
+import { cn } from "@/lib/utils";
+import "../globals.css";
 
 export const dynamicParams = false;
 
@@ -20,9 +28,9 @@ const heroTitleSeparators = {
   en: { final: " & ", separator: ", " },
 } satisfies Record<Language, { final: string; separator: string }>;
 
-function buildLocalizedHeroTitle(lang: Language): string {
-  const titleElements = siteContent.hero.titleElements.slice(0, 3).map((element) => element[lang]);
-  const { final, separator } = heroTitleSeparators[lang];
+function buildLocalizedHeroTitle(language: Language): string {
+  const titleElements = siteContent.hero.titleElements.slice(0, 3).map((element) => element[language]);
+  const { final, separator } = heroTitleSeparators[language];
 
   if (titleElements.length <= 1) {
     return titleElements.join("");
@@ -31,30 +39,21 @@ function buildLocalizedHeroTitle(lang: Language): string {
   return `${titleElements.slice(0, -1).join(separator)}${final}${titleElements.at(-1) ?? ""}`;
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
-  const { lang } = await params;
-
-  if (!isSupportedLanguage(lang)) {
-    return {};
-  }
-
-  const canonicalUrl = `${SITE_URL}/${lang}`;
-  const title = `${siteContent.siteMetadata.author} - ${buildLocalizedHeroTitle(lang)}`;
-  const description = siteContent.siteMetadata.description[lang];
-
+export async function generateMetadata(): Promise<Metadata> {
+  const language = await getLocale();
+  const canonicalUrl = `${SITE_URL}/${language}`;
+  const title = `${siteContent.siteMetadata.author} - ${buildLocalizedHeroTitle(language)}`;
+  const description = siteContent.siteMetadata.description[language];
   const ogImage = `${SITE_URL}/profile.webp`;
   const twitterHandle = "@e38383";
 
-  // Generate hreflang links for all supported languages
-  const alternates = {
-    canonical: canonicalUrl,
-    languages: Object.fromEntries(
-      SUPPORTED_LANGUAGES.map((supportedLang) => [supportedLang, `${SITE_URL}/${supportedLang}`]),
-    ),
-  };
-
   return {
-    alternates,
+    alternates: {
+      canonical: canonicalUrl,
+      languages: Object.fromEntries(
+        SUPPORTED_LANGUAGES.map((supportedLanguage) => [supportedLanguage, `${SITE_URL}/${supportedLanguage}`]),
+      ),
+    },
     description,
     metadataBase: new URL(SITE_URL),
     openGraph: {
@@ -67,7 +66,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
           width: 1200,
         },
       ],
-      locale: lang === "de" ? "de_DE" : "en_US",
+      locale: language === "de" ? "de_DE" : "en_US",
       siteName: "Uwe Schwarz",
       title,
       type: "website",
@@ -95,21 +94,40 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   };
 }
 
-export default async function LangLayout({ children, params }: Readonly<LangLayoutProps>) {
-  const { lang } = await params;
-  if (!isSupportedLanguage(lang)) {
-    notFound();
-  }
-
-  const cookieStore = await cookies();
-  const cookieTheme = cookieStore.get("theme")?.value as Theme | undefined;
-  const initialTheme: Theme = cookieTheme === "dark" || cookieTheme === "light" ? cookieTheme : "light";
+export default async function RootLayout({ children }: Readonly<LayoutProps<"/[lang]">>) {
+  const [language, cookieStore, headerList] = await Promise.all([getLocale(), cookies(), headers()]);
+  const initialTheme = resolveInitialTheme(cookieStore.get("theme")?.value);
+  const cspNonce = headerList.get(NONCE_HEADER) ?? undefined;
 
   return (
-    <Providers initialLanguage={lang} initialTheme={initialTheme}>
-      {children}
-    </Providers>
+    <html
+      className={cn(
+        GeistSans.variable,
+        GeistPixelCircle.variable,
+        GeistMono.variable,
+        initialTheme === "dark" && "dark",
+      )}
+      data-scroll-behavior="smooth"
+      lang={language}
+      suppressHydrationWarning
+    >
+      <head>
+        <meta content="same-origin" name="view-transition" />
+
+        <Script id="theme-init" nonce={cspNonce} strategy="beforeInteractive">
+          {themeInitScript}
+        </Script>
+
+        <link href="/us.svg" rel="icon" type="image/svg+xml" />
+      </head>
+      <body className={cn("min-h-screen bg-background font-sans antialiased text-foreground")}>
+        <Providers initialLanguage={language} initialTheme={initialTheme}>
+          {children}
+        </Providers>
+        <DeferredAnalytics />
+      </body>
+    </html>
   );
 }
 
-LangLayout.displayName = "LangLayout";
+RootLayout.displayName = "RootLayout";

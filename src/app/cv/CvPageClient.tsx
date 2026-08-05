@@ -1,15 +1,12 @@
 "use client";
 
-import type { Route } from "next";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { ArrowLeft, Download, Globe, Moon, Sun } from "lucide-react";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
 import { CV_ASSETS } from "@/generated/cv-assets";
 import { useScrollToTop } from "@/hooks/use-scroll-to-top";
-import { replacePathLanguage, withLanguagePrefix } from "@/lib/i18n";
-import { getPersistedLanguage, getPersistedTheme } from "@/lib/persisted-preferences";
+import { getPathname, Link } from "@/i18n/navigation";
+import { getPersistedTheme } from "@/lib/persisted-preferences";
 import { Button } from "@/components/ui/button";
 
 const CvDownloadButtons = ({ language }: { language: "en" | "de" }) => {
@@ -35,12 +32,11 @@ const CvDownloadButtons = ({ language }: { language: "en" | "de" }) => {
 };
 
 export default function CvPageClient() {
-  const { language, setLanguage, setTheme, t, theme } = useSettings();
-  const router = useRouter();
+  const { language, setTheme, t, theme } = useSettings();
   useScrollToTop();
 
   const pdfUrl = CV_ASSETS[language].pdf;
-  const homeHref = withLanguagePrefix(language, "/");
+  const homeHref = "/";
   const cvTitle = t({ de: "Lebenslauf", en: "Curriculum Vitae" });
 
   return (
@@ -49,7 +45,7 @@ export default function CvPageClient() {
         <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
           <Link
             className="flex items-center text-muted-foreground hover:text-primary/80 dark:text-primary"
-            href={homeHref as Route}
+            href={homeHref}
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
             <span>{t(siteContent.backToHome)}</span>
@@ -77,15 +73,10 @@ export default function CvPageClient() {
               <Button
                 className="rounded-full shadow-lg hover-scale"
                 onClick={() => {
-                  const current = getPersistedLanguage() ?? language;
-                  const nextLanguage = current === "en" ? "de" : "en";
-                  setLanguage(nextLanguage);
+                  const nextLanguage = language === "en" ? "de" : "en";
+                  const localizedPathname = getPathname({ href: "/cv", locale: nextLanguage });
 
-                  const query = typeof window !== "undefined" ? window.location.search.slice(1) : "";
-                  const hash = typeof window !== "undefined" ? window.location.hash : "";
-                  const pathname = typeof window !== "undefined" ? window.location.pathname : "/";
-                  const nextPath = replacePathLanguage(pathname, nextLanguage);
-                  router.push(`${nextPath}${query ? `?${query}` : ""}${hash}` as Route);
+                  window.location.assign(`${localizedPathname}${window.location.search}${window.location.hash}`);
                 }}
                 size="sm"
                 variant="secondary"

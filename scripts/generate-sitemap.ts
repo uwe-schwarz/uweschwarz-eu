@@ -75,8 +75,8 @@ const urls = [
   {
     files: [
       "src/content/content.ts",
-      "src/app/cv/page.tsx",
       "src/app/[lang]/cv/page.tsx",
+      "src/app/cv/CvPageClient.tsx",
       "scripts/cv/CVDocument.tsx",
       "scripts/cv/CVDocumentDocx.tsx",
     ],
@@ -86,8 +86,8 @@ const urls = [
   {
     files: [
       "src/content/content.ts",
-      "src/app/cv/page.tsx",
       "src/app/[lang]/cv/page.tsx",
+      "src/app/cv/CvPageClient.tsx",
       "scripts/cv/CVDocument.tsx",
       "scripts/cv/CVDocumentDocx.tsx",
     ],
@@ -117,8 +117,8 @@ const urls = [
   {
     files: [
       "src/content/content.ts",
-      "src/app/imprint/page.tsx",
       "src/app/[lang]/imprint/page.tsx",
+      "src/app/imprint/ImprintPageClient.tsx",
       "src/components/Header.tsx",
       "src/components/Footer.tsx",
     ],
@@ -128,8 +128,8 @@ const urls = [
   {
     files: [
       "src/content/content.ts",
-      "src/app/imprint/page.tsx",
       "src/app/[lang]/imprint/page.tsx",
+      "src/app/imprint/ImprintPageClient.tsx",
       "src/components/Header.tsx",
       "src/components/Footer.tsx",
     ],
@@ -139,8 +139,8 @@ const urls = [
   {
     files: [
       "src/content/content.ts",
-      "src/app/privacy/page.tsx",
       "src/app/[lang]/privacy/page.tsx",
+      "src/app/privacy/PrivacyPageClient.tsx",
       "src/components/Header.tsx",
       "src/components/Footer.tsx",
     ],
@@ -150,8 +150,8 @@ const urls = [
   {
     files: [
       "src/content/content.ts",
-      "src/app/privacy/page.tsx",
       "src/app/[lang]/privacy/page.tsx",
+      "src/app/privacy/PrivacyPageClient.tsx",
       "src/components/Header.tsx",
       "src/components/Footer.tsx",
     ],
@@ -160,8 +160,8 @@ const urls = [
   },
   {
     files: [
-      "src/app/sitemap/page.tsx",
       "src/app/[lang]/sitemap/page.tsx",
+      "src/app/sitemap/SitemapPageClient.tsx",
       "src/app/[lang]/page.tsx",
       "src/components/Header.tsx",
       "src/components/Footer.tsx",
@@ -172,8 +172,8 @@ const urls = [
   },
   {
     files: [
-      "src/app/sitemap/page.tsx",
       "src/app/[lang]/sitemap/page.tsx",
+      "src/app/sitemap/SitemapPageClient.tsx",
       "src/components/Header.tsx",
       "src/components/Footer.tsx",
       "src/content/content.ts",
@@ -183,8 +183,8 @@ const urls = [
   },
   {
     files: [
-      "src/app/sitemap/page.tsx",
       "src/app/[lang]/sitemap/page.tsx",
+      "src/app/sitemap/SitemapPageClient.tsx",
       "src/components/Header.tsx",
       "src/components/Footer.tsx",
       "src/content/content.ts",

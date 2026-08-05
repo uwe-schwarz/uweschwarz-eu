@@ -2,8 +2,6 @@
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import type { Route } from "next";
 import { ArrowDown } from "lucide-react";
 import { FileTextIcon } from "@/components/icons/file-text";
 import MagicRings from "@/components/MagicRings";
@@ -11,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { useSettings } from "@/contexts/settings-hook";
 import { siteContent } from "@/content/content";
 import { useFitText } from "@/hooks/use-fit-text";
-import { withLanguagePrefix } from "@/lib/i18n";
+import { Link } from "@/i18n/navigation";
 
 const ProfilePicture = React.memo(({ alt }: { alt: string }) => (
   <div className="w-full h-full rounded-full bg-background flex items-center justify-center overflow-hidden relative">
@@ -328,7 +326,7 @@ const HeroSection = () => {
                 size="lg"
                 variant="outline"
               >
-                <Link href={withLanguagePrefix(language, "/cv") as Route}>
+                <Link href="/cv">
                   <FileTextIcon className="mr-2" size={16} />
                   {t(hero.ctaSecondary)}
                 </Link>

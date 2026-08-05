@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
+import { getLocale } from "next-intl/server";
 
-import ImprintPage from "@/app/imprint/page";
+import ImprintPageClient from "@/app/imprint/ImprintPageClient";
 import { SITE_URL } from "@/lib/site-config";
 
-export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
-  const { lang } = await params;
+export async function generateMetadata(): Promise<Metadata> {
+  const language = await getLocale();
+  const canonicalUrl = `${SITE_URL}/${language}/imprint`;
 
-  const canonicalUrl = `${SITE_URL}/${lang}/imprint`;
-
-  const title = lang === "de" ? "Impressum - Uwe Schwarz" : "Imprint - Uwe Schwarz";
+  const title = language === "de" ? "Impressum - Uwe Schwarz" : "Imprint - Uwe Schwarz";
 
   const description =
-    lang === "de"
+    language === "de"
       ? "Impressum und rechtliche Informationen für die Website von Uwe Schwarz"
       : "Imprint and legal information for Uwe Schwarz's website";
 
@@ -24,4 +24,6 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   };
 }
 
-export default ImprintPage;
+export default function ImprintPage() {
+  return <ImprintPageClient />;
+}

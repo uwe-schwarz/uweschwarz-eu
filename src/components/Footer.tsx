@@ -1,20 +1,17 @@
 "use client";
 
-import Link from "next/link";
-import type { Route } from "next";
-
 import { CV_LAST_UPDATED } from "@/generated/cv-assets";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
-import { withLanguagePrefix } from "@/lib/i18n";
+import { Link } from "@/i18n/navigation";
 
 const Footer = () => {
-  const { language, t } = useSettings();
+  const { t } = useSettings();
   const { footer } = siteContent;
   const sitemap = siteContent.sitemap;
   const year = new Date().getFullYear();
   const sitemapLabel = sitemap ? t(sitemap.title) : t({ de: "Sitemap", en: "Sitemap" });
-  const homeHref = withLanguagePrefix(language, "/");
+  const homeHref = "/";
 
   return (
     <footer className="relative border-t border-border/60 bg-muted/60 py-12">
@@ -28,7 +25,7 @@ const Footer = () => {
           <div className="mb-6 md:mb-0">
             <Link
               className="text-xl font-display font-bold text-foreground mb-2 inline-block"
-              href={`${homeHref}#hero` as Route}
+              href={`${homeHref}#hero`}
             >
               <span className="text-gradient">Uwe Schwarz</span>
             </Link>
@@ -40,7 +37,7 @@ const Footer = () => {
             {footer.links.map((link) => (
               <Link
                 className="text-sm text-muted-foreground hover:text-primary transition-colors link-underline"
-                href={withLanguagePrefix(language, link.href) as Route}
+                href={link.href}
                 key={link.href}
               >
                 {t(link.label)}
@@ -48,7 +45,7 @@ const Footer = () => {
             ))}
             <Link
               className="text-sm text-muted-foreground hover:text-primary transition-colors link-underline"
-              href={withLanguagePrefix(language, "/sitemap") as Route}
+              href="/sitemap"
             >
               {sitemapLabel}
             </Link>

@@ -8,7 +8,6 @@ export type Theme = "light" | "dark";
 
 interface SettingsContextType {
   language: Language;
-  setLanguage: (lang: Language) => void;
   setTheme: (theme: Theme) => void;
   t: (text: LocalizedString) => string;
   theme: Theme;

@@ -1,7 +1,5 @@
 "use client";
 
-import type { Route } from "next";
-import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
@@ -9,10 +7,10 @@ import { Button } from "@/components/ui/button";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
 import { useScrollToTop } from "@/hooks/use-scroll-to-top";
-import { withLanguagePrefix } from "@/lib/i18n";
+import { Link } from "@/i18n/navigation";
 
 export default function SitemapPageClient() {
-  const { language, t } = useSettings();
+  const { t } = useSettings();
   const sitemap = siteContent.sitemap;
   useScrollToTop();
 
@@ -21,7 +19,7 @@ export default function SitemapPageClient() {
   }
 
   const navigationLinks = siteContent.navigation?.map((item) => t(item.label)).join(" / ");
-  const homeHref = withLanguagePrefix(language, "/");
+  const homeHref = "/";
 
   return (
     <div className="flex min-h-dvh flex-col">
@@ -30,7 +28,7 @@ export default function SitemapPageClient() {
         <div className="container mx-auto px-4">
           <div className="mx-auto max-w-3xl">
             <Button asChild className="mb-6" size="sm" variant="ghost">
-              <Link href={homeHref as Route}>
+              <Link href={homeHref}>
                 <ArrowLeft className="mr-2" size={16} />
                 {t(siteContent.backToHome)}
               </Link>
@@ -41,23 +39,17 @@ export default function SitemapPageClient() {
               <ul className="list-disc space-y-2 pl-5">
                 <li className="text-primary">{navigationLinks}</li>
                 <li>
-                  <Link className="text-primary hover:underline" href={withLanguagePrefix(language, "/cv") as Route}>
+                  <Link className="text-primary hover:underline" href="/cv">
                     {t(siteContent.cv.title)}
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    className="text-primary hover:underline"
-                    href={withLanguagePrefix(language, "/imprint") as Route}
-                  >
+                  <Link className="text-primary hover:underline" href="/imprint">
                     {t(siteContent.imprint.title)}
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    className="text-primary hover:underline"
-                    href={withLanguagePrefix(language, "/privacy") as Route}
-                  >
+                  <Link className="text-primary hover:underline" href="/privacy">
                     {t(siteContent.privacy.title)}
                   </Link>
                 </li>

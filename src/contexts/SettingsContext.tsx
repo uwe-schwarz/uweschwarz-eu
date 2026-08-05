@@ -1,19 +1,14 @@
 "use client";
 
 import React, { useCallback, useEffect, useMemo, useSyncExternalStore } from "react";
+import { useLocale } from "next-intl";
 import type { LocalizedString } from "@/lib/localization";
 import { translateLocalizedString } from "@/lib/localization";
 import { SettingsContext, type Language, type Theme } from "@/contexts/settings-hook";
-import {
-  getPersistedLanguage,
-  getPersistedTheme,
-  setPersistedLanguage,
-  setPersistedTheme,
-} from "@/lib/persisted-preferences";
+import { getPersistedTheme, setPersistedTheme } from "@/lib/persisted-preferences";
 
 interface SettingsProviderProps {
   children: React.ReactNode;
-  initialLanguage: Language;
   initialTheme: Theme;
 }
 
@@ -27,7 +22,8 @@ const setClientCookie = (name: string, value: string) => {
   document.cookie = `${name}=${encodeURIComponent(value)}; path=/; max-age=31536000; samesite=lax`;
 };
 
-export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children, initialLanguage, initialTheme }) => {
+export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children, initialTheme }) => {
+  const language = useLocale() as Language;
   // IMPORTANT: Keep hydration deterministic.
   // `useSyncExternalStore` lets React use the server snapshot during hydration,
   // and then update to client preferences (localStorage / system) after hydration,
@@ -51,15 +47,6 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children, in
     };
   }, []);
 
-  const getLanguageSnapshot = useCallback((): Language => {
-    const saved = getPersistedLanguage();
-    if (saved !== null) {
-      return saved;
-    }
-
-    return initialLanguage;
-  }, [initialLanguage]);
-
   const getThemeSnapshot = useCallback((): Theme => {
     const saved = getPersistedTheme();
     if (saved !== null) {
@@ -75,16 +62,7 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children, in
     return initialTheme;
   }, [initialTheme]);
 
-  const language = useSyncExternalStore(subscribe, getLanguageSnapshot, () => initialLanguage);
   const theme = useSyncExternalStore(subscribe, getThemeSnapshot, () => initialTheme);
-
-  // Keep <html lang> in sync with current language
-  useEffect(() => {
-    if (typeof document === "undefined") {
-      return;
-    }
-    document.documentElement.setAttribute("lang", language);
-  }, [language]);
 
   // Sync theme to DOM + localStorage
   useEffect(() => {
@@ -100,15 +78,6 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children, in
     }
   }, [theme]);
 
-  // Language setting function
-  const setLanguage = useCallback((lang: Language) => {
-    setPersistedLanguage(lang);
-    setClientCookie("language", lang);
-    if (typeof window !== "undefined") {
-      window.dispatchEvent(new Event(SETTINGS_CHANGED_EVENT));
-    }
-  }, []);
-
   // Theme setting function
   const setTheme = useCallback((nextTheme: Theme) => {
     setPersistedTheme(nextTheme);
@@ -121,10 +90,7 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children, in
   // Translation helper
   const t = useCallback((text: LocalizedString): string => translateLocalizedString(text, language), [language]);
 
-  const contextValue = useMemo(
-    () => ({ language, setLanguage, setTheme, t, theme }),
-    [language, setLanguage, setTheme, t, theme],
-  );
+  const contextValue = useMemo(() => ({ language, setTheme, t, theme }), [language, setTheme, t, theme]);
 
   return <SettingsContext.Provider value={contextValue}>{children}</SettingsContext.Provider>;
 };

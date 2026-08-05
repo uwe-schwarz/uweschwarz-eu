@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getLocale } from "next-intl/server";
 
 import AboutSection from "@/components/AboutSection";
 import ContactSection from "@/components/ContactSection";
@@ -11,18 +12,17 @@ import SkillsSection from "@/components/SkillsSection";
 import TrainingsSection from "@/components/TrainingsSection";
 import { SITE_URL } from "@/lib/site-config";
 
-export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
-  const { lang } = await params;
-
-  const canonicalUrl = `${SITE_URL}/${lang}`;
+export async function generateMetadata(): Promise<Metadata> {
+  const language = await getLocale();
+  const canonicalUrl = `${SITE_URL}/${language}`;
 
   const title =
-    lang === "de"
+    language === "de"
       ? "Uwe Schwarz - Software-Architekt, Security-Engineer & AI-Enthusiast"
       : "Uwe Schwarz - Software Architect, Security Engineer & AI Enthusiast";
 
   const description =
-    lang === "de"
+    language === "de"
       ? "Portfolio von Uwe Schwarz - Software-Architekt, Security-Engineer & AI-Enthusiast"
       : "Portfolio of Uwe Schwarz - Software Architect, Security Engineer & AI Enthusiast";
 

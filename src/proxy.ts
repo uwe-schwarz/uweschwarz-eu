@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 
 import { detectPreferredLanguage } from "@/lib/detect-language";
 import { appendAgentDiscoveryHeaders, hasMarkdownAcceptHeader, isHomepagePath } from "@/lib/agent-readiness";
-import { DEFAULT_LANGUAGE, isSupportedLanguage, replacePathLanguage } from "@/lib/i18n";
+import { DEFAULT_LANGUAGE, isSupportedLanguage, replacePathLanguage, ROUTE_LANGUAGE_HEADER } from "@/lib/i18n";
 import { buildContentSecurityPolicy, createCspNonce, NONCE_HEADER, normalizeSecurityHeader } from "@/lib/security/csp";
 
 const PUBLIC_FILE = /\.(.*)$/;
@@ -13,6 +13,16 @@ function applySecurityHeaders(response: NextResponse, nonce: string) {
   response.headers.set("Content-Security-Policy", normalizeSecurityHeader(buildContentSecurityPolicy(nonce)));
   response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
   response.headers.set("X-Content-Type-Options", "nosniff");
+}
+
+function persistLanguageCookie(response: NextResponse, language: string) {
+  response.cookies.set({
+    maxAge: 60 * 60 * 24 * 365,
+    name: "language",
+    path: "/",
+    sameSite: "lax",
+    value: language,
+  });
 }
 
 export function proxy(request: NextRequest) {
@@ -42,6 +52,8 @@ export function proxy(request: NextRequest) {
 
   const firstSegment = pathname.split("/")[1];
   if (isSupportedLanguage(firstSegment)) {
+    requestHeaders.set(ROUTE_LANGUAGE_HEADER, firstSegment);
+
     if (wantsMarkdown) {
       const url = request.nextUrl.clone();
       url.pathname = "/api/agent-markdown";
@@ -58,6 +70,7 @@ export function proxy(request: NextRequest) {
       }
 
       appendAgentDiscoveryHeaders(response.headers);
+      persistLanguageCookie(response, firstSegment);
 
       return response;
     }
@@ -75,6 +88,8 @@ export function proxy(request: NextRequest) {
     if (isHomepagePath(pathname)) {
       appendAgentDiscoveryHeaders(response.headers);
     }
+
+    persistLanguageCookie(response, firstSegment);
 
     return response;
   }
@@ -104,13 +119,7 @@ export function proxy(request: NextRequest) {
     }
 
     appendAgentDiscoveryHeaders(response.headers);
-    response.cookies.set({
-      maxAge: 60 * 60 * 24 * 365,
-      name: "language",
-      path: "/",
-      sameSite: "lax",
-      value: language,
-    });
+    persistLanguageCookie(response, language);
 
     return response;
   }
@@ -121,13 +130,7 @@ export function proxy(request: NextRequest) {
     applySecurityHeaders(response, nonce);
   }
 
-  response.cookies.set({
-    maxAge: 60 * 60 * 24 * 365,
-    name: "language",
-    path: "/",
-    sameSite: "lax",
-    value: language,
-  });
+  persistLanguageCookie(response, language);
 
   if (isHomepagePath(pathname)) {
     appendAgentDiscoveryHeaders(response.headers);

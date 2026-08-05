@@ -1,7 +1,5 @@
 "use client";
 
-import type { Route } from "next";
-import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
@@ -9,13 +7,13 @@ import { Button } from "@/components/ui/button";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
 import { useScrollToTop } from "@/hooks/use-scroll-to-top";
-import { withLanguagePrefix } from "@/lib/i18n";
+import { Link } from "@/i18n/navigation";
 
 export default function ImprintPageClient() {
-  const { language, t } = useSettings();
+  const { t } = useSettings();
   const { imprint } = siteContent;
   useScrollToTop();
-  const homeHref = withLanguagePrefix(language, "/");
+  const homeHref = "/";
 
   return (
     <div className="flex min-h-dvh flex-col">
@@ -24,7 +22,7 @@ export default function ImprintPageClient() {
         <div className="container mx-auto px-4">
           <div className="mx-auto max-w-3xl">
             <Button asChild className="mb-6" size="sm" variant="ghost">
-              <Link href={homeHref as Route}>
+              <Link href={homeHref}>
                 <ArrowLeft className="mr-2" size={16} />
                 {t(siteContent.backToHome)}
               </Link>

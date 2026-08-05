@@ -22,8 +22,8 @@ describe("localized homepage composition", () => {
       expect(pageSource).toContain(`<${component} />`);
     }
 
-    expect(pageSource).toContain('<div className="flex min-h-screen flex-col">');
-    expect(pageSource).toContain('<main className="grow">');
+    expect(pageSource).toContain('<div className="flex min-h-dvh flex-col">');
+    expect(pageSource).toContain('<main className="relative isolate grow overflow-hidden">');
     expect(pageSource).not.toContain("ClientComponents");
     expect(existsSync(join(import.meta.dir, "client-components.tsx"))).toBe(false);
   });

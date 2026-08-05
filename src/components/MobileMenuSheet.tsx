@@ -1,12 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
-import type { Route } from "next";
 import { Menu, Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import type { Language, Theme } from "@/contexts/settings-hook";
+import { Link } from "@/i18n/navigation";
 import type { LocalizedString } from "@/lib/localization";
 
 interface MobileMenuNavigationItem {
@@ -70,7 +69,7 @@ const MobileMenuSheet = ({
         <SheetTitle className="sr-only">{t({ de: "Navigationsmenü", en: "Navigation menu" })}</SheetTitle>
         <div className="flex flex-col h-full">
           <div className="border-b border-gray-200 dark:border-gray-800 py-4 px-6">
-            <Link className="text-2xl font-display font-bold" href={homeHref as Route}>
+            <Link className="text-2xl font-display font-bold" href={homeHref}>
               <span className="text-gradient">Uwe Schwarz</span>
             </Link>
           </div>
@@ -95,7 +94,7 @@ const MobileMenuSheet = ({
               return (
                 <Link
                   className="text-xl font-medium text-foreground hover:text-primary transition-colors"
-                  href={`${homeHref}${item.href}` as Route}
+                  href={`${homeHref}${item.href}`}
                   key={item.href}
                   onClick={() => setOpen(false)}
                 >
