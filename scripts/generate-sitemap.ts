@@ -2,6 +2,7 @@ import fs from "node:fs";
 import fsPromises from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { CV_ASSETS } from "../src/generated/cv-assets";
 import { SITE_URL } from "../src/lib/site-config";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -28,15 +29,6 @@ function getFileMtime(filePath: string) {
   } catch {
     return 0;
   }
-}
-
-// Generate CV asset paths dynamically to match the generate-cv-assets.ts script
-function generateCvAssetPath(language: "en" | "de", extension: "pdf" | "docx") {
-  // Get the content modification time to match the CV asset generation
-  const contentPath = path.join(__dirname, "..", "src/content/content.ts");
-  const mtime = getFileMtime(contentPath);
-  const date = mtime ? new Date(mtime).toISOString().split("T")[0] : new Date().toISOString().split("T")[0];
-  return `/uwe-schwarz-cv-${language}-${date}.${extension}`;
 }
 
 const urls = [
@@ -95,24 +87,24 @@ const urls = [
     url: "/de/cv",
   },
   {
-    files: ["src/content/content.ts"],
+    files: [`public${CV_ASSETS.de.pdf}`],
     priority: 0.7,
-    url: generateCvAssetPath("de", "pdf"),
+    url: CV_ASSETS.de.pdf,
   },
   {
-    files: ["src/content/content.ts"],
+    files: [`public${CV_ASSETS.en.pdf}`],
     priority: 0.7,
-    url: generateCvAssetPath("en", "pdf"),
+    url: CV_ASSETS.en.pdf,
   },
   {
-    files: ["src/content/content.ts"],
+    files: [`public${CV_ASSETS.de.docx}`],
     priority: 0.7,
-    url: generateCvAssetPath("de", "docx"),
+    url: CV_ASSETS.de.docx,
   },
   {
-    files: ["src/content/content.ts"],
+    files: [`public${CV_ASSETS.en.docx}`],
     priority: 0.7,
-    url: generateCvAssetPath("en", "docx"),
+    url: CV_ASSETS.en.docx,
   },
   {
     files: [

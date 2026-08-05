@@ -9,6 +9,7 @@ const localizedLayoutSource = readFileSync(join(appDir, "[lang]/layout.tsx"), "u
 const requestConfigSource = readFileSync(join(root, "src/i18n/request.ts"), "utf8");
 const nextConfigSource = readFileSync(join(root, "next.config.ts"), "utf8");
 const globalNotFoundSource = readFileSync(join(appDir, "global-not-found.tsx"), "utf8");
+const sitemapPageSource = readFileSync(join(appDir, "sitemap/SitemapPageClient.tsx"), "utf8");
 
 describe("root parameter routing", () => {
   test("makes the language segment the document root", () => {
@@ -37,5 +38,11 @@ describe("root parameter routing", () => {
       expect(existsSync(join(appDir, route, "layout.tsx"))).toBe(false);
       expect(existsSync(join(appDir, "[lang]", route, "page.tsx"))).toBe(true);
     }
+  });
+
+  test("keeps public-file links outside locale-aware navigation", () => {
+    expect(sitemapPageSource).toContain('import NextLink from "next/link"');
+    expect(sitemapPageSource).toContain('<NextLink className="text-primary hover:underline" href="/sitemap.xml">');
+    expect(sitemapPageSource).toContain('<NextLink className="text-primary hover:underline" href="/llms.txt">');
   });
 });

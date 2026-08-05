@@ -1,5 +1,6 @@
 "use client";
 
+import NextLink from "next/link";
 import { ArrowLeft } from "lucide-react";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
@@ -7,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
 import { useScrollToTop } from "@/hooks/use-scroll-to-top";
-import { Link } from "@/i18n/navigation";
+import { Link as LocalizedLink } from "@/i18n/navigation";
 
 export default function SitemapPageClient() {
   const { t } = useSettings();
@@ -28,10 +29,10 @@ export default function SitemapPageClient() {
         <div className="container mx-auto px-4">
           <div className="mx-auto max-w-3xl">
             <Button asChild className="mb-6" size="sm" variant="ghost">
-              <Link href={homeHref}>
+              <LocalizedLink href={homeHref}>
                 <ArrowLeft className="mr-2" size={16} />
                 {t(siteContent.backToHome)}
-              </Link>
+              </LocalizedLink>
             </Button>
             <h1 className="mb-8 text-3xl">{t(sitemap.title)}</h1>
             <div className="mb-8">
@@ -39,29 +40,29 @@ export default function SitemapPageClient() {
               <ul className="list-disc space-y-2 pl-5">
                 <li className="text-primary">{navigationLinks}</li>
                 <li>
-                  <Link className="text-primary hover:underline" href="/cv">
+                  <LocalizedLink className="text-primary hover:underline" href="/cv">
                     {t(siteContent.cv.title)}
-                  </Link>
+                  </LocalizedLink>
                 </li>
                 <li>
-                  <Link className="text-primary hover:underline" href="/imprint">
+                  <LocalizedLink className="text-primary hover:underline" href="/imprint">
                     {t(siteContent.imprint.title)}
-                  </Link>
+                  </LocalizedLink>
                 </li>
                 <li>
-                  <Link className="text-primary hover:underline" href="/privacy">
+                  <LocalizedLink className="text-primary hover:underline" href="/privacy">
                     {t(siteContent.privacy.title)}
-                  </Link>
+                  </LocalizedLink>
                 </li>
                 <li>
-                  <Link className="text-primary hover:underline" href="/sitemap.xml">
+                  <NextLink className="text-primary hover:underline" href="/sitemap.xml">
                     {t(sitemap.title)} (XML)
-                  </Link>
+                  </NextLink>
                 </li>
                 <li>
-                  <Link className="text-primary hover:underline" href="/llms.txt">
+                  <NextLink className="text-primary hover:underline" href="/llms.txt">
                     {t(siteContent.llms?.title ?? sitemap.title)} (Markdown)
-                  </Link>
+                  </NextLink>
                 </li>
               </ul>
             </div>
