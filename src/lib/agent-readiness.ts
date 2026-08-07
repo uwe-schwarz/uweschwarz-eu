@@ -75,15 +75,15 @@ export function buildHomepageMarkdown(language: Language) {
     "",
     `## ${localize(SECTION_TITLES.experience, language)}`,
     "",
-    ...siteContent.experiences.flatMap((experience) => {
-      const firstDescription =
-        experience.description.find((item) => item.type === "text")?.text ?? experience.description[0]?.text;
+    ...siteContent.experiences.flatMap((experience) => [
+      `- **${localize(experience.title, language)}**, ${experience.company} (${localize(experience.period, language)})`,
+      ...experience.description.map((description) => {
+        const prefix =
+          description.type === "achievement" ? `${localize(siteContent.experienceAchievementPrefix, language)} ` : "";
 
-      return [
-        `- **${localize(experience.title, language)}**, ${experience.company} (${localize(experience.period, language)})`,
-        `  ${firstDescription ? localize(firstDescription, language) : ""}`,
-      ];
-    }),
+        return `  - ${prefix}${localize(description.text, language)}`;
+      }),
+    ]),
     "",
     `## ${localize(SECTION_TITLES.projects, language)}`,
     "",

@@ -68,6 +68,10 @@ describe("agent readiness helpers", () => {
 
     for (const experience of siteContent.experiences) {
       expect(markdown).toContain(experience.title.en);
+
+      for (const description of experience.description) {
+        expect(markdown).toContain(description.text.en);
+      }
     }
 
     for (const project of siteContent.projects) {
