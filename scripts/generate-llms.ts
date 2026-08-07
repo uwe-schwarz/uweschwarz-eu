@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+
 import { siteContent } from "../src/content/content";
-import type { LocalizedString } from "../src/lib/localization";
 import { SITE_URL } from "../src/lib/site-config";
 
 interface BunRuntime {
@@ -9,81 +9,95 @@ interface BunRuntime {
 }
 
 const bunRuntime = (globalThis as typeof globalThis & { Bun?: BunRuntime }).Bun;
-const SITE_DOMAIN = new URL(SITE_URL).hostname;
 
-// Helper function to format bilingual content
-const formatBilingual = (item: LocalizedString | string | undefined, indent = ""): string => {
-  if (!item) {
-    return "";
+function absoluteUrl(pathname: string) {
+  return new URL(pathname, SITE_URL).toString();
+}
+
+function markdownLink(title: string, url: string, description: string) {
+  return `- [${title}](${url}): ${description}`;
+}
+
+function requiredUrl(label: string, url: string | undefined) {
+  if (!url) {
+    throw new Error(`${label} URL must be defined to generate llms.txt`);
   }
-  if (typeof item === "string") {
-    return `${indent}${item}\n`;
-  }
-  if (item.en && item.de) {
-    return `${indent}[en] ${item.en}\n${indent}[de] ${item.de}\n`;
-  }
-  return "";
-};
+
+  return url;
+}
+
+export function buildLlmsTxt(generatedOn: string) {
+  const { socialLinks } = siteContent.contact;
+  const availability = siteContent.hero.availability;
+
+  return [
+    `# ${siteContent.siteMetadata.title}`,
+    "",
+    `> ${siteContent.siteMetadata.description.en}. This bilingual site presents Uwe Schwarz's professional experience, projects, trainings, skills, and contact details.`,
+    "",
+    "Use the Markdown portfolio links below for the most complete, agent-friendly representation of the homepage. The same Markdown is available from the public homepage through HTTP content negotiation with `Accept: text/markdown`.",
+    "",
+    `Languages: English and German. Availability: ${availability.currentPercentAvailable}% now and 100% from ${availability.fullyAvailableDate}. Last generated: ${generatedOn}.`,
+    "",
+    "## Portfolio",
+    "",
+    markdownLink(
+      "English portfolio",
+      absoluteUrl("/api/agent-markdown?lang=en"),
+      "Markdown overview of experience, projects, trainings, skills, and contact details.",
+    ),
+    markdownLink(
+      "German portfolio",
+      absoluteUrl("/api/agent-markdown?lang=de"),
+      "German Markdown overview of experience, projects, trainings, skills, and contact details.",
+    ),
+    "",
+    "## Main pages",
+    "",
+    markdownLink("Homepage", absoluteUrl("/"), "Interactive bilingual portfolio."),
+    markdownLink("CV", absoluteUrl("/cv"), "Interactive CV with PDF and DOCX downloads."),
+    markdownLink("Trainings", absoluteUrl("/#trainings"), "Current professional training offerings."),
+    markdownLink("Projects", absoluteUrl("/#projects"), "Selected software, security, and infrastructure projects."),
+    markdownLink("Contact", absoluteUrl("/#contact"), "Contact form and direct contact details."),
+    "",
+    "## Professional profiles",
+    "",
+    markdownLink("GitHub", requiredUrl("GitHub", socialLinks.github), "Public software projects and contributions."),
+    markdownLink("LinkedIn", requiredUrl("LinkedIn", socialLinks.linkedin), "Professional profile and work history."),
+    markdownLink(
+      "Freelancermap",
+      requiredUrl("Freelancermap", socialLinks.freelancermap),
+      "Freelance consultant profile.",
+    ),
+    "",
+    "## Optional",
+    "",
+    markdownLink("Human-readable sitemap", absoluteUrl("/sitemap"), "Overview of public website pages."),
+    markdownLink("XML sitemap", absoluteUrl("/sitemap.xml"), "Machine-readable index of public URLs."),
+    markdownLink("Privacy policy", absoluteUrl("/privacy"), "Information about personal data processing."),
+    markdownLink("Imprint", absoluteUrl("/imprint"), "Legal provider information."),
+    "",
+  ].join("\n");
+}
 
 async function generateLlmsTxt() {
   try {
-    const content = siteContent;
-    const today = new Date().toISOString().split("T")[0];
+    const generatedOn = new Date().toISOString().split("T")[0];
     const outputPath = path.resolve(process.cwd(), "public", "llms.txt");
-    const llmsTxtVersion = today;
-
-    const llmsKeywords = content.llms?.keywords;
-    if (!llmsKeywords) {
-      throw new Error(`siteContent.llms.keywords must be defined for ${content.siteMetadata.title}`);
-    }
-
-    let llmsTxtContent = `\n# llms.txt for ${SITE_DOMAIN}\n# This file provides structured information for AI language models.\n# For more information, see https://llmstxt.org/\n# Version ${llmsTxtVersion}, Generated on ${today}\n\n# --- PERMISSIONS ---\nUser-Agent: *\nAllow: /\n\n# --- METADATA ---\nSitemap: https://${SITE_DOMAIN}/sitemap.xml\n\n# --- FIELDS ---\n\n[Type]:\n[en] Personal Portfolio & CV\n[de] Persönliches Portfolio & Lebenslauf\n\n[Owner]:\n[en] ${content.siteMetadata.author}\n[de] ${content.siteMetadata.author}\n\n[Published]:\n[en] ${today}\n[de] ${today.split("-").reverse().join(".")}\n\n[Languages]:\n[en] English, German\n[de] Englisch, Deutsch\n\n[Summary]:\n${formatBilingual(content.siteMetadata.description)}\n[Hero-Description]:\n${formatBilingual(content.hero.description)}\n[About-Me]:\n${content.about.paragraphs.map((p) => formatBilingual(p)).join("")}\n[Main-Topics]:\n${content.navigation.map((item) => `- ${item.label.en} / ${item.label.de}`).join("\n")}\n\n[Keywords]:\n${formatBilingual(llmsKeywords)}\n\n[Site-Structure]:\n[en]\n- /: Homepage with main sections (Hero, About, Trainings, Experience, Projects, Skills, Contact).\n- /cv: Interactive page for viewing and downloading the CV.\n- /imprint: Legal notice.\n- /privacy: Privacy policy.\n- /sitemap: Human-readable sitemap.\n[de]\n- /: Startseite mit den Hauptbereichen (Hero, Über Mich, Trainings, Erfahrung, Projekte, Fähigkeiten, Kontakt).\n- /cv: Interaktive Seite zum Ansehen und Herunterladen des Lebenslaufs.\n- /imprint: Impressum.\n- /privacy: Datenschutzerklärung.\n- /sitemap: Für Menschen lesbare Sitemap.\n\n[Contact]:\n[en] Contact information is available via the contact form on the main page or via email to ${content.contact.email}.\n[de] Kontaktinformationen sind über das Kontaktformular auf der Startseite oder per E-Mail an ${content.contact.email} verfügbar.\n`;
-
-    // Add Experiences
-    llmsTxtContent += "\n# --- EXPERIENCE ---\n";
-    content.experiences.forEach((exp) => {
-      llmsTxtContent += `\n[Experience]:\n`;
-      llmsTxtContent += formatBilingual(exp.title, "  ");
-      llmsTxtContent += `  [en] Company: ${exp.company}\n  [de] Firma: ${exp.company}\n`;
-      llmsTxtContent += formatBilingual(exp.period, "  ");
-      exp.description.forEach((desc) => {
-        llmsTxtContent += formatBilingual(desc.text, `  - `);
-      });
-    });
-
-    // Add Projects
-    llmsTxtContent += "\n# --- PROJECTS ---\n";
-    content.projects.forEach((proj) => {
-      llmsTxtContent += `\n[Project]:\n`;
-      llmsTxtContent += formatBilingual(proj.title, "  ");
-      llmsTxtContent += formatBilingual(proj.description, "  ");
-    });
-
-    // Add Skills
-    llmsTxtContent += "\n# --- SKILLS ---\n";
-    const categories = Object.keys(content.skillsSection.categories) as Array<
-      keyof typeof content.skillsSection.categories
-    >;
-    for (const category of categories) {
-      const categoryName = content.skillsSection.categories[category];
-      llmsTxtContent += `\n[Skill-Category: ${categoryName.en} / ${categoryName.de}]:\n`;
-      content.skills
-        .filter((skill) => skill.category === category)
-        .forEach((skill) => {
-          llmsTxtContent += `  - ${skill.name.en} / ${skill.name.de}\n`;
-        });
-    }
+    const llmsTxtContent = buildLlmsTxt(generatedOn);
 
     if (bunRuntime) {
-      await bunRuntime.write(outputPath, llmsTxtContent.trim());
+      await bunRuntime.write(outputPath, llmsTxtContent);
     } else {
-      await fs.writeFile(outputPath, llmsTxtContent.trim());
+      await fs.writeFile(outputPath, llmsTxtContent);
     }
     console.log("Successfully generated llms.txt to public/llms.txt");
   } catch (error) {
     console.error("Error generating llms.txt:", error);
-    process.exit(1);
+    process.exitCode = 1;
   }
 }
 
-await generateLlmsTxt();
+if (import.meta.main) {
+  await generateLlmsTxt();
+}
