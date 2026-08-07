@@ -44,9 +44,7 @@ export function appendAgentDiscoveryHeaders(headers: Headers) {
 }
 
 export function buildHomepageMarkdown(language: Language) {
-  const topSkills = siteContent.skills.slice(0, 12).map((skill) => localize(skill.name, language));
-  const featuredExperiences = siteContent.experiences.slice(0, 3);
-  const featuredProjects = siteContent.projects.slice(0, 4);
+  const skills = siteContent.skills.map((skill) => localize(skill.name, language));
   const heroTitle = siteContent.hero.titleElements.map((title) => localize(title, language)).join(" | ");
 
   const lines = [
@@ -73,23 +71,23 @@ export function buildHomepageMarkdown(language: Language) {
     "",
     `## ${localize(SECTION_TITLES.skills, language)}`,
     "",
-    topSkills.map((skill) => `- ${skill}`).join("\n"),
+    skills.map((skill) => `- ${skill}`).join("\n"),
     "",
     `## ${localize(SECTION_TITLES.experience, language)}`,
     "",
-    ...featuredExperiences.flatMap((experience) => {
-      const firstDescription =
-        experience.description.find((item) => item.type === "text")?.text ?? experience.description[0]?.text;
+    ...siteContent.experiences.flatMap((experience) => [
+      `- **${localize(experience.title, language)}**, ${experience.company} (${localize(experience.period, language)})`,
+      ...experience.description.map((description) => {
+        const prefix =
+          description.type === "achievement" ? `${localize(siteContent.experienceAchievementPrefix, language)} ` : "";
 
-      return [
-        `- **${localize(experience.title, language)}**, ${experience.company} (${localize(experience.period, language)})`,
-        `  ${firstDescription ? localize(firstDescription, language) : ""}`,
-      ];
-    }),
+        return `  - ${prefix}${localize(description.text, language)}`;
+      }),
+    ]),
     "",
     `## ${localize(SECTION_TITLES.projects, language)}`,
     "",
-    ...featuredProjects.flatMap((project) => [
+    ...siteContent.projects.flatMap((project) => [
       `- **${localize(project.title, language)}**`,
       `  ${localize(project.description, language)}`,
     ]),
