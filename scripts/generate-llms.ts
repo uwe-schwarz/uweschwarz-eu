@@ -1,8 +1,8 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 
-import { siteContent } from "../src/content/content";
-import { SITE_URL } from "../src/lib/site-config";
+import { siteContent } from "@/content/content";
+import { SITE_URL } from "@/lib/site-config";
 
 interface BunRuntime {
   write: (path: string, data: string) => Promise<unknown>;

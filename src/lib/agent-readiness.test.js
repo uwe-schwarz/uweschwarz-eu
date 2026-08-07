@@ -1,5 +1,6 @@
 import { describe, expect, test } from "bun:test";
 
+import { siteContent } from "@/content/content";
 import {
   AGENT_DISCOVERY_LINKS,
   appendAgentDiscoveryHeaders,
@@ -60,5 +61,21 @@ describe("agent readiness helpers", () => {
     expect(markdown).toContain("## Contact");
     expect(headers.get("content-type")).toBe("text/markdown; charset=utf-8");
     expect(Number(headers.get("x-markdown-tokens"))).toBeGreaterThan(100);
+  });
+
+  test("includes the complete portfolio in the agent markdown", () => {
+    const markdown = buildHomepageMarkdown("en");
+
+    for (const experience of siteContent.experiences) {
+      expect(markdown).toContain(experience.title.en);
+    }
+
+    for (const project of siteContent.projects) {
+      expect(markdown).toContain(project.title.en);
+    }
+
+    for (const skill of siteContent.skills) {
+      expect(markdown).toContain(skill.name.en);
+    }
   });
 });
