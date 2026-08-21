@@ -4,8 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "bun run --bun next dev",
+    "build": "bun run --bun next build",
     "deps:visual": "bun ./scripts/deps-visual-check.mjs",
     "deps:visual:preview": "next start --hostname 127.0.0.1 --port 3301",
     "deps:visual:install-browser": "playwright install chromium",
