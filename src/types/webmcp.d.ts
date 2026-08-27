@@ -1,5 +1,12 @@
 import "react";
 
+declare global {
+  interface SubmitEvent {
+    readonly agentInvoked?: boolean;
+    respondWith?(response: Promise<unknown>): void;
+  }
+}
+
 declare module "react" {
   interface FormHTMLAttributes<T> {
     toolautosubmit?: string;

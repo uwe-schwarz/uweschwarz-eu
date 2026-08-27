@@ -17,6 +17,11 @@ interface ErrorResponse {
   error?: string;
 }
 
+interface ContactToolResponse {
+  message: string;
+  success: boolean;
+}
+
 const webMcpFormAttributes: React.FormHTMLAttributes<HTMLFormElement> = {
   toolautosubmit: "",
   tooldescription:
@@ -66,7 +71,7 @@ const ContactFormCard = () => {
     resolver: formResolver,
   });
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof formSchema>): Promise<ContactToolResponse> => {
     setIsSubmitting(true);
 
     try {
@@ -110,6 +115,10 @@ const ContactFormCard = () => {
         title: t(contact.formStatus.sentTitle),
       });
       form.reset();
+      return {
+        message: t(contact.formStatus.sentDescription),
+        success: true,
+      };
     } catch (error) {
       const fallbackErrorDescription = t(contact.formStatus.errorDescription);
       const toastDescription =
@@ -120,14 +129,40 @@ const ContactFormCard = () => {
         title: t(contact.formStatus.errorTitle),
         variant: "destructive",
       });
+      return {
+        message: toastDescription,
+        success: false,
+      };
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const submitEvent = event.nativeEvent as SubmitEvent;
+
+    if (!submitEvent.agentInvoked || typeof submitEvent.respondWith !== "function") {
+      void form.handleSubmit(onSubmit)(event);
+      return;
+    }
+
+    event.preventDefault();
+    const response = new Promise<ContactToolResponse>((resolve) => {
+      void form.handleSubmit(
+        async (values) => resolve(await onSubmit(values)),
+        () =>
+          resolve({
+            message: "The inquiry was not sent because one or more fields failed validation.",
+            success: false,
+          }),
+      )(event);
+    });
+    submitEvent.respondWith(response);
+  };
+
   return (
     <FormProvider {...form}>
-      <form {...webMcpFormAttributes} className="glass-panel p-8" onSubmit={form.handleSubmit(onSubmit)}>
+      <form {...webMcpFormAttributes} className="glass-panel p-8" onSubmit={handleSubmit}>
         <div className="space-y-6">
           {/* Hidden verify field */}
           <FormField control={form.control} name="verify" render={({ field }) => <Input type="hidden" {...field} />} />

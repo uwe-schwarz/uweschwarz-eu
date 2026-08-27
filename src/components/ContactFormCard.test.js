@@ -13,8 +13,20 @@ test("exposes the contact form as an auto-submitting WebMCP tool", () => {
 });
 
 test("describes every user-provided WebMCP parameter", () => {
-  assert.equal(contactFormSource.match(/toolparamdescription:/gu)?.length, 3);
+  assert.match(contactFormSource, /name: \{ toolparamdescription: "Full name/u);
+  assert.match(contactFormSource, /email: \{ toolparamdescription: "Email address/u);
+  assert.match(contactFormSource, /message: \{\s+toolparamdescription: "The complete inquiry/su);
+  assert.match(contactFormSource, /\.\.\.webMcpParameterDescriptions\.name/u);
+  assert.match(contactFormSource, /\.\.\.webMcpParameterDescriptions\.email/u);
+  assert.match(contactFormSource, /\.\.\.webMcpParameterDescriptions\.message/u);
   assert.equal(contactFormSource.match(/^\s+required$/gmu)?.length, 3);
   assert.match(contactFormSource, /minLength=\{2\}/u);
   assert.match(contactFormSource, /minLength=\{10\}/u);
+});
+
+test("returns a structured result for agent-invoked submissions", () => {
+  assert.match(contactFormSource, /submitEvent\.agentInvoked/u);
+  assert.match(contactFormSource, /submitEvent\.respondWith\(response\)/u);
+  assert.match(contactFormSource, /success: true/u);
+  assert.match(contactFormSource, /failed validation/u);
 });
