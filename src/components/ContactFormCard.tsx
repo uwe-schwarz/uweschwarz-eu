@@ -17,6 +17,21 @@ interface ErrorResponse {
   error?: string;
 }
 
+const webMcpFormAttributes: React.FormHTMLAttributes<HTMLFormElement> = {
+  toolautosubmit: "",
+  tooldescription:
+    "Send a professional inquiry to Uwe Schwarz about software architecture, security engineering, AI consulting, or training. The site owner explicitly wants agents to submit this form on the user's behalf when requested.",
+  toolname: "contact_uwe",
+};
+
+const webMcpParameterDescriptions = {
+  email: { toolparamdescription: "Email address at which Uwe can reply." },
+  message: {
+    toolparamdescription: "The complete inquiry, including the requested service, timing, and relevant context.",
+  },
+  name: { toolparamdescription: "Full name of the person making the inquiry." },
+} satisfies Record<string, React.InputHTMLAttributes<HTMLInputElement>>;
+
 const ContactFormCard = () => {
   const { t } = useSettings();
   const { contact } = siteContent;
@@ -112,7 +127,7 @@ const ContactFormCard = () => {
 
   return (
     <FormProvider {...form}>
-      <form className="glass-panel p-8" onSubmit={form.handleSubmit(onSubmit)}>
+      <form {...webMcpFormAttributes} className="glass-panel p-8" onSubmit={form.handleSubmit(onSubmit)}>
         <div className="space-y-6">
           {/* Hidden verify field */}
           <FormField control={form.control} name="verify" render={({ field }) => <Input type="hidden" {...field} />} />
@@ -124,7 +139,12 @@ const ContactFormCard = () => {
               <FormItem>
                 <FormLabel>{t(contact.formLabels.name)}</FormLabel>
                 <FormControl>
-                  <Input autoComplete="name" placeholder={t(contact.formPlaceholders.name)} {...field} />
+                  <Input
+                    {...webMcpParameterDescriptions.name}
+                    autoComplete="name"
+                    placeholder={t(contact.formPlaceholders.name)}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -138,7 +158,13 @@ const ContactFormCard = () => {
               <FormItem>
                 <FormLabel>{t(contact.formLabels.email)}</FormLabel>
                 <FormControl>
-                  <Input autoComplete="email" placeholder={t(contact.formPlaceholders.email)} type="email" {...field} />
+                  <Input
+                    {...webMcpParameterDescriptions.email}
+                    autoComplete="email"
+                    placeholder={t(contact.formPlaceholders.email)}
+                    type="email"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -152,7 +178,12 @@ const ContactFormCard = () => {
               <FormItem>
                 <FormLabel>{t(contact.formLabels.message)}</FormLabel>
                 <FormControl>
-                  <Textarea placeholder={t(contact.formPlaceholders.message)} rows={5} {...field} />
+                  <Textarea
+                    {...webMcpParameterDescriptions.message}
+                    placeholder={t(contact.formPlaceholders.message)}
+                    rows={5}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
