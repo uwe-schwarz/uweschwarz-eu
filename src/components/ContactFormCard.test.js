@@ -14,4 +14,7 @@ test("exposes the contact form as an auto-submitting WebMCP tool", () => {
 
 test("describes every user-provided WebMCP parameter", () => {
   assert.equal(contactFormSource.match(/toolparamdescription:/gu)?.length, 3);
+  assert.equal(contactFormSource.match(/^\s+required$/gmu)?.length, 3);
+  assert.match(contactFormSource, /minLength=\{2\}/u);
+  assert.match(contactFormSource, /minLength=\{10\}/u);
 });

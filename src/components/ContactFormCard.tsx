@@ -142,7 +142,9 @@ const ContactFormCard = () => {
                   <Input
                     {...webMcpParameterDescriptions.name}
                     autoComplete="name"
+                    minLength={2}
                     placeholder={t(contact.formPlaceholders.name)}
+                    required
                     {...field}
                   />
                 </FormControl>
@@ -162,6 +164,7 @@ const ContactFormCard = () => {
                     {...webMcpParameterDescriptions.email}
                     autoComplete="email"
                     placeholder={t(contact.formPlaceholders.email)}
+                    required
                     type="email"
                     {...field}
                   />
@@ -180,7 +183,9 @@ const ContactFormCard = () => {
                 <FormControl>
                   <Textarea
                     {...webMcpParameterDescriptions.message}
+                    minLength={10}
                     placeholder={t(contact.formPlaceholders.message)}
+                    required
                     rows={5}
                     {...field}
                   />
