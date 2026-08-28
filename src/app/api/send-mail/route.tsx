@@ -4,8 +4,6 @@ import { render } from "@react-email/render";
 import { Body, Container, Head, Heading, Html, Preview, Section, Text, Tailwind } from "@react-email/components";
 import { z } from "zod";
 
-const resendApiKey = process.env.RESEND_API_KEY;
-const resend = resendApiKey ? new Resend(resendApiKey) : null;
 const EMAIL_COLORS = {
   accent: "hsl(82, 61%, 26%)",
   accentForeground: "hsl(225, 25%, 12%)",
@@ -55,6 +53,20 @@ function sanitizeEmailHeaderName(value: unknown) {
     .trim();
 
   return normalized || "Website Contact";
+}
+
+// Lazily resolved so the environment is read per request — keeps the route
+// unit-testable and avoids module-scope capture of runtime configuration.
+let resendInstance: Resend | null = null;
+
+function getResendClient() {
+  if (!process.env.RESEND_API_KEY) {
+    return null;
+  }
+
+  resendInstance ??= new Resend(process.env.RESEND_API_KEY);
+
+  return resendInstance;
 }
 
 const EmailTemplate = ({
@@ -198,13 +210,26 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Error" }, { status: 400 });
   }
 
-  if (!resend) {
-    return NextResponse.json({ error: "Missing RESEND_API_KEY" }, { status: 500 });
-  }
-
   const emailResult = z.email().safeParse(body.email);
   if (!emailResult.success) {
     return NextResponse.json({ error: "Invalid email address" }, { status: 400 });
+  }
+
+  // Mirror the client-side form schema (ContactFormCard) so the public
+  // endpoint enforces the same constraints for direct agent callers (issue #247).
+  const nameResult = z.string().min(2).safeParse(body.name);
+  if (!nameResult.success) {
+    return NextResponse.json({ error: "Invalid name" }, { status: 400 });
+  }
+
+  const messageResult = z.string().min(10).safeParse(body.message);
+  if (!messageResult.success) {
+    return NextResponse.json({ error: "Invalid message" }, { status: 400 });
+  }
+
+  const resend = getResendClient();
+  if (!resend) {
+    return NextResponse.json({ error: "Missing RESEND_API_KEY" }, { status: 500 });
   }
 
   const email = emailResult.data;
