@@ -171,7 +171,7 @@ const ContactFormCard = () => {
             control={form.control}
             name="name"
             render={({ field }) => (
-              <FormItem>
+              <FormItem id="contact-name">
                 <FormLabel>{t(contact.formLabels.name)}</FormLabel>
                 <FormControl>
                   <Input
@@ -192,7 +192,7 @@ const ContactFormCard = () => {
             control={form.control}
             name="email"
             render={({ field }) => (
-              <FormItem>
+              <FormItem id="contact-email">
                 <FormLabel>{t(contact.formLabels.email)}</FormLabel>
                 <FormControl>
                   <Input
@@ -213,7 +213,7 @@ const ContactFormCard = () => {
             control={form.control}
             name="message"
             render={({ field }) => (
-              <FormItem>
+              <FormItem id="contact-message">
                 <FormLabel>{t(contact.formLabels.message)}</FormLabel>
                 <FormControl>
                   <Textarea

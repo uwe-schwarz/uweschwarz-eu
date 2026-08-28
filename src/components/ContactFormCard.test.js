@@ -30,3 +30,11 @@ test("returns a structured result for agent-invoked submissions", () => {
   assert.match(contactFormSource, /success: true/u);
   assert.match(contactFormSource, /failed validation/u);
 });
+
+test("assigns stable, agent-friendly ids to the contact form items", () => {
+  // Accessibility-driven agent browsers resolve fields by their label/id
+  // association; generated :r1: ids are not stable across renders/servers.
+  assert.match(contactFormSource, /<FormItem id="contact-name">/u);
+  assert.match(contactFormSource, /<FormItem id="contact-email">/u);
+  assert.match(contactFormSource, /<FormItem id="contact-message">/u);
+});

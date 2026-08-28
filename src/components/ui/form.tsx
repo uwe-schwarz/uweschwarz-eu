@@ -34,8 +34,11 @@ interface FormItemProps extends HTMLAttributes<HTMLDivElement> {
   ref?: Ref<HTMLDivElement>;
 }
 
-function FormItem({ className, ref, ...props }: FormItemProps) {
-  const id = useId();
+function FormItem({ className, id: idProp, ref, ...props }: FormItemProps) {
+  const generatedId = useId();
+  // Optional stable override: predictable ids keep the label/input association
+  // deterministic for accessibility-driven agent browsers (see issue #247).
+  const id = idProp ?? generatedId;
   const contextValue = useMemo(() => ({ id }), [id]);
 
   return (
