@@ -1,6 +1,5 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 import React from "react";
 import CVDocument from "./cv/CVDocument";
 import { formatLocalDateStamp } from "./cvAssetDates";
@@ -8,8 +7,7 @@ import { siteContent } from "../src/content/content";
 import { generateCvDocx } from "./cv/CVDocumentDocx";
 import { renderPdf } from "./cv/renderPdf";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = import.meta.dirname;
 const projectRoot = path.resolve(__dirname, "..");
 const publicDir = path.resolve(projectRoot, "public");
 
