@@ -34,6 +34,15 @@ interface FormItemProps extends HTMLAttributes<HTMLDivElement> {
   ref?: Ref<HTMLDivElement>;
 }
 
+/**
+ * Renders a form item container and provides the item id that wires label,
+ * control, and message together via aria attributes.
+ *
+ * Pass `id` to override the generated id with a stable, predictable one —
+ * recommended for forms that are intentionally agent-facing, because
+ * accessibility-driven browsers resolve inputs through the label/id
+ * association (see issue #247).
+ */
 function FormItem({ className, id: idProp, ref, ...props }: FormItemProps) {
   const generatedId = useId();
   // Optional stable override: predictable ids keep the label/input association

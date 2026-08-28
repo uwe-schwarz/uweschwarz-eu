@@ -59,6 +59,12 @@ function sanitizeEmailHeaderName(value: unknown) {
 // unit-testable and avoids module-scope capture of runtime configuration.
 let resendInstance: Resend | null = null;
 
+/**
+ * Lazily resolves the Resend client from the current environment.
+ *
+ * Returns null when RESEND_API_KEY is unset, so input validation can
+ * complete (and unit tests can run) before the transport is required.
+ */
 function getResendClient() {
   if (!process.env.RESEND_API_KEY) {
     return null;
@@ -198,6 +204,11 @@ const EmailTemplate = ({
 };
 EmailTemplate.displayName = "EmailTemplate";
 
+/**
+ * Handles contact form submissions: validates the payload against the
+ * client-side form schema, then renders and delivers the notification
+ * email via Resend. The honeypot field (`verify`) must stay empty.
+ */
 export async function POST(request: Request) {
   let body: Record<string, unknown>;
   try {

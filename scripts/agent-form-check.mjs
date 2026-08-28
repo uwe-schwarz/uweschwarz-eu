@@ -35,9 +35,11 @@ const MESSAGE = "Agent-Form-Check: Bitte um Rueckruf morgen Nachmittag wegen ein
 
 const url = process.env.AGENT_FORM_CHECK_URL ?? DEFAULT_URL;
 
-const browser = await chromium.launch({ headless: true });
+let browser;
 
 try {
+  browser = await chromium.launch({ headless: true });
+
   const page = await browser.newPage({ viewport: VIEWPORT });
 
   const sendMailRequests = [];
@@ -92,5 +94,5 @@ try {
   }
   process.exitCode = 1;
 } finally {
-  await browser.close();
+  await browser?.close();
 }
