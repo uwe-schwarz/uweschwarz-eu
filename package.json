@@ -9,6 +9,7 @@
     "deps:visual": "bun ./scripts/deps-visual-check.mjs",
     "deps:visual:preview": "next start --hostname 127.0.0.1 --port 3301",
     "deps:visual:install-browser": "playwright install chromium",
+    "agent-form-check": "bun scripts/agent-form-check.mjs",
     "start": "next start",
     "lint": "oxlint --deny-warnings --type-aware",
     "format": "oxfmt",
