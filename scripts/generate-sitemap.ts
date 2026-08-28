@@ -4,7 +4,7 @@ import path from "node:path";
 import { CV_ASSETS } from "../src/generated/cv-assets";
 import { SITE_URL } from "../src/lib/site-config";
 
-const __dirname = import.meta.dirname;
+const scriptDir = import.meta.dirname;
 
 interface BunFile {
   lastModified: number;
@@ -192,7 +192,7 @@ const urls = [
 function getLatestMtime(files: Array<string>) {
   let latest = 0;
   for (const file of files) {
-    const mtime = getFileMtime(path.join(__dirname, "..", file));
+    const mtime = getFileMtime(path.join(scriptDir, "..", file));
     if (mtime > latest) {
       latest = mtime;
     }
@@ -215,7 +215,7 @@ ${urls
   .join("")}
 </urlset>`;
 
-const outputPath = path.join(__dirname, "../public/sitemap.xml");
+const outputPath = path.join(scriptDir, "../public/sitemap.xml");
 if (bunRuntime) {
   await bunRuntime.write(outputPath, xml);
 } else {

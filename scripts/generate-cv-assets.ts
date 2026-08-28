@@ -7,8 +7,8 @@ import { siteContent } from "../src/content/content";
 import { generateCvDocx } from "./cv/CVDocumentDocx";
 import { renderPdf } from "./cv/renderPdf";
 
-const __dirname = import.meta.dirname;
-const projectRoot = path.resolve(__dirname, "..");
+const scriptDir = import.meta.dirname;
+const projectRoot = path.resolve(scriptDir, "..");
 const publicDir = path.resolve(projectRoot, "public");
 
 const languages: Array<"en" | "de"> = ["en", "de"];
