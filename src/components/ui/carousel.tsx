@@ -123,7 +123,7 @@ function Carousel({
 
   const contextValue = useMemo(
     () => ({
-      api: api,
+      api,
       canScrollNext,
       canScrollPrev,
       carouselRef,
