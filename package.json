@@ -53,7 +53,7 @@
     "@nkzw/oxlint-config": "^2.0.1",
     "@react-pdf/renderer": "^4.9.0",
     "@tailwindcss/postcss": "^4.3.3",
-    "@types/node": "^26.4.0",
+    "@types/node": "^24.13.3",
     "@types/react": "^19.2.18",
     "@types/three": "^0.185.4",
     "docx": "^9.7.1",
@@ -73,7 +73,7 @@
     "postcss": "$postcss"
   },
   "engines": {
-    "node": "26.x"
+    "node": "24.x"
   },
   "trustedDependencies": [
     "@swc/core",
