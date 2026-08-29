@@ -174,14 +174,15 @@ Use this repo-local skill when the user wants the full dependency-upgrade flow e
     }
     trap cleanupVercelCredential EXIT
     runVercel() {
-      env -i HOME="$HOME" PATH="$PATH" VERCEL_TOKEN="$vercelToken" vercel "$@"
+      env -i HOME="$HOME" PATH="$PATH" sh -c '
+        IFS= read -r VERCEL_TOKEN <&3 || exit 1
+        test -n "$VERCEL_TOKEN" || exit 1
+        export VERCEL_TOKEN
+        exec vercel "$@"
+      ' sh "$@" 3<<<"$vercelToken"
     }
 
-    # Run steps 1-7 below here, then clean up before leaving the subshell.
-    cleanupVercelCredential
-    trap - EXIT
-    unset -f runVercel cleanupVercelCredential
-  )
+    # Keep this subshell open and run steps 1-7 below here.
   ```
 - The token used by this workflow must be a `Full Account Non-SAML` token because the CLI's redeployment path performs a user-principal lookup. A project-scoped token can read the project and deployment events but fails that lookup with `User not found`.
 - Token lifetime and rotation are managed outside this repository. Prefer an expiring full-account token; rotate it at least quarterly and immediately after suspected exposure by replacing and testing the value in the external private credential source before revoking the old token. Never copy or link the credential into this project tree, tracked files, Next.js environment files, command arguments, logs, PR text, or issue text.
@@ -208,7 +209,13 @@ Use this repo-local skill when the user wants the full dependency-upgrade flow e
      - `node .agents/skills/deps-upgrade-autopilot/scripts/extract-vercel-build-log.mjs "$newEventsPath" "$newLogPath"`
      - `node .agents/skills/deps-upgrade-autopilot/scripts/summarize-vercel-build-log.mjs "$newLogPath"`
      - `rm -f "$newEventsPath" "$newLogPath"`
-- After step 7, invoke `cleanupVercelCredential`, remove its `EXIT` trap, and leave the dedicated subshell as shown above. The trap also clears the variables on every earlier shell exit. The one-shot wrapper prevents `VERCEL_TOKEN` from reaching GitHub or repository-local Node helpers, and the subshell prevents the token variable from ever reaching the parent shell.
+- After step 7, finish the still-open dedicated subshell:
+  ```bash
+    cleanupVercelCredential
+    unset -f runVercel cleanupVercelCredential
+  )
+  ```
+- Keep the `EXIT` trap active until the subshell exits; it also clears the variables on every earlier shell exit. The one-shot wrapper transfers the token to the minimal child shell over file descriptor 3 rather than `env`'s argument vector, prevents `VERCEL_TOKEN` from reaching GitHub or repository-local Node helpers, and the subshell prevents the token variable from ever reaching the parent shell.
 - Stop if authentication fails, the selector does not find exactly one failed Vercel check, the failed check is not an HTTPS `vercel.com` deployment-inspector URL with a valid deployment ID suffix, or a fresh deployment is not an HTTPS `*.vercel.app` URL. Do not guess a deployment URL or ID.
 - Compare the deployment's package-manager/runtime versions with the locally validated versions before changing application code. Never retry redeployments in a loop or reuse the original failed URL to inspect the fresh deployment.
 - If deployment metadata reports a managed-runtime `segfault` while the bounded build summary has no error signature, treat it as a transient platform failure: perform the single fresh preview redeploy, inspect its bounded summary, and do not invent a source change when the same PR commit succeeds.
