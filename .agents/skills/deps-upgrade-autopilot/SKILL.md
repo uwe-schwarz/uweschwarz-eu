@@ -212,7 +212,7 @@ Use this repo-local skill when the user wants the full dependency-upgrade flow e
 - After step 7, finish the still-open dedicated subshell:
   ```bash
     cleanupVercelCredential
-    unset -f runVercel cleanupVercelCredential
+    unset -f runVercel
   )
   ```
 - Keep the `EXIT` trap active until the subshell exits; it also clears the variables on every earlier shell exit. The one-shot wrapper transfers the token to the minimal child shell over file descriptor 3 rather than `env`'s argument vector, prevents `VERCEL_TOKEN` from reaching GitHub or repository-local Node helpers, and the subshell prevents the token variable from ever reaching the parent shell.
