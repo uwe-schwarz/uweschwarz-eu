@@ -4,7 +4,7 @@
 
 Use the Markdown portfolio links below for the most complete, agent-friendly representation of the homepage. The same Markdown is available from the public homepage through HTTP content negotiation with `Accept: text/markdown`.
 
-Languages: English and German. Availability: 10% now and 100% from 2027. Last generated: 2026-08-07.
+Languages: English and German. Availability: 10% now and 100% from 2027. Last generated: 2026-08-29.
 
 ## Portfolio
 
