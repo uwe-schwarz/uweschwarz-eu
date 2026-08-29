@@ -13,6 +13,11 @@ Use this repo-local skill when the user wants the full dependency-upgrade flow e
 - Reuse its workflow and decision rules unless this repo-local skill adds a stricter repo-specific step.
 - This repo uses `bun`. Follow the repository instructions in `AGENTS.md` for installs, lockfile updates, and validation ordering.
 
+## Credential Isolation Precondition
+
+- Before the first repository-local command of every run, execute `unset VERCEL_TOKEN` in the parent shell that will run the workflow. Do this before inventory, installs, validation, builds, previews, GitHub commands, or repository-local Node helpers so none can inherit a credential supplied by the launching environment.
+- Keep `VERCEL_TOKEN` absent from the parent shell for the whole run. Do not load the external Vercel credential until the conditional Vercel-triage bootstrap below.
+
 ## Universal Upgrade-Surface Inventory
 
 - Begin every run by inventorying every versioned component that can affect development, validation, build, packaging, deployment, or production runtime behavior. Do this even when package manifests and lockfiles already resolve to their latest allowed versions.
@@ -150,7 +155,7 @@ Use this repo-local skill when the user wants the full dependency-upgrade flow e
 ### Vercel credential bootstrap
 
 - Never keep a Vercel credential in this Next.js project tree, including ignored files, symlinks into the tree, or any automatically loaded environment file such as `.env.local`. The credential source for this workflow is the external raw-token file `/home/uwe/dev/my/private/api/vercel-uweschwarz-eu`; it must contain only the token value, not a `VERCEL_TOKEN=` assignment.
-- Complete every local install, validation, build, preview, and visual-regression step without loading the token. Read it only when a failed Vercel check actually requires Vercel triage, immediately before step 1 below. Do not read the credential merely to confirm that the file exists during an otherwise successful run.
+- Complete every local install, validation, build, preview, and visual-regression step after clearing any inherited parent-shell credential and without loading the external token. Read it only when a failed Vercel check actually requires Vercel triage, immediately before step 1 below. Do not read the credential merely to confirm that the file exists during an otherwise successful run.
 - Run the complete Vercel triage sequence in one dedicated subshell. Fail closed unless the external file is readable and contains exactly one non-empty raw-token line. Keep the token unexported in the subshell and pass it only through the existing one-shot minimal environment:
   ```bash
   (
