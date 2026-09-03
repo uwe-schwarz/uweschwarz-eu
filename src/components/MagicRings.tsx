@@ -312,9 +312,7 @@ function MagicRings({
     const resizeObserver = new ResizeObserver(resize);
     resizeObserver.observe(mount);
 
-    let frameId = 0;
     const animate = (time: number) => {
-      frameId = requestAnimationFrame(animate);
       const props = propsRef.current;
 
       smoothMouseRef.current[0] += (mouseRef.current[0] - smoothMouseRef.current[0]) * 0.08;
@@ -350,10 +348,10 @@ function MagicRings({
 
       renderer.render(scene, camera);
     };
-    frameId = requestAnimationFrame(animate);
+    renderer.setAnimationLoop(animate);
 
     return () => {
-      cancelAnimationFrame(frameId);
+      renderer.setAnimationLoop(null);
       window.removeEventListener("resize", resize);
       resizeObserver.disconnect();
       mount.removeChild(renderer.domElement);
