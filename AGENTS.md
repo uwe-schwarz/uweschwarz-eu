@@ -37,29 +37,21 @@ The application includes browser language detection that automatically detects t
 - Organize imports: standard libraries, external packages, internal imports
 - Use `@/` prefix for internal module imports (e.g., `@/components/ui/button`)
 - Use `import type` for TypeScript types
-- Components should use `React.forwardRef` and have explicit `displayName`
-- Define props interfaces extending React HTML attributes
+- Expose refs only when callers need them. This React 19 project can accept `ref` as a prop; use `forwardRef` only for an actual compatibility requirement. Add `displayName` when needed for useful debugging.
+- Extend React HTML attributes only for components intended to accept and pass through those DOM props.
 - Use interfaces for object shapes and types for unions
-- Handle errors with try/catch in async operations and API functions
+- Catch async errors where the code can recover, add useful context, or translate an API response. Otherwise allow the established error boundary or caller to handle them.
 
 ## Agent workflow
 
-When modifying files in this repository:
-
-1. Run the required checks in this exact order:
-   - `bun run lint`
-   - `bun run typecheck`
-   - `bun run format:check`
-   - `bun run doctor`
-   - `bun run doctor:full`
-2. If checks fail, possible fixes with:
-   - `bun run lint --fix`
-   - `bun run format`
-3. Fix all remaining errors.
-4. These checks are mandatory before every commit, push, and PR.
-5. Document the executed checks and their results in the PR description.
-6. Include a clear commit message summarising the change.
-7. Reference any modified files in PR summaries when applicable.
+- During iteration, run the focused checks relevant to the change.
+- For the final code or dependency state, run `bun run lint`, `bun run typecheck`, and `bun run format:check` in that order, then `bun run doctor` for ordinary scoped changes. Use `bun run doctor:full` instead for dependency upgrades or repository-wide React changes.
+- Run `bun run build` when application code, routes, static generation, dependencies, or build configuration may affect production output. Verify changed user-facing behavior in the browser when practical.
+- Documentation-only changes need appropriate content/format checks. Do not invent runtime tests for them.
+- Resolve failures introduced by the change; report unrelated pre-existing failures explicitly. Do not bypass a failing required gate.
+- Reuse passing results for the unchanged tested state across commit, push, and PR creation. Rerun affected checks if source, dependencies, or generated artifacts change, including through hooks.
+- Record checks and results in the PR description.
+- This project-specific scope overrides the generated block's "before writing any code" requirement: apply its documentation guidance only to changes that depend on Next.js APIs, conventions, routing, or build behavior. Unrelated prose edits need no Next.js documentation pass.
 
 <!-- BEGIN:nextjs-agent-rules -->
 
