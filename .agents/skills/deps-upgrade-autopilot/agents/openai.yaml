@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dependency Upgrade Autopilot"
+  short_description: "Upgrade, validate, review, merge, and verify"
+  default_prompt: "Use $deps-upgrade-autopilot to run this repository's dependency maintenance through validation, PR review, merge, production verification, and cleanup under its existing policies."
