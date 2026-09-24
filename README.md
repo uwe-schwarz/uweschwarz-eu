@@ -15,8 +15,8 @@ This is a personal portfolio website built with **Next.js 16**, **React 19**, **
 
 ### Prerequisites
 
-- Node.js (v18 or higher recommended)
-- Bun package manager
+- Node.js 24.x
+- Bun 1.4.2 or later; the install check requires a version that enforces the repository's one-day package release-age gate.
 
 ### Installation and Running Locally
 
