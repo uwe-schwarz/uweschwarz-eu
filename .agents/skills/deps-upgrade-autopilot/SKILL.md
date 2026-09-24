@@ -42,6 +42,7 @@ Use this repo-local skill for authorized end-to-end maintenance, especially the 
   - GitHub Actions and other CI/CD integrations
   - deployment runtimes, build images, platform selectors, managed runtime channels, and required CLIs
   - versioned schemas or configuration formats that gate those tools
+- For Vercel, inspect `bunVersion`, `installCommand`, `package.json#packageManager`, lockfile format, and the actual install version in build logs as separate settings. If the platform's default Bun install ignores `packageManager`, use `installCommand` to invoke the exact pinned Bun through `npm exec` and keep the dependency install frozen.
 - Do not enumerate unrelated developer applications, transitive packages with no direct maintenance decision, or services outside this repository's build and deployment path.
 - For each surface, compare three states where they exist: the newest stable upstream release, the version or range configured and actually resolved by the repository, and the newest version the relevant platform or integration explicitly supports. Use primary release data and current tool/API capability evidence; do not assume that a broad alias such as `latest`, `1.x`, `stable`, or an unbounded action tag resolves to the newest usable release.
 - Classify every detected newer stable release as one of:
@@ -89,12 +90,12 @@ Use this repo-local skill for authorized end-to-end maintenance, especially the 
 
 ## Execution Order
 
-1. Inventory manifests and every applicable upgrade surface described above.
+1. Before any Bun command that inspects, resolves, or changes dependencies, run `node scripts/check-bun-version.mjs`. It must pass before `bun outdated`, `bun update`, `bun install`, `bun add`, `bun remove`, or similar commands, and must be repeated before each such command. This compares the active Bun executable with the exact `packageManager` pin and confirms it enforces the one-day age gate. Do not rely on a `preinstall` hook: package lifecycle hooks run after dependency resolution has begun. Then inventory manifests and every applicable upgrade surface described above.
 2. Triage each newer stable release. Immediately create or reuse tracking issues for every relevant release that cannot be adopted in this run, even if there will be no repository diff or PR.
 3. If no repository change remains after issue tracking, report the verified current state and tracking issue URLs; do not create an empty branch or PR.
 4. Otherwise create a fresh branch before editing. Prefer `codex/deps-uweschwarz-eu-<yyyymmdd>`.
 5. Capture the pre-upgrade screenshots into the temp dir.
-6. Upgrade dependencies with `bun update --latest`, then immediately run `bun install` before inspecting or staging the diff. The install pass must normalize any `"latest"` root specifiers written to `bun.lock`; run the base skill's no-`latest` checker afterward and stop if it fails.
+6. Run `node scripts/check-bun-version.mjs` and, only if it passes, upgrade dependencies with `bun update --latest`. Run the Node preflight again immediately before `bun install`, which must follow the update before inspecting or staging the diff. The install pass must normalize any `"latest"` root specifiers written to `bun.lock`; run the base skill's no-`latest` checker afterward and stop if it fails.
 7. Check every tracked YAML workflow under `.github/workflows/` (`.yml` and `.yaml`) and bump action versions to the latest available release. Review official release notes and the workflow diff before adoption; preserve existing SHA pinning and permissions. CI validates compatibility, not upstream trust.
 8. Upgrade the remaining adoptable toolchain, runtime, build, configuration, and deployment-platform selectors; run the base skill’s release-note triage and apply required fallout fixes. Treat adoption as provisional when compatibility can only be established by testing.
 9. If an attempted upgrade is held back or reverted after testing, immediately create or reuse its tracking issue before continuing.
@@ -111,7 +112,7 @@ Use this repo-local skill for authorized end-to-end maintenance, especially the 
 - Keep the repository on the highest verified compatible version while the issue is open. Do not use a floating alias merely to hide the holdback when its resolution is ambiguous or cannot be verified in the actual deployment.
 - Recheck open upgrade issues on every recurring run. Add a comment only when there is material new evidence, such as newly advertised platform support, a changed compatibility result, or a newly tested version.
 - When the blocker clears, use the issue as the context for the upgrade PR and link both directions. Close the issue only after the upgrade's applicable acceptance evidence is verified on the merged commit: successful CI execution for actions and validation-only tools, and production build/runtime metadata for production-affecting components.
-- Example: when Bun 1.5 becomes stable, detect it even if dependency files do not change. If Vercel still advertises only Bun 1.4.x, retain `bunVersion: "1.4.x"` and immediately create or reuse a Bun 1.5 tracking issue. Once Vercel exposes 1.5.x, upgrade the selector in a normal fully validated PR, verify the preview and production logs/runtime metadata report Bun 1.5.x, then close the issue.
+- Example: when Bun 1.5 becomes stable, detect it even if dependency files do not change. Keep Vercel's `bunVersion` set to its supported major selector, `1.x`, and update the exact version from `package.json#packageManager` used by `installCommand`. Verify the preview and production logs report the intended install version and runtime; if either path cannot use the candidate, keep the highest verified version and track the blocker.
 
 ## Follow-Up Issue Deduplication
 

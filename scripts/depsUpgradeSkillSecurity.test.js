@@ -36,13 +36,15 @@ test("issue deduplication keeps untrusted bodies out of agent context", async ()
   assert.match(section, /never[^\n]*(instruction|command)/i);
 });
 
-test("Bun upgrades normalize lockfile specifiers before validation", async () => {
-  const [autopilotSkill, baseSkill, packageManagerPlaybook] = await Promise.all([
+test("Bun upgrades preflight the pinned runtime in standalone and autopilot workflows", async () => {
+  const [autopilotSkill, baseSkill, packageManagerPlaybook, packageJsonText] = await Promise.all([
     readFile(autopilotSkillUrl, "utf8"),
     readFile(baseSkillUrl, "utf8"),
     readFile(packageManagerPlaybookUrl, "utf8"),
+    readFile(new URL("../package.json", import.meta.url), "utf8"),
   ]);
   const bunSection = packageManagerPlaybook.match(/## Bun(?<body>[\s\S]*?)\n## uv/)?.groups?.body;
+  const packageJson = JSON.parse(packageJsonText);
 
   assert.ok(bunSection, "Bun package-manager instructions should exist");
   const bunCommandBlocks = [...bunSection.matchAll(/```bash\r?\n([\s\S]*?)```/g)].map(([, commands]) => commands);
@@ -61,7 +63,15 @@ test("Bun upgrades normalize lockfile specifiers before validation", async () =>
     baseSkill,
     /Do not proceed until it reports that no tracked `package\.json` or lockfile still contains `latest`/i,
   );
-  assert.match(autopilotSkill, /immediately run `bun install` before inspecting or staging the diff/i);
+  assert.match(baseSkill, /node scripts\/check-bun-version\.mjs/);
+  assert.match(baseSkill, /Repeat the preflight before each such command/i);
+  assert.match(baseSkill, /applies to standalone dependency PRs and autopilot runs/i);
+  assert.equal(packageJson.scripts.preinstall, undefined, "do not use a late lifecycle hook for the Bun version guard");
+  assert.match(autopilotSkill, /node scripts\/check-bun-version\.mjs[\s\S]*bun update --latest/i);
+  assert.match(
+    autopilotSkill,
+    /Run the Node preflight again immediately before `bun install`, which must follow the update before inspecting or staging the diff/i,
+  );
   assert.match(autopilotSkill, /no-`latest` checker afterward and stop if it fails/i);
 });
 
