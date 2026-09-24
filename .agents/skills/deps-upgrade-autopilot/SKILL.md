@@ -42,6 +42,7 @@ Use this repo-local skill for authorized end-to-end maintenance, especially the 
   - GitHub Actions and other CI/CD integrations
   - deployment runtimes, build images, platform selectors, managed runtime channels, and required CLIs
   - versioned schemas or configuration formats that gate those tools
+- For Vercel, inspect `bunVersion`, `installCommand`, `package.json#packageManager`, lockfile format, and the actual install version in build logs as separate settings. If the platform's default Bun install ignores `packageManager`, use `installCommand` to invoke the exact pinned Bun through `npm exec` and keep the dependency install frozen.
 - Do not enumerate unrelated developer applications, transitive packages with no direct maintenance decision, or services outside this repository's build and deployment path.
 - For each surface, compare three states where they exist: the newest stable upstream release, the version or range configured and actually resolved by the repository, and the newest version the relevant platform or integration explicitly supports. Use primary release data and current tool/API capability evidence; do not assume that a broad alias such as `latest`, `1.x`, `stable`, or an unbounded action tag resolves to the newest usable release.
 - Classify every detected newer stable release as one of:
@@ -111,7 +112,7 @@ Use this repo-local skill for authorized end-to-end maintenance, especially the 
 - Keep the repository on the highest verified compatible version while the issue is open. Do not use a floating alias merely to hide the holdback when its resolution is ambiguous or cannot be verified in the actual deployment.
 - Recheck open upgrade issues on every recurring run. Add a comment only when there is material new evidence, such as newly advertised platform support, a changed compatibility result, or a newly tested version.
 - When the blocker clears, use the issue as the context for the upgrade PR and link both directions. Close the issue only after the upgrade's applicable acceptance evidence is verified on the merged commit: successful CI execution for actions and validation-only tools, and production build/runtime metadata for production-affecting components.
-- Example: when Bun 1.5 becomes stable, detect it even if dependency files do not change. If Vercel still advertises only Bun 1.4.x, retain `bunVersion: "1.4.x"` and immediately create or reuse a Bun 1.5 tracking issue. Once Vercel exposes 1.5.x, upgrade the selector in a normal fully validated PR, verify the preview and production logs/runtime metadata report Bun 1.5.x, then close the issue.
+- Example: when Bun 1.5 becomes stable, detect it even if dependency files do not change. Keep Vercel's `bunVersion` set to its supported major selector, `1.x`, and update the exact version from `package.json#packageManager` used by `installCommand`. Verify the preview and production logs report the intended install version and runtime; if either path cannot use the candidate, keep the highest verified version and track the blocker.
 
 ## Follow-Up Issue Deduplication
 
