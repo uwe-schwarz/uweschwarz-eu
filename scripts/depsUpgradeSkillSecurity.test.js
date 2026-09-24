@@ -36,7 +36,7 @@ test("issue deduplication keeps untrusted bodies out of agent context", async ()
   assert.match(section, /never[^\n]*(instruction|command)/i);
 });
 
-test("Bun upgrades preflight the pinned runtime before dependency resolution", async () => {
+test("Bun upgrades preflight the pinned runtime in standalone and autopilot workflows", async () => {
   const [autopilotSkill, baseSkill, packageManagerPlaybook, packageJsonText] = await Promise.all([
     readFile(autopilotSkillUrl, "utf8"),
     readFile(baseSkillUrl, "utf8"),
@@ -63,6 +63,9 @@ test("Bun upgrades preflight the pinned runtime before dependency resolution", a
     baseSkill,
     /Do not proceed until it reports that no tracked `package\.json` or lockfile still contains `latest`/i,
   );
+  assert.match(baseSkill, /node scripts\/check-bun-version\.mjs/);
+  assert.match(baseSkill, /Repeat the preflight before each such command/i);
+  assert.match(baseSkill, /applies to standalone dependency PRs and autopilot runs/i);
   assert.equal(packageJson.scripts.preinstall, undefined, "do not use a late lifecycle hook for the Bun version guard");
   assert.match(autopilotSkill, /node scripts\/check-bun-version\.mjs[\s\S]*bun update --latest/i);
   assert.match(

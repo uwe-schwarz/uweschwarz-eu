@@ -22,6 +22,7 @@ In this Next.js/Bun repository, use Bun for installs and script execution, obey 
 - Confirm the repository uses Git and GitHub, and that `gh` is authenticated before attempting issue or PR creation.
 - Stop if the working tree contains unrelated user changes that would be risky to mix into the dependency branch.
 - Detect the ecosystem and package manager from tracked manifests, lockfiles, and workspace config before changing anything.
+- In this repository, before running any Bun command that inspects, resolves, or changes dependencies, run `node scripts/check-bun-version.mjs` and require it to pass. Repeat the preflight before each such command, including the direct `bun update` and `bun install` commands in the package-manager playbook. This applies to standalone dependency PRs and autopilot runs. Do not rely on package lifecycle hooks: `preinstall` runs after dependency resolution has begun.
 - Read [references/package-manager-playbook.md](references/package-manager-playbook.md) after detection and use only the relevant section.
 
 ## Workflow
