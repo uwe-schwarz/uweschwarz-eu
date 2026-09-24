@@ -16,7 +16,7 @@ This is a personal portfolio website built with **Next.js 16**, **React 19**, **
 ### Prerequisites
 
 - Node.js 24.x
-- Bun 1.4.2 or later; the install check requires a version that enforces the repository's one-day package release-age gate.
+- The exact Bun version declared by `package.json#packageManager` (currently 1.4.2). Bun 1.4.2 or later is required to enforce the repository's one-day package release-age gate.
 
 ### Installation and Running Locally
 
@@ -30,8 +30,11 @@ This is a personal portfolio website built with **Next.js 16**, **React 19**, **
 2. **Install dependencies:**
 
    ```bash
+   node scripts/check-bun-version.mjs
    bun install
    ```
+
+   Run the Node preflight before every Bun command that resolves or changes dependencies. It verifies that the installed Bun version exactly matches `packageManager` and supports the release-age gate.
 
 3. **Start the development server:**
    ```bash

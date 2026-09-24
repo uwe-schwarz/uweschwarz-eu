@@ -20,7 +20,6 @@
     "generate:cv": "bun scripts/generate-cv-assets.ts && bun scripts/generate-sitemap.ts",
     "doctor": "react-doctor --scope changed --base main --no-score --blocking warning",
     "doctor:full": "react-doctor --scope full --blocking warning",
-    "preinstall": "bun scripts/check-bun-version.mjs",
     "prepare": "husky"
   },
   "dependencies": {
