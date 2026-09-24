@@ -45,6 +45,7 @@ Use this repo-local skill for authorized end-to-end maintenance, especially the 
 - For Vercel, inspect `bunVersion`, `installCommand`, `package.json#packageManager`, lockfile format, and the actual install version in build logs as separate settings. If the platform's default Bun install ignores `packageManager`, use `installCommand` to invoke the exact pinned Bun through `npm exec` and keep the dependency install frozen.
 - Do not enumerate unrelated developer applications, transitive packages with no direct maintenance decision, or services outside this repository's build and deployment path.
 - For each surface, compare three states where they exist: the newest stable upstream release, the version or range configured and actually resolved by the repository, and the newest version the relevant platform or integration explicitly supports. Use primary release data and current tool/API capability evidence; do not assume that a broad alias such as `latest`, `1.x`, `stable`, or an unbounded action tag resolves to the newest usable release.
+- When a configured package release-age gate hides newer direct-dependency candidates from the normal package-manager report, inspect the configured registry's stable-release and publication metadata read-only; record the candidate's publication and first age-eligible times without weakening the gate or resolving/installing it early.
 - Classify every detected newer stable release as one of:
   - adopt now in this run
   - already covered by an existing open tracking issue
@@ -91,14 +92,14 @@ Use this repo-local skill for authorized end-to-end maintenance, especially the 
 ## Execution Order
 
 1. Before any Bun command that inspects, resolves, or changes dependencies, run `node scripts/check-bun-version.mjs`. It must pass before `bun outdated`, `bun update`, `bun install`, `bun add`, `bun remove`, or similar commands, and must be repeated before each such command. This compares the active Bun executable with the exact `packageManager` pin and confirms it enforces the one-day age gate. Do not rely on a `preinstall` hook: package lifecycle hooks run after dependency resolution has begun. Then inventory manifests and every applicable upgrade surface described above.
-2. Triage each newer stable release. For a candidate deferred solely until the configured `minimumReleaseAge` expires, record its package/version, publication time, and first eligible time in the run summary; do not create, reuse, or comment on an issue solely for that expected hold, and retry on the next scheduled run. Create or reuse issues for independent actionable blockers or deferred work under the base skill's rules.
+2. Triage each newer stable release. For a candidate deferred solely until the configured `minimumReleaseAge` expires, record its package/version, publication time, and first eligible time in the run summary; do not create, reuse, or comment on an issue solely for that expected hold, and retry at the next scheduled run, or at the next upgrade invocation when this is a one-off run. Create or reuse issues for independent actionable blockers or deferred work under the base skill's rules.
 3. If no repository change remains after triage, report the verified current state, any independent tracking issue URLs, and age-gated candidates with their first eligible times; do not create an empty branch or PR.
 4. Otherwise create a fresh branch before editing. Prefer `codex/deps-uweschwarz-eu-<yyyymmdd>`.
 5. Capture the pre-upgrade screenshots into the temp dir.
 6. Run `node scripts/check-bun-version.mjs` and, only if it passes, upgrade dependencies with `bun update --latest`. Run the Node preflight again immediately before `bun install`, which must follow the update before inspecting or staging the diff. The install pass must normalize any `"latest"` root specifiers written to `bun.lock`; run the base skill's no-`latest` checker afterward and stop if it fails.
 7. Check every tracked YAML workflow under `.github/workflows/` (`.yml` and `.yaml`) and bump action versions to the latest available release. Review official release notes and the workflow diff before adoption; preserve existing SHA pinning and permissions. CI validates compatibility, not upstream trust.
 8. Upgrade the remaining adoptable toolchain, runtime, build, configuration, and deployment-platform selectors; run the base skill’s release-note triage and apply required fallout fixes. Treat adoption as provisional when compatibility can only be established by testing.
-9. If an attempted upgrade is held back or reverted after testing for an independent compatibility, validation, migration, or other actionable reason, create or reuse its tracking issue before continuing. If the only hold is an unexpired configured release-age gate, record the eligibility time and retry next scheduled run without an issue.
+9. If an attempted upgrade is held back or reverted after testing for an independent compatibility, validation, migration, or other actionable reason, create or reuse its tracking issue before continuing. If the only hold is an unexpired configured release-age gate, record the eligibility time and retry at the next scheduled run without an issue, or at the next upgrade invocation when this is a one-off run.
 10. Run the repo validation set in the required order from `AGENTS.md`.
 11. Capture post-upgrade screenshots and run the compare step.
 12. Inspect the final tracked diff after all attempted upgrades, compatibility holdbacks, and reverts. If it is empty, do not commit, push, or open a PR; clean up only the empty upgrade branch and report the created or reused tracking issues.
@@ -107,7 +108,7 @@ Use this repo-local skill for authorized end-to-end maintenance, especially the 
 
 ## Release-Tracking Issue Lifecycle
 
-- Apply the base skill's issue rule to every upgrade surface above, not only packages. Create or reuse an open GitHub issue in the same run for relevant work deferred by an independent blocker or decision. A candidate waiting solely for its configured release-age gate is expected temporary state, not issue-worthy: record its package/version, publication time, and first eligible time, then retry next scheduled run.
+- Apply the base skill's issue rule to every upgrade surface above, not only packages. Create or reuse an open GitHub issue in the same run for relevant work deferred by an independent blocker or decision. A candidate waiting solely for its configured release-age gate is expected temporary state, not issue-worthy: record its package/version, publication time, and first eligible time, then retry at the next scheduled run, or at the next upgrade invocation when this is a one-off run.
 - Give every tracking issue a title containing the component, affected target release or range, and blocker class so recurring metadata-only matching is reliable. The body must record the release date when available, current configured and resolved versions, why adoption is blocked or deferred, authoritative evidence, the exact retry criterion, and which recurring check will detect that the criterion has become true.
 - Keep the repository on the highest verified compatible version while the issue is open. Do not use a floating alias merely to hide the holdback when its resolution is ambiguous or cannot be verified in the actual deployment.
 - Recheck open upgrade issues on every recurring run. Add a comment only when there is material new evidence, such as newly advertised platform support, a changed compatibility result, or a newly tested version.
@@ -135,7 +136,7 @@ Use this repo-local skill for authorized end-to-end maintenance, especially the 
   - the visual regression result summary
   - any intentionally accepted tiny visual drift with a concrete explanation
   - every created or reused issue for independently actionable deferred work
-  - any release-age-only hold with its publication time, first eligible time, and next scheduled retry; do not create an issue solely for the gate
+  - any release-age-only hold with its publication time, first eligible time, and next scheduled run or upgrade invocation; do not create an issue solely for the gate
 
 ## GitHub Babysitting
 
