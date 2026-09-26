@@ -3,85 +3,77 @@
 import Image from "next/image";
 import { useSettings } from "@/contexts/settings-hook";
 import { siteContent } from "@/content/content";
-import { UsersIcon } from "@/components/icons/users";
-import { FolderCheckIcon } from "@/components/icons/folder-check";
-import { FlaskIcon } from "@/components/icons/flask";
 
-type IconComponent = React.ComponentType<{ className?: string; size?: number }>;
-
-const iconMap: Record<string, IconComponent> = {
-  experience: UsersIcon,
-  projects: FolderCheckIcon,
-  technologies: FlaskIcon,
-};
+const DimensionLine = ({ value }: { value: string }) => (
+  <div aria-hidden="true" className="flex items-center gap-3 text-primary">
+    <span className="h-5 w-px bg-current" />
+    <span className="h-px flex-1 bg-current opacity-50" />
+    <span className="type-display text-5xl text-foreground sm:text-6xl">{value}</span>
+    <span className="h-px flex-1 bg-current opacity-50" />
+    <span className="h-5 w-px bg-current" />
+  </div>
+);
 
 const AboutSection = () => {
   const { t } = useSettings();
   const { about } = siteContent;
 
-  // Stats display (now fully from content)
-  const stats = about.stats.map((stat) => ({
-    ...stat,
-    icon: iconMap[stat.key] || UsersIcon,
-  }));
-
   return (
-    <section className="section-padding relative overflow-hidden" id="about">
-      <div className="container mx-auto">
-        <div className="mb-14 flex flex-col items-center gap-4 text-center reveal-up">
-          <h2 className="text-4xl md:text-5xl">
-            <span className="text-gradient">{t(about.title)}</span>
-          </h2>
-        </div>
+    <section className="section-space relative" id="about">
+      <div className="section-shell">
+        <div className="grid gap-x-16 gap-y-14 lg:grid-cols-12">
+          <div className="lg:col-span-5">
+            <h2 className="section-title">{t(about.title)}</h2>
 
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-5">
-          {/* Image Card */}
-          <div className="lg:col-span-2 reveal-up">
-            <div className="glass-panel h-full overflow-hidden p-2">
-              <div className="relative h-full min-h-72 overflow-hidden rounded-xl bg-linear-to-br from-primary/30 to-accent/30">
-                <Image
-                  alt={t(about.imageAlt)}
-                  className="object-cover"
-                  fill
-                  priority
-                  sizes="(min-width:1280px) 500px, (min-width:1024px) 400px, (min-width:768px) 900px, 600px"
-                  src="/about-me.webp"
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Text Card */}
-          <div className="lg:col-span-3 reveal-up">
-            <div className="glass-panel h-full space-y-6 p-7 md:p-9">
-              {about.paragraphs.map((paragraph) => (
-                <p className="text-base md:text-lg leading-relaxed" key={`${paragraph.en}-${paragraph.de}`}>
-                  {t(paragraph)}
-                </p>
-              ))}
-            </div>
-          </div>
-
-          {/* Stats */}
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 lg:col-span-5 reveal-up">
-            {stats.map((stat) => (
-              <div className="glass-panel hover-lift flex items-center gap-4 p-6" key={stat.key}>
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                  <stat.icon size={24} />
-                </div>
-                <div>
-                  <span className="block text-3xl font-bold tracking-tight">{t(stat.value)}</span>
-                  <span className="text-sm text-muted-foreground">
-                    {t(about.labels[stat.key as keyof typeof about.labels])}
-                  </span>
+            <figure className="relative mx-auto mt-14 max-w-[19rem] sm:max-w-sm lg:mx-0 lg:max-w-none">
+              <div className="print rotate-2 p-3 transition-transform duration-500 hover:rotate-0">
+                <span aria-hidden="true" className="print-tape" />
+                <div className="relative aspect-square overflow-hidden rounded-lg">
+                  <Image
+                    alt={t(about.imageAlt)}
+                    className="object-contain"
+                    fill
+                    sizes="(min-width: 1024px) 420px, 384px"
+                    src="/about-me.webp"
+                  />
                 </div>
               </div>
+              <figcaption className="redline-note absolute -bottom-10 right-0 -rotate-3 text-2xl sm:-right-6">
+                {t(about.note)}
+              </figcaption>
+            </figure>
+          </div>
+
+          <div className="space-y-6 text-lg leading-relaxed sm:text-xl lg:col-span-7 lg:pt-3">
+            {about.paragraphs.map((paragraph, index) => (
+              <p
+                className={index === 0 ? "text-foreground" : "text-muted-foreground"}
+                key={`${paragraph.en}-${paragraph.de}`}
+              >
+                {t(paragraph)}
+              </p>
             ))}
           </div>
         </div>
+
+        <dl className="mt-24 grid gap-10 sm:grid-cols-3 sm:gap-8">
+          {about.stats.map((stat) => (
+            <div className="flex flex-col-reverse gap-3" key={stat.key}>
+              <dt className="text-center text-sm font-medium text-muted-foreground">
+                {t(about.labels[stat.key as keyof typeof about.labels])}
+              </dt>
+              <dd>
+                <span className="sr-only">{t(stat.value)}</span>
+                <DimensionLine value={t(stat.value)} />
+              </dd>
+            </div>
+          ))}
+        </dl>
       </div>
     </section>
   );
 };
+
+AboutSection.displayName = "AboutSection";
 
 export default AboutSection;

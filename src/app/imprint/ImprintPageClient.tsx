@@ -1,78 +1,48 @@
 "use client";
 
-import { ArrowLeft } from "lucide-react";
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
-import { Button } from "@/components/ui/button";
+import DocumentPage from "@/components/DocumentPage";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
 import { useScrollToTop } from "@/hooks/use-scroll-to-top";
-import { Link } from "@/i18n/navigation";
 
 export default function ImprintPageClient() {
   const { t } = useSettings();
   const { imprint } = siteContent;
   useScrollToTop();
-  const homeHref = "/";
 
   return (
-    <div className="flex min-h-dvh flex-col">
-      <Header />
-      <main className="grow pb-16 pt-24">
-        <div className="container mx-auto px-4">
-          <div className="mx-auto max-w-3xl">
-            <Button asChild className="mb-6" size="sm" variant="ghost">
-              <Link href={homeHref}>
-                <ArrowLeft className="mr-2" size={16} />
-                {t(siteContent.backToHome)}
-              </Link>
-            </Button>
+    <DocumentPage title={t(imprint.title)}>
+      <section>
+        <h2>{t(imprint.contactTitle)}</h2>
+        <p>{t(imprint.companyName)}</p>
+        {imprint.representative && <p>{t(imprint.representative)}</p>}
+        <p>{t(imprint.address.street)}</p>
+        <p>{t(imprint.address.city)}</p>
+        <p>{t(imprint.address.country)}</p>
+      </section>
 
-            <h1 className="mb-8 text-3xl">{t(imprint.title)}</h1>
+      <section>
+        <h2>{t(imprint.contactInfoTitle)}</h2>
+        <p>
+          {t(imprint.emailLabel)}: <a href={`mailto:${imprint.email}`}>{imprint.email}</a>
+        </p>
+        <p>
+          {t(imprint.phoneLabel)}: <a href={`tel:${imprint.phone}`}>{imprint.phone}</a>
+        </p>
+      </section>
 
-            <div className="prose prose-lg max-w-none dark:prose-invert">
-              <section className="mb-8">
-                <h2 className="mb-4 text-2xl font-semibold">{t(imprint.contactTitle)}</h2>
-                <p>{t(imprint.companyName)}</p>
-                {imprint.representative && <p>{t(imprint.representative)}</p>}
-                <p>{t(imprint.address.street)}</p>
-                <p>{t(imprint.address.city)}</p>
-                <p>{t(imprint.address.country)}</p>
-              </section>
+      {imprint.legalTitle && (
+        <section>
+          <h2>{t(imprint.legalTitle)}</h2>
+          {imprint.vatId && <p>{t(imprint.vatId)}</p>}
+          {imprint.registrationInfo && <p>{t(imprint.registrationInfo)}</p>}
+        </section>
+      )}
 
-              <section className="mb-8">
-                <h2 className="mb-4 text-2xl font-semibold">{t(imprint.contactInfoTitle)}</h2>
-                <p>
-                  {t(imprint.emailLabel)}:{" "}
-                  <a className="text-primary" href={`mailto:${imprint.email}`}>
-                    {imprint.email}
-                  </a>
-                </p>
-                <p>
-                  {t(imprint.phoneLabel)}:{" "}
-                  <a className="text-primary" href={`tel:${imprint.phone}`}>
-                    {imprint.phone}
-                  </a>
-                </p>
-              </section>
-
-              {imprint.legalTitle && (
-                <section className="mb-8">
-                  <h2 className="mb-4 text-2xl font-semibold">{t(imprint.legalTitle)}</h2>
-                  {imprint.vatId && <p>{t(imprint.vatId)}</p>}
-                  {imprint.registrationInfo && <p>{t(imprint.registrationInfo)}</p>}
-                </section>
-              )}
-
-              <section>
-                <h2 className="mb-4 text-2xl font-semibold">{t(imprint.disclaimerTitle)}</h2>
-                <p>{t(imprint.disclaimer)}</p>
-              </section>
-            </div>
-          </div>
-        </div>
-      </main>
-      <Footer />
-    </div>
+      <section>
+        <h2>{t(imprint.disclaimerTitle)}</h2>
+        <p>{t(imprint.disclaimer)}</p>
+      </section>
+    </DocumentPage>
   );
 }

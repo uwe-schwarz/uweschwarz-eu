@@ -7,6 +7,7 @@ import { CV_ASSETS } from "@/generated/cv-assets";
 import { useScrollToTop } from "@/hooks/use-scroll-to-top";
 import { getPathname, Link } from "@/i18n/navigation";
 import { getPersistedTheme } from "@/lib/persisted-preferences";
+import { applyThemeWithTransition } from "@/lib/theme-transition";
 import { Button } from "@/components/ui/button";
 
 const CvDownloadButtons = ({ language }: { language: "en" | "de" }) => {
@@ -14,16 +15,16 @@ const CvDownloadButtons = ({ language }: { language: "en" | "de" }) => {
   const docxUrl = CV_ASSETS[language].docx;
 
   return (
-    <div className="flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-4">
-      <Button asChild className="rounded-full shadow-lg hover-scale" variant="secondary">
+    <div className="flex flex-wrap gap-2">
+      <Button asChild size="sm">
         <a download href={pdfUrl}>
-          <Download className="mr-2 h-4 w-4" />
+          <Download aria-hidden="true" />
           {language === "en" ? "Download PDF" : "PDF herunterladen"}
         </a>
       </Button>
-      <Button asChild className="rounded-full shadow-lg hover-scale" variant="secondary">
+      <Button asChild size="sm" variant="outline">
         <a download href={docxUrl}>
-          <Download className="mr-2 h-4 w-4" />
+          <Download aria-hidden="true" />
           {language === "en" ? "Download DOCX" : "DOCX herunterladen"}
         </a>
       </Button>
@@ -40,80 +41,64 @@ export default function CvPageClient() {
   const cvTitle = t({ de: "Lebenslauf", en: "Curriculum Vitae" });
 
   return (
-    <div className="flex min-h-dvh flex-col bg-background">
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+    <div className="relative isolate flex min-h-dvh flex-col">
+      <div aria-hidden="true" className="blueprint-grid pointer-events-none absolute inset-0 -z-10" />
+      <div className="section-shell pt-6">
+        <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
           <Link
-            className="flex items-center text-muted-foreground hover:text-primary/80 dark:text-primary"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-muted-foreground transition-colors hover:text-primary"
             href={homeHref}
           >
-            <ArrowLeft className="mr-2 h-4 w-4" />
+            <ArrowLeft aria-hidden="true" className="h-4 w-4" />
             <span>{t(siteContent.backToHome)}</span>
           </Link>
 
-          <div className="flex flex-col space-y-2 md:flex-row md:items-center md:space-x-4 md:space-y-0">
-            <div className="flex items-center space-x-2">
-              <Button
-                aria-label={t(
-                  theme === "light"
-                    ? siteContent.translations.themeSwitch.dark
-                    : siteContent.translations.themeSwitch.light,
-                )}
-                className="rounded-full shadow-lg hover-scale"
-                onClick={() => {
-                  const current = getPersistedTheme() ?? theme;
-                  setTheme(current === "light" ? "dark" : "light");
-                }}
-                size="sm"
-                variant="secondary"
-              >
-                {theme === "light" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
-              </Button>
+          <div className="flex flex-wrap items-center gap-2">
+            <Button
+              aria-label={t(
+                theme === "light"
+                  ? siteContent.translations.themeSwitch.dark
+                  : siteContent.translations.themeSwitch.light,
+              )}
+              onClick={(event) => {
+                const current = getPersistedTheme() ?? theme;
+                applyThemeWithTransition(current === "light" ? "dark" : "light", setTheme, event);
+              }}
+              size="icon"
+              variant="ghost"
+            >
+              {theme === "light" ? <Moon aria-hidden="true" /> : <Sun aria-hidden="true" />}
+            </Button>
 
-              <Button
-                className="rounded-full shadow-lg hover-scale"
-                onClick={() => {
-                  const nextLanguage = language === "en" ? "de" : "en";
-                  const localizedPathname = getPathname({ href: "/cv", locale: nextLanguage });
+            <Button
+              onClick={() => {
+                const nextLanguage = language === "en" ? "de" : "en";
+                const localizedPathname = getPathname({ href: "/cv", locale: nextLanguage });
 
-                  window.location.assign(`${localizedPathname}${window.location.search}${window.location.hash}`);
-                }}
-                size="sm"
-                variant="secondary"
-              >
-                <Globe className="mr-2 h-4 w-4" />
-                {language === "en" ? "Deutsch" : "English"}
-              </Button>
-            </div>
+                window.location.assign(`${localizedPathname}${window.location.search}${window.location.hash}`);
+              }}
+              size="sm"
+              variant="ghost"
+            >
+              <Globe aria-hidden="true" />
+              {language === "en" ? "Deutsch" : "English"}
+            </Button>
 
             <CvDownloadButtons language={language} />
           </div>
         </div>
       </div>
 
-      <div className="relative flex grow flex-col overflow-hidden bg-muted/40 px-4 py-8 md:px-8">
-        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-aurora opacity-70" />
-        <div className="mb-8">
-          <h1 className="font-display text-4xl md:text-5xl">
-            <span className="text-gradient">{cvTitle}</span>
-          </h1>
-        </div>
+      <div className="section-shell flex grow flex-col pb-10 pt-12">
+        <h1 className="text-5xl sm:text-6xl">{cvTitle}</h1>
 
-        <div className="grid grow grid-cols-1 gap-12 lg:grid-cols-8">
-          <div className="flex min-h-[500px] flex-col lg:col-span-6 lg:col-start-2">
-            <div className="glass-panel relative flex grow flex-col overflow-hidden p-3 sm:p-5">
-              <div
-                aria-hidden="true"
-                className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-primary/60 to-accent/60"
-              />
-              <iframe
-                className="mx-auto h-full min-h-[500px] w-full max-w-[796px] grow border-0 bg-white shadow-lg"
-                key={language}
-                src={`${pdfUrl}#zoom=100&view=FitH&pagemode=none&toolbar=0`}
-                title={cvTitle}
-              />
-            </div>
-          </div>
+        <div className="print mt-10 flex grow flex-col p-3 sm:p-5">
+          <iframe
+            className="mx-auto h-full min-h-[70vh] w-full max-w-[796px] grow rounded-md border-0 bg-white"
+            key={language}
+            src={`${pdfUrl}#zoom=100&view=FitH&pagemode=none&toolbar=0`}
+            title={cvTitle}
+          />
         </div>
       </div>
     </div>

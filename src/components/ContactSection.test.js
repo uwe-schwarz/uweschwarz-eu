@@ -27,6 +27,6 @@ describe("ContactSection", () => {
 
   test("exports brand icons as named component declarations", () => {
     expect(brandIconsSource).not.toContain("createBrandIcon");
-    expect(brandIconsSource.match(/^export function \w+Icon\(/gm)).toHaveLength(16);
+    expect(brandIconsSource.match(/^export function \w+Icon\(/gm)).toHaveLength(17);
   });
 });

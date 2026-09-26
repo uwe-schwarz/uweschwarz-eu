@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
-import type { RefObject } from "react";
+import type { MouseEvent, RefObject } from "react";
 import dynamic from "next/dynamic";
 import { Moon, Sun } from "lucide-react";
 import { useSettings } from "@/contexts/settings-hook";
@@ -10,10 +10,14 @@ import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { getPathname, Link, usePathname } from "@/i18n/navigation";
 import { getPersistedTheme } from "@/lib/persisted-preferences";
+import { applyThemeWithTransition } from "@/lib/theme-transition";
 
 const MobileMenuSheet = dynamic(() => import("@/components/MobileMenuSheet"), {
   ssr: false,
 });
+
+const CONTACT_HREF = "#contact";
+const COMPACT_NAV_BREAKPOINT = 1024;
 
 const getScrolledSnapshot = () => (typeof window !== "undefined" ? window.scrollY > 10 : false);
 const getServerScrolledSnapshot = () => false;
@@ -130,7 +134,7 @@ const NavLiquidGlassFilter = ({ glassMapRef }: { glassMapRef: RefObject<SVGFEIma
 const Header = () => {
   const { language, setTheme, t, theme } = useSettings();
   const isScrolled = useSyncExternalStore(subscribeToScroll, getScrolledSnapshot, getServerScrolledSnapshot);
-  const isMobile = useIsMobile();
+  const isCompact = useIsMobile(COMPACT_NAV_BREAKPOINT);
   const pathname = usePathname();
   const navRef = useRef<HTMLDivElement | null>(null);
   const glassMapRef = useRef<SVGFEImageElement | null>(null);
@@ -140,14 +144,18 @@ const Header = () => {
   useNavGlassMap(navRef, glassMapRef);
 
   const navigationItems = siteContent.navigation;
+  const linkItems = useMemo(() => navigationItems.filter((item) => item.href !== CONTACT_HREF), [navigationItems]);
+  const contactItem = navigationItems.find((item) => item.href === CONTACT_HREF);
   const sectionIds = useMemo(() => navigationItems.map((item) => item.href.replace("#", "")), [navigationItems]);
-  const [activeSection, setActiveSection] = useState<string>(sectionIds[0] ?? "hero");
+  const [activeSection, setActiveSection] = useState<string>("");
 
-  // Toggle for handling theme changes
-  const toggleTheme = useCallback(() => {
-    const current = getPersistedTheme() ?? theme;
-    setTheme(current === "light" ? "dark" : "light");
-  }, [setTheme, theme]);
+  const toggleTheme = useCallback(
+    (event?: MouseEvent<HTMLElement>) => {
+      const current = getPersistedTheme() ?? theme;
+      applyThemeWithTransition(current === "light" ? "dark" : "light", setTheme, event);
+    },
+    [setTheme, theme],
+  );
 
   // Toggle for handling language changes
   const toggleLanguage = useCallback(() => {
@@ -164,7 +172,7 @@ const Header = () => {
 
     if (typeof IntersectionObserver === "undefined") {
       const updateActiveSectionFromScroll = () => {
-        let nextActive = sectionIds[0];
+        let nextActive = "";
 
         for (const id of sectionIds) {
           const section = document.getElementById(id);
@@ -198,7 +206,7 @@ const Header = () => {
           }
         }
 
-        let nextActiveSection = sectionIds[0];
+        let nextActiveSection = "";
         let maxRatio = -1;
 
         for (const sectionId of sectionIds) {
@@ -209,9 +217,7 @@ const Header = () => {
           }
         }
 
-        if (maxRatio >= 0) {
-          setActiveSection((previous) => (previous === nextActiveSection ? previous : nextActiveSection));
-        }
+        setActiveSection((previous) => (previous === nextActiveSection ? previous : nextActiveSection));
       },
       {
         rootMargin: "-80px 0px -50% 0px",
@@ -229,95 +235,110 @@ const Header = () => {
     return () => observer.disconnect();
   }, [isHomePage, sectionIds]);
 
+  const themeLabel = t(
+    theme === "light" ? siteContent.translations.themeSwitch.dark : siteContent.translations.themeSwitch.light,
+  );
+
   return (
-    <>
-      <header
-        className={`fixed top-0 left-0 right-0 z-50 px-3 pt-3 sm:px-4 sm:pt-4${isScrolled ? " nav-glass-on" : ""}`}
+    <header className={`fixed top-0 left-0 right-0 z-50 px-3 pt-3 sm:px-4 sm:pt-4${isScrolled ? " nav-glass-on" : ""}`}>
+      <div
+        className="liquid-glass-nav mx-auto flex max-w-7xl items-center justify-between gap-4 py-2 pl-2.5 pr-2 sm:pl-3"
+        ref={navRef}
       >
-        <div
-          className="liquid-glass-nav container mx-auto flex items-center justify-between gap-4 px-4 py-2.5 sm:px-6"
-          ref={navRef}
-        >
-          <Link className="font-display font-bold text-foreground" href={homeHref}>
-            <span className="text-gradient text-2xl sm:text-3xl">Uwe Schwarz</span>
-          </Link>
+        <Link className="group flex items-center gap-2.5 rounded-full pr-2 text-foreground" href={homeHref}>
+          <span
+            aria-hidden="true"
+            className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-[0.8rem] font-bold tracking-tight text-primary-foreground transition-transform duration-300 group-hover:-rotate-6"
+          >
+            US
+          </span>
+          <span className="type-heading text-base sm:text-lg">Uwe Schwarz</span>
+        </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-1">
-            {navigationItems.map((item) => {
-              const hash = item.href.replace("#", "");
-              const isActive = isHomePage && activeSection === hash;
-              const itemClassName = `rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors lg:px-4 lg:text-base ${
-                isActive ? "bg-primary/15 text-primary" : "text-foreground/80 hover:bg-muted/80 hover:text-foreground"
-              }`;
+        {/* Desktop Navigation */}
+        <nav className="hidden items-center gap-0.5 lg:flex">
+          {linkItems.map((item) => {
+            const hash = item.href.replace("#", "");
+            const isActive = isHomePage && activeSection === hash;
+            const itemClassName = `rounded-full px-3.5 py-2 text-sm font-medium transition-colors ${
+              isActive ? "bg-foreground/[0.07] text-foreground" : "text-muted-foreground hover:text-foreground"
+            }`;
 
-              if (isHomePage) {
-                return (
-                  <a
-                    aria-current={isActive ? "page" : undefined}
-                    className={itemClassName}
-                    href={item.href}
-                    key={item.href}
-                  >
-                    {t(item.label)}
-                  </a>
-                );
-              }
-
+            if (isHomePage) {
               return (
-                <Link
+                <a
                   aria-current={isActive ? "page" : undefined}
                   className={itemClassName}
-                  href={`${homeHref}${item.href}`}
+                  href={item.href}
                   key={item.href}
                 >
                   {t(item.label)}
-                </Link>
+                </a>
               );
+            }
+
+            return (
+              <Link
+                aria-current={isActive ? "page" : undefined}
+                className={itemClassName}
+                href={`${homeHref}${item.href}`}
+                key={item.href}
+              >
+                {t(item.label)}
+              </Link>
+            );
+          })}
+        </nav>
+
+        {/* Control Buttons */}
+        <div className="hidden items-center gap-1 lg:flex">
+          <Button
+            aria-label={t({
+              de: "Sprache auf Englisch umstellen",
+              en: "Switch language to Deutsch",
             })}
-          </nav>
+            className="font-semibold text-muted-foreground hover:text-foreground"
+            onClick={toggleLanguage}
+            size="sm"
+            variant="ghost"
+          >
+            {language === "en" ? "DE" : "EN"}
+          </Button>
 
-          {/* Control Buttons */}
-          <div className="hidden md:flex items-center gap-1">
-            {/* Language Toggle */}
-            <Button className="rounded-full" onClick={toggleLanguage} size="sm" variant="ghost">
-              {language === "en" ? "DE" : "EN"}
+          <Button
+            aria-label={themeLabel}
+            className="text-muted-foreground hover:text-foreground"
+            onClick={toggleTheme}
+            size="icon"
+            variant="ghost"
+          >
+            {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
+          </Button>
+
+          {contactItem && (
+            <Button asChild className="ml-1" size="sm">
+              <a href={isHomePage ? contactItem.href : `/${language}${contactItem.href}`}>{t(contactItem.label)}</a>
             </Button>
-
-            {/* Theme Toggle */}
-            <Button
-              aria-label={t(
-                theme === "light"
-                  ? siteContent.translations.themeSwitch.dark
-                  : siteContent.translations.themeSwitch.light,
-              )}
-              className="rounded-full"
-              onClick={toggleTheme}
-              size="icon"
-              variant="ghost"
-            >
-              {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
-            </Button>
-          </div>
-
-          {/* Mobile Menu */}
-          {isMobile && (
-            <MobileMenuSheet
-              activeSection={activeSection}
-              homeHref={homeHref}
-              isHomePage={isHomePage}
-              language={language}
-              navigationItems={navigationItems}
-              onToggleLanguage={toggleLanguage}
-              onToggleTheme={toggleTheme}
-              t={t}
-              theme={theme}
-            />
           )}
-          <NavLiquidGlassFilter glassMapRef={glassMapRef} />
         </div>
-      </header>
-    </>
+
+        {/* Mobile Menu */}
+        {isCompact && (
+          <MobileMenuSheet
+            activeSection={activeSection}
+            homeHref={homeHref}
+            isHomePage={isHomePage}
+            language={language}
+            navigationItems={navigationItems}
+            onToggleLanguage={toggleLanguage}
+            onToggleTheme={toggleTheme}
+            t={t}
+            theme={theme}
+          />
+        )}
+        <NavLiquidGlassFilter glassMapRef={glassMapRef} />
+      </div>
+    </header>
   );
 };
 

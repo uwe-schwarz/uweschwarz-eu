@@ -5,70 +5,97 @@
   navigation: auto;
 }
 
+/*
+  Blueprint & Redline
+  Light mode is a whiteprint (cobalt ink on cool paper), dark mode is a real
+  blueprint (chalk lines on prussian blue). The redline orange is reserved for
+  hand-drawn annotations and the few moments that need a second voice.
+*/
 @layer base {
   :root {
-    hyphens: auto;
-    --radius: 1rem;
+    hyphens: manual;
+    --radius: 0.875rem;
 
-    /* Light theme */
-    --background: 220 33% 97%;
-    --foreground: 228 30% 8%;
+    --background: #f3f5fa;
+    --foreground: #0c1733;
 
-    --card: 0 0% 100%;
-    --card-foreground: 228 30% 8%;
+    --card: #ffffff;
+    --card-foreground: #0c1733;
 
-    --popover: 220 33% 99%;
-    --popover-foreground: 228 30% 8%;
+    --popover: #ffffff;
+    --popover-foreground: #0c1733;
 
-    --primary: 158 68% 27%;
-    --primary-foreground: 0 0% 98%;
+    --primary: #2346d6;
+    --primary-foreground: #ffffff;
 
-    --secondary: 220 24% 91%;
-    --secondary-foreground: 228 30% 10%;
+    --secondary: #e6ebf6;
+    --secondary-foreground: #0c1733;
 
-    --muted: 220 24% 92%;
-    --muted-foreground: 226 14% 38%;
+    --muted: #e9edf6;
+    --muted-foreground: #525e7a;
 
-    --accent: 259 62% 46%;
-    --accent-foreground: 0 0% 98%;
+    --accent: #e3e9fb;
+    --accent-foreground: #1a36a8;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: #b42318;
+    --destructive-foreground: #ffffff;
 
-    --border: 224 18% 87%;
-    --input: 224 18% 87%;
-    --ring: 158 60% 35%;
+    --border: #d6dcea;
+    --input: #c9d1e3;
+    --ring: #2346d6;
+
+    --redline: #c73a10;
+    --redline-foreground: #ffffff;
+
+    /* Prints are the paper sheets pinned onto the plan; they stay light. */
+    --print: #ffffff;
+    --print-ink: #0c1733;
+
+    --grid-minor: rgb(35 70 214 / 0.055);
+    --grid-major: rgb(35 70 214 / 0.09);
+    --beam: #2346d6;
+    --shadow-color: 222 60% 20%;
   }
 
   .dark {
-    /* Dark theme */
-    --background: 230 26% 7%;
-    --foreground: 220 30% 96%;
+    --background: #0a1530;
+    --foreground: #e9eefb;
 
-    --card: 229 24% 10%;
-    --card-foreground: 220 30% 96%;
+    --card: #0f1d3f;
+    --card-foreground: #e9eefb;
 
-    --popover: 230 26% 8%;
-    --popover-foreground: 220 30% 96%;
+    --popover: #0f1d3f;
+    --popover-foreground: #e9eefb;
 
-    --primary: 158 62% 64%;
-    --primary-foreground: 160 60% 8%;
+    --primary: #8eaeff;
+    --primary-foreground: #0a1530;
 
-    --secondary: 228 20% 16%;
-    --secondary-foreground: 220 30% 96%;
+    --secondary: #16264d;
+    --secondary-foreground: #e9eefb;
 
-    --muted: 228 20% 15%;
-    --muted-foreground: 222 14% 68%;
+    --muted: #13234a;
+    --muted-foreground: #9daacb;
 
-    --accent: 261 84% 76%;
-    --accent-foreground: 262 45% 12%;
+    --accent: #1a2c58;
+    --accent-foreground: #c9d7ff;
 
-    --destructive: 0 93.5% 81.8%;
-    --destructive-foreground: 222.2 47.4% 11.2%;
+    --destructive: #ff8a80;
+    --destructive-foreground: #0a1530;
 
-    --border: 228 18% 17%;
-    --input: 228 18% 17%;
-    --ring: 158 55% 45%;
+    --border: #1f3160;
+    --input: #2a3d70;
+    --ring: #8eaeff;
+
+    --redline: #ff7a48;
+    --redline-foreground: #0a1530;
+
+    --print: #eef2fb;
+    --print-ink: #0c1733;
+
+    --grid-minor: rgb(190 210 255 / 0.05);
+    --grid-major: rgb(190 210 255 / 0.085);
+    --beam: #8eaeff;
+    --shadow-color: 225 70% 3%;
   }
 
   * {
@@ -77,63 +104,149 @@
 
   html {
     @apply scroll-smooth;
+    color-scheme: light;
+  }
+
+  html.dark {
+    color-scheme: dark;
+  }
+
+  /* German compounds need hyphenation; English reads better ragged. */
+  html:lang(de) {
+    hyphens: auto;
   }
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "ss01", "ss02";
+    text-rendering: optimizeLegibility;
   }
 
   h1,
-  h2,
+  h2 {
+    @apply type-display text-balance;
+  }
+
   h3,
   h4,
   h5,
   h6 {
-    @apply font-display font-medium tracking-tight;
+    @apply type-heading text-balance;
   }
 
   ::selection {
-    @apply bg-primary/25;
+    background: color-mix(in oklab, var(--redline) 28%, transparent);
   }
 
-  .section-padding {
-    @apply py-20 px-4 sm:py-28 sm:px-8 lg:px-16;
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
   }
+}
 
-  /* Small uppercase label above section headings */
-  .section-eyebrow {
-    @apply inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-3.5 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-primary;
-  }
+/* Expanded, heavy headline voice */
+@utility type-display {
+  font-family: var(--font-mona-sans), ui-sans-serif, system-ui, sans-serif;
+  font-variation-settings: "wdth" 125;
+  font-weight: 780;
+  letter-spacing: -0.035em;
+  line-height: 0.98;
+}
 
-  /* Custom animations and transitions */
-  .hover-scale {
-    @apply transition-transform duration-300 hover:scale-[1.02];
-  }
+/* Card and list headings: slightly expanded, calmer */
+@utility type-heading {
+  font-family: var(--font-mona-sans), ui-sans-serif, system-ui, sans-serif;
+  font-variation-settings: "wdth" 110;
+  font-weight: 680;
+  letter-spacing: -0.018em;
+  line-height: 1.15;
+}
 
-  .hover-lift {
-    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/10;
-  }
+/* Hand-drawn redline notes */
+@utility redline-note {
+  font-family: var(--font-caveat), "Comic Sans MS", cursive;
+  font-weight: 600;
+  color: var(--redline);
+  line-height: 1.05;
+  letter-spacing: 0;
+  hyphens: none;
+}
 
-  .link-underline {
-    @apply relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full;
-  }
+@utility section-shell {
+  @apply relative mx-auto w-full max-w-7xl px-4 sm:px-8 lg:px-12;
+}
 
-  .link-underline-active {
-    @apply after:w-full;
-  }
+@utility section-space {
+  @apply py-20 sm:py-28 lg:py-32;
+}
 
-  .card-glass {
-    @apply bg-white/10 backdrop-blur-md border border-white/20 dark:bg-gray-900/30 dark:border-gray-700/30;
-  }
+@utility section-title {
+  @apply type-display text-[2.3rem] sm:text-6xl lg:text-7xl;
+  hyphens: manual;
 
-  /* Frosted panel used for cards throughout the redesign */
-  .glass-panel {
-    @apply rounded-2xl border border-border/70 bg-card/90 shadow-lg shadow-black/[0.04] dark:bg-card/80 dark:shadow-black/20;
+  /* Narrower cut on phones so long German compounds stay on one line */
+  @media (width < 40rem) {
+    font-variation-settings: "wdth" 108;
   }
+}
 
-  .text-gradient {
-    @apply bg-linear-to-r from-primary via-primary to-accent bg-clip-text text-transparent;
+@utility section-lede {
+  @apply mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl;
+}
+
+/* Drafting sheet: the base surface for cards on the plan */
+@utility sheet {
+  @apply rounded-2xl border border-border bg-card;
+  box-shadow:
+    0 1px 0 hsl(var(--shadow-color) / 0.04),
+    0 12px 32px -18px hsl(var(--shadow-color) / 0.35);
+}
+
+/* Paper print pinned onto the plan; stays light in dark mode */
+@utility print {
+  @apply relative rounded-xl;
+  background: var(--print);
+  color: var(--print-ink);
+  box-shadow:
+    0 1px 0 hsl(var(--shadow-color) / 0.06),
+    0 18px 40px -22px hsl(var(--shadow-color) / 0.55);
+}
+
+@utility print-tape {
+  @apply pointer-events-none absolute left-1/2 -top-3 h-6 w-24 -translate-x-1/2 -rotate-2 rounded-sm;
+  background: color-mix(in oklab, var(--redline) 22%, transparent);
+}
+
+@utility link-quiet {
+  @apply underline decoration-transparent decoration-2 underline-offset-4 transition-colors;
+
+  &:hover {
+    text-decoration-color: color-mix(in oklab, currentColor 55%, transparent);
   }
+}
+
+@utility chip {
+  @apply inline-flex items-center rounded-md border border-border bg-background/70 px-2 py-0.5 text-xs font-medium text-muted-foreground;
+}
+
+/* Blueprint grid behind the whole plan */
+.blueprint-grid {
+  background-image:
+    linear-gradient(to right, var(--grid-major) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-major) 1px, transparent 1px),
+    linear-gradient(to right, var(--grid-minor) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-minor) 1px, transparent 1px);
+  background-size:
+    120px 120px,
+    120px 120px,
+    24px 24px,
+    24px 24px;
+  background-position: -1px -1px;
+}
+
+/* Soft vignette so the grid fades out at the hero edges */
+.blueprint-fade {
+  mask-image: radial-gradient(ellipse 80% 70% at 60% 40%, black 30%, transparent 100%);
 }
 
 /* Liquid-glass top navigation pill. The SVG filter (#nav-liquid-glass)
@@ -157,100 +270,109 @@
 }
 
 .nav-glass-on .liquid-glass-nav {
-  border-color: rgb(21 20 15 / 0.08);
-  background: rgb(255 255 255 / 0.42);
+  border-color: rgb(12 23 51 / 0.08);
+  background: rgb(255 255 255 / 0.55);
   -webkit-backdrop-filter: blur(12px) saturate(1.4);
   backdrop-filter: blur(12px) saturate(1.4);
   backdrop-filter: url(#nav-liquid-glass) blur(7px) saturate(1.4);
   box-shadow:
-    inset 0 0 2px 1px rgb(255 255 255 / 0.55),
-    inset 0 0 10px 4px rgb(255 255 255 / 0.22),
-    0 6px 24px rgb(17 17 26 / 0.06),
-    0 12px 40px rgb(17 17 26 / 0.05);
+    inset 0 0 2px 1px rgb(255 255 255 / 0.6),
+    inset 0 0 10px 4px rgb(255 255 255 / 0.25),
+    0 6px 24px rgb(12 23 51 / 0.07),
+    0 12px 40px rgb(12 23 51 / 0.05);
 }
 
 .dark .nav-glass-on .liquid-glass-nav {
-  border-color: rgb(255 255 255 / 0.1);
-  background: rgb(20 20 20 / 0.42);
+  border-color: rgb(190 210 255 / 0.12);
+  background: rgb(10 21 48 / 0.55);
   box-shadow:
-    inset 0 0 2px 1px rgb(255 255 255 / 0.12),
-    inset 0 0 10px 4px rgb(255 255 255 / 0.05),
-    0 6px 24px rgb(0 0 0 / 0.28),
-    0 12px 40px rgb(0 0 0 / 0.22);
+    inset 0 0 2px 1px rgb(190 210 255 / 0.12),
+    inset 0 0 10px 4px rgb(190 210 255 / 0.05),
+    0 6px 24px rgb(0 0 0 / 0.3),
+    0 12px 40px rgb(0 0 0 / 0.24);
 }
 
-/* Grid pattern background, faded out towards the bottom */
-.bg-grid {
-  background-size: 44px 44px;
-  background-image:
-    linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
-  mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
+/* Status light used for availability */
+.status-light {
+  position: relative;
+  display: inline-flex;
+  height: 0.625rem;
+  width: 0.625rem;
+  border-radius: 9999px;
+  background: #16a34a;
+  box-shadow: 0 0 0 3px rgb(22 163 74 / 0.18);
 }
 
-.dark .bg-grid {
-  background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+.dark .status-light {
+  background: #4ade80;
+  box-shadow: 0 0 0 3px rgb(74 222 128 / 0.18);
 }
 
-/* Reusable aurora glow for standalone surfaces such as the hero and CV */
-.bg-aurora {
-  background-image:
-    radial-gradient(38rem 24rem at 12% 0%, hsl(var(--primary) / 0.14), transparent 65%),
-    radial-gradient(34rem 22rem at 88% 18%, hsl(var(--accent) / 0.12), transparent 65%);
-}
-
-/* Continuous aurora field behind the complete homepage */
-.site-aurora-background {
+.status-light::after {
+  content: "";
   position: absolute;
   inset: 0;
-  z-index: -2;
-  background-image:
-    radial-gradient(52rem 36rem at 10% 8%, hsl(var(--primary) / 0.17), transparent 68%),
-    radial-gradient(46rem 32rem at 90% 18%, hsl(var(--accent) / 0.15), transparent 68%),
-    radial-gradient(48rem 34rem at 14% 34%, hsl(var(--accent) / 0.13), transparent 68%),
-    radial-gradient(54rem 38rem at 88% 48%, hsl(var(--primary) / 0.16), transparent 68%),
-    radial-gradient(50rem 34rem at 12% 64%, hsl(var(--primary) / 0.15), transparent 68%),
-    radial-gradient(48rem 36rem at 90% 78%, hsl(var(--accent) / 0.14), transparent 68%),
-    radial-gradient(54rem 38rem at 16% 94%, hsl(var(--primary) / 0.15), transparent 68%);
+  border-radius: inherit;
+  background: inherit;
+  animation: status-ping 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
-.site-aurora-veil {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: hsl(var(--background) / 0.12);
-}
-
-/* Muted section surface that blends into adjacent aurora sections */
-.section-muted-blend {
-  background-image: linear-gradient(
-    to bottom,
-    transparent,
-    hsl(var(--muted) / 0.4) 12%,
-    hsl(var(--muted) / 0.4) 88%,
-    transparent
-  );
-}
-
-/* Scroll-driven reveal (progressive enhancement, no JS) */
-@supports (animation-timeline: view()) {
-  .reveal-up {
-    animation: reveal-up-keyframes both;
-    animation-timeline: view();
-    animation-range: entry 0% entry 45%;
+@keyframes status-ping {
+  75%,
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
   }
 }
 
-@keyframes reveal-up-keyframes {
+/* Hero entrance: the one orchestrated page-load moment */
+.hero-enter {
+  animation: hero-enter 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: calc(var(--enter-step, 0) * 90ms);
+}
+
+@keyframes hero-enter {
   from {
     opacity: 0;
-    transform: translateY(28px);
+    transform: translateY(18px);
+    filter: blur(6px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* Hand-drawn stroke that draws itself once */
+.draw-stroke {
+  stroke-dasharray: var(--stroke-length, 400);
+  stroke-dashoffset: var(--stroke-length, 400);
+  animation: draw-stroke 1.1s 0.9s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+@keyframes draw-stroke {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Theme switch: a circular wipe that starts at the toggle */
+html.theme-transition::view-transition-old(root) {
+  animation: none;
+}
+
+html.theme-transition::view-transition-new(root) {
+  animation: theme-wipe 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+  mix-blend-mode: normal;
+}
+
+@keyframes theme-wipe {
+  from {
+    clip-path: circle(0 at var(--theme-x, 100%) var(--theme-y, 0%));
+  }
+  to {
+    clip-path: circle(150% at var(--theme-x, 100%) var(--theme-y, 0%));
   }
 }
 
@@ -292,68 +414,11 @@
 
 /* Code syntax highlighting */
 code {
-  @apply bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-sm;
+  @apply rounded bg-muted px-1 py-0.5 font-mono text-sm;
 }
 
 pre {
-  @apply bg-gray-100 dark:bg-gray-800 p-4 rounded-lg overflow-x-auto text-sm my-4;
-}
-
-/* Keyframes for background element movement */
-@keyframes move-bg-1 {
-  0%,
-  100% {
-    top: 5%;
-    left: 75%;
-    transform: scale(1) rotate(0deg);
-    opacity: 0.2;
-  }
-  25% {
-    top: 60%;
-    left: 10%;
-    transform: scale(1.1) rotate(15deg);
-    opacity: 0.3;
-  }
-  50% {
-    top: 40%;
-    left: 85%;
-    transform: scale(0.9) rotate(-10deg);
-    opacity: 0.25;
-  }
-  75% {
-    top: 80%;
-    left: 30%;
-    transform: scale(1.05) rotate(5deg);
-    opacity: 0.35;
-  }
-}
-
-@keyframes move-bg-2 {
-  0%,
-  100% {
-    top: 70%;
-    left: 20%;
-    transform: scale(1) rotate(0deg);
-    opacity: 0.2;
-  }
-  25% {
-    top: 15%;
-    left: 65%;
-    transform: scale(0.95) rotate(-12deg);
-    opacity: 0.3;
-  }
-  50% {
-    top: 50%;
-    left: 5%;
-    transform: scale(1.15) rotate(8deg);
-    opacity: 0.25;
-  }
-  75% {
-    top: 85%;
-    left: 80%;
-    transform: scale(1) rotate(-5deg);
-    opacity: 0.35;
-  }
+  @apply my-4 overflow-x-auto rounded-lg bg-muted p-4 text-sm;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -367,10 +432,11 @@ pre {
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
     transition-duration: 0.01ms !important;
   }
 
-  .reveal-up {
-    animation: none;
+  .draw-stroke {
+    stroke-dashoffset: 0;
   }
 }

@@ -1,34 +1,25 @@
 "use client";
 
-import React, { useState } from "react";
-import { Bot, Briefcase, Languages, Network, ShieldCheck, Wrench } from "lucide-react";
+import type { ComponentType } from "react";
+import { Bot, DraftingCompass, Languages, Network, ShieldCheck, Wrench } from "lucide-react";
 import { siteContent } from "@/content/content";
 import { skillsWithIcons, type SkillWithIcon } from "@/content/skills-with-icons";
 import { useSettings } from "@/contexts/settings-hook";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { cn } from "@/lib/utils";
 
-type TabValue = "management" | "languages" | "security" | "ai" | "infrastructure" | "tools";
-interface SkillsTabIds {
-  panelId: string;
-  triggerId: string;
-}
+type SkillCategory = SkillWithIcon["category"];
 
-const createSkillsTabIds = (value: TabValue): SkillsTabIds => ({
-  panelId: `skills-panel-${value}`,
-  triggerId: `skills-trigger-${value}`,
-});
+const CATEGORY_ORDER: Array<SkillCategory> = ["management", "security", "ai", "infrastructure", "tools", "languages"];
 
-const skillsTabIds: Record<TabValue, SkillsTabIds> = {
-  ai: createSkillsTabIds("ai"),
-  infrastructure: createSkillsTabIds("infrastructure"),
-  languages: createSkillsTabIds("languages"),
-  management: createSkillsTabIds("management"),
-  security: createSkillsTabIds("security"),
-  tools: createSkillsTabIds("tools"),
+const CATEGORY_ICONS: Record<SkillCategory, ComponentType<{ "aria-hidden"?: boolean | "true"; className?: string }>> = {
+  ai: Bot,
+  infrastructure: Network,
+  languages: Languages,
+  management: DraftingCompass,
+  security: ShieldCheck,
+  tools: Wrench,
 };
 
-const skillsByCategory = skillsWithIcons.reduce<Record<TabValue, Array<SkillWithIcon>>>(
+const skillsByCategory = skillsWithIcons.reduce<Record<SkillCategory, Array<SkillWithIcon>>>(
   (accumulator, skill) => {
     accumulator[skill.category].push(skill);
     return accumulator;
@@ -43,187 +34,72 @@ const skillsByCategory = skillsWithIcons.reduce<Record<TabValue, Array<SkillWith
   },
 );
 
+const LevelMeter = ({ label, level }: { label: string; level: number }) => (
+  <span aria-label={label} className="flex shrink-0 gap-0.5" role="img">
+    {Array.from({ length: 5 }, (_, index) => index + 1).map((step) => (
+      <span className={`h-1.5 w-2.5 rounded-full ${step <= level ? "bg-primary" : "bg-foreground/12"}`} key={step} />
+    ))}
+  </span>
+);
+
 const SkillsSection = () => {
   const { t } = useSettings();
-  const { skillsSection } = siteContent;
-  const [activeTab, setActiveTab] = useState<TabValue>("management");
+  const { skillsSection, webSections } = siteContent;
 
   return (
-    <section className="section-padding relative" id="skills">
-      <div className="container mx-auto">
-        <div className="mb-14 flex flex-col items-center gap-4 text-center reveal-up">
-          <h2 className="text-4xl md:text-5xl">
-            <span className="text-gradient">{t(skillsSection.title)}</span>
-          </h2>
-          <p className="max-w-2xl text-lg text-muted-foreground">{t(skillsSection.subtitle)}</p>
-        </div>
+    <section className="section-space relative" id="skills">
+      <div className="section-shell">
+        <header className="max-w-3xl">
+          <h2 className="section-title">{t(webSections.skills.headline)}</h2>
+          <p className="section-lede">{t(skillsSection.subtitle)}</p>
+        </header>
 
-        <div className="max-w-4xl mx-auto reveal-up">
-          <Tabs className="w-full" onValueChange={(value) => setActiveTab(value as TabValue)} value={activeTab}>
-            <div className="flex justify-center mb-8">
-              <TabsList className="flex-nowrap h-12 md:h-auto">
-                <TabsTrigger
-                  aria-controls={skillsTabIds.management.panelId}
-                  aria-label={t(skillsSection.categories.management)}
-                  className="gap-2 text-lg md:flex-col md:gap-1 md:text-sm xl:flex-row xl:gap-2 xl:text-base"
-                  id={skillsTabIds.management.triggerId}
-                  name={t(skillsSection.categories.management)}
-                  value="management"
-                >
-                  <Briefcase className="w-5 h-5" />
-                  <span className="hidden md:block">{t(skillsSection.categories.management)}</span>
-                </TabsTrigger>
-                <TabsTrigger
-                  aria-controls={skillsTabIds.languages.panelId}
-                  aria-label={t(skillsSection.categories.languages)}
-                  className="gap-2 text-lg md:flex-col md:gap-1 md:text-sm xl:flex-row xl:gap-2 xl:text-base"
-                  id={skillsTabIds.languages.triggerId}
-                  name={t(skillsSection.categories.languages)}
-                  value="languages"
-                >
-                  <Languages className="w-5 h-5" />
-                  <span className="hidden md:block">{t(skillsSection.categories.languages)}</span>
-                </TabsTrigger>
-                <TabsTrigger
-                  aria-controls={skillsTabIds.security.panelId}
-                  aria-label={t(skillsSection.categories.security)}
-                  className="gap-2 text-lg md:flex-col md:gap-1 md:text-sm xl:flex-row xl:gap-2 xl:text-base"
-                  id={skillsTabIds.security.triggerId}
-                  name={t(skillsSection.categories.security)}
-                  value="security"
-                >
-                  <ShieldCheck className="w-5 h-5" />
-                  <span className="hidden md:block">{t(skillsSection.categories.security)}</span>
-                </TabsTrigger>
-                <TabsTrigger
-                  aria-controls={skillsTabIds.ai.panelId}
-                  aria-label={t(skillsSection.categories.ai)}
-                  className="gap-2 text-lg md:flex-col md:gap-1 md:text-sm xl:flex-row xl:gap-2 xl:text-base"
-                  id={skillsTabIds.ai.triggerId}
-                  name={t(skillsSection.categories.ai)}
-                  value="ai"
-                >
-                  <Bot className="w-5 h-5" />
-                  <span className="hidden md:block">{t(skillsSection.categories.ai)}</span>
-                </TabsTrigger>
-                <TabsTrigger
-                  aria-controls={skillsTabIds.infrastructure.panelId}
-                  aria-label={t(skillsSection.categories.infrastructure)}
-                  className="gap-2 text-lg md:flex-col md:gap-1 md:text-sm xl:flex-row xl:gap-2 xl:text-base"
-                  id={skillsTabIds.infrastructure.triggerId}
-                  name={t(skillsSection.categories.infrastructure)}
-                  value="infrastructure"
-                >
-                  <Network className="w-5 h-5" />
-                  <span className="hidden md:block">{t(skillsSection.categories.infrastructure)}</span>
-                </TabsTrigger>
-                <TabsTrigger
-                  aria-controls={skillsTabIds.tools.panelId}
-                  aria-label={t(skillsSection.categories.tools)}
-                  className="gap-2 text-lg md:flex-col md:gap-1 md:text-sm xl:flex-row xl:gap-2 xl:text-base"
-                  id={skillsTabIds.tools.triggerId}
-                  name={t(skillsSection.categories.tools)}
-                  value="tools"
-                >
-                  <Wrench className="w-5 h-5" />
-                  <span className="hidden md:block">{t(skillsSection.categories.tools)}</span>
-                </TabsTrigger>
-              </TabsList>
-            </div>
+        <div className="mt-16 gap-6 md:columns-2 xl:columns-3">
+          {CATEGORY_ORDER.map((category) => {
+            const CategoryIcon = CATEGORY_ICONS[category];
+            const skills = skillsByCategory[category];
 
-            <TabsContent
-              aria-labelledby={skillsTabIds.management.triggerId}
-              className="mt-0"
-              id={skillsTabIds.management.panelId}
-              value="management"
-            >
-              <SkillsGrid skills={skillsByCategory.management} />
-            </TabsContent>
-            <TabsContent
-              aria-labelledby={skillsTabIds.languages.triggerId}
-              className="mt-0"
-              id={skillsTabIds.languages.panelId}
-              value="languages"
-            >
-              <SkillsGrid skills={skillsByCategory.languages} />
-            </TabsContent>
-            <TabsContent
-              aria-labelledby={skillsTabIds.security.triggerId}
-              className="mt-0"
-              id={skillsTabIds.security.panelId}
-              value="security"
-            >
-              <SkillsGrid skills={skillsByCategory.security} />
-            </TabsContent>
-            <TabsContent
-              aria-labelledby={skillsTabIds.ai.triggerId}
-              className="mt-0"
-              id={skillsTabIds.ai.panelId}
-              value="ai"
-            >
-              <SkillsGrid skills={skillsByCategory.ai} />
-            </TabsContent>
-            <TabsContent
-              aria-labelledby={skillsTabIds.infrastructure.triggerId}
-              className="mt-0"
-              id={skillsTabIds.infrastructure.panelId}
-              value="infrastructure"
-            >
-              <SkillsGrid skills={skillsByCategory.infrastructure} />
-            </TabsContent>
-            <TabsContent
-              aria-labelledby={skillsTabIds.tools.triggerId}
-              className="mt-0"
-              id={skillsTabIds.tools.panelId}
-              value="tools"
-            >
-              <SkillsGrid skills={skillsByCategory.tools} />
-            </TabsContent>
-          </Tabs>
+            return (
+              <section
+                aria-labelledby={`skills-${category}`}
+                className="sheet mb-6 break-inside-avoid p-6"
+                key={category}
+              >
+                <div className="flex items-center gap-3">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/12 text-primary">
+                    <CategoryIcon aria-hidden="true" className="h-5 w-5" />
+                  </span>
+                  <h3 className="text-lg" id={`skills-${category}`}>
+                    {t(skillsSection.categories[category])}
+                  </h3>
+                  <span className="ml-auto text-sm tabular-nums text-muted-foreground">{skills.length}</span>
+                </div>
+
+                <ul className="mt-5 divide-y divide-border/70">
+                  {skills.map((skill) => {
+                    const SkillIcon = skill.icon;
+
+                    return (
+                      <li className="flex items-center gap-3 py-2.5" key={skill.id}>
+                        <SkillIcon className="h-4 w-4 shrink-0 text-muted-foreground" />
+                        <span className="min-w-0 flex-1 text-[0.95rem]">{t(skill.name)}</span>
+                        <LevelMeter
+                          label={t(webSections.skills.levelLabel).replace("{level}", String(skill.level))}
+                          level={skill.level}
+                        />
+                      </li>
+                    );
+                  })}
+                </ul>
+              </section>
+            );
+          })}
         </div>
       </div>
     </section>
   );
 };
 
-interface SkillsGridProps {
-  skills: Array<SkillWithIcon>;
-}
-
-const SkillsGrid = ({ skills }: SkillsGridProps) => {
-  const { t } = useSettings();
-  return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-      {skills.map((skill) => {
-        const IconComponent = skill.icon;
-        return (
-          <div className="glass-panel hover-lift flex items-center gap-3.5 p-4" key={skill.id}>
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
-              <IconComponent className="w-5 h-5" />
-            </div>
-
-            <div className="min-w-0 flex-1">
-              <h3 className="truncate text-sm font-medium" title={t(skill.name)}>
-                {t(skill.name)}
-              </h3>
-
-              <div className="mt-2 flex gap-1">
-                {Array.from({ length: 5 }, (_, level) => level + 1).map((level) => (
-                  <div
-                    className={cn(
-                      "h-1.5 flex-1 rounded-full",
-                      level <= skill.level ? "bg-linear-to-r from-primary to-primary/80" : "bg-muted",
-                    )}
-                    key={`${skill.id}-${level}`}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-        );
-      })}
-    </div>
-  );
-};
+SkillsSection.displayName = "SkillsSection";
 
 export default SkillsSection;

@@ -1,14 +1,10 @@
 "use client";
 
 import { Fragment } from "react";
-import { ArrowLeft } from "lucide-react";
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
-import { Button } from "@/components/ui/button";
+import DocumentPage from "@/components/DocumentPage";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
 import { useScrollToTop } from "@/hooks/use-scroll-to-top";
-import { Link } from "@/i18n/navigation";
 import { getLocalizedTextKey, type LocalizedString } from "@/lib/localization";
 
 interface LocalizedPrivacyListItem extends LocalizedString {
@@ -46,75 +42,54 @@ export default function PrivacyPageClient() {
   const { t } = useSettings();
   const { privacy } = siteContent;
   useScrollToTop();
-  const homeHref = "/";
 
   return (
-    <div className="flex min-h-dvh flex-col">
-      <Header />
-      <main className="grow pb-16 pt-24">
-        <div className="container mx-auto px-4">
-          <div className="mx-auto max-w-3xl">
-            <Button asChild className="mb-6" size="sm" variant="ghost">
-              <Link href={homeHref}>
-                <ArrowLeft className="mr-2" size={16} />
-                {t(siteContent.backToHome)}
-              </Link>
-            </Button>
+    <DocumentPage subtitle={t(privacy.subtitle)} title={t(privacy.title)}>
+      {privacy.sections.map((section) => (
+        <section key={getLocalizedTextKey(section.title)}>
+          <h2>{t(section.title)}</h2>
+          {section.paragraphs.map((paragraph) => (
+            <p className="mb-4" key={getLocalizedTextKey(paragraph)}>
+              {t(paragraph)}
+            </p>
+          ))}
+          {section.list && (
+            <ul className="mb-4 list-disc pl-5">
+              {section.list.map((item) => {
+                if (typeof item === "string") {
+                  return (
+                    <li key={item}>
+                      <span>{item}</span>
+                    </li>
+                  );
+                }
 
-            <h1 className="mb-2 text-3xl">{t(privacy.title)}</h1>
-            <p className="mb-8 text-sm">{t(privacy.subtitle)}</p>
+                const localizedItem = item as LocalizedPrivacyListItem;
+                const text = t(localizedItem);
+                const descriptionText = localizedItem.description ? t(localizedItem.description) : null;
+                const itemKey = localizedItem.description
+                  ? `${getLocalizedTextKey(localizedItem)}-${getLocalizedTextKey(localizedItem.description)}`
+                  : getLocalizedTextKey(localizedItem);
 
-            <div className="prose prose-lg max-w-none dark:prose-invert">
-              {privacy.sections.map((section) => (
-                <section className="mb-8" key={getLocalizedTextKey(section.title)}>
-                  <h2 className="mb-4 text-2xl font-semibold">{t(section.title)}</h2>
-                  {section.paragraphs.map((paragraph) => (
-                    <p className="mb-4" key={getLocalizedTextKey(paragraph)}>
-                      {t(paragraph)}
-                    </p>
-                  ))}
-                  {section.list && (
-                    <ul className="mb-4 list-disc pl-5">
-                      {section.list.map((item) => {
-                        if (typeof item === "string") {
-                          return (
-                            <li key={item}>
-                              <span>{item}</span>
-                            </li>
-                          );
-                        }
-
-                        const localizedItem = item as LocalizedPrivacyListItem;
-                        const text = t(localizedItem);
-                        const descriptionText = localizedItem.description ? t(localizedItem.description) : null;
-                        const itemKey = localizedItem.description
-                          ? `${getLocalizedTextKey(localizedItem)}-${getLocalizedTextKey(localizedItem.description)}`
-                          : getLocalizedTextKey(localizedItem);
-
-                        return (
-                          <li className="flex flex-col" key={itemKey}>
-                            <span>
-                              <FormattedText value={text} />
-                            </span>
-                            {descriptionText && (
-                              <span className="ml-4 mt-1 text-sm text-muted-foreground">
-                                <span>
-                                  <FormattedText value={descriptionText} />
-                                </span>
-                              </span>
-                            )}
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  )}
-                </section>
-              ))}
-            </div>
-          </div>
-        </div>
-      </main>
-      <Footer />
-    </div>
+                return (
+                  <li className="flex flex-col" key={itemKey}>
+                    <span>
+                      <FormattedText value={text} />
+                    </span>
+                    {descriptionText && (
+                      <span className="ml-4 mt-1 text-sm text-muted-foreground">
+                        <span>
+                          <FormattedText value={descriptionText} />
+                        </span>
+                      </span>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+        </section>
+      ))}
+    </DocumentPage>
   );
 }

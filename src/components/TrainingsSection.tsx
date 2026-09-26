@@ -1,8 +1,7 @@
 "use client";
 
-import type { Ref } from "react";
-import { GraduationCap } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import type { ComponentType, Ref } from "react";
+import { BrainCircuit, Gauge, GraduationCap, Split } from "lucide-react";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
 import { getLocalizedTextKey } from "@/lib/localization";
@@ -11,60 +10,69 @@ interface TrainingsSectionProps {
   ref?: Ref<HTMLElement>;
 }
 
+type TrainingIcon = ComponentType<{ "aria-hidden"?: boolean | "true"; className?: string }>;
+
+// Keyed by the English title; unknown trainings fall back to a generic cap.
+const trainingIcons: Record<string, TrainingIcon> = {
+  "Agentic AI Workflows": BrainCircuit,
+  "HAProxy — Load Balancing in Practice": Split,
+  "MLOps, Monitoring & Cost Control": Gauge,
+};
+
 const TrainingsSection = ({ ref }: TrainingsSectionProps) => {
   const { t } = useSettings();
   const { trainings } = siteContent;
 
   return (
-    <section className="section-padding section-muted-blend" id="trainings" ref={ref}>
-      <div className="container mx-auto">
-        <div className="mb-14 flex flex-col items-center gap-4 text-center reveal-up">
-          <h2 className="text-4xl md:text-5xl">
-            <span className="text-gradient">{t(trainings.title)}</span>
-          </h2>
-          <p className="max-w-2xl text-lg text-muted-foreground">{t(trainings.subtitle)}</p>
-        </div>
+    <section className="section-space relative" id="trainings" ref={ref}>
+      <div className="section-shell">
+        <header className="max-w-3xl">
+          <h2 className="section-title">{t(trainings.title)}</h2>
+          <p className="section-lede">{t(trainings.subtitle)}</p>
+        </header>
 
-        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {trainings.items.map((training) => (
-            <article
-              className="glass-panel hover-lift relative flex flex-col overflow-hidden p-7 md:p-8 reveal-up"
-              key={getLocalizedTextKey(training.title)}
-            >
-              <div
-                aria-hidden="true"
-                className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-primary/60 to-accent/60"
-              />
+        <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {trainings.items.map((training, index) => {
+            const Icon = trainingIcons[training.title.en] ?? GraduationCap;
 
-              <div className="mb-5 flex items-center justify-between gap-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                  <GraduationCap aria-hidden="true" className="h-6 w-6" />
+            return (
+              <article
+                className={`sheet relative flex flex-col transition-transform duration-300 hover:-translate-y-1 hover:rotate-0 ${
+                  index % 2 === 0 ? "lg:-rotate-[0.6deg]" : "lg:rotate-[0.6deg]"
+                }`}
+                key={getLocalizedTextKey(training.title)}
+              >
+                <div className="flex grow flex-col p-7">
+                  <div className="flex items-center justify-between gap-3">
+                    <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-primary-foreground">
+                      <Icon aria-hidden="true" className="h-6 w-6" />
+                    </span>
+                    <span className="-rotate-3 rounded-md border-2 border-redline/70 px-2.5 py-1 text-xs font-bold text-redline">
+                      {t(training.duration)}
+                    </span>
+                  </div>
+
+                  <h3 className="mt-7 text-2xl">{t(training.title)}</h3>
+                  <p className="mt-4 grow leading-relaxed text-muted-foreground">{t(training.description)}</p>
                 </div>
-                <Badge
-                  className="rounded-full border-transparent bg-accent/15 font-medium text-accent"
-                  variant="outline"
-                >
-                  {t(training.duration)}
-                </Badge>
-              </div>
 
-              <h3 className="text-2xl md:min-h-16">{t(training.title)}</h3>
+                {/* Perforation: tear here for the workshop */}
+                <div aria-hidden="true" className="relative h-0">
+                  <span className="absolute -left-3 -top-3 h-6 w-6 rounded-full border border-border bg-background [clip-path:inset(0_0_0_50%)]" />
+                  <span className="absolute -right-3 -top-3 h-6 w-6 rounded-full border border-border bg-background [clip-path:inset(0_50%_0_0)]" />
+                  <span className="absolute inset-x-5 top-0 border-t-2 border-dashed border-border" />
+                </div>
 
-              <p className="mt-4 grow leading-relaxed text-muted-foreground">{t(training.description)}</p>
-
-              <div className="mt-6 flex flex-wrap gap-2">
-                {training.tags.map((tag) => (
-                  <Badge
-                    className="rounded-full border-border/70 bg-muted/50 font-normal text-foreground/80"
-                    key={`${getLocalizedTextKey(training.title)}-${getLocalizedTextKey(tag)}`}
-                    variant="outline"
-                  >
-                    {t(tag)}
-                  </Badge>
-                ))}
-              </div>
-            </article>
-          ))}
+                <ul className="flex flex-wrap gap-1.5 p-7 pt-6">
+                  {training.tags.map((tag) => (
+                    <li className="chip" key={`${getLocalizedTextKey(training.title)}-${getLocalizedTextKey(tag)}`}>
+                      {t(tag)}
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>

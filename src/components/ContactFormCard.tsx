@@ -162,10 +162,14 @@ const ContactFormCard = () => {
 
   return (
     <FormProvider {...form}>
-      <form {...webMcpFormAttributes} className="glass-panel p-8" onSubmit={handleSubmit}>
-        <div className="space-y-6">
+      <form {...webMcpFormAttributes} className="sheet p-6 sm:p-9" onSubmit={handleSubmit}>
+        <div className="grid gap-6 sm:grid-cols-2">
           {/* Hidden verify field */}
-          <FormField control={form.control} name="verify" render={({ field }) => <Input type="hidden" {...field} />} />
+          <FormField
+            control={form.control}
+            name="verify"
+            render={({ field }) => <Input className="hidden" type="hidden" {...field} />}
+          />
 
           <FormField
             control={form.control}
@@ -213,7 +217,7 @@ const ContactFormCard = () => {
             control={form.control}
             name="message"
             render={({ field }) => (
-              <FormItem id="contact-message">
+              <FormItem className="sm:col-span-2" id="contact-message">
                 <FormLabel>{t(contact.formLabels.message)}</FormLabel>
                 <FormControl>
                   <Textarea
@@ -221,7 +225,7 @@ const ContactFormCard = () => {
                     minLength={10}
                     placeholder={t(contact.formPlaceholders.message)}
                     required
-                    rows={5}
+                    rows={6}
                     {...field}
                   />
                 </FormControl>
@@ -232,8 +236,9 @@ const ContactFormCard = () => {
 
           <Button
             aria-busy={isSubmitting}
-            className="w-full rounded-full shadow-lg shadow-primary/25"
+            className="w-full sm:col-span-2"
             disabled={isSubmitting}
+            size="lg"
             type="submit"
           >
             {isSubmitting ? (
@@ -243,7 +248,7 @@ const ContactFormCard = () => {
               </div>
             ) : (
               <>
-                <Send className="w-4 h-4 mr-2" />
+                <Send aria-hidden="true" />
                 {t(contact.formLabels.send)}
               </>
             )}

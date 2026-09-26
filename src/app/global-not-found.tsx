@@ -2,11 +2,9 @@ import { cookies, headers } from "next/headers";
 import Link from "next/link";
 import Script from "next/script";
 import type { Metadata } from "next";
-import { GeistSans } from "geist/font/sans";
-import { GeistMono } from "geist/font/mono";
-import { GeistPixelCircle } from "geist/font/pixel";
 
 import { resolveInitialTheme, themeInitScript } from "@/app/document-preferences";
+import { fontVariables } from "@/app/fonts";
 import { DEFAULT_LANGUAGE, isSupportedLanguage, ROUTE_LANGUAGE_HEADER } from "@/lib/i18n";
 import { NONCE_HEADER } from "@/lib/security/csp";
 import { cn } from "@/lib/utils";
@@ -23,17 +21,13 @@ export default async function GlobalNotFound() {
   const language = isSupportedLanguage(routeLanguage) ? routeLanguage : DEFAULT_LANGUAGE;
   const initialTheme = resolveInitialTheme(cookieStore.get("theme")?.value);
   const cspNonce = headerList.get(NONCE_HEADER) ?? undefined;
-  const message = language === "de" ? "Diese Seite wurde nicht gefunden." : "Oops! Page not found";
+  const message = language === "de" ? "Diese Seite wurde nicht gefunden." : "This page doesn't exist.";
   const homeLabel = language === "de" ? "Zur Startseite" : "Return to Home";
+  const note = language === "de" ? "nicht im Bauplan eingezeichnet" : "this room isn't on the blueprint";
 
   return (
     <html
-      className={cn(
-        GeistSans.variable,
-        GeistPixelCircle.variable,
-        GeistMono.variable,
-        initialTheme === "dark" && "dark",
-      )}
+      className={cn(fontVariables, initialTheme === "dark" && "dark")}
       data-scroll-behavior="smooth"
       lang={language}
       suppressHydrationWarning
@@ -45,11 +39,15 @@ export default async function GlobalNotFound() {
         <link href="/us.svg" rel="icon" type="image/svg+xml" />
       </head>
       <body className="min-h-screen bg-background font-sans text-foreground antialiased">
-        <main className="flex min-h-dvh items-center justify-center bg-muted/40">
-          <div className="text-center">
-            <h1 className="mb-4 text-4xl">404</h1>
-            <p className="mb-4 text-xl text-muted-foreground">{message}</p>
-            <Link className="text-primary underline underline-offset-4" href={`/${language}`}>
+        <main className="blueprint-grid flex min-h-dvh items-center justify-center px-4">
+          <div className="max-w-xl text-center">
+            <p className="type-display text-[7rem] leading-none text-primary sm:text-[10rem]">404</p>
+            <h1 className="mt-6 text-3xl sm:text-4xl">{message}</h1>
+            <p className="redline-note mt-4 -rotate-2 text-2xl">{note}</p>
+            <Link
+              className="mt-10 inline-flex h-12 items-center rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+              href={`/${language}`}
+            >
               {homeLabel}
             </Link>
           </div>

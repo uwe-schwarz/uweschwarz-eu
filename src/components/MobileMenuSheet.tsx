@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Menu, Moon, Sun } from "lucide-react";
+import type { MouseEvent } from "react";
+import { Languages, Menu, Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import type { Language, Theme } from "@/contexts/settings-hook";
@@ -13,6 +14,9 @@ interface MobileMenuNavigationItem {
   label: LocalizedString;
 }
 
+const linkClassName = (isActive: boolean) =>
+  `type-display block py-2 text-4xl transition-colors ${isActive ? "text-primary" : "text-foreground hover:text-primary"}`;
+
 interface MobileMenuSheetProps {
   activeSection: string;
   homeHref: string;
@@ -20,7 +24,7 @@ interface MobileMenuSheetProps {
   language: Language;
   navigationItems: Array<MobileMenuNavigationItem>;
   onToggleLanguage: () => void;
-  onToggleTheme: () => void;
+  onToggleTheme: (event?: MouseEvent<HTMLElement>) => void;
   t: (text: LocalizedString) => string;
   theme: Theme;
 }
@@ -61,66 +65,72 @@ const MobileMenuSheet = ({
   return (
     <Sheet onOpenChange={setOpen} open={open}>
       <SheetTrigger asChild>
-        <Button aria-label={menuTriggerLabel} className="md:hidden" size="icon" variant="ghost">
-          <Menu className="text-foreground" size={24} />
+        <Button aria-label={menuTriggerLabel} className="lg:hidden" size="icon" variant="ghost">
+          <Menu className="text-foreground" size={22} />
         </Button>
       </SheetTrigger>
-      <SheetContent className="w-full bg-background dark:bg-gray-900 p-0" side="left">
+      <SheetContent className="blueprint-grid flex w-full flex-col bg-background p-0 sm:max-w-md" side="right">
         <SheetTitle className="sr-only">{t({ de: "Navigationsmenü", en: "Navigation menu" })}</SheetTitle>
-        <div className="flex flex-col h-full">
-          <div className="border-b border-gray-200 dark:border-gray-800 py-4 px-6">
-            <Link className="text-2xl font-display font-bold" href={homeHref}>
-              <span className="text-gradient">Uwe Schwarz</span>
-            </Link>
-          </div>
+        <div className="flex items-center gap-2.5 px-5 pt-5">
+          <span
+            aria-hidden="true"
+            className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-[0.8rem] font-bold text-primary-foreground"
+          >
+            US
+          </span>
+          <Link className="type-heading text-lg" href={homeHref} onClick={() => setOpen(false)}>
+            Uwe Schwarz
+          </Link>
+        </div>
 
-          <div className="flex-1 flex flex-col justify-center items-center space-y-6 py-8">
-            {navigationItems.map((item) => {
-              const hash = item.href.replace("#", "");
+        <nav className="flex flex-1 flex-col justify-center px-6">
+          {navigationItems.map((item) => {
+            const hash = item.href.replace("#", "");
 
-              if (isHomePage) {
-                return (
-                  <a
-                    className={`text-xl font-medium text-foreground hover:text-primary transition-colors${activeSection === hash ? " link-underline link-underline-active" : ""}`}
-                    href={item.href}
-                    key={item.href}
-                    onClick={() => setOpen(false)}
-                  >
-                    {t(item.label)}
-                  </a>
-                );
-              }
-
+            if (isHomePage) {
               return (
-                <Link
-                  className="text-xl font-medium text-foreground hover:text-primary transition-colors"
-                  href={`${homeHref}${item.href}`}
+                <a
+                  aria-current={activeSection === hash ? "page" : undefined}
+                  className={linkClassName(activeSection === hash)}
+                  href={item.href}
                   key={item.href}
                   onClick={() => setOpen(false)}
                 >
                   {t(item.label)}
-                </Link>
+                </a>
               );
-            })}
-          </div>
+            }
 
-          <div className="border-t border-gray-200 dark:border-gray-800 p-6 flex gap-4">
-            <Button aria-label={languageToggleLabel} className="flex-1" onClick={onToggleLanguage} variant="outline">
-              {language === "en" ? "Deutsch" : "English"}
-            </Button>
+            return (
+              <Link
+                className={linkClassName(false)}
+                href={`${homeHref}${item.href}`}
+                key={item.href}
+                onClick={() => setOpen(false)}
+              >
+                {t(item.label)}
+              </Link>
+            );
+          })}
+        </nav>
 
-            <Button aria-label={themeToggleLabel} className="flex-1" onClick={onToggleTheme} variant="outline">
-              {theme === "light" ? (
-                <>
-                  <Moon className="mr-2" size={16} /> {darkModeLabel}
-                </>
-              ) : (
-                <>
-                  <Sun className="mr-2" size={16} /> {lightModeLabel}
-                </>
-              )}
-            </Button>
-          </div>
+        <div className="flex gap-3 border-t border-border p-5">
+          <Button aria-label={languageToggleLabel} className="flex-1" onClick={onToggleLanguage} variant="outline">
+            <Languages aria-hidden="true" />
+            {language === "en" ? "Deutsch" : "English"}
+          </Button>
+
+          <Button aria-label={themeToggleLabel} className="flex-1" onClick={onToggleTheme} variant="outline">
+            {theme === "light" ? (
+              <>
+                <Moon aria-hidden="true" /> {darkModeLabel}
+              </>
+            ) : (
+              <>
+                <Sun aria-hidden="true" /> {lightModeLabel}
+              </>
+            )}
+          </Button>
         </div>
       </SheetContent>
     </Sheet>

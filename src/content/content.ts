@@ -8,15 +8,43 @@ interface NavItem {
   label: LocalizedString;
 }
 
+export type HeroDiagramNodeKey = "ai" | "architecture" | "infrastructure" | "security" | "training";
+
+interface HeroDiagram {
+  hint: LocalizedString;
+  hintAfterDrag: LocalizedString;
+  label: LocalizedString;
+  nodes: Array<{ key: HeroDiagramNodeKey; label: LocalizedString }>;
+}
+
 interface HeroSection {
   availability: HeroAvailability;
   ctaPrimary: LocalizedString;
   ctaSecondary: LocalizedString;
   description: LocalizedString;
+  diagram: HeroDiagram;
   imageAlt: LocalizedString;
   name: string;
-  scrollText: LocalizedString;
+  pitch: LocalizedString;
+  rolePrefix: LocalizedString;
   titleElements: Array<LocalizedString>;
+}
+
+interface SectionCopy {
+  headline: LocalizedString;
+  lede?: LocalizedString;
+  note?: LocalizedString;
+}
+
+interface WebSections {
+  experience: SectionCopy & {
+    hideDetails: LocalizedString;
+    showDetails: LocalizedString;
+  };
+  projects: SectionCopy;
+  skills: SectionCopy & {
+    levelLabel: LocalizedString;
+  };
 }
 
 interface HeroAvailability {
@@ -34,6 +62,7 @@ interface AboutSection {
     projects: LocalizedString;
     technologies: LocalizedString;
   };
+  note: LocalizedString;
   paragraphs: Array<LocalizedString>;
   stats: Array<{ key: string; value: LocalizedString }>;
   title: LocalizedString;
@@ -48,6 +77,8 @@ export interface Experience {
   company: string;
   description: Array<ExperienceDescriptionItem>;
   location: LocalizedString;
+  /** Tile colour the logo was drawn for; defaults to dark. */
+  logoBackground?: "dark" | "light";
   logoUrl?: string;
   period: LocalizedString;
   projectScale?: "major" | "small";
@@ -125,6 +156,7 @@ interface ContactSection {
   homepage?: string;
   infoText: LocalizedString;
   infoTitle: LocalizedString;
+  note: LocalizedString;
   phone: string;
   phoneLabel: LocalizedString;
   socialLinks: {
@@ -145,7 +177,9 @@ interface CV {
 interface Footer {
   builtWith?: LocalizedString;
   copyright: LocalizedString;
+  drawnBy: LocalizedString;
   links: Array<NavItem>;
+  sheet: LocalizedString;
 }
 
 interface ImprintSection {
@@ -254,6 +288,7 @@ export interface SiteContent {
       light: LocalizedString;
     };
   };
+  webSections: WebSections;
 }
 
 export const siteContent: SiteContent = {
@@ -267,6 +302,10 @@ export const siteContent: SiteContent = {
       experience: { de: "Jahre Erfahrung", en: "Years of Experience" },
       projects: { de: "Abgeschlossene Projekte", en: "Completed Projects" },
       technologies: { de: "Technologien", en: "Technologies" },
+    },
+    note: {
+      de: "ja, das bin ich. dreimal.",
+      en: "yep, that's me. three times.",
     },
     paragraphs: [
       {
@@ -288,8 +327,8 @@ export const siteContent: SiteContent = {
       { key: "technologies", value: { de: "50+", en: "50+" } },
     ],
     title: {
-      de: "Über Mich",
-      en: "About Me",
+      de: "Komplexität rein, Klarheit raus.",
+      en: "Complexity in, clarity out.",
     },
   },
   backToHome: { de: "Zurück zur Startseite", en: "Back to Home" },
@@ -345,7 +384,11 @@ export const siteContent: SiteContent = {
       de: "Kontaktiere mich gerne für Zusammenarbeiten oder einfach nur für ein freundliches Hallo.",
       en: "Feel free to reach out for collaborations or just a friendly hello.",
     },
-    infoTitle: { de: "Lass uns in Kontakt treten", en: "Let's Connect" },
+    infoTitle: { de: "Direkter Draht", en: "Direct line" },
+    note: {
+      de: "Agents willkommen: dieses Formular spricht WebMCP",
+      en: "agents welcome: this form speaks WebMCP",
+    },
     phone: "+49 151 64403667",
     phoneLabel: {
       de: "Telefon",
@@ -359,12 +402,12 @@ export const siteContent: SiteContent = {
       xing: "https://www.xing.com/profile/Uwe_Schwarz72",
     },
     subtitle: {
-      de: "Interesse an einer Zusammenarbeit? Kontaktiere mich gerne!",
-      en: "Interested in working together? Feel free to reach out!",
+      de: "Erzähl mir, woran du arbeitest. Ich sage dir ehrlich, ob und wie ich helfen kann.",
+      en: "Tell me what you're working on. I'll tell you honestly whether and how I can help.",
     },
     title: {
-      de: "Kontakt aufnehmen",
-      en: "Get In Touch",
+      de: "Du hast ein System, das halten muss?",
+      en: "Got a system that has to hold up?",
     },
   },
   cv: {
@@ -494,6 +537,7 @@ export const siteContent: SiteContent = {
         de: "Karlsruhe & Speyer, Deutschland",
         en: "Karlsruhe & Speyer, Germany",
       },
+      logoBackground: "light",
       logoUrl: "/logos/drv.svg",
       period: { de: "Jan 2026 - Heute", en: "Jan 2026 - Today" },
       tags: [
@@ -788,6 +832,7 @@ export const siteContent: SiteContent = {
         },
       ],
       location: { de: "Hamburg, Deutschland", en: "Hamburg, Germany" },
+      logoBackground: "light",
       logoUrl: "/logos/berenberg.svg",
       period: { de: "Jan 2024 - Sep 2025", en: "Jan 2024 - Sep 2025" },
       tags: [
@@ -1293,10 +1338,12 @@ export const siteContent: SiteContent = {
       de: "© year Uwe Schwarz. Alle Rechte vorbehalten.",
       en: "© year Uwe Schwarz. All rights reserved.",
     },
+    drawnBy: { de: "Gezeichnet von", en: "Drawn by" },
     links: [
       { href: "/privacy", label: { de: "Datenschutz", en: "Privacy Policy" } },
       { href: "/imprint", label: { de: "Impressum", en: "Imprint" } },
     ],
+    sheet: { de: "Blatt", en: "Sheet" },
     /*    builtWith: {
       en: "Built with modern web technologies and a passion for clean code.",
       de: "Erstellt mit modernen Web-Technologien und einer Leidenschaft für sauberen Code.",
@@ -1320,25 +1367,50 @@ export const siteContent: SiteContent = {
       },
     },
     ctaPrimary: {
-      de: "Meine Arbeit ansehen",
-      en: "See my work",
+      de: "Lass uns reden",
+      en: "Let's talk",
     },
     ctaSecondary: {
-      de: "Lebenslauf herunterladen",
-      en: "Download CV",
+      de: "Lebenslauf ansehen",
+      en: "View CV",
     },
     description: {
       de: "Ich übersetze komplexe Anforderungen in robuste, skalierbare und langfristig tragfähige Systeme. Dabei arbeite ich an der Schnittstelle von moderner Software, Plattformen, Infrastruktur und KI-nahen Workflows – mit einem klaren Fokus auf Lösungen, die technisch sauber, sicher betreibbar und in der Praxis wirklich brauchbar sind.",
       en: "I turn complex requirements into robust, scalable, and durable systems. I work at the intersection of modern software, platforms, infrastructure, and AI-adjacent workflows, with a clear focus on solutions that are technically sound, secure to operate, and genuinely useful in practice.",
+    },
+    diagram: {
+      hint: {
+        de: "na los, zieh mal dran",
+        en: "go on, drag one",
+      },
+      hintAfterDrag: {
+        de: "siehste? alles hängt zusammen.",
+        en: "see? it's all connected.",
+      },
+      label: {
+        de: "Diagramm: Architektur, Security, KI, Infrastruktur und Training laufen bei Uwe zusammen.",
+        en: "Diagram: architecture, security, AI, infrastructure, and training all connect to Uwe.",
+      },
+      nodes: [
+        { key: "architecture", label: { de: "Architektur", en: "Architecture" } },
+        { key: "security", label: { de: "Security", en: "Security" } },
+        { key: "ai", label: { de: "KI", en: "AI" } },
+        { key: "infrastructure", label: { de: "Infrastruktur", en: "Infrastructure" } },
+        { key: "training", label: { de: "Training", en: "Training" } },
+      ],
     },
     imageAlt: {
       de: "Portraitfoto von Uwe Schwarz, Software-Architekt und Security-Engineer.",
       en: "Portrait photo of Uwe Schwarz, Software Architect and Security Engineer.",
     },
     name: "Uwe Schwarz",
-    scrollText: {
-      de: "Nach unten",
-      en: "Scroll",
+    pitch: {
+      de: "Ich übersetze komplexe Anforderungen in Systeme, die halten: sicher, skalierbar und im Alltag wirklich brauchbar. Software, Plattformen, Infrastruktur und KI – entworfen als ein Plan.",
+      en: "I turn complex requirements into systems that hold up: secure, scalable, and genuinely useful in practice. Software, platforms, infrastructure, and AI, designed as one plan.",
+    },
+    rolePrefix: {
+      de: "Arbeitet als",
+      en: "Works as",
     },
     titleElements: [
       {
@@ -1440,12 +1512,11 @@ export const siteContent: SiteContent = {
     en: "More previous projects or references available upon request.",
   },
   navigation: [
-    { href: "#hero", label: { de: "Start", en: "Home" } },
     { href: "#about", label: { de: "Über mich", en: "About" } },
-    { href: "#trainings", label: { de: "Trainings", en: "Trainings" } },
+    { href: "#projects", label: { de: "Projekte", en: "Work" } },
     { href: "#experience", label: { de: "Erfahrung", en: "Experience" } },
-    { href: "#projects", label: { de: "Projekte", en: "Projects" } },
-    { href: "#skills", label: { de: "Fähigkeiten", en: "Skills" } },
+    { href: "#trainings", label: { de: "Trainings", en: "Trainings" } },
+    { href: "#skills", label: { de: "Skills", en: "Skills" } },
     { href: "#contact", label: { de: "Kontakt", en: "Contact" } },
   ],
   privacy: {
@@ -2247,8 +2318,8 @@ export const siteContent: SiteContent = {
       en: "Trainings I have delivered — hands-on, built from real project work, with live demos and practical labs.",
     },
     title: {
-      de: "Trainings & Workshops",
-      en: "Trainings & Workshops",
+      de: "Das bringe ich auch bei.",
+      en: "I teach this stuff, too.",
     },
   },
   translations: {
@@ -2264,6 +2335,44 @@ export const siteContent: SiteContent = {
       light: {
         de: "Zum hellen Design wechseln",
         en: "Switch to light theme",
+      },
+    },
+  },
+  webSections: {
+    experience: {
+      headline: {
+        de: "Zwanzig Jahre im Maschinenraum.",
+        en: "Twenty years in the engine room.",
+      },
+      hideDetails: { de: "Details ausblenden", en: "Hide details" },
+      lede: {
+        de: "Schlüsselprojekte mit echter Verantwortung – und fokussierte Nebenprojekte, die es spannend halten.",
+        en: "Key engagements with real responsibility, plus the focused side projects that keep things interesting.",
+      },
+      note: {
+        de: "frag mich nach IPv6",
+        en: "ask me about IPv6",
+      },
+      showDetails: { de: "Details anzeigen", en: "Show details" },
+    },
+    projects: {
+      headline: {
+        de: "Gebaut und ausgeliefert.",
+        en: "Built and shipped.",
+      },
+      lede: {
+        de: "Eine Auswahl an Systemen, die ich entworfen und umgesetzt habe – von Compliance-Plattformen bis zu Zero-Config-Netzen.",
+        en: "A selection of systems I designed and delivered, from compliance platforms to zero-config networks.",
+      },
+    },
+    skills: {
+      headline: {
+        de: "Der Werkzeugkasten.",
+        en: "The toolbox.",
+      },
+      levelLabel: {
+        de: "Stufe {level} von 5",
+        en: "Level {level} of 5",
       },
     },
   },

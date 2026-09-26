@@ -1,30 +1,16 @@
 "use client";
 
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import Image from "next/image";
-import { ArrowDown } from "lucide-react";
-import { FileTextIcon } from "@/components/icons/file-text";
-import MagicRings from "@/components/MagicRings";
+import { useEffect, useState, useSyncExternalStore } from "react";
+import type { CSSProperties } from "react";
+import { FileText, MessageSquareText } from "lucide-react";
+import { AnimatePresence, m, useReducedMotion } from "motion/react";
+import HeroDiagram from "@/components/HeroDiagram";
 import { Button } from "@/components/ui/button";
 import { useSettings } from "@/contexts/settings-hook";
 import { siteContent } from "@/content/content";
-import { useFitText } from "@/hooks/use-fit-text";
 import { Link } from "@/i18n/navigation";
 
-const ProfilePicture = React.memo(({ alt }: { alt: string }) => (
-  <div className="w-full h-full rounded-full bg-background flex items-center justify-center overflow-hidden relative">
-    <Image
-      alt={alt}
-      className="object-cover"
-      fill
-      priority
-      sizes="(min-width:1200px) 360px, (min-width:1024px) 334px, (min-width:768px) 360px, 300px"
-      src="/profile.webp"
-    />
-  </div>
-));
-
-ProfilePicture.displayName = "ProfilePicture";
+const ROLE_INTERVAL_MS = 2800;
 
 const formatTemplate = (template: string, values: Record<string, number | string>) => {
   return Object.entries(values).reduce((message, [key, value]) => {
@@ -32,358 +18,128 @@ const formatTemplate = (template: string, values: Record<string, number | string
   }, template);
 };
 
-interface MagicRingPosition {
-  height: number;
-  left: number;
-  top: number;
-  width: number;
-}
+// The dependency visual check freezes rotating copy and ambient motion.
+const subscribeToNothing = () => () => {};
+const getVisualRegressionSnapshot = () => window.document.documentElement.dataset.visualRegression === "true";
+const getServerVisualRegressionSnapshot = () => false;
 
-const clampColorChannel = (value: number) => {
-  return Math.max(0, Math.min(255, Math.round(value)));
-};
-
-const toHexChannel = (value: number) => {
-  return clampColorChannel(value).toString(16).padStart(2, "0");
-};
-
-const hslTripletToHex = (triplet: string): string | null => {
-  const [hueRaw, saturationRaw, lightnessRaw] = triplet.split(/\s+/);
-
-  if (!hueRaw || !saturationRaw || !lightnessRaw) {
-    return null;
-  }
-
-  const hue = Number.parseFloat(hueRaw);
-  const saturation = Number.parseFloat(saturationRaw) / 100;
-  const lightness = Number.parseFloat(lightnessRaw) / 100;
-
-  if (Number.isNaN(hue) || Number.isNaN(saturation) || Number.isNaN(lightness)) {
-    return null;
-  }
-
-  const chroma = (1 - Math.abs(2 * lightness - 1)) * saturation;
-  const normalizedHue = ((hue % 360) + 360) % 360;
-  const segment = normalizedHue / 60;
-  const secondComponent = chroma * (1 - Math.abs((segment % 2) - 1));
-  const match = lightness - chroma / 2;
-
-  let red = 0;
-  let green = 0;
-  let blue = 0;
-
-  if (segment >= 0 && segment < 1) {
-    red = chroma;
-    green = secondComponent;
-  } else if (segment < 2) {
-    red = secondComponent;
-    green = chroma;
-  } else if (segment < 3) {
-    green = chroma;
-    blue = secondComponent;
-  } else if (segment < 4) {
-    green = secondComponent;
-    blue = chroma;
-  } else if (segment < 5) {
-    red = secondComponent;
-    blue = chroma;
-  } else {
-    red = chroma;
-    blue = secondComponent;
-  }
-
-  return `#${toHexChannel((red + match) * 255)}${toHexChannel((green + match) * 255)}${toHexChannel((blue + match) * 255)}`;
-};
-
-const getMagicRingFallbackColors = (theme: "light" | "dark"): { color: string; colorTwo: string } => {
-  return theme === "dark"
-    ? {
-        color: "#8fe8c1",
-        colorTwo: "#b49cff",
-      }
-    : {
-        color: "#1d6948",
-        colorTwo: "#5741aa",
-      };
-};
-
-const getMagicRingColors = (theme: "light" | "dark"): { color: string; colorTwo: string } => {
-  if (typeof window === "undefined") {
-    return getMagicRingFallbackColors(theme);
-  }
-
-  const styles = window.getComputedStyle(window.document.documentElement);
-  const primary = styles.getPropertyValue("--primary").trim();
-  const accent = styles.getPropertyValue("--accent").trim();
-
-  if (!primary || !accent) {
-    return getMagicRingFallbackColors(theme);
-  }
-
-  return {
-    color: hslTripletToHex(accent) ?? "#d1d9f5",
-    colorTwo: hslTripletToHex(primary) ?? "#1d6948",
-  };
-};
+const enterStep = (step: number) => ({ "--enter-step": step }) as CSSProperties;
 
 const HeroSection = () => {
-  const { language, t, theme } = useSettings();
+  const { t } = useSettings();
   const { hero } = siteContent;
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const portraitRef = useRef<HTMLDivElement | null>(null);
-  const isVisualRegression =
-    typeof document !== "undefined" && window.document.documentElement.dataset.visualRegression === "true";
+  const prefersReducedMotion = useReducedMotion();
+  const isVisualRegression = useSyncExternalStore(
+    subscribeToNothing,
+    getVisualRegressionSnapshot,
+    getServerVisualRegressionSnapshot,
+  );
+  const [roleIndex, setRoleIndex] = useState(0);
+  const isRotating = !isVisualRegression && !prefersReducedMotion;
 
-  // State for the rotating title
-  const [titleIndex, setTitleIndex] = useState(0);
-  const [magicRingColors, setMagicRingColors] = useState(() => getMagicRingFallbackColors(theme));
-  const [magicRingPosition, setMagicRingPosition] = useState<MagicRingPosition | null>(null);
-  const updateMagicRingPosition = useCallback(() => {
-    const section = sectionRef.current;
-    const portrait = portraitRef.current;
-
-    if (!section || !portrait) {
+  useEffect(() => {
+    if (!isRotating) {
       return;
     }
 
-    const portraitRect = portrait.getBoundingClientRect();
-    const sectionRect = section.getBoundingClientRect();
-    const centerX = portraitRect.left - sectionRect.left + portraitRect.width / 2;
-    const centerY = portraitRect.top - sectionRect.top + portraitRect.height / 2;
-    const size = Math.min(Math.max(sectionRect.height * 1.9, portraitRect.width * 4.8), 2200);
+    const interval = window.setInterval(() => {
+      setRoleIndex((previous) => (previous + 1) % hero.titleElements.length);
+    }, ROLE_INTERVAL_MS);
 
-    setMagicRingPosition({
-      height: size,
-      left: centerX,
-      top: centerY,
-      width: size,
-    });
-  }, []);
-  const updateMagicRingPositionRef = useRef(updateMagicRingPosition);
+    return () => window.clearInterval(interval);
+  }, [hero.titleElements.length, isRotating]);
 
-  useEffect(() => {
-    updateMagicRingPositionRef.current = updateMagicRingPosition;
-  }, [updateMagicRingPosition]);
-
-  // Set up title rotation effect
-  useEffect(() => {
-    if (isVisualRegression) {
-      return;
-    }
-
-    const interval = setInterval(() => {
-      setTitleIndex((prevIndex) => (prevIndex + 1) % hero.titleElements.length);
-    }, 3000); // Change every 3 seconds
-
-    return () => clearInterval(interval);
-  }, [hero.titleElements.length, isVisualRegression]);
-
-  useEffect(() => {
-    const frameId = window.requestAnimationFrame(() => {
-      setMagicRingColors(getMagicRingColors(theme));
-    });
-
-    return () => {
-      window.cancelAnimationFrame(frameId);
-    };
-  }, [theme]);
-
-  useEffect(() => {
-    const section = sectionRef.current;
-    const portrait = portraitRef.current;
-
-    if (!section || !portrait) {
-      return;
-    }
-
-    updateMagicRingPositionRef.current();
-
-    const handleResize = () => {
-      updateMagicRingPositionRef.current();
-    };
-
-    const resizeObserver = new ResizeObserver(handleResize);
-    resizeObserver.observe(section);
-    resizeObserver.observe(portrait);
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      resizeObserver.disconnect();
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  // FitText Hook for dynamic title
-  const currentTitle = isVisualRegression ? t(hero.titleElements[0]) : t(hero.titleElements[titleIndex]);
-  const { fontSize, ref: fitTextRef } = useFitText({
-    depKey: currentTitle,
-    maxFontSize: 48,
-    minFontSize: 18,
-  });
+  const currentRole = t(hero.titleElements[isRotating ? roleIndex : 0]);
   const percentAvailable = Math.min(Math.max(hero.availability.currentPercentAvailable, 0), 100);
-  const availabilitySummary = `${formatTemplate(t(hero.availability.currentLine), {
-    percent: percentAvailable,
-  })} · ${formatTemplate(t(hero.availability.fullLine), {
+  const currentAvailability = formatTemplate(t(hero.availability.currentLine), { percent: percentAvailable });
+  const fullAvailability = formatTemplate(t(hero.availability.fullLine), {
     date: hero.availability.fullyAvailableDate,
-  })}`;
-
-  useEffect(() => {
-    const frameId = window.requestAnimationFrame(() => {
-      updateMagicRingPosition();
-    });
-
-    return () => {
-      window.cancelAnimationFrame(frameId);
-    };
-  }, [availabilitySummary, currentTitle, language, updateMagicRingPosition]);
+  });
 
   return (
-    <section
-      className="min-h-dvh flex items-center pt-24 bg-grid bg-aurora relative overflow-hidden isolate"
-      id="hero"
-      ref={sectionRef}
-    >
-      <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
-        <div className="absolute inset-0 overflow-visible opacity-80" data-visual-regression="hero-rings">
-          <div
-            className="absolute"
-            style={
-              magicRingPosition
-                ? {
-                    height: `${magicRingPosition.height}px`,
-                    left: `${magicRingPosition.left}px`,
-                    top: `${magicRingPosition.top}px`,
-                    transform: "translate(-50%, -50%)",
-                    width: `${magicRingPosition.width}px`,
-                  }
-                : {
-                    inset: 0,
-                  }
-            }
-          >
-            <MagicRings
-              attenuation={25}
-              baseRadius={0.075}
-              blur={0.2}
-              clickBurst={false}
-              color={magicRingColors.color}
-              colorTwo={magicRingColors.colorTwo}
-              fadeIn={0.45}
-              fadeOut={0.2}
-              followMouse={false}
-              lineThickness={2}
-              noiseAmount={0.3}
-              opacity={1}
-              parallax={0.02}
-              radiusStep={0.08}
-              ringCount={5}
-              ringGap={1.35}
-              rotation={-18}
-              scaleRate={0.11}
-              speed={0.7}
-            />
-          </div>
-        </div>
-        <div className="absolute inset-0 bg-linear-to-b from-background/5 via-background/25 to-background/70" />
-      </div>
-
-      {/* Content Container */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="flex flex-col lg:flex-row lg:items-start">
-          {/* Text Content */}
-          <div className="lg:w-1/2 max-w-xl animate-fade-in">
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-display tracking-tight mb-5">
-              {hero.name}
-              <br />
-              <span
-                className="block text-gradient mt-3 h-[1.2em]"
-                key={titleIndex}
-                ref={fitTextRef}
-                style={{
-                  display: "inline-block",
-                  fontSize,
-                  lineHeight: 1.2,
-                  whiteSpace: "nowrap",
-                  width: "100%",
-                }}
-              >
-                {currentTitle}
+    <section className="relative isolate overflow-hidden pb-20 pt-28 sm:pt-32 lg:min-h-dvh lg:pb-16" id="hero">
+      <div className="section-shell grid items-center gap-y-16 lg:min-h-[calc(100dvh-10rem)] lg:grid-cols-12 lg:gap-x-10">
+        <div className="lg:col-span-7">
+          <h1 className="hero-enter text-[3.4rem] sm:text-8xl xl:text-[8.5rem]" style={enterStep(0)}>
+            {hero.name.split(" ").map((part) => (
+              <span className="block" key={part}>
+                {part}
               </span>
-            </h1>
+            ))}
+          </h1>
 
-            <p className="text-lg md:text-xl leading-relaxed text-muted-foreground max-w-lg mb-8">
-              {t(hero.description)}
-            </p>
+          <p
+            aria-live="off"
+            className="hero-enter mt-6 flex flex-wrap items-baseline gap-x-3 text-xl sm:text-2xl"
+            style={enterStep(1)}
+          >
+            <span className="text-muted-foreground">{t(hero.rolePrefix)}</span>
+            <span className="relative inline-grid overflow-hidden py-1 type-heading text-foreground">
+              <AnimatePresence initial={false} mode="popLayout">
+                <m.span
+                  animate={{ opacity: 1, y: "0%" }}
+                  className="col-start-1 row-start-1 whitespace-nowrap"
+                  exit={{ opacity: 0, y: "-90%" }}
+                  initial={{ opacity: 0, y: "90%" }}
+                  key={currentRole}
+                  transition={{ damping: 22, stiffness: 260, type: "spring" }}
+                >
+                  {currentRole}
+                </m.span>
+              </AnimatePresence>
+            </span>
+          </p>
 
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button asChild className="rounded-full shadow-lg shadow-primary/25 hover-scale" size="lg">
-                <a href="#experience">{t(hero.ctaPrimary)}</a>
-              </Button>
+          <p
+            className="hero-enter mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground sm:text-xl"
+            style={enterStep(2)}
+          >
+            {t(hero.pitch)}
+          </p>
 
-              <Button
-                asChild
-                className="rounded-full border-border/70 bg-background/50 hover-scale"
-                size="lg"
-                variant="outline"
-              >
-                <Link href="/cv">
-                  <FileTextIcon className="mr-2" size={16} />
-                  {t(hero.ctaSecondary)}
-                </Link>
-              </Button>
-            </div>
+          <div className="hero-enter mt-9 flex flex-wrap gap-3" style={enterStep(3)}>
+            <Button asChild size="lg">
+              <a href="#contact">
+                <MessageSquareText aria-hidden="true" />
+                {t(hero.ctaPrimary)}
+              </a>
+            </Button>
+            <Button asChild size="lg" variant="outline">
+              <Link href="/cv">
+                <FileText aria-hidden="true" />
+                {t(hero.ctaSecondary)}
+              </Link>
+            </Button>
+          </div>
 
-            <div className="glass-panel mt-10 max-w-lg p-5">
-              <div className="flex items-center gap-2">
-                <span className="relative flex h-2.5 w-2.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-60" />
-                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-primary" />
-                </span>
-                <p className="text-sm font-semibold uppercase tracking-[0.14em] text-foreground/80">
-                  {t(hero.availability.title)}
-                </p>
+          <div
+            className="hero-enter mt-10 flex max-w-md items-center gap-4 rounded-2xl border border-border bg-card/80 px-4 py-3 backdrop-blur-sm"
+            style={enterStep(4)}
+          >
+            <span aria-hidden="true" className="status-light shrink-0" />
+            <div className="min-w-0 flex-1">
+              <div className="flex items-baseline justify-between gap-3 text-sm">
+                <span className="font-semibold">{currentAvailability}</span>
+                <span className="text-muted-foreground">{fullAvailability}</span>
               </div>
               <progress
                 aria-label={t(hero.availability.title)}
-                className="mt-3 h-2.5 w-full overflow-hidden rounded-full bg-primary/15 accent-primary [&::-moz-progress-bar]:rounded-full [&::-moz-progress-bar]:bg-primary [&::-webkit-progress-bar]:rounded-full [&::-webkit-progress-bar]:bg-primary/15 [&::-webkit-progress-value]:rounded-full [&::-webkit-progress-value]:bg-primary"
+                className="mt-2 block h-1.5 w-full overflow-hidden rounded-full bg-primary/15 [&::-moz-progress-bar]:rounded-full [&::-moz-progress-bar]:bg-primary [&::-webkit-progress-bar]:rounded-full [&::-webkit-progress-bar]:bg-primary/15 [&::-webkit-progress-value]:rounded-full [&::-webkit-progress-value]:bg-primary"
                 max={100}
                 value={percentAvailable}
               />
-
-              <p className="mt-2.5 text-sm md:text-base leading-relaxed text-muted-foreground">{availabilitySummary}</p>
-            </div>
-          </div>
-
-          {/* Hero Image/Profile Picture */}
-          <div className="lg:w-1/2 mt-10 lg:mt-0 flex justify-center lg:justify-end">
-            <div
-              className="relative shrink-0"
-              style={{
-                height: "clamp(18rem, 36vw, 30rem)",
-                width: "clamp(18rem, 36vw, 30rem)",
-              }}
-            >
-              <div className="absolute inset-0 rounded-full bg-linear-to-br from-primary/8 via-transparent to-accent/10" />
-              <div className="absolute inset-[8%] flex items-center justify-center rounded-full" ref={portraitRef}>
-                <div className="h-full w-full rounded-full bg-linear-to-br from-primary/20 to-accent/20 p-1.5">
-                  <div className="h-full w-full rounded-full flex items-center justify-center overflow-hidden">
-                    <ProfilePicture alt={t(hero.imageAlt)} />
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 hidden lg:flex flex-col items-center z-20">
-        <span className="text-sm text-muted-foreground mb-2">{t(hero.scrollText)}</span>
-        <ArrowDown className="w-5 h-5 text-primary transition-transform duration-500 ease-out" />
+        <div className="hero-enter lg:col-span-5" style={enterStep(2)}>
+          <HeroDiagram isFrozen={isVisualRegression} />
+        </div>
       </div>
     </section>
   );
 };
+
 HeroSection.displayName = "HeroSection";
 
 export default HeroSection;

@@ -2,11 +2,9 @@ import { cookies, headers } from "next/headers";
 import Script from "next/script";
 import type { Metadata } from "next";
 import { getLocale } from "next-intl/server";
-import { GeistSans } from "geist/font/sans";
-import { GeistMono } from "geist/font/mono";
-import { GeistPixelCircle } from "geist/font/pixel";
 
 import { resolveInitialTheme, themeInitScript } from "@/app/document-preferences";
+import { fontVariables } from "@/app/fonts";
 import Providers from "@/app/providers";
 import DeferredAnalytics from "@/components/DeferredAnalytics";
 import { siteContent } from "@/content/content";
@@ -101,12 +99,7 @@ export default async function RootLayout({ children }: Readonly<LayoutProps<"/[l
 
   return (
     <html
-      className={cn(
-        GeistSans.variable,
-        GeistPixelCircle.variable,
-        GeistMono.variable,
-        initialTheme === "dark" && "dark",
-      )}
+      className={cn(fontVariables, initialTheme === "dark" && "dark")}
       data-scroll-behavior="smooth"
       lang={language}
       suppressHydrationWarning

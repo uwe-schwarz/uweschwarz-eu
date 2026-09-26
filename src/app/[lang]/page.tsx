@@ -40,13 +40,12 @@ export default function HomePage() {
     <div className="flex min-h-dvh flex-col">
       <Header />
       <main className="relative isolate grow overflow-hidden">
-        <div aria-hidden="true" className="site-aurora-background" />
-        <div aria-hidden="true" className="site-aurora-veil" />
+        <div aria-hidden="true" className="blueprint-grid pointer-events-none absolute inset-0 -z-10" />
         <HeroSection />
         <AboutSection />
-        <TrainingsSection />
-        <ExperienceSection />
         <ProjectsSection />
+        <ExperienceSection />
+        <TrainingsSection />
         <SkillsSection />
         <ContactSection />
       </main>
