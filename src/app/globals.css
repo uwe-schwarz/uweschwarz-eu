@@ -50,6 +50,9 @@
     /* Prints are the paper sheets pinned onto the plan; they stay light. */
     --print: #ffffff;
     --print-ink: #0c1733;
+    --print-edge: transparent;
+    --print-glow: none;
+    --print-tape: color-mix(in oklab, var(--redline) 22%, transparent);
 
     --grid-minor: rgb(35 70 214 / 0.055);
     --grid-major: rgb(35 70 214 / 0.09);
@@ -89,8 +92,12 @@
     --redline: #ff7a48;
     --redline-foreground: #0a1530;
 
-    --print: #eef2fb;
-    --print-ink: #0c1733;
+    /* Dark prints: a deeper sheet with a light-table glow instead of glaring paper */
+    --print: #11224a;
+    --print-ink: #e9eefb;
+    --print-edge: rgb(190 210 255 / 0.1);
+    --print-tape: rgb(233 238 251 / 0.16);
+    --print-glow: radial-gradient(closest-side, rgb(142 174 255 / 0.2), rgb(142 174 255 / 0.05) 60%, transparent);
 
     --grid-minor: rgb(190 210 255 / 0.05);
     --grid-major: rgb(190 210 255 / 0.085);
@@ -205,7 +212,9 @@
 /* Paper print pinned onto the plan; stays light in dark mode */
 @utility print {
   @apply relative rounded-xl;
-  background: var(--print);
+  border: 1px solid var(--print-edge);
+  background-color: var(--print);
+  background-image: var(--print-glow);
   color: var(--print-ink);
   box-shadow:
     0 1px 0 hsl(var(--shadow-color) / 0.06),
@@ -214,7 +223,7 @@
 
 @utility print-tape {
   @apply pointer-events-none absolute left-1/2 -top-3 h-6 w-24 -translate-x-1/2 -rotate-2 rounded-sm;
-  background: color-mix(in oklab, var(--redline) 22%, transparent);
+  background: var(--print-tape);
 }
 
 @utility link-quiet {
@@ -227,6 +236,12 @@
 
 @utility chip {
   @apply inline-flex items-center rounded-md border border-border bg-background/70 px-2 py-0.5 text-xs font-medium text-muted-foreground;
+}
+
+/* Transparent illustrations on a dark print get a chalk hairline so their
+   dark outlines stay legible against the blueprint blue. */
+.dark .print-art {
+  filter: drop-shadow(0 0 0.6px rgb(233 238 251 / 0.85));
 }
 
 /* Blueprint grid behind the whole plan */

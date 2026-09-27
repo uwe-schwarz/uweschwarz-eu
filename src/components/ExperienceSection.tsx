@@ -62,19 +62,23 @@ const ExperienceEntry = ({ exp, t }: ExperienceEntryProps) => {
             </div>
 
             {exp.logoUrl && (
-              <div
-                className={`relative hidden h-12 w-24 shrink-0 overflow-hidden rounded-lg border p-2 sm:block ${
-                  exp.logoBackground === "light" ? "border-border bg-white" : "border-white/10 bg-[#0c1733]"
-                }`}
-              >
+              <div className="relative hidden h-12 w-32 shrink-0 opacity-85 transition-opacity duration-300 group-hover:opacity-100 sm:block">
                 <Image
                   alt={`${exp.company} logo`}
-                  className="h-full w-full object-contain"
-                  height={48}
-                  sizes="96px"
+                  className={`object-contain object-right ${exp.logoUrlDark ? "dark:hidden" : ""}`}
+                  fill
+                  sizes="128px"
                   src={exp.logoUrl}
-                  width={96}
                 />
+                {exp.logoUrlDark && (
+                  <Image
+                    alt={`${exp.company} logo`}
+                    className="hidden object-contain object-right dark:block"
+                    fill
+                    sizes="128px"
+                    src={exp.logoUrlDark}
+                  />
+                )}
               </div>
             )}
           </div>

@@ -22,7 +22,7 @@ const ProjectPrint = ({ alt, className, project }: { alt: string; className?: st
     <div className="relative aspect-[4/3] overflow-hidden rounded-lg">
       <Image
         alt={alt}
-        className="object-contain p-4"
+        className="print-art object-contain p-4"
         fill
         sizes="(min-width: 1024px) 520px, 80vw"
         src={project.imageUrl}

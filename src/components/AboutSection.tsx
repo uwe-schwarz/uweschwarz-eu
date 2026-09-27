@@ -31,7 +31,7 @@ const AboutSection = () => {
                 <div className="relative aspect-square overflow-hidden rounded-lg">
                   <Image
                     alt={t(about.imageAlt)}
-                    className="object-contain"
+                    className="print-art object-contain"
                     fill
                     sizes="(min-width: 1024px) 420px, 384px"
                     src="/about-me.webp"

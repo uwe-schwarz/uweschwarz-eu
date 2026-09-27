@@ -77,9 +77,10 @@ export interface Experience {
   company: string;
   description: Array<ExperienceDescriptionItem>;
   location: LocalizedString;
-  /** Tile colour the logo was drawn for; defaults to dark. */
-  logoBackground?: "dark" | "light";
+  /** Logo shown in light mode, and in dark mode unless logoUrlDark is set. */
   logoUrl?: string;
+  /** Variant for dark surfaces when the default logo relies on dark ink. */
+  logoUrlDark?: string;
   period: LocalizedString;
   projectScale?: "major" | "small";
   tags: Array<LocalizedString>;
@@ -461,7 +462,8 @@ export const siteContent: SiteContent = {
         },
       ],
       location: { de: "Hockenheim, Deutschland", en: "Hockenheim, Germany" },
-      logoUrl: "/logos/degit.png",
+      logoUrl: "/logos/degit-on-light.png",
+      logoUrlDark: "/logos/degit.png",
       period: { de: "Mai 2018 - Heute", en: "May 2018 - Present" },
       projectScale: "small",
       tags: [
@@ -537,7 +539,6 @@ export const siteContent: SiteContent = {
         de: "Karlsruhe & Speyer, Deutschland",
         en: "Karlsruhe & Speyer, Germany",
       },
-      logoBackground: "light",
       logoUrl: "/logos/drv.svg",
       period: { de: "Jan 2026 - Heute", en: "Jan 2026 - Today" },
       tags: [
@@ -630,7 +631,8 @@ export const siteContent: SiteContent = {
         },
       ],
       location: { de: "Hockenheim, Deutschland", en: "Hockenheim, Germany" },
-      logoUrl: "/logos/schlaufabrik.png",
+      logoUrl: "/logos/schlaufabrik-on-light.png",
+      logoUrlDark: "/logos/schlaufabrik.png",
       period: { de: "Dezember 2025 - Heute", en: "December 2025 - Present" },
       projectScale: "small",
       tags: [
@@ -755,7 +757,8 @@ export const siteContent: SiteContent = {
         },
       ],
       location: { de: "Hockenheim, Deutschland", en: "Hockenheim, Germany" },
-      logoUrl: "/logos/degit.png",
+      logoUrl: "/logos/degit-on-light.png",
+      logoUrlDark: "/logos/degit.png",
       period: { de: "Aug 2025 – Okt 2025", en: "Aug 2025 – Oct 2025" },
       projectScale: "small",
       tags: [
@@ -832,8 +835,8 @@ export const siteContent: SiteContent = {
         },
       ],
       location: { de: "Hamburg, Deutschland", en: "Hamburg, Germany" },
-      logoBackground: "light",
       logoUrl: "/logos/berenberg.svg",
+      logoUrlDark: "/logos/berenberg-on-dark.svg",
       period: { de: "Jan 2024 - Sep 2025", en: "Jan 2024 - Sep 2025" },
       tags: [
         {
