@@ -209,7 +209,7 @@ EmailTemplate.displayName = "EmailTemplate";
  * client-side form schema, then renders and delivers the notification
  * email via Resend. The honeypot field (`verify`) must stay empty.
  */
-export async function POST(request: Request) {
+async function handlePostRequest(request: Request) {
   let body: Record<string, unknown>;
   try {
     body = await request.json();
@@ -248,7 +248,8 @@ export async function POST(request: Request) {
   const rawMessage = String(body.message ?? "");
   const rawName = String(body.name ?? "");
 
-  const currentYear = new Date().getFullYear();
+  const submittedAt = new Date();
+  const currentYear = submittedAt.getUTCFullYear();
   const html = await render(
     <EmailTemplate currentYear={currentYear} email={email} message={rawMessage} name={rawName} />,
   );
@@ -258,7 +259,7 @@ export async function POST(request: Request) {
       from: `${headerSafeName} <uweschwarz-eu@oldman.cloud>`,
       html,
       replyTo: [email],
-      subject: `Contact Form Submission from ${headerSafeName} on ${new Date().toISOString()}`,
+      subject: `Contact Form Submission from ${headerSafeName} on ${submittedAt.toISOString()}`,
       to: ["mail@uweschwarz.eu"],
     });
     return NextResponse.json(data);
@@ -267,3 +268,5 @@ export async function POST(request: Request) {
     return NextResponse.json({ details: err.message, error: "Failed to send email" }, { status: 500 });
   }
 }
+
+export { handlePostRequest as POST };
