@@ -5,11 +5,12 @@ import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
 import { Link } from "@/i18n/navigation";
 
+const currentYear = new Date().getUTCFullYear();
+
 const Footer = () => {
   const { t } = useSettings();
   const { footer } = siteContent;
   const sitemap = siteContent.sitemap;
-  const year = new Date().getFullYear();
   const sitemapLabel = sitemap ? t(sitemap.title) : t({ de: "Sitemap", en: "Sitemap" });
   const homeHref = "/";
 
@@ -29,7 +30,9 @@ const Footer = () => {
             >
               <span className="text-gradient">Uwe Schwarz</span>
             </Link>
-            <p className="text-sm text-muted-foreground">{t(footer.copyright).replace("year", year.toString())}</p>
+            <p className="text-sm text-muted-foreground">
+              {t(footer.copyright).replace("year", currentYear.toString())}
+            </p>
           </div>
 
           {/* Links */}
