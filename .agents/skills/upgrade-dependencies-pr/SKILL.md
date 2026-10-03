@@ -13,7 +13,7 @@ Use this skill to take a JavaScript, TypeScript, or Python repository from outda
 
 ## Endpoint and Repository Integration
 
-This skill ends after opening a reviewable PR. It does not authorize merging or production deployment. For a user-authorized full autopilot run, use [../deps-upgrade-autopilot/SKILL.md](../deps-upgrade-autopilot/SKILL.md); that workflow owns repository-specific validation, review, merge, and cleanup. Do not infer merge authorization from credentials or passing checks.
+This skill ends after opening a reviewable PR. It does not authorize merging or production deployment. For a user-authorized full autopilot run, use [../deps-upgrade-autopilot/SKILL.md](../deps-upgrade-autopilot/SKILL.md); that workflow owns repository-specific validation, direct-main publication, production verification, and cleanup. Its endpoint overrides this skill's branch/PR instructions only for authorized autopilot runs. Do not infer merge authorization from credentials or passing checks.
 
 In this Next.js/Bun repository, use Bun for installs and script execution, obey `AGENTS.md`, and preserve release-age, registry, integrity, and trusted-dependency policies. The daily automation invokes the autopilot directly. For a standalone PR request here, read only its Credential Isolation Precondition, Repo-Specific Validation, Visual Regression Flow, Dependency Trust Boundary, and Follow-Up Issue Deduplication sections as repository requirements; do not run its babysitting or merge steps. Clear inherited `VERCEL_TOKEN` before repository commands.
 

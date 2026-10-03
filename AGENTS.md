@@ -7,7 +7,7 @@ This repository contains a personal portfolio built with Next.js, React, TypeScr
 - `src/` – application source code (pages, components, hooks).
 - `public/` – static assets such as the generated `sitemap.xml`.
 - `scripts/` – utility scripts executed by the build or git hooks.
-- Repo-local skill: `.agents/skills/deps-upgrade-autopilot/SKILL.md` for one-shot dependency upgrade PRs with before/after screenshot comparison.
+- Repo-local skill: `.agents/skills/deps-upgrade-autopilot/SKILL.md` for cloud dependency maintenance with before/after screenshot comparison, normal direct `origin/main` push, and exact-commit production verification.
 
 ## Useful commands
 
@@ -50,7 +50,7 @@ The application includes browser language detection that automatically detects t
 - Documentation-only changes need appropriate content/format checks. Do not invent runtime tests for them.
 - Resolve failures introduced by the change; report unrelated pre-existing failures explicitly. Do not bypass a failing required gate.
 - Reuse passing results for the unchanged tested state across commit, push, and PR creation. Rerun affected checks if source, dependencies, or generated artifacts change, including through hooks.
-- Record checks and results in the PR description.
+- Record checks and results in the maintenance run evidence (or the PR description for separately requested PR work).
 - This project-specific scope overrides the generated block's "before writing any code" requirement: apply its documentation guidance only to changes that depend on Next.js APIs, conventions, routing, or build behavior. Unrelated prose edits need no Next.js documentation pass.
 
 <!-- BEGIN:nextjs-agent-rules -->

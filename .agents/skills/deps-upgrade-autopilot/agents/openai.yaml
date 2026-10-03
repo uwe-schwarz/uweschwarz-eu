@@ -1,4 +1,4 @@
 interface:
   display_name: "Dependency Upgrade Autopilot"
-  short_description: "Upgrade, validate, review, merge, and verify"
-  default_prompt: "Use $deps-upgrade-autopilot to run this repository's dependency maintenance through validation, PR review, merge, production verification, and cleanup under its existing policies."
+  short_description: "Upgrade, test, capture screenshots, push main, verify"
+  default_prompt: "Use $deps-upgrade-autopilot in this repository's saved cloud environment: preserve Bun, release gates, compatibility holds, all quality checks and seven before/after screenshot targets; normally commit and push origin/main, then verify the exact production deployment and read-only smoke checks. Preserve Healthchecks signaling and stay silent on routine outcomes."

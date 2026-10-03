@@ -508,7 +508,10 @@ async function runCapture(options) {
   const language = normalizeLanguage(options.lang);
   const theme = normalizeTheme(options.theme);
   const manifestTargets = [];
-  const browser = await chromium.launch({ headless: true });
+  const browser = await chromium.launch({
+    executablePath: process.env.DEPS_VISUAL_CHROMIUM_EXECUTABLE_PATH || undefined,
+    headless: true,
+  });
 
   try {
     await captureTargets(browser, baseUrl, outputDir, options, manifestTargets, language, theme);
@@ -518,6 +521,7 @@ async function runCapture(options) {
 
   const manifest = {
     baseUrl,
+    browserVersion: browser.version(),
     capturedAt: new Date().toISOString(),
     language,
     outputDir,
@@ -611,6 +615,9 @@ async function runCompare(options) {
 
   const beforeManifest = await readManifest(beforeDir);
   const afterManifest = await readManifest(afterDir);
+  if (!beforeManifest.browserVersion || beforeManifest.browserVersion !== afterManifest.browserVersion) {
+    throw new Error("Before and after captures must use the same recorded Chromium version.");
+  }
   const afterTargetsById = new Map(afterManifest.targets.map((target) => [target.id, target]));
   const results = [];
 
