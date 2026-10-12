@@ -445,67 +445,68 @@ export const siteContent: SiteContent = {
       },
     },
     {
-      company: "Deutsche Rentenversicherung (RP, BW)",
+      company: "Deutsche Rentenversicherung",
       description: [
         {
           text: {
-            de: "Technische Programmverantwortung für die IPv6-Migration bei DRV RP und DRV BW mit Fokus auf Migrationsplanung, Umsetzungsstruktur und übergreifende technische Steuerung.",
-            en: "Technical program ownership for the IPv6 migration at DRV RP and DRV BW, with a focus on migration planning, execution structure, and cross-functional technical coordination.",
+            de: "Technische Programmverantwortung für die IPv6-Migration. Schwerpunkte sind die Migrationsplanung, die Netzwerkarchitektur und das IP-Adressmanagement mit Infoblox.",
+            en: "Technical program ownership for the IPv6 migration. Key areas include migration planning, network architecture, and IP address management with Infoblox.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Konzeption und Einführung eines operativen Steuerungsmodells mit Dashboard, Action Board, KPI-Portfolio, Risikoregister und Entscheidungsindex zur strukturierten Übersetzung technischer Themen in belastbare Delivery-Artefakte.",
-            en: "Designed and implemented an operational control model with dashboard, action board, KPI portfolio, risk register, and decision index to translate technical topics into structured delivery artifacts.",
+            de: "Konzeption der IPv6-Adressierung und Abstimmung der Abbildung in Infoblox IPAM als Grundlage für eine konsistente Verwaltung von Adressräumen und Netzsegmenten im Dual-Stack-Betrieb.",
+            en: "Designed the IPv6 addressing scheme and coordinated its representation in Infoblox IPAM to support consistent management of address spaces and network segments in dual-stack operation.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Koordination der technischen Vorarbeiten für Architektur und Rollout über IPv6-Adressierung, Segmentierung, Dual-Stack-Zielbild, Testlabor-Planung und teamübergreifende Abhängigkeiten hinweg.",
-            en: "Coordinated technical groundwork for architecture and rollout across IPv6 addressing, segmentation, dual-stack target design, test-lab planning, and cross-team dependencies.",
+            de: "Koordination der technischen Vorarbeiten für Testlabor und Rollout sowie Abstimmung der Abhängigkeiten zwischen Netzwerkbetrieb, Architektur und Informationssicherheit.",
+            en: "Coordinated technical groundwork for the test lab and rollout, aligning dependencies between network operations, architecture, and information security.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Begleitung sicherheits- und compliance-relevanter Anforderungen mit Bezug auf BSI, NIS2 und KRITIS sowie deren Überführung in nachvollziehbare Nachweise, Risiken und Management-Reporting.",
-            en: "Supported security- and compliance-related requirements in the context of BSI, NIS2, and critical infrastructure, translating them into traceable evidence, risks, and management reporting.",
+            de: "Berücksichtigung sicherheits- und compliance-relevanter Anforderungen im Kontext von BSI, NIS2 und KRITIS sowie deren Überführung in nachvollziehbare Nachweise und Management-Reporting.",
+            en: "Addressed security and compliance requirements in the context of BSI, NIS2, and critical infrastructure, translating them into traceable evidence and management reporting.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Etablierung eines wiederverwendbaren Intake-to-Governance-Workflows zur systematischen Erfassung technischer Actions, Risiken, offener Punkte und Nachweisanforderungen.",
-            en: "Established a reusable intake-to-governance workflow for systematically capturing technical actions, risks, open issues, and evidence requirements.",
+            de: "Aufbau einer übergreifenden Programmsteuerung mit Dashboard, KPI-Portfolio, Risikoregister und dokumentierten Entscheidungen.",
+            en: "Established program-wide coordination with a dashboard, KPI portfolio, risk register, and documented decisions.",
           },
           type: "achievement",
         },
         {
           text: {
-            de: "Schaffung einer operativen Baseline für die technische Programmausführung mit messbaren KPIs, klaren Verantwortlichkeiten und transparenter Entscheidungsgrundlage.",
-            en: "Created an operational baseline for technical program execution with measurable KPIs, clear ownership, and transparent decision support.",
+            de: "Schaffung einer operativen Grundlage für die Migration mit klaren Verantwortlichkeiten, messbaren Fortschritten und abgestimmten Umsetzungsschritten.",
+            en: "Created an operational foundation for the migration with clear ownership, measurable progress, and agreed implementation steps.",
           },
           type: "achievement",
         },
       ],
       location: {
-        de: "Karlsruhe & Speyer, Deutschland",
-        en: "Karlsruhe & Speyer, Germany",
+        de: "Deutschland",
+        en: "Germany",
       },
       logoUrl: "/logos/drv.svg",
       period: { de: "Jan 2026 - Heute", en: "Jan 2026 - Today" },
       tags: [
+        { de: "IPv6", en: "IPv6" },
+        { de: "Infoblox IPAM", en: "Infoblox IPAM" },
+        { de: "Adressmanagement", en: "Address Management" },
+        { de: "Netzwerkarchitektur", en: "Network Architecture" },
+        { de: "Dual Stack", en: "Dual Stack" },
+        { de: "Segmentierung", en: "Network Segmentation" },
         {
           de: "Technische Programmsteuerung",
           en: "Technical Program Leadership",
         },
-        { de: "IPv6", en: "IPv6" },
-        { de: "Netzwerkarchitektur", en: "Network Architecture" },
-        { de: "Dual Stack", en: "Dual Stack" },
-        { de: "Adressmanagement", en: "Address Management" },
-        { de: "Segmentierung", en: "Network Segmentation" },
         { de: "Testlabor-Planung", en: "Test Lab Planning" },
         { de: "Rollout-Vorbereitung", en: "Rollout Preparation" },
         { de: "BSI", en: "BSI" },
@@ -518,11 +519,10 @@ export const siteContent: SiteContent = {
         { de: "Atlassian Jira", en: "Atlassian Jira" },
         { de: "Confluence", en: "Confluence" },
         { de: "Microsoft PowerPoint", en: "Microsoft PowerPoint" },
-        { de: "Infoblox (IPAM)", en: "Infoblox (IPAM)" },
       ],
       title: {
-        de: "Technische Programmleitung IPv6-Migration",
-        en: "Technical Program Lead IPv6 Migration",
+        de: "Technische Programmleitung IPv6-Migration & Infoblox IPAM",
+        en: "Technical Program Lead IPv6 Migration & Infoblox IPAM",
       },
     },
     {
