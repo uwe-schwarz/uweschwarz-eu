@@ -456,8 +456,8 @@ export const siteContent: SiteContent = {
         },
         {
           text: {
-            de: "Konzeption der IPv6-Adressierung und Abstimmung der Abbildung in Infoblox IPAM als Grundlage für eine konsistente Verwaltung von Adressräumen und Netzsegmenten im Dual-Stack-Betrieb.",
-            en: "Designed the IPv6 addressing scheme and coordinated its representation in Infoblox IPAM to support consistent management of address spaces and network segments in dual-stack operation.",
+            de: "Konzeption der IPv6-Adressierung und Abstimmung der Abbildung in Infoblox als Grundlage für eine konsistente Verwaltung von Adressräumen und Netzsegmenten im Dual-Stack-Betrieb.",
+            en: "Designed the IPv6 addressing scheme and coordinated its representation in Infoblox to support consistent management of address spaces and network segments in dual-stack operation.",
           },
           type: "text",
         },
@@ -498,7 +498,8 @@ export const siteContent: SiteContent = {
       period: { de: "Jan 2026 - Heute", en: "Jan 2026 - Today" },
       tags: [
         { de: "IPv6", en: "IPv6" },
-        { de: "Infoblox IPAM", en: "Infoblox IPAM" },
+        { de: "Infoblox", en: "Infoblox" },
+        { de: "IPAM", en: "IPAM" },
         { de: "Adressmanagement", en: "Address Management" },
         { de: "Netzwerkarchitektur", en: "Network Architecture" },
         { de: "Dual Stack", en: "Dual Stack" },
@@ -521,8 +522,8 @@ export const siteContent: SiteContent = {
         { de: "Microsoft PowerPoint", en: "Microsoft PowerPoint" },
       ],
       title: {
-        de: "Technische Programmleitung IPv6-Migration & Infoblox IPAM",
-        en: "Technical Program Lead IPv6 Migration & Infoblox IPAM",
+        de: "Technische Programmleitung IPv6-Migration & IP-Adressmanagement mit Infoblox",
+        en: "Technical Program Lead IPv6 Migration & IP Address Management with Infoblox",
       },
     },
     {
