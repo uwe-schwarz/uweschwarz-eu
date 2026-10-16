@@ -21,11 +21,12 @@ const AboutSection = () => {
   return (
     <section className="section-space relative" id="about">
       <div className="section-shell">
-        <div className="grid gap-x-16 gap-y-14 lg:grid-cols-12">
-          <div className="lg:col-span-5">
+        {/* Two columns only from xl: at lg the 5/12 column is too narrow for the heading */}
+        <div className="grid gap-x-16 gap-y-14 xl:grid-cols-12">
+          <div className="xl:col-span-5">
             <h2 className="section-title">{t(about.title)}</h2>
 
-            <figure className="relative mx-auto mt-14 max-w-[19rem] sm:max-w-sm lg:mx-0 lg:max-w-none">
+            <figure className="relative mx-auto mt-14 max-w-[19rem] sm:max-w-sm xl:mx-0 xl:max-w-none">
               <div className="print rotate-2 p-3 transition-transform duration-500 hover:rotate-0">
                 <span aria-hidden="true" className="print-tape" />
                 <div className="relative aspect-square overflow-hidden rounded-lg">
@@ -33,7 +34,7 @@ const AboutSection = () => {
                     alt={t(about.imageAlt)}
                     className="print-art object-contain"
                     fill
-                    sizes="(min-width: 1024px) 420px, 384px"
+                    sizes="(min-width: 1280px) 456px, 384px"
                     src="/about-me.webp"
                   />
                 </div>
@@ -44,7 +45,7 @@ const AboutSection = () => {
             </figure>
           </div>
 
-          <div className="space-y-6 text-lg leading-relaxed sm:text-xl lg:col-span-7 lg:pt-3">
+          <div className="space-y-6 text-lg leading-relaxed sm:text-xl xl:col-span-7 xl:pt-3">
             {about.paragraphs.map((paragraph, index) => (
               <p
                 className={index === 0 ? "text-foreground" : "text-muted-foreground"}

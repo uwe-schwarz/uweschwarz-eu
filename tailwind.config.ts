@@ -43,6 +43,7 @@ export default {
         },
         foreground: "var(--foreground)",
         input: "var(--input)",
+        "logo-plate": "var(--logo-plate)",
         muted: {
           DEFAULT: "var(--muted)",
           foreground: "var(--muted-foreground)",
@@ -59,6 +60,7 @@ export default {
           DEFAULT: "var(--print)",
           ink: "var(--print-ink)",
         },
+        rail: "var(--rail)",
         redline: {
           DEFAULT: "var(--redline)",
           foreground: "var(--redline-foreground)",

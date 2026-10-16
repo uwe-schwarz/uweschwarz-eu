@@ -44,6 +44,13 @@
     /* Control outlines (inputs, outline buttons, carousel dots) need 3:1 */
     --input: #7f8aa6;
     --ring: #2346d6;
+    /* Timeline rail: 3.35:1 on the background */
+    --rail: #6880e0;
+    /* Light plate behind company logos; only drawn in dark mode */
+    --logo-plate: #f5f7fc;
+
+    /* Fixed header: 0.75rem top offset + 3.5rem pill, plus any notch inset */
+    --header-height: calc(4.25rem + env(safe-area-inset-top, 0px));
 
     /* Dark enough for 4.5:1 even where the notes cross a grid line */
     --redline: #a83109;
@@ -79,7 +86,8 @@
     --secondary-foreground: #e9eefb;
 
     --muted: #13234a;
-    --muted-foreground: #9daacb;
+    /* 7.4:1 on muted, 8:1 on card */
+    --muted-foreground: #a8b4d3;
 
     --accent: #1a2c58;
     --accent-foreground: #c9d7ff;
@@ -87,9 +95,12 @@
     --destructive: #ff8a80;
     --destructive-foreground: #0a1530;
 
-    --border: #1f3160;
+    /* Card and divider edges: 4:1 on background, 3.7:1 on card, 3.3:1 on secondary */
+    --border: #6176ab;
     --input: #5b6fa3;
     --ring: #8eaeff;
+    /* 3.9:1 on the background */
+    --rail: #5571c2;
 
     --redline: #ff7a48;
     --redline-foreground: #0a1530;
@@ -111,9 +122,20 @@
     @apply border-border;
   }
 
+  @media (width >= 40rem) {
+    :root {
+      --header-height: calc(4.5rem + env(safe-area-inset-top, 0px));
+    }
+  }
+
   html {
     @apply scroll-smooth;
     color-scheme: light;
+  }
+
+  /* Anchor jumps (#contact, …) land below the fixed header */
+  [id] {
+    scroll-margin-top: calc(var(--header-height) + 0.5rem);
   }
 
   html.dark {
@@ -195,9 +217,15 @@
   @apply py-20 sm:py-28 lg:py-32;
 }
 
+/* Fluid from 2.3rem (phones) to 4.25rem: at 1280px+ the 5/12 column is
+   456px wide and "Komplexität" at 4.25rem still fits. Hyphenation and
+   overflow-wrap are a last resort for compounds longer than that. */
 @utility section-title {
-  @apply type-display text-[2.3rem] sm:text-6xl lg:text-7xl;
-  hyphens: manual;
+  @apply type-display;
+  font-size: clamp(2.3rem, 1.05rem + 4.4vw, 4.25rem);
+  hyphens: auto;
+  hyphenate-limit-chars: 12 5 5;
+  overflow-wrap: break-word;
 
   /* Narrower cut on phones so long German compounds stay on one line */
   @media (width < 40rem) {

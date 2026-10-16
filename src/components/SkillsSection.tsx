@@ -74,7 +74,7 @@ const SkillLayerGroup = ({ layer }: { layer: LayerDefinition }) => {
       aria-labelledby={headingId}
       className={
         isBand
-          ? "border-t border-dashed border-redline/60 bg-redline/[0.04] p-4 lg:col-start-2 lg:row-span-4 lg:row-start-1 lg:border-l lg:border-t-0 lg:px-5 lg:py-3"
+          ? "border-t border-dashed border-redline/60 bg-redline/[0.04] p-4 lg:px-5 lg:py-3 xl:col-start-2 xl:row-span-4 xl:row-start-1 xl:border-l xl:border-t-0"
           : "border-t border-border p-4 first:border-t-0 lg:grid lg:grid-cols-[9.5rem_minmax(0,1fr)] lg:items-start lg:gap-4 lg:px-5 lg:py-3"
       }
     >
@@ -152,7 +152,8 @@ const SkillsSection = () => {
             <span className="h-px w-3 bg-current" />
           </div>
 
-          <div className="sheet overflow-hidden rounded-xl lg:grid lg:grid-cols-[minmax(0,1fr)_16.5rem] xl:grid-cols-[minmax(0,1fr)_18rem] lg:grid-rows-[repeat(4,auto)]">
+          {/* Security band runs alongside the layers from xl, below them before that */}
+          <div className="sheet overflow-hidden rounded-xl xl:grid xl:grid-cols-[minmax(0,1fr)_18rem] xl:grid-rows-[repeat(4,auto)]">
             {STACK_LAYERS.map((layer) => (
               <SkillLayerGroup key={layer.id} layer={layer} />
             ))}

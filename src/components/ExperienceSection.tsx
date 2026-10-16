@@ -44,10 +44,7 @@ const ExperienceEntry = ({ exp, t }: ExperienceEntryProps) => {
 
       <div className="relative pl-8 md:pl-10">
         {/* Rail and node */}
-        <span
-          aria-hidden="true"
-          className="absolute bottom-[-3rem] left-[5px] top-3 w-px bg-primary/30 group-last:hidden"
-        />
+        <span aria-hidden="true" className="absolute bottom-[-3rem] left-[5px] top-3 w-px bg-rail group-last:hidden" />
         <span
           aria-hidden="true"
           className="absolute left-0 top-1.5 h-[11px] w-[11px] rounded-full border-2 border-primary bg-background"
@@ -67,24 +64,19 @@ const ExperienceEntry = ({ exp, t }: ExperienceEntryProps) => {
             </div>
 
             {exp.logoUrl && (
-              // Decorative: the company name is already in the text next to it
-              <div className="relative hidden h-12 w-32 shrink-0 sm:block">
-                <Image
-                  alt=""
-                  className={`object-contain object-right ${exp.logoUrlDark ? "dark:hidden" : ""}`}
-                  fill
-                  sizes="128px"
-                  src={exp.logoUrl}
-                />
-                {exp.logoUrlDark && (
+              // Decorative: the company name is already in the text next to it.
+              // Dark mode puts the light-background logo on a light plate so
+              // dark and monochrome marks keep their brand colours.
+              <div className="hidden h-12 w-32 shrink-0 sm:block dark:rounded-lg dark:bg-logo-plate dark:px-2.5 dark:py-1.5 dark:shadow-sm">
+                <div className="relative h-full w-full">
                   <Image
                     alt=""
-                    className="hidden object-contain object-right dark:block"
+                    className="object-contain object-right dark:object-center"
                     fill
                     sizes="128px"
-                    src={exp.logoUrlDark}
+                    src={exp.logoUrl}
                   />
-                )}
+                </div>
               </div>
             )}
           </div>

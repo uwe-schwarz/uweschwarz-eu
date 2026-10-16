@@ -242,7 +242,10 @@ const Header = () => {
   const contactHref = contactItem && (isHomePage ? contactItem.href : `/${language}${contactItem.href}`);
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 px-3 pt-3 sm:px-4 sm:pt-4${isScrolled ? " nav-glass-on" : ""}`}>
+    // Height is mirrored in --header-height (globals.css); keep both in sync.
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 px-3 pt-[calc(0.75rem+env(safe-area-inset-top,0px))] sm:px-4 sm:pt-[calc(1rem+env(safe-area-inset-top,0px))]${isScrolled ? " nav-glass-on" : ""}`}
+    >
       <div
         className="liquid-glass-nav mx-auto flex max-w-7xl items-center justify-between gap-4 py-2 pl-2.5 pr-2 sm:pl-3"
         ref={navRef}

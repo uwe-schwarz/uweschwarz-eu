@@ -19,8 +19,9 @@ const ContactSection = () => {
   return (
     <section className="section-space relative" id="contact">
       <div className="section-shell">
-        <div className="grid gap-x-16 gap-y-16 lg:grid-cols-12">
-          <div className="lg:col-span-5">
+        {/* Two columns only from xl: at lg the 5/12 column squeezes the heading */}
+        <div className="grid gap-x-16 gap-y-16 xl:grid-cols-12">
+          <div className="xl:col-span-5">
             <h2 className="section-title">{t(contact.title)}</h2>
             <p className="section-lede">{t(contact.subtitle)}</p>
 
@@ -110,7 +111,7 @@ const ContactSection = () => {
             </div>
           </div>
 
-          <div className="relative lg:col-span-7 lg:pt-4">
+          <div className="relative xl:col-span-7 xl:pt-4">
             <div aria-hidden="true" className="mb-3 flex items-end justify-end gap-1 pr-2 sm:pr-10">
               <p className="redline-note max-w-[18rem] -rotate-3 text-right">{t(contact.note)}</p>
               <svg className="h-10 w-10 shrink-0 translate-y-5 text-redline" fill="none" viewBox="0 0 40 40">

@@ -58,7 +58,10 @@ const HeroSection = () => {
   });
 
   return (
-    <section className="relative isolate overflow-hidden pb-20 pt-28 sm:pt-32 lg:min-h-dvh lg:pb-16" id="hero">
+    <section
+      className="relative isolate overflow-hidden pb-20 pt-[calc(var(--header-height)+3.5rem)] lg:min-h-dvh lg:pb-16"
+      id="hero"
+    >
       <div className="section-shell grid items-center gap-y-16 lg:min-h-[calc(100dvh-10rem)] lg:grid-cols-12 lg:gap-x-10">
         <div className="lg:col-span-7">
           <h1 className="hero-enter text-[3.4rem] sm:text-8xl xl:text-[8.5rem]" style={enterStep(0)}>

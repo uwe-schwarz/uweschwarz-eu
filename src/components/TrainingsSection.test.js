@@ -16,7 +16,7 @@ describe("TrainingsSection", () => {
   });
 
   test("uses a responsive three-column desktop grid", () => {
-    expect(trainingsSectionSource).toContain('className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"');
+    expect(trainingsSectionSource).toContain('className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3"');
   });
 
   test("accepts a React 19 ref prop while preserving an explicit display name", () => {

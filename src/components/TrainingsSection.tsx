@@ -31,14 +31,14 @@ const TrainingsSection = ({ ref }: TrainingsSectionProps) => {
           <p className="section-lede">{t(trainings.subtitle)}</p>
         </header>
 
-        <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
           {trainings.items.map((training, index) => {
             const Icon = trainingIcons[training.title.en] ?? GraduationCap;
 
             return (
               <article
                 className={`sheet relative flex flex-col transition-transform duration-300 hover:-translate-y-1 hover:rotate-0 ${
-                  index % 2 === 0 ? "lg:-rotate-[0.6deg]" : "lg:rotate-[0.6deg]"
+                  index % 2 === 0 ? "xl:-rotate-[0.6deg]" : "xl:rotate-[0.6deg]"
                 }`}
                 key={getLocalizedTextKey(training.title)}
               >
