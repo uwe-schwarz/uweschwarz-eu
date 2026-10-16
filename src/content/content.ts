@@ -39,6 +39,8 @@ interface WebSections {
   experience: SectionCopy & {
     hideDetails: LocalizedString;
     showDetails: LocalizedString;
+    showFewerProjects: LocalizedString;
+    showMoreProjects: LocalizedString;
   };
   projects: SectionCopy;
   skills: SectionCopy & {
@@ -47,6 +49,7 @@ interface WebSections {
     layers: Record<SkillLayer, LocalizedString>;
     legendCore: LocalizedString;
     legendOther: LocalizedString;
+    legendTitle: LocalizedString;
     showLess: LocalizedString;
     showMore: LocalizedString;
   };
@@ -104,6 +107,9 @@ interface Project {
 
 export interface Skill {
   category: "languages" | "management" | "security" | "infrastructure" | "tools" | "ai";
+  /** Daily driver, highlighted on the website. */
+  core?: boolean;
+  /** Proficiency 1–5, used by the CV generator. */
   level: number;
   name: LocalizedString;
 }
@@ -622,7 +628,7 @@ export const siteContent: SiteContent = {
         },
         {
           text: {
-            de: "Produktionsnahe, mandantenfähige SaaS-Plattform aufgebaut – mit Row-Level Security, Audit-Logs und Stripe-Abrechnung.",
+            de: "Mandantenfähige SaaS-Plattform aufgebaut, die produktiv im Kundeneinsatz ist – mit Row-Level Security, Audit-Logs und Stripe-Abrechnung.",
             en: "Built a production-grade multi-tenant SaaS platform with row-level security, audit logs, and Stripe billing.",
           },
           type: "achievement",
@@ -1241,7 +1247,7 @@ export const siteContent: SiteContent = {
         { de: "Microsoft Azure", en: "Microsoft Azure" },
       ],
       title: {
-        de: "Senior Engineer Infrastruktur",
+        de: "Lead Infrastructure Engineer",
         en: "Lead Infrastructure Engineer",
       },
     },
@@ -1926,6 +1932,7 @@ export const siteContent: SiteContent = {
     },
     {
       category: "security",
+      core: true,
       level: 5,
       name: { de: "DSGVO", en: "GDPR" },
     },
@@ -1956,11 +1963,13 @@ export const siteContent: SiteContent = {
     },
     {
       category: "security",
+      core: true,
       level: 5,
       name: { de: "Vulnerabilitätsmanagement", en: "Vulnerability Mgmt." },
     },
     {
       category: "security",
+      core: true,
       level: 5,
       name: { de: "Incident Response", en: "Incident Response" },
     },
@@ -1984,6 +1993,7 @@ export const siteContent: SiteContent = {
     // Infrastructure & Platforms
     {
       category: "infrastructure",
+      core: true,
       level: 5,
       name: {
         de: "Linux: Debian, Ubuntu, RHEL",
@@ -2035,6 +2045,7 @@ export const siteContent: SiteContent = {
     },
     {
       category: "infrastructure",
+      core: true,
       level: 5,
       name: {
         de: "Hochverfügbarkeitssysteme",
@@ -2043,11 +2054,13 @@ export const siteContent: SiteContent = {
     },
     {
       category: "infrastructure",
+      core: true,
       level: 5,
       name: { de: "TCP/IP, DNS, DHCP", en: "TCP/IP, DNS, DHCP" },
     },
     {
       category: "infrastructure",
+      core: true,
       level: 5,
       name: { de: "IPv6", en: "IPv6" },
     },
@@ -2085,6 +2098,7 @@ export const siteContent: SiteContent = {
     },
     {
       category: "tools",
+      core: true,
       level: 5,
       name: { de: "Bind / Unbound", en: "Bind / Unbound" },
     },
@@ -2127,6 +2141,7 @@ export const siteContent: SiteContent = {
     },
     {
       category: "management",
+      core: true,
       level: 5,
       name: {
         de: "Infrastrukturarchitektur",
@@ -2165,6 +2180,7 @@ export const siteContent: SiteContent = {
     // Artificial Intelligence
     {
       category: "ai",
+      core: true,
       level: 5,
       name: { de: "KI-Workflows", en: "AI Workflows" },
     },
@@ -2175,6 +2191,7 @@ export const siteContent: SiteContent = {
     },
     {
       category: "ai",
+      core: true,
       level: 5,
       name: { de: "Evaluierung von KI-Werkzeugen", en: "AI Tool Evaluation" },
     },
@@ -2185,6 +2202,7 @@ export const siteContent: SiteContent = {
     },
     {
       category: "ai",
+      core: true,
       level: 5,
       name: { de: "Prompt Engineering", en: "Prompt Engineering" },
     },
@@ -2200,11 +2218,13 @@ export const siteContent: SiteContent = {
     },
     {
       category: "ai",
+      core: true,
       level: 5,
       name: { de: "OpenAI / ChatGPT", en: "OpenAI / ChatGPT" },
     },
     {
       category: "ai",
+      core: true,
       level: 5,
       name: { de: "Anthropic / Claude", en: "Anthropic / Claude" },
     },
@@ -2220,6 +2240,7 @@ export const siteContent: SiteContent = {
     },
     {
       category: "ai",
+      core: true,
       level: 5,
       name: { de: "KI-Ethik & Governance", en: "AI Ethics & Governance" },
     },
@@ -2356,6 +2377,8 @@ export const siteContent: SiteContent = {
         en: "ask me about IPv6",
       },
       showDetails: { de: "Details anzeigen", en: "Show details" },
+      showFewerProjects: { de: "Weniger anzeigen", en: "Show less" },
+      showMoreProjects: { de: "Weitere anzeigen ({count})", en: "Show more ({count})" },
     },
     projects: {
       headline: {
@@ -2381,8 +2404,9 @@ export const siteContent: SiteContent = {
         platform: { de: "Plattform & Automatisierung", en: "Platform & Automation" },
         security: { de: "Sicherheit & Compliance", en: "Security & Compliance" },
       },
-      legendCore: { de: "Kernkompetenz", en: "Core skill" },
+      legendCore: { de: "Kernkompetenz – täglich im Einsatz", en: "Core skill – daily driver" },
       legendOther: { de: "Weiteres Repertoire", en: "Wider repertoire" },
+      legendTitle: { de: "Legende", en: "Legend" },
       note: {
         de: "fett = täglich im Einsatz",
         en: "bold = daily drivers",

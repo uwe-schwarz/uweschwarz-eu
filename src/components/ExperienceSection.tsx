@@ -1,6 +1,7 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useId, useRef, useState } from "react";
+import type { Ref } from "react";
 import Image from "next/image";
 import { BadgeCheck, ChevronDown, FileText, MapPin } from "lucide-react";
 import { AnimatePresence, m, useReducedMotion } from "motion/react";
@@ -14,6 +15,14 @@ type TranslateFn = (value: LocalizedString) => string;
 
 const VISIBLE_RESULTS = 2;
 
+// Content lists engagements newest first; older ones sit behind "show more".
+const VISIBLE_KEY_PROJECTS = 3;
+
+// Stable ref callback: runs only when the first revealed entry mounts, i.e. right after "show more".
+const focusOnMount = (node: HTMLHeadingElement | null) => {
+  node?.focus();
+};
+
 const formatPeriod = (period: string) => period.replace(" - ", " – ");
 
 const getExperienceKey = (exp: Experience) =>
@@ -21,10 +30,12 @@ const getExperienceKey = (exp: Experience) =>
 
 interface ExperienceEntryProps {
   exp: Experience;
+  /** Receives focus after "show more" reveals this entry. */
+  headingRef?: Ref<HTMLHeadingElement>;
   t: TranslateFn;
 }
 
-const ExperienceEntry = ({ exp, t }: ExperienceEntryProps) => {
+const ExperienceEntry = ({ exp, headingRef, t }: ExperienceEntryProps) => {
   const { webSections } = siteContent;
   const [isOpen, setIsOpen] = useState(false);
   const detailsId = useId();
@@ -53,7 +64,9 @@ const ExperienceEntry = ({ exp, t }: ExperienceEntryProps) => {
         <article>
           <div className="flex items-start justify-between gap-5">
             <div className="min-w-0">
-              <h4 className="text-xl sm:text-2xl">{t(exp.title)}</h4>
+              <h4 className="text-xl sm:text-2xl" ref={headingRef} tabIndex={headingRef ? -1 : undefined}>
+                {t(exp.title)}
+              </h4>
               <p className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-[0.95rem]">
                 <span className="font-semibold text-primary">{exp.company}</span>
                 <span className="inline-flex items-center gap-1 text-muted-foreground">
@@ -173,6 +186,8 @@ const ExperienceEntry = ({ exp, t }: ExperienceEntryProps) => {
 };
 
 interface ExperienceGroupProps {
+  /** Entries shown before "show more"; all entries when omitted. */
+  initialVisible?: number;
   items: Array<Experience>;
   note: LocalizedString;
   subtitle: LocalizedString;
@@ -180,10 +195,29 @@ interface ExperienceGroupProps {
   title: LocalizedString;
 }
 
-const ExperienceGroup = ({ items, note, subtitle, t, title }: ExperienceGroupProps) => {
+const ExperienceGroup = ({ initialVisible, items, note, subtitle, t, title }: ExperienceGroupProps) => {
+  const { webSections } = siteContent;
+  const [isExpanded, setIsExpanded] = useState(false);
+  const listId = useId();
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const visibleCount = initialVisible ?? items.length;
+  const hiddenCount = Math.max(items.length - visibleCount, 0);
+  const visibleItems = isExpanded ? items : items.slice(0, visibleCount);
+
   if (!items.length) {
     return null;
   }
+
+  const toggle = () => {
+    if (isExpanded) {
+      setIsExpanded(false);
+      // The list shrinks above the button; keep it (and focus) in view.
+      requestAnimationFrame(() => toggleRef.current?.scrollIntoView({ block: "nearest" }));
+      return;
+    }
+
+    setIsExpanded(true);
+  };
 
   return (
     <div className="mt-20">
@@ -193,11 +227,37 @@ const ExperienceGroup = ({ items, note, subtitle, t, title }: ExperienceGroupPro
           {t(subtitle)} {t(note)}
         </p>
       </div>
-      <ol>
-        {items.map((exp) => (
-          <ExperienceEntry exp={exp} key={getExperienceKey(exp)} t={t} />
+      <ol id={listId}>
+        {visibleItems.map((exp, index) => (
+          <ExperienceEntry
+            exp={exp}
+            headingRef={index === visibleCount ? focusOnMount : undefined}
+            key={getExperienceKey(exp)}
+            t={t}
+          />
         ))}
       </ol>
+      {hiddenCount > 0 && (
+        <div className="mt-10 pl-8 md:ml-[calc(9.5rem+2.5rem)] md:pl-10">
+          <button
+            aria-controls={listId}
+            aria-expanded={isExpanded}
+            className="inline-flex min-h-11 items-center gap-1.5 rounded-md border border-dashed border-primary px-4 py-2 text-sm font-semibold text-primary transition-colors hover:bg-primary/10"
+            onClick={toggle}
+            ref={toggleRef}
+            type="button"
+          >
+            {isExpanded
+              ? t(webSections.experience.showFewerProjects)
+              : t(webSections.experience.showMoreProjects).replace("{count}", String(hiddenCount))}
+            <span className="sr-only">{` – ${t(title)}`}</span>
+            <ChevronDown
+              aria-hidden="true"
+              className={`h-4 w-4 transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`}
+            />
+          </button>
+        </div>
+      )}
     </div>
   );
 };
@@ -225,6 +285,7 @@ const ExperienceSection = () => {
         </header>
 
         <ExperienceGroup
+          initialVisible={VISIBLE_KEY_PROJECTS}
           items={majorExperiences}
           note={siteContent.experienceBigProjectsNote}
           subtitle={siteContent.experienceBigProjectsSubtitle}
