@@ -41,10 +41,12 @@
     --destructive-foreground: #ffffff;
 
     --border: #d6dcea;
-    --input: #c9d1e3;
+    /* Control outlines (inputs, outline buttons, carousel dots) need 3:1 */
+    --input: #7f8aa6;
     --ring: #2346d6;
 
-    --redline: #c73a10;
+    /* Dark enough for 4.5:1 even where the notes cross a grid line */
+    --redline: #a83109;
     --redline-foreground: #ffffff;
 
     /* Prints are the paper sheets pinned onto the plan; they stay light. */
@@ -86,7 +88,7 @@
     --destructive-foreground: #0a1530;
 
     --border: #1f3160;
-    --input: #2a3d70;
+    --input: #5b6fa3;
     --ring: #8eaeff;
 
     --redline: #ff7a48;
@@ -169,12 +171,18 @@
   line-height: 1.15;
 }
 
-/* Hand-drawn redline notes */
+/* Hand-drawn redline notes. Caveat has a small x-height, so the notes run at
+   1.5rem on phones and 1.75rem from sm up, in the heaviest cut. */
 @utility redline-note {
   font-family: var(--font-caveat), "Comic Sans MS", cursive;
-  font-weight: 600;
+  font-size: 1.5rem;
+  font-weight: 700;
   color: var(--redline);
-  line-height: 1.05;
+  line-height: 1.1;
+
+  @media (width >= 40rem) {
+    font-size: 1.75rem;
+  }
   letter-spacing: 0;
   hyphens: none;
 }

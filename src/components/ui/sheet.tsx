@@ -59,18 +59,19 @@ const sheetVariants = cva(
 
 interface SheetContentProps
   extends ComponentPropsWithoutRef<typeof SheetPrimitiveContent>, VariantProps<typeof sheetVariants> {
+  closeLabel?: string;
   ref?: Ref<ElementRef<typeof SheetPrimitiveContent>>;
 }
 
-function SheetContent({ children, className, ref, side = "right", ...props }: SheetContentProps) {
+function SheetContent({ children, className, closeLabel = "Close", ref, side = "right", ...props }: SheetContentProps) {
   return (
     <SheetPortal>
       <SheetOverlay />
       <SheetPrimitiveContent className={cn(sheetVariants({ side }), className)} ref={ref} {...props}>
         {children}
-        <SheetPrimitiveClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
-          <X className="h-4 w-4" />
-          <span className="sr-only">Close</span>
+        <SheetPrimitiveClose className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-full text-foreground ring-offset-background transition-colors hover:bg-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none">
+          <X aria-hidden="true" className="h-5 w-5" />
+          <span className="sr-only">{closeLabel}</span>
         </SheetPrimitiveClose>
       </SheetPrimitiveContent>
     </SheetPortal>
