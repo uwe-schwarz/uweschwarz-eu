@@ -183,9 +183,6 @@ const EmailTemplate = ({
               <Text className="m-0 text-[12px]" style={{ color: colors.mutedForeground }}>
                 © {currentYear} Uwe Schwarz. All rights reserved.
               </Text>
-              <Text className="m-0 text-[12px]" style={{ color: colors.mutedForeground }}>
-                Berlin, Germany
-              </Text>
               <Text className="mt-[8px] text-[12px]" style={{ color: colors.mutedForeground }}>
                 <a
                   href="mailto:mail@uweschwarz.eu?subject=Unsubscribe%20contact%20alerts"
