@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
+import useEmblaCarousel from "embla-carousel-react";
 import { m, useReducedMotion } from "motion/react";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
@@ -118,31 +119,116 @@ const ProjectsSection = () => {
           </div>
         </Tabs>
 
-        {/* Mobile and tablet: swipe through the prints */}
-        <div
-          aria-label={t(webSections.projects.headline)}
-          className="-mx-4 mt-12 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-6 pt-4 [scrollbar-width:thin] sm:-mx-8 sm:px-8 lg:hidden"
-          role="region"
-          tabIndex={0}
-        >
-          {projects.map((project) => (
-            <article
-              className="sheet flex w-[85%] shrink-0 snap-center flex-col p-4 sm:w-[60%]"
-              key={getProjectId(project)}
-            >
-              <ProjectPrint alt={t(project.imageAlt)} className="rotate-1" project={project} />
-              <h3 className="mt-6 text-xl">{t(project.title)}</h3>
-              <p className="mt-3 grow text-[0.95rem] leading-relaxed text-muted-foreground">{t(project.description)}</p>
-              <div className="mt-5">
-                <ProjectTags project={project} t={t} />
-              </div>
-            </article>
-          ))}
-        </div>
+        <ProjectsCarousel />
       </div>
     </section>
   );
 };
+
+const formatCount = (template: string, values: Record<string, number | string>) =>
+  Object.entries(values).reduce((message, [key, value]) => message.replaceAll(`{${key}}`, String(value)), template);
+
+// Mobile and tablet: swipe through the prints. The next card peeks in from
+// the right and the pager below tracks the current card.
+const ProjectsCarousel = () => {
+  const { t } = useSettings();
+  const { projects, webSections } = siteContent;
+  const prefersReducedMotion = useReducedMotion();
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    align: "start",
+    breakpoints: { "(min-width: 1024px)": { active: false } },
+    containScroll: false,
+  });
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const total = projects.length;
+
+  useEffect(() => {
+    if (!emblaApi) {
+      return;
+    }
+
+    const syncSelected = () => setSelectedIndex(emblaApi.selectedScrollSnap());
+    emblaApi.on("select", syncSelected);
+    emblaApi.on("reInit", syncSelected);
+
+    return () => {
+      emblaApi.off("select", syncSelected);
+      emblaApi.off("reInit", syncSelected);
+    };
+  }, [emblaApi]);
+
+  const slideLabel = t({ de: "Projekt {current} von {total}", en: "Project {current} of {total}" });
+  const dotLabel = t({ de: "Projekt {current} zeigen: {title}", en: "Show project {current}: {title}" });
+
+  return (
+    <div
+      aria-label={t(webSections.projects.headline)}
+      aria-roledescription={t({ de: "Karussell", en: "carousel" })}
+      className="mt-12 lg:hidden"
+      role="region"
+    >
+      <div className="-mx-4 overflow-hidden sm:-mx-8" ref={emblaRef}>
+        <div className="flex touch-pan-y py-4">
+          {projects.map((project, index) => (
+            <div
+              aria-label={formatCount(slideLabel, { current: index + 1, total })}
+              aria-roledescription={t({ de: "Folie", en: "slide" })}
+              className="flex min-w-0 shrink-0 grow-0 basis-[84%] pl-4 sm:basis-[60%] sm:pl-8"
+              key={getProjectId(project)}
+              role="group"
+            >
+              <article className="sheet flex w-full flex-col p-4">
+                <ProjectPrint alt={t(project.imageAlt)} className="rotate-1" project={project} />
+                <h3 className="mt-6 text-xl">{t(project.title)}</h3>
+                <p className="mt-3 grow text-[0.95rem] leading-relaxed text-muted-foreground">
+                  {t(project.description)}
+                </p>
+                <div className="mt-5">
+                  <ProjectTags project={project} t={t} />
+                </div>
+              </article>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-4 flex items-center justify-between gap-4">
+        <ul className="flex flex-wrap items-center">
+          {projects.map((project, index) => {
+            const isSelected = index === selectedIndex;
+
+            return (
+              <li key={getProjectId(project)}>
+                <button
+                  aria-current={isSelected ? "true" : undefined}
+                  aria-label={formatCount(dotLabel, { current: index + 1, title: t(project.title) })}
+                  className="group flex h-8 min-w-8 items-center justify-center rounded-full"
+                  onClick={() => emblaApi?.scrollTo(index, Boolean(prefersReducedMotion))}
+                  type="button"
+                >
+                  <span
+                    aria-hidden="true"
+                    className={`block h-2.5 rounded-full transition-[width,background-color] duration-300 ${
+                      isSelected ? "w-6 bg-primary" : "w-2.5 bg-muted-foreground group-hover:bg-foreground"
+                    }`}
+                  />
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+        <p aria-live="polite" className="shrink-0 text-sm font-semibold tabular-nums text-muted-foreground">
+          <span className="sr-only">{formatCount(slideLabel, { current: selectedIndex + 1, total })}</span>
+          <span aria-hidden="true">
+            {selectedIndex + 1} / {total}
+          </span>
+        </p>
+      </div>
+    </div>
+  );
+};
+
+ProjectsCarousel.displayName = "ProjectsCarousel";
 
 ProjectsSection.displayName = "ProjectsSection";
 
