@@ -68,8 +68,8 @@ export interface SkillWithIcon extends Skill {
 const getSkillIdentityKey = ({ category, name }: SkillIdentity): string => `${category}:${name.en}:${name.de}`;
 
 const skillIconMap = new Map<string, SkillIcon>([
-  [getSkillIdentityKey({ category: "security", name: { de: "ISO27001", en: "ISO27001" } }), ShieldCheck],
-  [getSkillIdentityKey({ category: "security", name: { de: "SOC2", en: "SOC2" } }), ShieldPlus],
+  [getSkillIdentityKey({ category: "security", name: { de: "ISO 27001", en: "ISO 27001" } }), ShieldCheck],
+  [getSkillIdentityKey({ category: "security", name: { de: "SOC 2", en: "SOC 2" } }), ShieldPlus],
   [getSkillIdentityKey({ category: "security", name: { de: "DSGVO", en: "GDPR" } }), Landmark],
   [getSkillIdentityKey({ category: "security", name: { de: "NIST Framework", en: "NIST Framework" } }), ClipboardList],
   [getSkillIdentityKey({ category: "security", name: { de: "MITRE ATT&CK", en: "MITRE ATT&CK" } }), Swords],
@@ -94,7 +94,7 @@ const skillIconMap = new Map<string, SkillIcon>([
   [
     getSkillIdentityKey({
       category: "security",
-      name: { de: "Vulnerabilitätsmanagement", en: "Vulnerability Mgmt." },
+      name: { de: "Schwachstellenmanagement", en: "Vulnerability Management" },
     }),
     ScanSearch,
   ],
@@ -158,7 +158,7 @@ const skillIconMap = new Map<string, SkillIcon>([
   [
     getSkillIdentityKey({
       category: "tools",
-      name: { de: "Bash / Shell Skripte", en: "Bash / Shell Scripting" },
+      name: { de: "Bash-/Shell-Skripte", en: "Bash / Shell Scripting" },
     }),
     Terminal,
   ],

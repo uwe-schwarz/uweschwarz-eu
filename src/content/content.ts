@@ -425,7 +425,7 @@ export const siteContent: SiteContent = {
   cv: {
     title: { de: "Lebenslauf / CV", en: "Resume / CV" },
   },
-  downloadResume: { de: "Lebenslauf herunterladen", en: "Download CV" },
+  downloadResume: { de: "Lebenslauf ansehen", en: "View CV" },
   experienceAchievementPrefix: { de: "Erfolg:", en: "Achievement:" },
   experienceBigProjectsNote: {
     de: "Eine kuratierte Auswahl mehrmonatiger und mehrjähriger Arbeiten; weitere Details auf Anfrage.",
@@ -440,65 +440,6 @@ export const siteContent: SiteContent = {
     en: "Key Projects",
   },
   experiences: [
-    {
-      company: "DEGIT AG",
-      description: [
-        {
-          text: {
-            de: "Verantwortung auf Vorstandsebene für Informationssicherheit, Datenschutz und Compliance-Themen.",
-            en: "Board-level responsibility for information security, privacy, and compliance topics.",
-          },
-          type: "text",
-        },
-        {
-          text: {
-            de: "Vertrauenswürdiger Ansprechpartner für Security-, Infrastruktur- und regulatorische Anforderungen in Kundenprojekten.",
-            en: "Trusted advisor for security, infrastructure, and regulatory requirements across client engagements.",
-          },
-          type: "text",
-        },
-        {
-          text: {
-            de: "Beitrag zu sicheren und rechtskonformen IT-Architekturen mit Fokus auf moderne Technologien wie IPv6, Zero Trust und Zero-Config-VPN-Ansätze.",
-            en: "Contributed to secure and compliant IT architectures with a focus on modern technologies such as IPv6, Zero Trust, and Zero-Config VPN approaches.",
-          },
-          type: "text",
-        },
-        {
-          text: {
-            de: "Verbindung von Governance-Anforderungen mit praktischer technischer Umsetzung in Security- und Infrastrukturinitiativen.",
-            en: "Connected governance requirements with practical technical implementation across security and infrastructure initiatives.",
-          },
-          type: "text",
-        },
-      ],
-      location: { de: "Hockenheim, Deutschland", en: "Hockenheim, Germany" },
-      logoUrl: "/logos/degit-on-light.png",
-      period: { de: "Mai 2018 - Heute", en: "May 2018 - Present" },
-      projectScale: "small",
-      tags: [
-        { de: "Sicherheit", en: "Security" },
-        { de: "Datenschutz", en: "Privacy" },
-        { de: "Microsoft 365", en: "Microsoft 365" },
-        { de: "Notion", en: "Notion" },
-        { de: "Cloudflare", en: "Cloudflare" },
-        { de: "Resend", en: "Resend" },
-        { de: "Supabase", en: "Supabase" },
-        { de: "IPv6", en: "IPv6" },
-        { de: "Zero Trust", en: "Zero Trust" },
-        { de: "Zero-Config VPN", en: "Zero-Config VPN" },
-        { de: "Governance", en: "Governance" },
-        { de: "Training", en: "Training" },
-        { de: "Sicherheitsbewusstsein", en: "Security Awareness" },
-        { de: "Risikomanagement", en: "Risk Management" },
-        { de: "Compliance", en: "Compliance" },
-        { de: "EU AI Act", en: "EU AI Act" },
-      ],
-      title: {
-        de: "Vorstandsmitglied",
-        en: "Member of the Board",
-      },
-    },
     {
       company: "Deutsche Rentenversicherung",
       description: [
@@ -557,7 +498,7 @@ export const siteContent: SiteContent = {
         { de: "IPAM", en: "IPAM" },
         { de: "Adressmanagement", en: "Address Management" },
         { de: "Netzwerkarchitektur", en: "Network Architecture" },
-        { de: "Dual Stack", en: "Dual Stack" },
+        { de: "Dual-Stack", en: "Dual Stack" },
         { de: "Segmentierung", en: "Network Segmentation" },
         {
           de: "Technische Programmsteuerung",
@@ -643,7 +584,7 @@ export const siteContent: SiteContent = {
       ],
       location: { de: "Hockenheim, Deutschland", en: "Hockenheim, Germany" },
       logoUrl: "/logos/schlaufabrik-on-light.png",
-      period: { de: "Dezember 2025 - Heute", en: "December 2025 - Present" },
+      period: { de: "Dez 2025 - Heute", en: "Dec 2025 - Present" },
       projectScale: "small",
       tags: [
         { de: "SaaS", en: "SaaS" },
@@ -721,7 +662,7 @@ export const siteContent: SiteContent = {
         { de: "Backup-Strategien", en: "Backup Strategies" },
         { de: "IPv6", en: "IPv6" },
         { de: "Zero Trust", en: "Zero Trust" },
-        { de: "Zero-Config VPN", en: "Zero-Config VPN" },
+        { de: "Zero-Config-VPN", en: "Zero-Config VPN" },
         { de: "Risikomanagement", en: "Risk Management" },
         { de: "Compliance", en: "Compliance" },
         { de: "Notion", en: "Notion" },
@@ -732,6 +673,65 @@ export const siteContent: SiteContent = {
       title: {
         de: "Gründungsmitglied & Datenschutzbeauftragter",
         en: "Founding Member & Data Protection Officer",
+      },
+    },
+    {
+      company: "DEGIT AG",
+      description: [
+        {
+          text: {
+            de: "Verantwortung auf Vorstandsebene für Informationssicherheit, Datenschutz und Compliance-Themen.",
+            en: "Board-level responsibility for information security, privacy, and compliance topics.",
+          },
+          type: "text",
+        },
+        {
+          text: {
+            de: "Vertrauenswürdiger Ansprechpartner für Security-, Infrastruktur- und regulatorische Anforderungen in Kundenprojekten.",
+            en: "Trusted advisor for security, infrastructure, and regulatory requirements across client engagements.",
+          },
+          type: "text",
+        },
+        {
+          text: {
+            de: "Beitrag zu sicheren und rechtskonformen IT-Architekturen mit Fokus auf moderne Technologien wie IPv6, Zero Trust und Zero-Config-VPN-Ansätze.",
+            en: "Contributed to secure and compliant IT architectures with a focus on modern technologies such as IPv6, Zero Trust, and Zero-Config VPN approaches.",
+          },
+          type: "text",
+        },
+        {
+          text: {
+            de: "Verbindung von Governance-Anforderungen mit praktischer technischer Umsetzung in Security- und Infrastrukturinitiativen.",
+            en: "Connected governance requirements with practical technical implementation across security and infrastructure initiatives.",
+          },
+          type: "text",
+        },
+      ],
+      location: { de: "Hockenheim, Deutschland", en: "Hockenheim, Germany" },
+      logoUrl: "/logos/degit-on-light.png",
+      period: { de: "Mai 2018 - Heute", en: "May 2018 - Present" },
+      projectScale: "small",
+      tags: [
+        { de: "Sicherheit", en: "Security" },
+        { de: "Datenschutz", en: "Privacy" },
+        { de: "Microsoft 365", en: "Microsoft 365" },
+        { de: "Notion", en: "Notion" },
+        { de: "Cloudflare", en: "Cloudflare" },
+        { de: "Resend", en: "Resend" },
+        { de: "Supabase", en: "Supabase" },
+        { de: "IPv6", en: "IPv6" },
+        { de: "Zero Trust", en: "Zero Trust" },
+        { de: "Zero-Config-VPN", en: "Zero-Config VPN" },
+        { de: "Governance", en: "Governance" },
+        { de: "Training", en: "Training" },
+        { de: "Sicherheitsbewusstsein", en: "Security Awareness" },
+        { de: "Risikomanagement", en: "Risk Management" },
+        { de: "Compliance", en: "Compliance" },
+        { de: "EU AI Act", en: "EU AI Act" },
+      ],
+      title: {
+        de: "Vorstandsmitglied",
+        en: "Member of the Board",
       },
     },
     {
@@ -768,7 +768,7 @@ export const siteContent: SiteContent = {
       ],
       location: { de: "Hockenheim, Deutschland", en: "Hockenheim, Germany" },
       logoUrl: "/logos/degit-on-light.png",
-      period: { de: "Aug 2025 – Okt 2025", en: "Aug 2025 – Oct 2025" },
+      period: { de: "Aug 2025 - Okt 2025", en: "Aug 2025 - Oct 2025" },
       projectScale: "small",
       tags: [
         { de: "KI-Evaluierung", en: "AI Evaluation" },
@@ -1084,7 +1084,7 @@ export const siteContent: SiteContent = {
         },
         {
           text: {
-            de: "Durchführung von Sicherheits-Audits sowie sicherheitstechnische Begleitung von Applikations- und Netzwerk-Migrationen.",
+            de: "Durchführung von Sicherheitsaudits sowie sicherheitstechnische Begleitung von Applikations- und Netzwerk-Migrationen.",
             en: "Performed security audits and provided security oversight for application and network migrations.",
           },
           type: "text",
@@ -1098,8 +1098,8 @@ export const siteContent: SiteContent = {
         },
         {
           text: {
-            de: "Beratung zu Datenschutz-, Audit- und Zertifizierungsanforderungen, unter anderem mit Bezug auf ISO 27001, BSI Grundschutz, NIST und MITRE.",
-            en: "Advised on data protection, audit, and certification requirements, including ISO 27001, BSI baseline protection, NIST, and MITRE.",
+            de: "Beratung zu Datenschutz-, Audit- und Zertifizierungsanforderungen, unter anderem mit Bezug auf ISO 27001, BSI IT-Grundschutz, NIST und MITRE.",
+            en: "Advised on data protection, audit, and certification requirements, including ISO 27001, BSI IT Baseline Protection, NIST, and MITRE.",
           },
           type: "text",
         },
@@ -1146,7 +1146,7 @@ export const siteContent: SiteContent = {
         { de: "Microsoft 365", en: "Microsoft 365" },
         { de: "DSGVO", en: "GDPR" },
         { de: "ISO 27001", en: "ISO 27001" },
-        { de: "BSI Grundschutz", en: "BSI Baseline Protection" },
+        { de: "BSI IT-Grundschutz", en: "BSI IT Baseline Protection" },
         { de: "NIST", en: "NIST" },
         { de: "MITRE", en: "MITRE" },
         { de: "ITIL", en: "ITIL" },
@@ -1284,8 +1284,8 @@ export const siteContent: SiteContent = {
         },
         {
           text: {
-            de: "Zusätzliche Verantwortung in der umliegenden Mail-Infrastruktur, darunter dovecot, postfix, Linux-basierte Dienste, DNS, Proxy, Lastverteilung und Cloud-Speicher.",
-            en: "Held additional responsibilities in the surrounding mail infrastructure, including dovecot, postfix, Linux-based services, DNS, proxy, load balancing, and cloud storage.",
+            de: "Zusätzliche Verantwortung in der umliegenden Mail-Infrastruktur, darunter Dovecot, Postfix, Linux-basierte Dienste, DNS, Proxy, Lastverteilung und Cloud-Speicher.",
+            en: "Held additional responsibilities in the surrounding mail infrastructure, including Dovecot, Postfix, Linux-based services, DNS, proxy, load balancing, and cloud storage.",
           },
           type: "text",
         },
@@ -1314,8 +1314,8 @@ export const siteContent: SiteContent = {
         { de: "E-Mail-Archivierung", en: "Email Archiving" },
         { de: "Compliance", en: "Compliance" },
         { de: "Aufbewahrungspflichten", en: "Retention Policies" },
-        { de: "dovecot", en: "dovecot" },
-        { de: "postfix", en: "postfix" },
+        { de: "Dovecot", en: "Dovecot" },
+        { de: "Postfix", en: "Postfix" },
         { de: "Linux", en: "Linux" },
         { de: "Hochverfügbarkeit", en: "High Availability" },
         { de: "Monitoring", en: "Monitoring" },
@@ -1416,7 +1416,7 @@ export const siteContent: SiteContent = {
     },
     name: "Uwe Schwarz",
     pitch: {
-      de: "Ich übersetze komplexe Anforderungen in Systeme, die halten: sicher, skalierbar und im Alltag wirklich brauchbar. Software, Plattformen, Infrastruktur und KI – entworfen als ein Plan.",
+      de: "Ich übersetze komplexe Anforderungen in Systeme, die halten: sicher, skalierbar und im Alltag wirklich brauchbar. Software, Plattformen, Infrastruktur und KI – aus einem Guss geplant.",
       en: "I turn complex requirements into systems that hold up: secure, scalable, and genuinely useful in practice. Software, platforms, infrastructure, and AI, designed as one plan.",
     },
     titleElements: [
@@ -1507,7 +1507,7 @@ export const siteContent: SiteContent = {
   llms: {
     keywords: {
       de: "Uwe Schwarz, Software-Architekt, Security-Engineer, KI-Enthusiast, Senior-Berater, Plattformarchitektur, Infrastrukturarchitektur, SaaS, mandantenfähige Systeme, KI-Workflows, agentische KI, Compliance-Plattformen, ISO 27001, SOC 2, DSGVO, NIST Framework, MITRE ATT&CK, BSI IT-Grundschutz, Security Engineering, Risikomanagement, Schwachstellenmanagement, Incident Response",
-      en: "Uwe Schwarz, Software Architect, Security Engineer, AI Enthusiast, Senior Consultant, Platform Architecture, Infrastructure Architecture, SaaS, Multi-tenant Systems, AI Workflows, Agentic AI, Compliance Platforms, ISO27001, SOC2, GDPR, NIST Framework, MITRE ATT&CK, BSI IT Baseline Protection, Security Engineering, Risk Management, Vulnerability Management, Incident Response",
+      en: "Uwe Schwarz, Software Architect, Security Engineer, AI Enthusiast, Senior Consultant, Platform Architecture, Infrastructure Architecture, SaaS, Multi-tenant Systems, AI Workflows, Agentic AI, Compliance Platforms, ISO 27001, SOC 2, GDPR, NIST Framework, MITRE ATT&CK, BSI IT Baseline Protection, Security Engineering, Risk Management, Vulnerability Management, Incident Response",
     },
     title: {
       de: "Übersicht für KI-Agenten",
@@ -1745,8 +1745,8 @@ export const siteContent: SiteContent = {
         en: "Designed and developed a modular training platform covering the EU Artificial Intelligence Act (EU AI Act). The course provides a structured learning path with interactive slides, voice narration, and integrated quizzes to ensure a clear understanding of the regulation’s scope, risk-based framework, and compliance implications. The platform includes five sections — from fundamentals to governance, risk categories, and real-world applications — and was built with future expansion in mind to accommodate upcoming modules on data protection, ethical AI, and technical implementation guidelines.",
       },
       imageAlt: {
-        de: "Screenshot der Schulungsplattform zum EU AI Act mit abgeschlossenen Modulen, Quizfragen und einer strukturierten Übersicht über Themen wie risikobasierter Ansatz, Governance und Compliance-Strategien.",
-        en: "Screenshot of the EU AI Act training platform showing completed modules, quizzes, and a structured overview of sections such as risk-based approach, governance, and compliance strategies.",
+        de: "Illustration zur Schulung zum EU AI Act: Ein Klemmbrett mit der Aufschrift „Schulung AI Act“, davor ein Schutzschild mit dem EU-Sternenkranz, daneben eine Infokarte und darunter mehrere Lernmodul-Kacheln. Die Grafik steht für strukturierte Compliance-Schulung zur europäischen KI-Verordnung.",
+        en: "Illustration of the EU AI Act training: a clipboard labeled “Schulung AI Act” (German for “AI Act Training”), a shield with the EU circle of stars in front of it, an info card beside it, and several learning-module tiles below. The graphic represents structured compliance training on the European AI regulation.",
       },
       imageUrl: "/projects/ai_act_training.webp",
       tags: [
@@ -1773,8 +1773,8 @@ export const siteContent: SiteContent = {
       },
       imageUrl: "/projects/mailarchive.webp",
       tags: [
-        { de: "dovecot", en: "dovecot" },
-        { de: "postfix", en: "postfix" },
+        { de: "Dovecot", en: "Dovecot" },
+        { de: "Postfix", en: "Postfix" },
         { de: "Linux", en: "Linux" },
         { de: "CentOS", en: "CentOS" },
         { de: "Compliance", en: "Compliance" },
@@ -1923,12 +1923,12 @@ export const siteContent: SiteContent = {
     {
       category: "security",
       level: 4,
-      name: { de: "ISO27001", en: "ISO27001" },
+      name: { de: "ISO 27001", en: "ISO 27001" },
     },
     {
       category: "security",
       level: 4,
-      name: { de: "SOC2", en: "SOC2" },
+      name: { de: "SOC 2", en: "SOC 2" },
     },
     {
       category: "security",
@@ -1965,7 +1965,7 @@ export const siteContent: SiteContent = {
       category: "security",
       core: true,
       level: 5,
-      name: { de: "Vulnerabilitätsmanagement", en: "Vulnerability Mgmt." },
+      name: { de: "Schwachstellenmanagement", en: "Vulnerability Management" },
     },
     {
       category: "security",
@@ -2069,7 +2069,7 @@ export const siteContent: SiteContent = {
     {
       category: "tools",
       level: 5,
-      name: { de: "Bash / Shell Skripte", en: "Bash / Shell Scripting" },
+      name: { de: "Bash-/Shell-Skripte", en: "Bash / Shell Scripting" },
     },
     {
       category: "tools",
@@ -2408,8 +2408,8 @@ export const siteContent: SiteContent = {
       legendOther: { de: "Weiteres Repertoire", en: "Wider repertoire" },
       legendTitle: { de: "Legende", en: "Legend" },
       note: {
-        de: "fett = täglich im Einsatz",
-        en: "bold = daily drivers",
+        de: "blau gefüllt = täglich im Einsatz",
+        en: "filled blue = daily drivers",
       },
       showLess: { de: "Weniger anzeigen", en: "Show less" },
       showMore: { de: "+{count} weitere", en: "+{count} more" },
