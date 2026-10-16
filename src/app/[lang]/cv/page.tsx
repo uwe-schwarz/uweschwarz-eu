@@ -12,7 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
   const description =
     language === "de"
-      ? "Lebenslauf von Uwe Schwarz - Software-Architekt, Security-Engineer & AI-Enthusiast"
+      ? "Lebenslauf von Uwe Schwarz – Software-Architekt, Security-Engineer & KI-Enthusiast"
       : "Curriculum Vitae of Uwe Schwarz - Software Architect, Security Engineer & AI Enthusiast";
 
   return {

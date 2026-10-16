@@ -18,12 +18,12 @@ export async function generateMetadata(): Promise<Metadata> {
 
   const title =
     language === "de"
-      ? "Uwe Schwarz - Software-Architekt, Security-Engineer & AI-Enthusiast"
+      ? "Uwe Schwarz – Software-Architekt, Security-Engineer & KI-Enthusiast"
       : "Uwe Schwarz - Software Architect, Security Engineer & AI Enthusiast";
 
   const description =
     language === "de"
-      ? "Portfolio von Uwe Schwarz - Software-Architekt, Security-Engineer & AI-Enthusiast"
+      ? "Portfolio von Uwe Schwarz – Software-Architekt, Security-Engineer & KI-Enthusiast"
       : "Portfolio of Uwe Schwarz - Software Architect, Security Engineer & AI Enthusiast";
 
   return {

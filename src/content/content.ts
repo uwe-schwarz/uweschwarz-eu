@@ -26,7 +26,6 @@ interface HeroSection {
   imageAlt: LocalizedString;
   name: string;
   pitch: LocalizedString;
-  rolePrefix: LocalizedString;
   titleElements: Array<LocalizedString>;
 }
 
@@ -319,7 +318,7 @@ export const siteContent: SiteContent = {
       },
       {
         de: "Besonders spannend finde ich alles rund um KI. Ich beobachte das Feld nicht nur, sondern probiere neue Modelle, Tools und Workflows auch praktisch aus – von Entwicklungs- und Automatisierungsprozessen bis zu produktnahen Anwendungsfällen. Mich interessieren Lösungen, die nicht nur clever wirken, sondern in der Praxis tatsächlich nützlich, sauber gebaut und sicher betreibbar sind.",
-        en: "I am especially interested in AI. I do not just follow the field — I actively experiment with new models, tools, and workflows, from development and automation processes to product-facing use cases. I am most interested in solutions that are not just clever on paper, but genuinely useful in practice, well engineered, and secure to operate.",
+        en: "AI fascinates me in particular. I do not just follow the field — I actively experiment with new models, tools, and workflows, from development and automation processes to product-facing use cases. I am most interested in solutions that are not just clever on paper, but genuinely useful in practice, well engineered, and secure to operate.",
       },
     ],
     stats: [
@@ -355,11 +354,11 @@ export const siteContent: SiteContent = {
     },
     formStatus: {
       errorDescription: {
-        de: "Nachricht konnte nicht gesendet werden. Bitte versuche es später noch einmal.",
-        en: "Failed to send message. Please try again later.",
+        de: "Deine Nachricht konnte nicht gesendet werden. Bitte versuche es später noch einmal.",
+        en: "Your message could not be sent. Please try again later.",
       },
       errorTitle: { de: "Fehler", en: "Error" },
-      sending: { de: "Senden...", en: "Sending..." },
+      sending: { de: "Wird gesendet …", en: "Sending…" },
       sentDescription: {
         de: "Danke für deine Nachricht. Ich werde mich bald bei dir melden.",
         en: "Thanks for reaching out. I'll get back to you soon.",
@@ -371,23 +370,23 @@ export const siteContent: SiteContent = {
           en: "Please enter a valid email address.",
         },
         message: {
-          de: "Nachricht muss mindestens 10 Zeichen lang sein.",
-          en: "Message must be at least 10 characters long.",
+          de: "Die Nachricht muss mindestens 10 Zeichen lang sein.",
+          en: "Your message must be at least 10 characters long.",
         },
         name: {
-          de: "Name muss mindestens 2 Zeichen lang sein.",
-          en: "Name must be at least 2 characters long.",
+          de: "Der Name muss mindestens 2 Zeichen lang sein.",
+          en: "Your name must be at least 2 characters long.",
         },
       },
     },
     homepage: SITE_URL,
     infoText: {
-      de: "Kontaktiere mich gerne für Zusammenarbeiten oder einfach nur für ein freundliches Hallo.",
-      en: "Feel free to reach out for collaborations or just a friendly hello.",
+      de: "Melde dich gerne für eine Zusammenarbeit oder einfach für ein freundliches Hallo.",
+      en: "Feel free to reach out about a collaboration or just to say hello.",
     },
     infoTitle: { de: "Direkter Draht", en: "Direct line" },
     note: {
-      de: "Agents willkommen: dieses Formular spricht WebMCP",
+      de: "KI-Agenten willkommen: dieses Formular spricht WebMCP",
       en: "agents welcome: this form speaks WebMCP",
     },
     phone: "+49 151 64403667",
@@ -422,7 +421,7 @@ export const siteContent: SiteContent = {
   },
   experienceBigProjectsSubtitle: {
     de: "Wesentliche technische und organisatorische Engagements mit hoher Verantwortung.",
-    en: "Major technical and organizational engagements with high responsibility.",
+    en: "Major technical and organizational engagements with significant responsibility.",
   },
   experienceBigProjectsTitle: {
     de: "Schlüsselprojekte",
@@ -522,15 +521,15 @@ export const siteContent: SiteContent = {
         },
         {
           text: {
-            de: "Aufbau einer übergreifenden Programmsteuerung mit Dashboard, KPI-Portfolio, Risikoregister und dokumentierten Entscheidungen.",
-            en: "Established program-wide coordination with a dashboard, KPI portfolio, risk register, and documented decisions.",
+            de: "Übergreifende Programmsteuerung aufgebaut: Dashboard, KPI-Portfolio, Risikoregister und dokumentierte Entscheidungen.",
+            en: "Established program-wide steering: dashboard, KPI portfolio, risk register, and documented decisions.",
           },
           type: "achievement",
         },
         {
           text: {
-            de: "Schaffung einer operativen Grundlage für die Migration mit klaren Verantwortlichkeiten, messbaren Fortschritten und abgestimmten Umsetzungsschritten.",
-            en: "Created an operational foundation for the migration with clear ownership, measurable progress, and agreed implementation steps.",
+            de: "Operative Grundlage für die Migration geschaffen: klare Verantwortlichkeiten, messbarer Fortschritt und abgestimmte Umsetzungsschritte.",
+            en: "Created the operational foundation for the migration: clear ownership, measurable progress, and agreed implementation steps.",
           },
           type: "achievement",
         },
@@ -540,7 +539,7 @@ export const siteContent: SiteContent = {
         en: "Germany",
       },
       logoUrl: "/logos/drv.svg",
-      period: { de: "Jan 2026 - Heute", en: "Jan 2026 - Today" },
+      period: { de: "Jan 2026 - Heute", en: "Jan 2026 - Present" },
       tags: [
         { de: "IPv6", en: "IPv6" },
         { de: "Infoblox", en: "Infoblox" },
@@ -583,7 +582,7 @@ export const siteContent: SiteContent = {
         },
         {
           text: {
-            de: "Umsetzung zentraler Plattformfunktionen wie Kursauslieferung, Fortschritts-Tracking, Quiz, Zuweisungen sowie Admin-Dashboards für Tenant- und User-Management.",
+            de: "Umsetzung zentraler Plattformfunktionen wie Kursauslieferung, Fortschrittsverfolgung, Quizze, Zuweisungen sowie Admin-Dashboards für Mandanten- und Benutzerverwaltung.",
             en: "Implemented core platform capabilities including course delivery, progress tracking, quizzes, assignments, and admin dashboards for tenant and user management.",
           },
           type: "text",
@@ -604,7 +603,7 @@ export const siteContent: SiteContent = {
         },
         {
           text: {
-            de: "Integration von Stripe-Abrechnung inklusive Subscriptions, Customer Portal und Webhooks sowie Umsetzung tenantbasierter Lizenzmodelle und Soft-Lock-Mechanismen für Nutzungsgrenzen.",
+            de: "Integration von Stripe-Abrechnung inklusive Subscriptions, Customer Portal und Webhooks sowie Umsetzung mandantenbasierter Lizenzmodelle und Soft-Lock-Mechanismen für Nutzungsgrenzen.",
             en: "Integrated Stripe billing including subscriptions, customer portal, and webhooks, and implemented tenant-based licensing models and soft-lock mechanisms for usage limits.",
           },
           type: "text",
@@ -618,14 +617,14 @@ export const siteContent: SiteContent = {
         },
         {
           text: {
-            de: "Aufbau einer produktionsnahen SaaS-Plattform mit Fokus auf Sicherheit, Mandantenfähigkeit, Abrechenbarkeit und Auditierbarkeit.",
-            en: "Built a production-grade SaaS platform focused on security, multi-tenant operation, billing readiness, and auditability.",
+            de: "Produktionsnahe, mandantenfähige SaaS-Plattform aufgebaut – mit Row-Level Security, Audit-Logs und Stripe-Abrechnung.",
+            en: "Built a production-grade multi-tenant SaaS platform with row-level security, audit logs, and Stripe billing.",
           },
           type: "achievement",
         },
         {
           text: {
-            de: "Verknüpfung von Produktlogik, Compliance-Anforderungen und technischer Implementierung in einer konsistenten Plattformarchitektur.",
+            de: "Produktlogik, Compliance-Anforderungen und technische Umsetzung in einer konsistenten Plattformarchitektur verbunden.",
             en: "Connected product logic, compliance requirements, and technical implementation in a consistent platform architecture.",
           },
           type: "achievement",
@@ -643,7 +642,7 @@ export const siteContent: SiteContent = {
         { de: "KI-Training", en: "AI Training" },
         { de: "RBAC", en: "RBAC" },
         { de: "Postgres RLS", en: "Postgres RLS" },
-        { de: "Authentication", en: "Authentication" },
+        { de: "Authentifizierung", en: "Authentication" },
         { de: "Audit-Logs", en: "Audit Logs" },
         { de: "Stripe", en: "Stripe" },
         { de: "Next.js", en: "Next.js" },
@@ -673,14 +672,14 @@ export const siteContent: SiteContent = {
         {
           text: {
             de: "Entwicklung und Betreuung der Backend-Systeme.",
-            en: "Develop and maintain the organization's backend systems.",
+            en: "Development and maintenance of the organization's backend systems.",
           },
           type: "text",
         },
         {
           text: {
             de: "Konzeption und Implementierung KI-gestützter Workflows für die Fallbearbeitung.",
-            en: "Design and implement AI-supported workflows for case management.",
+            en: "Design and implementation of AI-supported workflows for case management.",
           },
           type: "text",
         },
@@ -693,10 +692,10 @@ export const siteContent: SiteContent = {
         },
         {
           text: {
-            de: "Aufbau eines DSGVO-konformen Datenschutzrahmens von Grund auf.",
-            en: "Established GDPR-compliant data protection framework from the ground up.",
+            de: "DSGVO-konformen Datenschutzrahmen von Grund auf aufgebaut.",
+            en: "Built a GDPR-compliant data protection framework from the ground up.",
           },
-          type: "text",
+          type: "achievement",
         },
       ],
       location: { de: "Seevetal, Deutschland", en: "Seevetal, Germany" },
@@ -709,7 +708,7 @@ export const siteContent: SiteContent = {
         { de: "KI-Workflows", en: "AI Workflows" },
         { de: "Agentische KI", en: "Agentic AI" },
         { de: "Backend-Systeme", en: "Backend Systems" },
-        { de: "Backup-Strategien", en: "Backup-Strategies" },
+        { de: "Backup-Strategien", en: "Backup Strategies" },
         { de: "IPv6", en: "IPv6" },
         { de: "Zero Trust", en: "Zero Trust" },
         { de: "Zero-Config VPN", en: "Zero-Config VPN" },
@@ -737,24 +736,24 @@ export const siteContent: SiteContent = {
         },
         {
           text: {
-            de: "Bewertung und Entscheidungsvorlage zum Vergleich führender KI- und Automatisierungsplattformen hinsichtlich Datenschutz, Zuverlässigkeit, API-Integration und Governance-Tauglichkeit.",
-            en: "Evaluation and decision paper comparing leading AI and automation platforms with regard to data protection, reliability, API integration and governance readiness.",
+            de: "Evaluierung aufkommender agentischer KI-Workflows zur mehrstufigen Aufgabenorchestrierung und deren Integration in Automatisierungsumgebungen von Unternehmen.",
+            en: "Evaluation of emerging agentic AI workflows for multi-step task orchestration and their integration into enterprise automation environments.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Evaluierung aufkommender agentischer KI-Workflows zur mehrstufigen Aufgabenorchestrierung und deren Integration in Unternehmensautomatisierungsumgebungen.",
-            en: "Evaluation of emerging Agentic AI workflows for multi-step task orchestration and their integration into enterprise automation environments.",
+            de: "Zehn KI- und Automatisierungsplattformen analysiert und bewertet: OpenAI ChatGPT, OpenAI Open-Weight GPT-OSS, Microsoft Copilot, Perplexity, Anthropic Claude, Apple Foundation, z.AI GLM, n8n, make.com und Zapier.",
+            en: "Analyzed and evaluated ten AI and automation platforms: OpenAI ChatGPT, OpenAI open-weight GPT-OSS, Microsoft Copilot, Perplexity, Anthropic Claude, Apple Foundation, z.AI GLM, n8n, make.com, and Zapier.",
           },
-          type: "text",
+          type: "achievement",
         },
         {
           text: {
-            de: "Analysiert und bewertet: OpenAI ChatGPT, OpenAI Open-Weight GPT-OSS, Microsoft Copilot, Perplexity, Anthropic Claude, Apple Foundation, z.AI GLM, n8n, make.com und Zapier.",
-            en: "Analyzed and benchmarked: OpenAI ChatGPT, OpenAI Open-Weight GPT-OSS, Microsoft Copilot, Perplexity, Anthropic Claude, Apple Foundation, z.AI GLM, n8n, make.com, Zapier.",
+            de: "Entscheidungsvorlage erstellt, die führende KI- und Automatisierungsplattformen nach Datenschutz, Zuverlässigkeit, API-Integration und Governance-Tauglichkeit vergleicht.",
+            en: "Delivered a decision paper comparing leading AI and automation platforms on data protection, reliability, API integration, and governance readiness.",
           },
-          type: "text",
+          type: "achievement",
         },
       ],
       location: { de: "Hockenheim, Deutschland", en: "Hockenheim, Germany" },
@@ -822,15 +821,15 @@ export const siteContent: SiteContent = {
         },
         {
           text: {
-            de: "Etablierung einer modernisierten Backup-Baseline mit Verbesserungen bei Datensicherheit, Compliance und Wiederherstellbarkeit über mehrere Fachbereiche hinweg.",
-            en: "Established a modernized backup baseline with improved data protection, compliance, and recoverability across multiple business units.",
+            de: "Verlagerung von zwei Rechenzentren mit minimierten Ausfallzeiten: Beitrag zur technischen Vorbereitung und koordinierten Umsetzung über alle Infrastrukturabhängigkeiten hinweg.",
+            en: "Relocation of two data centers with minimized downtime: contributed to the technical preparation and coordinated execution across all infrastructure dependencies.",
           },
           type: "achievement",
         },
         {
           text: {
-            de: "Beitrag zur technischen Vorbereitung und koordinierten Umsetzung der Verlagerung von zwei Rechenzentren mit minimierten Ausfallzeiten und abgestimmten Infrastrukturabhängigkeiten.",
-            en: "Contributed to the technical preparation and coordinated execution of the relocation of two data centers, with minimized downtime and aligned infrastructure dependencies.",
+            de: "Modernisierte Backup-Baseline auf Basis der Rubrik Security Cloud etabliert – mit besserer Datensicherheit, Compliance und Wiederherstellbarkeit in mehreren Fachbereichen.",
+            en: "Established a modernized backup baseline on Rubrik Security Cloud, improving data protection, compliance, and recoverability across multiple business units.",
           },
           type: "achievement",
         },
@@ -915,22 +914,22 @@ export const siteContent: SiteContent = {
         },
         {
           text: {
-            de: "Implementierung von IT-Sicherheitsmaßnahmen, die ein SOC-2-Audit ohne Beanstandungen unterstützten und damit zentrale Kundenanforderungen absicherten.",
-            en: "Implemented IT security measures that supported a SOC 2 audit with zero non-conformities and helped secure key client requirements.",
+            de: "SOC-2-Audit ohne Beanstandungen, gestützt auf die umgesetzten IT-Sicherheitsmaßnahmen – zentrale Kundenanforderungen damit abgesichert.",
+            en: "SOC 2 audit with zero non-conformities, backed by the IT security measures I implemented, helping secure key client requirements.",
           },
           type: "achievement",
         },
         {
           text: {
-            de: "Integration der SSO-Infrastruktur über mehrere Plattformen hinweg mit Verbesserungen bei Sicherheit, Zugriffskonsistenz und Nutzererlebnis.",
-            en: "Integrated SSO infrastructure across multiple platforms, improving security, access consistency, and user experience.",
+            de: "Beitrag zur erfolgreichen ISO-27001-Zertifizierung in engem Zeitrahmen: strukturierte Umsetzung von Anforderungen, Kontrollen und Nachweisen.",
+            en: "Contributed to a successful ISO 27001 certification on a tight timeline through structured implementation of requirements, controls, and evidence.",
           },
           type: "achievement",
         },
         {
           text: {
-            de: "Beitrag zur erfolgreichen ISO-27001-Zertifizierung innerhalb eines engen Zeitrahmens durch die strukturierte Umsetzung von Anforderungen, Kontrollen und Nachweisen.",
-            en: "Contributed to successful ISO 27001 certification within a tight timeline through structured implementation of requirements, controls, and evidence.",
+            de: "SSO über mehrere Plattformen hinweg integriert – mit mehr Sicherheit, einheitlichen Zugriffen und besserem Nutzererlebnis.",
+            en: "Integrated SSO across multiple platforms, improving security, access consistency, and user experience.",
           },
           type: "achievement",
         },
@@ -975,21 +974,21 @@ export const siteContent: SiteContent = {
         {
           text: {
             de: "Umfassendes Code-Review der bestehenden PHP-Anwendung mit strukturierter Bewertung von Findings hoher, mittlerer und niedriger Schwere.",
-            en: "Comprehensive code review of the existing PHP application with a structured assessment of critical, medium and low-severity issues.",
+            en: "Comprehensive code review of the existing PHP application with a structured assessment of high-, medium-, and low-severity findings.",
           },
           type: "text",
         },
         {
           text: {
-            de: "Erstellung eines ausführlichen Review-Papiers mit technischen Befunden, empfohlenen Maßnahmen und Priorisierung für die Entwicklungsteams.",
-            en: "Creation of a detailed review document including technical findings, recommended remediation steps, and prioritization for development teams.",
+            de: "Ausführliches Review-Papier übergeben: technische Befunde nach Schweregrad, empfohlene Maßnahmen und eine Priorisierung für die Entwicklungsteams.",
+            en: "Delivered a detailed review document: technical findings by severity, recommended remediation steps, and prioritization for the development teams.",
           },
-          type: "text",
+          type: "achievement",
         },
         {
           text: {
             de: "Beratung zu Anwendungs- und Infrastruktursicherheit mit Fokus auf praxisnahe Verbesserungen, sichere Coding-Patterns und betriebliches Hardening.",
-            en: "Consulting on application and infrastructure security with a focus on practical improvements, secure coding patterns and operational hardening.",
+            en: "Consulting on application and infrastructure security with a focus on practical improvements, secure coding patterns, and operational hardening.",
           },
           type: "text",
         },
@@ -1098,22 +1097,22 @@ export const siteContent: SiteContent = {
         },
         {
           text: {
+            de: "Schwachstellenmanagement entwickelt und automatisiert – mit schnelleren Reaktionszeiten und mehr Transparenz bei der Vorfallsbearbeitung.",
+            en: "Developed and automated vulnerability management, improving response times and transparency in incident handling.",
+          },
+          type: "achievement",
+        },
+        {
+          text: {
+            de: "Sicherheitsrichtlinien und technische Sicherheitsvorgaben eingeführt, die im Unternehmen als wiederverwendbare Best Practices übernommen wurden.",
+            en: "Introduced security policies and technical security standards that were adopted as reusable best practices across the organization.",
+          },
+          type: "achievement",
+        },
+        {
+          text: {
             de: "Beitrag zur koordinierten Reaktion auf einen größeren Sicherheitsvorfall mit Fokus auf Schadensbegrenzung, Wiederherstellung und betriebliche Stabilisierung.",
             en: "Contributed to the coordinated response to a major security incident, with a focus on damage containment, recovery, and operational stabilization.",
-          },
-          type: "achievement",
-        },
-        {
-          text: {
-            de: "Entwicklung und Automatisierung eines Schwachstellenmanagement-Ansatzes mit schnelleren Reaktionszeiten und verbesserter Transparenz im Incident Handling.",
-            en: "Developed and automated a vulnerability management approach, improving response times and transparency in incident handling.",
-          },
-          type: "achievement",
-        },
-        {
-          text: {
-            de: "Einführung von Sicherheitsrichtlinien und technischen Sicherheitsvorgaben, die als wiederverwendbare Best Practices im Unternehmen übernommen wurden.",
-            en: "Implemented security policies and technical security standards that were later adopted as reusable best practices across the organization.",
           },
           type: "achievement",
         },
@@ -1195,15 +1194,15 @@ export const siteContent: SiteContent = {
         },
         {
           text: {
-            de: "Beitrag zur koordinierten Umsetzung eines erfolgreichen Rechenzentrumsumzugs mit abgestimmten Infrastrukturabhängigkeiten und stabiler Betriebsüberführung.",
-            en: "Contributed to the coordinated execution of a successful data center relocation with aligned infrastructure dependencies and stable operational transition.",
+            de: "Erfolgreicher Rechenzentrumsumzug mit stabiler Überführung in den Betrieb – Beitrag durch koordinierte Umsetzung und abgestimmte Infrastrukturabhängigkeiten.",
+            en: "Successful data center relocation with a stable handover to operations, supported by coordinated execution and aligned infrastructure dependencies.",
           },
           type: "achievement",
         },
         {
           text: {
-            de: "Einführung von IPv6 im Unternehmensumfeld als Beitrag zur langfristigen Modernisierung der Netzwerkinfrastruktur.",
-            en: "Introduced IPv6 in the enterprise environment as part of the long-term modernization of the network infrastructure.",
+            de: "IPv6 im Unternehmensumfeld eingeführt – als Baustein der langfristigen Modernisierung der Netzwerkinfrastruktur.",
+            en: "Introduced IPv6 in the enterprise environment as a building block of the long-term network infrastructure modernization.",
           },
           type: "achievement",
         },
@@ -1284,15 +1283,15 @@ export const siteContent: SiteContent = {
         },
         {
           text: {
-            de: "Bereitstellung eines stabilen, compliance-gerechten Archivsystems, das im gesamten Unternehmen täglich genutzt wurde.",
-            en: "Delivered a stable, compliant archive used daily across the organization.",
+            de: "Stabiles, compliance-gerechtes Archiv für mehr als 50.000 Nutzer bereitgestellt, das im gesamten Unternehmen täglich genutzt wurde.",
+            en: "Delivered a stable, compliant archive for more than 50,000 users, used daily across the organization.",
           },
           type: "achievement",
         },
         {
           text: {
-            de: "Etablierung zukunftssicherer Aufbewahrungsstrategien im Einklang mit strengen regulatorischen Anforderungen.",
-            en: "Established future-proof retention strategies aligned with strict regulatory requirements.",
+            de: "Unveränderbare Aufbewahrung über mehr als 10 Jahre etabliert – im Einklang mit strengen regulatorischen Anforderungen.",
+            en: "Established immutable retention for more than 10 years, aligned with strict regulatory requirements.",
           },
           type: "achievement",
         },
@@ -1356,12 +1355,12 @@ export const siteContent: SiteContent = {
   hero: {
     availability: {
       currentLine: {
-        de: "{percent}% verfügbar",
+        de: "{percent} % verfügbar",
         en: "{percent}% available",
       },
       currentPercentAvailable: 10,
       fullLine: {
-        de: "100% ab {date}",
+        de: "100 % ab {date}",
         en: "100% from {date}",
       },
       fullyAvailableDate: "2027",
@@ -1404,17 +1403,13 @@ export const siteContent: SiteContent = {
       ],
     },
     imageAlt: {
-      de: "Portraitfoto von Uwe Schwarz, Software-Architekt und Security-Engineer.",
+      de: "Porträtfoto von Uwe Schwarz, Software-Architekt und Security-Engineer.",
       en: "Portrait photo of Uwe Schwarz, Software Architect and Security Engineer.",
     },
     name: "Uwe Schwarz",
     pitch: {
       de: "Ich übersetze komplexe Anforderungen in Systeme, die halten: sicher, skalierbar und im Alltag wirklich brauchbar. Software, Plattformen, Infrastruktur und KI – entworfen als ein Plan.",
       en: "I turn complex requirements into systems that hold up: secure, scalable, and genuinely useful in practice. Software, platforms, infrastructure, and AI, designed as one plan.",
-    },
-    rolePrefix: {
-      de: "Arbeitet als",
-      en: "Works as",
     },
     titleElements: [
       {
@@ -1430,7 +1425,7 @@ export const siteContent: SiteContent = {
         en: "AI Enthusiast",
       },
       {
-        de: "Senior Berater",
+        de: "Senior-Berater",
         en: "Senior Consultant",
       },
     ],
@@ -1503,23 +1498,23 @@ export const siteContent: SiteContent = {
   },
   llms: {
     keywords: {
-      de: "Uwe Schwarz, Software-Architekt, Security-Engineer, KI-Enthusiast, Senior Berater, Plattformarchitektur, Infrastrukturarchitektur, SaaS, Mandantenfähige Systeme, KI-Workflows, Agentische KI, Compliance-Plattformen, ISO27001, SOC2, DSGVO, NIST Framework, MITRE ATT&CK, BSI IT-Grundschutz, Security Engineering, Risikomanagement, Vulnerabilitätsmanagement, Incident Response",
+      de: "Uwe Schwarz, Software-Architekt, Security-Engineer, KI-Enthusiast, Senior-Berater, Plattformarchitektur, Infrastrukturarchitektur, SaaS, mandantenfähige Systeme, KI-Workflows, agentische KI, Compliance-Plattformen, ISO 27001, SOC 2, DSGVO, NIST Framework, MITRE ATT&CK, BSI IT-Grundschutz, Security Engineering, Risikomanagement, Schwachstellenmanagement, Incident Response",
       en: "Uwe Schwarz, Software Architect, Security Engineer, AI Enthusiast, Senior Consultant, Platform Architecture, Infrastructure Architecture, SaaS, Multi-tenant Systems, AI Workflows, Agentic AI, Compliance Platforms, ISO27001, SOC2, GDPR, NIST Framework, MITRE ATT&CK, BSI IT Baseline Protection, Security Engineering, Risk Management, Vulnerability Management, Incident Response",
     },
     title: {
-      de: "Übersicht für AI Agents",
+      de: "Übersicht für KI-Agenten",
       en: "Overview for AI Agents",
     },
   },
   moreProjects: {
-    de: "Weitere frühere Projekte oder Referenzen sind auf Anfrage verfügbar.",
-    en: "More previous projects or references available upon request.",
+    de: "Weitere frühere Projekte und Referenzen gibt es auf Anfrage.",
+    en: "Further past projects and references are available on request.",
   },
   navigation: [
     { href: "#about", label: { de: "Über mich", en: "About" } },
     { href: "#projects", label: { de: "Projekte", en: "Work" } },
     { href: "#experience", label: { de: "Erfahrung", en: "Experience" } },
-    { href: "#trainings", label: { de: "Trainings", en: "Trainings" } },
+    { href: "#trainings", label: { de: "Trainings", en: "Training" } },
     { href: "#skills", label: { de: "Skills", en: "Skills" } },
     { href: "#contact", label: { de: "Kontakt", en: "Contact" } },
   ],
@@ -1555,7 +1550,7 @@ export const siteContent: SiteContent = {
         paragraphs: [
           {
             de: "Verantwortlich für die Verarbeitung personenbezogener Daten:",
-            en: "Responsible for the processing of personal data:",
+            en: "Controller responsible for the processing of personal data:",
           },
         ],
         title: {
@@ -1578,8 +1573,8 @@ export const siteContent: SiteContent = {
       {
         paragraphs: [
           {
-            de: "Die hier eingegebenen Daten (Name, E-Mail, Nachricht) verwenden wir ausschließlich zur Beantwortung deiner Anfrage. Rechtsgrundlage: Einwilligung und Vertragserfüllung (Art. 6 Abs. 1 lit. a & b DSGVO).",
-            en: "This form processes data (name, e-mail, message) solely to reply to your request. Basis: consent / contract performance (Art. 6 GDPR lit. a & b).",
+            de: "Die hier eingegebenen Daten (Name, E-Mail, Nachricht) verwende ich ausschließlich zur Beantwortung deiner Anfrage. Rechtsgrundlage: Einwilligung und Vertragserfüllung (Art. 6 Abs. 1 lit. a und b DSGVO).",
+            en: "I use the data entered here (name, email, message) solely to reply to your request. Legal basis: consent and performance of a contract (Art. 6(1)(a) and (b) GDPR).",
           },
         ],
         title: {
@@ -1590,17 +1585,17 @@ export const siteContent: SiteContent = {
       {
         list: [
           {
-            de: "Cloudflare: 101 Townsend St, San Francisco, CA 94107, USA<br />Cloudflare Germany GmbH: Rosental 7, c/o Mindspace, 80331 München, Germany",
+            de: "Cloudflare: 101 Townsend St, San Francisco, CA 94107, USA<br />Cloudflare Germany GmbH: Rosental 7, c/o Mindspace, 80331 München, Deutschland",
             description: {
               de: "Rechtsgrundlage: berechtigte Interessen (Art. 6 Abs. 1 lit. f DSGVO) zur Gewährleistung der Performance und Sicherheit der Website.<br />Cloudflare ist nach dem EU-US Data Privacy Framework zertifiziert und verarbeitet Daten gemäß dessen Grundsätzen. Details: https://www.cloudflare.com/privacypolicy/.",
               en: "Legal basis: legitimate interests (Art. 6(1)(f) GDPR) to ensure website performance and security.<br />Cloudflare is certified under the EU-U.S. Data Privacy Framework and processes data under its principles. See: https://www.cloudflare.com/privacypolicy/.",
             },
-            en: "Cloudflare: 101 Townsend St, San Francisco, CA 94107, USA<br />Cloudflare Germany GmbH: Rosental 7, c/o Mindspace, 80331 München, Germany",
+            en: "Cloudflare: 101 Townsend St, San Francisco, CA 94107, USA<br />Cloudflare Germany GmbH: Rosental 7, c/o Mindspace, 80331 Munich, Germany",
           },
           {
             de: "Resend: 2261 Market Street #5039, San Francisco, CA 94114, USA",
             description: {
-              de: "Rechtsgrundlage: Vertragserfüllung (Art. 6 Abs. 1 lit. b DSGVO), da Resend E-Mails in deinem Auftrag versendet.<br />Resend nutzt Standardvertragsklauseln (SCC) in ihrem DPA, um den Datentransfer in die USA zu legitimieren. DPA: https://resend.com/legal/dpa.",
+              de: "Rechtsgrundlage: Vertragserfüllung (Art. 6 Abs. 1 lit. b DSGVO), da Resend E-Mails in deinem Auftrag versendet.<br />Resend nutzt in seinem Auftragsverarbeitungsvertrag (DPA) Standardvertragsklauseln (SCC), um die Datenübermittlung in die USA abzusichern. DPA: https://resend.com/legal/dpa.",
               en: "Legal basis: performance of a contract (Art. 6(1)(b) GDPR), as Resend sends emails on your behalf.<br />Resend’s DPA includes Standard Contractual Clauses (SCC) for transfers to the US. See: https://resend.com/legal/dpa.",
             },
             en: "Resend: 2261 Market Street #5039, San Francisco, CA 94114, USA",
@@ -1608,8 +1603,8 @@ export const siteContent: SiteContent = {
         ],
         paragraphs: [
           {
-            de: "Diese Seite wird bei Cloudflare gehostet; ich habe dort keinen direkten Zugriff auf Server-Logs oder Deine IP-Adresse. Für das Kontaktformular nutze ich Resend, um E-Mails zu versenden. Es werden nur die von Dir im Formular eingegebenen Daten weitergeleitet – weitere personenbezogene Daten werden nicht gespeichert.",
-            en: "This site is hosted by Cloudflare; I do not have direct access to server logs or your IP address there. For the contact form, I use Resend to send emails. Only the data you enter into the form is forwarded – no other personal data is stored.",
+            de: "Diese Seite wird bei Cloudflare gehostet; ich habe dort keinen direkten Zugriff auf Server-Logs oder deine IP-Adresse. Für das Kontaktformular nutze ich Resend, um E-Mails zu versenden. Es werden nur die von dir im Formular eingegebenen Daten weitergeleitet – weitere personenbezogene Daten werden nicht gespeichert.",
+            en: "This site is hosted by Cloudflare; I do not have direct access to server logs or your IP address there. For the contact form, I use Resend to send emails. Only the data you enter into the form is forwarded — no other personal data is stored.",
           },
           {
             de: "Log-Aufbewahrung: max. 30 Tage",
@@ -1640,7 +1635,7 @@ export const siteContent: SiteContent = {
       {
         paragraphs: [
           {
-            de: "Ich verwende keine Cookies. Lediglich Deine Sprachwahl und Theme-Einstellung werden lokal im localStorage Deines Browsers gespeichert. Die Speicherung von Theme-Einstellungen und Sprachwahl im localStorage beruht auf berechtigten Interessen (Art. 6 Abs. 1 lit. f DSGVO) zur Verbesserung der Benutzererfahrung. Du kannst diese Daten jederzeit über deine Browser-Einstellungen löschen.",
+            de: "Ich verwende keine Cookies. Lediglich deine Sprachwahl und Design-Einstellung (hell/dunkel) werden lokal im localStorage deines Browsers gespeichert. Die Speicherung beruht auf berechtigten Interessen (Art. 6 Abs. 1 lit. f DSGVO) zur Verbesserung der Benutzererfahrung. Du kannst diese Daten jederzeit über deine Browser-Einstellungen löschen.",
             en: "I do not use cookies. Only your language choice and theme preference are stored locally in your browser’s localStorage. The storage of theme preferences and language selection in localStorage is based on legitimate interests (Art. 6(1)(f) GDPR) to enhance user experience. You can clear this at any time in your browser settings.",
           },
         ],
@@ -1652,8 +1647,8 @@ export const siteContent: SiteContent = {
       {
         paragraphs: [
           {
-            de: "Die Seite enthält Links zu GitHub, LinkedIn, Xing, Freelancermap und X (ehemals Twitter). Da keine externen Inhalte eingebunden sind, wirst Du beim Anklicken dieser Links auf die jeweiligen Plattformen weitergeleitet, deren Datenschutzerklärungen dann gelten.",
-            en: "The site contains links to GitHub, LinkedIn, Xing, Freelancermap and X (formerly Twitter). Since I embed no external content, clicking these links may transfer you to the respective platforms, whose privacy policies then apply.",
+            de: "Die Seite enthält Links zu GitHub, LinkedIn, Xing, Freelancermap und X (ehemals Twitter). Da keine externen Inhalte eingebunden sind, wirst du erst beim Anklicken dieser Links auf die jeweiligen Plattformen weitergeleitet, deren Datenschutzerklärungen dann gelten.",
+            en: "The site contains links to GitHub, LinkedIn, Xing, Freelancermap and X (formerly Twitter). Since no external content is embedded, you are only taken to the respective platforms when you click these links, whose privacy policies then apply.",
           },
         ],
         title: {
@@ -1664,12 +1659,12 @@ export const siteContent: SiteContent = {
       {
         paragraphs: [
           {
-            de: "Ich ergreife angemessene technische und organisatorische Maßnahmen, um Deine Daten vor unbefugtem Zugriff und Verlust zu schützen. Eine 100%ige Sicherheit bei der Datenübertragung im Internet kann ich jedoch nicht garantieren.",
+            de: "Ich ergreife angemessene technische und organisatorische Maßnahmen, um deine Daten vor unbefugtem Zugriff und Verlust zu schützen. Hundertprozentige Sicherheit bei der Datenübertragung im Internet kann ich jedoch nicht garantieren.",
             en: "I take reasonable technical and organizational measures to protect your data against unauthorized access and loss. However, internet-based data transmission can never be 100% secure.",
           },
           {
-            de: "Technisch-organisatorische Maßnahmen: diese Seite nutzt TLS 1.3 (falls vom Browser unterstützt), Zugangskontrollen mit MFA, Pseudonymisierung/Verschlüsselung ruhender Daten und regelmäßige Sicherheitsaudits.",
-            en: "Technical and Organisational Measures: this site uses TLS 1.3 (if supported by your browser), access controls with MFA, pseudonymisation/encryption at rest, and regular security audits.",
+            de: "Technische und organisatorische Maßnahmen: Diese Seite nutzt TLS 1.3 (falls vom Browser unterstützt), Zugangskontrollen mit MFA, Pseudonymisierung bzw. Verschlüsselung ruhender Daten und regelmäßige Sicherheitsaudits.",
+            en: "Technical and organizational measures: this site uses TLS 1.3 (if supported by your browser), access controls with MFA, pseudonymization or encryption at rest, and regular security audits.",
           },
         ],
         title: {
@@ -1727,8 +1722,8 @@ export const siteContent: SiteContent = {
       },
     ],
     subtitle: {
-      de: "Letzte Aktualisierung: 02. August 2025",
-      en: "Last updated: August 02, 2025",
+      de: "Letzte Aktualisierung: 2. August 2025",
+      en: "Last updated: August 2, 2025",
     },
     title: {
       de: "Datenschutzerklärung",
@@ -1751,7 +1746,7 @@ export const siteContent: SiteContent = {
         { de: "Compliance-Schulung", en: "Compliance Training" },
         { de: "KI-Governance", en: "AI Governance" },
         { de: "E-Learning", en: "E-Learning" },
-        { de: "Schulungsplattform", en: "Education Platform" },
+        { de: "Schulungsplattform", en: "Training Platform" },
         { de: "Regulatorischer Rahmen", en: "Regulatory Framework" },
       ],
       title: {
@@ -1780,7 +1775,7 @@ export const siteContent: SiteContent = {
       ],
       title: {
         de: "Rechtssicheres E-Mail-Archiv",
-        en: "Secure Email Archive",
+        en: "Legally Compliant Email Archive",
       },
     },
     {
@@ -1810,7 +1805,7 @@ export const siteContent: SiteContent = {
         en: "Implemented SOC 2 and ISO 27001 compliance requirements by introducing information security policies, controls, and evidence structures aligned with audit and certification needs.",
       },
       imageAlt: {
-        de: "Illustration zur Darstellung der SOC 2- und ISO 27001-Zertifizierung: Zu sehen sind ein Zertifizierungsdokument mit Häkchen bei „SOC 2“ und „ISO 27001“, ein Sicherheitsschild, ein Vorhängeschloss und ein gesichertes Datenbanksymbol. Die Grafik steht für Informationssicherheit, Compliance und revisionssichere Datenverarbeitung.",
+        de: "Illustration zur SOC-2- und ISO-27001-Zertifizierung: Zu sehen sind ein Zertifizierungsdokument mit Häkchen bei „SOC 2“ und „ISO 27001“, ein Sicherheitsschild, ein Vorhängeschloss und ein gesichertes Datenbanksymbol. Die Grafik steht für Informationssicherheit, Compliance und revisionssichere Datenverarbeitung.",
         en: "Illustration representing SOC 2 and ISO 27001 certification: Shows a certification document with checkmarks for “SOC 2” and “ISO 27001”, a security shield, a padlock, and a secured database icon. The graphic symbolizes information security, compliance, and audit-proof data processing.",
       },
       imageUrl: "/projects/soc2_cert.webp",
@@ -1821,7 +1816,7 @@ export const siteContent: SiteContent = {
         { de: "Compliance", en: "Compliance" },
       ],
       title: {
-        de: "SOC 2 & ISO 27001 Zertifizierung",
+        de: "Zertifizierung nach SOC 2 & ISO 27001",
         en: "SOC 2 & ISO 27001 Certification",
       },
     },
@@ -1845,13 +1840,13 @@ export const siteContent: SiteContent = {
         { de: "Netzwerksicherheit", en: "Network Security" },
       ],
       title: {
-        de: "Zero-Config IPv6 VPN Netzwerk",
+        de: "Zero-Config-VPN-Netz auf IPv6-Basis",
         en: "Zero-Config IPv6 VPN Network",
       },
     },
     {
       description: {
-        de: "Modernisierung der bestehenden Backup-Infrastruktur durch Implementierung von Rubriks Enterprise-Backup-Lösung, Verbesserung des Datenschutzes, Reduzierung der Wiederherstellungszeiten und Vereinfachung des Managements in hybriden Umgebungen.",
+        de: "Modernisierung der bestehenden Backup-Infrastruktur durch Einführung der Enterprise-Backup-Lösung von Rubrik – für besseren Datenschutz, kürzere Wiederherstellungszeiten und eine einfachere Verwaltung hybrider Umgebungen.",
         en: "Modernized the existing backup infrastructure by implementing Rubrik's enterprise backup solution, enhancing data protection, reducing recovery times, and simplifying management across hybrid environments.",
       },
       imageAlt: {
@@ -1872,12 +1867,12 @@ export const siteContent: SiteContent = {
     },
     {
       description: {
-        de: "Entwicklung eines privaten Systems zur Digitalisierung aller persönlichen Dokumente und Briefe mittels OCR-Technologie. Integration einer KI-gestützten Klassifizierung zur automatischen Sortierung der Dokumente in vordefinierte Kategorien für effizientes Suchen, Auffinden und Archivieren. Zusätzlich wurde eine automatisierte Auswertung implementiert, um steuerrelevante Dokumente für die Einkommensteuer zu erkennen und entsprechend zu taggen.",
+        de: "Entwicklung eines privaten Systems zur Digitalisierung aller persönlichen Dokumente und Briefe mittels OCR-Technologie. Integration einer KI-gestützten Klassifizierung zur automatischen Sortierung der Dokumente in vordefinierte Kategorien für effizientes Suchen, Auffinden und Archivieren. Zusätzlich wurde eine automatisierte Auswertung implementiert, um für die Einkommensteuer relevante Dokumente zu erkennen und entsprechend zu verschlagworten.",
         en: "Developed a private system to digitize all personal documents and letters using OCR technology. Integrated AI-based classification to automatically sort documents into predefined categories, enabling efficient search, retrieval, and archival. Additionally, implemented automated analysis to detect tax-relevant documents for income tax purposes and tag them accordingly.",
       },
       imageAlt: {
-        de: "Illustration zur Dokumentenerfassung und KI-Kategorisierung: Ein Scanner, digitalisierte Dokumente, KI-Knoten, die mit Ordnersymbolen verbunden sind, sowie kategorisierte Labels wie 'Finanzen', 'Gesundheit' und 'Versicherung'. Die Grafik steht für automatisierte Dokumentenverarbeitung und intelligente Organisation.",
-        en: "Illustration showing document scanning and AI classification: A scanner, digitized documents, AI nodes connecting to folder icons, and categorized labels like 'Finance', 'Health', and 'Insurance'. Represents automated document processing and intelligent organization.",
+        de: "Illustration zur Dokumentenerfassung und KI-Kategorisierung: Ein Scanner, digitalisierte Dokumente, KI-Knoten, die mit Ordnersymbolen verbunden sind, sowie Kategorien wie „Finanzen“, „Gesundheit“ und „Versicherung“. Die Grafik steht für automatisierte Dokumentenverarbeitung und intelligente Organisation.",
+        en: "Illustration showing document scanning and AI classification: A scanner, digitized documents, AI nodes connecting to folder icons, and category labels like “Finance”, “Health”, and “Insurance”. Represents automated document processing and intelligent organization.",
       },
       imageUrl: "/projects/ocr_ai_documents.webp",
       tags: [
@@ -2267,7 +2262,7 @@ export const siteContent: SiteContent = {
           de: "Von den Grundlagen moderner Lastverteilung bis zum produktionsreifen Setup: Architektur, Konfiguration, TLS-Terminierung, Health Checks, Hochverfügbarkeit und Observability – mit vielen Hands-on-Übungen entlang realer Szenarien.",
           en: "From the fundamentals of modern load balancing to production-ready setups: architecture, configuration, TLS termination, health checks, high availability, and observability — with extensive hands-on labs built around real-world scenarios.",
         },
-        duration: { de: "2-tägiges Training", en: "2-day training" },
+        duration: { de: "Zweitägiges Training", en: "Two-day training" },
         tags: [
           { de: "HAProxy", en: "HAProxy" },
           { de: "Lastverteilung", en: "Load Balancing" },
@@ -2282,10 +2277,10 @@ export const siteContent: SiteContent = {
       },
       {
         description: {
-          de: "Wie aus Sprachmodellen verlässliche Automatisierung wird: Agenten-Architekturen, Tool-Nutzung, Orchestrierung mehrstufiger Workflows, Guardrails, Evaluierung und Sicherheit – inklusive Hands-on-Sessions mit aktuellen Frameworks.",
+          de: "Wie aus Sprachmodellen verlässliche Automatisierung wird: Agentenarchitekturen, Tool-Nutzung, Orchestrierung mehrstufiger Workflows, Guardrails, Evaluierung und Sicherheit – inklusive Hands-on-Sessions mit aktuellen Frameworks.",
           en: "How language models become reliable automation: agent architectures, tool use, orchestration of multi-step workflows, guardrails, evaluation, and security — including hands-on sessions with current frameworks.",
         },
-        duration: { de: "2-tägiges Training", en: "2-day training" },
+        duration: { de: "Zweitägiges Training", en: "Two-day training" },
         tags: [
           { de: "Agentische KI", en: "Agentic AI" },
           { de: "LLM-Orchestrierung", en: "LLM Orchestration" },
@@ -2294,7 +2289,7 @@ export const siteContent: SiteContent = {
           { de: "Automatisierung", en: "Automation" },
         ],
         title: {
-          de: "Agentic-AI-Workflows",
+          de: "Agentische KI-Workflows",
           en: "Agentic AI Workflows",
         },
       },
@@ -2303,7 +2298,7 @@ export const siteContent: SiteContent = {
           de: "Wie KI-Systeme nach dem Deployment zuverlässig, transparent und wirtschaftlich betrieben werden: MLOps-Pipelines, Modell- und Datenmonitoring, Observability, Qualitätsmetriken, Drift-Erkennung und wirksame Kostenkontrolle – praxisnah mit messbaren Betriebszielen und Hands-on-Übungen.",
           en: "How to operate AI systems reliably, transparently, and cost-effectively after deployment: MLOps pipelines, model and data monitoring, observability, quality metrics, drift detection, and effective cost control — with hands-on exercises built around measurable operational goals.",
         },
-        duration: { de: "2-tägiges Training", en: "2-day training" },
+        duration: { de: "Zweitägiges Training", en: "Two-day training" },
         tags: [
           { de: "MLOps", en: "MLOps" },
           { de: "Monitoring", en: "Monitoring" },
@@ -2312,14 +2307,14 @@ export const siteContent: SiteContent = {
           { de: "Kostenkontrolle", en: "Cost Control" },
         ],
         title: {
-          de: "MLOps, Monitoring, Kostenkontrolle",
+          de: "MLOps, Monitoring & Kostenkontrolle",
           en: "MLOps, Monitoring & Cost Control",
         },
       },
     ],
     subtitle: {
       de: "Trainings, die ich gehalten habe – praxisnah, direkt aus dem Projektalltag, mit Live-Demos und Hands-on-Übungen.",
-      en: "Trainings I have delivered — hands-on, built from real project work, with live demos and practical labs.",
+      en: "Training courses I have delivered — hands-on, drawn from real project work, with live demos and practical labs.",
     },
     title: {
       de: "Das bringe ich auch bei.",
@@ -2327,9 +2322,10 @@ export const siteContent: SiteContent = {
     },
   },
   translations: {
+    // Announced in the current page language and names the target language.
     languageSwitch: {
-      de: "Zu Deutsch wechseln",
-      en: "Switch to English",
+      de: "Zu Englisch wechseln",
+      en: "Switch to German",
     },
     themeSwitch: {
       dark: {

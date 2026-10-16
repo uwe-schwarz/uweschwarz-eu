@@ -49,7 +49,8 @@ const HeroSection = () => {
     return () => window.clearInterval(interval);
   }, [hero.titleElements.length, isRotating]);
 
-  const currentRole = t(hero.titleElements[isRotating ? roleIndex : 0]);
+  const roles = hero.titleElements.map((role) => t(role));
+  const currentRole = roles[isRotating ? roleIndex : 0];
   const percentAvailable = Math.min(Math.max(hero.availability.currentPercentAvailable, 0), 100);
   const currentAvailability = formatTemplate(t(hero.availability.currentLine), { percent: percentAvailable });
   const fullAvailability = formatTemplate(t(hero.availability.fullLine), {
@@ -68,13 +69,16 @@ const HeroSection = () => {
             ))}
           </h1>
 
-          <p
-            aria-live="off"
-            className="hero-enter mt-6 flex flex-wrap items-baseline gap-x-3 text-xl sm:text-2xl"
-            style={enterStep(1)}
-          >
-            <span className="text-muted-foreground">{t(hero.rolePrefix)}</span>
-            <span className="relative inline-grid overflow-hidden py-1 type-heading text-foreground">
+          {/* Screen readers get every role once; the rotation is visual only. */}
+          <p className="hero-enter mt-6 text-xl sm:text-2xl" style={enterStep(1)}>
+            <span className="sr-only">{roles.join(", ")}</span>
+            <span aria-hidden="true" className="relative inline-grid overflow-hidden py-1 type-heading text-foreground">
+              {/* Invisible copies reserve the widest role so the line never reflows */}
+              {roles.map((role) => (
+                <span className="invisible col-start-1 row-start-1 whitespace-nowrap" key={role}>
+                  {role}
+                </span>
+              ))}
               <AnimatePresence initial={false} mode="popLayout">
                 <m.span
                   animate={{ opacity: 1, y: "0%" }}

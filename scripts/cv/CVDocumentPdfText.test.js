@@ -89,7 +89,20 @@ describe("CV PDF text rendering", () => {
 
       expect(firstBulletLine.words[0]?.text).toBe("•");
       expect(firstBulletLine.words[1]?.text).toBe("Technische");
-      expect(wrappedLine.text.startsWith("mit Fokus auf Migrationsplanung")).toBe(true);
+      // The wrapped line continues the same bullet, whatever its current wording.
+      const bulletText = siteContent.experiences
+        .flatMap((experience) => experience.description)
+        .find((item) => item.text.de.startsWith("Technische Programmverantwortung für die IPv6-Migration"))?.text.de;
+      const firstLineText = firstBulletLine.words
+        .slice(1)
+        .map((word) => word.text)
+        .join(" ");
+      // German hyphenation may split a word across the two lines.
+      const joinedText = firstLineText.endsWith("-")
+        ? `${firstLineText.slice(0, -1)}${wrappedLine.text}`
+        : `${firstLineText} ${wrappedLine.text}`;
+
+      expect(bulletText?.startsWith(joinedText)).toBe(true);
       expect(wrappedLine.xMin).toBeGreaterThanOrEqual(firstBulletLine.words[1].xMin);
     } finally {
       await cleanup();

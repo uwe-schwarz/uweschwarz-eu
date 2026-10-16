@@ -22,7 +22,7 @@ export default async function GlobalNotFound() {
   const initialTheme = resolveInitialTheme(cookieStore.get("theme")?.value);
   const cspNonce = headerList.get(NONCE_HEADER) ?? undefined;
   const message = language === "de" ? "Diese Seite wurde nicht gefunden." : "This page doesn't exist.";
-  const homeLabel = language === "de" ? "Zur Startseite" : "Return to Home";
+  const homeLabel = language === "de" ? "Zur Startseite" : "Back to home";
   const note = language === "de" ? "nicht im Bauplan eingezeichnet" : "this room isn't on the blueprint";
 
   return (
@@ -43,7 +43,7 @@ export default async function GlobalNotFound() {
           <div className="max-w-xl text-center">
             <p className="type-display text-[7rem] leading-none text-primary sm:text-[10rem]">404</p>
             <h1 className="mt-6 text-3xl sm:text-4xl">{message}</h1>
-            <p className="redline-note mt-4 -rotate-2 text-2xl">{note}</p>
+            <p className="redline-note mt-4 -rotate-2">{note}</p>
             <Link
               className="mt-10 inline-flex h-12 items-center rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
               href={`/${language}`}

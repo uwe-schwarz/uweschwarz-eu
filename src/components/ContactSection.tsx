@@ -7,7 +7,7 @@ import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
 
 const socialLinkClassName =
-  "flex h-11 w-11 items-center justify-center rounded-full border border-border bg-card text-muted-foreground transition-[color,border-color,transform] hover:-translate-y-0.5 hover:border-primary hover:text-primary";
+  "flex h-11 w-11 items-center justify-center rounded-full border border-input bg-card text-muted-foreground transition-[color,border-color,transform] hover:-translate-y-0.5 hover:border-primary hover:text-primary";
 
 const directLineClassName =
   "group flex items-center gap-4 rounded-2xl border border-transparent py-2 transition-colors hover:text-primary";
@@ -112,7 +112,7 @@ const ContactSection = () => {
 
           <div className="relative lg:col-span-7 lg:pt-4">
             <div aria-hidden="true" className="mb-3 flex items-end justify-end gap-1 pr-2 sm:pr-10">
-              <p className="redline-note max-w-[16rem] -rotate-3 text-right text-xl sm:text-2xl">{t(contact.note)}</p>
+              <p className="redline-note max-w-[18rem] -rotate-3 text-right">{t(contact.note)}</p>
               <svg className="h-10 w-10 shrink-0 translate-y-5 text-redline" fill="none" viewBox="0 0 40 40">
                 <path d="M6 4 C 22 6, 30 14, 30 32" stroke="currentColor" strokeLinecap="round" strokeWidth={2.5} />
                 <path

@@ -12,6 +12,8 @@ import { getLocalizedTextKey, type LocalizedString } from "@/lib/localization";
 
 type TranslateFn = (value: LocalizedString) => string;
 
+const VISIBLE_RESULTS = 2;
+
 const formatPeriod = (period: string) => period.replace(" - ", " – ");
 
 const getExperienceKey = (exp: Experience) =>
@@ -28,7 +30,10 @@ const ExperienceEntry = ({ exp, t }: ExperienceEntryProps) => {
   const detailsId = useId();
   const prefersReducedMotion = useReducedMotion();
   const [summary, ...details] = exp.description.filter((item) => item.type === "text");
-  const achievements = exp.description.filter((item) => item.type === "achievement");
+  const allAchievements = exp.description.filter((item) => item.type === "achievement");
+  // The first results stay visible; any further ones live in the details.
+  const highlights = allAchievements.slice(0, VISIBLE_RESULTS);
+  const achievements = allAchievements.slice(VISIBLE_RESULTS);
   const achievementLabel = t(siteContent.experienceAchievementPrefix);
 
   return (
@@ -62,9 +67,10 @@ const ExperienceEntry = ({ exp, t }: ExperienceEntryProps) => {
             </div>
 
             {exp.logoUrl && (
-              <div className="relative hidden h-12 w-32 shrink-0 opacity-85 transition-opacity duration-300 group-hover:opacity-100 sm:block">
+              // Decorative: the company name is already in the text next to it
+              <div className="relative hidden h-12 w-32 shrink-0 sm:block">
                 <Image
-                  alt={`${exp.company} logo`}
+                  alt=""
                   className={`object-contain object-right ${exp.logoUrlDark ? "dark:hidden" : ""}`}
                   fill
                   sizes="128px"
@@ -72,7 +78,7 @@ const ExperienceEntry = ({ exp, t }: ExperienceEntryProps) => {
                 />
                 {exp.logoUrlDark && (
                   <Image
-                    alt={`${exp.company} logo`}
+                    alt=""
                     className="hidden object-contain object-right dark:block"
                     fill
                     sizes="128px"
@@ -84,6 +90,23 @@ const ExperienceEntry = ({ exp, t }: ExperienceEntryProps) => {
           </div>
 
           {summary && <p className="mt-4 max-w-3xl leading-relaxed text-muted-foreground">{t(summary.text)}</p>}
+
+          {highlights.length > 0 && (
+            <ul className="mt-4 max-w-3xl space-y-2.5">
+              {highlights.map((item) => (
+                <li
+                  className="flex gap-3 font-medium leading-relaxed text-foreground"
+                  key={`${getExperienceKey(exp)}-${getLocalizedTextKey(item.text)}`}
+                >
+                  <BadgeCheck aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-redline" />
+                  <span>
+                    <span className="sr-only">{achievementLabel} </span>
+                    {t(item.text)}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
 
           <button
             aria-controls={detailsId}
@@ -116,7 +139,7 @@ const ExperienceEntry = ({ exp, t }: ExperienceEntryProps) => {
                           className="flex gap-3 leading-relaxed"
                           key={`${getExperienceKey(exp)}-${getLocalizedTextKey(item.text)}`}
                         >
-                          <span aria-hidden="true" className="mt-[0.7rem] h-px w-3 shrink-0 bg-muted-foreground/60" />
+                          <span aria-hidden="true" className="mt-[0.7rem] h-px w-3 shrink-0 bg-muted-foreground" />
                           <span>{t(item.text)}</span>
                         </li>
                       ))}
@@ -202,7 +225,7 @@ const ExperienceSection = () => {
           {webSections.experience.note && (
             <p
               aria-hidden="true"
-              className="redline-note absolute -bottom-12 right-0 hidden rotate-[-4deg] text-2xl md:block xl:-right-40 xl:bottom-4"
+              className="redline-note absolute -bottom-12 right-0 hidden rotate-[-4deg] md:block xl:-right-40 xl:bottom-4"
             >
               {t(webSections.experience.note)}
             </p>

@@ -38,7 +38,7 @@ const AboutSection = () => {
                   />
                 </div>
               </div>
-              <figcaption className="redline-note absolute -bottom-10 right-0 -rotate-3 text-2xl sm:-right-6">
+              <figcaption className="redline-note absolute -bottom-11 right-0 -rotate-3 sm:-right-6">
                 {t(about.note)}
               </figcaption>
             </figure>

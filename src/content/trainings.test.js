@@ -7,7 +7,7 @@ describe("training content", () => {
     expect(siteContent.trainings.items.every((training) => !("date" in training))).toBe(true);
 
     const mlopsTraining = siteContent.trainings.items.find(
-      (training) => training.title.de === "MLOps, Monitoring, Kostenkontrolle",
+      (training) => training.title.de === "MLOps, Monitoring & Kostenkontrolle",
     );
 
     expect(mlopsTraining).toBeDefined();

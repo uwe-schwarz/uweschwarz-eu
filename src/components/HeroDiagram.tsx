@@ -260,7 +260,7 @@ const HeroDiagram = ({ isFrozen }: { isFrozen: boolean }) => {
 
       {/* Redline note: the one hand-drawn nudge in the hero */}
       <div aria-hidden="true" className="pointer-events-none absolute left-[36%] top-[-7%] z-30 w-[46%] sm:top-[-4%]">
-        <p className="redline-note -rotate-6 text-center text-xl sm:text-2xl">{hint}</p>
+        <p className="redline-note -rotate-6 text-center">{hint}</p>
         <svg
           className="absolute -left-[18%] top-[70%] h-12 w-16 text-redline sm:h-14 sm:w-20"
           fill="none"
