@@ -22,11 +22,13 @@ interface MobileMenuSheetProps {
   homeHref: string;
   isHomePage: boolean;
   language: Language;
+  languageLabel: string;
   navigationItems: Array<MobileMenuNavigationItem>;
   onToggleLanguage: () => void;
   onToggleTheme: (event?: MouseEvent<HTMLElement>) => void;
   t: (text: LocalizedString) => string;
   theme: Theme;
+  themeLabel: string;
 }
 
 const MobileMenuSheet = ({
@@ -34,24 +36,22 @@ const MobileMenuSheet = ({
   homeHref,
   isHomePage,
   language,
+  languageLabel,
   navigationItems,
   onToggleLanguage,
   onToggleTheme,
   t,
   theme,
+  themeLabel,
 }: MobileMenuSheetProps) => {
   const [open, setOpen] = useState(false);
-  const languageToggleLabel = t({
-    de: language === "en" ? "Sprache auf Deutsch umstellen" : "Sprache auf Englisch umstellen",
-    en: language === "en" ? "Switch language to Deutsch" : "Switch language to English",
-  });
   const menuTriggerLabel = t({
     de: "Menü öffnen",
     en: "Open menu",
   });
-  const themeToggleLabel = t({
-    de: theme === "light" ? "Design auf Dunkelmodus umstellen" : "Design auf Hellmodus umstellen",
-    en: theme === "light" ? "Switch theme to Dark mode" : "Switch theme to Light mode",
+  const menuCloseLabel = t({
+    de: "Menü schließen",
+    en: "Close menu",
   });
   const darkModeLabel = t({
     de: "Dunkel",
@@ -66,10 +66,14 @@ const MobileMenuSheet = ({
     <Sheet onOpenChange={setOpen} open={open}>
       <SheetTrigger asChild>
         <Button aria-label={menuTriggerLabel} className="lg:hidden" size="icon" variant="ghost">
-          <Menu className="text-foreground" size={22} />
+          <Menu aria-hidden="true" className="text-foreground" size={22} />
         </Button>
       </SheetTrigger>
-      <SheetContent className="blueprint-grid flex w-full flex-col bg-background p-0 sm:max-w-md" side="right">
+      <SheetContent
+        className="blueprint-grid flex w-full flex-col bg-background p-0 sm:max-w-md"
+        closeLabel={menuCloseLabel}
+        side="right"
+      >
         <SheetTitle className="sr-only">{t({ de: "Navigationsmenü", en: "Navigation menu" })}</SheetTitle>
         <div className="flex items-center gap-2.5 px-5 pt-5">
           <span
@@ -115,12 +119,12 @@ const MobileMenuSheet = ({
         </nav>
 
         <div className="flex gap-3 border-t border-border p-5">
-          <Button aria-label={languageToggleLabel} className="flex-1" onClick={onToggleLanguage} variant="outline">
+          <Button aria-label={languageLabel} className="flex-1" onClick={onToggleLanguage} variant="outline">
             <Languages aria-hidden="true" />
             {language === "en" ? "Deutsch" : "English"}
           </Button>
 
-          <Button aria-label={themeToggleLabel} className="flex-1" onClick={onToggleTheme} variant="outline">
+          <Button aria-label={themeLabel} className="flex-1" onClick={onToggleTheme} variant="outline">
             {theme === "light" ? (
               <>
                 <Moon aria-hidden="true" /> {darkModeLabel}

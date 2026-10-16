@@ -238,6 +238,8 @@ const Header = () => {
   const themeLabel = t(
     theme === "light" ? siteContent.translations.themeSwitch.dark : siteContent.translations.themeSwitch.light,
   );
+  const languageLabel = t(siteContent.translations.languageSwitch);
+  const contactHref = contactItem && (isHomePage ? contactItem.href : `/${language}${contactItem.href}`);
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 px-3 pt-3 sm:px-4 sm:pt-4${isScrolled ? " nav-glass-on" : ""}`}>
@@ -293,10 +295,7 @@ const Header = () => {
         {/* Control Buttons */}
         <div className="hidden items-center gap-1 lg:flex">
           <Button
-            aria-label={t({
-              de: "Sprache auf Englisch umstellen",
-              en: "Switch language to Deutsch",
-            })}
+            aria-label={languageLabel}
             className="font-semibold text-muted-foreground hover:text-foreground"
             onClick={toggleLanguage}
             size="sm"
@@ -315,27 +314,39 @@ const Header = () => {
             {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
           </Button>
 
-          {contactItem && (
+          {contactItem && contactHref && (
             <Button asChild className="ml-1" size="sm">
-              <a href={isHomePage ? contactItem.href : `/${language}${contactItem.href}`}>{t(contactItem.label)}</a>
+              <a href={contactHref}>{t(contactItem.label)}</a>
             </Button>
           )}
         </div>
 
-        {/* Mobile Menu */}
-        {isCompact && (
-          <MobileMenuSheet
-            activeSection={activeSection}
-            homeHref={homeHref}
-            isHomePage={isHomePage}
-            language={language}
-            navigationItems={navigationItems}
-            onToggleLanguage={toggleLanguage}
-            onToggleTheme={toggleTheme}
-            t={t}
-            theme={theme}
-          />
-        )}
+        {/* Mobile: contact stays one tap away next to the menu */}
+        <div className="flex items-center gap-1 lg:hidden">
+          {contactItem && contactHref && (
+            <Button asChild className="px-3.5" size="sm">
+              <a href={contactHref}>{t(contactItem.label)}</a>
+            </Button>
+          )}
+          {/* Reserves the trigger's footprint until the client-only menu loads */}
+          <div className="flex h-10 w-10 items-center justify-center">
+            {isCompact && (
+              <MobileMenuSheet
+                activeSection={activeSection}
+                homeHref={homeHref}
+                isHomePage={isHomePage}
+                language={language}
+                languageLabel={languageLabel}
+                navigationItems={navigationItems}
+                onToggleLanguage={toggleLanguage}
+                onToggleTheme={toggleTheme}
+                t={t}
+                theme={theme}
+                themeLabel={themeLabel}
+              />
+            )}
+          </div>
+        </div>
         <NavLiquidGlassFilter glassMapRef={glassMapRef} />
       </div>
     </header>
