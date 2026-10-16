@@ -13,7 +13,7 @@ Use this skill to take a JavaScript, TypeScript, or Python repository from outda
 
 ## Endpoint and Repository Integration
 
-This skill ends after opening a reviewable PR. It does not authorize merging or production deployment. For a user-authorized full autopilot run, use [../deps-upgrade-autopilot/SKILL.md](../deps-upgrade-autopilot/SKILL.md); that workflow owns repository-specific validation, review, merge, and cleanup. Do not infer merge authorization from credentials or passing checks.
+This skill ends after opening a reviewable PR. It does not authorize merging or production deployment. For a user-authorized full autopilot run, use [../deps-upgrade-autopilot/SKILL.md](../deps-upgrade-autopilot/SKILL.md); that workflow owns repository-specific validation, direct-main publication, production verification, and cleanup. Its endpoint overrides this skill's branch/PR instructions only for authorized autopilot runs. Do not infer merge authorization from credentials or passing checks.
 
 In this Next.js/Bun repository, use Bun for installs and script execution, obey `AGENTS.md`, and preserve release-age, registry, integrity, and trusted-dependency policies. The daily automation invokes the autopilot directly. For a standalone PR request here, read only its Credential Isolation Precondition, Repo-Specific Validation, Visual Regression Flow, Dependency Trust Boundary, and Follow-Up Issue Deduplication sections as repository requirements; do not run its babysitting or merge steps. Clear inherited `VERCEL_TOKEN` before repository commands.
 
@@ -22,6 +22,7 @@ In this Next.js/Bun repository, use Bun for installs and script execution, obey 
 - Confirm the repository uses Git and GitHub, and that `gh` is authenticated before attempting issue or PR creation.
 - Stop if the working tree contains unrelated user changes that would be risky to mix into the dependency branch.
 - Detect the ecosystem and package manager from tracked manifests, lockfiles, and workspace config before changing anything.
+- In this repository, before running any Bun command that inspects, resolves, or changes dependencies, run `node scripts/check-bun-version.mjs` and require it to pass. Repeat the preflight before each such command, including the direct `bun update` and `bun install` commands in the package-manager playbook. This applies to standalone dependency PRs and autopilot runs. Do not rely on package lifecycle hooks: `preinstall` runs after dependency resolution has begun.
 - Read [references/package-manager-playbook.md](references/package-manager-playbook.md) after detection and use only the relevant section.
 
 ## Workflow
@@ -41,6 +42,7 @@ In this Next.js/Bun repository, use Bun for installs and script execution, obey 
 ### 3. Upgrade manifests and lockfiles
 
 - Use the package-manager-specific commands from the reference file to move direct dependencies to their latest published versions.
+- When a configured release-age gate may hide newer versions from the package-manager report, compare the resolved version of each in-scope direct dependency with stable-release and publication metadata from the repository's configured registry. Record candidates withheld solely by the gate and their publication and first age-eligible times. Keep the check read-only; never weaken the gate or resolve/install a candidate early.
 - For JS/TS manifests, update entries in `dependencies`, `devDependencies`, `optionalDependencies`, and `peerDependencies` when the manifest owns those versions. Preserve `workspace:`, `file:`, `link:`, `portal:`, `catalog:`, git, URL, and alias specs unless there is a clear reason to change them.
 - For Python manifests, update dependency declarations in `project.dependencies`, optional-dependency groups, tool-managed dependency groups, `requirements*.in`, `requirements*.txt`, and `constraints*.txt` only when those files are repo-owned sources of truth.
 - Prefer `uv` for clearly uv-managed repos (`uv.lock`, `tool.uv`, or an established `uv` workflow). For `requirements.in` / compiled `requirements.txt` repos, reuse the repo's existing compiler workflow with `uv pip compile` or `pip-compile` if present. For hand-maintained `requirements.txt` repos, update the tracked requirement specifiers directly, then re-install or sync with the repo's existing tool.
@@ -56,7 +58,7 @@ In this Next.js/Bun repository, use Bun for installs and script execution, obey 
 - For each changed package that has a major bump, is runtime-critical, or is used directly in code or config, inspect official changelogs, migration guides, or release notes. Use primary sources only.
 - Search the codebase for actual package usage before deciding whether a release is relevant to this project.
 - For each package you inspect, explicitly look for newly introduced features, changed defaults, deprecations that became warnings or errors, and new enforced lint, type, compiler, formatting, security, or policy rules. Do not stop at obvious breakages.
-- Every relevant new item you identify must end in one of two states before the PR is opened: adopted in the PR, or tracked in a follow-up GitHub issue with a concrete reason it was deferred.
+- Every relevant new item you identify must end in one of two states before the PR is opened: adopted in the PR, or tracked in a follow-up GitHub issue with a concrete reason it was deferred. A release candidate deferred solely because its configured minimum release-age gate (for example, `minimumReleaseAge`) has not elapsed is the exception: the age hold itself is expected temporary state, not deferred work; record it and retry at the next scheduled run, or the next dependency-upgrade invocation if no schedule exists, as described in Section 6.
 - Classify relevance as one of:
   - required compatibility work to keep the repo green,
   - small project-specific cleanup worth doing in the same PR,
@@ -71,6 +73,7 @@ In this Next.js/Bun repository, use Bun for installs and script execution, obey 
 
 ### 6. Create follow-up issues for larger or optional work
 
+- Do not create, reuse, comment on, or search for a GitHub issue solely for a release waiting on its configured minimum release-age gate (for example, `minimumReleaseAge`). Record the candidate package/version, publication time, first age-eligible time, and next scheduled retry in the run summary (and the PR body if a PR is opened), then retry at the next scheduled run, or the next dependency-upgrade invocation if no schedule exists. Track any independent compatibility blocker, validation failure, migration, or separately worthwhile feature under the issue rules below.
 - Open a GitHub issue when an upgrade reveals a useful new feature worth adopting later, a migration that is too large for the dependency PR, or cleanup that would materially expand review scope.
 - Open a GitHub issue when an upgrade introduces a new rule, policy, or default that is relevant to this repo but would cause broad churn to adopt fully in the dependency PR.
 - Also open a GitHub issue when the latest version appears viable in code but is still blocked by upstream peer-range declarations or ecosystem support policy, and the dependency PR intentionally holds that package back.
@@ -94,7 +97,7 @@ In this Next.js/Bun repository, use Bun for installs and script execution, obey 
 - Stage only the dependency upgrade work and directly related fixes.
 - Use a commit title like `chore(deps): upgrade dependencies to latest`.
 - Push the branch and create a PR with `gh pr create`.
-- Make the PR body include notable package upgrades, required code or config fixes, issues created for deferred relevant work, the validation commands that were run, and any intentionally held-back packages with the reason.
+- Make the PR body include notable package upgrades, required code or config fixes, issues created for deferred relevant work, the validation commands that were run, and any intentionally held-back packages with the reason. For release-age-only holds, include publication time, first age-eligible time, and the next scheduled run or upgrade invocation; do not create an issue solely for the gate.
 - If the PR leaves a temporary suppression or narrow opt-out for a new lint, type, compiler, formatting, security, or policy rule, say so explicitly in the PR body and link the follow-up issue.
 - Respect existing issue or PR templates when present.
 

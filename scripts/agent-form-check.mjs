@@ -38,7 +38,10 @@ const url = process.env.AGENT_FORM_CHECK_URL ?? DEFAULT_URL;
 let browser;
 
 try {
-  browser = await chromium.launch({ headless: true });
+  browser = await chromium.launch({
+    executablePath: process.env.DEPS_VISUAL_CHROMIUM_EXECUTABLE_PATH || undefined,
+    headless: true,
+  });
 
   const page = await browser.newPage({ viewport: VIEWPORT });
 

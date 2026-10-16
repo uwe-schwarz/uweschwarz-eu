@@ -9,11 +9,12 @@ import { SITE_URL } from "@/lib/site-config";
 const cellClassName = "flex flex-col gap-1.5 p-5";
 const cellLabelClassName = "text-xs font-medium text-muted-foreground";
 
+const currentYear = new Date().getUTCFullYear();
+
 const Footer = () => {
   const { t } = useSettings();
   const { footer, hero } = siteContent;
   const sitemap = siteContent.sitemap;
-  const year = new Date().getFullYear();
   const sitemapLabel = sitemap ? t(sitemap.title) : t({ de: "Sitemap", en: "Sitemap" });
   const homeHref = "/";
   const roles = hero.titleElements.slice(0, 3).map((role) => t(role));
@@ -68,7 +69,7 @@ const Footer = () => {
                 {sitemapLabel}
               </Link>
               <p className="text-sm text-muted-foreground sm:ml-auto">
-                {t(footer.copyright).replace("year", year.toString())}
+                {t(footer.copyright).replace("year", currentYear.toString())}
               </p>
             </nav>
           </div>
