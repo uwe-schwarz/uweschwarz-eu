@@ -42,9 +42,17 @@ interface WebSections {
   };
   projects: SectionCopy;
   skills: SectionCopy & {
-    levelLabel: LocalizedString;
+    coreLabel: LocalizedString;
+    crossCutting: LocalizedString;
+    layers: Record<SkillLayer, LocalizedString>;
+    legendCore: LocalizedString;
+    legendOther: LocalizedString;
+    showLess: LocalizedString;
+    showMore: LocalizedString;
   };
 }
+
+export type SkillLayer = "architecture" | "application" | "platform" | "infrastructure" | "security";
 
 interface HeroAvailability {
   currentLine: LocalizedString;
@@ -2366,14 +2374,27 @@ export const siteContent: SiteContent = {
       },
     },
     skills: {
+      coreLabel: { de: "Kernkompetenz", en: "core skill" },
+      crossCutting: { de: "querschnittlich", en: "cross-cutting" },
       headline: {
         de: "Der Werkzeugkasten.",
         en: "The toolbox.",
       },
-      levelLabel: {
-        de: "Stufe {level} von 5",
-        en: "Level {level} of 5",
+      layers: {
+        application: { de: "KI & Anwendungen", en: "AI & Applications" },
+        architecture: { de: "Architektur & Führung", en: "Architecture & Leadership" },
+        infrastructure: { de: "Infrastruktur", en: "Infrastructure" },
+        platform: { de: "Plattform & Automatisierung", en: "Platform & Automation" },
+        security: { de: "Sicherheit & Compliance", en: "Security & Compliance" },
       },
+      legendCore: { de: "Kernkompetenz", en: "Core skill" },
+      legendOther: { de: "Weiteres Repertoire", en: "Wider repertoire" },
+      note: {
+        de: "fett = täglich im Einsatz",
+        en: "bold = daily drivers",
+      },
+      showLess: { de: "Weniger anzeigen", en: "Show less" },
+      showMore: { de: "+{count} weitere", en: "+{count} more" },
     },
   },
 };

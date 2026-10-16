@@ -1,99 +1,183 @@
 "use client";
 
-import type { ComponentType } from "react";
-import { Bot, DraftingCompass, Languages, Network, ShieldCheck, Wrench } from "lucide-react";
-import { siteContent } from "@/content/content";
+import { useState } from "react";
+import { siteContent, type SkillLayer } from "@/content/content";
 import { skillsWithIcons, type SkillWithIcon } from "@/content/skills-with-icons";
 import { useSettings } from "@/contexts/settings-hook";
 
 type SkillCategory = SkillWithIcon["category"];
 
-const CATEGORY_ORDER: Array<SkillCategory> = ["management", "security", "ai", "infrastructure", "tools", "languages"];
+interface LayerDefinition {
+  category: SkillCategory;
+  id: SkillLayer;
+  tag: string;
+}
 
-const CATEGORY_ICONS: Record<SkillCategory, ComponentType<{ "aria-hidden"?: boolean | "true"; className?: string }>> = {
-  ai: Bot,
-  infrastructure: Network,
-  languages: Languages,
-  management: DraftingCompass,
-  security: ShieldCheck,
-  tools: Wrench,
+// Drawn top to bottom. Security is not a layer but a band across all of them.
+const STACK_LAYERS: Array<LayerDefinition> = [
+  { category: "management", id: "architecture", tag: "L4" },
+  { category: "ai", id: "application", tag: "L3" },
+  { category: "tools", id: "platform", tag: "L2" },
+  { category: "infrastructure", id: "infrastructure", tag: "L1" },
+];
+
+const SECURITY_BAND: LayerDefinition = { category: "security", id: "security", tag: "⊥" };
+
+// Phones show core skills plus this many others; the rest sit behind "+N more".
+const MOBILE_EXTRA_SKILLS = 2;
+
+const CORE_LEVEL = 5;
+
+const isCoreSkill = (skill: SkillWithIcon) => skill.level >= CORE_LEVEL;
+
+// Core skills first, original content order otherwise.
+const getLayerSkills = (category: SkillCategory) => {
+  const skills = skillsWithIcons.filter((skill) => skill.category === category);
+  return [...skills.filter(isCoreSkill), ...skills.filter((skill) => !isCoreSkill(skill))];
 };
 
-const skillsByCategory = skillsWithIcons.reduce<Record<SkillCategory, Array<SkillWithIcon>>>(
-  (accumulator, skill) => {
-    accumulator[skill.category].push(skill);
-    return accumulator;
-  },
-  {
-    ai: [],
-    infrastructure: [],
-    languages: [],
-    management: [],
-    security: [],
-    tools: [],
-  },
-);
+const languageSkills = skillsWithIcons.filter((skill) => skill.category === "languages");
 
-const LevelMeter = ({ label, level }: { label: string; level: number }) => (
-  <span aria-label={label} className="flex shrink-0 gap-0.5" role="img">
-    {Array.from({ length: 5 }, (_, index) => index + 1).map((step) => (
-      <span className={`h-1.5 w-2.5 rounded-full ${step <= level ? "bg-primary" : "bg-foreground/12"}`} key={step} />
-    ))}
-  </span>
-);
+const SkillChip = ({ coreLabel, skill }: { coreLabel: string; skill: SkillWithIcon }) => {
+  const { t } = useSettings();
+  const core = isCoreSkill(skill);
+
+  return (
+    <span
+      className={`inline-flex min-h-[1.625rem] items-center rounded-md border px-2 py-0.5 text-[0.8125rem] leading-tight ${
+        core
+          ? "border-primary bg-primary font-semibold text-primary-foreground"
+          : "border-border bg-background/70 text-muted-foreground"
+      }`}
+    >
+      {t(skill.name)}
+      {core && <span className="sr-only">{` (${coreLabel})`}</span>}
+    </span>
+  );
+};
+
+const SkillLayerGroup = ({ layer }: { layer: LayerDefinition }) => {
+  const { t } = useSettings();
+  const [expanded, setExpanded] = useState(false);
+  const copy = siteContent.webSections.skills;
+  const skills = getLayerSkills(layer.category);
+  const visibleOnMobile = skills.filter(isCoreSkill).length + MOBILE_EXTRA_SKILLS;
+  const hiddenCount = Math.max(skills.length - visibleOnMobile, 0);
+  const name = t(copy.layers[layer.id]);
+  const coreLabel = t(copy.coreLabel);
+  const headingId = `skills-layer-${layer.id}`;
+  const listId = `skills-list-${layer.id}`;
+  const isBand = layer.id === "security";
+
+  return (
+    <section
+      aria-labelledby={headingId}
+      className={
+        isBand
+          ? "border-t border-dashed border-redline/60 bg-redline/[0.04] p-4 lg:col-start-2 lg:row-span-4 lg:row-start-1 lg:border-l lg:border-t-0 lg:px-5 lg:py-3"
+          : "border-t border-border p-4 first:border-t-0 lg:grid lg:grid-cols-[9.5rem_minmax(0,1fr)] lg:items-start lg:gap-4 lg:px-5 lg:py-3"
+      }
+    >
+      <h3
+        className="flex items-baseline gap-2 text-sm leading-snug font-semibold lg:flex-col lg:items-start lg:gap-0.5"
+        id={headingId}
+      >
+        <span className="font-mono text-xs font-medium tracking-wider text-redline">
+          {isBand ? (
+            <>
+              <span aria-hidden="true">{layer.tag} </span>
+              {t(copy.crossCutting)}
+            </>
+          ) : (
+            layer.tag
+          )}
+        </span>{" "}
+        <span>{name}</span>
+      </h3>
+
+      <ul className={`mt-3 flex flex-wrap gap-1.5 lg:gap-1 ${isBand ? "lg:mt-2.5" : "lg:mt-0"}`} id={listId}>
+        {skills.map((skill, index) => (
+          <li className={!expanded && index >= visibleOnMobile ? "max-lg:hidden" : undefined} key={skill.id}>
+            <SkillChip coreLabel={coreLabel} skill={skill} />
+          </li>
+        ))}
+        {hiddenCount > 0 && (
+          <li className="lg:hidden">
+            <button
+              aria-controls={listId}
+              aria-expanded={expanded}
+              className="inline-flex min-h-[1.625rem] items-center rounded-md border border-dashed border-primary px-2.5 py-0.5 text-[0.8125rem] font-semibold text-primary transition-colors hover:bg-primary/10"
+              onClick={() => setExpanded((value) => !value)}
+              type="button"
+            >
+              {expanded ? t(copy.showLess) : t(copy.showMore).replace("{count}", String(hiddenCount))}
+              <span className="sr-only">{` – ${name}`}</span>
+            </button>
+          </li>
+        )}
+      </ul>
+    </section>
+  );
+};
 
 const SkillsSection = () => {
   const { t } = useSettings();
   const { skillsSection, webSections } = siteContent;
+  const copy = webSections.skills;
 
   return (
     <section className="section-space relative" id="skills">
       <div className="section-shell">
-        <header className="max-w-3xl">
-          <h2 className="section-title">{t(webSections.skills.headline)}</h2>
+        <header className="relative max-w-4xl">
+          <h2 className="section-title">{t(copy.headline)}</h2>
           <p className="section-lede">{t(skillsSection.subtitle)}</p>
+          {copy.note && (
+            <p
+              aria-hidden="true"
+              className="redline-note absolute -bottom-10 right-0 hidden rotate-[-4deg] lg:block xl:-right-24"
+            >
+              {t(copy.note)}
+            </p>
+          )}
         </header>
 
-        <div className="mt-16 gap-6 md:columns-2 xl:columns-3">
-          {CATEGORY_ORDER.map((category) => {
-            const CategoryIcon = CATEGORY_ICONS[category];
-            const skills = skillsByCategory[category];
+        <div className="relative mt-10">
+          {/* Dimension line along the stack height, drawing-style */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-y-0 -left-7 hidden w-3 flex-col items-center text-redline/70 xl:flex"
+          >
+            <span className="h-px w-3 bg-current" />
+            <span className="w-px flex-1 bg-current" />
+            <span className="h-px w-3 bg-current" />
+          </div>
 
-            return (
-              <section
-                aria-labelledby={`skills-${category}`}
-                className="sheet mb-6 break-inside-avoid p-6"
-                key={category}
-              >
-                <div className="flex items-center gap-3">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/12 text-primary">
-                    <CategoryIcon aria-hidden="true" className="h-5 w-5" />
-                  </span>
-                  <h3 className="text-lg" id={`skills-${category}`}>
-                    {t(skillsSection.categories[category])}
-                  </h3>
-                  <span className="ml-auto text-sm tabular-nums text-muted-foreground">{skills.length}</span>
-                </div>
+          <div className="sheet overflow-hidden rounded-xl lg:grid lg:grid-cols-[minmax(0,1fr)_16.5rem] xl:grid-cols-[minmax(0,1fr)_18rem] lg:grid-rows-[repeat(4,auto)]">
+            {STACK_LAYERS.map((layer) => (
+              <SkillLayerGroup key={layer.id} layer={layer} />
+            ))}
+            <SkillLayerGroup layer={SECURITY_BAND} />
+          </div>
 
-                <ul className="mt-5 divide-y divide-border/70">
-                  {skills.map((skill) => {
-                    const SkillIcon = skill.icon;
-
-                    return (
-                      <li className="flex items-center gap-3 py-2.5" key={skill.id}>
-                        <SkillIcon className="h-4 w-4 shrink-0 text-muted-foreground" />
-                        <span className="min-w-0 flex-1 text-[0.95rem]">{t(skill.name)}</span>
-                        <LevelMeter
-                          label={t(webSections.skills.levelLabel).replace("{level}", String(skill.level))}
-                          level={skill.level}
-                        />
-                      </li>
-                    );
-                  })}
-                </ul>
-              </section>
-            );
-          })}
+          {/* Title block: languages and legend */}
+          <div className="mt-3 flex flex-wrap items-center gap-x-6 gap-y-2 px-1 text-sm text-muted-foreground">
+            <p>
+              <span className="font-mono text-xs tracking-wider text-redline">
+                {t(skillsSection.categories.languages)}:
+              </span>{" "}
+              {languageSkills.map((skill) => t(skill.name)).join(" · ")}
+            </p>
+            <p className="flex items-center gap-4 lg:ml-auto">
+              <span className="inline-flex items-center gap-1.5">
+                <span aria-hidden="true" className="h-3 w-3 rounded-sm bg-primary" />
+                {t(copy.legendCore)}
+              </span>
+              <span className="inline-flex items-center gap-1.5">
+                <span aria-hidden="true" className="h-3 w-3 rounded-sm border border-input bg-background" />
+                {t(copy.legendOther)}
+              </span>
+            </p>
+          </div>
         </div>
       </div>
     </section>
