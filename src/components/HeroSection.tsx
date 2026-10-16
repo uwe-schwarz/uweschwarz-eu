@@ -75,7 +75,7 @@ const HeroSection = () => {
           {/* Screen readers get every role once; the rotation is visual only. */}
           <p className="hero-enter mt-6 text-xl sm:text-2xl" style={enterStep(1)}>
             <span className="sr-only">{roles.join(", ")}</span>
-            <span aria-hidden="true" className="relative inline-grid overflow-hidden py-1 type-heading text-foreground">
+            <span aria-hidden="true" className="relative inline-grid overflow-hidden py-1 type-heading">
               {/* Invisible copies reserve the widest role so the line never reflows */}
               {roles.map((role) => (
                 <span className="invisible col-start-1 row-start-1 whitespace-nowrap" key={role}>
@@ -85,7 +85,8 @@ const HeroSection = () => {
               <AnimatePresence initial={false} mode="popLayout">
                 <m.span
                   animate={{ opacity: 1, y: "0%" }}
-                  className="col-start-1 row-start-1 whitespace-nowrap"
+                  // Shrink to the role so the gradient spans its own text, not the reserved width
+                  className="col-start-1 row-start-1 justify-self-start whitespace-nowrap text-ink-gradient"
                   exit={{ opacity: 0, y: "-90%" }}
                   initial={{ opacity: 0, y: "90%" }}
                   key={currentRole}
