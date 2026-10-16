@@ -116,7 +116,7 @@ const ExperienceEntry = ({ exp, headingRef, t }: ExperienceEntryProps) => {
           <button
             aria-controls={detailsId}
             aria-expanded={isOpen}
-            className="mt-4 inline-flex items-center gap-1.5 rounded-full text-sm font-semibold text-primary transition-colors hover:text-foreground"
+            className="-mx-2 mt-2.5 inline-flex min-h-11 items-center gap-1.5 rounded-md px-2 py-1.5 text-sm font-semibold text-primary transition-colors hover:text-foreground focus-visible:outline-offset-2"
             onClick={() => setIsOpen((previous) => !previous)}
             type="button"
           >

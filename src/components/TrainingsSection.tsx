@@ -34,12 +34,14 @@ const TrainingsSection = ({ ref }: TrainingsSectionProps) => {
         <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
           {trainings.items.map((training, index) => {
             const Icon = trainingIcons[training.title.en] ?? GraduationCap;
+            // An odd last card would sit alone in the two-column layout; let it span the row.
+            const spansRow = index === trainings.items.length - 1 && trainings.items.length % 2 === 1;
 
             return (
               <article
                 className={`sheet relative flex flex-col transition-transform duration-300 hover:-translate-y-1 hover:rotate-0 ${
                   index % 2 === 0 ? "xl:-rotate-[0.6deg]" : "xl:rotate-[0.6deg]"
-                }`}
+                } ${spansRow ? "md:max-xl:col-span-2" : ""}`}
                 key={getLocalizedTextKey(training.title)}
               >
                 <div className="flex grow flex-col p-7">
@@ -53,7 +55,11 @@ const TrainingsSection = ({ ref }: TrainingsSectionProps) => {
                   </div>
 
                   <h3 className="mt-7 text-2xl">{t(training.title)}</h3>
-                  <p className="mt-4 grow leading-relaxed text-muted-foreground">{t(training.description)}</p>
+                  <p
+                    className={`mt-4 grow leading-relaxed text-muted-foreground ${spansRow ? "md:max-xl:max-w-3xl" : ""}`}
+                  >
+                    {t(training.description)}
+                  </p>
                 </div>
 
                 {/* Perforation: tear here for the workshop */}

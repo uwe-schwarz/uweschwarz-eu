@@ -63,7 +63,8 @@
     --print-glow: none;
     --print-tape: color-mix(in oklab, var(--redline) 22%, transparent);
 
-    --grid-minor: rgb(35 70 214 / 0.055);
+    /* Fine lines stay a whisper; the major lines carry the blueprint */
+    --grid-minor: rgb(35 70 214 / 0.03);
     --grid-major: rgb(35 70 214 / 0.09);
     --beam: #2346d6;
     --shadow-color: 222 60% 20%;
@@ -112,7 +113,7 @@
     --print-tape: rgb(233 238 251 / 0.16);
     --print-glow: radial-gradient(closest-side, rgb(142 174 255 / 0.2), rgb(142 174 255 / 0.05) 60%, transparent);
 
-    --grid-minor: rgb(190 210 255 / 0.05);
+    --grid-minor: rgb(190 210 255 / 0.028);
     --grid-major: rgb(190 210 255 / 0.085);
     --beam: #8eaeff;
     --shadow-color: 225 70% 3%;
@@ -214,7 +215,7 @@
 }
 
 @utility section-space {
-  @apply py-20 sm:py-28 lg:py-32;
+  @apply py-16 sm:py-20 lg:py-24;
 }
 
 /* Fluid from 2.3rem (phones) to 4.25rem: at 1280px+ the 5/12 column is

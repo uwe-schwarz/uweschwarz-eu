@@ -21,8 +21,9 @@ const ContactSection = () => {
       <div className="section-shell">
         {/* Two columns only from xl: at lg the 5/12 column squeezes the heading */}
         <div className="grid gap-x-16 gap-y-16 xl:grid-cols-12">
-          <div className="xl:col-span-5">
-            <h2 className="section-title">{t(contact.title)}</h2>
+          <div className="xl:col-span-6">
+            {/* Smaller than other section titles so the question runs 2–3 lines, not 4–5 */}
+            <h2 className="section-title xl:text-[3.5rem]">{t(contact.title)}</h2>
             <p className="section-lede">{t(contact.subtitle)}</p>
 
             <h3 className="mt-12 text-sm font-semibold text-muted-foreground">{t(contact.infoTitle)}</h3>
@@ -111,7 +112,7 @@ const ContactSection = () => {
             </div>
           </div>
 
-          <div className="relative xl:col-span-7 xl:pt-4">
+          <div className="relative xl:col-span-6 xl:pt-4">
             <div aria-hidden="true" className="mb-3 flex items-end justify-end gap-1 pr-2 sm:pr-10">
               <p className="redline-note max-w-[18rem] -rotate-3 text-right">{t(contact.note)}</p>
               <svg className="h-10 w-10 shrink-0 translate-y-5 text-redline" fill="none" viewBox="0 0 40 40">

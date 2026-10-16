@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import Image from "next/image";
 import useEmblaCarousel from "embla-carousel-react";
 import { m, useReducedMotion } from "motion/react";
@@ -10,6 +10,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getLocalizedTextKey } from "@/lib/localization";
 
 type Project = (typeof siteContent.projects)[number];
+
+const HOVER_INTENT_MS = 150;
 
 const getProjectId = (project: Project) =>
   `project-${getLocalizedTextKey(project.title)
@@ -47,6 +49,23 @@ const ProjectsSection = () => {
   const { projects, webSections } = siteContent;
   const prefersReducedMotion = useReducedMotion();
   const [activeProject, setActiveProject] = useState(() => getProjectId(projects[0]));
+  const hoverTimeoutRef = useRef<number | undefined>(undefined);
+
+  const cancelHoverIntent = () => window.clearTimeout(hoverTimeoutRef.current);
+
+  // Pointer hover only switches after a short dwell so sweeping across the
+  // list doesn't flick through every print; click and focus stay immediate.
+  const scheduleHoverSwitch = (projectId: string) => {
+    cancelHoverIntent();
+    hoverTimeoutRef.current = window.setTimeout(() => setActiveProject(projectId), HOVER_INTENT_MS);
+  };
+
+  const selectProject = (projectId: string) => {
+    cancelHoverIntent();
+    setActiveProject(projectId);
+  };
+
+  useEffect(() => cancelHoverIntent, []);
 
   return (
     <section className="section-space relative" id="projects">
@@ -60,7 +79,7 @@ const ProjectsSection = () => {
         <Tabs
           activationMode="automatic"
           className="mt-16 hidden gap-12 lg:grid lg:grid-cols-12"
-          onValueChange={setActiveProject}
+          onValueChange={selectProject}
           orientation="vertical"
           value={activeProject}
         >
@@ -75,7 +94,12 @@ const ProjectsSection = () => {
                 <TabsTrigger
                   className="group relative flex h-auto flex-col items-start gap-2 whitespace-normal rounded-none border-b border-border px-0 py-5 pl-6 text-left text-muted-foreground transition-colors hover:text-foreground data-[state=active]:bg-transparent data-[state=active]:text-foreground data-[state=active]:shadow-none"
                   key={projectId}
-                  onPointerEnter={() => setActiveProject(projectId)}
+                  onPointerEnter={(event) => {
+                    if (event.pointerType === "mouse") {
+                      scheduleHoverSwitch(projectId);
+                    }
+                  }}
+                  onPointerLeave={cancelHoverIntent}
                   value={projectId}
                 >
                   <span
@@ -125,6 +149,56 @@ const ProjectsSection = () => {
   );
 };
 
+// Long descriptions are clamped so the swipe cards stay a similar height. The
+// toggle only appears when the text is actually cut off; the clamp is visual
+// only, so screen readers always get the full description.
+const ClampedDescription = ({ text }: { text: string }) => {
+  const { t } = useSettings();
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isClamped, setIsClamped] = useState(false);
+  const textRef = useRef<HTMLParagraphElement>(null);
+  const textId = useId();
+
+  useEffect(() => {
+    const node = textRef.current;
+    if (!node || isExpanded) {
+      return;
+    }
+
+    const measure = () => setIsClamped(node.scrollHeight > node.clientHeight + 1);
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(node);
+
+    return () => observer.disconnect();
+  }, [isExpanded, text]);
+
+  return (
+    <div className="mt-3 grow">
+      <p
+        className={`text-[0.95rem] leading-relaxed text-muted-foreground ${isExpanded ? "" : "line-clamp-5"}`}
+        id={textId}
+        ref={textRef}
+      >
+        {text}
+      </p>
+      {(isClamped || isExpanded) && (
+        <button
+          aria-controls={textId}
+          aria-expanded={isExpanded}
+          className="-mx-2 mt-1 inline-flex min-h-11 items-center rounded-md px-2 py-1.5 text-sm font-semibold text-primary transition-colors hover:text-foreground focus-visible:outline-offset-2"
+          onClick={() => setIsExpanded((value) => !value)}
+          type="button"
+        >
+          {isExpanded ? t({ de: "Weniger anzeigen", en: "Show less" }) : t({ de: "Mehr lesen", en: "Read more" })}
+        </button>
+      )}
+    </div>
+  );
+};
+
+ClampedDescription.displayName = "ClampedDescription";
+
 const formatCount = (template: string, values: Record<string, number | string>) =>
   Object.entries(values).reduce((message, [key, value]) => message.replaceAll(`{${key}}`, String(value)), template);
 
@@ -137,7 +211,7 @@ const ProjectsCarousel = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
     breakpoints: { "(min-width: 1024px)": { active: false } },
-    containScroll: false,
+    containScroll: "trimSnaps",
   });
   const [selectedIndex, setSelectedIndex] = useState(0);
   const total = projects.length;
@@ -173,16 +247,14 @@ const ProjectsCarousel = () => {
             <div
               aria-label={formatCount(slideLabel, { current: index + 1, total })}
               aria-roledescription={t({ de: "Folie", en: "slide" })}
-              className="flex min-w-0 shrink-0 grow-0 basis-[84%] pl-4 sm:basis-[60%] sm:pl-8"
+              className="flex min-w-0 shrink-0 grow-0 basis-[89%] pl-4 sm:basis-[60%] sm:pl-8"
               key={getProjectId(project)}
               role="group"
             >
               <article className="sheet flex w-full flex-col p-4">
                 <ProjectPrint alt={t(project.imageAlt)} className="rotate-1" project={project} />
                 <h3 className="mt-6 text-xl">{t(project.title)}</h3>
-                <p className="mt-3 grow text-[0.95rem] leading-relaxed text-muted-foreground">
-                  {t(project.description)}
-                </p>
+                <ClampedDescription text={t(project.description)} />
                 <div className="mt-5">
                   <ProjectTags project={project} t={t} />
                 </div>
