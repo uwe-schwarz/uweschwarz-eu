@@ -26,9 +26,14 @@ const SECURITY_BAND: LayerDefinition = { category: "security", id: "security", t
 // Phones show core skills plus this many others; the rest sit behind "+N more".
 const MOBILE_EXTRA_SKILLS = 2;
 
-const CORE_LEVEL = 5;
+const isCoreSkill = (skill: SkillWithIcon) => skill.core === true;
 
-const isCoreSkill = (skill: SkillWithIcon) => skill.level >= CORE_LEVEL;
+const getChipClassName = (core: boolean) =>
+  `inline-flex min-h-[1.625rem] items-center rounded-md border px-2 py-0.5 text-[0.8125rem] leading-tight ${
+    core
+      ? "border-primary bg-primary font-semibold text-primary-foreground"
+      : "border-border bg-background/70 text-muted-foreground"
+  }`;
 
 // Core skills first, original content order otherwise.
 const getLayerSkills = (category: SkillCategory) => {
@@ -43,13 +48,7 @@ const SkillChip = ({ coreLabel, skill }: { coreLabel: string; skill: SkillWithIc
   const core = isCoreSkill(skill);
 
   return (
-    <span
-      className={`inline-flex min-h-[1.625rem] items-center rounded-md border px-2 py-0.5 text-[0.8125rem] leading-tight ${
-        core
-          ? "border-primary bg-primary font-semibold text-primary-foreground"
-          : "border-border bg-background/70 text-muted-foreground"
-      }`}
-    >
+    <span className={getChipClassName(core)}>
       {t(skill.name)}
       {core && <span className="sr-only">{` (${coreLabel})`}</span>}
     </span>
@@ -120,6 +119,45 @@ const SkillLayerGroup = ({ layer }: { layer: LayerDefinition }) => {
   );
 };
 
+// Drawn like a drawing's title block: a labelled header cell, then one cell per swatch.
+const SkillsLegend = () => {
+  const { t } = useSettings();
+  const copy = siteContent.webSections.skills;
+  const titleId = "skills-legend-title";
+  const entries = [
+    { core: true, label: t(copy.legendCore) },
+    { core: false, label: t(copy.legendOther) },
+  ];
+
+  return (
+    <div
+      aria-labelledby={titleId}
+      className="grid w-full grid-cols-1 overflow-hidden rounded-md border border-input bg-card text-foreground sm:w-auto sm:grid-cols-[auto_auto_auto] lg:ml-auto"
+      role="group"
+    >
+      <p
+        className="flex items-center border-b border-input bg-redline/[0.06] px-3 py-1.5 font-mono text-xs font-semibold tracking-[0.2em] text-redline uppercase sm:border-r sm:border-b-0"
+        id={titleId}
+      >
+        {t(copy.legendTitle)}
+      </p>
+      <ul className="contents">
+        {entries.map((entry) => (
+          <li
+            className="flex items-center gap-2.5 border-input px-3 py-2 not-last:border-b sm:not-last:border-r sm:not-last:border-b-0"
+            key={entry.label}
+          >
+            <span aria-hidden="true" className={getChipClassName(entry.core)}>
+              Aa
+            </span>
+            <span>{entry.label}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
 const SkillsSection = () => {
   const { t } = useSettings();
   const { skillsSection, webSections } = siteContent;
@@ -160,24 +198,15 @@ const SkillsSection = () => {
             <SkillLayerGroup layer={SECURITY_BAND} />
           </div>
 
-          {/* Title block: languages and legend */}
-          <div className="mt-3 flex flex-wrap items-center gap-x-6 gap-y-2 px-1 text-sm text-muted-foreground">
+          {/* Languages on the left, the legend title block on the right */}
+          <div className="mt-4 flex flex-wrap items-start gap-x-6 gap-y-4 px-1 text-sm text-muted-foreground lg:items-center">
             <p>
               <span className="font-mono text-xs tracking-wider text-redline">
                 {t(skillsSection.categories.languages)}:
               </span>{" "}
               {languageSkills.map((skill) => t(skill.name)).join(" · ")}
             </p>
-            <p className="flex items-center gap-4 lg:ml-auto">
-              <span className="inline-flex items-center gap-1.5">
-                <span aria-hidden="true" className="h-3 w-3 rounded-sm bg-primary" />
-                {t(copy.legendCore)}
-              </span>
-              <span className="inline-flex items-center gap-1.5">
-                <span aria-hidden="true" className="h-3 w-3 rounded-sm border border-input bg-background" />
-                {t(copy.legendOther)}
-              </span>
-            </p>
+            <SkillsLegend />
           </div>
         </div>
       </div>
