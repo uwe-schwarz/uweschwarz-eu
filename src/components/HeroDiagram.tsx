@@ -4,16 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import type { ComponentType, CSSProperties } from "react";
 import Image from "next/image";
 import { BrainCircuit, DraftingCompass, Network, Presentation, ShieldCheck } from "lucide-react";
-import {
-  m,
-  useAnimationFrame,
-  useInView,
-  useMotionValue,
-  useReducedMotion,
-  useTransform,
-  type MotionValue,
-} from "motion/react";
+import { m, useAnimationFrame, useInView, useMotionValue, useTransform, type MotionValue } from "motion/react";
 import type { HeroDiagramNodeKey } from "@/content/content";
+import { useHydrationSafeReducedMotion } from "@/hooks/use-hydration-safe-reduced-motion";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
 
@@ -159,7 +152,7 @@ const HeroDiagram = ({ isFrozen }: { isFrozen: boolean }) => {
   const { hero } = siteContent;
   const containerRef = useRef<HTMLDivElement | null>(null);
   const size = useMotionValue(0);
-  const prefersReducedMotion = useReducedMotion();
+  const prefersReducedMotion = useHydrationSafeReducedMotion();
   const isInView = useInView(containerRef, { margin: "80px" });
   const [hasDragged, setHasDragged] = useState(false);
   const isAnimated = !prefersReducedMotion && !isFrozen;

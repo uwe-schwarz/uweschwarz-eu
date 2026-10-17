@@ -4,7 +4,8 @@ import { useId, useRef, useState } from "react";
 import type { Ref } from "react";
 import Image from "next/image";
 import { BadgeCheck, ChevronDown, FileText, MapPin } from "lucide-react";
-import { AnimatePresence, m, useReducedMotion } from "motion/react";
+import { AnimatePresence, m } from "motion/react";
+import { useHydrationSafeReducedMotion } from "@/hooks/use-hydration-safe-reduced-motion";
 import { siteContent } from "@/content/content";
 import type { Experience } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
@@ -39,7 +40,7 @@ const ExperienceEntry = ({ exp, headingRef, t }: ExperienceEntryProps) => {
   const { webSections } = siteContent;
   const [isOpen, setIsOpen] = useState(false);
   const detailsId = useId();
-  const prefersReducedMotion = useReducedMotion();
+  const prefersReducedMotion = useHydrationSafeReducedMotion();
   const [summary, ...details] = exp.description.filter((item) => item.type === "text");
   const allAchievements = exp.description.filter((item) => item.type === "achievement");
   // The first results stay visible; any further ones live in the details.
@@ -78,10 +79,16 @@ const ExperienceEntry = ({ exp, headingRef, t }: ExperienceEntryProps) => {
 
             {exp.logoUrl && (
               // Decorative: the company name is already in the text next to it.
-              // Dark mode only recolours the mark (chalk-white via filter), so
-              // size and position are identical in both themes.
+              // Brand colours in both themes; dark-ink marks get a soft halo
+              // (filter only), so size and position never change.
               <div className="relative hidden h-12 w-32 shrink-0 sm:block">
-                <Image alt="" className="logo-mark object-contain object-right" fill sizes="128px" src={exp.logoUrl} />
+                <Image
+                  alt=""
+                  className={`object-contain object-right ${exp.logoNeedsDarkHalo ? "logo-halo" : ""}`}
+                  fill
+                  sizes="128px"
+                  src={exp.logoUrl}
+                />
               </div>
             )}
           </div>

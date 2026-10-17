@@ -3,7 +3,8 @@
 import { useEffect, useId, useRef, useState } from "react";
 import Image from "next/image";
 import useEmblaCarousel from "embla-carousel-react";
-import { m, useReducedMotion } from "motion/react";
+import { m } from "motion/react";
+import { useHydrationSafeReducedMotion, useHasHydrated } from "@/hooks/use-hydration-safe-reduced-motion";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -47,7 +48,8 @@ const ProjectTags = ({ project, t }: { project: Project; t: ReturnType<typeof us
 const ProjectsSection = () => {
   const { t } = useSettings();
   const { projects, webSections } = siteContent;
-  const prefersReducedMotion = useReducedMotion();
+  const prefersReducedMotion = useHydrationSafeReducedMotion();
+  const hasHydrated = useHasHydrated();
   const [activeProject, setActiveProject] = useState(() => getProjectId(projects[0]));
   const hoverTimeoutRef = useRef<number | undefined>(undefined);
 
@@ -127,7 +129,9 @@ const ProjectsSection = () => {
                   <TabsContent className="mt-0" key={projectId} value={projectId}>
                     <m.div
                       animate={{ opacity: 1, rotate: 1.5, y: 0 }}
-                      initial={prefersReducedMotion ? false : { opacity: 0, rotate: -1, y: 16 }}
+                      // Hydration renders the final state (same markup on server and client);
+                      // only cards mounted later by a tab switch animate in, unless reduced motion.
+                      initial={hasHydrated && !prefersReducedMotion ? { opacity: 0, rotate: -1, y: 16 } : false}
                       transition={{ damping: 24, stiffness: 240, type: "spring" }}
                     >
                       <ProjectPrint alt={t(project.imageAlt)} project={project} />
@@ -207,7 +211,7 @@ const formatCount = (template: string, values: Record<string, number | string>) 
 const ProjectsCarousel = () => {
   const { t } = useSettings();
   const { projects, webSections } = siteContent;
-  const prefersReducedMotion = useReducedMotion();
+  const prefersReducedMotion = useHydrationSafeReducedMotion();
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
     breakpoints: { "(min-width: 1024px)": { active: false } },

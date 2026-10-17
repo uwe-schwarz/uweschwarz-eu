@@ -3,10 +3,11 @@
 import { useEffect, useState, useSyncExternalStore } from "react";
 import type { CSSProperties } from "react";
 import { FileText, MessageSquareText } from "lucide-react";
-import { AnimatePresence, m, useReducedMotion } from "motion/react";
+import { AnimatePresence, m } from "motion/react";
 import HeroDiagram from "@/components/HeroDiagram";
 import { Button } from "@/components/ui/button";
 import { useSettings } from "@/contexts/settings-hook";
+import { useHydrationSafeReducedMotion } from "@/hooks/use-hydration-safe-reduced-motion";
 import { siteContent } from "@/content/content";
 import { Link } from "@/i18n/navigation";
 
@@ -28,7 +29,7 @@ const enterStep = (step: number) => ({ "--enter-step": step }) as CSSProperties;
 const HeroSection = () => {
   const { t } = useSettings();
   const { hero } = siteContent;
-  const prefersReducedMotion = useReducedMotion();
+  const prefersReducedMotion = useHydrationSafeReducedMotion();
   const isVisualRegression = useSyncExternalStore(
     subscribeToNothing,
     getVisualRegressionSnapshot,
