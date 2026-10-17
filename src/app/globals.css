@@ -46,8 +46,6 @@
     --ring: #2346d6;
     /* Timeline rail: 3.35:1 on the background */
     --rail: #6880e0;
-    /* Light plate behind company logos; only drawn in dark mode */
-    --logo-plate: #f5f7fc;
 
     /* Fixed header: 0.75rem top offset + 3.5rem pill, plus any notch inset */
     --header-height: calc(4.25rem + env(safe-area-inset-top, 0px));
@@ -297,6 +295,12 @@
    dark outlines stay legible against the blueprint blue. */
 .dark .print-art {
   filter: drop-shadow(0 0 0.6px rgb(233 238 251 / 0.85));
+}
+
+/* Company logos on the dark blueprint: recolour to a chalk-white mark.
+   Only colour changes; the box, size and position stay the same. */
+.dark .logo-mark {
+  filter: brightness(0) invert(0.92);
 }
 
 /* Blueprint grid behind the whole plan */

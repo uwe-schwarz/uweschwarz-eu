@@ -78,18 +78,10 @@ const ExperienceEntry = ({ exp, headingRef, t }: ExperienceEntryProps) => {
 
             {exp.logoUrl && (
               // Decorative: the company name is already in the text next to it.
-              // Dark mode puts the light-background logo on a light plate so
-              // dark and monochrome marks keep their brand colours.
-              <div className="hidden h-12 w-32 shrink-0 sm:block dark:rounded-lg dark:bg-logo-plate dark:px-2.5 dark:py-1.5 dark:shadow-sm">
-                <div className="relative h-full w-full">
-                  <Image
-                    alt=""
-                    className="object-contain object-right dark:object-center"
-                    fill
-                    sizes="128px"
-                    src={exp.logoUrl}
-                  />
-                </div>
+              // Dark mode only recolours the mark (chalk-white via filter), so
+              // size and position are identical in both themes.
+              <div className="relative hidden h-12 w-32 shrink-0 sm:block">
+                <Image alt="" className="logo-mark object-contain object-right" fill sizes="128px" src={exp.logoUrl} />
               </div>
             )}
           </div>
