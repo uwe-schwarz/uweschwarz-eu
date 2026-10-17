@@ -168,14 +168,15 @@ const SkillsSection = () => {
           {copy.note && (
             <p
               aria-hidden="true"
-              className="redline-note relative z-20 mt-5 inline-block rotate-[-3deg] xl:absolute xl:-right-16 xl:bottom-5 xl:mt-0"
+              className="redline-note absolute -bottom-12 right-0 z-20 hidden rotate-[-4deg] lg:block xl:-right-24"
             >
               {t(copy.note)}
             </p>
           )}
         </header>
 
-        <div className="relative mt-10">
+        {/* Extra room on lg+ so the handwritten note sits clear of the diagram */}
+        <div className="relative mt-10 lg:mt-20">
           {/* Dimension line along the stack height, drawing-style */}
           <div
             aria-hidden="true"
