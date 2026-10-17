@@ -168,7 +168,7 @@ const SkillsSection = () => {
           {copy.note && (
             <p
               aria-hidden="true"
-              className="redline-note absolute -bottom-10 right-0 hidden rotate-[-4deg] lg:block xl:-right-24"
+              className="redline-note relative z-20 mt-5 inline-block rotate-[-3deg] xl:absolute xl:-right-16 xl:bottom-5 xl:mt-0"
             >
               {t(copy.note)}
             </p>
