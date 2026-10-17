@@ -10,18 +10,17 @@ type SkillCategory = SkillWithIcon["category"];
 interface LayerDefinition {
   category: SkillCategory;
   id: SkillLayer;
-  tag: string;
 }
 
 // Drawn top to bottom. Security is not a layer but a band across all of them.
 const STACK_LAYERS: Array<LayerDefinition> = [
-  { category: "management", id: "architecture", tag: "L4" },
-  { category: "ai", id: "application", tag: "L3" },
-  { category: "tools", id: "platform", tag: "L2" },
-  { category: "infrastructure", id: "infrastructure", tag: "L1" },
+  { category: "management", id: "architecture" },
+  { category: "ai", id: "application" },
+  { category: "tools", id: "platform" },
+  { category: "infrastructure", id: "infrastructure" },
 ];
 
-const SECURITY_BAND: LayerDefinition = { category: "security", id: "security", tag: "⊥" };
+const SECURITY_BAND: LayerDefinition = { category: "security", id: "security" };
 
 // Phones show core skills plus this many others; the rest sit behind "+N more".
 const MOBILE_EXTRA_SKILLS = 2;
@@ -81,16 +80,13 @@ const SkillLayerGroup = ({ layer }: { layer: LayerDefinition }) => {
         className="flex items-baseline gap-2 text-sm leading-snug font-semibold lg:flex-col lg:items-start lg:gap-0.5"
         id={headingId}
       >
-        <span className="font-mono text-xs font-medium tracking-wider text-redline">
-          {isBand ? (
-            <>
-              <span aria-hidden="true">{layer.tag} </span>
+        {isBand && (
+          <>
+            <span className="font-mono text-xs font-medium tracking-wider text-redline">
               {t(copy.crossCutting)}
-            </>
-          ) : (
-            layer.tag
-          )}
-        </span>{" "}
+            </span>{" "}
+          </>
+        )}
         <span>{name}</span>
       </h3>
 
