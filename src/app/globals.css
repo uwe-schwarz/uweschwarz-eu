@@ -297,10 +297,10 @@
   filter: drop-shadow(0 0 0.6px rgb(233 238 251 / 0.85));
 }
 
-/* Company logos on the dark blueprint: recolour to a chalk-white mark.
-   Only colour changes; the box, size and position stay the same. */
-.dark .logo-mark {
-  filter: brightness(0) invert(0.92);
+/* Company logos keep their brand colours; marks with dark ink get a soft
+   chalk halo on the navy. Filter only: no box, no size change. */
+.dark .logo-halo {
+  filter: drop-shadow(0 0 0.5px rgb(233 238 251 / 0.95)) drop-shadow(0 0 1.5px rgb(233 238 251 / 0.55));
 }
 
 /* Blueprint grid behind the whole plan */

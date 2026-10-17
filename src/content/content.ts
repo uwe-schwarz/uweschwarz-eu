@@ -87,7 +87,9 @@ export interface Experience {
   company: string;
   description: Array<ExperienceDescriptionItem>;
   location: LocalizedString;
-  /** Logo for light backgrounds; dark mode shows it on a light plate. */
+  /** Dark ink that disappears on navy: dark mode adds a soft light halo. */
+  logoNeedsDarkHalo?: boolean;
+  /** Logo in brand colours, used in both themes. */
   logoUrl?: string;
   period: LocalizedString;
   projectScale?: "major" | "small";
@@ -579,6 +581,7 @@ export const siteContent: SiteContent = {
         },
       ],
       location: { de: "Hockenheim, Deutschland", en: "Hockenheim, Germany" },
+      logoNeedsDarkHalo: true,
       logoUrl: "/logos/schlaufabrik-on-light.png",
       period: { de: "Dez 2025 - Heute", en: "Dec 2025 - Present" },
       projectScale: "small",
@@ -704,6 +707,7 @@ export const siteContent: SiteContent = {
         },
       ],
       location: { de: "Hockenheim, Deutschland", en: "Hockenheim, Germany" },
+      logoNeedsDarkHalo: true,
       logoUrl: "/logos/degit-on-light.png",
       period: { de: "Mai 2018 - Heute", en: "May 2018 - Present" },
       projectScale: "small",
@@ -763,6 +767,7 @@ export const siteContent: SiteContent = {
         },
       ],
       location: { de: "Hockenheim, Deutschland", en: "Hockenheim, Germany" },
+      logoNeedsDarkHalo: true,
       logoUrl: "/logos/degit-on-light.png",
       period: { de: "Aug 2025 - Okt 2025", en: "Aug 2025 - Oct 2025" },
       projectScale: "small",
@@ -840,6 +845,7 @@ export const siteContent: SiteContent = {
         },
       ],
       location: { de: "Hamburg, Deutschland", en: "Hamburg, Germany" },
+      logoNeedsDarkHalo: true,
       logoUrl: "/logos/berenberg.svg",
       period: { de: "Jan 2024 - Sep 2025", en: "Jan 2024 - Sep 2025" },
       tags: [
