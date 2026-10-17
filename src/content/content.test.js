@@ -26,7 +26,7 @@ function collectGermanStrings(value) {
 
 describe("site content", () => {
   test("publishes the current and future availability without a specific date", () => {
-    expect(siteContent.hero.availability.currentPercentAvailable).toBe(10);
+    expect(siteContent.hero.availability.currentPercentAvailable).toBe(50);
     expect(siteContent.hero.availability.fullyAvailableDate).toBe("2027");
   });
 

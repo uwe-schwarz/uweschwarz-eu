@@ -321,16 +321,12 @@ export const siteContent: SiteContent = {
     },
     paragraphs: [
       {
-        de: "Mit über zwei Jahrzehnten praktischer Erfahrung in IT, Infrastruktur und Security entwickle ich sichere, skalierbare und langfristig tragfähige Systeme. Mein Fokus liegt auf der Architektur und Umsetzung technischer Lösungen – von Linux- und Netzwerk-Infrastrukturen über Security- und Compliance-nahe Plattformen bis hin zu moderner Software für mandantenfähige SaaS-Produkte.",
-        en: "With more than two decades of hands-on experience across IT, infrastructure, and security, I build secure, scalable, and durable systems. My focus is on the architecture and implementation of technical solutions — from Linux and network infrastructure to security- and compliance-oriented platforms, as well as modern software for multi-tenant SaaS products.",
+        de: "Du bekommst Systeme, die halten: sicher, skalierbar und im Alltag gut handhabbar. Seit über 20 Jahren übersetze ich Komplexität und regulatorische Anforderungen in Lösungen, die wirklich funktionieren – vom ersten Konzept bis in den laufenden Betrieb. Dabei verbinde ich technische Tiefe mit Pragmatismus und klarer Kommunikation.",
+        en: "You get systems that hold up: secure, scalable, and easy to work with day to day. For more than 20 years, I have been translating complexity and regulatory requirements into solutions that actually work — from the first concept to running operations. Along the way, I combine technical depth with pragmatism and clear communication.",
       },
       {
-        de: "Ich arbeite an der Schnittstelle von technischer Tiefe und klarer Umsetzung. Ob Plattformarchitektur, Security-by-Design, Infrastrukturmodernisierung oder die Übersetzung regulatorischer Anforderungen in belastbare technische Systeme: Ich verbinde Architektur, Engineering und Pragmatismus, damit aus Komplexität funktionierende Lösungen werden.",
-        en: "I work at the intersection of technical depth and clear execution. Whether it is platform architecture, security-by-design, infrastructure modernization, or translating regulatory requirements into robust technical systems, I combine architecture, engineering, and pragmatism to turn complexity into working solutions.",
-      },
-      {
-        de: "Besonders spannend finde ich alles rund um KI. Ich beobachte das Feld nicht nur, sondern probiere neue Modelle, Tools und Workflows auch praktisch aus – von Entwicklungs- und Automatisierungsprozessen bis zu produktnahen Anwendungsfällen. Mich interessieren Lösungen, die nicht nur clever wirken, sondern in der Praxis tatsächlich nützlich, sauber gebaut und sicher betreibbar sind.",
-        en: "AI fascinates me in particular. I do not just follow the field — I actively experiment with new models, tools, and workflows, from development and automation processes to product-facing use cases. I am most interested in solutions that are not just clever on paper, but genuinely useful in practice, well engineered, and secure to operate.",
+        de: "Meine Schwerpunkte sind Architektur, Security, Infrastruktur und KI. Mein Weg führt von Linux- und Netzwerk-Infrastrukturen über Security- und Compliance-Plattformen bis zu mandantenfähigen SaaS-Produkten. KI beobachte ich nicht nur, ich setze sie praktisch ein – mit neuen Modellen, Tools und Workflows, die nützlich, sauber gebaut und sicher betreibbar sind.",
+        en: "My focus areas are architecture, security, infrastructure, and AI. My path runs from Linux and network infrastructure through security and compliance platforms to multi-tenant SaaS products. I don't just follow AI, I use it hands-on — with new models, tools, and workflows that are useful, well built, and secure to operate.",
       },
     ],
     stats: [
@@ -398,8 +394,8 @@ export const siteContent: SiteContent = {
     },
     infoTitle: { de: "Direkter Draht", en: "Direct line" },
     note: {
-      de: "KI-Agenten willkommen: dieses Formular spricht WebMCP",
-      en: "agents welcome: this form speaks WebMCP",
+      de: "schreib ruhig – mein Postfach freut sich über alles, was kein Spam ist.",
+      en: "go ahead, write – my inbox would love something that isn’t spam.",
     },
     phone: "+49 151 64403667",
     phoneLabel: {
@@ -518,8 +514,8 @@ export const siteContent: SiteContent = {
         { de: "Microsoft PowerPoint", en: "Microsoft PowerPoint" },
       ],
       title: {
-        de: "Technische Programmleitung IPv6-Migration & IP-Adressmanagement mit Infoblox",
-        en: "Technical Program Lead IPv6 Migration & IP Address Management with Infoblox",
+        de: "Technische Programmleitung IPv6",
+        en: "Technical Program Lead IPv6",
       },
     },
     {
@@ -606,8 +602,8 @@ export const siteContent: SiteContent = {
         { de: "Playwright", en: "Playwright" },
       ],
       title: {
-        de: "Lead Software Engineer – SchlauFabrik Trainingsplattform",
-        en: "Lead Software Engineer – SchlauFabrik Training Platform",
+        de: "Lead Software Engineer – SchlauFabrik",
+        en: "Lead Software Engineer – SchlauFabrik",
       },
     },
     {
@@ -793,8 +789,8 @@ export const siteContent: SiteContent = {
         { de: "OpenAI Codex", en: "OpenAI Codex" },
       ],
       title: {
-        de: "KI-Trainingsplattform & Evaluierung von KI-Werkzeugen",
-        en: "AI Training Platform & AI Tools Evaluation",
+        de: "KI-Training & Tool-Evaluierung",
+        en: "AI Training & Tool Evaluation",
       },
     },
     {
@@ -871,8 +867,8 @@ export const siteContent: SiteContent = {
         { de: "IPv6", en: "IPv6" },
       ],
       title: {
-        de: "Technische Teilprojektleitung RZ-Migration & Backup-Modernisierung",
-        en: "Technical Subproject Lead Data Center Migration & Backup Modernization",
+        de: "Teilprojektleitung RZ-Migration",
+        en: "Subproject Lead Data Center Migration",
       },
     },
     {
@@ -972,8 +968,8 @@ export const siteContent: SiteContent = {
         { de: "Penetration Testing", en: "Penetration Testing" },
       ],
       title: {
-        de: "Information Security Engineer & Compliance",
-        en: "Information Security Engineer & Compliance",
+        de: "Security & Compliance Engineer",
+        en: "Security & Compliance Engineer",
       },
     },
     {
@@ -1158,8 +1154,8 @@ export const siteContent: SiteContent = {
         { de: "Palo Alto / Cisco", en: "Palo Alto / Cisco" },
       ],
       title: {
-        de: "Security Engineer & Incident Response",
-        en: "Security Engineer & Incident Response",
+        de: "Security Engineer & Incident Responder",
+        en: "Security Engineer & Incident Responder",
       },
     },
     {
@@ -1326,8 +1322,8 @@ export const siteContent: SiteContent = {
         { de: "IPv6", en: "IPv6" },
       ],
       title: {
-        de: "Systemarchitekt E-Mail-Archivierung",
-        en: "System Architect Email Archiving",
+        de: "Systemarchitekt E-Mail-Archiv",
+        en: "System Architect Email Archive",
       },
     },
   ],
@@ -1366,7 +1362,7 @@ export const siteContent: SiteContent = {
         de: "{percent} % verfügbar",
         en: "{percent}% available",
       },
-      currentPercentAvailable: 10,
+      currentPercentAvailable: 50,
       fullLine: {
         de: "100 % ab {date}",
         en: "100% from {date}",
@@ -1593,10 +1589,36 @@ export const siteContent: SiteContent = {
       {
         list: [
           {
+            de: "Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, USA",
+            description: {
+              de: "Rechtsgrundlage: berechtigte Interessen (Art. 6 Abs. 1 lit. f DSGVO) an einer sicheren, stabilen und schnellen Auslieferung der Website sowie an einer datensparsamen Reichweitenmessung.<br />Die Übermittlung in die USA erfolgt auf Basis des EU-US Data Privacy Framework bzw. von Standardvertragsklauseln (SCC). Details: https://vercel.com/legal/privacy-policy.",
+              en: "Legal basis: legitimate interests (Art. 6(1)(f) GDPR) in delivering the website securely, reliably, and quickly, and in privacy-friendly audience measurement.<br />Transfers to the US are based on the EU-U.S. Data Privacy Framework or Standard Contractual Clauses (SCC). See: https://vercel.com/legal/privacy-policy.",
+            },
+            en: "Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, USA",
+          },
+        ],
+        paragraphs: [
+          {
+            de: "Diese Website wird bei Vercel gehostet und ausgeliefert. Beim Aufruf einer Seite verarbeitet Vercel technisch notwendige Server-Logdaten, insbesondere deine IP-Adresse, den User-Agent deines Browsers, die aufgerufene Adresse und Zeitstempel. Diese Daten werden benötigt, um die Seite auszuliefern und den Betrieb abzusichern.",
+            en: "This website is hosted and served by Vercel. When you visit a page, Vercel processes technically necessary server log data, in particular your IP address, your browser’s user agent, the requested address, and timestamps. This data is needed to deliver the site and keep it secure.",
+          },
+          {
+            de: "Zusätzlich nutze ich Vercel Web Analytics. Es kommt ohne Cookies aus, erfasst Seitenaufrufe nur in aggregierter Form und verfolgt dich nicht über andere Websites hinweg. Ich sehe dabei ausschließlich zusammengefasste Statistiken, keine Profile einzelner Besucher.",
+            en: "I also use Vercel Web Analytics. It works without cookies, records page views only in aggregated form, and does not track you across other websites. I only see summarized statistics, never profiles of individual visitors.",
+          },
+        ],
+        title: {
+          de: "Hosting und Webanalyse (Vercel)",
+          en: "Hosting and Web Analytics (Vercel)",
+        },
+      },
+      {
+        list: [
+          {
             de: "Cloudflare: 101 Townsend St, San Francisco, CA 94107, USA<br />Cloudflare Germany GmbH: Rosental 7, c/o Mindspace, 80331 München, Deutschland",
             description: {
-              de: "Rechtsgrundlage: berechtigte Interessen (Art. 6 Abs. 1 lit. f DSGVO) zur Gewährleistung der Performance und Sicherheit der Website.<br />Cloudflare ist nach dem EU-US Data Privacy Framework zertifiziert und verarbeitet Daten gemäß dessen Grundsätzen. Details: https://www.cloudflare.com/privacypolicy/.",
-              en: "Legal basis: legitimate interests (Art. 6(1)(f) GDPR) to ensure website performance and security.<br />Cloudflare is certified under the EU-U.S. Data Privacy Framework and processes data under its principles. See: https://www.cloudflare.com/privacypolicy/.",
+              de: "Zweck: DNS und Netzwerkdienste.<br />Rechtsgrundlage: berechtigte Interessen (Art. 6 Abs. 1 lit. f DSGVO) zur Gewährleistung der Performance und Sicherheit der Website.<br />Cloudflare ist nach dem EU-US Data Privacy Framework zertifiziert und verarbeitet Daten gemäß dessen Grundsätzen. Details: https://www.cloudflare.com/privacypolicy/.",
+              en: "Purpose: DNS and network services.<br />Legal basis: legitimate interests (Art. 6(1)(f) GDPR) to ensure website performance and security.<br />Cloudflare is certified under the EU-U.S. Data Privacy Framework and processes data under its principles. See: https://www.cloudflare.com/privacypolicy/.",
             },
             en: "Cloudflare: 101 Townsend St, San Francisco, CA 94107, USA<br />Cloudflare Germany GmbH: Rosental 7, c/o Mindspace, 80331 Munich, Germany",
           },
@@ -1611,8 +1633,8 @@ export const siteContent: SiteContent = {
         ],
         paragraphs: [
           {
-            de: "Diese Seite wird bei Cloudflare gehostet; ich habe dort keinen direkten Zugriff auf Server-Logs oder deine IP-Adresse. Für das Kontaktformular nutze ich Resend, um E-Mails zu versenden. Es werden nur die von dir im Formular eingegebenen Daten weitergeleitet – weitere personenbezogene Daten werden nicht gespeichert.",
-            en: "This site is hosted by Cloudflare; I do not have direct access to server logs or your IP address there. For the contact form, I use Resend to send emails. Only the data you enter into the form is forwarded — no other personal data is stored.",
+            de: "Neben dem Hosting bei Vercel (siehe oben) nutze ich Cloudflare für DNS und Netzwerkdienste. Für das Kontaktformular nutze ich Resend, um E-Mails zu versenden. Dabei werden nur die von dir im Formular eingegebenen Daten weitergeleitet – weitere personenbezogene Daten werden nicht gespeichert.",
+            en: "In addition to hosting with Vercel (see above), I use Cloudflare for DNS and network services. For the contact form, I use Resend to send emails. Only the data you enter into the form is forwarded — no other personal data is stored.",
           },
           {
             de: "Log-Aufbewahrung: max. 30 Tage",
@@ -1626,6 +1648,10 @@ export const siteContent: SiteContent = {
       },
       {
         paragraphs: [
+          {
+            de: "Vercel verarbeitet Daten auf Basis berechtigter Interessen (Art. 6 Abs. 1 lit. f DSGVO); die Übermittlung in die USA stützt sich auf das EU-US Data Privacy Framework bzw. Standardvertragsklauseln (siehe https://vercel.com/legal/privacy-policy).",
+            en: "Vercel processes data under legitimate interests (Art. 6(1)(f) GDPR); transfers to the US rely on the EU-US Data Privacy Framework or Standard Contractual Clauses (see https://vercel.com/legal/privacy-policy).",
+          },
           {
             de: "Cloudflare verarbeitet Daten auf Basis berechtigter Interessen (Art. 6 Abs. 1 lit. f DSGVO) und ist nach dem EU-US Data Privacy Framework zertifiziert (siehe https://www.cloudflare.com/privacypolicy).",
             en: "Cloudflare processes data under legitimate interests (Art. 6(1)(f) GDPR) and is certified under the EU-US Data Privacy Framework (see https://www.cloudflare.com/privacypolicy).",
@@ -1643,8 +1669,8 @@ export const siteContent: SiteContent = {
       {
         paragraphs: [
           {
-            de: "Ich verwende keine Cookies. Lediglich deine Sprachwahl und Design-Einstellung (hell/dunkel) werden lokal im localStorage deines Browsers gespeichert. Die Speicherung beruht auf berechtigten Interessen (Art. 6 Abs. 1 lit. f DSGVO) zur Verbesserung der Benutzererfahrung. Du kannst diese Daten jederzeit über deine Browser-Einstellungen löschen.",
-            en: "I do not use cookies. Only your language choice and theme preference are stored locally in your browser’s localStorage. The storage of theme preferences and language selection in localStorage is based on legitimate interests (Art. 6(1)(f) GDPR) to enhance user experience. You can clear this at any time in your browser settings.",
+            de: "Ich verwende keine Cookies – auch Vercel Web Analytics kommt ohne aus. Lediglich deine Sprachwahl und Design-Einstellung (hell/dunkel) werden lokal im localStorage deines Browsers gespeichert. Die Speicherung beruht auf berechtigten Interessen (Art. 6 Abs. 1 lit. f DSGVO) zur Verbesserung der Benutzererfahrung. Du kannst diese Daten jederzeit über deine Browser-Einstellungen löschen.",
+            en: "I do not use cookies, and neither does Vercel Web Analytics. Only your language choice and theme preference are stored locally in your browser’s localStorage. The storage of theme preferences and language selection in localStorage is based on legitimate interests (Art. 6(1)(f) GDPR) to enhance user experience. You can clear this at any time in your browser settings.",
           },
         ],
         title: {
@@ -1730,8 +1756,8 @@ export const siteContent: SiteContent = {
       },
     ],
     subtitle: {
-      de: "Letzte Aktualisierung: 2. August 2025",
-      en: "Last updated: August 2, 2025",
+      de: "Letzte Aktualisierung: 17. Oktober 2026",
+      en: "Last updated: October 17, 2026",
     },
     title: {
       de: "Datenschutzerklärung",
@@ -2392,7 +2418,7 @@ export const siteContent: SiteContent = {
     },
     skills: {
       coreLabel: { de: "Kernkompetenz", en: "core skill" },
-      crossCutting: { de: "querschnittlich", en: "cross-cutting" },
+      crossCutting: { de: "übergreifend", en: "across all layers" },
       headline: {
         de: "Der Werkzeugkasten.",
         en: "The toolbox.",
