@@ -61,9 +61,10 @@
     --print-glow: none;
     --print-tape: color-mix(in oklab, var(--redline) 22%, transparent);
 
-    /* Fine lines stay a whisper; the major lines carry the blueprint */
-    --grid-minor: rgb(35 70 214 / 0.03);
-    --grid-major: rgb(35 70 214 / 0.09);
+    /* Fine lines stay a whisper; the major lines carry the blueprint, but
+       quietly enough that body text reads calmly on top of them */
+    --grid-minor: rgb(35 70 214 / 0.022);
+    --grid-major: rgb(35 70 214 / 0.065);
     --beam: #2346d6;
     --shadow-color: 222 60% 20%;
   }
@@ -111,8 +112,8 @@
     --print-tape: rgb(233 238 251 / 0.16);
     --print-glow: radial-gradient(closest-side, rgb(142 174 255 / 0.2), rgb(142 174 255 / 0.05) 60%, transparent);
 
-    --grid-minor: rgb(190 210 255 / 0.028);
-    --grid-major: rgb(190 210 255 / 0.085);
+    --grid-minor: rgb(190 210 255 / 0.02);
+    --grid-major: rgb(190 210 255 / 0.062);
     --beam: #8eaeff;
     --shadow-color: 225 70% 3%;
   }
@@ -141,13 +142,17 @@
     color-scheme: dark;
   }
 
-  /* German compounds need hyphenation; English reads better ragged. */
-  html:lang(de) {
-    hyphens: auto;
+  /* Body copy stays unhyphenated (calmer to read); only the huge section
+     titles hyphenate long German compounds. Headings may still break a
+     word as a last resort instead of overflowing a narrow card. */
+  h3,
+  h4 {
+    overflow-wrap: break-word;
   }
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
+    hyphens: manual;
     font-feature-settings: "ss01", "ss02";
     text-rendering: optimizeLegibility;
   }
@@ -233,7 +238,7 @@
 }
 
 @utility section-lede {
-  @apply mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl;
+  @apply mt-5 max-w-[62ch] text-lg leading-relaxed text-muted-foreground sm:text-xl;
 }
 
 /* Drafting sheet: the base surface for cards on the plan */

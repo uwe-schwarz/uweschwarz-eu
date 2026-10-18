@@ -136,7 +136,7 @@ const ProjectsSection = () => {
                     >
                       <ProjectPrint alt={t(project.imageAlt)} project={project} />
                     </m.div>
-                    <p className="mt-8 leading-relaxed text-muted-foreground">{t(project.description)}</p>
+                    <p className="mt-8 max-w-[65ch] leading-relaxed text-muted-foreground">{t(project.description)}</p>
                     <div className="mt-5">
                       <ProjectTags project={project} t={t} />
                     </div>
