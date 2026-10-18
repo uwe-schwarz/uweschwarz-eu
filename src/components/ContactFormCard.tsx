@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
-import { Send } from "lucide-react";
+import React, { useId, useMemo, useState } from "react";
+import { RotateCcw, Send } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, useForm, useWatch } from "react-hook-form";
 import { z } from "zod";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
@@ -37,11 +37,34 @@ const webMcpParameterDescriptions = {
   name: { toolparamdescription: "Full name of the person making the inquiry." },
 } satisfies Record<string, React.InputHTMLAttributes<HTMLInputElement>>;
 
+// The send button disappears under the thank-you note; focus moves to its reset button.
+const focusOnMount = (node: HTMLButtonElement | null) => {
+  node?.focus();
+};
+
+// First line like "Thema: KI einführen, Security" (either language, so a
+// language switch never stacks a second prefix).
+const TOPIC_LINE_PATTERN = /^(?:Thema|Topic):([^\n]*)(?:\n+|$)/u;
+
+const getSelectedTopics = (message: string, topics: Array<string>) => {
+  const topicLine = TOPIC_LINE_PATTERN.exec(message)?.[1] ?? "";
+  const named = new Set(topicLine.split(",").map((topic) => topic.trim()));
+  return topics.filter((topic) => named.has(topic));
+};
+
+const withTopics = (message: string, prefix: string, topics: Array<string>) => {
+  const body = message.replace(TOPIC_LINE_PATTERN, "");
+  return topics.length ? `${prefix} ${topics.join(", ")}\n\n${body}` : body;
+};
+
 const ContactFormCard = () => {
   const { t } = useSettings();
   const { contact } = siteContent;
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSent, setIsSent] = useState(false);
+  const topicsLabelId = useId();
+  const topicLabels = contact.formTopics.items.map((topic) => t(topic));
 
   const formSchema = useMemo(
     () =>
@@ -70,6 +93,25 @@ const ContactFormCard = () => {
     },
     resolver: formResolver,
   });
+  const message = useWatch({ control: form.control, name: "message" });
+  const selectedTopics = getSelectedTopics(message, topicLabels);
+
+  const toggleTopic = (topic: string) => {
+    const nextTopics = selectedTopics.includes(topic)
+      ? selectedTopics.filter((selected) => selected !== topic)
+      : topicLabels.filter((label) => label === topic || selectedTopics.includes(label));
+
+    form.setValue("message", withTopics(form.getValues("message"), t(contact.formTopics.prefix), nextTopics), {
+      shouldDirty: true,
+      shouldValidate: form.formState.isSubmitted,
+    });
+  };
+
+  const writeAnother = () => {
+    setIsSent(false);
+    // The fields become visible again in the same commit; focus the first one.
+    requestAnimationFrame(() => form.setFocus("name"));
+  };
 
   const onSubmit = async (values: z.infer<typeof formSchema>): Promise<ContactToolResponse> => {
     setIsSubmitting(true);
@@ -110,11 +152,9 @@ const ContactFormCard = () => {
         throw new Error(errorMessage);
       }
 
-      toast({
-        description: t(contact.formStatus.sentDescription),
-        title: t(contact.formStatus.sentTitle),
-      });
+      // The handwritten thank-you note replaces the form; no extra toast.
       form.reset();
+      setIsSent(true);
       return {
         message: t(contact.formStatus.sentDescription),
         success: true,
@@ -162,99 +202,163 @@ const ContactFormCard = () => {
 
   return (
     <FormProvider {...form}>
-      <form {...webMcpFormAttributes} className="sheet p-6 sm:p-9" onSubmit={handleSubmit}>
-        <div className="grid gap-6 sm:grid-cols-2">
-          {/* Hidden verify field */}
-          <FormField
-            control={form.control}
-            name="verify"
-            render={({ field }) => <Input className="hidden" type="hidden" {...field} />}
-          />
+      <div className="sheet relative">
+        {/* After sending, the form stays mounted (and keeps its size) but hidden
+          beneath the thank-you note, so nothing below it jumps. */}
+        <form
+          {...webMcpFormAttributes}
+          className={`p-6 sm:p-9 ${isSent ? "invisible" : ""}`}
+          inert={isSent}
+          onSubmit={handleSubmit}
+        >
+          <div className="grid gap-6 sm:grid-cols-2">
+            {/* Hidden verify field */}
+            <FormField
+              control={form.control}
+              name="verify"
+              render={({ field }) => <Input className="hidden" type="hidden" {...field} />}
+            />
 
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem id="contact-name">
-                <FormLabel>{t(contact.formLabels.name)}</FormLabel>
-                <FormControl>
-                  <Input
-                    {...webMcpParameterDescriptions.name}
-                    autoComplete="name"
-                    minLength={2}
-                    placeholder={t(contact.formPlaceholders.name)}
-                    required
-                    {...field}
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem id="contact-name">
+                  <FormLabel>{t(contact.formLabels.name)}</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...webMcpParameterDescriptions.name}
+                      autoComplete="name"
+                      minLength={2}
+                      placeholder={t(contact.formPlaceholders.name)}
+                      required
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem id="contact-email">
+                  <FormLabel>{t(contact.formLabels.email)}</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...webMcpParameterDescriptions.email}
+                      autoComplete="email"
+                      placeholder={t(contact.formPlaceholders.email)}
+                      required
+                      type="email"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <div aria-labelledby={topicsLabelId} className="sm:col-span-2" role="group">
+              <p className="text-sm font-medium" id={topicsLabelId}>
+                {t(contact.formTopics.label)}
+              </p>
+              <ul className="mt-2.5 flex flex-wrap gap-2">
+                {topicLabels.map((topic) => {
+                  const isSelected = selectedTopics.includes(topic);
+
+                  return (
+                    <li key={topic}>
+                      <button
+                        aria-pressed={isSelected}
+                        className={`inline-flex min-h-9 items-center rounded-full border px-3.5 py-1.5 text-sm font-medium transition-colors ${
+                          isSelected
+                            ? "border-primary bg-primary text-primary-foreground"
+                            : "border-input bg-background text-foreground hover:border-primary hover:text-primary"
+                        }`}
+                        onClick={() => toggleTopic(topic)}
+                        type="button"
+                      >
+                        {topic}
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+
+            <FormField
+              control={form.control}
+              name="message"
+              render={({ field }) => (
+                <FormItem className="sm:col-span-2" id="contact-message">
+                  <FormLabel>{t(contact.formLabels.message)}</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      {...webMcpParameterDescriptions.message}
+                      minLength={10}
+                      placeholder={t(contact.formPlaceholders.message)}
+                      required
+                      rows={6}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <Button
+              aria-busy={isSubmitting}
+              className="w-full sm:col-span-2"
+              disabled={isSubmitting}
+              size="lg"
+              type="submit"
+            >
+              {isSubmitting ? (
+                <div className="flex items-center justify-center">
+                  <div className="w-4 h-4 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin mr-2"></div>
+                  {t(contact.formStatus.sending)}
+                </div>
+              ) : (
+                <>
+                  <Send aria-hidden="true" />
+                  {t(contact.formLabels.send)}
+                </>
+              )}
+            </Button>
+          </div>
+        </form>
+
+        <div
+          aria-live="polite"
+          className={isSent ? "absolute inset-0 flex items-center justify-center p-6" : "sr-only"}
+        >
+          {isSent && (
+            <div className="flex flex-col items-center gap-6 text-center">
+              <div className="flex items-end gap-2">
+                <p className="redline-note max-w-[12em] -rotate-3 text-balance">{t(contact.formStatus.sentNote)}</p>
+                <svg aria-hidden="true" className="h-12 w-12 shrink-0 text-redline" fill="none" viewBox="0 0 48 48">
+                  <path
+                    className="draw-stroke [--stroke-length:60]"
+                    d="M8 26 L 19 37 L 41 10"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={3.5}
                   />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem id="contact-email">
-                <FormLabel>{t(contact.formLabels.email)}</FormLabel>
-                <FormControl>
-                  <Input
-                    {...webMcpParameterDescriptions.email}
-                    autoComplete="email"
-                    placeholder={t(contact.formPlaceholders.email)}
-                    required
-                    type="email"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="message"
-            render={({ field }) => (
-              <FormItem className="sm:col-span-2" id="contact-message">
-                <FormLabel>{t(contact.formLabels.message)}</FormLabel>
-                <FormControl>
-                  <Textarea
-                    {...webMcpParameterDescriptions.message}
-                    minLength={10}
-                    placeholder={t(contact.formPlaceholders.message)}
-                    required
-                    rows={6}
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <Button
-            aria-busy={isSubmitting}
-            className="w-full sm:col-span-2"
-            disabled={isSubmitting}
-            size="lg"
-            type="submit"
-          >
-            {isSubmitting ? (
-              <div className="flex items-center justify-center">
-                <div className="w-4 h-4 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin mr-2"></div>
-                {t(contact.formStatus.sending)}
+                </svg>
               </div>
-            ) : (
-              <>
-                <Send aria-hidden="true" />
-                {t(contact.formLabels.send)}
-              </>
-            )}
-          </Button>
+              <Button onClick={writeAnother} ref={focusOnMount} size="sm" type="button" variant="outline">
+                <RotateCcw aria-hidden="true" />
+                {t(contact.formStatus.sentReset)}
+              </Button>
+            </div>
+          )}
         </div>
-      </form>
+      </div>
     </FormProvider>
   );
 };

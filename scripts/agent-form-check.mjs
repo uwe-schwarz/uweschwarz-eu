@@ -83,8 +83,8 @@ try {
   assert.equal(payload.message, MESSAGE, "submitted message must match");
   assert.equal(payload.verify, "", "honeypot field must stay empty");
 
-  // 4. Success feedback must be announced to the user.
-  await page.getByText("Nachricht gesendet").waitFor({ timeout: 5000 });
+  // 4. Success feedback must be announced to the user (handwritten note in a live region).
+  await page.locator('[aria-live="polite"]').getByText("Danke! Ich melde mich bei dir.").waitFor({ timeout: 5000 });
 
   process.stdout.write(`agent-form-check: OK (${url}) — payload captured, no email sent (request intercepted).\n`);
 } catch (error) {
