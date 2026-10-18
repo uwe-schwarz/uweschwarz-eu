@@ -261,7 +261,10 @@ const Header = () => {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-0.5 lg:flex">
+        <nav
+          aria-label={t({ de: "Hauptnavigation", en: "Main navigation" })}
+          className="hidden items-center gap-0.5 lg:flex"
+        >
           {linkItems.map((item) => {
             const hash = item.href.replace("#", "");
             const isActive = isHomePage && activeSection === hash;
@@ -298,7 +301,7 @@ const Header = () => {
         {/* Control Buttons */}
         <div className="hidden items-center gap-1 lg:flex">
           <Button
-            aria-label={languageLabel}
+            aria-label={`${language === "en" ? "DE" : "EN"} – ${languageLabel}`}
             className="font-semibold text-muted-foreground hover:text-foreground"
             onClick={toggleLanguage}
             size="sm"

@@ -52,7 +52,10 @@ const Footer = () => {
               <span className="text-sm font-semibold">{t(CV_LAST_UPDATED)}</span>
             </div>
 
-            <nav className={`${cellClassName} col-span-2 flex-row flex-wrap items-center gap-x-5 md:col-span-3`}>
+            <nav
+              aria-label={t({ de: "Fußzeilen-Links", en: "Footer links" })}
+              className={`${cellClassName} col-span-2 flex-row flex-wrap items-center gap-x-5 md:col-span-3`}
+            >
               {footer.links.map((link) => (
                 <Link
                   className="text-sm text-muted-foreground transition-colors link-quiet hover:text-foreground"
