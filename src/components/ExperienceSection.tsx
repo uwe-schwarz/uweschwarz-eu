@@ -77,14 +77,16 @@ const ExperienceEntry = ({ exp, headingRef, t }: ExperienceEntryProps) => {
                 <span className="inline-flex items-center gap-2 font-semibold text-primary">
                   {exp.logoUrl && (
                     // Phones: a small inline mark; the large logo takes over from sm.
-                    <Image
-                      alt=""
-                      className={`h-5 w-auto max-w-20 object-contain sm:hidden ${exp.logoNeedsDarkHalo ? "logo-halo" : ""}`}
-                      height={20}
-                      sizes="80px"
-                      src={exp.logoUrl}
-                      width={80}
-                    />
+                    // Fixed box so the line never shifts while the logo loads
+                    <span aria-hidden="true" className="relative inline-block h-5 w-14 shrink-0 sm:hidden">
+                      <Image
+                        alt=""
+                        className={`object-contain object-left ${exp.logoNeedsDarkHalo ? "logo-halo" : ""}`}
+                        fill
+                        sizes="56px"
+                        src={exp.logoUrl}
+                      />
+                    </span>
                   )}
                   {exp.company}
                 </span>
