@@ -10,6 +10,7 @@ describe("localized homepage composition", () => {
     for (const component of [
       "Header",
       "HeroSection",
+      "SituationsStrip",
       "AboutSection",
       "TrainingsSection",
       "ExperienceSection",

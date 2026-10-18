@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import ProjectsSection from "@/components/ProjectsSection";
+import SituationsStrip from "@/components/SituationsStrip";
 import SkillsSection from "@/components/SkillsSection";
 import TrainingsSection from "@/components/TrainingsSection";
 import { SITE_URL } from "@/lib/site-config";
@@ -42,6 +43,7 @@ export default function HomePage() {
       <main className="relative isolate grow overflow-hidden">
         <div aria-hidden="true" className="blueprint-grid pointer-events-none absolute inset-0 -z-10" />
         <HeroSection />
+        <SituationsStrip />
         <AboutSection />
         <ProjectsSection />
         <ExperienceSection />

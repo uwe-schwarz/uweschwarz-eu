@@ -23,6 +23,8 @@ interface HeroSection {
   ctaSecondary: LocalizedString;
   description: LocalizedString;
   diagram: HeroDiagram;
+  /** Small line next to the name: working mode and experience. */
+  eyebrow: LocalizedString;
   imageAlt: LocalizedString;
   name: string;
   pitch: LocalizedString;
@@ -41,6 +43,8 @@ interface WebSections {
     showDetails: LocalizedString;
     showFewerProjects: LocalizedString;
     showMoreProjects: LocalizedString;
+    /** Toggle for the collapsed side-projects group. */
+    showSmallProjects: LocalizedString;
   };
   projects: SectionCopy;
   skills: SectionCopy & {
@@ -68,13 +72,13 @@ interface HeroAvailability {
 interface AboutSection {
   imageAlt: LocalizedString;
   labels: {
+    dataCenters: LocalizedString;
     experience: LocalizedString;
-    projects: LocalizedString;
-    technologies: LocalizedString;
+    mailArchiveUsers: LocalizedString;
   };
   note: LocalizedString;
   paragraphs: Array<LocalizedString>;
-  stats: Array<{ key: string; value: LocalizedString }>;
+  stats: Array<{ key: keyof AboutSection["labels"]; value: LocalizedString }>;
   title: LocalizedString;
 }
 
@@ -93,7 +97,23 @@ export interface Experience {
   logoUrl?: string;
   period: LocalizedString;
   projectScale?: "major" | "small";
+  /** Stable anchor: the timeline entry gets the id `experience-<slug>`. */
+  slug: string;
   tags: Array<LocalizedString>;
+  title: LocalizedString;
+}
+
+export interface Situation {
+  /** Slug of the experience entry that shows how it went. */
+  experienceSlug: string;
+  linkLabel: LocalizedString;
+  text: LocalizedString;
+  title: LocalizedString;
+}
+
+interface SituationsSection {
+  eyebrow: LocalizedString;
+  items: Array<Situation>;
   title: LocalizedString;
 }
 
@@ -151,7 +171,9 @@ interface ContactSection {
     errorTitle: LocalizedString;
     sending: LocalizedString;
     sentDescription: LocalizedString;
-    sentTitle: LocalizedString;
+    /** Handwritten note that replaces the form after sending. */
+    sentNote: LocalizedString;
+    sentReset: LocalizedString;
     validation: {
       email: {
         de: string;
@@ -166,6 +188,12 @@ interface ContactSection {
         en: string;
       };
     };
+  };
+  formTopics: {
+    items: Array<LocalizedString>;
+    label: LocalizedString;
+    /** Prepended to the message, e.g. "Thema: KI einführen". */
+    prefix: LocalizedString;
   };
   homepage?: string;
   infoText: LocalizedString;
@@ -289,6 +317,7 @@ export interface SiteContent {
     description: LocalizedString;
     title: string;
   };
+  situations: SituationsSection;
   skills: Array<Skill>;
   skillsSection: SkillsSection;
   trainings: TrainingsSection;
@@ -313,9 +342,9 @@ export const siteContent: SiteContent = {
       en: "Illustration of Uwe in three roles: at the top, he is working on a computer with green code on the screen, symbolically supported by an AI. At the bottom left, he explains a network diagram on a flipchart, and at the bottom right, he gives a presentation with a progress chart. The scenes are connected by flowing lines, representing the seamless transition between technology, planning, and communication.",
     },
     labels: {
+      dataCenters: { de: "Rechenzentren verlagert", en: "Data centers relocated" },
       experience: { de: "Jahre Erfahrung", en: "Years of Experience" },
-      projects: { de: "Abgeschlossene Projekte", en: "Completed Projects" },
-      technologies: { de: "Technologien", en: "Technologies" },
+      mailArchiveUsers: { de: "Nutzer im E-Mail-Archiv", en: "Users in the email archive" },
     },
     note: {
       de: "ja, das bin ich. dreimal.",
@@ -323,8 +352,8 @@ export const siteContent: SiteContent = {
     },
     paragraphs: [
       {
-        de: "Du bekommst Systeme, die halten: sicher, skalierbar und im Alltag gut handhabbar. Seit über 20 Jahren übersetze ich Komplexität und regulatorische Anforderungen in Lösungen, die wirklich funktionieren – vom ersten Konzept bis in den laufenden Betrieb. Dabei verbinde ich technische Tiefe mit Pragmatismus und klarer Kommunikation.",
-        en: "You get systems that hold up: secure, scalable, and easy to work with day to day. For more than 20 years, I have been translating complexity and regulatory requirements into solutions that actually work — from the first concept to running operations. Along the way, I combine technical depth with pragmatism and clear communication.",
+        de: "Du bekommst Systeme, die sicher, skalierbar und im Alltag gut handhabbar sind. Seit über 20 Jahren übersetze ich Komplexität und regulatorische Anforderungen in Lösungen, die wirklich funktionieren – vom ersten Konzept bis in den laufenden Betrieb. Dabei verbinde ich technische Tiefe mit Pragmatismus und klarer Kommunikation.",
+        en: "You get systems that are secure, scalable, and easy to work with day to day. For more than 20 years, I have been translating complexity and regulatory requirements into solutions that actually work — from the first concept to running operations. Along the way, I combine technical depth with pragmatism and clear communication.",
       },
       {
         de: "Meine Schwerpunkte sind Architektur, Security, Infrastruktur und KI. Mein Weg führt von Linux- und Netzwerk-Infrastrukturen über Security- und Compliance-Plattformen bis zu mandantenfähigen SaaS-Produkten. KI beobachte ich nicht nur, ich setze sie praktisch ein – mit neuen Modellen, Tools und Workflows, die nützlich, sauber gebaut und sicher betreibbar sind.",
@@ -333,8 +362,8 @@ export const siteContent: SiteContent = {
     ],
     stats: [
       { key: "experience", value: { de: "20+", en: "20+" } },
-      { key: "projects", value: { de: "30+", en: "30+" } },
-      { key: "technologies", value: { de: "50+", en: "50+" } },
+      { key: "mailArchiveUsers", value: { de: "50.000+", en: "50,000+" } },
+      { key: "dataCenters", value: { de: "2", en: "2" } },
     ],
     title: {
       de: "Komplexität rein, Klarheit raus.",
@@ -359,7 +388,10 @@ export const siteContent: SiteContent = {
     },
     formPlaceholders: {
       email: { de: "Deine E-Mail", en: "Your email" },
-      message: { de: "Deine Nachricht", en: "Your message" },
+      message: {
+        de: "Worum geht's? Was soll sich ändern? Bis wann?",
+        en: "What's it about? What should change? By when?",
+      },
       name: { de: "Dein Name", en: "Your name" },
     },
     formStatus: {
@@ -370,10 +402,14 @@ export const siteContent: SiteContent = {
       errorTitle: { de: "Fehler", en: "Error" },
       sending: { de: "Wird gesendet …", en: "Sending…" },
       sentDescription: {
-        de: "Danke für deine Nachricht. Ich werde mich bald bei dir melden.",
-        en: "Thanks for reaching out. I'll get back to you soon.",
+        de: "Danke für deine Nachricht. Ich melde mich bei dir.",
+        en: "Thanks for reaching out. I'll get back to you.",
       },
-      sentTitle: { de: "Nachricht gesendet!", en: "Message sent!" },
+      sentNote: {
+        de: "Danke! Ich melde mich bei dir.",
+        en: "Thanks! I'll get back to you.",
+      },
+      sentReset: { de: "Noch eine Nachricht schreiben", en: "Write another message" },
       validation: {
         email: {
           de: "Bitte gib eine gültige E-Mail-Adresse ein.",
@@ -388,6 +424,17 @@ export const siteContent: SiteContent = {
           en: "Your name must be at least 2 characters long.",
         },
       },
+    },
+    formTopics: {
+      items: [
+        { de: "Audit & Zertifizierung", en: "Audit & certification" },
+        { de: "KI einführen", en: "Introducing AI" },
+        { de: "Migration & Infrastruktur", en: "Migration & infrastructure" },
+        { de: "Security", en: "Security" },
+        { de: "Einfach mal reden", en: "Just a chat" },
+      ],
+      label: { de: "Thema wählen (optional)", en: "Pick a topic (optional)" },
+      prefix: { de: "Thema:", en: "Topic:" },
     },
     homepage: SITE_URL,
     infoText: {
@@ -490,6 +537,7 @@ export const siteContent: SiteContent = {
       },
       logoUrl: "/logos/drv.svg",
       period: { de: "Jan 2026 - Heute", en: "Jan 2026 - Present" },
+      slug: "drv-ipv6",
       tags: [
         { de: "IPv6", en: "IPv6" },
         { de: "Infoblox", en: "Infoblox" },
@@ -585,6 +633,7 @@ export const siteContent: SiteContent = {
       logoUrl: "/logos/schlaufabrik-on-light.png",
       period: { de: "Dez 2025 - Heute", en: "Dec 2025 - Present" },
       projectScale: "small",
+      slug: "schlaufabrik",
       tags: [
         { de: "SaaS", en: "SaaS" },
         { de: "Multi-Tenant", en: "Multi-tenant" },
@@ -652,6 +701,7 @@ export const siteContent: SiteContent = {
       logoUrl: "/logos/aktion-gegen-krebs.png",
       period: { de: "Mai 2025 - Heute", en: "May 2025 - Present" },
       projectScale: "small",
+      slug: "aktion-gegen-krebs",
       tags: [
         { de: "Datenschutz", en: "Data Protection" },
         { de: "IT-Sicherheit", en: "IT Security" },
@@ -711,6 +761,7 @@ export const siteContent: SiteContent = {
       logoUrl: "/logos/degit-on-light.png",
       period: { de: "Mai 2018 - Heute", en: "May 2018 - Present" },
       projectScale: "small",
+      slug: "degit-board",
       tags: [
         { de: "Sicherheit", en: "Security" },
         { de: "Datenschutz", en: "Privacy" },
@@ -771,6 +822,7 @@ export const siteContent: SiteContent = {
       logoUrl: "/logos/degit-on-light.png",
       period: { de: "Aug 2025 - Okt 2025", en: "Aug 2025 - Oct 2025" },
       projectScale: "small",
+      slug: "degit-ai-training",
       tags: [
         { de: "KI-Evaluierung", en: "AI Evaluation" },
         { de: "KI-Training", en: "AI Training" },
@@ -848,6 +900,7 @@ export const siteContent: SiteContent = {
       logoNeedsDarkHalo: true,
       logoUrl: "/logos/berenberg.svg",
       period: { de: "Jan 2024 - Sep 2025", en: "Jan 2024 - Sep 2025" },
+      slug: "berenberg",
       tags: [
         {
           de: "Technische Teilprojektsteuerung",
@@ -950,6 +1003,7 @@ export const siteContent: SiteContent = {
       },
       logoUrl: "/logos/threedium.svg",
       period: { de: "Okt 2023 - Jun 2024", en: "Oct 2023 - Jun 2024" },
+      slug: "threedium",
       tags: [
         { de: "Informationssicherheit", en: "Information Security" },
         { de: "Security Controls", en: "Security Controls" },
@@ -1014,6 +1068,7 @@ export const siteContent: SiteContent = {
       logoUrl: "/logos/gehr.png",
       period: { de: "Okt 2023", en: "Oct 2023" },
       projectScale: "small",
+      slug: "gehr",
       tags: [
         { de: "Code-Review", en: "Code Review" },
         { de: "Security-Beratung", en: "Security Advisory" },
@@ -1133,6 +1188,7 @@ export const siteContent: SiteContent = {
       },
       logoUrl: "/logos/dvag.svg",
       period: { de: "Jan 2019 - Sep 2023", en: "Jan 2019 - Sep 2023" },
+      slug: "dvag-security",
       tags: [
         { de: "Informationssicherheit", en: "Information Security" },
         { de: "Security Engineering", en: "Security Engineering" },
@@ -1230,6 +1286,7 @@ export const siteContent: SiteContent = {
       },
       logoUrl: "/logos/dvag.svg",
       period: { de: "Jul 2015 - Dez 2018", en: "Jul 2015 - Dec 2018" },
+      slug: "dvag-infrastructure",
       tags: [
         { de: "Infrastruktur", en: "Infrastructure" },
         { de: "Linux", en: "Linux" },
@@ -1312,6 +1369,7 @@ export const siteContent: SiteContent = {
       },
       logoUrl: "/logos/dvag.svg",
       period: { de: "Jan 2013 - Jun 2015", en: "Jan 2013 - Jun 2015" },
+      slug: "dvag-mail-archive",
       tags: [
         { de: "E-Mail-Archivierung", en: "Email Archiving" },
         { de: "Compliance", en: "Compliance" },
@@ -1339,12 +1397,12 @@ export const siteContent: SiteContent = {
     en: "Specialized, flexible, or focused initiatives that complement the broader work.",
   },
   experienceSmallProjectsSubtitle: {
-    de: "Ergänzende oder spezialisierte Projekte mit flexiblem Umfang.",
-    en: "Complementary or specialized projects with flexible scope.",
+    de: "Kürzere Aufträge, Produktentwicklung, Vorstandsarbeit und gemeinnütziges Engagement – kompakt, aber mit derselben Sorgfalt.",
+    en: "Shorter engagements, product development, board work, and non-profit commitment – compact, but with the same care.",
   },
   experienceSmallProjectsTitle: {
-    de: "Zusatz- & Schwerpunktprojekte",
-    en: "Additional & Focused Projects",
+    de: "Weitere Projekte & Engagements",
+    en: "More projects & commitments",
   },
   footer: {
     copyright: {
@@ -1412,14 +1470,18 @@ export const siteContent: SiteContent = {
         { key: "training", label: { de: "Training", en: "Training" } },
       ],
     },
+    eyebrow: {
+      de: "Freelance · 20+ Jahre Erfahrung",
+      en: "Freelance · 20+ years of experience",
+    },
     imageAlt: {
       de: "Porträtfoto von Uwe Schwarz, Software-Architekt und Security-Engineer.",
       en: "Portrait photo of Uwe Schwarz, Software Architect and Security Engineer.",
     },
     name: "Uwe Schwarz",
     pitch: {
-      de: "Ich übersetze komplexe Anforderungen in Systeme, die halten: sicher, skalierbar und im Alltag wirklich brauchbar. Software, Plattformen, Infrastruktur und KI – aus einem Guss geplant.",
-      en: "I turn complex requirements into systems that hold up: secure, scalable, and genuinely useful in practice. Software, platforms, infrastructure, and AI, designed as one plan.",
+      de: "Ich sorge dafür, dass die IT von Unternehmen und Behörden sicher läuft, Prüfungen wie SOC 2 und ISO 27001 besteht und Neues wie KI ohne Chaos eingeführt wird.",
+      en: "I make sure the IT of companies and public authorities runs securely, passes audits like SOC 2 and ISO 27001, and takes on new things like AI without chaos.",
     },
     titleElements: [
       {
@@ -1777,8 +1839,8 @@ export const siteContent: SiteContent = {
         en: "Designed and developed a modular training platform covering the EU Artificial Intelligence Act (EU AI Act). The course provides a structured learning path with interactive slides, voice narration, and integrated quizzes to ensure a clear understanding of the regulation’s scope, risk-based framework, and compliance implications. The platform includes five sections — from fundamentals to governance, risk categories, and real-world applications — and was built with future expansion in mind to accommodate upcoming modules on data protection, ethical AI, and technical implementation guidelines.",
       },
       imageAlt: {
-        de: "Illustration zur Schulung zum EU AI Act: Ein Klemmbrett mit der Aufschrift „Schulung AI Act“, davor ein Schutzschild mit dem EU-Sternenkranz, daneben eine Infokarte und darunter mehrere Lernmodul-Kacheln. Die Grafik steht für strukturierte Compliance-Schulung zur europäischen KI-Verordnung.",
-        en: "Illustration of the EU AI Act training: a clipboard labeled “Schulung AI Act” (German for “AI Act Training”), a shield with the EU circle of stars in front of it, an info card beside it, and several learning-module tiles below. The graphic represents structured compliance training on the European AI regulation.",
+        de: "Blaue Strichzeichnung zur Schulung zum EU AI Act: ein Klemmbrett mit leeren Zeilen, davor ein Schild mit dem EU-Sternenkranz, darunter drei Lernmodul-Kacheln und ein roter Haken.",
+        en: "Blue line drawing of the EU AI Act training: a clipboard with blank lines, a shield with the EU circle of stars in front of it, three learning-module tiles below, and a red checkmark.",
       },
       imageUrl: "/projects/ai_act_training.webp",
       tags: [
@@ -1800,8 +1862,8 @@ export const siteContent: SiteContent = {
         en: "Designed and implemented a legally compliant enterprise-wide email archiving solution for more than 50,000 users. The system ensures immutable retention of all communication for over 10 years and meets strict regulatory and audit requirements. Based on open-source technologies, the archive was built for scalability, redundancy, and long-term maintainability. Integrated monitoring, indexing, and full-text search enable efficient retrieval of historical correspondence.",
       },
       imageAlt: {
-        de: "Symbolgrafik zum rechtssicheren E-Mail-Archiv: Zu sehen sind ein E-Mail-Symbol, zwei Datenbankstapel, ein Aktenschrank, eine Uhr, ein Kalender mit der Aufschrift „10+“ sowie ein Schutzschild mit Haken. Die Illustration steht für langfristige, unveränderbare E-Mail-Aufbewahrung, Sicherheit und Compliance für über 50.000 Nutzer.",
-        en: "Illustration of a legally compliant email archiving system: Includes an envelope icon, two database stacks, a filing cabinet, a clock, a calendar labeled “10+”, and a shield with a checkmark. Represents long-term, immutable email retention, security, and compliance for over 50,000 users.",
+        de: "Blaue Strichzeichnung zum E-Mail-Archiv: Briefumschläge, ein Archivschrank, eine Uhr, ein Kalender, Datenbankstapel und ein Schild mit rotem Haken – für langfristige, sichere Aufbewahrung.",
+        en: "Blue line drawing of the email archive: envelopes, an archive cabinet, a clock, a calendar, database stacks, and a shield with a red checkmark – standing for long-term, secure retention.",
       },
       imageUrl: "/projects/mailarchive.webp",
       tags: [
@@ -1824,8 +1886,8 @@ export const siteContent: SiteContent = {
         en: "Designed and implemented a system to support the processing of cancer-related cases using AI. The platform integrates secure data handling, structured workflows, and AI-based assistance to prioritize, analyze, and streamline case management. This ensures faster response times and improved quality in handling sensitive medical and legal information.",
       },
       imageAlt: {
-        de: "Illustration zu KI-gestützten Workflows in der Fallbearbeitung: sicherer Datenspeicher, KI-Entscheidungsknoten und Fallakten, die durch eine optimierte Prozesskette laufen.",
-        en: "Illustration showing AI-assisted workflows in case management: secure data vault, AI decision nodes, and case files moving through an optimized pipeline.",
+        de: "Blaue Strichzeichnung zur KI-gestützten Fallbearbeitung: ein Tresor mit Schild, ein Knotenpunkt und Pfeile, die zu drei Ordnern führen.",
+        en: "Blue line drawing of AI-supported case management: a safe with a shield, a node hub, and arrows leading to three folders.",
       },
       imageUrl: "/projects/ai_case_management.webp",
       tags: [
@@ -1845,8 +1907,8 @@ export const siteContent: SiteContent = {
         en: "Implemented SOC 2 and ISO 27001 compliance requirements by introducing information security policies, controls, and evidence structures aligned with audit and certification needs.",
       },
       imageAlt: {
-        de: "Illustration zur SOC-2- und ISO-27001-Zertifizierung: Zu sehen sind ein Zertifizierungsdokument mit Häkchen bei „SOC 2“ und „ISO 27001“, ein Sicherheitsschild, ein Vorhängeschloss und ein gesichertes Datenbanksymbol. Die Grafik steht für Informationssicherheit, Compliance und revisionssichere Datenverarbeitung.",
-        en: "Illustration representing SOC 2 and ISO 27001 certification: Shows a certification document with checkmarks for “SOC 2” and “ISO 27001”, a security shield, a padlock, and a secured database icon. The graphic symbolizes information security, compliance, and audit-proof data processing.",
+        de: "Blaue Strichzeichnung zur Zertifizierung: eine Urkunde mit Siegel und zwei abgehakten Zeilen, ein Schild mit rotem Haken, ein Vorhängeschloss und eine Datenbank mit Schloss.",
+        en: "Blue line drawing of the certification: a certificate with a seal and two checked rows, a shield with a red checkmark, a padlock, and a database with a lock.",
       },
       imageUrl: "/projects/soc2_cert.webp",
       tags: [
@@ -1866,8 +1928,8 @@ export const siteContent: SiteContent = {
         en: "Designed and implemented a secure, zero-configuration VPN network leveraging IPv6 as the foundation for global connectivity. The solution enables seamless peer-to-peer communication without manual setup, NAT traversal, or complex provisioning, while ensuring strong encryption and modern authentication mechanisms. By combining simple rules with advanced security controls, the network architecture provides resilient, scalable, and privacy-preserving access across distributed environments.",
       },
       imageAlt: {
-        de: "Symbolgrafik für ein Zero-Config-VPN: Vernetzte, geschützte Geräte, die über ein globales IPv6-Netzwerk verbunden sind, mit Schloss-Symbolen für Verschlüsselung und Auto-Config-Elementen für die nahtlose Einrichtung ohne manuelles Eingreifen.",
-        en: "Illustration of a zero-configuration VPN: interconnected shielded devices connected by a global IPv6 network grid, lock icons indicating encryption, and auto-config symbols representing seamless setup without manual intervention.",
+        de: "Blaue Strichzeichnung zum Zero-Config-VPN: ein Schild mit Vorhängeschloss inmitten verbundener Netzwerkknoten, ein kleiner Globus und ein roter geschwungener Pfeil.",
+        en: "Blue line drawing of the zero-config VPN: a shield with a padlock amid connected network nodes, a small globe, and a red curved arrow.",
       },
       imageUrl: "/projects/zeroconfigvpn.webp",
       tags: [
@@ -1890,8 +1952,8 @@ export const siteContent: SiteContent = {
         en: "Modernized the existing backup infrastructure by implementing Rubrik's enterprise backup solution, enhancing data protection, reducing recovery times, and simplifying management across hybrid environments.",
       },
       imageAlt: {
-        de: "Illustration zur Backup-Modernisierung mit Rubrik: Zu sehen sind Symbole für Cloud-Speicherung mit Sicherheitsschild, Datenbanken, ein Wiederherstellungspfeil, ein Laptop mit Integrationssymbol sowie das Rubrik-Logo. Die Grafik steht für moderne Datensicherung, schnelle Wiederherstellung und nahtlose Systemintegration.",
-        en: "Illustration depicting backup modernization with Rubrik: Features icons of secure cloud storage, data stacks, a recovery arrow, a laptop with an integration symbol, and the Rubrik logo. Represents modern data protection, fast recovery, and seamless system integration.",
+        de: "Blaue Strichzeichnung zur Backup-Modernisierung: eine Cloud mit Schild, ein roter Kreispfeil für die Wiederherstellung, Datenbankstapel und ein Laptop mit Sync-Pfeilen.",
+        en: "Blue line drawing of the backup modernization: a cloud with a shield, a red circular arrow for recovery, database stacks, and a laptop with sync arrows.",
       },
       imageUrl: "/projects/backup_rubrik.webp",
       tags: [
@@ -1911,8 +1973,8 @@ export const siteContent: SiteContent = {
         en: "Developed a private system to digitize all personal documents and letters using OCR technology. Integrated AI-based classification to automatically sort documents into predefined categories, enabling efficient search, retrieval, and archival. Additionally, implemented automated analysis to detect tax-relevant documents for income tax purposes and tag them accordingly.",
       },
       imageAlt: {
-        de: "Illustration zur Dokumentenerfassung und KI-Kategorisierung: Ein Scanner, digitalisierte Dokumente, KI-Knoten, die mit Ordnersymbolen verbunden sind, sowie Kategorien wie „Finanzen“, „Gesundheit“ und „Versicherung“. Die Grafik steht für automatisierte Dokumentenverarbeitung und intelligente Organisation.",
-        en: "Illustration showing document scanning and AI classification: A scanner, digitized documents, AI nodes connecting to folder icons, and category labels like “Finance”, “Health”, and “Insurance”. Represents automated document processing and intelligent organization.",
+        de: "Blaue Strichzeichnung zur Dokumentenerfassung: ein Scanner mit Blatt und roter Scanlinie, ein Dokument, ein Knotenpunkt und Pfeile, die zu drei Ordnern führen.",
+        en: "Blue line drawing of document capture: a scanner with a page and a red scan line, a document, a node hub, and arrows leading to three folders.",
       },
       imageUrl: "/projects/ocr_ai_documents.webp",
       tags: [
@@ -1949,6 +2011,51 @@ export const siteContent: SiteContent = {
       en: "Portfolio of Uwe Schwarz: Software Architect, Security Engineer & AI Enthusiast",
     },
     title: "Uwe Schwarz Portfolio",
+  },
+  situations: {
+    eyebrow: { de: "Typische Anlässe", en: "Typical occasions" },
+    items: [
+      {
+        experienceSlug: "threedium",
+        linkLabel: { de: "So lief's bei Threedium", en: "How it went at Threedium" },
+        text: {
+          de: "SOC 2 oder ISO 27001 stehen an. Ich bringe Richtlinien, Kontrollen und Nachweise in Ordnung, bis das Audit sitzt.",
+          en: "SOC 2 or ISO 27001 is coming up. I get policies, controls, and evidence in order so the audit holds.",
+        },
+        title: { de: "Ein Audit steht an", en: "An audit is coming up" },
+      },
+      {
+        experienceSlug: "berenberg",
+        linkLabel: { de: "So lief's bei Berenberg", en: "How it went at Berenberg" },
+        text: {
+          de: "Server, Speicher und Backups sollen an einen neuen Standort – mit möglichst wenig Ausfallzeit.",
+          en: "Servers, storage, and backups have to move to a new site – with as little downtime as possible.",
+        },
+        title: { de: "Das Rechenzentrum muss umziehen", en: "The data center has to move" },
+      },
+      {
+        experienceSlug: "degit-ai-training",
+        linkLabel: { de: "So lief's bei DEGIT", en: "How it went at DEGIT" },
+        text: {
+          de: "Dein Team soll KI-Tools nutzen. Ich vergleiche die Tools nach Datenschutz und Governance und baue Schulungen mit Blick auf den EU AI Act.",
+          en: "Your team wants to use AI tools. I compare the tools on data protection and governance and build training with the EU AI Act in mind.",
+        },
+        title: { de: "KI soll rein – aber datenschutzkonform", en: "AI is coming in – but privacy-compliant" },
+      },
+      {
+        experienceSlug: "drv-ipv6",
+        linkLabel: {
+          de: "So läuft's bei der Deutschen Rentenversicherung",
+          en: "How it's going at Deutsche Rentenversicherung",
+        },
+        text: {
+          de: "Das Netz soll auf IPv6 umgestellt werden. Ich plane Adressen, Testlabor und Rollout und halte alle Beteiligten im Takt.",
+          en: "The network is moving to IPv6. I plan the addressing, test lab, and rollout and keep everyone involved in step.",
+        },
+        title: { de: "Das Netz muss auf IPv6", en: "The network has to go IPv6" },
+      },
+    ],
+    title: { de: "Wann du mich rufst", en: "When to call me" },
   },
   skills: [
     // Security & Compliance
@@ -2411,6 +2518,7 @@ export const siteContent: SiteContent = {
       showDetails: { de: "Details anzeigen", en: "Show details" },
       showFewerProjects: { de: "Weniger anzeigen", en: "Show less" },
       showMoreProjects: { de: "Weitere anzeigen ({count})", en: "Show more ({count})" },
+      showSmallProjects: { de: "Projekte anzeigen ({count})", en: "Show projects ({count})" },
     },
     projects: {
       headline: {
