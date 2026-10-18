@@ -8,7 +8,7 @@ const DimensionLine = ({ value }: { value: string }) => (
   <div aria-hidden="true" className="flex items-center gap-3 text-primary">
     <span className="h-5 w-px bg-current" />
     <span className="h-px flex-1 bg-current opacity-50" />
-    <span className="type-display text-5xl text-foreground sm:text-6xl">{value}</span>
+    <span className="type-display whitespace-nowrap text-5xl text-foreground xl:text-6xl">{value}</span>
     <span className="h-px flex-1 bg-current opacity-50" />
     <span className="h-5 w-px bg-current" />
   </div>
@@ -45,7 +45,7 @@ const AboutSection = () => {
             </figure>
           </div>
 
-          <div className="space-y-6 text-lg leading-relaxed sm:text-xl xl:col-span-7 xl:pt-3">
+          <div className="space-y-6 text-lg leading-relaxed sm:text-xl xl:col-span-7 xl:pt-3 [&>p]:max-w-[65ch]">
             {about.paragraphs.map((paragraph, index) => (
               <p
                 className={index === 0 ? "text-foreground" : "text-muted-foreground"}
@@ -57,12 +57,11 @@ const AboutSection = () => {
           </div>
         </div>
 
-        <dl className="mt-24 grid gap-10 sm:grid-cols-3 sm:gap-8">
+        {/* Three columns only from lg: "50.000+" needs the width */}
+        <dl className="mt-24 grid gap-10 lg:grid-cols-3 lg:gap-8">
           {about.stats.map((stat) => (
             <div className="flex flex-col-reverse gap-3" key={stat.key}>
-              <dt className="text-center text-sm font-medium text-muted-foreground">
-                {t(about.labels[stat.key as keyof typeof about.labels])}
-              </dt>
+              <dt className="text-center text-sm font-medium text-muted-foreground">{t(about.labels[stat.key])}</dt>
               <dd>
                 <span className="sr-only">{t(stat.value)}</span>
                 <DimensionLine value={t(stat.value)} />

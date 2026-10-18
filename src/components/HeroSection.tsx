@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useSyncExternalStore } from "react";
 import type { CSSProperties } from "react";
+import Image from "next/image";
 import { FileText, MessageSquareText } from "lucide-react";
 import { AnimatePresence, m } from "motion/react";
 import HeroDiagram from "@/components/HeroDiagram";
@@ -60,21 +61,47 @@ const HeroSection = () => {
 
   return (
     <section
-      className="relative isolate overflow-hidden pb-20 pt-[calc(var(--header-height)+3.5rem)] lg:min-h-dvh lg:pb-16"
+      className="relative isolate overflow-hidden pb-14 pt-[calc(var(--header-height)+1.5rem)] sm:pb-20 sm:pt-[calc(var(--header-height)+3.5rem)] lg:min-h-dvh lg:pb-16"
       id="hero"
     >
-      <div className="section-shell grid items-center gap-y-16 lg:min-h-[calc(100dvh-10rem)] lg:grid-cols-12 lg:gap-x-10">
+      <div className="section-shell grid items-center gap-y-12 sm:gap-y-16 lg:min-h-[calc(100dvh-10rem)] lg:grid-cols-12 lg:gap-x-10">
         <div className="lg:col-span-7">
-          <h1 className="hero-enter text-[3.4rem] sm:text-8xl xl:text-[8.5rem]" style={enterStep(0)}>
-            {hero.name.split(" ").map((part) => (
-              <span className="block" key={part}>
-                {part}
-              </span>
-            ))}
-          </h1>
+          <p
+            className="hero-enter inline-flex items-center gap-2 rounded-md border border-border bg-background/70 px-2.5 py-1 font-mono text-xs font-medium tracking-wider text-muted-foreground sm:text-sm"
+            style={enterStep(0)}
+          >
+            <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-redline" />
+            {t(hero.eyebrow)}
+          </p>
+
+          {/* Below lg the diagram sits further down, so a small portrait joins the name. */}
+          <div className="mt-4 flex items-center gap-4 sm:mt-6 sm:gap-6 lg:block">
+            <h1 className="hero-enter min-w-0 text-[2.9rem] sm:text-8xl xl:text-[8.5rem]" style={enterStep(0)}>
+              {hero.name.split(" ").map((part) => (
+                <span className="block" key={part}>
+                  {part}
+                </span>
+              ))}
+            </h1>
+            <div
+              className="hero-enter relative h-20 w-20 shrink-0 overflow-hidden rounded-full border border-border bg-card p-1 sm:h-32 sm:w-32 lg:hidden"
+              style={enterStep(1)}
+            >
+              <div className="relative h-full w-full overflow-hidden rounded-full">
+                <Image
+                  alt={t(hero.imageAlt)}
+                  className="object-cover"
+                  fill
+                  priority
+                  sizes="(min-width: 640px) 128px, 80px"
+                  src="/profile.webp"
+                />
+              </div>
+            </div>
+          </div>
 
           {/* Screen readers get every role once; the rotation is visual only. */}
-          <p className="hero-enter mt-6 text-xl sm:text-2xl" style={enterStep(1)}>
+          <p className="hero-enter mt-4 text-xl sm:mt-6 sm:text-2xl" style={enterStep(1)}>
             <span className="sr-only">{roles.join(", ")}</span>
             <span aria-hidden="true" className="relative inline-grid overflow-hidden py-1 type-heading">
               {/* Invisible copies reserve the widest role so the line never reflows */}
@@ -100,13 +127,13 @@ const HeroSection = () => {
           </p>
 
           <p
-            className="hero-enter mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground sm:text-xl"
+            className="hero-enter mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground sm:mt-6 sm:text-xl"
             style={enterStep(2)}
           >
             {t(hero.pitch)}
           </p>
 
-          <div className="hero-enter mt-9 flex flex-wrap gap-3" style={enterStep(3)}>
+          <div className="hero-enter mt-6 flex flex-wrap gap-3 sm:mt-9" style={enterStep(3)}>
             <Button asChild size="lg">
               <a href="#contact">
                 <MessageSquareText aria-hidden="true" />
@@ -122,7 +149,7 @@ const HeroSection = () => {
           </div>
 
           <div
-            className="hero-enter mt-10 flex max-w-md items-center gap-4 rounded-2xl border border-border bg-card/80 px-4 py-3 backdrop-blur-sm"
+            className="hero-enter mt-6 flex max-w-md sm:mt-10 items-center gap-4 rounded-2xl border border-border bg-card/80 px-4 py-3 backdrop-blur-sm"
             style={enterStep(4)}
           >
             <span aria-hidden="true" className="status-light shrink-0" />
