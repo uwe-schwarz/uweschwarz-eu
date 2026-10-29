@@ -1,9 +1,4 @@
-import type { Theme } from "@/contexts/settings-hook";
 import { LEGACY_STORAGE_KEYS, STORAGE_KEYS } from "@/lib/persisted-preferences";
-
-export function resolveInitialTheme(value: string | undefined): Theme {
-  return value === "dark" || value === "light" ? value : "light";
-}
 
 // This script runs before React and cannot import persisted-preferences.ts in
 // the browser. Keep its migration behavior and key format in sync with
@@ -13,8 +8,12 @@ export const themeInitScript = `
   try {
     const storageKey = '${STORAGE_KEYS.theme}';
     const legacyKey = '${LEGACY_STORAGE_KEYS.theme}';
-    const versionedValue = localStorage.getItem(storageKey);
-    const legacyValue = localStorage.getItem(legacyKey);
+    let versionedValue = null;
+    let legacyValue = null;
+    try {
+      versionedValue = localStorage.getItem(storageKey);
+      legacyValue = localStorage.getItem(legacyKey);
+    } catch {}
     const stored = versionedValue ?? legacyValue;
 
     if (!versionedValue && legacyValue) {
@@ -24,7 +23,8 @@ export const themeInitScript = `
       } catch {}
     }
 
-    const explicit = stored === 'dark' || stored === 'light' ? stored : null;
+    const cookie = document.cookie.match(/(?:^|;\\s*)theme=(dark|light)(?:;|$)/)?.[1];
+    const explicit = stored === 'dark' || stored === 'light' ? stored : cookie;
     const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     const shouldDark = explicit ? explicit === 'dark' : !!prefersDark;
     document.documentElement.classList.toggle('dark', shouldDark);

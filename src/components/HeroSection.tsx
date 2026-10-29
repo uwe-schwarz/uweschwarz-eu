@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import { ArrowDown } from "lucide-react";
 import { FileTextIcon } from "@/components/icons/file-text";
 import MagicRings from "@/components/MagicRings";
@@ -13,13 +12,14 @@ import { Link } from "@/i18n/navigation";
 
 const ProfilePicture = React.memo(({ alt }: { alt: string }) => (
   <div className="w-full h-full rounded-full bg-background flex items-center justify-center overflow-hidden relative">
-    <Image
+    <img
       alt={alt}
       className="object-cover"
-      fill
-      priority
+      decoding="async"
+      fetchPriority="high"
       sizes="(min-width:1200px) 360px, (min-width:1024px) 334px, (min-width:768px) 360px, 300px"
       src="/profile.webp"
+      style={{ blockSize: "100%", inlineSize: "100%", inset: 0, position: "absolute" }}
     />
   </div>
 ));

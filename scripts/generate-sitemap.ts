@@ -33,7 +33,7 @@ const urls = [
   {
     files: [
       "src/content/content.ts",
-      "src/app/[lang]/page.tsx",
+      "src/app/HomePage.tsx",
       "src/components/Header.tsx",
       "src/components/HeroSection.tsx",
       "src/components/AboutSection.tsx",
@@ -49,7 +49,7 @@ const urls = [
   {
     files: [
       "src/content/content.ts",
-      "src/app/[lang]/page.tsx",
+      "src/app/HomePage.tsx",
       "src/components/Header.tsx",
       "src/components/HeroSection.tsx",
       "src/components/AboutSection.tsx",
@@ -65,7 +65,7 @@ const urls = [
   {
     files: [
       "src/content/content.ts",
-      "src/app/[lang]/cv/page.tsx",
+      "scripts/site-routes.ts",
       "src/app/cv/CvPageClient.tsx",
       "scripts/cv/CVDocument.tsx",
       "scripts/cv/CVDocumentDocx.tsx",
@@ -76,7 +76,7 @@ const urls = [
   {
     files: [
       "src/content/content.ts",
-      "src/app/[lang]/cv/page.tsx",
+      "scripts/site-routes.ts",
       "src/app/cv/CvPageClient.tsx",
       "scripts/cv/CVDocument.tsx",
       "scripts/cv/CVDocumentDocx.tsx",
@@ -107,7 +107,7 @@ const urls = [
   {
     files: [
       "src/content/content.ts",
-      "src/app/[lang]/imprint/page.tsx",
+      "scripts/site-routes.ts",
       "src/app/imprint/ImprintPageClient.tsx",
       "src/components/Header.tsx",
       "src/components/Footer.tsx",
@@ -118,7 +118,7 @@ const urls = [
   {
     files: [
       "src/content/content.ts",
-      "src/app/[lang]/imprint/page.tsx",
+      "scripts/site-routes.ts",
       "src/app/imprint/ImprintPageClient.tsx",
       "src/components/Header.tsx",
       "src/components/Footer.tsx",
@@ -129,7 +129,7 @@ const urls = [
   {
     files: [
       "src/content/content.ts",
-      "src/app/[lang]/privacy/page.tsx",
+      "scripts/site-routes.ts",
       "src/app/privacy/PrivacyPageClient.tsx",
       "src/components/Header.tsx",
       "src/components/Footer.tsx",
@@ -140,7 +140,7 @@ const urls = [
   {
     files: [
       "src/content/content.ts",
-      "src/app/[lang]/privacy/page.tsx",
+      "scripts/site-routes.ts",
       "src/app/privacy/PrivacyPageClient.tsx",
       "src/components/Header.tsx",
       "src/components/Footer.tsx",
@@ -150,9 +150,9 @@ const urls = [
   },
   {
     files: [
-      "src/app/[lang]/sitemap/page.tsx",
+      "scripts/site-routes.ts",
       "src/app/sitemap/SitemapPageClient.tsx",
-      "src/app/[lang]/page.tsx",
+      "src/app/HomePage.tsx",
       "src/components/Header.tsx",
       "src/components/Footer.tsx",
       "src/content/content.ts",
@@ -162,7 +162,7 @@ const urls = [
   },
   {
     files: [
-      "src/app/[lang]/sitemap/page.tsx",
+      "scripts/site-routes.ts",
       "src/app/sitemap/SitemapPageClient.tsx",
       "src/components/Header.tsx",
       "src/components/Footer.tsx",
@@ -173,7 +173,7 @@ const urls = [
   },
   {
     files: [
-      "src/app/[lang]/sitemap/page.tsx",
+      "scripts/site-routes.ts",
       "src/app/sitemap/SitemapPageClient.tsx",
       "src/components/Header.tsx",
       "src/components/Footer.tsx",

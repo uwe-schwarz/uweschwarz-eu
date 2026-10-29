@@ -1,16 +1,13 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { Send } from "lucide-react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { FormProvider, useForm } from "react-hook-form";
-import { z } from "zod";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
 import { Button } from "@/components/ui/button";
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { invalidContactFields, type ContactField, type ContactValues } from "@/lib/contact-validation";
 import { useToast } from "@/hooks/use-toast";
 
 interface ErrorResponse {
@@ -43,35 +40,9 @@ const ContactFormCard = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const formSchema = useMemo(
-    () =>
-      z.object({
-        email: z.email({
-          error: t(contact.formStatus.validation.email),
-        }),
-        message: z.string().min(10, {
-          error: t(contact.formStatus.validation.message),
-        }),
-        name: z.string().min(2, {
-          error: t(contact.formStatus.validation.name),
-        }),
-        verify: z.string(),
-      }),
-    [contact.formStatus.validation.email, contact.formStatus.validation.message, contact.formStatus.validation.name, t],
-  );
-  const formResolver = useMemo(() => zodResolver(formSchema), [formSchema]);
+  const [invalidFields, setInvalidFields] = useState<Array<ContactField>>([]);
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    defaultValues: {
-      email: "",
-      message: "",
-      name: "",
-      verify: "",
-    },
-    resolver: formResolver,
-  });
-
-  const onSubmit = async (values: z.infer<typeof formSchema>): Promise<ContactToolResponse> => {
+  const onSubmit = async (values: ContactValues, formElement: HTMLFormElement): Promise<ContactToolResponse> => {
     setIsSubmitting(true);
 
     try {
@@ -114,7 +85,8 @@ const ContactFormCard = () => {
         description: t(contact.formStatus.sentDescription),
         title: t(contact.formStatus.sentTitle),
       });
-      form.reset();
+      formElement.reset();
+      setInvalidFields([]);
       return {
         message: t(contact.formStatus.sentDescription),
         success: true,
@@ -139,118 +111,93 @@ const ContactFormCard = () => {
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    const submitEvent = event.nativeEvent as SubmitEvent;
-
-    if (!submitEvent.agentInvoked || typeof submitEvent.respondWith !== "function") {
-      void form.handleSubmit(onSubmit)(event);
-      return;
-    }
-
     event.preventDefault();
-    const response = new Promise<ContactToolResponse>((resolve) => {
-      void form.handleSubmit(
-        async (values) => resolve(await onSubmit(values)),
-        () =>
-          resolve({
-            message: "The inquiry was not sent because one or more fields failed validation.",
-            success: false,
-          }),
-      )(event);
-    });
-    submitEvent.respondWith(response);
+    const formElement = event.currentTarget;
+    const values = Object.fromEntries(new FormData(formElement)) as unknown as ContactValues;
+    const invalid = invalidContactFields(values);
+    setInvalidFields(invalid);
+    const submitEvent = event.nativeEvent as SubmitEvent;
+    let response: Promise<ContactToolResponse>;
+    if (invalid.length > 0) {
+      formElement.querySelector<HTMLElement>(`[name="${invalid[0]}"]`)?.focus();
+      response = Promise.resolve({
+        message: "The inquiry was not sent because one or more fields failed validation.",
+        success: false,
+      });
+    } else {
+      response = onSubmit(values, formElement);
+    }
+    if (submitEvent.agentInvoked && typeof submitEvent.respondWith === "function") {
+      submitEvent.respondWith(response);
+    }
   };
 
   return (
-    <FormProvider {...form}>
-      <form {...webMcpFormAttributes} className="glass-panel p-8" onSubmit={handleSubmit}>
-        <div className="space-y-6">
-          {/* Hidden verify field */}
-          <FormField control={form.control} name="verify" render={({ field }) => <Input type="hidden" {...field} />} />
+    <form
+      {...webMcpFormAttributes}
+      className="glass-panel p-8"
+      onChange={(event) => {
+        if (invalidFields.length > 0) {
+          const values = Object.fromEntries(new FormData(event.currentTarget)) as unknown as ContactValues;
+          setInvalidFields(invalidContactFields(values));
+        }
+      }}
+      onSubmit={handleSubmit}
+    >
+      <div className="space-y-6">
+        <Input defaultValue="" name="verify" type="hidden" />
+        {(["name", "email", "message"] as const).map((field) => {
+          const id = `contact-${field}-form-item`;
+          const error = invalidFields.includes(field);
+          const attributes = {
+            ...webMcpParameterDescriptions[field],
+            "aria-describedby": error ? `${id}-message` : undefined,
+            "aria-invalid": error,
+            id,
+            minLength: field === "message" ? 10 : field === "name" ? 2 : undefined,
+            name: field,
+            placeholder: t(contact.formPlaceholders[field]),
+            required: true,
+          };
+          return (
+            <div className="space-y-2" key={field}>
+              <label className={`text-sm font-medium leading-none${error ? " text-destructive" : ""}`} htmlFor={id}>
+                {t(contact.formLabels[field])}
+              </label>
+              {field === "message" ? (
+                <Textarea {...attributes} rows={5} />
+              ) : (
+                <Input {...attributes} autoComplete={field} type={field === "email" ? "email" : "text"} />
+              )}
+              {error && (
+                <p className="text-sm font-medium text-destructive" id={`${id}-message`} role="alert">
+                  {t(contact.formStatus.validation[field])}
+                </p>
+              )}
+            </div>
+          );
+        })}
 
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem id="contact-name">
-                <FormLabel>{t(contact.formLabels.name)}</FormLabel>
-                <FormControl>
-                  <Input
-                    {...webMcpParameterDescriptions.name}
-                    autoComplete="name"
-                    minLength={2}
-                    placeholder={t(contact.formPlaceholders.name)}
-                    required
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem id="contact-email">
-                <FormLabel>{t(contact.formLabels.email)}</FormLabel>
-                <FormControl>
-                  <Input
-                    {...webMcpParameterDescriptions.email}
-                    autoComplete="email"
-                    placeholder={t(contact.formPlaceholders.email)}
-                    required
-                    type="email"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="message"
-            render={({ field }) => (
-              <FormItem id="contact-message">
-                <FormLabel>{t(contact.formLabels.message)}</FormLabel>
-                <FormControl>
-                  <Textarea
-                    {...webMcpParameterDescriptions.message}
-                    minLength={10}
-                    placeholder={t(contact.formPlaceholders.message)}
-                    required
-                    rows={5}
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <Button
-            aria-busy={isSubmitting}
-            className="w-full rounded-full shadow-lg shadow-primary/25"
-            disabled={isSubmitting}
-            type="submit"
-          >
-            {isSubmitting ? (
-              <div className="flex items-center justify-center">
-                <div className="w-4 h-4 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin mr-2"></div>
-                {t(contact.formStatus.sending)}
-              </div>
-            ) : (
-              <>
-                <Send className="w-4 h-4 mr-2" />
-                {t(contact.formLabels.send)}
-              </>
-            )}
-          </Button>
-        </div>
-      </form>
-    </FormProvider>
+        <Button
+          aria-busy={isSubmitting}
+          className="w-full rounded-full shadow-lg shadow-primary/25"
+          disabled={isSubmitting}
+          type="submit"
+        >
+          {isSubmitting ? (
+            <div className="flex items-center justify-center">
+              <div className="w-4 h-4 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin mr-2"></div>
+              {t(contact.formStatus.sending)}
+            </div>
+          ) : (
+            <>
+              <Send className="w-4 h-4 mr-2" />
+              {t(contact.formLabels.send)}
+            </>
+          )}
+        </Button>
+      </div>
+    </form>
   );
 };
 

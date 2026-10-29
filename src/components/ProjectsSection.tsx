@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import React from "react";
 import { siteContent } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
@@ -42,12 +41,14 @@ const ProjectsSection = () => {
                       <div className="absolute inset-0 bg-linear-to-br from-primary/25 via-transparent to-accent/25 flex items-center justify-center">
                         {project.imageUrl && (
                           <div className="relative h-48 w-full max-w-[16rem]">
-                            <Image
+                            <img
                               alt={`${t(project.imageAlt)}`}
                               className="object-contain"
-                              fill
+                              decoding="async"
+                              loading="lazy"
                               sizes="(min-width: 1024px) 320px, (min-width: 768px) 256px, 192px"
                               src={project.imageUrl}
+                              style={{ blockSize: "100%", inlineSize: "100%", inset: 0, position: "absolute" }}
                             />
                           </div>
                         )}

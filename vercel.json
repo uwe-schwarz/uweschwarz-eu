@@ -1,5 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "bunVersion": "1.x",
-  "installCommand": "npm exec --yes --package=$(node -p 'require(\"./package.json\").packageManager') -- bun install --frozen-lockfile"
+  "framework": null,
+  "installCommand": "node scripts/project-bun.mjs install --frozen-lockfile",
+  "buildCommand": "node scripts/project-bun.mjs run build"
 }

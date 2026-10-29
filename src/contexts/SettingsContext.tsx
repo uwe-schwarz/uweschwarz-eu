@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useCallback, useEffect, useMemo, useSyncExternalStore } from "react";
-import { useLocale } from "next-intl";
 import type { LocalizedString } from "@/lib/localization";
 import { translateLocalizedString } from "@/lib/localization";
 import { SettingsContext, type Language, type Theme } from "@/contexts/settings-hook";
@@ -10,6 +9,7 @@ import { getPersistedTheme, setPersistedTheme } from "@/lib/persisted-preference
 interface SettingsProviderProps {
   children: React.ReactNode;
   initialTheme: Theme;
+  language: Language;
 }
 
 const SETTINGS_CHANGED_EVENT = "settings-changed";
@@ -22,8 +22,7 @@ const setClientCookie = (name: string, value: string) => {
   document.cookie = `${name}=${encodeURIComponent(value)}; path=/; max-age=31536000; samesite=lax`;
 };
 
-export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children, initialTheme }) => {
-  const language = useLocale() as Language;
+export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children, initialTheme, language }) => {
   // IMPORTANT: Keep hydration deterministic.
   // `useSyncExternalStore` lets React use the server snapshot during hydration,
   // and then update to client preferences (localStorage / system) after hydration,
@@ -71,12 +70,10 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children, in
     }
     const root = window.document.documentElement;
 
-    if (theme === "dark") {
-      root.classList.add("dark");
-    } else {
-      root.classList.remove("dark");
-    }
-  }, [theme]);
+    // The first hydration snapshot is light; retain the preference already
+    // applied by the head script until the external store catches up.
+    root.classList.toggle("dark", getThemeSnapshot() === "dark");
+  }, [getThemeSnapshot, theme]);
 
   // Theme setting function
   const setTheme = useCallback((nextTheme: Theme) => {

@@ -37,7 +37,16 @@ const readStorageValue = (currentKey: string, legacyKey: string): string | null 
 
 export const getPersistedTheme = (): Theme | null => {
   const saved = readStorageValue(STORAGE_KEYS.theme, LEGACY_STORAGE_KEYS.theme);
-  return saved === "light" || saved === "dark" ? saved : null;
+  if (saved === "light" || saved === "dark") {
+    return saved;
+  }
+  if (typeof document !== "undefined") {
+    const cookie = document.cookie.match(/(?:^|;\s*)theme=(dark|light)(?:;|$)/)?.[1];
+    if (cookie === "light" || cookie === "dark") {
+      return cookie;
+    }
+  }
+  return null;
 };
 
 export const setPersistedTheme = (theme: Theme): void => {

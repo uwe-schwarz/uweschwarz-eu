@@ -2,7 +2,6 @@ import type { Language } from "@/contexts/settings-hook";
 
 export const SUPPORTED_LANGUAGES = ["en", "de"] as const;
 export const DEFAULT_LANGUAGE: Language = "en";
-export const ROUTE_LANGUAGE_HEADER = "x-route-language";
 
 export const isSupportedLanguage = (value: string | null | undefined): value is Language => {
   return value === "en" || value === "de";

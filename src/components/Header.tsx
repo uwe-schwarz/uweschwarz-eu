@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import type { RefObject } from "react";
-import dynamic from "next/dynamic";
+import MobileMenuSheet from "@/components/MobileMenuSheet";
 import { Moon, Sun } from "lucide-react";
 import { useSettings } from "@/contexts/settings-hook";
 import { siteContent } from "@/content/content";
@@ -10,10 +10,6 @@ import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { getPathname, Link, usePathname } from "@/i18n/navigation";
 import { getPersistedTheme } from "@/lib/persisted-preferences";
-
-const MobileMenuSheet = dynamic(() => import("@/components/MobileMenuSheet"), {
-  ssr: false,
-});
 
 const getScrolledSnapshot = () => (typeof window !== "undefined" ? window.scrollY > 10 : false);
 const getServerScrolledSnapshot = () => false;

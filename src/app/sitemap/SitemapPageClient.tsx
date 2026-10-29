@@ -1,6 +1,5 @@
 "use client";
 
-import NextLink from "next/link";
 import { ArrowLeft } from "lucide-react";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
@@ -55,14 +54,14 @@ export default function SitemapPageClient() {
                   </LocalizedLink>
                 </li>
                 <li>
-                  <NextLink className="text-primary hover:underline" href="/sitemap.xml">
+                  <a className="text-primary hover:underline" href="/sitemap.xml">
                     {t(sitemap.title)} (XML)
-                  </NextLink>
+                  </a>
                 </li>
                 <li>
-                  <NextLink className="text-primary hover:underline" href="/llms.txt">
+                  <a className="text-primary hover:underline" href="/llms.txt">
                     {t(siteContent.llms?.title ?? sitemap.title)} (Markdown)
-                  </NextLink>
+                  </a>
                 </li>
               </ul>
             </div>
