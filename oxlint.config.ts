@@ -6,7 +6,7 @@ export default defineConfig({
   ignorePatterns: [".agents/**"],
   overrides: [
     {
-      files: ["scripts/**/*.ts"],
+      files: ["scripts/**/*.{ts,tsx}"],
       rules: {
         "no-console": "off",
       },

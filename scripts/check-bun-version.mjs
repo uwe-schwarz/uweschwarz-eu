@@ -35,7 +35,7 @@ export function getBunVersionError(packageManager, detectedVersion) {
 
   const expectedVersion = expectedMatch[1];
   if (!supportsMinimumReleaseAge(expectedVersion)) {
-    return `packageManager pins Bun ${expectedVersion}, which does not enforce this repository's one-day package release-age gate (requires Bun >= ${MINIMUM_BUN_VERSION}).`;
+    return `packageManager pins Bun ${expectedVersion}, which does not enforce this repository's three-day package release-age gate (requires Bun >= ${MINIMUM_BUN_VERSION}).`;
   }
 
   if (!parseStableVersion(detectedVersion)) {
@@ -64,7 +64,12 @@ function runPreflight() {
     return;
   }
 
-  const error = getBunVersionError(packageJson.packageManager, detectedVersion);
+  const minimumOnly = process.argv.includes("--minimum");
+  const error = minimumOnly
+    ? supportsMinimumReleaseAge(detectedVersion)
+      ? null
+      : `Bun >= ${MINIMUM_BUN_VERSION} is required for the release-age gate.`
+    : getBunVersionError(packageJson.packageManager, detectedVersion);
   if (error) {
     process.stderr.write(`${error}\n`);
     process.exitCode = 1;
@@ -72,7 +77,7 @@ function runPreflight() {
   }
 
   process.stdout.write(
-    `Bun ${detectedVersion} matches package.json#packageManager and enforces the one-day release-age gate.\n`,
+    `Bun ${detectedVersion} ${minimumOnly ? "supports frozen deployment installs" : "matches package.json#packageManager"} and enforces the three-day release-age gate.\n`,
   );
 }
 

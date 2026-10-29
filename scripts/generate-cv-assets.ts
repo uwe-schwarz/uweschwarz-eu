@@ -68,12 +68,34 @@ async function getFileModTime(filePath: string): Promise<Date | null> {
   }
 }
 
+async function getContentModTime(contentPath: string): Promise<Date | null> {
+  // Fresh checkouts have new filesystem timestamps. Keep published CV URLs tied
+  // to the content commit, while uncommitted content edits still use their mtime.
+  const changes = Bun.spawnSync(["git", "diff", "--quiet", "HEAD", "--", contentPath], {
+    cwd: projectRoot,
+    stderr: "ignore",
+    stdout: "ignore",
+  });
+  if (changes.exitCode === 0) {
+    const commit = Bun.spawnSync(["git", "log", "-1", "--format=%cI", "--", contentPath], {
+      cwd: projectRoot,
+      stderr: "ignore",
+      stdout: "pipe",
+    });
+    const committedAt = new Date(commit.stdout.toString().trim());
+    if (commit.exitCode === 0 && Number.isFinite(committedAt.getTime())) {
+      return committedAt;
+    }
+  }
+  return getFileModTime(contentPath);
+}
+
 async function shouldRegenerate(): Promise<{
   contentModTime: Date | null;
   shouldRegenerate: boolean;
 }> {
   const contentPath = path.resolve(projectRoot, "src/content/content.ts");
-  const contentModTime = await getFileModTime(contentPath);
+  const contentModTime = await getContentModTime(contentPath);
 
   if (!contentModTime) {
     console.log("Content file not found, regenerating...");

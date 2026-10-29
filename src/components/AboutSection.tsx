@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useSettings } from "@/contexts/settings-hook";
 import { siteContent } from "@/content/content";
 import { UsersIcon } from "@/components/icons/users";
@@ -39,13 +38,14 @@ const AboutSection = () => {
           <div className="lg:col-span-2 reveal-up">
             <div className="glass-panel h-full overflow-hidden p-2">
               <div className="relative h-full min-h-72 overflow-hidden rounded-xl bg-linear-to-br from-primary/30 to-accent/30">
-                <Image
+                <img
                   alt={t(about.imageAlt)}
                   className="object-cover"
-                  fill
-                  priority
+                  decoding="async"
+                  fetchPriority="high"
                   sizes="(min-width:1280px) 500px, (min-width:1024px) 400px, (min-width:768px) 900px, 600px"
                   src="/about-me.webp"
+                  style={{ blockSize: "100%", inlineSize: "100%", inset: 0, position: "absolute" }}
                 />
               </div>
             </div>

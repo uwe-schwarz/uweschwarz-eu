@@ -3,7 +3,7 @@ import { URL } from "node:url";
 import { describe, expect, test } from "bun:test";
 
 const globalsSource = readFileSync(new URL("../app/globals.css", import.meta.url), "utf8");
-const homePageSource = readFileSync(new URL("../app/[lang]/page.tsx", import.meta.url), "utf8");
+const homePageSource = readFileSync(new URL("../app/HomePage.tsx", import.meta.url), "utf8");
 const aboutSource = readFileSync(new URL("./AboutSection.tsx", import.meta.url), "utf8");
 const experienceSource = readFileSync(new URL("./ExperienceSection.tsx", import.meta.url), "utf8");
 const projectsSource = readFileSync(new URL("./ProjectsSection.tsx", import.meta.url), "utf8");

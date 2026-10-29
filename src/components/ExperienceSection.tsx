@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { siteContent } from "@/content/content";
 import type { Experience } from "@/content/content";
 import { useSettings } from "@/contexts/settings-hook";
@@ -54,10 +53,12 @@ const ExperienceCard = ({
 
       {exp.logoUrl && (
         <div className="relative h-16 w-32 shrink-0 self-center overflow-hidden rounded-xl border border-zinc-700/60 bg-zinc-900 p-2.5 md:self-start">
-          <Image
+          <img
             alt={`${exp.company} logo`}
             className="h-full w-full object-contain"
+            decoding="async"
             height={64}
+            loading="lazy"
             sizes="128px"
             src={exp.logoUrl}
             width={128}

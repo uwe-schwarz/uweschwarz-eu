@@ -1,6 +1,6 @@
 # AGENTS Instructions
 
-This repository contains a personal portfolio built with Next.js, React, TypeScript, and Tailwind CSS.
+This repository contains a personal portfolio built as static HTML with Bun, React, TypeScript, and Tailwind CSS. React is rendered at build time and hydrated for existing browser interactions; two dependency-free runtime functions preserve contact emails and agent-facing Markdown content negotiation. Normal HTML requests are static.
 
 ## Project layout
 
@@ -11,8 +11,10 @@ This repository contains a personal portfolio built with Next.js, React, TypeScr
 ## Useful commands
 
 - `bun install` – install dependencies and keep `bun.lock` in sync.
-- `bun run dev` – start a Next.js development server (default port 3000).
-- `bun run build` – create a production build.
+- `bun run dev` – update local build dependencies, generate static pages and watch source changes (default port 3000).
+- `bun run build` – generate `.vercel/output/` with static pages, assets and dependency-free mail/Markdown functions.
+- `bun run deps:update` – update locally to the latest eligible stable dependencies, including majors, with a three-day release-age gate.
+- `bun run deploy` – update locally, check committed inputs and deploy prebuilt production output.
 - `bun run lint` – run Oxlint over the codebase.
 - `bun run typecheck` – run TypeScript checks without emitting files.
 - `bun run format:check` – verify formatting with Oxfmt.
@@ -28,7 +30,7 @@ A pre-commit hook is configured with Husky. When committing on the `main` branch
 
 ## Internationalization
 
-The application includes browser language detection that automatically detects the user's preferred language and serves content accordingly. This feature affects static generation and requires special handling in the layout and provider components.
+The application includes browser language detection that automatically detects the user's preferred language and serves content accordingly. Both languages are generated at build time. Vercel static routing and early browser scripts handle language detection. Keep localized URLs, saved language preferences and query/hash preservation intact.
 
 ## Code style guidelines
 
@@ -49,15 +51,7 @@ The application includes browser language detection that automatically detects t
 - Documentation-only changes need appropriate content/format checks. Do not invent runtime tests for them.
 - Resolve failures introduced by the change; report unrelated pre-existing failures explicitly. Do not bypass a failing required gate.
 - Reuse passing results for the unchanged tested state across commit, push, and PR creation. Rerun affected checks if source, dependencies, or generated artifacts change, including through hooks.
-- Record checks and results in the maintenance run evidence (or the PR description for separately requested PR work).
-- This project-specific scope overrides the generated block's "before writing any code" requirement: apply its documentation guidance only to changes that depend on Next.js APIs, conventions, routing, or build behavior. Unrelated prose edits need no Next.js documentation pass.
-
-<!-- BEGIN:nextjs-agent-rules -->
-
-# This is NOT the Next.js you know
-
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
-
-This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
-
-<!-- END:nextjs-agent-rules -->
+- Report checks and results in the final response. Keep agent guidance in this file; do not create maintenance reports or other user-facing documentation beyond the minimal README.
+- `scripts/build.tsx` owns static generation and Vercel routing. `scripts/serve.ts` is a loopback-only local preview, not a production service.
+- Keep all packages in `devDependencies`. Do not introduce runtime package installation for static hosting or the runtime functions.
+- Local development, pre-push and deployment run dependency updates; hosted builds must install the committed frozen lockfile. Never auto-commit or stash user changes.

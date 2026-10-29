@@ -1,9 +1,9 @@
 import type { KeyboardEvent as ReactKeyboardEvent, MouseEvent as ReactMouseEvent, Ref } from "react";
 import { useCallback, useEffect, useRef } from "react";
-import { Color, Mesh, OrthographicCamera, PlaneGeometry, Scene, ShaderMaterial, Vector2, WebGLRenderer } from "three";
 
-const fragmentShader = `
+const fragmentShader = `#version 300 es
 precision highp float;
+out vec4 outputColor;
 
 uniform float uTime, uAttenuation, uLineThickness;
 uniform float uBaseRadius, uRadiusStep, uScaleRate;
@@ -53,15 +53,24 @@ void main() {
   c *= 1.0 + uBurst * 2.0;
   float n = fract(sin(dot(gl_FragCoord.xy + uTime * 100.0, vec2(12.9898, 78.233))) * 43758.5453);
   c += (n - 0.5) * uNoiseAmount;
-  gl_FragColor = vec4(c, max(c.r, max(c.g, c.b)) * uOpacity);
+  outputColor = vec4(c, max(c.r, max(c.g, c.b)) * uOpacity);
 }
 `;
 
-const vertexShader = `
+const vertexShader = `#version 300 es
+in vec2 position;
 void main() {
-  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  gl_Position = vec4(position, 0.0, 1.0);
 }
 `;
+
+// Match Three.js Color's sRGB-to-linear conversion used by the original shader.
+function linearColor(hex: string) {
+  return [1, 3, 5].map((offset) => {
+    const channel = Number.parseInt(hex.slice(offset, offset + 2), 16) / 255;
+    return channel < 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4;
+  });
+}
 
 interface MagicRingsProps {
   attenuation?: number;
@@ -245,72 +254,83 @@ function MagicRings({
       return;
     }
 
-    let renderer: WebGLRenderer;
+    const canvas = document.createElement("canvas");
+    const gl = canvas.getContext("webgl2", { alpha: true });
+    if (!gl) {
+      return;
+    }
+
+    const program = gl.createProgram();
+    const buffer = gl.createBuffer();
+    if (!program || !buffer) {
+      gl.deleteProgram(program);
+      gl.deleteBuffer(buffer);
+      return;
+    }
+    const shaders: Array<WebGLShader> = [];
     try {
-      renderer = new WebGLRenderer({ alpha: true });
-    } catch {
+      for (const [type, source] of [
+        [gl.VERTEX_SHADER, vertexShader],
+        [gl.FRAGMENT_SHADER, fragmentShader],
+      ] as const) {
+        const shader = gl.createShader(type);
+        if (!shader) {
+          throw new Error("Unable to create ring shader");
+        }
+        shaders.push(shader);
+        gl.shaderSource(shader, source);
+        gl.compileShader(shader);
+        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+          throw new Error(gl.getShaderInfoLog(shader) ?? "Unable to compile ring shader");
+        }
+        gl.attachShader(program, shader);
+      }
+      gl.linkProgram(program);
+      if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+        throw new Error(gl.getProgramInfoLog(program) ?? "Unable to link ring shader");
+      }
+    } catch (error) {
+      console.error("Unable to initialize ring animation:", error);
+      for (const shader of shaders) {
+        gl.deleteShader(shader);
+      }
+      gl.deleteBuffer(buffer);
+      gl.deleteProgram(program);
       return;
     }
-
-    if (!renderer.capabilities.isWebGL2) {
-      renderer.dispose();
-      return;
-    }
-
-    renderer.setClearColor(0, 0);
-    mount.append(renderer.domElement);
-
-    const scene = new Scene();
-    const camera = new OrthographicCamera(-0.5, 0.5, 0.5, -0.5, 0.1, 10);
-    camera.position.z = 1;
-
-    const uniforms = {
-      uAttenuation: { value: 0 },
-      uBaseRadius: { value: 0 },
-      uBurst: { value: 0 },
-      uColor: { value: new Color() },
-      uColorTwo: { value: new Color() },
-      uFadeIn: { value: 0.5 },
-      uFadeOut: { value: 0.75 },
-      uHoverAmount: { value: 0 },
-      uHoverScale: { value: 1 },
-      uLineThickness: { value: 0 },
-      uMouse: { value: new Vector2() },
-      uMouseInfluence: { value: 0 },
-      uNoiseAmount: { value: 0 },
-      uOpacity: { value: 1 },
-      uParallax: { value: 0 },
-      uRadiusStep: { value: 0 },
-      uResolution: { value: new Vector2() },
-      uRingCount: { value: 0 },
-      uRingGap: { value: 1.6 },
-      uRotation: { value: 0 },
-      uScaleRate: { value: 0 },
-      uTime: { value: 0 },
+    gl.useProgram(program);
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+    const position = gl.getAttribLocation(program, "position");
+    gl.enableVertexAttribArray(position);
+    gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
+    gl.enable(gl.BLEND);
+    gl.blendFuncSeparate(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA, gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+    gl.clearColor(0, 0, 0, 0);
+    const locations = new Map<string, WebGLUniformLocation | null>();
+    const uniform = (name: string) => {
+      if (!locations.has(name)) {
+        locations.set(name, gl.getUniformLocation(program, name));
+      }
+      return locations.get(name) ?? null;
     };
-
-    const material = new ShaderMaterial({
-      fragmentShader,
-      transparent: true,
-      uniforms,
-      vertexShader,
-    });
-    const quad = new Mesh(new PlaneGeometry(1, 1), material);
-    scene.add(quad);
+    const scalar = (name: string, value: number) => gl.uniform1f(uniform(name), value);
+    mount.append(canvas);
 
     const resize = () => {
-      const height = mount.clientHeight;
-      const width = mount.clientWidth;
       const dpr = Math.min(window.devicePixelRatio, 2);
-      renderer.setSize(width, height);
-      renderer.setPixelRatio(dpr);
-      uniforms.uResolution.value.set(width * dpr, height * dpr);
+      canvas.width = Math.max(1, Math.floor(mount.clientWidth * dpr));
+      canvas.height = Math.max(1, Math.floor(mount.clientHeight * dpr));
+      canvas.style.inlineSize = `${mount.clientWidth}px`;
+      canvas.style.blockSize = `${mount.clientHeight}px`;
+      gl.viewport(0, 0, canvas.width, canvas.height);
+      gl.uniform2f(uniform("uResolution"), canvas.width, canvas.height);
     };
     resize();
     window.addEventListener("resize", resize);
-
     const resizeObserver = new ResizeObserver(resize);
     resizeObserver.observe(mount);
+    let animationFrame = 0;
 
     const animate = (time: number) => {
       const props = propsRef.current;
@@ -324,40 +344,43 @@ function MagicRings({
         burstRef.current = 0;
       }
 
-      uniforms.uAttenuation.value = props.attenuation;
-      uniforms.uBaseRadius.value = props.baseRadius;
-      uniforms.uBurst.value = props.clickBurst ? burstRef.current : 0;
-      uniforms.uColor.value.set(props.color);
-      uniforms.uColorTwo.value.set(props.colorTwo);
-      uniforms.uFadeIn.value = props.fadeIn;
-      uniforms.uFadeOut.value = props.fadeOut;
-      uniforms.uHoverAmount.value = hoverAmountRef.current;
-      uniforms.uHoverScale.value = props.hoverScale;
-      uniforms.uLineThickness.value = props.lineThickness;
-      uniforms.uMouse.value.set(smoothMouseRef.current[0], smoothMouseRef.current[1]);
-      uniforms.uMouseInfluence.value = props.followMouse ? props.mouseInfluence : 0;
-      uniforms.uNoiseAmount.value = props.noiseAmount;
-      uniforms.uOpacity.value = props.opacity;
-      uniforms.uParallax.value = props.parallax;
-      uniforms.uRadiusStep.value = props.radiusStep;
-      uniforms.uRingCount.value = props.ringCount;
-      uniforms.uRingGap.value = props.ringGap;
-      uniforms.uRotation.value = (props.rotation * Math.PI) / 180;
-      uniforms.uScaleRate.value = props.scaleRate;
-      uniforms.uTime.value = time * 0.001 * props.speed;
-
-      renderer.render(scene, camera);
+      scalar("uAttenuation", props.attenuation);
+      scalar("uBaseRadius", props.baseRadius);
+      scalar("uBurst", props.clickBurst ? burstRef.current : 0);
+      gl.uniform3fv(uniform("uColor"), linearColor(props.color));
+      gl.uniform3fv(uniform("uColorTwo"), linearColor(props.colorTwo));
+      scalar("uFadeIn", props.fadeIn);
+      scalar("uFadeOut", props.fadeOut);
+      scalar("uHoverAmount", hoverAmountRef.current);
+      scalar("uHoverScale", props.hoverScale);
+      scalar("uLineThickness", props.lineThickness);
+      gl.uniform2f(uniform("uMouse"), smoothMouseRef.current[0], smoothMouseRef.current[1]);
+      scalar("uMouseInfluence", props.followMouse ? props.mouseInfluence : 0);
+      scalar("uNoiseAmount", props.noiseAmount);
+      scalar("uOpacity", props.opacity);
+      scalar("uParallax", props.parallax);
+      scalar("uRadiusStep", props.radiusStep);
+      gl.uniform1i(uniform("uRingCount"), props.ringCount);
+      scalar("uRingGap", props.ringGap);
+      scalar("uRotation", (props.rotation * Math.PI) / 180);
+      scalar("uScaleRate", props.scaleRate);
+      scalar("uTime", time * 0.001 * props.speed);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+      animationFrame = requestAnimationFrame(animate);
     };
-    renderer.setAnimationLoop(animate);
+    animationFrame = requestAnimationFrame(animate);
 
     return () => {
-      renderer.setAnimationLoop(null);
+      cancelAnimationFrame(animationFrame);
       window.removeEventListener("resize", resize);
       resizeObserver.disconnect();
-      mount.removeChild(renderer.domElement);
-      renderer.dispose();
-      material.dispose();
-      quad.geometry.dispose();
+      canvas.remove();
+      for (const shader of shaders) {
+        gl.deleteShader(shader);
+      }
+      gl.deleteBuffer(buffer);
+      gl.deleteProgram(program);
     };
   }, []);
 
