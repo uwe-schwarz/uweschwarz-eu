@@ -42,7 +42,7 @@ const languageInitScript = `(() => {
   }
 })();`;
 
-export async function buildSite() {
+export async function buildSite(stylesheetSource?: string) {
   run("generate:cv");
   run("generate:llms");
   run("generate:sitemap");
@@ -70,7 +70,7 @@ export async function buildSite() {
   }
   const fontCss = `${fontFaces.join("\n")}\n:root{--font-geist-sans:'Geist Sans',Arial,sans-serif;--font-geist-mono:'Geist Mono',monospace;--font-geist-pixel-circle:'Geist Pixel Circle','Geist Mono',monospace}`;
   const css = await postcss([tailwindcss({ optimize: true })]).process(
-    await readFile(resolve(root, "src/app/globals.css"), "utf8"),
+    stylesheetSource ?? (await readFile(resolve(root, "src/app/globals.css"), "utf8")),
     { from: resolve(root, "src/app/globals.css") },
   );
   const stylesheet = `${fontCss}\n${css.css}`;

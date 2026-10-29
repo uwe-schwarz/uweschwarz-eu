@@ -1,6 +1,9 @@
 import { stat } from "node:fs/promises";
 import { resolve, sep } from "node:path";
 
+// A module import makes Bun --watch rebuild the preview when styles change.
+import stylesheet from "../src/app/globals.css" with { type: "text" };
+
 import { buildSite } from "./build";
 import { sendMail } from "../src/server/send-mail";
 import {
@@ -16,7 +19,7 @@ const root = resolve(import.meta.dir, "..");
 process.chdir(root);
 const development = process.argv.includes("--dev");
 if (development) {
-  await buildSite();
+  await buildSite(stylesheet);
 }
 const staticDir = resolve(root, ".vercel/output/static");
 if (!(await Bun.file(resolve(root, ".vercel/output/config.json")).exists())) {

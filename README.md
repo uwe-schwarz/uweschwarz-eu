@@ -3,6 +3,7 @@
 Static bilingual portfolio. Content: `src/content/content.ts`; assets: `public/`. React preserves browser interactions. Two package-free functions handle mail and Markdown negotiation.
 
 Requires Bun (version in `package.json`) and Node.js 24.
+Local deployment also uses the host's installed and authenticated Vercel CLI.
 
 ```sh
 bun install --frozen-lockfile

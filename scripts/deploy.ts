@@ -1,6 +1,10 @@
 import { resolve } from "node:path";
 
 process.chdir(resolve(import.meta.dir, ".."));
+const vercel = Bun.which("vercel");
+if (!vercel) {
+  throw new Error("Local deployment requires the host's installed and authenticated Vercel CLI.");
+}
 function run(command: Array<string>) {
   const result = Bun.spawnSync(command, { stderr: "inherit", stdout: "inherit" });
   if (result.exitCode !== 0) {
@@ -25,8 +29,12 @@ const dirty = Bun.spawnSync([
   "tailwind.config.ts",
   "tsconfig.json",
   "postcss.config.js",
+  ".husky",
+  "oxlint.config.ts",
+  ".oxfmtrc.json",
+  "doctor.config.json",
 ]);
 if (dirty.exitCode !== 0 || dirty.stdout.length > 0) {
   throw new Error("Review and commit the updated source, dependencies and generated assets before deploying.");
 }
-run(["vercel", "deploy", "--prebuilt", "--prod", ...process.argv.slice(2)]);
+run([vercel, "deploy", "--prebuilt", "--prod", ...process.argv.slice(2)]);
