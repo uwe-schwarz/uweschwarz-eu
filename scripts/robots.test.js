@@ -12,7 +12,7 @@ describe("robots.txt", () => {
     expect(robotsTxt).not.toMatch(/ai-train=no/i);
     expect(robotsTxt).not.toMatch(/ai-input=no/i);
     expect(robotsTxt.trim()).toBe(
-      "User-agent: *\nContent-Signal: ai-train=yes, search=yes, ai-input=yes\nAllow: /\n\nSitemap: https://uweschwarz.eu/sitemap.xml",
+      "User-agent: *\nContent-Signal: ai-train=yes, search=yes, ai-input=yes\nAllow: /\n\nUser-agent: __usage_ai-training\nAllow: /\n\nSitemap: https://uweschwarz.eu/sitemap.xml",
     );
   });
 });
