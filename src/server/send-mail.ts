@@ -64,7 +64,7 @@ export async function sendMail(request: Request): Promise<Response> {
         html,
         reply_to: [values.email],
         subject: `Contact Form Submission from ${headerName} on ${submittedAt.toISOString()}`,
-        to: ["mail@uweschwarz.eu"],
+        to: ["e38383@gmail.com"],
       }),
       headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
       method: "POST",
