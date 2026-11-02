@@ -60,7 +60,7 @@ export async function sendMail(request: Request): Promise<Response> {
   try {
     const response = await fetch("https://api.resend.com/emails", {
       body: JSON.stringify({
-        from: `${headerName} <uweschwarz-eu@oldman.cloud>`,
+        from: `${headerName} <uweschwarz-eu@iq42.de>`,
         html,
         reply_to: [values.email],
         subject: `Contact Form Submission from ${headerName} on ${submittedAt.toISOString()}`,
